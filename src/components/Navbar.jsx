@@ -7,13 +7,14 @@ const Navbar = () => {
     const theme = useTheme()
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const [activeItem, setActiveItem] = useState("Home");
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-        console.log("HELLLO")
+    const handleClose = (event) => {
+        event.stopPropagation();
         setAnchorEl(null);
     };
     return (
@@ -31,86 +32,72 @@ const Navbar = () => {
             <Box
                 sx={{
                     display: "flex",
-                    columnGap: "80px"
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
                 }}
             >
                 <Box
                     sx={{
                         display: "flex",
-                        flexDirection: "column",
+                        gap: "40px",
                     }}
                 >
-                    <img style={{ width: "28px", height: "28px" }} src={home} alt="" />
-                    <Typography
-                        sx={{
-                            backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: "16px",
-                            fontWeight: "500"
-                        }}
-                    >
-                        Home
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <img style={{ width: "28px", height: "28px" }} src={bonds} alt="" />
-                    <Typography
-                        sx={{
-                            backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: "16px",
-                            fontWeight: "500"
-                        }}
-                    >
-                        Bonds
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <img style={{ width: "28px", height: "28px" }} src={cell} alt="" />
-                    <Typography
-                        sx={{
-                            backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: "16px",
-                            fontWeight: "500"
-                        }}
-                    >
-                        Cell
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <img style={{ width: "28px", height: "28px" }} src={bell} alt="" />
-                    <Typography
-                        sx={{
-                            backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            fontSize: "16px",
-                            fontWeight: "500"
-                        }}
-                    >
-                        Bell
-                    </Typography>
+                    {[
+                        { name: "Home", icon: home },
+                        { name: "Bonds", icon: bonds },
+                        { name: "Cell", icon: cell },
+                        { name: "Bell", icon: bell }
+                    ].map((item) => (
+                        <Box
+                            key={item.name}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                                width: "137px",
+                                minWidth: "137px",
+                                textAlign: "center",
+                            }}
+                            onClick={() => setActiveItem(item.name)}
+                        >
+                            <img
+                                style={{ width: "28px", height: "28px" }}
+                                src={item.icon}
+                                alt={item.name}
+                            />
+                            <Typography
+                                sx={{
+                                    backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    fontSize: "16px",
+                                    fontWeight: "500",
+                                    position: "relative",
+                                    textAlign: "center",
+                                    "&::after": {
+                                        content: '""',
+                                        display: activeItem === item.name ? "block" : "none",
+                                        width: "137px", // Width of the ::after element
+                                        height: "4px",
+                                        background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                        position: "absolute",
+                                        bottom: "-6px",
+                                        left: "50%", // Center the ::after element horizontally
+                                        transform: "translateX(-50%)", // Adjust to center based on the width
+                                    }
+                                }}
+                            >
+                                {item.name}
+                            </Typography>
+                        </Box>
+                    ))}
                 </Box>
             </Box>
+
+
             <Box
                 sx={{
                     display: "flex",
