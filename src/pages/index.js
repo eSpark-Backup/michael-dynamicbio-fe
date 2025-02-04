@@ -1,11 +1,5 @@
-import Home from "./Home";
-import Bonds from "./Bonds";
-import Pulses from "./Pulses";
-import Cells from "./Cells";
+import { Login, Signup } from "./auth";
 
-export {
-    Home,
-    Bonds,
-    Pulses,
-    Cells
-}
+import { Home, Bonds, Pulses, Cells } from "./dashboard";
+
+export { Login, Signup, Home, Bonds, Pulses, Cells };

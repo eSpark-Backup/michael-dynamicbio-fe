@@ -1,23 +1,27 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import './App.css'
-import { Header, Navbar } from './components'
-import { Bonds, Cells, Home, Pulses } from './pages'
+import { Routes, Route, Navigate } from "react-router-dom";
+import AuthLayout from "./layout/auth-layout";
+import PrivateLayout from "./layout/private-layout";
 
-function App() {
+import { Login, Signup, Home, Bonds, Cells, Pulses } from "./pages";
 
+const App = () => {
   return (
-    <>
-      <Header />
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/bonds' element={<Bonds />} />
-        <Route path='/cells' element={<Cells />} />
-        <Route path='/pulses' element={<Pulses />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </>
-  )
-}
+    <Routes>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Route>
 
-export default App
+      <Route element={<PrivateLayout isAuthenticated={false} />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/bonds" element={<Bonds />} />
+        <Route path="/cells" element={<Cells />} />
+        <Route path="/pulses" element={<Pulses />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+};
+
+export default App;

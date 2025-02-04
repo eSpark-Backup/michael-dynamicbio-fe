@@ -8,7 +8,6 @@
 @font-face {
     font-family: "Inter";
     src: url("./assets/font/Inter-Medium.otf") format("opentype");
-    /* Path to your .otf file */
     font-weight: normal;
     font-style: normal;
 }
