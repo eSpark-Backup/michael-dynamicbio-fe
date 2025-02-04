@@ -3,12 +3,17 @@ import eye from "./eye.svg"
 import icon from "./icon.svg"
 import barIcon from "./bar_icon.svg"
 import logo from "./logo.svg"
-import home from "./Home.svg"
-import bonds from "./Bond.svg"
-import cell from "./Cell.svg"
-import bell from "./bell.svg"
+import homeActive from "./Home.svg"
+import bondsActive from "./Bond.svg"
+import cellActive from "./Cell.svg"
+import bellActive from "./bell.svg"
 import settings from "./settings.svg"
 import downArrow from "./down_arrow.svg"
+import HomeBlack from "./home_black.svg"
+import bondBlack from "./Bond_black.svg"
+import cellBlack from "./cell_black.svg"
+import bellBlack from "./bell_black.svg"
+import searchIcon from "./searchIcon.svg"
 
 export {
     eye,
@@ -16,10 +21,15 @@ export {
     icon,
     barIcon,
     logo,
-    home,
-    bonds,
-    cell,
-    bell,
+    homeActive,
+    bondsActive,
+    cellActive,
+    bellActive,
     settings,
-    downArrow
+    downArrow,
+    HomeBlack,
+    bondBlack,
+    cellBlack,
+    bellBlack,
+    searchIcon
 }

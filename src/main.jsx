@@ -4,11 +4,14 @@ import './index.css'
 import App from './App.jsx'
 import { ThemeProvider } from '@emotion/react'
 import { theme } from './theme.js'
+import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </StrictMode>,
 )

@@ -10,7 +10,7 @@ const Header = () => {
                 width: "100%",
                 height: "56px",
                 display: "flex",
-                backgroundColor: theme.palette.primary.main
+                backgroundColor: "#FDF8F2"
             }}
         >
             <Box sx={{ width: "48%" }}></Box>

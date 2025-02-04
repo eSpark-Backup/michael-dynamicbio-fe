@@ -89,9 +89,10 @@ export const theme = createTheme({
             styleOverrides: {
                 input: {
                     "&::placeholder": {
-                        color: "#00141C",
+                        color: "#000000CC",
                         fontWeight: "300",
                         opacity: 1,
+                        fontSize: "17px"
                     },
                 },
 
@@ -105,6 +106,7 @@ export const theme = createTheme({
                     fontWeight: 400,
                     borderRadius: "4px",
                     backgroundColor: "#FFFFFF",
+                    height: "42px",
                     ":focus": {
                         border: "1px solid #DDE2E4",
                     },

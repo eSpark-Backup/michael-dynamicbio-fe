@@ -1,7 +1,7 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
+import React from 'react';
 
-const OutlinedInput = ({ label, name, placeholder, onInputChange, sx, value }) => {
+const OutlinedInput = ({ label, name, placeholder, onInputChange, sx, value, startAdornment }) => {
     return (
         <Box
             sx={{
@@ -10,9 +10,7 @@ const OutlinedInput = ({ label, name, placeholder, onInputChange, sx, value }) =
                 rowGap: "8px",
             }}>
             {label && (
-                <Typography
-                    component="label"
-                >
+                <Typography component="label">
                     {label}
                 </Typography>
             )}
@@ -22,10 +20,20 @@ const OutlinedInput = ({ label, name, placeholder, onInputChange, sx, value }) =
                 onChange={onInputChange}
                 value={value}
                 sx={sx}
+                InputProps={{
+                    startAdornment: startAdornment && (
+                        <InputAdornment position="start">
+                            {typeof startAdornment === "string" ? (
+                                <img src={startAdornment} alt="icon" style={{ width: 24, height: 24 }} />
+                            ) : (
+                                startAdornment
+                            )}
+                        </InputAdornment>
+                    )
+                }}
             />
-
         </Box>
-    )
+    );
 }
 
-export default OutlinedInput
+export default OutlinedInput;
