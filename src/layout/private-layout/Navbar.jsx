@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import OutlinedInput from "../../components";
+import { OutlinedInput } from "../../components";
 import {
   bellActive,
   bondsActive,

@@ -15,6 +15,8 @@ import cellBlack from "./icons/cell_black.svg";
 import bellBlack from "./icons/bell_black.svg";
 import searchIcon from "./icons/searchIcon.svg";
 
+import authImage from "./images/auth-image.png";
+
 export {
   eye,
   eyeClose,
@@ -32,4 +34,5 @@ export {
   cellBlack,
   bellBlack,
   searchIcon,
+  authImage,
 };

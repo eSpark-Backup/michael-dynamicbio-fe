@@ -3,6 +3,7 @@ import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
 import { Login, Signup, Home, Bonds, Cells, Pulses } from "./pages";
+import "./app.css"
 
 const App = () => {
   return (
