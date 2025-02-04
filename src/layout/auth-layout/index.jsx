@@ -8,7 +8,12 @@ const AuthLayout = () => {
       sx={{
         width: "100wh",
         height: "100vh",
-        "> img": { width: "50%", height: "100%", objectFit: "cover" },
+        "> img": {
+          width: "50%",
+          height: "100%",
+          objectFit: "cover",
+          display: { xs: "none", md: "block" },
+        },
       }}
       direction="row"
       alignItems="center"
@@ -16,7 +21,11 @@ const AuthLayout = () => {
     >
       <img src={authImage} />
       <Stack
-        sx={{ width: "50%", height: "100%", overflowY: "auto" }}
+        sx={{
+          width: { xs: "100%", md: "50%" },
+          height: "100%",
+          overflowY: "auto",
+        }}
         direction="column"
         alignItems="center"
         justifyItems="flex-start"
@@ -32,7 +41,7 @@ const AuthLayout = () => {
           alt="app-name-logo"
         />
         <Stack
-          sx={{ width: "50%", marginTop: "37px" }}
+          sx={{ width: "100%", marginTop: "37px", padding: "20px" }}
           direction="column"
           alignItems="center"
           justifyItems="flex-start"
