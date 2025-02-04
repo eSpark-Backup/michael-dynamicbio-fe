@@ -41,7 +41,7 @@ const AuthLayout = () => {
           alt="app-name-logo"
         />
         <Stack
-          sx={{ width: "100%", marginTop: "37px", padding: "20px" }}
+          sx={{ width: "100%", marginTop: "37px" }}
           direction="column"
           alignItems="center"
           justifyItems="flex-start"
