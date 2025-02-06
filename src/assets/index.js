@@ -20,6 +20,7 @@ import linkedin from "./icons/linkedin.svg";
 import DropDownIcon from "./icons/dropdown_icon.svg"
 
 import authImage from "./images/auth-image.png";
+import qrcode from "./images/qr-code.png";
 
 export {
   eye,
@@ -42,5 +43,6 @@ export {
   facebook,
   linkedin,
   authImage,
-  DropDownIcon
+  DropDownIcon,
+  qrcode,
 };

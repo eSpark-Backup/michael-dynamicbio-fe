@@ -10,9 +10,10 @@ import {
 import { Input, Button } from "../../../components";
 import { loginSchema } from "../../../schemas";
 import { facebook, google, linkedin } from "../../../assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -23,6 +24,7 @@ const Login = () => {
     onSubmit: (values) => {
       //login
       console.log(values, "values");
+      navigate("/google-auth");
     },
   });
   return (
