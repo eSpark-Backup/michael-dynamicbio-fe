@@ -11,3 +11,18 @@ export const loginSchema = Yup.object({
     .required("Password is required")
     .min(8, "Password must contain at least 8 characters"),
 });
+
+
+export const signupSchemaWithoutEmail = Yup.object({
+  firstName: Yup.string().required("First Name is required."),
+  lastName: Yup.string().required("Last Name is required."),
+  countryCode: Yup.string().required("Please select a country code."),
+  phoneNumber: Yup.string()
+    .matches(
+      /^[\d\s()-]+$/,
+      "Please enter a valid phone number without a '+' sign."
+    )
+    .min(7, "Phone number must be at least 7 digits.")
+    .max(15, "Phone number must not exceed 15 digits.")
+    .required("Please enter a phone number."),
+});
