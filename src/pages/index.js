@@ -1,5 +1,5 @@
-import { Login, Signup, GoogleAuth } from "./auth";
+import { Login, Signup, GoogleAuth, OtpVerified } from "./auth";
 
 import { Home, Bonds, Pulses, Cells } from "./dashboard";
 
-export { Login, Signup, GoogleAuth, Home, Bonds, Pulses, Cells };
+export { Login, Signup, GoogleAuth, OtpVerified, Home, Bonds, Pulses, Cells };
