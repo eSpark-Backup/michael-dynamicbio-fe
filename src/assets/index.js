@@ -14,8 +14,13 @@ import bondBlack from "./icons/Bond_black.svg";
 import cellBlack from "./icons/cell_black.svg";
 import bellBlack from "./icons/bell_black.svg";
 import searchIcon from "./icons/searchIcon.svg";
+import google from "./icons/google.svg";
+import facebook from "./icons/facebook.svg";
+import linkedin from "./icons/linkedin.svg";
+import successTick from "./icons/success-tick.svg";
 
 import authImage from "./images/auth-image.png";
+import qrcode from "./images/qr-code.png";
 
 export {
   eye,
@@ -34,5 +39,10 @@ export {
   cellBlack,
   bellBlack,
   searchIcon,
+  google,
+  facebook,
+  linkedin,
+  successTick,
   authImage,
+  qrcode,
 };

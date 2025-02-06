@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
-import { Login, Signup, Home, Bonds, Cells, Pulses } from "./pages";
+import { Login, Signup, GoogleAuth, OtpVerified, Home, Bonds, Cells, Pulses } from "./pages";
 import "./app.css"
 
 const App = () => {
@@ -10,6 +10,8 @@ const App = () => {
     <Routes>
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/google-auth" element={<GoogleAuth />} />
+        <Route path="/otp-verified" element={<OtpVerified />} />
         <Route path="/signup" element={<Signup />} />
       </Route>
 
