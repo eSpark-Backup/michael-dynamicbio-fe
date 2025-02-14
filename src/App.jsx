@@ -2,16 +2,38 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
-import { Login, Signup, GoogleAuth, OtpVerified, Home, Bonds, Cells, Pulses } from "./pages";
-import "./app.css"
+import {
+  Login,
+  Signup,
+  GoogleAuth,
+  OtpVerified,
+  FindEmail,
+  SelectEmail,
+  VerifyEmail,
+  ForgetPassword,
+  ResetSuccess,
+  Home,
+  Bonds,
+  Cells,
+  Pulses,
+} from "./pages";
+import "./app.css";
 
 const App = () => {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
+        {/* Login */}
         <Route path="/login" element={<Login />} />
         <Route path="/google-auth" element={<GoogleAuth />} />
         <Route path="/otp-verified" element={<OtpVerified />} />
+        {/* Forget password */}
+        <Route path="/find-email" element={<FindEmail />} />
+        <Route path="/select-email" element={<SelectEmail />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-success" element={<ResetSuccess />} />
+        {/* Signup */}
         <Route path="/signup" element={<Signup />} />
       </Route>
 
