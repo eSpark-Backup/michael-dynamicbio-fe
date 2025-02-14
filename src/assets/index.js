@@ -18,6 +18,7 @@ import google from "./icons/google.svg";
 import facebook from "./icons/facebook.svg";
 import linkedin from "./icons/linkedin.svg";
 import successTick from "./icons/success-tick.svg";
+import userAvatar from "./icons/user-avatar.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -43,6 +44,7 @@ export {
   facebook,
   linkedin,
   successTick,
+  userAvatar,
   authImage,
   qrcode,
 };
