@@ -13,7 +13,7 @@ const CustomIcon = (props) => (
     />
 );
 
-const Dropdown = ({ options, handleChange, placeholder, isCountries, error, helperText }) => {
+const Dropdown = ({ options, handleChange, placeholder, isCountries, error, helperText, value }) => {
     return (
         <FormControl variant="filled" error={error}>
             <InputLabel id="demo-simple-select-filled-label">{placeholder}</InputLabel>
@@ -21,6 +21,7 @@ const Dropdown = ({ options, handleChange, placeholder, isCountries, error, help
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
                 onChange={handleChange}
+                value={value}
                 IconComponent={CustomIcon}
             >
                 {!isCountries && options?.map((item, index) => (
