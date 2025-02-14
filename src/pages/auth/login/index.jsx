@@ -68,7 +68,7 @@ const Login = () => {
           marginTop: "20px",
           width: "100%",
         }}
-        to="forget-password"
+        to="/find-email"
       >
         <Typography textAlign="right">Forget Password?</Typography>
       </Link>
