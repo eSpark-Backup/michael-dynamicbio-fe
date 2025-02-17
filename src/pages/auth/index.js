@@ -7,6 +7,8 @@ import SelectEmail from "./select-email";
 import VerifyEmail from "./verify-email";
 import ForgetPassword from "./forget-password";
 import ResetSuccess from "./reset-success";
+import CompleteProfile from "./complete-profile";
+import UploadImage from "./upload-image";
 
 export {
   Login,
@@ -18,4 +20,6 @@ export {
   VerifyEmail,
   ForgetPassword,
   ResetSuccess,
+  CompleteProfile,
+  UploadImage,
 };

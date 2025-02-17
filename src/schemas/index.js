@@ -63,3 +63,10 @@ export const signupSchemaWithEmail = Yup.object({
     )
     .required("Email is required"),
 });
+
+export const profileDetailsSchema = Yup.object({
+  country: Yup.string().required("Country is required."),
+  company: Yup.string().required("Company is required."),
+  industry: Yup.string().required("Industry is required."),
+  role: Yup.string().required("Role is required"),
+});

@@ -1,9 +1,12 @@
-import { Outlet } from "react-router-dom";
-import { Stack } from "@mui/material";
+import { Outlet, useLocation } from "react-router-dom";
+import { Box, Stack } from "@mui/material";
 import { authImage, icon, logo } from "../../assets";
 
 const AuthLayout = () => {
-  return (
+  const { pathname } = useLocation();
+  const welcomeScreens = ["/complete-profile", "/upload-image"];
+  const isWelcomeScreen = welcomeScreens.includes(pathname);
+  return !isWelcomeScreen ? (
     <Stack
       sx={{
         width: "100wh",
@@ -50,6 +53,36 @@ const AuthLayout = () => {
         </Stack>
       </Stack>
     </Stack>
+  ) : (
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        alignItems: "center",
+        justifyContent: "flex-start",
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          height: "56px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#FDF8F2",
+        }}
+      >
+        <img width={55} height={45} src={icon} alt="" />
+      </Box>
+      <img
+        style={{ width: "207px", height: "48px", marginTop: "42px" }}
+        src={logo}
+        alt="app-name-logo"
+      />
+      <Outlet />
+    </Box>
   );
 };
 
