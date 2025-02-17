@@ -15,6 +15,7 @@ const OutlinedInput = ({
         display: "flex",
         flexDirection: "column",
         rowGap: "8px",
+        width:"100%"
       }}
     >
       {label && <Typography component="label">{label}</Typography>}

@@ -10,7 +10,7 @@ const PrivateLayout = ({ isAuthenticated }) => {
   return (
     <>
       <Header />
-      <Navbar />
+      {/* <Navbar /> */}
       <Outlet />
     </>
   );

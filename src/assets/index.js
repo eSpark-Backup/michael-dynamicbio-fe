@@ -28,7 +28,16 @@ import article from "./icons/article.svg"
 import event from "./icons/event.svg"
 import research from "./icons/research.svg"
 import plus from "./icons/plus.svg"
-
+import three_vertical_dots from "./icons/three_vertical_dots.svg"
+import postPicture from "./icons/post_picture.svg"
+import like from "./icons/like.svg"
+import comment from "./icons/comment.svg"
+import repost from "./icons/repost.svg"
+import send from "./icons/send.svg"
+import emoji from "./icons/emoji.svg"
+import camera from "./icons/camera.svg"
+import einstein from "./icons/einstein.svg"
+import refresh from "./icons/refresh.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -65,5 +74,15 @@ export {
   article,
   event,
   research,
-  plus
+  plus,
+  three_vertical_dots,
+  postPicture,
+  like,
+  comment,
+  repost,
+  send,
+  emoji,
+  camera,
+  einstein,
+  refresh
 };

@@ -9,29 +9,70 @@ const RightSideBar = () => {
         <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
             <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>
+                    <Typography sx={{
+                        // fontSize: { xs: "14px", md: "17px" },
+                        "@media (max-width:1280px)": { fontSize: "14px" },
+                        "@media (min-width: 1281px) and (max-width: 1630px)": {
+                            fontSize: "13px",
+                        },
+                        "@media (min-width: 1631px)": {
+                            fontSize: "17px",
+                        },
+                        fontWeight: 300, color: theme.palette.primary.dark
+                    }}>
                         You might be interested in following
                     </Typography>
-                    <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>
+                    <Typography sx={{
+                        "@media (max-width:1280px)": { fontSize: "14px" },
+                        "@media (min-width: 1281px) and (max-width: 1630px)": {
+                            fontSize: "13px",
+                        },
+                        "@media (min-width: 1631px)": {
+                            fontSize: "17px",
+                        },
+                        fontWeight: 300, color: theme.palette.primary.dark
+                    }}>
                         View all
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                     {interestSuggestions?.map((item, index) => (
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }} key={index}>
-                            <Box sx={{ display: "flex", columnGap: "40px", alignItems: "center" }}>
+                            <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
                                 <img src={item?.img} alt="User" />
-                                <Stack direction={"column"} spacing={0}>
-                                    <Typography sx={{ fontSize: "24px", fontWeight: 400, color: theme.palette.primary.dark }}>{item?.name}</Typography>
-                                    <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>{item?.description}</Typography>
+                                <Stack direction={"column"}>
+                                    <Typography sx={{
+                                        "@media (max-width:768px)": { fontSize: "16px" },
+                                        "@media (min-width: 769px) and (max-width: 1280px)": {
+                                            fontSize: "24px",
+                                        },
+                                        "@media (min-width: 1281px) and (max-width: 1650px)": {
+                                            fontSize: "16px",
+                                        },
+                                        "@media (min-width:1651px)": { fontSize: "24px" },
+                                        fontWeight: 400, color: theme.palette.primary.dark, textAlign: { xs: "center", md: "left" }
+                                    }}>{item?.name}</Typography>
+                                    <Typography sx={{
+                                        "@media (max-width:768px)": { fontSize: "14px" },
+                                        "@media (min-width: 769px) and (max-width: 1280px)": {
+                                            fontSize: "17px",
+                                        },
+                                        "@media (min-width: 1281px) and (max-width: 1650px)": {
+                                            fontSize: "13px",
+                                        },
+                                        "@media (min-width:1651px)": { fontSize: "17px" },
+                                        fontWeight: 300, color: theme.palette.primary.dark, textAlign: { xs: "center", md: "left" }
+                                    }}>{item?.description}</Typography>
                                 </Stack>
                             </Box>
-                            <Stack alignItems="flex-start" spacing={1}>
+                            <Stack alignItems="flex-start">
 
                                 <Box
                                     sx={{
-                                        width: 32,
-                                        height: 32,
+                                        "@media (max-width:1280px)": { width: 32, height: 32 },
+                                        "@media (min-width:1281px) and (max-width:1750)": { width: 23, height: 23 },
+                                        "@media (min-width:1751px)": { width: 32, height: 32 },
+                                        // height: 32,
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
@@ -39,9 +80,9 @@ const RightSideBar = () => {
                                         alignSelf: "flex-end"
                                     }}
                                 >
-                                    <img src={plus} alt="" />
+                                    <img src={plus} alt="plus" style={{ width: "100%", height: "90%" }} />
                                 </Box>
-                                <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                                <Typography sx={{ fontWeight: 500, fontSize: { lg: "12px", xl: "17px" }, color: theme.palette.primary.dark }}>
                                     {item?.address}
                                 </Typography>
                             </Stack>
