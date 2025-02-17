@@ -41,7 +41,7 @@ const App = () => {
         <Route path="/upload-image" element={<UploadImage />} />
       </Route>
 
-      <Route element={<PrivateLayout isAuthenticated={false} />}>
+      <Route element={<PrivateLayout isAuthenticated={true} />}>
         <Route path="/" element={<Home />} />
         <Route path="/bonds" element={<Bonds />} />
         <Route path="/cells" element={<Cells />} />
