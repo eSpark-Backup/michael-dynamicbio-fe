@@ -37,7 +37,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
       </Route>
 
-      <Route element={<PrivateLayout isAuthenticated={false} />}>
+      <Route element={<PrivateLayout isAuthenticated={true} />}>
         <Route path="/" element={<Home />} />
         <Route path="/bonds" element={<Bonds />} />
         <Route path="/cells" element={<Cells />} />

@@ -19,6 +19,16 @@ import facebook from "./icons/facebook.svg";
 import linkedin from "./icons/linkedin.svg";
 import successTick from "./icons/success-tick.svg";
 import userAvatar from "./icons/user-avatar.svg";
+import userWithCamera from "./icons/user_with_camera.svg"
+import bondMain from "./icons/Bond_main.svg"
+import user from "./icons/user.svg"
+import photo from "./icons/photo.svg"
+import video from "./icons/video.svg"
+import article from "./icons/article.svg"
+import event from "./icons/event.svg"
+import research from "./icons/research.svg"
+import plus from "./icons/plus.svg"
+
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -47,4 +57,13 @@ export {
   userAvatar,
   authImage,
   qrcode,
+  userWithCamera,
+  bondMain,
+  user,
+  photo,
+  video,
+  article,
+  event,
+  research,
+  plus
 };

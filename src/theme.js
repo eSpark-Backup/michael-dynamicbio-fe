@@ -136,5 +136,16 @@ export const theme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: "2px",
+          padding: "16px 25px",
+          boxShadow: "none",
+          backgroundColor: "#FFFFFF",
+          // width: "100%"
+        },
+      },
+    },
   },
 });
