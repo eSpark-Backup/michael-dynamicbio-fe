@@ -8,6 +8,8 @@ import {
   VerifyEmail,
   ForgetPassword,
   ResetSuccess,
+  CompleteProfile,
+  UploadImage,
 } from "./auth";
 
 import { Home, Bonds, Pulses, Cells } from "./dashboard";
@@ -22,6 +24,8 @@ export {
   VerifyEmail,
   ForgetPassword,
   ResetSuccess,
+  CompleteProfile,
+  UploadImage,
   Home,
   Bonds,
   Pulses,

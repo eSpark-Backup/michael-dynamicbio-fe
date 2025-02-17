@@ -18,7 +18,7 @@ const ForgetPassword = () => {
     onSubmit: (values) => {
       //set password
       console.log(values, "values");
-      type === "reset" && navigate("/reset-success");
+      navigate(type === "reset" ? "/reset-success" : "/complete-profile");
     },
   });
   return (
