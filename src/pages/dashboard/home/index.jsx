@@ -1,6 +1,6 @@
-import { Box, Grid, OutlinedInput, Paper, Stack, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
+import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useState } from 'react';
-import { article, bondMain, event, like, photo, research, user, userWithCamera, video } from '../../../assets';
+import { article, bondMain, event, photo, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard, RightSideBar, SuggestionPost } from '../../../components';
 
@@ -67,7 +67,7 @@ const Home = () => {
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
                 .map((item, index) => (
-                  <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#FCFCFC", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center" }}>
+                  <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#FCFCFC", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center", cursor: "pointer" }}>
                     <img style={{ width: "24px", height: "24px" }} src={item.img} alt={item.label} />
                     <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>{item.label}</Typography>
                   </Box>
@@ -80,7 +80,7 @@ const Home = () => {
               <Typography sx={{ fontSize: { xs: "14px", md: "17px" }, fontWeight: 300, color: theme.palette.primary.dark }}>
                 Suggestion for you to create bonds
               </Typography>
-              <Typography sx={{ fontSize: { xs: "12px", md: "17px" }, fontWeight: 300, color: theme.palette.primary.dark }}>
+              <Typography sx={{ fontSize: { xs: "12px", md: "17px" }, fontWeight: 300, color: theme.palette.primary.dark, cursor: "pointer" }}>
                 View all
               </Typography>
             </Box>

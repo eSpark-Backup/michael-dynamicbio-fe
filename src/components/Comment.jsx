@@ -1,6 +1,6 @@
-import { Avatar, Box, IconButton, Typography, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import React from 'react'
-import { einstein, like, three_vertical_dots } from '../assets'
+import { like, three_vertical_dots } from '../assets'
 
 const Comment = ({ userImage, userName, comment, time }) => {
     const theme = useTheme()
@@ -14,7 +14,7 @@ const Comment = ({ userImage, userName, comment, time }) => {
                         <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A" }}>
                             {time}
                         </Typography>
-                        <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px" }} />
+                        <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} />
                     </Box>
                 </Box>
                 <Typography sx={{ fontSize: "17px", fontWeight: 300, color: "#18181B" }}>

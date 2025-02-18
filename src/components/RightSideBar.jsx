@@ -10,7 +10,6 @@ const RightSideBar = () => {
             <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography sx={{
-                        // fontSize: { xs: "14px", md: "17px" },
                         "@media (max-width:1280px)": { fontSize: "14px" },
                         "@media (min-width: 1281px) and (max-width: 1630px)": {
                             fontSize: "13px",
@@ -30,7 +29,8 @@ const RightSideBar = () => {
                         "@media (min-width: 1631px)": {
                             fontSize: "17px",
                         },
-                        fontWeight: 300, color: theme.palette.primary.dark
+                        fontWeight: 300, color: theme.palette.primary.dark,
+                        cursor: "pointer"
                     }}>
                         View all
                     </Typography>
@@ -72,7 +72,6 @@ const RightSideBar = () => {
                                         "@media (max-width:1280px)": { width: 32, height: 32 },
                                         "@media (min-width:1281px) and (max-width:1750)": { width: 23, height: 23 },
                                         "@media (min-width:1751px)": { width: 32, height: 32 },
-                                        // height: 32,
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
@@ -95,7 +94,7 @@ const RightSideBar = () => {
                     <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>
                         Research
                     </Typography>
-                    <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark }}>
+                    <Typography sx={{ fontSize: "17px", fontWeight: 300, color: theme.palette.primary.dark, cursor: "pointer" }}>
                         View all
                     </Typography>
                 </Box>

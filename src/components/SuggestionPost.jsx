@@ -1,6 +1,6 @@
-import { Box, Paper, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Paper, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { bondMain, camera, comment, emoji, like, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
+import { camera, comment, emoji, like, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
 import BondCard from './BondCard.jsx';
@@ -18,7 +18,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                 <Typography sx={{ color: theme.palette.primary.dark, fontSize: { xs: "14px", md: "17px" }, fontWeight: "300" }}>
                     {activity}
                 </Typography>
-                <img src={three_vertical_dots} alt="" />
+                <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
             </Box>
             <BondCard userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
             {postPic && <img src={postPicture} alt="Post" />}
@@ -81,7 +81,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                     ))
                 }
             </Box>}
-            {index === length - 1 && <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", columnGap: "4px" }}>
+            {index === length - 1 && <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", columnGap: "4px", cursor: "pointer" }}>
                 <img src={refresh} alt="Refresh" />
                 <Typography sx={{ fontSize: "11px", fontWeight: 700, color: "#000000" }}>Load more</Typography>
             </Box>}
