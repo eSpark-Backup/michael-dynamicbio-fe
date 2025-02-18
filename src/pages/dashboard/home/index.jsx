@@ -13,7 +13,7 @@ const Home = () => {
     <Box sx={{ p: "20px" }}>
       <Grid2 container spacing={5}>
         <Grid2 size={{ xs: 12, lg: 2.5 }} sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
-          <Paper sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px", p: 2 }}>
+          <Paper sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px" }}>
             <img src={userWithCamera} alt="User" />
             <Typography sx={{ fontSize: "24px", fontWeight: 700, color: theme.palette.primary.dark }}>
               James Bond
@@ -29,14 +29,14 @@ const Home = () => {
 
           {(showMore || !isSmallScreen) && (
             <>
-              <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", p: 2 }}>
+              <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: 300, color: theme.palette.primary.dark }}>
                   Make more bonds
                 </Typography>
                 <img src={bondMain} alt="Bond" />
               </Paper>
 
-              <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", p: 2 }}>
+              <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                 <Typography sx={{ fontSize: "21px", fontWeight: 300, color: theme.palette.primary.dark }}>
                   Groups
                 </Typography>
@@ -59,10 +59,10 @@ const Home = () => {
         </Grid2>
 
         <Grid2 size={{ xs: 12, lg: 6.5 }} sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
-          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px", p: 2 }}>
+          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px"}}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
               <img src={user} alt="User" />
-              <OutlinedInput placeholder='Start a post' sx={{ height: "73px" }} />
+              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%" }} />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
@@ -75,7 +75,7 @@ const Home = () => {
             </Box>
           </Paper>
 
-          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px", p: 2 }}>
+          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px"}}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Typography sx={{ fontSize: { xs: "14px", md: "17px" }, fontWeight: 300, color: theme.palette.primary.dark }}>
                 Suggestion for you to create bonds
