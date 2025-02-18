@@ -3,18 +3,21 @@ import { einstein, postPicture, user, userWithCamera } from "../assets";
 export const bondSuggestions = [
     {
         img: user,
-        name: "Albert Einstein",
-        address: "XYZ Company, USA"
+        name: "James Bond",
+        address: "Karachi, Pakistan",
+        role: "UI/UX Designer at “eSpark Consulting Group”"
     },
     {
         img: user,
-        name: "Albert Einstein",
-        address: "XYZ Company, USA"
+        name: "James Bond",
+        address: "Karachi, Pakistan",
+        role: "UI/UX Designer at “eSpark Consulting Group”"
     },
     {
         img: user,
-        name: "Albert Einstein",
-        address: "XYZ Company, USA"
+        name: "James Bond",
+        address: "Karachi, Pakistan",
+        role: "UI/UX Designer at “eSpark Consulting Group”"
     },
 ]
 
@@ -48,8 +51,8 @@ export const interestSuggestions = [
 
 export const suggestionPostContent = [
     {
-        userName: "Albert Einstein",
-        userRole: "Heading liner",
+        userName: "James Bond",
+        userRole: "UI/UX Designer at “eSpark Consulting Group”",
         postTime: "2h ago",
         userImage: user,
         numberofLikes: 0,
@@ -61,8 +64,8 @@ export const suggestionPostContent = [
         commentsContent: []
     },
     {
-        userName: "Albert Einstein",
-        userRole: "Heading liner",
+        userName: "James Bond",
+        userRole: "UI/UX Designer at “eSpark Consulting Group”",
         postTime: "2h ago",
         userImage: user,
         numberofLikes: 4,
@@ -70,7 +73,7 @@ export const suggestionPostContent = [
         comments: 2,
         activity: "Areeba Shakeel likes this post",
         postPic: null,
-        postContent: `#Hashtag <br/> <br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
+        postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
         commentsContent: [
             {
                 userImage: einstein,

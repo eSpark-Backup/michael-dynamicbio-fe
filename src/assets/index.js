@@ -41,6 +41,7 @@ import einstein from "./icons/einstein.svg"
 import refresh from "./icons/refresh.svg"
 import uploadIcon from "./icons/upload-icon.svg";
 import uploadAvatar from "./icons/upload-avatar.svg";
+import profilePicture from "./icons/profilePicture.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -91,4 +92,5 @@ export {
   refresh,
   uploadIcon,
   uploadAvatar,
+  profilePicture
 };

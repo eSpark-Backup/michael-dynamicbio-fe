@@ -10,28 +10,30 @@ const RightSideBar = () => {
             <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography sx={{
-                        "@media (max-width:1280px)": { fontSize: "14px" },
-                        "@media (min-width: 1281px) and (max-width: 1630px)": {
-                            fontSize: "13px",
-                        },
-                        "@media (min-width: 1631px)": {
-                            fontSize: "17px",
-                        },
-                        fontWeight: 300, color: theme.palette.primary.dark
+                        // "@media (max-width:1280px)": { fontSize: "14px" },
+                        // "@media (min-width: 1281px) and (max-width: 1630px)": {
+                        //     fontSize: "13px",
+                        // },
+                        // "@media (min-width: 1631px)": {
+                        //     fontSize: "17px",
+                        // },
+                        fontSize: "14px",
+                        fontWeight: 400, color: "#171717"
                     }}>
                         You might be interested in following
                     </Typography>
                     <Typography sx={{
-                        "@media (max-width:1280px)": { fontSize: "14px" },
-                        "@media (min-width: 1281px) and (max-width: 1630px)": {
-                            fontSize: "13px",
-                        },
-                        "@media (min-width: 1631px)": {
-                            fontSize: "17px",
-                        },
-                        fontWeight: 300, color: theme.palette.primary.dark,
+                        // "@media (max-width:1280px)": { fontSize: "14px" },
+                        // "@media (min-width: 1281px) and (max-width: 1630px)": {
+                        //     fontSize: "13px",
+                        // },
+                        // "@media (min-width: 1631px)": {
+                        //     fontSize: "17px",
+                        // },
+                        fontSize: "14px",
+                        fontWeight: 400,
                         cursor: "pointer"
-                    }}>
+                    }} variant='gradientText'>
                         View all
                     </Typography>
                 </Box>
