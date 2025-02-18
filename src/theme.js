@@ -147,5 +147,31 @@ export const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          boxShadow: "0px 0px 15px 0px #00000066",
+          padding: "0px",
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: "10px",
+          "& .MuiMenuItem-root": {
+            color: "#000000",
+            fontSize: "14px",
+            height: "48px",
+            width: "245px",
+            fontWeight: 400,
+            "&.Mui-focusVisible": {
+              backgroundColor: "#FFFFFF",
+              color: "#000000",
+            },
+          },
+        },
+      },
+    },
   },
 });
