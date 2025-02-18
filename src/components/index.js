@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown";
 import OtpInput from "./otp-input";
 import NumberOtp from "./NumberOtp";
 import RightSideBar from "./RightSideBar";
+import BondCard from "./bond-card";
 
 export {
   Input,
@@ -14,4 +15,5 @@ export {
   OtpInput,
   NumberOtp,
   RightSideBar,
+  BondCard,
 };

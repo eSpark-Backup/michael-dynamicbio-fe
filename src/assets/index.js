@@ -17,23 +17,30 @@ import searchIcon from "./icons/searchIcon.svg";
 import google from "./icons/google.svg";
 import facebook from "./icons/facebook.svg";
 import linkedin from "./icons/linkedin.svg";
-import DropDownIcon from "./icons/dropdown_icon.svg"
+import DropDownIcon from "./icons/dropdown_icon.svg";
 import successTick from "./icons/success-tick.svg";
 import userAvatar from "./icons/user-avatar.svg";
 import uploadIcon from "./icons/upload-icon.svg";
 import uploadAvatar from "./icons/upload-avatar.svg";
-import userWithCamera from "./icons/user_with_camera.svg"
-import bondMain from "./icons/Bond_main.svg"
-import user from "./icons/user.svg"
-import photo from "./icons/photo.svg"
-import video from "./icons/video.svg"
-import article from "./icons/article.svg"
-import event from "./icons/event.svg"
-import research from "./icons/research.svg"
-import plus from "./icons/plus.svg"
+import userWithCamera from "./icons/user_with_camera.svg";
+import bondMain from "./icons/Bond_main.svg";
+import user from "./icons/user.svg";
+import photo from "./icons/photo.svg";
+import video from "./icons/video.svg";
+import article from "./icons/article.svg";
+import event from "./icons/event.svg";
+import research from "./icons/research.svg";
+import plus from "./icons/plus.svg";
+import verticleDots from "./icons/verticle-dots.svg";
+import close from "./icons/close.svg";
+import bondBlack2 from "./icons/bond-black.svg";
+import addBond from "./icons/add-bond.svg";
+import deleteBond from "./icons/delete-bond.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
+import olivia from "./images/olivia.png";
+import pheonix from "./images/pheonix.png";
 
 export {
   eye,
@@ -70,5 +77,12 @@ export {
   article,
   event,
   research,
-  plus
+  plus,
+  verticleDots,
+  olivia,
+  pheonix,
+  close,
+  bondBlack2,
+  addBond,
+  deleteBond,
 };

@@ -1,0 +1,116 @@
+import { Box, Stack, Typography } from "@mui/material";
+import Button from "./button";
+import { bondBlack2, close } from "../assets";
+
+const BondCard = ({
+  profileImage,
+  name,
+  role,
+  desc,
+  isPage,
+  orgination,
+  place,
+  members,
+}) => {
+  return (
+    <Box
+      sx={{
+        padding: "10px 20px 20px 20px",
+        width: "224px",
+        background: "#F2F8FD",
+        position: "relative",
+      }}
+    >
+      <img
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          cursor: "pointer",
+        }}
+        src={close}
+        alt="close"
+      />
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          "&:after": {
+            content: '""',
+            background: "linear-gradient(180deg, #948F8F 0%, #2E2C2C 100%)",
+            width: "calc(100% - 40px)",
+            height: "36px",
+            position: "absolute",
+            top: 0,
+            zIndex: 1,
+          },
+        }}
+      >
+        <img
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            zIndex: 2,
+          }}
+          src={profileImage}
+          alt="profile"
+        />
+      </Box>
+      <Typography textAlign="center" mt={1} fontWeight={500}>
+        {name}
+      </Typography>
+      {role && (
+        <Typography
+          sx={{ color: "#505050" }}
+          mb={1}
+          textAlign="center"
+          fontSize="12px"
+        >
+          {role}
+        </Typography>
+      )}
+      <Typography fontSize="12px" textAlign="center">
+        {desc}
+      </Typography>
+      {isPage && (
+        <Stack
+          direction="row"
+          alignItems="flex-start"
+          justifyContent="space-between"
+          gap={1}
+          mt={1}
+        >
+          <Box>
+            <Typography fontSize="12px" fontWeight={300}>
+              {orgination}
+            </Typography>
+            <Typography fontSize="12px" fontWeight={300}>
+              {place}
+            </Typography>
+          </Box>
+          <Typography fontSize="12px" fontWeight={300}>
+            {members}
+          </Typography>
+        </Stack>
+      )}
+      <Button sx={{ mt: 1, height: "48px", position: "relative" }}>
+        <img
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "10px",
+            transform: "translateY(-50%)",
+          }}
+          src={bondBlack2}
+          alt="add"
+        />
+        Bond
+      </Button>
+    </Box>
+  );
+};
+
+export default BondCard;
