@@ -12,6 +12,8 @@ import {
   VerifyEmail,
   ForgetPassword,
   ResetSuccess,
+  CompleteProfile,
+  UploadImage,
   Home,
   Bonds,
   Cells,
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/reset-success" element={<ResetSuccess />} />
         {/* Signup */}
         <Route path="/signup" element={<Signup />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
+        <Route path="/upload-image" element={<UploadImage />} />
       </Route>
 
       <Route element={<PrivateLayout isAuthenticated={true} />}>

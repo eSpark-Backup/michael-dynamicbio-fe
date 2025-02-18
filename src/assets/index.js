@@ -17,6 +17,7 @@ import searchIcon from "./icons/searchIcon.svg";
 import google from "./icons/google.svg";
 import facebook from "./icons/facebook.svg";
 import linkedin from "./icons/linkedin.svg";
+import DropDownIcon from "./icons/dropdown_icon.svg"
 import successTick from "./icons/success-tick.svg";
 import userAvatar from "./icons/user-avatar.svg";
 import userWithCamera from "./icons/user_with_camera.svg"
@@ -38,6 +39,8 @@ import emoji from "./icons/emoji.svg"
 import camera from "./icons/camera.svg"
 import einstein from "./icons/einstein.svg"
 import refresh from "./icons/refresh.svg"
+import uploadIcon from "./icons/upload-icon.svg";
+import uploadAvatar from "./icons/upload-avatar.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -65,6 +68,7 @@ export {
   successTick,
   userAvatar,
   authImage,
+  DropDownIcon,
   qrcode,
   userWithCamera,
   bondMain,
@@ -84,5 +88,7 @@ export {
   emoji,
   camera,
   einstein,
-  refresh
+  refresh,
+  uploadIcon,
+  uploadAvatar,
 };

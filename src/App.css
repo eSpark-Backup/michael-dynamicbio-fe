@@ -14,5 +14,11 @@
 
 body {
     font-family: "Inter", sans-serif;
-    background-color: #FCFCFC;
+    background-color: #ffffff;
+}
+
+.css-1toxriw-MuiList-root-MuiMenu-list {
+    border: 1px solid black !important;
+    padding-top: 1px !important;
+    max-height: 300px;
 }

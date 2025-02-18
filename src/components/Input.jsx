@@ -2,15 +2,15 @@ import { useState } from "react";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import { eyeClose, eye } from "../assets/index.js";
 
-const Input = ({ label, handleChange, type = "text", endAdornment, ...rest }) => {
+const Input = ({ handleChange, type = "text", endAdornment, disabled, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
   return (
     <TextField
-      label={label}
       variant="filled"
       onChange={handleChange}
       type={showPassword ? "text" : type}
+      disabled={disabled}
       InputProps={{
         endAdornment:
           endAdornment ||
