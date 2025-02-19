@@ -47,9 +47,13 @@ import logo2 from "./icons/logo2.svg"
 import world from "./icons/world.svg"
 import marketplace from "./icons/marketplace.svg"
 import ai from "./icons/ai.svg"
+import filter from "./icons/filter.svg"
+import link from "./icons/link.svg"
+import emojiBlackWhite from "./icons/emoji_black_white.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
+import friend from "./images/friend.jpeg"
 
 export {
   eye,
@@ -102,5 +106,9 @@ export {
   logo2,
   world,
   marketplace,
-  ai
+  ai,
+  filter,
+  friend,
+  link,
+  emojiBlackWhite
 };

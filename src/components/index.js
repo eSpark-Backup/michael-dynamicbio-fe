@@ -9,6 +9,9 @@ import Comment from "./Comment";
 import BondCard from "./BondCard";
 import NumberOtp from "./NumberOtp";
 import BoxWithTextIcon from "./BoxWithTextIcon";
+import ContactBox from "./ContactBox";
+import MessageBubble from "./MessageBubble";
+import MessageList from "./MessageList";
 
 export {
     Input,
@@ -21,5 +24,8 @@ export {
     Comment,
     BondCard,
     NumberOtp,
-    BoxWithTextIcon
+    BoxWithTextIcon,
+    ContactBox,
+    MessageBubble,
+    MessageList
 }
