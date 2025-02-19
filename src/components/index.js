@@ -8,6 +8,7 @@ import SuggestionPost from "./SuggestionPost";
 import Comment from "./Comment";
 import BondCard from "./BondCard";
 import NumberOtp from "./NumberOtp";
+import BoxWithTextIcon from "./BoxWithTextIcon";
 
 export {
     Input,
@@ -19,5 +20,6 @@ export {
     SuggestionPost,
     Comment,
     BondCard,
-    NumberOtp
+    NumberOtp,
+    BoxWithTextIcon
 }

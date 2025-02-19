@@ -42,6 +42,11 @@ import refresh from "./icons/refresh.svg"
 import uploadIcon from "./icons/upload-icon.svg";
 import uploadAvatar from "./icons/upload-avatar.svg";
 import profilePicture from "./icons/profilePicture.svg"
+import user2 from "./icons/user2.svg"
+import logo2 from "./icons/logo2.svg"
+import world from "./icons/world.svg"
+import marketplace from "./icons/marketplace.svg"
+import ai from "./icons/ai.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -92,5 +97,10 @@ export {
   refresh,
   uploadIcon,
   uploadAvatar,
-  profilePicture
+  profilePicture,
+  user2,
+  logo2,
+  world,
+  marketplace,
+  ai
 };

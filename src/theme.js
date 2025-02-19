@@ -154,10 +154,11 @@ export const theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    borderRadius: "2px",
+                    borderRadius: "4px",
                     padding: "16px 25px",
                     boxShadow: "none !important",
                     backgroundColor: "#FFFFFF",
+                    border: "1px solid #E4E4E4"
                 },
             },
         },

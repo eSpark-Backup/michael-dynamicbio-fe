@@ -89,7 +89,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 index === length - 1 && <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", columnGap: "4px", cursor: "pointer" }}>
                     <img src={refresh} alt="Refresh" />
-                    <Typography sx={{ fontSize: "11px", fontWeight: 700, color: "#000000" }}>Load more</Typography>
+                    <Typography sx={{ fontSize: "10px", fontWeight: 300, color: "#505050" }}>Load more</Typography>
                 </Box>
             }
         </Paper >

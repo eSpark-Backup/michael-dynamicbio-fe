@@ -1,4 +1,4 @@
-import { einstein, postPicture, user, userWithCamera } from "../assets";
+import { einstein, postPicture, user, user2, userWithCamera } from "../assets";
 
 export const bondSuggestions = [
     {
@@ -23,28 +23,24 @@ export const bondSuggestions = [
 
 export const interestSuggestions = [
     {
-        img: userWithCamera,
-        name: "ScienceLab",
-        description: "115+ Members",
-        address: "Delhi, India"
+        img: user2,
+        name: "Upwork",
+        description: "175,065 members",
     },
     {
-        img: userWithCamera,
-        name: "ScienceLab",
-        description: "115+ Members",
-        address: "Delhi, India"
+        img: user2,
+        name: "Skype",
+        description: "175,065 members"
     },
     {
-        img: userWithCamera,
-        name: "ScienceLab",
-        description: "115+ Members",
-        address: "Delhi, India"
+        img: user2,
+        name: "WhatsApp",
+        description: "175,065 members"
     },
     {
-        img: userWithCamera,
-        name: "ScienceLab",
-        description: "115+ Members",
-        address: "Delhi, India"
+        img: user2,
+        name: "Facebook",
+        description: "175,065 members"
     },
 ]
 
