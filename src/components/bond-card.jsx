@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Button from "./button";
-import { bondBlack2, close } from "../assets";
+import { bondBlack2, close, bondWhite } from "../assets";
+import { useState } from "react";
 
 const BondCard = ({
   profileImage,
@@ -12,6 +13,7 @@ const BondCard = ({
   place,
   members,
 }) => {
+  const [icon, setIcon] = useState(bondBlack2);
   return (
     <Box
       sx={{
@@ -96,7 +98,11 @@ const BondCard = ({
           </Typography>
         </Stack>
       )}
-      <Button sx={{ mt: 1, height: "48px", position: "relative" }}>
+      <Button
+        sx={{ mt: 1, height: "48px", position: "relative" }}
+        onMouseEnter={() => setIcon(bondWhite)}
+        onMouseLeave={() => setIcon(bondBlack2)}
+      >
         <img
           style={{
             position: "absolute",
@@ -104,7 +110,7 @@ const BondCard = ({
             right: "10px",
             transform: "translateY(-50%)",
           }}
-          src={bondBlack2}
+          src={icon}
           alt="add"
         />
         Bond

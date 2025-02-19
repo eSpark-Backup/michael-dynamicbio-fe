@@ -6,6 +6,10 @@ import OtpInput from "./otp-input";
 import NumberOtp from "./NumberOtp";
 import RightSideBar from "./RightSideBar";
 import BondCard from "./bond-card";
+import BondCard2 from "./BondCard";
+import SuggestionPost from "./SuggestionPost";
+import Comment from "./Comment";
+import BoxWithTextIcon from "./BoxWithTextIcon";
 
 export {
   Input,
@@ -16,4 +20,8 @@ export {
   NumberOtp,
   RightSideBar,
   BondCard,
+  BondCard2,
+  SuggestionPost,
+  Comment,
+  BoxWithTextIcon,
 };

@@ -34,8 +34,25 @@ import plus from "./icons/plus.svg";
 import verticleDots from "./icons/verticle-dots.svg";
 import close from "./icons/close.svg";
 import bondBlack2 from "./icons/bond-black.svg";
+import bondWhite from "./icons/bond-white.svg";
 import addBond from "./icons/add-bond.svg";
 import deleteBond from "./icons/delete-bond.svg";
+import three_vertical_dots from "./icons/three_vertical_dots.svg";
+import postPicture from "./icons/post_picture.svg";
+import like from "./icons/like.svg";
+import comment from "./icons/comment.svg";
+import repost from "./icons/repost.svg";
+import send from "./icons/send.svg";
+import emoji from "./icons/emoji.svg";
+import camera from "./icons/camera.svg";
+import einstein from "./icons/einstein.svg";
+import refresh from "./icons/refresh.svg";
+import profilePicture from "./icons/profilePicture.svg";
+import user2 from "./icons/user2.svg";
+import logo2 from "./icons/logo2.svg";
+import world from "./icons/world.svg";
+import marketplace from "./icons/marketplace.svg";
+import ai from "./icons/ai.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -83,6 +100,23 @@ export {
   pheonix,
   close,
   bondBlack2,
+  bondWhite,
   addBond,
   deleteBond,
+  three_vertical_dots,
+  postPicture,
+  like,
+  comment,
+  repost,
+  send,
+  emoji,
+  camera,
+  einstein,
+  refresh,
+  profilePicture,
+  user2,
+  logo2,
+  world,
+  marketplace,
+  ai,
 };
