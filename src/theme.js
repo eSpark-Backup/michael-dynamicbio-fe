@@ -42,9 +42,11 @@ export const theme = createTheme({
                     justifyContent: "center",
                     alignItems: "center",
                     lineHeight: "0px",
+                    transition: "all 0.3s ease-in-out",
                     "&:hover": {
                         background:
                             "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        color: "#FFF",
                     },
                 },
             },

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { camera, comment, emoji, like, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
-import BondCard from './BondCard.jsx';
+import BondCard2 from './BondCard.jsx';
 
 const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index }) => {
     const theme = useTheme();
@@ -20,7 +20,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                 </Typography>
                 <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
             </Box>
-            <BondCard userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
             {postPic && <img src={postPicture} alt="Post" />}
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
