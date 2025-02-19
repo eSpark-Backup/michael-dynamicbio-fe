@@ -12,3 +12,24 @@ The project requirements are outlined in below documents:
 
 ### Existing Showcase Website (created in Wix)
 https://www.dynamicbio.net/
+
+# DynamicBio Platform Frontend
+
+## Project Overview
+The DynamicBio Platform Frontend is a Vite.js based application designed with material UI for Michael Netherly's DynamicBio platform.
+
+### Technology Stack
+- **Frontend Framework:** Vite.js with Javascipt
+- **UI Library:** Material UI
+- **Global Store:** Redux toolkit
+
+### Scripts
+- `npm run dev`: Start the development server
+- `npm run build`: Compile Javascript
+
+### Repository
+- **URL:** [GitHub Repository](https://github.com/eSpark-Consultants/michael-dynamicbio-fe)
+- **Issues:** [Issue Tracker](https://github.com/eSpark-Consultants/michael-dynamicbio-fe/issues)
+
+### Author
+- Developed by eSpark Consulting Group for Michael Netherly
