@@ -67,7 +67,6 @@ const Header = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            paddingRight: "30px",
             columnGap: "20px",
           }}
         >
