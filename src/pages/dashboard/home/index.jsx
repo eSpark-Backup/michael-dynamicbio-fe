@@ -2,7 +2,7 @@ import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery,
 import React, { useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard, RightSideBar, SuggestionPost } from '../../../components';
+import { BondCard2, RightSideBar, SuggestionPost } from '../../../components';
 
 const Home = () => {
   const theme = useTheme();
@@ -108,7 +108,7 @@ const Home = () => {
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
               {bondSuggestions?.map((item, index) => (
-                <BondCard key={index} userImage={item?.img} userName={item?.name} userAddress={item?.address} userRole={item?.role} />
+                <BondCard2 key={index} userImage={item?.img} userName={item?.name} userAddress={item?.address} userRole={item?.role} />
               ))}
             </Box>
           </Paper>

@@ -3,11 +3,12 @@ import OutlinedInput from "./outline-input";
 import Button from "./button";
 import Dropdown from "./Dropdown";
 import OtpInput from "./otp-input";
+import NumberOtp from "./NumberOtp";
 import RightSideBar from "./RightSideBar";
+import BondCard from "./bond-card";
+import BondCard2 from "./BondCard";
 import SuggestionPost from "./SuggestionPost";
 import Comment from "./Comment";
-import BondCard from "./BondCard";
-import NumberOtp from "./NumberOtp";
 import BoxWithTextIcon from "./BoxWithTextIcon";
 import ContactBox from "./ContactBox";
 import MessageBubble from "./MessageBubble";
@@ -29,5 +30,6 @@ export {
     ContactBox,
     MessageBubble,
     MessageList,
-    TypingDots
+    TypingDots,
+    BondCard2,
 }

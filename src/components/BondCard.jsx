@@ -2,7 +2,7 @@ import { Box, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { bondMain } from '../assets'
 
-const BondCard = ({ userImage, userName, userAddress, userRole, time }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time }) => {
     const theme = useTheme()
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }}>
@@ -20,4 +20,4 @@ const BondCard = ({ userImage, userName, userAddress, userRole, time }) => {
     )
 }
 
-export default BondCard
+export default BondCard2
