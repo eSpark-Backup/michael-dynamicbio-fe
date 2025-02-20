@@ -1,4 +1,5 @@
 FROM node:lts-alpine
+ENV NODE_ENV=Development
 
 WORKDIR /usr/src/app
 
