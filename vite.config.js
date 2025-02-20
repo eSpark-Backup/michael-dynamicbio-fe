@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vite"; 
 import react from "@vitejs/plugin-react";
 
 export default () => {
@@ -15,6 +15,11 @@ export default () => {
     preview: {
       host: true,
       port: 3000,
+      allowedHosts: [
+        "fusion.esparkconsultants.com",
+        "fusion-stg.esparkconsultants.com",
+        "fusion-stg-api.esparkconsultants.com",
+      ],
     },
   });
 };
