@@ -22,7 +22,7 @@ import {
   Cells,
   Pulses,
 } from "./pages";
-import "./App.css";
+import "./app.css";
 
 const App = () => {
   return (
