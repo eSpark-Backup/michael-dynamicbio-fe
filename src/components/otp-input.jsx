@@ -1,7 +1,7 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import OTPInput from "react-otp-input";
 
-const OtpInput = ({ numInputs, value, onChange }) => {
+const OtpInput = ({ placeholder, numInputs, value, onChange }) => {
   const handleOtpChange = (val) => {
     const paddedOtp = val.padEnd(6, "_").slice(0, 6);
     onChange(paddedOtp);
@@ -28,12 +28,18 @@ const OtpInput = ({ numInputs, value, onChange }) => {
         },
       }}
     >
-      <OTPInput
-        value={value}
-        onChange={handleOtpChange}
-        numInputs={numInputs}
-        renderInput={(props) => <input {...props} />}
-      />
+      {placeholder ? (
+        <Typography sx={{ margin: "20px 0" }} fontSize={24}>
+          {placeholder}
+        </Typography>
+      ) : (
+        <OTPInput
+          value={value}
+          onChange={handleOtpChange}
+          numInputs={numInputs}
+          renderInput={(props) => <input {...props} />}
+        />
+      )}
     </Stack>
   );
 };

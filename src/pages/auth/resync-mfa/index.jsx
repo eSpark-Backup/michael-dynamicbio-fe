@@ -1,0 +1,102 @@
+import { Link } from "react-router-dom";
+import { Box, Stack, Typography } from "@mui/material";
+import { Button, OtpInput } from "../../../components";
+import { useState } from "react";
+
+const ResyncMfa = () => {
+  const [otp, setOtp] = useState("______");
+  const [otp2, setOtp2] = useState("______");
+  const handleResync = () => {
+    if (
+      otp.length === 6 &&
+      !otp.includes("_") &&
+      otp2.length === 6 &&
+      !otp2.includes("_")
+    ) {
+      console.log(otp, "<=otp1", otp2, "<=otp2");
+    } else {
+      alert("enter both code")
+    }
+  };
+  return (
+    <Stack
+      sx={{
+        width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" },
+        ".MuiStack-root": {
+          borderBottom: "1px solid #000",
+          borderRadius: "0px",
+          justifyContent: "flex-start",
+          padding: "0 20px",
+        },
+      }}
+      direction="column"
+      alignItems="center"
+      justifyItems="flex-start"
+    >
+      <Typography textAlign="center" fontSize="40px">
+        Re-sync Your Device
+      </Typography>
+      <Typography
+        sx={{ marginTop: "48px" }}
+        textAlign="center"
+        fontWeight={300}
+        fontSize="17px"
+      >
+        if you are multi-factor authentication(MFA) device appears to be
+        functioning properly and you are not able to sign in, then the device
+        might be out of Sync. First try to resync your device using the
+        following instructions.
+      </Typography>
+
+      <Typography
+        textAlign="left"
+        sx={{ width: "100%", fontSize: "17px", fontWeight: "300", mt: "24px" }}
+      >
+        Type the first authentication code you see on your device
+      </Typography>
+      <OtpInput value={otp} onChange={(val) => setOtp(val)} numInputs={6} />
+
+      <Typography
+        textAlign="left"
+        sx={{ width: "100%", fontSize: "17px", fontWeight: "300", mt: "24px" }}
+      >
+        Wait until the code gets updated or the display turns off. then turn on
+        or type the second code you see on your device
+      </Typography>
+      <OtpInput
+        placeholder={
+          otp.length === 6 && !otp.includes("_") ? null : "Type Updated Code"
+        }
+        value={otp2}
+        onChange={(val) => setOtp2(val)}
+        numInputs={6}
+      />
+
+      <Box onClick={handleResync} sx={{ width: "250px", mt: "82px" }}>
+        <Button isLoading={false}>Done</Button>
+      </Box>
+      <Typography sx={{ marginTop: "53px" }}>
+        Back to
+        <Link
+          style={{
+            textDecoration: "none",
+            marginLeft: "8px",
+            width: "100%",
+          }}
+          to="/login"
+        >
+          <Typography
+            variant="gradientText"
+            fontSize="18px"
+            fontWeight={500}
+            component="span"
+          >
+            Login
+          </Typography>
+        </Link>
+      </Typography>
+    </Stack>
+  );
+};
+
+export default ResyncMfa;
