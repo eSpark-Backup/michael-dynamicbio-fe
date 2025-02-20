@@ -1,4 +1,4 @@
-import Input from "./input";
+import Input from "./Input";
 import OutlinedInput from "./outline-input";
 import Button from "./button";
 import Dropdown from "./Dropdown";
