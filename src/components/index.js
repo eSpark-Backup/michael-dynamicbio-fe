@@ -12,6 +12,7 @@ import BoxWithTextIcon from "./BoxWithTextIcon";
 import ContactBox from "./ContactBox";
 import MessageBubble from "./MessageBubble";
 import MessageList from "./MessageList";
+import TypingDots from "./TypingDots";
 
 export {
     Input,
@@ -27,5 +28,6 @@ export {
     BoxWithTextIcon,
     ContactBox,
     MessageBubble,
-    MessageList
+    MessageList,
+    TypingDots
 }

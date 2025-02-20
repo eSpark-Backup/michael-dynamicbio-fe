@@ -178,7 +178,7 @@ export const theme = createTheme({
                         color: "#000000",
                         fontSize: "14px",
                         height: "48px",
-                        width: "245px",
+                        // width: "245px",
                         fontWeight: 400,
                         "&.Mui-focusVisible": {
                             backgroundColor: "#FFFFFF",

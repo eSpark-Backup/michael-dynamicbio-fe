@@ -22,9 +22,9 @@ const BoxWithTextIcon = ({ text, icon }) => {
                 borderRadius: "8px",
                 padding: "1px",
                 background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                "-webkit-mask": "linear-gradient(white, white) content-box, linear-gradient(white, white)",
                 mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                "-webkit-mask-composite": "destination-out",
+                WebkitMask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                WebkitMaskComposite: "destination-out",
                 maskComposite: "exclude",
             },
         }}>

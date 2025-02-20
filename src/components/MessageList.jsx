@@ -8,8 +8,7 @@ const MessageList = ({ messages }) => {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                p: 2,
-                rowGap: "20px"
+                // p: 2,
             }}
         >
             {messages.map((msg) => (

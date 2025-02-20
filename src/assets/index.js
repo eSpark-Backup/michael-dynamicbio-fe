@@ -50,6 +50,13 @@ import ai from "./icons/ai.svg"
 import filter from "./icons/filter.svg"
 import link from "./icons/link.svg"
 import emojiBlackWhite from "./icons/emoji_black_white.svg"
+import heart from "./icons/heart.svg"
+import best from "./icons/best.svg"
+import reaction1 from "./icons/reaction-1.svg"
+import reaction2 from "./icons/reaction-2.svg"
+import reaction3 from "./icons/reaction-3.svg"
+import reaction4 from "./icons/reaction-4.svg"
+import reaction5 from "./icons/reaction-5.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -110,5 +117,12 @@ export {
   filter,
   friend,
   link,
-  emojiBlackWhite
+  emojiBlackWhite,
+  heart,
+  best,
+  reaction1,
+  reaction2,
+  reaction3,
+  reaction4,
+  reaction5,
 };

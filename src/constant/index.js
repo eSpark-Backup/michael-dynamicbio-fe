@@ -1,4 +1,4 @@
-import { einstein, friend, postPicture, user, userWithCamera, user2 } from "../assets";
+import { einstein, friend, postPicture, user, userWithCamera, user2, heart, best } from "../assets";
 
 export const bondSuggestions = [
     {
@@ -173,7 +173,7 @@ export const messages = [
         id: 1,
         sender: "You",
         text: "Hey Olivia, can you please review the latest design when you can?",
-        reactions: [{ count: 1, item: "❤️" }, { count: 2, item: "🔥" }],
+        reactions: [{ count: 1, item: heart }, { count: 2, item: best}],
         timestamp: "Friday 2:30pm",
         isUser: true,
     },
@@ -181,7 +181,7 @@ export const messages = [
         id: 2,
         sender: "Phoenix Baker",
         text: "Hey Olivia, can you please review the latest design when you can?",
-        reactions: [{ count: 1, item: "❤️" }, { count: 1, item: "🔥" }],
+        reactions: [{ count: 1, item: heart }, { count: 1, item: best }],
         timestamp: "Friday 2:30pm",
         isUser: false,
         isTyping: false
