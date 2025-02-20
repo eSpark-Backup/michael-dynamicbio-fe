@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
 import { Button, OtpInput } from "../../../components";
 import { qrcode } from "../../../assets";
 
 const GoogleAuth = () => {
+  const isMfaActive = false;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("______");
 
@@ -29,9 +30,9 @@ const GoogleAuth = () => {
         fontWeight={300}
         fontSize="17px"
       >
-        For enhanced security, use Google Authenticator and scan the QR code.
-        This trusted app generates unique login codes, safeguarding your
-        account. Get Google Authenticator
+        {isMfaActive
+          ? "Authentication using Google Authenticator. Enter the 6-digit code from your Google Authenticator."
+          : "For enhanced security, use Google Authenticator and scan the QR code. This trusted app generates unique login codes, safeguarding youraccount. Get Google Authenticator"}
       </Typography>
       <Stack
         direction="column"
@@ -39,14 +40,29 @@ const GoogleAuth = () => {
         alignItems="center"
         sx={{ marginTop: "55px", width: "424px" }}
       >
-        <img src={qrcode} />
+        {!isMfaActive && <img src={qrcode} />}
         <Box sx={{ mt: 2 }}>
           <OtpInput value={otp} onChange={(val) => setOtp(val)} numInputs={6} />
         </Box>
       </Stack>
 
-      <Box sx={{ width: "250px", mt: 2 }}>
-        <Button onClick={() => navigate("/")}>Skip for now</Button>
+      {isMfaActive && (
+        <Link
+          style={{
+            marginTop: "40px",
+            color: "#505050",
+            textDecoration: "none",
+          }}
+          to="/troubleshoot-mfa"
+        >
+          <Typography>Troubleshoot device?</Typography>
+        </Link>
+      )}
+
+      <Box sx={{ width: "250px", mt: isMfaActive ? 10 : 2 }}>
+        <Button onClick={() => navigate(isMfaActive ? "/login" : "/")}>
+          {isMfaActive ? "Back to login" : "Skip for now"}
+        </Button>
       </Box>
     </Stack>
   );

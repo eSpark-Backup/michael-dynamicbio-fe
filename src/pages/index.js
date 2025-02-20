@@ -10,6 +10,9 @@ import {
   ResetSuccess,
   CompleteProfile,
   UploadImage,
+  TroubleshootMfa,
+  EmailMfa,
+  ResyncMfa,
 } from "./auth";
 
 import { Home, Bonds, Pulses, Cells } from "./dashboard";
@@ -26,6 +29,9 @@ export {
   ResetSuccess,
   CompleteProfile,
   UploadImage,
+  TroubleshootMfa,
+  EmailMfa,
+  ResyncMfa,
   Home,
   Bonds,
   Pulses,

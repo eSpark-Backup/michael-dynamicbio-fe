@@ -9,6 +9,9 @@ import ForgetPassword from "./forget-password";
 import ResetSuccess from "./reset-success";
 import CompleteProfile from "./complete-profile";
 import UploadImage from "./upload-image";
+import TroubleshootMfa from "./troubleshoot-mfa";
+import EmailMfa from "./email-mfa";
+import ResyncMfa from "./resync-mfa";
 
 export {
   Login,
@@ -22,4 +25,7 @@ export {
   ResetSuccess,
   CompleteProfile,
   UploadImage,
+  TroubleshootMfa,
+  EmailMfa,
+  ResyncMfa,
 };

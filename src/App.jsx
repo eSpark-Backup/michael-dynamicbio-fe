@@ -14,6 +14,9 @@ import {
   ResetSuccess,
   CompleteProfile,
   UploadImage,
+  TroubleshootMfa,
+  EmailMfa,
+  ResyncMfa,
   Home,
   Bonds,
   Cells,
@@ -39,6 +42,10 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/upload-image" element={<UploadImage />} />
+        {/* Trouble shoot MFA */}
+        <Route path="/troubleshoot-mfa" element={<TroubleshootMfa />} />
+        <Route path="/email-mfa" element={<EmailMfa />} />
+        <Route path="/resync-mfa" element={<ResyncMfa />} />
       </Route>
 
       <Route element={<PrivateLayout isAuthenticated={true} />}>
