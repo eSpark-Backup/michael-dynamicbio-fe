@@ -1,4 +1,15 @@
-import { olivia, pheonix, einstein, postPicture, user, user2, friend, heart, best } from "../assets";
+import {
+  olivia,
+  pheonix,
+  einstein,
+  postPicture,
+  user,
+  user2,
+  friend,
+  heart,
+  best,
+  userAvatar,
+} from "../assets";
 
 export const bondSuggestions = [
   {
@@ -88,94 +99,95 @@ export const suggestionPostContent = [
   },
 ];
 
-
-
 export const chatsContent = [
   {
     id: 1,
     image: friend,
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
-    name: "Friend"
+    name: "Friend",
   },
   {
     id: 2,
     image: friend,
     lastMessage: "Please send details.",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 3,
     image: friend,
     lastMessage: "Done!",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 4,
     image: friend,
     lastMessage: "Ok! Deal",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 5,
     image: friend,
     lastMessage: "Let’s catch!",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 6,
     image: friend,
     lastMessage: ":)",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 7,
     image: friend,
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 8,
     image: friend,
     lastMessage: "Close deal!",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 9,
     image: friend,
     lastMessage: "Happy to help!",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 10,
     image: friend,
     lastMessage: "Hi!",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
   {
     id: 11,
     image: friend,
     lastMessage: "Sent a photo",
     time: "Jan 2",
-    name: "Alex"
+    name: "Alex",
   },
-]
+];
 
 export const messages = [
   {
     id: 1,
     sender: "You",
     text: "Hey Olivia, can you please review the latest design when you can?",
-    reactions: [{ count: 1, item: heart }, { count: 2, item: best }],
+    reactions: [
+      { count: 1, item: heart },
+      { count: 2, item: best },
+    ],
     timestamp: "Friday 2:30pm",
     isUser: true,
   },
@@ -183,10 +195,13 @@ export const messages = [
     id: 2,
     sender: "Phoenix Baker",
     text: "Hey Olivia, can you please review the latest design when you can?",
-    reactions: [{ count: 1, item: heart }, { count: 1, item: best }],
+    reactions: [
+      { count: 1, item: heart },
+      { count: 1, item: best },
+    ],
     timestamp: "Friday 2:30pm",
     isUser: false,
-    isTyping: false
+    isTyping: false,
   },
   {
     id: 3,
@@ -195,9 +210,8 @@ export const messages = [
     reactions: [],
     timestamp: "",
     isUser: false,
-    isTyping: true
+    isTyping: true,
   },
-
 ];
 export const suggestedBonds = [
   {
@@ -318,5 +332,32 @@ export const suggestedBonds = [
         isPage: false,
       },
     ],
+  },
+];
+
+export const groupsData = [
+  {
+    id: 1,
+    userImage: userAvatar,
+    title: "User Experience & Trends",
+    desc: "175,065",
+  },
+  {
+    id: 2,
+    userImage: userAvatar,
+    title: "User Experience & Trends",
+    desc: "175,065",
+  },
+  {
+    id: 3,
+    userImage: userAvatar,
+    title: "User Experience & Trends",
+    desc: "175,065",
+  },
+  {
+    id: 4,
+    userImage: userAvatar,
+    title: "User Experience & Trends",
+    desc: "175,065",
   },
 ];

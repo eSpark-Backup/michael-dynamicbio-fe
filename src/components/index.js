@@ -14,6 +14,8 @@ import ContactBox from "./ContactBox";
 import MessageBubble from "./MessageBubble";
 import MessageList from "./MessageList";
 import TypingDots from "./TypingDots";
+import PageCard from "./page-card";
+import DynamicModal from "./dynamic-modal";
 
 export {
     Input,
@@ -27,6 +29,8 @@ export {
     BondCard,
     NumberOtp,
     BoxWithTextIcon,
+    PageCard,
+    DynamicModal,
     ContactBox,
     MessageBubble,
     MessageList,

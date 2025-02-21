@@ -125,18 +125,18 @@ export const theme = createTheme({
                 },
 
                 root: {
-                    border: "1px solid #DDE2E4",
+                    border: "1px solid #000",
                     width: "100%",
                     outline: "none",
                     padding: " 0px 5px",
-                    fontSize: "14px",
-                    color: "#505050",
+                    fontSize: "24px",
+                    color: "#000",
                     fontWeight: 400,
                     borderRadius: "4px",
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: "transparent",
                     height: "42px",
                     ":focus": {
-                        border: "1px solid #DDE2E4",
+                        border: "1px solid #000",
                     },
                     fieldset: {
                         border: 0,
@@ -145,6 +145,15 @@ export const theme = createTheme({
             },
         },
         MuiCheckbox: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-checked": {
+                        color: "#1877F2",
+                    },
+                },
+            },
+        },
+        MuiRadio: {
             styleOverrides: {
                 root: {
                     "&.Mui-checked": {
