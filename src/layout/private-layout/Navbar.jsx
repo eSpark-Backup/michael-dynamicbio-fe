@@ -92,7 +92,7 @@ const Navbar = () => {
         px: { xs: "10px", lg: "30px" },
       }}
     >
-      <Box sx={{ width: { xs: "0px", lg: "204px" }, visibility: "hidden",border:"1px solid red" }}></Box>
+      <Box sx={{ width: { xs: "0px", lg: "204px" }, visibility: "hidden", border: "1px solid red" }}></Box>
       {isMobile ?
         <Box sx={{ display: "flex", pr: "5px" }}>
           <Box
@@ -307,12 +307,12 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Account</MenuItem>
-                <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
-                <MenuItem onClick={handleClose}>Language</MenuItem>
-                <MenuItem onClick={handleClose}>Help</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Profile</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Logout</MenuItem>
               </Menu>
             </Box>
           </Box>

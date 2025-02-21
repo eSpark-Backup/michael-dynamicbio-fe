@@ -3,7 +3,7 @@ import React from 'react'
 import { bondMain, plus, user } from '../assets'
 import { interestSuggestions } from '../constant'
 
-const RightSideBar = () => {
+const RightSideBar = ({ hideResearch }) => {
     const theme = useTheme()
     return (
         <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
@@ -41,7 +41,7 @@ const RightSideBar = () => {
                     </Box>
                 ))}
             </Box>
-            <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
+            {!hideResearch && <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}>
                         Research
@@ -67,7 +67,7 @@ const RightSideBar = () => {
                     )
                 })}
                 <Button sx={{ height: "40px", fontSize: "14px", fontWeight: 400, color: "#171717" }}>Manage</Button>
-            </Paper>
+            </Paper>}
         </Box>
     )
 }

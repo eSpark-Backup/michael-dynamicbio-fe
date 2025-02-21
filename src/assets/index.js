@@ -22,6 +22,16 @@ import successTick from "./icons/success-tick.svg";
 import userAvatar from "./icons/user-avatar.svg";
 import uploadIcon from "./icons/upload-icon.svg";
 import uploadAvatar from "./icons/upload-avatar.svg";
+import filter from "./icons/filter.svg"
+import link from "./icons/link.svg"
+import emojiBlackWhite from "./icons/emoji_black_white.svg"
+import heart from "./icons/heart.svg"
+import best from "./icons/best.svg"
+import reaction1 from "./icons/reaction-1.svg"
+import reaction2 from "./icons/reaction-2.svg"
+import reaction3 from "./icons/reaction-3.svg"
+import reaction4 from "./icons/reaction-4.svg"
+import reaction5 from "./icons/reaction-5.svg"
 import userWithCamera from "./icons/user_with_camera.svg";
 import bondMain from "./icons/Bond_main.svg";
 import user from "./icons/user.svg";
@@ -57,6 +67,7 @@ import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
 import olivia from "./images/olivia.png";
 import pheonix from "./images/pheonix.png";
+import friend from "./images/friend.jpeg"
 import mobile from "./icons/mobile.svg";
 import email from "./icons/email.svg";
 
@@ -120,6 +131,17 @@ export {
   world,
   marketplace,
   ai,
+  filter,
+  friend,
+  link,
+  emojiBlackWhite,
+  heart,
+  best,
+  reaction1,
+  reaction2,
+  reaction3,
+  reaction4,
+  reaction5,
   mobile,
   email,
 };

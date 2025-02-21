@@ -10,18 +10,26 @@ import BondCard2 from "./BondCard";
 import SuggestionPost from "./SuggestionPost";
 import Comment from "./Comment";
 import BoxWithTextIcon from "./BoxWithTextIcon";
+import ContactBox from "./ContactBox";
+import MessageBubble from "./MessageBubble";
+import MessageList from "./MessageList";
+import TypingDots from "./TypingDots";
 
 export {
-  Input,
-  OutlinedInput,
-  Button,
-  Dropdown,
-  OtpInput,
-  NumberOtp,
-  RightSideBar,
-  BondCard,
-  BondCard2,
-  SuggestionPost,
-  Comment,
-  BoxWithTextIcon,
-};
+    Input,
+    OutlinedInput,
+    Button,
+    Dropdown,
+    OtpInput,
+    RightSideBar,
+    SuggestionPost,
+    Comment,
+    BondCard,
+    NumberOtp,
+    BoxWithTextIcon,
+    ContactBox,
+    MessageBubble,
+    MessageList,
+    TypingDots,
+    BondCard2,
+}
