@@ -63,13 +63,15 @@ import logo2 from "./icons/logo2.svg";
 import world from "./icons/world.svg";
 import marketplace from "./icons/marketplace.svg";
 import ai from "./icons/ai.svg";
+import mobile from "./icons/mobile.svg";
+import email from "./icons/email.svg";
+import edit from "./icons/edit.svg";
+
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
 import olivia from "./images/olivia.png";
 import pheonix from "./images/pheonix.png";
 import friend from "./images/friend.jpeg"
-import mobile from "./icons/mobile.svg";
-import email from "./icons/email.svg";
 
 export {
   eye,
@@ -144,4 +146,5 @@ export {
   reaction5,
   mobile,
   email,
+  edit,
 };

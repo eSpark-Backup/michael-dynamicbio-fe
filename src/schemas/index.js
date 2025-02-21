@@ -70,3 +70,17 @@ export const profileDetailsSchema = Yup.object({
   industry: Yup.string().required("Industry is required."),
   role: Yup.string().required("Role is required"),
 });
+
+export const createGroupSchema = Yup.object({
+  name: Yup.string()
+    .min(3, "Group name must be at least 3 digits.")
+    .max(15, "Group name must not exceed 100 digits.")
+    .required("Group name is required"),
+  description: Yup.string()
+    .min(20, "Description must be at least 20 digits.")
+    .max(2000, "Description must not exceed 2000 digits.")
+    .required("Description is required"),
+  location: Yup.string().max(100, "Location must not exceed 100 digits."),
+  rules: Yup.string().max(4000, "Rules must not exceed 4000 digits."),
+  type: Yup.string().required("Please select group type"),
+});

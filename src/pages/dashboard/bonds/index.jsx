@@ -75,7 +75,7 @@ const Bonds = () => {
           {activeSidebar?.component}
         </Grid>
         <Grid item xs={12} md={2.9}>
-          <RightSideBar type="bonds" />
+          <RightSideBar hideResearch type="bonds" />
         </Grid>
       </Grid>
     </Box>
