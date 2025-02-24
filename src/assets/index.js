@@ -74,6 +74,9 @@ import mobile from "./icons/mobile.svg";
 import email from "./icons/email.svg";
 import notification from "./icons/notification.svg"
 import three_vertical_dots_white from "./icons/three_dots_white.svg"
+import bell from "./icons/menu-bell.svg"
+import deleteIcon from "./icons/delete.svg"
+import dislike from "./icons/dislike.svg"
 
 export {
   eye,
@@ -150,5 +153,8 @@ export {
   email,
   edit,
   notification,
-  three_vertical_dots_white
+  three_vertical_dots_white,
+  bell,
+  deleteIcon,
+  dislike
 };
