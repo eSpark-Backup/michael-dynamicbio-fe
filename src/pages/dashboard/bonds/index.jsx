@@ -4,24 +4,33 @@ import { RightSideBar } from "../../../components";
 import MyBond from "./my-bonds";
 import Groups from "./groups";
 import Pages from "./pages";
+import { useQuery } from "../../../utils";
+import { useNavigate } from "react-router-dom";
 
 const Bonds = () => {
+  const navigate = useNavigate();
+  const query = useQuery();
+  const sub = query.get("sub") || "bond";
   const sidebar = [
     {
+      sub: "bond",
       label: "Bonds",
       component: <MyBond />,
     },
     {
+      sub: "group",
       label: "Groups",
       component: <Groups />,
     },
     {
+      sub: "page",
       label: "Pages",
       component: <Pages />,
     },
   ];
-  const [activeSidebar, setActiveSidebar] = useState(sidebar[0]);
-
+  const [activeSidebar, setActiveSidebar] = useState(
+    sidebar.find((item) => item.sub === sub)
+  );
   return (
     <Box sx={{ p: "20px" }}>
       <Grid container spacing={4}>
@@ -45,7 +54,10 @@ const Bonds = () => {
             {sidebar.map((item) => {
               return (
                 <Typography
-                  onClick={() => setActiveSidebar(item)}
+                  onClick={() => {
+                    navigate(`/bonds?sub=${item.sub}`);
+                    setActiveSidebar(item);
+                  }}
                   key={item.label}
                   sx={{
                     padding: "14px 20px",
