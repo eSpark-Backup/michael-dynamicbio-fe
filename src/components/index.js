@@ -16,6 +16,8 @@ import MessageList from "./MessageList";
 import TypingDots from "./TypingDots";
 import PageCard from "./page-card";
 import DynamicModal from "./dynamic-modal";
+import CustomizeTabs from "./CustomizeTabs";
+import PulseProfileCard from "./PulseProfileCard";
 
 export {
     Input,
@@ -36,4 +38,6 @@ export {
     MessageList,
     TypingDots,
     BondCard2,
+    CustomizeTabs,
+    PulseProfileCard
 }

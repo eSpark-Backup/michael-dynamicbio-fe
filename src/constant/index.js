@@ -9,6 +9,7 @@ import {
   heart,
   best,
   userAvatar,
+  profilePicture
 } from "../assets";
 
 export const bondSuggestions = [
@@ -361,3 +362,41 @@ export const groupsData = [
     desc: "175,065",
   },
 ];
+
+export const pulseCardContent = [
+  {
+    id: 1,
+    userImage: profilePicture,
+    userRole: "Founder & CEO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    time: "34m ago",
+  },
+  {
+    id: 2,
+    userImage: profilePicture,
+    userRole: "Founder & CEO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    time: "34m ago",
+  },
+  {
+    id: 3,
+    userImage: profilePicture,
+    userRole: "Founder & CEO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    time: "34m ago",
+  },
+  {
+    id: 4,
+    userImage: profilePicture,
+    userRole: "Founder & CEO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    time: "34m ago",
+  },
+  {
+    id: 5,
+    userImage: profilePicture,
+    userRole: "Founder & CEO",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    time: "34m ago",
+  },
+]
