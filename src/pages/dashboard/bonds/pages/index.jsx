@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import PagesTab from "./pagestab";
+import CreatePage from "./createPage";
 import { groupsData } from "../../../../constant";
+import { useQuery } from "../../../../utils";
 
 const Pages = () => {
+  const query = useQuery();
+  const edit = query.get("edit");
+  const idEdit = edit === "true";
   const tabs = [
     {
       label: "Your",
-      component: <PagesTab suggestedPages={groupsData} accounts={[]} type="my-pages" />,
+      component: (
+        <PagesTab suggestedPages={groupsData} accounts={[]} type="my-pages" />
+      ),
     },
     {
       label: "Followed",
@@ -16,7 +23,9 @@ const Pages = () => {
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  return (
+  return idEdit ? (
+    <CreatePage />
+  ) : (
     <>
       <Stack
         direction="row"

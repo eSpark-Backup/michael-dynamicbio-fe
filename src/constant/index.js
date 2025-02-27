@@ -9,7 +9,9 @@ import {
   heart,
   best,
   userAvatar,
-  profilePicture
+  profilePicture,
+  company,
+  school
 } from "../assets";
 
 export const bondSuggestions = [
@@ -399,4 +401,21 @@ export const pulseCardContent = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
-]
+];
+
+export const pageTypes = [
+  {
+    title: "Company",
+    desc: "Small, medium, & large business",
+    icon: company,
+    alt: "company",
+    link: "/bonds?sub=page&edit=true&pageType=company",
+  },
+  {
+    title: "Educational Institute",
+    desc: "School and universities",
+    icon: school,
+    alt: "school",
+    link: null,
+  },
+];

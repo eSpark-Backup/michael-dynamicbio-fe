@@ -9,6 +9,7 @@ import {
 import { eyeClose, eye } from "../assets/index.js";
 
 const Input = ({
+  sx,
   wordLimit,
   value,
   required,
@@ -40,6 +41,7 @@ const Input = ({
         onChange={handleChange}
         type={showPassword ? "text" : type}
         disabled={disabled}
+        sx={sx}
         InputProps={{
           endAdornment:
             endAdornment ||

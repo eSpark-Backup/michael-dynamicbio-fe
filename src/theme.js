@@ -125,7 +125,7 @@ export const theme = createTheme({
                 },
 
                 root: {
-                    border: "1px solid #DDE2E4",
+                    border: "1px solid #000",
                     width: "100%",
                     outline: "none",
                     padding: " 0px 5px",
