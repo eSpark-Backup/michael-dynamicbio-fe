@@ -64,12 +64,6 @@ import world from "./icons/world.svg";
 import marketplace from "./icons/marketplace.svg";
 import ai from "./icons/ai.svg";
 import edit from "./icons/edit.svg";
-
-import authImage from "./images/auth-image.png";
-import qrcode from "./images/qr-code.png";
-import olivia from "./images/olivia.png";
-import pheonix from "./images/pheonix.png";
-import friend from "./images/friend.jpeg"
 import mobile from "./icons/mobile.svg";
 import email from "./icons/email.svg";
 import notification from "./icons/notification.svg"
@@ -77,6 +71,14 @@ import three_vertical_dots_white from "./icons/three_dots_white.svg"
 import bell from "./icons/menu-bell.svg"
 import deleteIcon from "./icons/delete.svg"
 import dislike from "./icons/dislike.svg"
+import company from "./icons/company.svg"
+import school from "./icons/school.svg"
+
+import authImage from "./images/auth-image.png";
+import qrcode from "./images/qr-code.png";
+import olivia from "./images/olivia.png";
+import pheonix from "./images/pheonix.png";
+import friend from "./images/friend.jpeg"
 
 export {
   eye,
@@ -156,5 +158,7 @@ export {
   three_vertical_dots_white,
   bell,
   deleteIcon,
-  dislike
+  dislike,
+  company,
+  school,
 };

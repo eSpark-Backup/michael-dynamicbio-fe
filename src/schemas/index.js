@@ -84,3 +84,18 @@ export const createGroupSchema = Yup.object({
   rules: Yup.string().max(4000, "Rules must not exceed 4000 digits."),
   type: Yup.string().required("Please select group type"),
 });
+
+export const createPageSchema = Yup.object({
+  organizationName: Yup.string()
+    .max(100, "Organization name must not exceed 100 digits.")
+    .required("Organization name is required"),
+  address: Yup.string().required("Address is required"),
+  location: Yup.string().required(100, "Location is required."),
+  size: Yup.string().required("Please select Organization size"),
+  type: Yup.string().required("Please select Organization type"),
+  website: Yup.string().required("Website is required"),
+  tagline: Yup.string().required("Tagline is required"),
+  permissions: Yup.boolean()
+    .oneOf([true], "You must accept the permission")
+    .required("This field is required"),
+});

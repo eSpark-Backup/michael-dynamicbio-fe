@@ -18,6 +18,7 @@ import PageCard from "./page-card";
 import DynamicModal from "./dynamic-modal";
 import CustomizeTabs from "./CustomizeTabs";
 import PulseProfileCard from "./PulseProfileCard";
+import CreatePageForm from "./create-page-form";
 
 export {
     Input,
@@ -39,5 +40,6 @@ export {
     TypingDots,
     BondCard2,
     CustomizeTabs,
-    PulseProfileCard
+    PulseProfileCard,
+    CreatePageForm,
 }

@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import { RightSideBar } from "../../../components";
 import MyBond from "./my-bonds";
 import Groups from "./groups";
 import Pages from "./pages";
 import { useQuery } from "../../../utils";
 import { useNavigate } from "react-router-dom";
+import { pageTypes } from "../../../constant";
 
 const Bonds = () => {
   const navigate = useNavigate();
   const query = useQuery();
   const sub = query.get("sub") || "bond";
+  const pageType = query.get("pageType");
   const sidebar = [
     {
       sub: "bond",
@@ -88,6 +90,53 @@ const Bonds = () => {
         </Grid>
         <Grid item xs={12} md={2.9}>
           <RightSideBar hideResearch type="bonds" />
+          {pageType && (
+            <Stack
+              mt={2}
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+            >
+              {pageTypes.map((item) => {
+                return (
+                  item.alt === pageType && (
+                    <Box
+                      key={item?.title}
+                      sx={{
+                        width: "300px",
+                        height: "160px",
+                        boxShadow: "0px 0px 6.1px 0px #00000026",
+                        borderRadius: "4px",
+                        background: "#FFF",
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <img src={item?.icon} alt={item?.alt} />
+                      <Typography
+                        textAlign="center"
+                        fontSize={21}
+                        fontWeight={700}
+                      >
+                        {item?.title}
+                      </Typography>
+                      <Typography
+                        textAlign="center"
+                        fontSize={17}
+                        fontWeight={300}
+                      >
+                        {item?.desc}
+                      </Typography>
+                    </Box>
+                  )
+                );
+              })}
+            </Stack>
+          )}
         </Grid>
       </Grid>
     </Box>
