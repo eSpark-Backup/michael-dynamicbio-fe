@@ -2,12 +2,18 @@ import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery,
 import React, { useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard2, RightSideBar, SuggestionPost } from '../../../components';
+import { BondCard2, DynamicModal, PostModal, RightSideBar, SuggestionPost } from '../../../components';
 
 const Home = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showMore, setShowMore] = useState(false);
+  const [showModal, setShowModal] = useState(false)
+
+  const HandlePostTypeClick = (item) => {
+    console.log(item)
+    setShowModal(true)
+  }
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -89,7 +95,7 @@ const Home = () => {
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
                 .map((item, index) => (
-                  <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#F8FCFF", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center", cursor: "pointer" }}>
+                  <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#F8FCFF", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center", cursor: "pointer" }} onClick={() => HandlePostTypeClick(item.label)}>
                     <img style={{ width: "24px", height: "24px" }} src={item.img} alt={item.label} />
                     <Typography sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}>{item.label}</Typography>
                   </Box>
@@ -137,6 +143,9 @@ const Home = () => {
           <RightSideBar />
         </Grid2>
       </Grid2>
+      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Heyy!"} postModal={true}>
+        <PostModal />
+      </DynamicModal>
     </Box>
   );
 };

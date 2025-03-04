@@ -1,6 +1,6 @@
 import { Stack, Box, Typography, Modal } from "@mui/material";
 import Button from "./button";
-import { close } from "../assets";
+import { close, heart, timer } from "../assets";
 
 const DynamicModal = ({
   open,
@@ -10,6 +10,7 @@ const DynamicModal = ({
   onSuccess,
   buttonText,
   sx,
+  postModal
 }) => {
   return (
     <Modal
@@ -60,8 +61,21 @@ const DynamicModal = ({
         >
           {children}
         </Box>
-        <Stack justifyContent="center" alignItems="center">
-          <Button type="submit" sx={{ maxWidth: "250px" }} onClick={onSuccess}>
+        <Stack justifyContent={postModal ? "flex-end" : "center"} alignItems={postModal ? "flex-end" : "center"} pr={postModal ? 6 : 0} direction={"row"} gap={3}
+          sx={{
+            ...(postModal && {
+              height: "55px",
+              borderTop: "1px solid #E4E4E4",
+              boxShadow: "0px 0px 10px 0px #00000040",
+              width: "calc(100% + 40px)",
+              display: "flex",
+              alignItems: "center",
+              margin: "0 -20px -20px -20px"
+            })
+          }}
+        >
+          <img src={timer} alt="Icon" style={{ width: "24px", height: "24px" }} />
+          <Button type="submit" sx={{ maxWidth: postModal ? "150px" : "250px", height: postModal ? "36px" : "auto" }} onClick={onSuccess}>
             {buttonText}
           </Button>
         </Stack>

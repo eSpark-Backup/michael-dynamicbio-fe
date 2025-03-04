@@ -19,6 +19,7 @@ import DynamicModal from "./dynamic-modal";
 import CustomizeTabs from "./CustomizeTabs";
 import PulseProfileCard from "./PulseProfileCard";
 import CreatePageForm from "./create-page-form";
+import PostModal from "./PostModal";
 
 export {
     Input,
@@ -42,4 +43,5 @@ export {
     CustomizeTabs,
     PulseProfileCard,
     CreatePageForm,
+    PostModal
 }
