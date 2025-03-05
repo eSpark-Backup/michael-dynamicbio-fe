@@ -74,6 +74,8 @@ import dislike from "./icons/dislike.svg"
 import company from "./icons/company.svg"
 import school from "./icons/school.svg"
 import timer from "./icons/timer.svg"
+import profile2 from "./icons/profile2.svg"
+import downArrowFilled from "./icons/downArrowFilled.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -162,5 +164,7 @@ export {
   dislike,
   company,
   school,
-  timer
+  timer,
+  profile2,
+  downArrowFilled,
 };

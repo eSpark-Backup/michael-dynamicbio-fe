@@ -143,7 +143,7 @@ const Home = () => {
           <RightSideBar />
         </Grid2>
       </Grid2>
-      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Heyy!"} postModal={true}>
+      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"}>
         <PostModal />
       </DynamicModal>
     </Box>

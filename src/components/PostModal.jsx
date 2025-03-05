@@ -39,21 +39,55 @@ const PostModal = () => {
                 <Box sx={{ width: "80%", height: "100%", position: 'relative', backgroundImage: selectedFiles?.length > 0 ? `url(${URL.createObjectURL(selectedFiles[selectedFiles?.length - 1])})` : "", backgroundPosition: "center", backgroundSize: "cover" }}>
                     {selectedFiles?.length > 0 && <img src={deleteIcon} alt="Icon" style={{ width: '24px', height: "24px", position: "absolute", right: "15px", top: "15px", cursor: "pointer" }} onClick={() => handleDeleteFile(selectedFiles.length - 1)} />}
                 </Box>
-                <Box sx={{ width: '18%', height: "100%", overflowY: "auto", display: "flex", flexDirection: "column", rowGap: "20px" }}>
+                <Box sx={{
+                    width: '18%',
+                    height: "100%",
+                    overflowY: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "10px",
+                    alignItems: selectedFiles.length === 1 ? "center" : "flex-start",
+                    justifyContent: selectedFiles.length === 1 ? "center" : "flex-start"
+                }}>
                     {selectedFiles?.length > 0 && selectedFiles?.map((item, index) => {
                         return (
-                            index === selectedFiles?.length - 1
-                                ?
-                                <Box sx={{ width: "95%", minHeight: "125px", display: "flex", justifyContent: "center", alignItems: "center", backgroundImage: `url(${URL.createObjectURL(item)})`, backgroundPosition: "center", backgroundSize: "cover" }} key={index}>
-                                    <img src={plus} alt="Icon" style={{ width: "40px", height: "40px", cursor: "pointer" }} onClick={() => fileInputRef.current.click()} />
-                                </Box>
-                                :
-                                <Box sx={{ width: "95%", minHeight: "125px", display: "flex", justifyContent: "flex-end", backgroundImage: `url(${URL.createObjectURL(item)})`, backgroundPosition: "center", backgroundSize: "cover" }} key={index}>
-                                    <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px", cursor: "pointer", margin: "10px 10px 0px 0px" }} onClick={() => handleDeleteFile(index)} />
-                                </Box>
+                            <Box
+                                key={index}
+                                sx={{
+                                    width: "95%",
+                                    minHeight: "125px",
+                                    display: "flex",
+                                    justifyContent: index === selectedFiles.length - 1 ? "center" : "flex-end",
+                                    alignItems: "center",
+                                    backgroundImage: `url(${URL.createObjectURL(item)})`,
+                                    backgroundPosition: "center",
+                                    backgroundSize: "cover",
+                                    borderRadius: "4px",
+                                    position: "relative"
+                                }}
+                            >
+                                {index === selectedFiles.length - 1 ? (
+                                    <img src={plus} alt="Add" style={{ width: "40px", height: "40px", cursor: "pointer" }} onClick={() => fileInputRef.current.click()} />
+                                ) : (
+                                    <img
+                                        src={deleteIcon}
+                                        alt="Delete"
+                                        style={{
+                                            width: "24px",
+                                            height: "24px",
+                                            cursor: "pointer",
+                                            position: "absolute",
+                                            top: "10px",
+                                            right: "10px"
+                                        }}
+                                        onClick={() => handleDeleteFile(index)}
+                                    />
+                                )}
+                            </Box>
                         )
                     })}
                 </Box>
+
             </Box>
             <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} />
             <Box sx={{ height: "50px" }}>
