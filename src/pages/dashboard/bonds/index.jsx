@@ -1,19 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { RightSideBar } from "../../../components";
 import MyBond from "./my-bonds";
 import Groups from "./groups";
 import Pages from "./pages";
+import SearchBonds from "./search-bonds";
 import { useQuery } from "../../../utils";
-import { useNavigate } from "react-router-dom";
 import { pageTypes } from "../../../constant";
+import { handleChange } from "../../../store/slices/search";
 
 const Bonds = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
   const sub = query.get("sub") || "bond";
+  const q = query.get("q");
+  const filter = query.get("filter");
   const pageType = query.get("pageType");
-  const sidebar = [
+  const bondSidebar1 = [
     {
       sub: "bond",
       label: "Bonds",
@@ -30,9 +36,72 @@ const Bonds = () => {
       component: <Pages />,
     },
   ];
+  const bondSidebar2 = [
+    {
+      filter: "all",
+      label: "All",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "people",
+      label: "People",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "groups",
+      label: "Groups",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "pages",
+      label: "Pages",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "events",
+      label: "Events",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "school",
+      label: "School",
+      component: <SearchBonds />,
+    },
+    {
+      filter: "posts",
+      label: "Posts",
+      component: <SearchBonds />,
+    },
+  ];
+  const [mySidebar, setMySidebar] = useState(q ? bondSidebar2 : bondSidebar1);
   const [activeSidebar, setActiveSidebar] = useState(
-    sidebar.find((item) => item.sub === sub)
+    q
+      ? mySidebar.find((item) => item.filter === filter)
+      : mySidebar.find((item) => item.sub === sub)
   );
+
+  useEffect(() => {
+    dispatch(handleChange(q));
+  }, []);
+  const { search } = useSelector((state) => state.search);
+  useEffect(() => {
+    if (search !== null) {
+      const delaySearch = setTimeout(() => {
+        if (search === "") {
+          navigate("/bonds?sub=bond");
+          setMySidebar(bondSidebar1);
+          setActiveSidebar(bondSidebar1.find((item) => item.sub === sub));
+        } else {
+          navigate(`/bonds?q=${search}&filter=${filter || "all"}`);
+          setMySidebar(bondSidebar2);
+          setActiveSidebar(bondSidebar2.find((item) => item.filter === filter));
+        }
+      }, 500);
+
+      return () => clearTimeout(delaySearch);
+    }
+  }, [search, filter]);
+
   return (
     <Box sx={{ p: "20px" }}>
       <Grid container spacing={4}>
@@ -51,13 +120,17 @@ const Bonds = () => {
             }}
           >
             <Typography fontSize="24px" textAlign="center">
-              Manage my bonds
+              {q ? "On this Page" : "Manage my bonds"}
             </Typography>
-            {sidebar.map((item) => {
+            {mySidebar.map((item) => {
               return (
                 <Typography
                   onClick={() => {
-                    navigate(`/bonds?sub=${item.sub}`);
+                    navigate(
+                      q
+                        ? `/bonds?q=${search}&filter=${item?.filter}`
+                        : `/bonds?sub=${item.sub}`
+                    );
                     setActiveSidebar(item);
                   }}
                   key={item.label}
@@ -65,7 +138,7 @@ const Bonds = () => {
                     padding: "14px 20px",
                     cursor: "pointer",
                     background:
-                      activeSidebar.label === item.label
+                      activeSidebar?.label === item.label
                         ? "#F2F8FD"
                         : "transparent",
                     ":hover": { background: "#F2F8FD" },

@@ -17,6 +17,8 @@ import {
   searchIcon,
 } from "../../assets";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { handleChange } from "../../store/slices/search";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -80,6 +82,12 @@ const Navbar = () => {
     event.stopPropagation();
     setAnchorEl(null);
   };
+
+  const { search } = useSelector(state => state.search);
+  const dispatch = useDispatch();
+  const onInputChange = (e) => {
+    dispatch(handleChange(e.target.value));
+  }
 
   return (
     <Box
@@ -250,6 +258,8 @@ const Navbar = () => {
               }}
             >
               <OutlinedInput
+                value={search}
+                onInputChange={onInputChange}
                 sx={{ width: "280px" }}
                 placeholder="Search"
                 startAdornment={searchIcon}
