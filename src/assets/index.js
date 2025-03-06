@@ -76,6 +76,8 @@ import school from "./icons/school.svg"
 import timer from "./icons/timer.svg"
 import profile2 from "./icons/profile2.svg"
 import downArrowFilled from "./icons/downArrowFilled.svg"
+import rightArrow from "./icons/rightArrow.svg"
+import gradientRightArrow from "./icons/gradientRightArrow.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -167,4 +169,6 @@ export {
   timer,
   profile2,
   downArrowFilled,
+  rightArrow,
+  gradientRightArrow,
 };

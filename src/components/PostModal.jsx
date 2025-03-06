@@ -22,8 +22,6 @@ const PostModal = () => {
     const handleDeleteFile = (index) => {
         setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
     };
-
-    useEffect(() => { console.log(selectedFiles) }, [selectedFiles])
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", rowGap: "15px" }}>
             <OutlinedInput placeholder={"Say something about this photo"}

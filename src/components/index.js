@@ -20,6 +20,7 @@ import CustomizeTabs from "./CustomizeTabs";
 import PulseProfileCard from "./PulseProfileCard";
 import CreatePageForm from "./create-page-form";
 import PostModal from "./PostModal";
+import ScheduleModal from "./ScheduleModal";
 
 export {
     Input,
@@ -43,5 +44,6 @@ export {
     CustomizeTabs,
     PulseProfileCard,
     CreatePageForm,
-    PostModal
+    PostModal,
+    ScheduleModal,
 }

@@ -2,13 +2,14 @@ import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery,
 import React, { useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard2, DynamicModal, PostModal, RightSideBar, SuggestionPost } from '../../../components';
+import { BondCard2, DynamicModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost } from '../../../components';
 
 const Home = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showMore, setShowMore] = useState(false);
   const [showModal, setShowModal] = useState(false)
+  const [showScheduleModal, setShowScheduleModal] = useState(false)
 
   const HandlePostTypeClick = (item) => {
     console.log(item)
@@ -143,8 +144,11 @@ const Home = () => {
           <RightSideBar />
         </Grid2>
       </Grid2>
-      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"}>
+      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
         <PostModal />
+      </DynamicModal>
+      <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
+        <ScheduleModal />
       </DynamicModal>
     </Box>
   );

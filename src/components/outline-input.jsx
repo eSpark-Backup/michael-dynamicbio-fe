@@ -15,10 +15,10 @@ const OutlinedInput = ({
         display: "flex",
         flexDirection: "column",
         rowGap: "8px",
-        width:"100%"
+        width: "100%"
       }}
     >
-      {label && <Typography component="label">{label}</Typography>}
+      {label && <Typography component="label" sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>{label}</Typography>}
       <TextField
         name={name}
         placeholder={placeholder}
