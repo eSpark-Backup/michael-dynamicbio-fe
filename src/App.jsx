@@ -10,6 +10,9 @@ import {
   FindEmail,
   SelectEmail,
   VerifyEmail,
+  EmailVerified,
+  AddMobile,
+  NumberOtp,
   ForgetPassword,
   ResetSuccess,
   CompleteProfile,
@@ -25,30 +28,30 @@ import {
 import "./App.css";
 
 const App = () => {
+  const token = localStorage.getItem("token");
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        {/* Login */}
         <Route path="/login" element={<Login />} />
         <Route path="/google-auth" element={<GoogleAuth />} />
         <Route path="/otp-verified" element={<OtpVerified />} />
-        {/* Forget password */}
         <Route path="/find-email" element={<FindEmail />} />
         <Route path="/select-email" element={<SelectEmail />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/email-verified" element={<EmailVerified />} />
+        <Route path="/add-mobile" element={<AddMobile />} />
+        <Route path="/verify-mobile" element={<NumberOtp />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-success" element={<ResetSuccess />} />
-        {/* Signup */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/upload-image" element={<UploadImage />} />
-        {/* Trouble shoot MFA */}
         <Route path="/troubleshoot-mfa" element={<TroubleshootMfa />} />
         <Route path="/email-mfa" element={<EmailMfa />} />
         <Route path="/resync-mfa" element={<ResyncMfa />} />
       </Route>
 
-      <Route element={<PrivateLayout isAuthenticated={true} />}>
+      <Route element={<PrivateLayout isAuthenticated={token} />}>
         <Route path="/" element={<Home />} />
         <Route path="/bonds" element={<Bonds />} />
         <Route path="/cells" element={<Cells />} />
