@@ -3,7 +3,6 @@ import { authApi } from "../../services/auth";
 
 const initialState = {
   user: null,
-  token: localStorage.getItem("token"),
 };
 
 const slice = createSlice({
@@ -24,25 +23,23 @@ const slice = createSlice({
       authApi.endpoints.login.matchFulfilled,
       (state, { payload }) => {
         const { data } = payload;
-        state.token = data?.token;
         state.user = data?.user;
-        localStorage.setItem("token", data?.token);
       }
     );
     builder.addMatcher(
-      authApi.endpoints.register.matchFulfilled,
+      authApi.endpoints.verifyEmail.matchFulfilled,
       (state, { payload }) => {
         const { data } = payload;
-        state.token = data?.token;
-        state.user = data?.user;
+        state.user = data.user;
         localStorage.setItem("token", data?.token);
       }
     );
     builder.addMatcher(
-      authApi.endpoints.verifyToken.matchFulfilled,
+      authApi.endpoints.completeProfile.matchFulfilled,
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
+        localStorage.removeItem("temp_user_data");
       }
     );
   },

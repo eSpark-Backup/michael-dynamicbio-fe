@@ -15,8 +15,7 @@ const CompleteProfile = () => {
     },
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
-      console.log(values, "form submit");
-      navigate("/upload-image");
+      navigate(`/upload-image?data=${JSON.stringify(values)}`);
     },
   });
   return (

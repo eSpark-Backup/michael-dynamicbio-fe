@@ -1,4 +1,4 @@
-import { api } from './rtk';
+import { api } from "./rtk";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,7 +7,22 @@ export const authApi = api.injectEndpoints({
         url: "/auth/login",
         method: "POST",
         body: credentials,
-        credentials: "include"
+        credentials: "include",
+      }),
+    }),
+    generateQr: builder.mutation({
+      query: () => ({
+        url: "/user/generate-qr",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+    verifyQr: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/verify-qr",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
       }),
     }),
     register: builder.mutation({
@@ -15,14 +30,22 @@ export const authApi = api.injectEndpoints({
         url: "/auth/register",
         method: "POST",
         body: credentials,
-        credentials: "include"
+        credentials: "include",
       }),
     }),
-    verifyToken: builder.query({
-      query: () => ({
-        url: "/user/profile",
-        method: "GET",
-        credentials: "include"
+    verifyEmail: builder.mutation({
+      query: ({ token, expiresAt }) => ({
+        url: `/auth/set-password/${token}/${expiresAt}`,
+        method: "POST",
+        credentials: "include",
+      }),
+    }),
+    completeProfile: builder.mutation({
+      query: (credentials) => ({
+        url: `/user/add-profile`,
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
       }),
     }),
     forgotPassword: builder.mutation({
@@ -89,12 +112,15 @@ export const authApi = api.injectEndpoints({
 
 export const {
   useLoginMutation,
+  useGenerateQrMutation,
+  useVerifyQrMutation,
   useRegisterMutation,
-  useVerifyTokenQuery,
+  useVerifyEmailMutation,
+  useCompleteProfileMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useUpdateProfileMutation,
   useChangePwMutation,
   useChangeProfileImageMutation,
-  useGetUserFavouritiesQuery
+  useGetUserFavouritiesQuery,
 } = authApi;
