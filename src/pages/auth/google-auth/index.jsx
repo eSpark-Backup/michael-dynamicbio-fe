@@ -1,19 +1,53 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
+import { toast } from "react-toastify";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { Button, OtpInput } from "../../../components";
-import { qrcode } from "../../../assets";
+import {
+  useGenerateQrMutation,
+  useVerifyQrMutation,
+} from "../../../services/auth";
 
 const GoogleAuth = () => {
-  const isMfaActive = false;
+  const token = localStorage.getItem("token");
+  const [generateQr, { isLoading }] = useGenerateQrMutation();
+  const [verifyQr, { isLoading: verifyLoading }] = useVerifyQrMutation();
+  const isMfaActive = !token;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("______");
+  const [qrcode, setQrcode] = useState(null);
 
   useEffect(() => {
     if (otp.length === 6 && !otp.includes("_")) {
-      navigate("/otp-verified");
+      verifyQr({ token: otp }).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          localStorage.setItem("token", res?.data?.data?.token);
+          localStorage.removeItem("temp-token");
+          navigate("/otp-verified");
+        }
+      });
     }
   }, [otp, navigate]);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.removeItem("temp-token");
+      generateQr().then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          setQrcode(res?.data?.data?.qrcode);
+          localStorage.setItem("temp-token", res?.data?.data?.token);
+        }
+      });
+    }
+  }, []);
   return (
     <Stack
       sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
@@ -34,17 +68,29 @@ const GoogleAuth = () => {
           ? "Authentication using Google Authenticator. Enter the 6-digit code from your Google Authenticator."
           : "For enhanced security, use Google Authenticator and scan the QR code. This trusted app generates unique login codes, safeguarding youraccount. Get Google Authenticator"}
       </Typography>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        sx={{ marginTop: "55px", width: "424px" }}
-      >
-        {!isMfaActive && <img src={qrcode} />}
-        <Box sx={{ mt: 2 }}>
-          <OtpInput value={otp} onChange={(val) => setOtp(val)} numInputs={6} />
-        </Box>
-      </Stack>
+      {isLoading ? (
+        <CircularProgress sx={{ color: "#37A1F7", my: 10 }} />
+      ) : (
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginTop: "55px", width: "424px" }}
+        >
+          {qrcode && <img src={qrcode} />}
+          {verifyLoading ? (
+            <CircularProgress sx={{ color: "#37A1F7", my: 5 }} />
+          ) : (
+            <Box sx={{ mt: 2 }}>
+              <OtpInput
+                value={otp}
+                onChange={(val) => setOtp(val)}
+                numInputs={6}
+              />
+            </Box>
+          )}
+        </Stack>
+      )}
 
       {isMfaActive && (
         <Link

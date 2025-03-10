@@ -28,7 +28,6 @@ import {
 import "./App.css";
 
 const App = () => {
-  const token = localStorage.getItem("token");
   return (
     <Routes>
       <Route element={<AuthLayout />}>
@@ -51,7 +50,7 @@ const App = () => {
         <Route path="/resync-mfa" element={<ResyncMfa />} />
       </Route>
 
-      <Route element={<PrivateLayout isAuthenticated={token} />}>
+      <Route element={<PrivateLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/bonds" element={<Bonds />} />
         <Route path="/cells" element={<Cells />} />
