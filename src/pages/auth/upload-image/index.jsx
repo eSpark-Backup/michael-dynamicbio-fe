@@ -30,7 +30,7 @@ const UploadImage = () => {
         return;
       }
       if (res) {
-        toast.success("Your profile data added successfully");
+        toast.success("Your profile completed successfully");
         navigate("/");
       }
     });
@@ -89,7 +89,7 @@ const UploadImage = () => {
                 {data?.role} At “{data?.company}”
               </Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                Area, {data?.country}
+                {data?.country}
               </Typography>
             </Box>
           </Stack>
