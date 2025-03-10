@@ -1,8 +1,9 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard2, DynamicModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost } from '../../../components';
+import { BondCard2, DynamicModal, PhotoModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal } from '../../../components';
+import { generateThumbnail } from '../../../utils';
 
 const Home = () => {
   const theme = useTheme();
@@ -10,10 +11,69 @@ const Home = () => {
   const [showMore, setShowMore] = useState(false);
   const [showModal, setShowModal] = useState(false)
   const [showScheduleModal, setShowScheduleModal] = useState(false)
+  const [showPostModal, setShowPostModal] = useState(false)
+  const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
+  const [videoModal, setVideoModal] = useState(false)
 
   const HandlePostTypeClick = (item) => {
-    console.log(item)
-    setShowModal(true)
+    if (item === "Photo") {
+      fileInputRef.current.click();
+    }
+    else if (item === "Video") {
+      videoInputRef.current.click();
+    }
+  }
+
+  useEffect(() => {
+    if (selectedFiles?.length > 0) {
+      setShowPostModal(false)
+      setShowModal(true)
+    }
+    console.log(selectedFiles)
+  }, [selectedFiles])
+
+  useEffect(() => {
+    if (videoData?.video) {
+      setVideoModal(true)
+    }
+  }, [videoData])
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleVideoChange = async (e) => {
+    const file = e.target.files[0];
+    console.log(file)
+    if (file) {
+      try {
+        const thumbnail = await generateThumbnail(file);
+        setVideoData({ video: file, thumbnail });
+      } catch (error) {
+        console.error("Error generating thumbnail:", error);
+      }
+    }
+  };
+
+  useEffect(() => { console.log(videoData) }, [videoData])
+
+  const HandleSelectedFile = (files) => {
+    setSelectedFiles(files)
+  }
+
+  const HandleModalClose = () => {
+    setShowModal(false)
+    setShowPostModal(false)
+    setSelectedFiles([]);
+  }
+
+  const HandleVideoModalClose = () => {
+    setVideoModal(false)
+    setVideoData({ video: null, thumbnail: null })
   }
 
   return (
@@ -91,7 +151,7 @@ const Home = () => {
           <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
               <img src={user} alt="User" />
-              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%" }} />
+              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%" }} readOnly onClick={() => setShowPostModal(true)} />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
@@ -144,9 +204,36 @@ const Home = () => {
           <RightSideBar />
         </Grid2>
       </Grid2>
-      <DynamicModal open={showModal} handleClose={() => setShowModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
-        <PostModal />
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        style={{ display: "none" }}
+        multiple
+        onChange={handleFileChange}
+      />
+
+      <input
+        type="file"
+        ref={videoInputRef}
+        accept="video/*"
+        style={{ display: "none" }}
+        onChange={handleVideoChange}
+      />
+
+      <DynamicModal open={showModal} handleClose={HandleModalClose} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+        <PhotoModal files={selectedFiles} placeholder={"Say something about this photo"} handleClose={HandleModalClose} />
       </DynamicModal>
+
+      <DynamicModal open={videoModal} handleClose={() => setVideoModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+        <VideoModal file={videoData} placeholder={"Say something about this video"} handleClose={HandleVideoModalClose} />
+      </DynamicModal>
+
+      <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+        <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} />
+      </DynamicModal>
+
       <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
         <ScheduleModal />
       </DynamicModal>

@@ -21,6 +21,8 @@ import PulseProfileCard from "./PulseProfileCard";
 import CreatePageForm from "./create-page-form";
 import PostModal from "./PostModal";
 import ScheduleModal from "./ScheduleModal";
+import PhotoModal from "./PhotoModal";
+import VideoModal from "./VideoModal";
 
 export {
     Input,
@@ -46,4 +48,6 @@ export {
     CreatePageForm,
     PostModal,
     ScheduleModal,
+    PhotoModal,
+    VideoModal,
 }
