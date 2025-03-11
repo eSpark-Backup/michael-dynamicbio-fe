@@ -1,14 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { Box, Button, Stack, Typography } from "@mui/material";
-import { Input } from "../../../components";
+import { toast } from "react-toastify";
+import { Box, Stack, Typography } from "@mui/material";
+import { Input, Button } from "../../../components";
 import { useQuery } from "../../../utils";
 import { ForgetPasswordSchema } from "../../../schemas";
+import { useResetPasswordMutation } from "../../../services/auth";
 
 const ForgetPassword = () => {
   const query = useQuery();
-  const type = query.get("type");
+  const token = query.get("token");
+  const expiresAt = query.get("expiresAt");
   const navigate = useNavigate();
+  const [resetPw, { isLoading }] = useResetPasswordMutation();
+
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -16,11 +21,23 @@ const ForgetPassword = () => {
     },
     validationSchema: ForgetPasswordSchema,
     onSubmit: (values) => {
-      //set password
-      console.log(values, "values");
-      navigate(type === "reset" ? "/reset-success" : "/complete-profile");
+      resetPw({
+        credentials: { newPassword: values.password },
+        token,
+        expiresAt,
+      }).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          toast.success(res?.data?.message);
+          navigate("/reset-success");
+        }
+      });
     },
   });
+
   return (
     <Stack
       sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
@@ -30,9 +47,7 @@ const ForgetPassword = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography fontSize="40px">
-        {type === "reset" ? "Set New Password" : "Set Password"}
-      </Typography>
+      <Typography fontSize="40px">Set New Password</Typography>
       <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
           label={"Enter Password"}
@@ -93,7 +108,9 @@ const ForgetPassword = () => {
       </Box>
 
       <Box sx={{ width: "250px", marginTop: "155px" }}>
-        <Button type="submit">Done</Button>
+        <Button loading={isLoading} type="submit">
+          Done
+        </Button>
       </Box>
     </Stack>
   );

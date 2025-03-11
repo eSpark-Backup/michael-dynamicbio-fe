@@ -4,18 +4,31 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
 import { maskEmail, useQuery } from "../../../utils";
 import { successTick } from "../../../assets";
-import { useRegisterMutation } from "../../../services/auth";
+import { useForgotPasswordMutation, useRegisterMutation } from "../../../services/auth";
 
 const VerifyEmail = () => {
   const [register, { isLoading }] = useRegisterMutation();
-
+  const [forgotPw, { isLoading: resetLoading }] = useForgotPasswordMutation();
   const navigate = useNavigate();
   const query = useQuery();
   const email = query.get("email");
+  const reset = query.get("reset");
 
   const handleResend = () => {
     const dataToSend = JSON.parse(localStorage.getItem("temp_user_data"));
     register(dataToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        toast.success(res?.data?.message);
+      }
+    });
+  };
+
+  const handleReset = () => {
+    forgotPw({ email }).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
         return;
@@ -41,7 +54,10 @@ const VerifyEmail = () => {
         email and verify.
       </Typography>
       <Box sx={{ width: "250px", mt: "75px" }}>
-        <Button loading={isLoading} onClick={handleResend}>
+        <Button
+          loading={isLoading || resetLoading}
+          onClick={reset ? handleReset : handleResend}
+        >
           Resend
         </Button>
       </Box>
