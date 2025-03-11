@@ -70,6 +70,14 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    findEmail: builder.mutation({
+      query: (credentials) => ({
+        url: "/auth/find-email",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
     forgotPassword: builder.mutation({
       query: (credentials) => ({
         url: "/auth/forgot-password",
@@ -86,49 +94,6 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
-    updateProfile: builder.mutation({
-      query: (credentials) => ({
-        url: "/user/profile",
-        method: "PUT",
-        body: credentials,
-        credentials: "include",
-      }),
-    }),
-    changePw: builder.mutation({
-      query: (credentials) => ({
-        url: "/user/change-password",
-        method: "POST",
-        body: credentials,
-        credentials: "include",
-      }),
-    }),
-    changeProfileImage: builder.mutation({
-      query: (credentials) => ({
-        url: "/user/profileImage",
-        method: "PUT",
-        body: credentials,
-        credentials: "include",
-      }),
-    }),
-    getUserFavourities: builder.query({
-      query: ({ page, pageSize, entity } = {}) => {
-        const baseUrl = "/user/favourites";
-        const queryParams = new URLSearchParams();
-
-        if (pageSize) queryParams.append("pageSize", pageSize);
-        if (page) queryParams.append("page", page);
-        if (entity) queryParams.append("entity", entity);
-
-        const queryString = queryParams.toString()
-          ? `?${queryParams.toString()}`
-          : "";
-
-        return {
-          url: `${baseUrl}${queryString}`,
-          method: "GET",
-        };
-      },
-    }),
   }),
 });
 
@@ -142,10 +107,7 @@ export const {
   useRegisterMutation,
   useVerifyEmailMutation,
   useCompleteProfileMutation,
+  useFindEmailMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
-  useUpdateProfileMutation,
-  useChangePwMutation,
-  useChangeProfileImageMutation,
-  useGetUserFavouritiesQuery,
 } = authApi;
