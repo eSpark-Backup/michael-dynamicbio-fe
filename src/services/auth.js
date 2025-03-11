@@ -25,6 +25,28 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    resyncMfa: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/resync-qr",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    verifymfaWithEmail: builder.mutation({
+      query: () => ({
+        url: "/user/verify-new-device",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+    reverifymfaWithEmail: builder.mutation({
+      query: ({ token, expiresAt }) => ({
+        url: `/auth/register-device/${token}/${expiresAt}`,
+        method: "POST",
+        credentials: "include",
+      }),
+    }),
     register: builder.mutation({
       query: (credentials) => ({
         url: "/auth/register",
@@ -114,6 +136,9 @@ export const {
   useLoginMutation,
   useGenerateQrMutation,
   useVerifyQrMutation,
+  useResyncMfaMutation,
+  useVerifymfaWithEmailMutation,
+  useReverifymfaWithEmailMutation,
   useRegisterMutation,
   useVerifyEmailMutation,
   useCompleteProfileMutation,

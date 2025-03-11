@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Box, Stack, Typography } from "@mui/material";
 import { Button, OtpInput } from "../../../components";
-import { useState } from "react";
+import { useResyncMfaMutation } from "../../../services/auth";
 
 const ResyncMfa = () => {
+  const navigate = useNavigate();
+  const [resync, { isLoading }] = useResyncMfaMutation();
   const [otp, setOtp] = useState("______");
   const [otp2, setOtp2] = useState("______");
   const handleResync = () => {
@@ -13,9 +17,19 @@ const ResyncMfa = () => {
       otp2.length === 6 &&
       !otp2.includes("_")
     ) {
-      console.log(otp, "<=otp1", otp2, "<=otp2");
+      resync({ firstToken: otp, secondToken: otp2 }).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          localStorage.setItem("token", res?.data?.data?.token);
+          localStorage.removeItem("temp-token");
+          navigate("/");
+        }
+      });
     } else {
-      alert("enter both code")
+      toast.error("Please enter codes");
     }
   };
   return (
@@ -73,7 +87,7 @@ const ResyncMfa = () => {
       />
 
       <Box onClick={handleResync} sx={{ width: "250px", mt: "82px" }}>
-        <Button isLoading={false}>Done</Button>
+        <Button loading={isLoading}>Done</Button>
       </Box>
       <Typography sx={{ marginTop: "53px" }}>
         Back to
