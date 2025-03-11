@@ -2,7 +2,7 @@ import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery,
 import React, { useEffect, useRef, useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard2, DynamicModal, PhotoModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal } from '../../../components';
+import { BondCard2, DynamicModal, EventModal, PhotoModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
 
 const Home = () => {
@@ -17,6 +17,7 @@ const Home = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
   const [videoModal, setVideoModal] = useState(false)
+  const [eventModal, setEventModal] = useState(false)
 
   const HandlePostTypeClick = (item) => {
     if (item === "Photo") {
@@ -24,6 +25,9 @@ const Home = () => {
     }
     else if (item === "Video") {
       videoInputRef.current.click();
+    }
+    else if (item === "Event") {
+      setEventModal(true)
     }
   }
 
@@ -232,6 +236,10 @@ const Home = () => {
 
       <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
         <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} />
+      </DynamicModal>
+
+      <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"}>
+        <EventModal />
       </DynamicModal>
 
       <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>

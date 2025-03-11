@@ -78,3 +78,9 @@ body {
         transform: translateY(-10px);
     }
 }
+
+.css-iuvrud-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected , 
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible, .css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover
+{
+    color: white;
+}

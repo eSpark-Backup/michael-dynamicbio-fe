@@ -419,3 +419,27 @@ export const pageTypes = [
     link: null,
   },
 ];
+
+
+export const timezoneOptions = [
+  {
+    label: "(UTC-12:00) International Date Line West",
+    value: "UTC-12:00"
+  },
+  {
+    label: "(UTC-11:00) Midway Island, Samoa",
+    value: "UTC-11:00"
+  },
+  {
+    label: "(UTC-10:00) Hawaii",
+    value: "UTC-10:00"
+  },
+  {
+    label: "(UTC-09:30) Marquesas Islands",
+    value: "UTC-09:30"
+  },
+  {
+    label: "(UTC-09:30) Marquesas Islands",
+    value: "UTC-09:30"
+  },
+]
