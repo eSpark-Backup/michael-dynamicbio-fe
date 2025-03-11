@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { toast } from "react-toastify";
+import { Box, Stack, Typography } from "@mui/material";
+import { Button } from "../../../components";
+import { useVerifymfaWithEmailMutation } from "../../../services/auth";
+import { maskEmail, useQuery } from "../../../utils";
 
 const EmailMfa = () => {
+  const query = useQuery();
+  const email = query.get("email");
+  const [verifymfaWithEmail, { isLoading }] = useVerifymfaWithEmailMutation();
+
+  const handleEmailMfa = () => {
+    verifymfaWithEmail().then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        toast.success(res?.data?.message);
+      }
+    });
+  };
   return (
     <Stack
       sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
@@ -19,12 +38,14 @@ const EmailMfa = () => {
         fontSize="17px"
       >
         Authenticate your account by verifying the email address. You will
-        receive an email at a***@gmail.com, which will include instructions to
-        verify your identity.
+        receive an email at {maskEmail(email)}, which will include instructions
+        to verify your identity.
       </Typography>
 
       <Box sx={{ width: "250px", mt: "55px" }}>
-        <Button>Resend</Button>
+        <Button loading={isLoading} onClick={handleEmailMfa}>
+          Resend
+        </Button>
       </Box>
       <Typography sx={{ marginTop: "192px" }}>
         Back to

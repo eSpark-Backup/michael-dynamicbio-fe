@@ -5,14 +5,22 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { Button, OtpInput } from "../../../components";
 import {
   useGenerateQrMutation,
+  useReverifymfaWithEmailMutation,
   useVerifyQrMutation,
 } from "../../../services/auth";
+import { useQuery } from "../../../utils";
 
 const GoogleAuth = () => {
+  const query = useQuery();
+  const token2 = query.get("token");
+  const expiresAt = query.get("expiresAt");
+  const reverifyMfa = token2 && expiresAt;
   const token = localStorage.getItem("token");
   const [generateQr, { isLoading }] = useGenerateQrMutation();
+  const [reVerifyMfa, { isLoading: reverifyLoading }] =
+    useReverifymfaWithEmailMutation();
   const [verifyQr, { isLoading: verifyLoading }] = useVerifyQrMutation();
-  const isMfaActive = !token;
+  const isMfaActive = reverifyMfa ? false : !token;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("______");
   const [qrcode, setQrcode] = useState(null);
@@ -32,6 +40,20 @@ const GoogleAuth = () => {
       });
     }
   }, [otp, navigate]);
+
+  useEffect(() => {
+    if (reverifyMfa) {
+      reVerifyMfa({ token: token2, expiresAt }).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          setQrcode(res?.data?.data?.qrcode);
+        }
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -68,7 +90,7 @@ const GoogleAuth = () => {
           ? "Authentication using Google Authenticator. Enter the 6-digit code from your Google Authenticator."
           : "For enhanced security, use Google Authenticator and scan the QR code. This trusted app generates unique login codes, safeguarding youraccount. Get Google Authenticator"}
       </Typography>
-      {isLoading ? (
+      {isLoading || reverifyLoading ? (
         <CircularProgress sx={{ color: "#37A1F7", my: 10 }} />
       ) : (
         <Stack
