@@ -19,6 +19,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChange } from "../../store/slices/search";
+import { logout } from "../../store/slices/auth";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -160,7 +161,11 @@ const Navbar = () => {
               <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
               <MenuItem onClick={handleClose}>Language</MenuItem>
               <MenuItem onClick={handleClose}>Help</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={() => {
+                dispatch(logout());
+                navigate("/login");
+                handleClose();
+              }}>Logout</MenuItem>
             </Menu>
           </Box>
           <IconButton
@@ -322,7 +327,16 @@ const Navbar = () => {
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Logout</MenuItem>
+                <MenuItem
+                  sx={{ width: "245px" }}
+                  onClick={() => {
+                    dispatch(logout());
+                    navigate("/login");
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </Box>
           </Box>

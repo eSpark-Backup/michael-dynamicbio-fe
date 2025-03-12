@@ -49,7 +49,7 @@ const SelectEmail = () => {
             alignItems="center"
             gap={2}
           >
-            <img src={image || userAvatar} alt="user" />
+            <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={image || userAvatar} alt="user" />
             <Typography fontSize="24px">{maskEmail(email)}</Typography>
           </Stack>
           <Link

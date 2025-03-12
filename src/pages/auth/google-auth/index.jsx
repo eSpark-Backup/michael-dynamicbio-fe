@@ -128,8 +128,8 @@ const GoogleAuth = () => {
       )}
 
       <Box sx={{ width: "250px", mt: isMfaActive ? 10 : 2 }}>
-        <Button onClick={() => navigate(isMfaActive ? "/login" : "/")}>
-          {isMfaActive ? "Back to login" : "Skip for now"}
+        <Button onClick={() => navigate(reverifyMfa || isMfaActive ? "/login" : "/")}>
+          {reverifyMfa || isMfaActive ? "Back to login" : "Skip for now"}
         </Button>
       </Box>
     </Stack>
