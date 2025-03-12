@@ -1,14 +1,39 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { toast } from "react-toastify";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Button } from "../../../components";
+import { useQuery } from "../../../utils";
+import { useCompleteProfileMutation } from "../../../services/auth";
 import { uploadAvatar, uploadIcon } from "../../../assets";
 
 const UploadImage = () => {
+  const query = useQuery();
+  const tempData = query.get("data");
+  const data = JSON.parse(tempData);
+  const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [completeProfile, { isLoading }] = useCompleteProfileMutation();
   const handleSubmit = () => {
-    console.log(image, "form submit");
-    navigate("/");
+    const formdata = new FormData();
+    formdata.append("country", data?.country);
+    formdata.append("designation", data?.role);
+    formdata.append("industry", data?.industry);
+    formdata.append("company", data?.company);
+    if (image) {
+      formdata.append("image", image);
+    }
+    completeProfile(formdata).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        toast.success("Your profile completed successfully");
+        navigate("/");
+      }
+    });
   };
 
   const fileInputRef = useRef(null);
@@ -26,7 +51,7 @@ const UploadImage = () => {
   return (
     <>
       <Typography mt="50px" fontSize={"29px"} textAlign="center">
-        Welcome, James!
+        Welcome, {tempUser?.firstName}!
       </Typography>
       <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Adding your photo helps people recognize you
@@ -59,12 +84,12 @@ const UploadImage = () => {
               alt="user"
             />
             <Box>
-              <Typography fontSize="24px">James Bond</Typography>
+              <Typography fontSize="24px">{`${tempUser?.firstName} ${tempUser?.lastName}`}</Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                Job Title At “Company”
+                {data?.role} At “{data?.company}”
               </Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                Area, Country
+                {data?.country}
               </Typography>
             </Box>
           </Stack>
@@ -82,7 +107,9 @@ const UploadImage = () => {
       </Stack>
 
       <Box sx={{ marginTop: "132px", width: "250px", mb: "40px" }}>
-        <Button onClick={handleSubmit}>Continue</Button>
+        <Button loading={isLoading} onClick={handleSubmit}>
+          Continue
+        </Button>
       </Box>
     </>
   );

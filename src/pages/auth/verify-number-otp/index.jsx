@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, useTheme } from "@mui/material";
-import OtpInput from "./otp-input";
-import Button from "./button";
+import { Button, OtpInput } from "../../../components";
 
 const NumberOtp = ({ number, onOtpVerify }) => {
   const [otp, setOtp] = useState("______");
@@ -10,7 +9,7 @@ const NumberOtp = ({ number, onOtpVerify }) => {
 
   const HandleSubmit = () => {
     if (otp.length === 6 && !otp.includes("_")) {
-      onOtpVerify();
+      onOtpVerify(otp);
     }
   };
   return (

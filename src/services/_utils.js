@@ -1,8 +1,11 @@
-export const prepareHeaders = (headers, { getState }) => {
-  const token = getState().auth.token;
-  if (token) {
+export const prepareHeaders = (headers) => {
+  const token = localStorage.getItem("token");
+  const tempToken = localStorage.getItem("temp-token");
+  if (tempToken) {
+    headers.set("Authorization", `Bearer ${tempToken}`);
+  } else if (token) {
     headers.set("Authorization", `Bearer ${token}`);
-  }
+  } 
   return headers;
 };
 
