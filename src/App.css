@@ -80,7 +80,8 @@ body {
 }
 
 .css-iuvrud-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected , 
-.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible, .css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible, .css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover,
+.css-eutvm9-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected
 {
     color: white;
 }

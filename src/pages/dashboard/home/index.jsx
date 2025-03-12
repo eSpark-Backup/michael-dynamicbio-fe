@@ -238,7 +238,7 @@ const Home = () => {
         <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} />
       </DynamicModal>
 
-      <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"}>
+      <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"} hideFooter={true}>
         <EventModal />
       </DynamicModal>
 

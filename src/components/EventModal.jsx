@@ -1,7 +1,7 @@
-import { Box, Divider, FormControlLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, Divider, FormControlLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { uploadIcon } from "../assets";
 import Dropdown from "./Dropdown";
 import Input from "./Input";
@@ -10,9 +10,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { TimePicker } from "@mui/x-date-pickers";
+import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 
 const EventModal = () => {
     const eventImgRef = useRef(null);
+    const [tempEventType, setEventType] = useState("online")
+    const [imagePreview, setImagePreview] = useState(null);
 
     const formik = useFormik({
         initialValues: {
@@ -23,16 +26,30 @@ const EventModal = () => {
             timezone: "",
             startDate: new Date(),
             startTime: new Date(),
+            endDate: new Date(),
+            endTime: new Date(),
+            showEndTime: true,
+            description: "",
+            speakers: "",
+            address: "",
+            venue: "",
+            externalLink: ""
         },
-        validationSchema: Yup.object({
-            format: Yup.string().required("Event format is required"),
-            name: Yup.string().required("Event name is required").max(75, "Must be 75 characters or less"),
-            timezone: Yup.string().required("Timezone is required"),
-        }),
+        validationSchema: (values) =>
+            tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
         onSubmit: (values) => {
             console.log("Form submitted:", values);
         },
     });
+
+    React.useEffect(() => {
+        if (formik.values.selectedFile) {
+            const objectUrl = URL.createObjectURL(formik.values.selectedFile);
+            setImagePreview(objectUrl);
+
+            return () => URL.revokeObjectURL(objectUrl); // Cleanup to prevent memory leaks
+        }
+    }, [formik.values.selectedFile]);
 
     const handleFileChange = (e) => {
         const files = e.target.files;
@@ -40,6 +57,11 @@ const EventModal = () => {
             formik.setFieldValue("selectedFile", files[0]);
         }
     };
+
+    useEffect(() => {
+        setEventType(formik.values.eventType)
+        formik.setErrors({});
+    }, [formik.values.eventType])
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -56,9 +78,7 @@ const EventModal = () => {
                         flexDirection: "column",
                         height: "350px",
                         cursor: "pointer",
-                        backgroundImage: formik.values.selectedFile
-                            ? `url(${URL.createObjectURL(formik.values.selectedFile)})`
-                            : "none",
+                        backgroundImage: imagePreview ? `url(${imagePreview})` : "none",
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                     }}
@@ -96,7 +116,7 @@ const EventModal = () => {
                 </RadioGroup>
 
                 {/* Event Format */}
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                {formik.values.eventType !== "Inperson" && <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Event format*</Typography>
                     <Dropdown
                         variant="outlined"
@@ -115,7 +135,7 @@ const EventModal = () => {
                         helperText={formik.touched.format && formik.errors.format}
                     />
 
-                </Box>
+                </Box>}
                 <Box
                     sx={{
                         display: "flex",
@@ -222,6 +242,251 @@ const EventModal = () => {
                         </Box>
                     </LocalizationProvider>
                 </Box>
+                <Box
+                    sx={{
+                        width: "100%",
+                    }}
+                >
+                    <FormControlLabel
+                        sx={{
+                            width: "100%",
+                            alignItems: "flex-start",
+                            padding: 0,
+                            margin: 0,
+                            gap: "10px",
+                            span: { padding: 0 },
+                        }}
+                        control={
+                            <Checkbox
+                                checked={formik.values.showEndTime}
+                                onChange={formik.handleChange}
+                                name="showEndTime"
+                            />
+                        }
+                        label="Add end date and time"
+                    />
+                </Box>
+                {formik.values?.showEndTime &&
+                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                                <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End date*</Typography>
+                                <DatePicker
+                                    value={formik.values.endDate}
+                                    onChange={(date) => formik.setFieldValue("endDate", date)}
+                                    minDate={new Date()}
+                                    slotProps={{
+                                        textField: {
+                                            variant: "outlined",
+                                            fullWidth: true,
+                                            error: formik.touched.endDate && !!formik.errors.endDate,
+                                            helperText: formik.touched.endDate && formik.errors.endDate,
+                                            InputLabelProps: {
+                                                shrink: false,
+                                                sx: { fontSize: "14px" },
+                                            },
+                                            inputProps: {
+                                                sx: { fontSize: "14px" },
+                                                readOnly: true,
+                                                userSelect: "none"
+                                            },
+                                        },
+                                    }}
+                                />
+                            </Box>
+                        </LocalizationProvider>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                                <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End time*</Typography>
+                                <TimePicker
+                                    value={formik.values.endTime}
+                                    onChange={(time) => formik.setFieldValue("endTime", time)}
+                                    disableCloseOnSelect={false}
+                                    showToolbar={false}
+                                    slotProps={{
+                                        textField: {
+                                            variant: "outlined",
+                                            fullWidth: true,
+                                            error: formik.touched.endTime && !!formik.errors.endTime,
+                                            helperText: formik.touched.endTime && formik.errors.endTime,
+                                            InputLabelProps: {
+                                                shrink: false,
+                                                sx: { fontSize: "14px" },
+                                            },
+                                            inputProps: {
+                                                sx: { fontSize: "14px" },
+                                                readOnly: true,
+                                                userSelect: "none",
+                                            },
+                                        },
+                                        actionBar: {
+                                            actions: [],
+                                        },
+                                    }}
+                                />
+                            </Box>
+                        </LocalizationProvider>
+                    </Box>
+                }
+                {formik?.values?.eventType === "Inperson" &&
+                    <>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: "3px",
+                                ".MuiOutlinedInput-root": { height: "65px !important" },
+                                input: { paddingBottom: "20px" },
+                            }}
+                        >
+                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Address*</Typography>
+                            <Input
+                                required
+                                customLabel=""
+                                placeholder="E.g., street, city, pincode, etc.,"
+                                type="text"
+                                name="address"
+                                variant="outlined"
+                                value={formik.values.address}
+                                handleChange={formik.handleChange}
+                                error={
+                                    formik.touched.address && !!formik.errors.address
+                                }
+                                helperText={
+                                    formik.touched.address && formik.errors.address
+                                }
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: "3px",
+                                ".MuiOutlinedInput-root": { height: "65px !important" },
+                                input: { paddingBottom: "20px" },
+                            }}
+                        >
+                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Venue</Typography>
+                            <Input
+                                customLabel=""
+                                placeholder="E.g. floor number, room number, etc."
+                                type="text"
+                                name="venue"
+                                variant="outlined"
+                                value={formik.values.venue}
+                                handleChange={formik.handleChange}
+                                error={
+                                    formik.touched.venue && !!formik.errors.venue
+                                }
+                                helperText={
+                                    formik.touched.venue && formik.errors.venue
+                                }
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: "3px",
+                                ".MuiOutlinedInput-root": { height: "65px !important" },
+                                input: { paddingBottom: "20px" },
+                            }}
+                        >
+                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>External event link</Typography>
+                            <Input
+                                wordLimit={1024}
+                                customLabel=""
+                                placeholder=""
+                                type="text"
+                                name="externalLink"
+                                variant="outlined"
+                                value={formik.values.externalLink}
+                                handleChange={formik.handleChange}
+                                error={
+                                    formik.touched.externalLink && !!formik.errors.externalLink
+                                }
+                                helperText={
+                                    formik.touched.externalLink && formik.errors.externalLink
+                                }
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+                    </>
+                }
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        rowGap: "3px",
+                        ".MuiOutlinedInput-root": { height: "65px !important" },
+                        input: { paddingBottom: "20px" },
+                    }}
+                >
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Description</Typography>
+                    <Input
+                        wordLimit={5000}
+                        required
+                        customLabel=""
+                        placeholder="Ex: topics, schedule, etc."
+                        type="text"
+                        name="description"
+                        variant="outlined"
+                        value={formik.values.description}
+                        handleChange={formik.handleChange}
+                        error={
+                            formik.touched.description && !!formik.errors.description
+                        }
+                        helperText={
+                            formik.touched.description && formik.errors.description
+                        }
+                        onBlur={formik.handleBlur}
+                    />
+                </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        rowGap: "3px",
+                        ".MuiOutlinedInput-root": { height: "35px !important" },
+                        input: { paddingBottom: "20px" },
+                    }}
+                >
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Speakers</Typography>
+                    <Input
+                        required
+                        customLabel=""
+                        placeholder=""
+                        type="text"
+                        name="speakers"
+                        variant="outlined"
+                        value={formik.values.speakers}
+                        handleChange={formik.handleChange}
+                        error={
+                            formik.touched.speakers && !!formik.errors.speakers
+                        }
+                        helperText={
+                            formik.touched.speakers && formik.errors.speakers
+                        }
+                        onBlur={formik.handleBlur}
+                    />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        Add connections to speak at the event. Speakers can join the event early and will be shown in the event’s Details section and presenter area. They cannot allow attendees to speak or end the event.
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        By continuing, you agree with
+                    </Typography>
+                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> LinkedIn’s event policy</Typography>
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        Make the most of LinkedIn Events.
+                    </Typography>
+                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Learn more</Typography>
+                </Box>
                 <input
                     type="file"
                     ref={eventImgRef}
@@ -229,7 +494,52 @@ const EventModal = () => {
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
+                <Stack justifyContent={"flex-end"} alignItems={"flex-end"} px={6} direction={"row"} gap={3}
+                    sx={{
+                        height: "55px",
+                        borderTop: "1px solid #E4E4E4",
+                        // boxShadow: "0px 0px 10px 0px #00000040",
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        // margin: "0 -20px -20px -20px",
+                        position: "fixed",
+                        bottom: "0px",
+                        right: "0px",
+                        zIndex: 999,
+                        backgroundColor: "white"
+                    }}
+                >
+
+                    <Box sx={{
+                        width: "150px", height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
+                        background: "white",
+                        position: "relative",
+                        "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            borderRadius: "8px",
+                            padding: "1px",
+                            background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                            mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                            WebkitMask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                            WebkitMaskComposite: "destination-out",
+                            maskComposite: "exclude",
+                        },
+                        cursor: "pointer"
+                    }}>
+                        <Typography variant="gradientText" sx={{ fontSize: "16px", fontWeight: "400" }}>Back</Typography>
+                    </Box>
+                    <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px" }} disabled={!(formik.isValid && formik.dirty)} >
+                        Next
+                    </Button>
+                </Stack>
             </Box>
+
         </form>
     );
 };

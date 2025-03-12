@@ -17,7 +17,8 @@ const DynamicModal = ({
   smallModal,
   dropdownHeader,
   styledHeader,
-  footerDirection
+  footerDirection,
+  hideFooter
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -102,7 +103,7 @@ const DynamicModal = ({
         >
           {children}
         </Box>
-        <Stack justifyContent={footerDirection ? footerDirection : "center"} alignItems={postModal ? "flex-end" : "center"} px={postModal ? 6 : 0} direction={"row"} gap={3}
+        {!hideFooter && <Stack justifyContent={footerDirection ? footerDirection : "center"} alignItems={postModal ? "flex-end" : "center"} px={postModal ? 6 : 0} direction={"row"} gap={3}
           sx={{
             ...(postModal && {
               height: "55px",
@@ -144,7 +145,7 @@ const DynamicModal = ({
           <Button type="submit" sx={{ maxWidth: postModal ? "150px" : "250px", height: postModal ? "36px" : "65px", fontSize: postModal ? "16px" : "20px" }} onClick={onSuccess}>
             {buttonText}
           </Button>
-        </Stack>
+        </Stack>}
         <Menu
           anchorEl={anchorEl}
           open={openMenu}
