@@ -128,7 +128,16 @@ const GoogleAuth = () => {
       )}
 
       <Box sx={{ width: "250px", mt: isMfaActive ? 10 : 2 }}>
-        <Button onClick={() => navigate(reverifyMfa || isMfaActive ? "/login" : "/")}>
+        <Button
+          onClick={() => {
+            if (reverifyMfa || isMfaActive) {
+              navigate("/login");
+            } else {
+              localStorage.removeItem("temp-token");
+              navigate("/");
+            }
+          }}
+        >
           {reverifyMfa || isMfaActive ? "Back to login" : "Skip for now"}
         </Button>
       </Box>

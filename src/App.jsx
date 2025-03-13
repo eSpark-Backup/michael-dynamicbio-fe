@@ -26,8 +26,24 @@ import {
   Pulses,
 } from "./pages";
 import "./App.css";
+import { useGetUserInfoMutation } from "./services/auth";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const App = () => {
+  const token = localStorage.getItem("token");
+  const [getInfo, { isLoading }] = useGetUserInfoMutation();
+
+  useEffect(() => {
+    if (token) {
+      getInfo().then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+      });
+    }
+  }, [token]);
   return (
     <Routes>
       <Route element={<AuthLayout />}>

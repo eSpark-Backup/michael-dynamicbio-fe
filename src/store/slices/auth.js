@@ -27,6 +27,14 @@ const slice = createSlice({
       }
     );
     builder.addMatcher(
+      authApi.endpoints.getUserInfo.matchFulfilled,
+      (state, { payload }) => {
+        const { data } = payload;
+        state.user = data;
+        localStorage.setItem("user", JSON.stringify(data));
+      }
+    );
+    builder.addMatcher(
       authApi.endpoints.verifyEmail.matchFulfilled,
       (state, { payload }) => {
         const { data } = payload;
