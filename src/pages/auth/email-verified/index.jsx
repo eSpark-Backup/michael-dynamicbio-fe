@@ -31,7 +31,7 @@ const EmailVerified = () => {
           }
           setLoading(false);
           localStorage.setItem("temp_user_data", JSON.stringify(data));
-          localStorage.setItem("token", JSON.stringify(res?.data?.data?.token));
+          localStorage.setItem("token", res?.data?.data?.token);
         }
       });
     }
