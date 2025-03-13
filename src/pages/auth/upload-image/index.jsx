@@ -32,6 +32,7 @@ const UploadImage = () => {
       if (res) {
         toast.success("Your profile completed successfully");
         navigate("/");
+        localStorage.removeItem("temp_user_data");
       }
     });
   };

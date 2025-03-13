@@ -23,6 +23,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data?.user;
+        localStorage.setItem("user", JSON.stringify(data?.user));
       }
     );
     builder.addMatcher(
@@ -38,7 +39,6 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
-        localStorage.removeItem("temp_user_data");
       }
     );
   },

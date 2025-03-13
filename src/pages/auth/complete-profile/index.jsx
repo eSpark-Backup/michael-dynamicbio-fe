@@ -5,6 +5,7 @@ import { profileDetailsSchema } from "../../../schemas";
 import { useNavigate } from "react-router-dom";
 
 const CompleteProfile = () => {
+  const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -21,7 +22,7 @@ const CompleteProfile = () => {
   return (
     <>
       <Typography mt="50px" fontSize={"29px"} textAlign="center">
-        Welcome, James!
+        Welcome, {tempUser?.firstName}!
       </Typography>
       <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Let’s begin your profile, connect to the people you know, and engage

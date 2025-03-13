@@ -8,6 +8,7 @@ const Home = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showMore, setShowMore] = useState(false);
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -23,25 +24,28 @@ const Home = () => {
               }}
             >
               <img
-                src={profilePicture}
+                src={userData?.profileImage || profilePicture}
                 alt="Profile"
                 style={{
                   position: "absolute",
                   top: "75%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%"
                 }}
               />
             </Box>
             <Box sx={{ pt: "25px" }}>
               <Typography sx={{ fontSize: "20px", fontWeight: 500, color: theme.palette.primary.dark, textAlign: "center" }}>
-                James Bond
+                {userData?.firstName} {userData?.lastName}
               </Typography>
               <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
-                UI/UX at eSpark Consulting Group
+                {userData?.designation} at {userData?.company}
               </Typography>
               <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
-                Karachi, Sindh, Pakistan
+                {userData?.country}
               </Typography>
             </Box>
           </Paper>
@@ -83,7 +87,7 @@ const Home = () => {
         <Grid2 size={{ xs: 12, lg: 6.5 }} sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
           <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
-              <img src={user} alt="User" />
+              <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={userData?.profileImage || user} alt="User" />
               <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%" }} />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>

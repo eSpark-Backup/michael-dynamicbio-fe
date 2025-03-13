@@ -25,7 +25,13 @@ const EmailVerified = () => {
           return;
         }
         if (res) {
+          const data = {
+            firstName: res?.data?.data?.user?.firstName,
+            lastName: res?.data?.data?.user?.lastName,
+          }
           setLoading(false);
+          localStorage.setItem("temp_user_data", JSON.stringify(data));
+          localStorage.setItem("token", JSON.stringify(res?.data?.data?.token));
         }
       });
     }
