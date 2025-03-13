@@ -12,7 +12,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 
-const EventModal = () => {
+const EventModal = ({ onFormSubmit }) => {
     const eventImgRef = useRef(null);
     const [tempEventType, setEventType] = useState("online")
     const [imagePreview, setImagePreview] = useState(null);
@@ -39,6 +39,7 @@ const EventModal = () => {
             tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
         onSubmit: (values) => {
             console.log("Form submitted:", values);
+            onFormSubmit(values);
         },
     });
 

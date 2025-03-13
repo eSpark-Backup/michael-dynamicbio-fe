@@ -40,3 +40,28 @@ export const generateThumbnail = (file) => {
     };
   });
 };
+
+
+export const formatEventTime = (startDate, startTime, endDate = null, endTime = null) => {
+  const options = { weekday: "short", month: "short", day: "numeric", year: "numeric" };
+  const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
+
+  const timeZoneOffset = new Date().getTimezoneOffset() / -60;
+  const timeZoneString = `(UTC ${timeZoneOffset >= 0 ? "+" : ""}${timeZoneOffset}:00)`;
+
+  const startDateStr = new Intl.DateTimeFormat("en-US", options).format(startDate);
+  const startTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(startTime);
+
+  if (!endDate || !endTime) {
+    return `${startDateStr}, ${startTimeStr} ${timeZoneString}`;
+  }
+
+  const endDateStr = new Intl.DateTimeFormat("en-US", options).format(endDate);
+  const endTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(endTime);
+
+  if (startDate.toDateString() === endDate.toDateString()) {
+    return `${startDateStr}, ${startTimeStr} - ${endTimeStr} ${timeZoneString}`;
+  } else {
+    return `${startDateStr}, ${startTimeStr} - ${endDateStr}, ${endTimeStr} ${timeZoneString}`;
+  }
+};

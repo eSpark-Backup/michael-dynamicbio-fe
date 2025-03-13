@@ -78,6 +78,7 @@ import profile2 from "./icons/profile2.svg"
 import downArrowFilled from "./icons/downArrowFilled.svg"
 import rightArrow from "./icons/rightArrow.svg"
 import gradientRightArrow from "./icons/gradientRightArrow.svg"
+import dummyPhoto from "./icons/dummyPhoto.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -171,4 +172,5 @@ export {
   downArrowFilled,
   rightArrow,
   gradientRightArrow,
+  dummyPhoto,
 };

@@ -24,6 +24,7 @@ import ScheduleModal from "./ScheduleModal";
 import PhotoModal from "./PhotoModal";
 import VideoModal from "./VideoModal";
 import EventModal from "./EventModal";
+import ViewEventModal from "./ViewEventModal";
 
 export {
     Input,
@@ -52,4 +53,5 @@ export {
     PhotoModal,
     VideoModal,
     EventModal,
+    ViewEventModal,
 }
