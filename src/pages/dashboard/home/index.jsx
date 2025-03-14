@@ -22,6 +22,7 @@ const Home = () => {
   const [viewEventModal, setViewEventModal] = useState(false)
 
   const HandlePostTypeClick = (item) => {
+    console.log(item)
     if (item === "Photo") {
       fileInputRef.current.click();
     }
@@ -30,6 +31,7 @@ const Home = () => {
     }
     else if (item === "Event") {
       setEventModal(true)
+      setShowPostModal(false)
     }
   }
 
@@ -44,6 +46,7 @@ const Home = () => {
   useEffect(() => {
     if (videoData?.video) {
       setVideoModal(true)
+      setShowPostModal(false)
     }
   }, [videoData])
 
@@ -54,7 +57,6 @@ const Home = () => {
 
   const handleVideoChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file)
     if (file) {
       try {
         const thumbnail = await generateThumbnail(file);
@@ -87,6 +89,11 @@ const Home = () => {
     setEventModal(false)
     setViewEventModal(true)
   };
+
+  const handleEditClick = () => {
+    setEventModal(true)
+    setViewEventModal(false)
+  }
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -243,15 +250,15 @@ const Home = () => {
       </DynamicModal>
 
       <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
-        <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} />
+        <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} videoChange={handleVideoChange} openModal={HandlePostTypeClick} />
       </DynamicModal>
 
       <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"} hideFooter={true}>
-        <EventModal onFormSubmit={handleFormSubmit} />
+        <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} />
       </DynamicModal>
 
-      <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true}>
-        <ViewEventModal values={eventFormValues}/>
+      <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true}>
+        <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
       </DynamicModal>
 
       <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>

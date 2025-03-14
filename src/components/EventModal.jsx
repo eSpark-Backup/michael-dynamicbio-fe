@@ -12,18 +12,23 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 
-const EventModal = ({ onFormSubmit }) => {
+const EventModal = ({ onFormSubmit, receivedValues }) => {
     const eventImgRef = useRef(null);
     const [tempEventType, setEventType] = useState("online")
     const [imagePreview, setImagePreview] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false)
+
+    useEffect(() => {
+        setIsEditMode(Object.keys(receivedValues || {}).length > 0 ? true : false)
+    }, [receivedValues])
 
     const formik = useFormik({
-        initialValues: {
+        initialValues: Object.keys(receivedValues || {}).length > 0 ? receivedValues : {
             eventType: "online",
             format: "",
             name: "",
             selectedFile: null,
-            timezone: "",
+            timezone: timezoneOptions[0]?.value || "",
             startDate: new Date(),
             startTime: new Date(),
             endDate: new Date(),
@@ -33,22 +38,24 @@ const EventModal = ({ onFormSubmit }) => {
             speakers: "",
             address: "",
             venue: "",
-            externalLink: ""
+            externalLink: "",
         },
-        validationSchema: (values) =>
-            tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
+        validationSchema: tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
         onSubmit: (values) => {
             console.log("Form submitted:", values);
             onFormSubmit(values);
         },
     });
 
+    useEffect(() => { console.log(formik.errors) }, [formik.errors])
+
+
     React.useEffect(() => {
         if (formik.values.selectedFile) {
             const objectUrl = URL.createObjectURL(formik.values.selectedFile);
             setImagePreview(objectUrl);
 
-            return () => URL.revokeObjectURL(objectUrl); // Cleanup to prevent memory leaks
+            return () => URL.revokeObjectURL(objectUrl);
         }
     }, [formik.values.selectedFile]);
 
@@ -480,7 +487,7 @@ const EventModal = ({ onFormSubmit }) => {
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
                         By continuing, you agree with
                     </Typography>
-                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> LinkedIn’s event policy</Typography>
+                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> Fusion’s event policy</Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
@@ -535,7 +542,7 @@ const EventModal = ({ onFormSubmit }) => {
                     }}>
                         <Typography variant="gradientText" sx={{ fontSize: "16px", fontWeight: "400" }}>Back</Typography>
                     </Box>
-                    <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px" }} disabled={!(formik.isValid && formik.dirty)} >
+                    <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px" }} disabled={!(formik.isValid && (formik.dirty || isEditMode))} >
                         Next
                     </Button>
                 </Stack>

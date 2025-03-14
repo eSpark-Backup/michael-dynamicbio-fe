@@ -1,9 +1,11 @@
 import { Box, OutlinedInput, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import { article, emoji, event, photo, video } from '../assets';
+import { generateThumbnail } from '../utils';
 
-const PostModal = ({ fileChange,placeholder }) => {
+const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
     const fileInputRef = useRef(null);
+    const videoInputRef = useRef(null);
 
 
     const handleFileChange = (event) => {
@@ -17,7 +19,17 @@ const PostModal = ({ fileChange,placeholder }) => {
         if (item?.label === "Photo") {
             fileInputRef.current.click();
         }
+        else if (item?.label === "Video") {
+            videoInputRef.current.click();
+        }
+        else if (item?.label === "Event") {
+            openModal("Event")
+        }
     }
+
+    const handleVideoChange = async (e) => {
+        videoChange(e)
+    };
 
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", rowGap: "15px" }}>
@@ -65,6 +77,14 @@ const PostModal = ({ fileChange,placeholder }) => {
                 multiple
                 style={{ display: "none" }}
                 onChange={handleFileChange}
+            />
+
+            <input
+                type="file"
+                ref={videoInputRef}
+                accept="video/*"
+                style={{ display: "none" }}
+                onChange={handleVideoChange}
             />
         </Box>
     );
