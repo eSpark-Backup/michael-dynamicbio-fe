@@ -90,6 +90,8 @@ const Navbar = () => {
     dispatch(handleChange(e.target.value));
   }
 
+  const userData = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Box
       sx={{
@@ -156,7 +158,14 @@ const Navbar = () => {
                 horizontal: "left",
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem
+                  onClick={() => {
+                    navigate(`/profile/${userData?.id}`);
+                    handleClose();
+                  }}
+                >
+                  Profile
+                </MenuItem>
               <MenuItem onClick={handleClose}>Account</MenuItem>
               <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
               <MenuItem onClick={handleClose}>Language</MenuItem>
@@ -322,7 +331,15 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Profile</MenuItem>
+                <MenuItem
+                  sx={{ width: "245px" }}
+                  onClick={() => {
+                    navigate(`/profile/${userData?.id}`);
+                    handleClose();
+                  }}
+                >
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>

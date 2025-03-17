@@ -57,7 +57,7 @@ const Login = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography fontSize="40px">Login</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Login</Typography>
       <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
           label={"Email"}
@@ -119,7 +119,6 @@ const Login = () => {
         >
           <Typography
             variant="gradientText"
-            ml={1}
             fontSize="18px"
             fontWeight={500}
             component="span"
@@ -133,7 +132,7 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         gap={2}
-        sx={{ marginTop: "38px" }}
+        sx={{ marginY: "38px" }}
       >
         <Typography fontWeight={300}>Or Sign up via</Typography>
         <img style={{ cursor: "pointer" }} src={google} alt="google" />

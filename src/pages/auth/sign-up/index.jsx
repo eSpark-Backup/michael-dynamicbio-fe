@@ -57,7 +57,7 @@ const Signup = () => {
         }}
       >
         <Typography
-          sx={{ fontSize: "29px", fontWeight: "400", textAlign: "center" }}
+          sx={{ fontSize: { xs: "28px", md: "40px" }, fontWeight: "400", textAlign: "center" }}
         >
           Sign Up
         </Typography>
@@ -136,6 +136,7 @@ const Signup = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 height: "27px",
+                mb: 5,
               }}
             >
               <Typography

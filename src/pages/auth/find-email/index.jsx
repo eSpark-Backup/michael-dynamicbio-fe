@@ -39,7 +39,7 @@ const FindEmail = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography fontSize="40px">Find Your Account</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Find Your Account</Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
         Please enter your email address to search for your account.
       </Typography>

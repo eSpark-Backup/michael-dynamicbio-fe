@@ -1,10 +1,12 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, RightSideBar, SuggestionPost } from '../../../components';
 
 const Home = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showMore, setShowMore] = useState(false);
@@ -38,7 +40,7 @@ const Home = () => {
               />
             </Box>
             <Box sx={{ pt: "25px" }}>
-              <Typography sx={{ fontSize: "20px", fontWeight: 500, color: theme.palette.primary.dark, textAlign: "center" }}>
+              <Typography onClick={() => navigate(`/profile/${userData?.id}`)} sx={{ fontSize: "20px", fontWeight: 500, color: theme.palette.primary.dark, textAlign: "center" }}>
                 {userData?.firstName} {userData?.lastName}
               </Typography>
               <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050", textAlign: "center" }}>

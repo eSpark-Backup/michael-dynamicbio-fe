@@ -31,7 +31,7 @@ const SelectEmail = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography fontSize="40px">Recognize Your profile</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Recognize Your profile</Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
         By continuing, you will receive a six-digit code at your email.
       </Typography>
