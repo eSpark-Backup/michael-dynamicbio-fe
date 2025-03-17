@@ -18,7 +18,8 @@ const DynamicModal = ({
   dropdownHeader,
   styledHeader,
   footerDirection,
-  hideFooter
+  hideFooter,
+  handleGroupClick
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -31,6 +32,16 @@ const DynamicModal = ({
     event.stopPropagation();
     setAnchorEl(null);
   };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const HandlegroupItemClicked = () => {
+    handleCloseMenu()
+    handleGroupClick();
+  }
+
   return (
     <Modal
       open={open}
@@ -160,19 +171,19 @@ const DynamicModal = ({
           }}
         >
           <RadioGroup name="share" sx={{ width: "100%", px: "0px", marginRight: "0px !important" }}>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between" }}>
+            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Everyone</Typography>
               <FormControlLabel value="everyone" control={<Radio sx={{ marginRight: "0px !important" }} />} />
             </MenuItem>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between" }}>
+            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Only connections</Typography>
               <FormControlLabel value="connections" control={<Radio sx={{ marginRight: "0px !important" }} />} />
             </MenuItem>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between" }}>
+            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Only me</Typography>
               <FormControlLabel value="me" control={<Radio sx={{ marginRight: "0px !important" }} />} />
             </MenuItem>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between" }}>
+            <MenuItem onClick={HandlegroupItemClicked} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "30px" }}>
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Group</Typography>
               <img src={rightArrow} alt="Icon" style={{ width: "12px", height: "6px" }} />
             </MenuItem>

@@ -79,6 +79,10 @@ import downArrowFilled from "./icons/downArrowFilled.svg"
 import rightArrow from "./icons/rightArrow.svg"
 import gradientRightArrow from "./icons/gradientRightArrow.svg"
 import dummyPhoto from "./icons/dummyPhoto.svg"
+import link2 from "./icons/link2.svg"
+import close2 from "./icons/close2.svg"
+import earth from "./icons/earth.svg"
+import poll from "./icons/poll.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -173,4 +177,8 @@ export {
   rightArrow,
   gradientRightArrow,
   dummyPhoto,
+  link2,
+  close2,
+  earth,
+  poll,
 };

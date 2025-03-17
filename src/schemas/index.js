@@ -116,3 +116,15 @@ export const inpersonEventSchema = Yup.object({
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
   externalLink: Yup.string().max(1024, "Must be 1024 characters or less"),
 });
+
+export const pollSchema = Yup.object({
+  question: Yup.string().required("Question is required").max(100, "Must be 100 characters or less"),
+  opt1: Yup.string().required("Option 1 is required").max(100, "Must be 100 characters or less"),
+  opt2: Yup.string().required("Option 2 is required").max(100, "Must be 100 characters or less"),
+  options: Yup.array()
+    .of(
+      Yup.string()
+        .max(100, "Must be 100 characters or less")
+    )
+    .optional(),
+})

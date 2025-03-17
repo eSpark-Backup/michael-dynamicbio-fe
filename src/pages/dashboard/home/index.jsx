@@ -2,7 +2,7 @@ import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery,
 import React, { useEffect, useRef, useState } from 'react';
 import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
-import { BondCard2, DynamicModal, EventModal, PhotoModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
+import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
 
 const Home = () => {
@@ -20,6 +20,8 @@ const Home = () => {
   const [eventModal, setEventModal] = useState(false)
   const [eventFormValues, setEventFormValues] = useState({});
   const [viewEventModal, setViewEventModal] = useState(false)
+  const [groupShareModal, setGroupShareModal] = useState(false)
+  const [pollModal, setPollModal] = useState(false)
 
   const HandlePostTypeClick = (item) => {
     console.log(item)
@@ -33,6 +35,10 @@ const Home = () => {
       setEventModal(true)
       setShowPostModal(false)
     }
+    else if (item === "Poll") {
+      setPollModal(true)
+      setShowPostModal(false)
+    }
   }
 
   useEffect(() => {
@@ -40,7 +46,6 @@ const Home = () => {
       setShowPostModal(false)
       setShowModal(true)
     }
-    console.log(selectedFiles)
   }, [selectedFiles])
 
   useEffect(() => {
@@ -241,15 +246,15 @@ const Home = () => {
         onChange={handleVideoChange}
       />
 
-      <DynamicModal open={showModal} handleClose={HandleModalClose} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+      <DynamicModal open={showModal} handleClose={HandleModalClose} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"} handleGroupClick={() => setGroupShareModal(true)}>
         <PhotoModal files={selectedFiles} placeholder={"Say something about this photo"} handleClose={HandleModalClose} />
       </DynamicModal>
 
-      <DynamicModal open={videoModal} handleClose={() => setVideoModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+      <DynamicModal open={videoModal} handleClose={() => setVideoModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} handleGroupClick={() => setGroupShareModal(true)} footerDirection={"flex-end"}>
         <VideoModal file={videoData} placeholder={"Say something about this video"} handleClose={HandleVideoModalClose} />
       </DynamicModal>
 
-      <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"}>
+      <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} handleGroupClick={() => setGroupShareModal(true)} footerDirection={"flex-end"}>
         <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} videoChange={handleVideoChange} openModal={HandlePostTypeClick} />
       </DynamicModal>
 
@@ -257,12 +262,21 @@ const Home = () => {
         <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} />
       </DynamicModal>
 
-      <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true}>
+      <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true} handleGroupClick={() => setGroupShareModal(true)}>
         <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
       </DynamicModal>
 
       <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
         <ScheduleModal />
+      </DynamicModal>
+
+      <DynamicModal open={groupShareModal} handleClose={() => setGroupShareModal(false)} title={"Repost to group"} buttonText={"Save"} postModal={true} userName={"Areeba Shakeel"} footerDirection={"space-between"} hideFooter={true}>
+        <GroupShareModal />
+      </DynamicModal>
+
+
+      <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} styledHeader={true} hideFooter={true}>
+        <PollModal handleSuccess={() => setPollModal(false)} />
       </DynamicModal>
     </Box>
   );

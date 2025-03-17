@@ -1,6 +1,6 @@
 import { Box, OutlinedInput, Typography } from '@mui/material';
 import React, { useRef } from 'react';
-import { article, emoji, event, photo, video } from '../assets';
+import { article, emoji, event, photo, poll, video } from '../assets';
 import { generateThumbnail } from '../utils';
 
 const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
@@ -25,6 +25,9 @@ const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
         else if (item?.label === "Event") {
             openModal("Event")
         }
+        else if (item?.label === "Poll") {
+            openModal("Poll")
+        }
     }
 
     const handleVideoChange = async (e) => {
@@ -45,7 +48,7 @@ const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
             <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} />
             <Box sx={{ height: "50px" }}>
                 <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "20px" }}>
-                    {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }]
+                    {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: poll, label: "Poll" }, { img: event, label: "Event" }]
                         .map((item, index) => (
                             <Box
                                 key={index}

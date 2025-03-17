@@ -25,6 +25,11 @@ import PhotoModal from "./PhotoModal";
 import VideoModal from "./VideoModal";
 import EventModal from "./EventModal";
 import ViewEventModal from "./ViewEventModal";
+import ShareModal from "./ShareModal";
+import RepostWithThoughts from "./RepostWithThoughts";
+import ConfirmationModal from "./ConfirmationModal";
+import GroupShareModal from "./GroupShareModal";
+import PollModal from "./PollModal";
 
 export {
     Input,
@@ -54,4 +59,9 @@ export {
     VideoModal,
     EventModal,
     ViewEventModal,
+    ShareModal,
+    RepostWithThoughts,
+    ConfirmationModal,
+    GroupShareModal,
+    PollModal,
 }
