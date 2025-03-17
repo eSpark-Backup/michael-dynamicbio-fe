@@ -47,7 +47,7 @@ const ResyncMfa = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography textAlign="center" fontSize="40px">
+      <Typography textAlign="center" sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Re-sync Your Device
       </Typography>
       <Typography

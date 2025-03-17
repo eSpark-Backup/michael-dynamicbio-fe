@@ -52,7 +52,7 @@ const Input = ({
                   edge="end"
                   sx={{ marginRight: "0px" }}
                 >
-                  {!showPassword ? (
+                  {showPassword ? (
                     <img src={eye} />
                   ) : (
                     <img src={eyeClose} alt="eye" />

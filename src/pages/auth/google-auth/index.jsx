@@ -77,7 +77,7 @@ const GoogleAuth = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography textAlign="center" fontSize="40px">
+      <Typography textAlign="center" sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Multi Factor Authentication
       </Typography>
       <Typography
@@ -127,7 +127,7 @@ const GoogleAuth = () => {
         </Link>
       )}
 
-      <Box sx={{ width: "250px", mt: isMfaActive ? 10 : 2 }}>
+      <Box sx={{ width: "250px", mt: isMfaActive ? 10 : 2, mb: 5 }}>
         <Button
           onClick={() => {
             if (reverifyMfa || isMfaActive) {

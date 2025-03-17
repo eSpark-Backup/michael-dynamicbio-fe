@@ -9,6 +9,7 @@ const AuthLayout = () => {
   return !isWelcomeScreen ? (
     <Stack
       sx={{
+        backgroundColor: "#FCFCFC !important",
         width: "100wh",
         height: "100vh",
         "> img": {
@@ -33,13 +34,13 @@ const AuthLayout = () => {
         alignItems="center"
         justifyItems="flex-start"
       >
-        <img
+        {/* <img
           style={{ width: "109px", height: "89px", marginTop: "43px" }}
           src={icon}
           alt="app-logo"
-        />
+        /> */}
         <img
-          style={{ width: "207px", height: "65px", marginTop: "80px" }}
+          style={{ width: "207px", height: "65px", marginTop: "200px" }}
           src={logo}
           alt="app-name-logo"
         />
