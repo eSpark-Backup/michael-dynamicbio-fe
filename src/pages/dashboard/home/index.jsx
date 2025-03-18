@@ -4,6 +4,7 @@ import { article, bondMain, event, photo, profilePicture, research, user, userWi
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const theme = useTheme();
@@ -22,6 +23,7 @@ const Home = () => {
   const [viewEventModal, setViewEventModal] = useState(false)
   const [groupShareModal, setGroupShareModal] = useState(false)
   const [pollModal, setPollModal] = useState(false)
+  const navigate = useNavigate()
 
   const HandlePostTypeClick = (item) => {
     console.log(item)
@@ -38,6 +40,9 @@ const Home = () => {
     else if (item === "Poll") {
       setPollModal(true)
       setShowPostModal(false)
+    }
+    else if (item === "Article") {
+      navigate("/article")
     }
   }
 

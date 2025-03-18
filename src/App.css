@@ -79,9 +79,23 @@ body {
     }
 }
 
-.css-iuvrud-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected , 
-.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible, .css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover,
-.css-eutvm9-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected
-{
+.css-iuvrud-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected,
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible,
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover,
+.css-eutvm9-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected {
     color: white;
+}
+
+.ql-container.ql-snow {
+    border: none !important;
+    font-size: 20px !important;
+    margin-left: 30px;
+}
+
+.ql-toolbar.ql-snow {
+    border: none !important;
+}
+
+.ql-snow.ql-toolbar button {
+    width: 60px !important;
 }

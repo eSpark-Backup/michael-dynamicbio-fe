@@ -30,6 +30,7 @@ import RepostWithThoughts from "./RepostWithThoughts";
 import ConfirmationModal from "./ConfirmationModal";
 import GroupShareModal from "./GroupShareModal";
 import PollModal from "./PollModal";
+import ViewArticle from "./ViewArticle";
 
 export {
     Input,
@@ -64,4 +65,5 @@ export {
     ConfirmationModal,
     GroupShareModal,
     PollModal,
+    ViewArticle,
 }
