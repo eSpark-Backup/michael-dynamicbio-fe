@@ -11,7 +11,10 @@ const ResyncMfa = () => {
   const [otp, setOtp] = useState("______");
   const [otp2, setOtp2] = useState("______");
   const handleResync = () => {
-    if (
+    if (otp === otp2) {
+      toast.error("Codes should not be same");
+      return;
+    } else if (
       otp.length === 6 &&
       !otp.includes("_") &&
       otp2.length === 6 &&
@@ -47,7 +50,10 @@ const ResyncMfa = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography textAlign="center" sx={{ fontSize: { xs: "28px", md: "40px" } }}>
+      <Typography
+        textAlign="center"
+        sx={{ fontSize: { xs: "28px", md: "40px" } }}
+      >
         Re-sync Your Device
       </Typography>
       <Typography
@@ -89,7 +95,7 @@ const ResyncMfa = () => {
       <Box onClick={handleResync} sx={{ width: "250px", mt: "82px" }}>
         <Button loading={isLoading}>Done</Button>
       </Box>
-      <Typography sx={{ marginTop: "53px" }}>
+      <Typography sx={{ marginTop: "53px", mb: 5 }}>
         Back to
         <Link
           style={{

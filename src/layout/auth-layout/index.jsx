@@ -9,7 +9,7 @@ const AuthLayout = () => {
   return !isWelcomeScreen ? (
     <Stack
       sx={{
-        backgroundColor: "#FCFCFC !important",
+        backgroundColor: "#FFFFFF !important",
         width: "100wh",
         height: "100vh",
         "> img": {

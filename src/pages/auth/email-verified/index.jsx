@@ -63,11 +63,11 @@ const EmailVerified = () => {
               alt="success"
             />
           )}
-          <Typography mt={4} fontSize="29px" textAlign="center">
+          <Typography mb="75px" mt={4} fontSize="29px" textAlign="center">
             {error ? error : "Your account has been created successfully"}
           </Typography>
           {!error && (
-            <Box sx={{ width: "250px", mt: "75px" }}>
+            <Box sx={{ width: "250px", mb: "75px" }}>
               <Button onClick={() => navigate("/complete-profile")}>
                 Next
               </Button>

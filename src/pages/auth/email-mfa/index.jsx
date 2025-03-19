@@ -47,7 +47,7 @@ const EmailMfa = () => {
           Resend
         </Button>
       </Box>
-      <Typography sx={{ marginTop: "192px" }}>
+      <Typography sx={{ marginTop: "192px", mb: 5 }}>
         Back to
         <Link
           style={{

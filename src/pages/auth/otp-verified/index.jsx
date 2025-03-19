@@ -18,7 +18,7 @@ const OtpVerified = () => {
       <Typography mt={4} fontSize="29px" textAlign="center">
         OTP Verified
       </Typography>
-      <Box sx={{ width: "250px", mt: "75px" }}>
+      <Box sx={{ width: "250px", mt: "75px", mb: 5 }}>
         <Button onClick={() => navigate("/")}>Login</Button>
       </Box>
     </Stack>

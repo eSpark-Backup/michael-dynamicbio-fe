@@ -47,7 +47,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
-        localStorage.setItem("user", JSON.stringify(data?.user));
+        localStorage.setItem("user", JSON.stringify(data));
       }
     );
   },

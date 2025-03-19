@@ -18,7 +18,7 @@ const ResetSuccess = () => {
       <Typography mt={4} fontSize="29px" textAlign="center">
         Password Successfully Reset!
       </Typography>
-      <Box sx={{ width: "250px", mt: "75px" }}>
+      <Box sx={{ width: "250px", mt: "75px", mb: 5 }}>
         <Button onClick={() => navigate("/")}>Login</Button>
       </Box>
     </Stack>

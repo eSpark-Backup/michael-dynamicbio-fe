@@ -63,7 +63,7 @@ const TroubleshootMfa = () => {
         </Stack>
       </Box>
 
-      <Box sx={{ width: "250px", mt: 10 }}>
+      <Box sx={{ width: "250px", mt: 10, mb: 5 }}>
         <Button onClick={() => navigate("/login")}>Back to login</Button>
       </Box>
     </Stack>

@@ -107,7 +107,7 @@ const ForgetPassword = () => {
         <Typography component="li">Must not had been used before.</Typography>
       </Box>
 
-      <Box sx={{ width: "250px", marginTop: "155px" }}>
+      <Box sx={{ width: "250px", marginTop: "155px", mb: 5 }}>
         <Button loading={isLoading} type="submit">
           Done
         </Button>
