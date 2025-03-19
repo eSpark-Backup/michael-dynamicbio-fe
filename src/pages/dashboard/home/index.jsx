@@ -92,6 +92,9 @@ const Home = () => {
   const HandleVideoModalClose = () => {
     setVideoModal(false)
     setVideoData({ video: null, thumbnail: null })
+    if (videoInputRef.current) {
+      videoInputRef.current.value = null;
+    }
   }
 
   const handleFormSubmit = (formData) => {

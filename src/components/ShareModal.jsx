@@ -39,12 +39,12 @@ const ShareModal = () => {
                             justifyContent: "space-between",
                             alignItems: "center",
                             width: "98%",
-                            height: "85px",
+                            // height: "85px",
                             marginTop: "15px",
                             transition: "background 0.3s ease",
                         }}
                     >
-                        <Stack direction={"row"} gap={1}>
+                        <Stack direction={{ xs: "column", md: "row" }} gap={1}>
                             <img src={item.image} alt="Profile" style={{ width: "60px", height: "60px" }} />
                             <Stack direction={"column"}>
                                 <Typography sx={{ fontSize: "16px", fontWeight: "500", color: checkedItems[item.id] ? "#FFFFFF" : "#171717" }}>{item.name}</Typography>
@@ -95,7 +95,7 @@ const ShareModal = () => {
                 justifyContent={checkedCount === 0 ? "flex-start" : "flex-end"}
                 alignItems={"center"}
                 pl={4}
-                pr={6}
+                pr={{ xs: 1, md: 6 }}
                 direction={"row"}
                 gap={3}
                 sx={{
@@ -127,10 +127,10 @@ const ShareModal = () => {
                                 </Button>
                                 :
                                 <Box sx={{ display: "flex", columnGap: "5px" }}>
-                                    <Button sx={{ height: "36px", width: "150px", fontSize: "16px" }}>
+                                    <Button sx={{ height: "36px", width: { xs: "100px", md: "150px" }, fontSize: { xs: "10px", md: "16px" } }}>
                                         Send as a group
                                     </Button>
-                                    <Button sx={{ height: "36px", width: "150px", fontSize: "16px" }}>
+                                    <Button sx={{ height: "36px", width: { xs: "100px", md: "150px" }, fontSize: { xs: "10px", md: "16px" } }}>
                                         Send separately
                                     </Button>
                                 </Box>

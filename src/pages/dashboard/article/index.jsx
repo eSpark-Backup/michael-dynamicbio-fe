@@ -91,7 +91,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
 
             <Box sx={{ borderBottom: "1px solid rgb(140 140 140/.2)", display: "flex", justifyContent: "center", alignItems: "center", py: "15px" }}>
-                <Box sx={{ width: "70%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Box sx={{ width: { xs: "100%", md: "80%", lg: "70%" }, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px", px: { xs: "20px", md: "0px" } }}>
                     <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center" }}>
                         <img src={profile2} alt="Avatar" />
                         <Stack direction={"column"}>
@@ -103,7 +103,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                         </Stack>
                     </Box>
 
-                    <Box sx={{ backgroundColor: "#f4f2ee", padding: "0.4rem 2.4rem", borderRadius: "2.4rem" }}>
+                    <Box sx={{ backgroundColor: "#f4f2ee", padding: "0.4rem 2.4rem", borderRadius: "2.4rem", width: { xs: "100%", md: "auto" } }}>
                         <div id="toolbar-container">
                             <span className="ql-formats">
                                 <button className="ql-bold"></button>
@@ -119,9 +119,9 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                         </div>
 
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "row", columnGap: "10px" }}>
+                    <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: "10px", width: { xs: "100%", md: "auto" } }}>
                         <Box onClick={handleClick2} sx={{
-                            width: "150px", height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
+                            width: { xs: "100%", sm: "150px" }, height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
                             background: "white",
                             position: "relative",
                             "&::before": {
@@ -143,7 +143,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                         }}>
                             <Typography variant="gradientText" sx={{ fontSize: "16px", fontWeight: "400" }} >Manage</Typography>
                         </Box>
-                        <Button sx={{ width: "150px", height: "36px" }} onClick={HandleNext}>Next</Button>
+                        <Button sx={{ width: { xs: "100%", sm: "150px" }, height: "36px" }} onClick={HandleNext}>Next</Button>
                     </Box>
                 </Box>
             </Box>
@@ -152,7 +152,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
             <Box
                 sx={{
                     backgroundColor: previewImage ? "transparent" : "#f4f2ee",
-                    maxWidth: "720px",
+                    maxWidth: { xs: "90%", md: "720px" },
                     height: "305px",
                     margin: "0 auto 3.2rem",
                     display: "flex",
@@ -219,11 +219,11 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                 {!previewImage && (
                     <>
                         <img src={photo} alt="Icon" style={{ width: "64px", height: "64px" }} />
-                        <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
                             We recommend uploading or dragging in an image that is{" "}
                             <span style={{ color: "#171717", fontWeight: "500" }}>1920x1080 pixels</span>
                         </Typography>
-                        <Box sx={{ width: "310px", cursor: "pointer" }} onClick={() => fileInputRef.current.click()}>
+                        <Box sx={{ width: { xs: "95%", md: "310px" }, cursor: "pointer" }} onClick={() => fileInputRef.current.click()}>
                             <BoxWithTextIcon text={"Upload from Computer"} icon={uploadIcon} />
                         </Box>
                     </>
@@ -238,7 +238,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                     sx={{
                         backgroundColor: "transparent",
                         border: "none",
-                        margin: "0 2.4rem",
+                        margin: { xs: "0px", md: "0 2.4rem" },
                         "& .MuiInputBase-root": {
                             padding: "8px 0",
                             alignItems: "center",
@@ -249,7 +249,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                             caretColor: "black",
                             fontSize: "2.2rem !important",
                             lineHeight: "2.6rem",
-                            padding: "4px 0",
+                            padding: { xs: "4px 10px", md: "4px 0" },
                         },
                         "& .MuiInputBase-input::placeholder": {
                             color: "black",
@@ -289,7 +289,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                 sx={{ p: "0px !important" }}
             >
                 <RadioGroup name="share">
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: "320px" }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: { xs: "270px", sm: "320px" } }}>
                         <Typography>Publish as</Typography>
                         <Box sx={{
                             display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px", cursor: "pointer", "&:hover": {
@@ -304,7 +304,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                         </Box>
                     </Box>
                     <Divider sx={{ my: "25px" }} />
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: "320px" }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: { xs: "270px", sm: "320px" } }}>
                         <Typography>Publish to</Typography>
                         <Box sx={{
                             display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px", cursor: "pointer", "&:hover": {

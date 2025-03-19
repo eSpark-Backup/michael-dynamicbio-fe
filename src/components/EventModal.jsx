@@ -98,7 +98,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                             <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>
                                 Upload cover image
                             </Typography>
-                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
                                 Minimum width 480 pixels, 16:9 recommended
                             </Typography>
                         </>
@@ -190,9 +190,9 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                         helperText={formik.touched.timezone && formik.errors.timezone}
                     />
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                        <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Start date*</Typography>
                             <DatePicker
                                 value={formik.values.startDate}
@@ -219,7 +219,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                         </Box>
                     </LocalizationProvider>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                        <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Start time*</Typography>
                             <TimePicker
                                 value={formik.values.startTime}
@@ -275,9 +275,9 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     />
                 </Box>
                 {formik.values?.showEndTime &&
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                            <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End date*</Typography>
                                 <DatePicker
                                     value={formik.values.endDate}
@@ -304,7 +304,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                             </Box>
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <Box sx={{ width: "45%", display: "flex", flexDirection: "column", rowGap: "3px" }}>
+                            <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End time*</Typography>
                                 <TimePicker
                                     value={formik.values.endTime}
@@ -483,13 +483,13 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                         Add connections to speak at the event. Speakers can join the event early and will be shown in the event’s Details section and presenter area. They cannot allow attendees to speak or end the event.
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px" }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", flexWrap: "wrap" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
                         By continuing, you agree with
                     </Typography>
                     <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> Fusion’s event policy</Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px" }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px", flexWrap: "wrap"  }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
                         Make the most of LinkedIn Events.
                     </Typography>

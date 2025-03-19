@@ -45,26 +45,31 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                     },
 
                 }} />
-            <Box sx={{ display: "flex", backgroundColor: "#FCFCFC", borderRadius: "4px", height: "440px", p: "15px", justifyContent: "space-between" }}>
-                <Box sx={{ width: "80%", height: "100%", position: 'relative', backgroundImage: selectedFiles?.length > 0 ? `url(${URL.createObjectURL(selectedFiles[selectedFiles?.length - 1])})` : "", backgroundPosition: "center", backgroundSize: "cover" }}>
+            <Box sx={{
+                display: "flex", backgroundColor: "#FCFCFC", borderRadius: "4px", height: "440px", p: "15px", justifyContent: "space-between",
+                flexDirection: { xs: "column", md: "row" },
+                rowGap: "10px"
+            }}>
+                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', backgroundImage: selectedFiles?.length > 0 ? `url(${URL.createObjectURL(selectedFiles[selectedFiles?.length - 1])})` : "", backgroundPosition: "center", backgroundSize: "cover" }}>
                     {selectedFiles?.length > 0 && <img src={deleteIcon} alt="Icon" style={{ width: '24px', height: "24px", position: "absolute", right: "15px", top: "15px", cursor: "pointer" }} onClick={() => handleDeleteFile(selectedFiles.length - 1)} />}
                 </Box>
                 <Box sx={{
-                    width: '18%',
+                    width: { xs: "100%", md: '18%' },
                     height: "100%",
                     overflowY: "auto",
                     display: "flex",
-                    flexDirection: "column",
-                    rowGap: "10px",
+                    flexDirection: { xs: "row", md: "column" },
+                    gap: "10px",
                     alignItems: selectedFiles.length === 1 ? "center" : "flex-start",
-                    justifyContent: selectedFiles.length === 1 ? "center" : "flex-start"
+                    justifyContent: selectedFiles.length === 1 ? "center" : "flex-start",
+                    overflowX: { xs: "auto", md: "hidden" }
                 }}>
                     {selectedFiles?.length > 0 && selectedFiles?.map((item, index) => {
                         return (
                             <Box
                                 key={index}
                                 sx={{
-                                    width: "95%",
+                                    width: { xs: "125px", md: "95%" },
                                     minHeight: "125px",
                                     display: "flex",
                                     justifyContent: index === selectedFiles.length - 1 ? "center" : "flex-end",
@@ -73,7 +78,8 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                                     backgroundPosition: "center",
                                     backgroundSize: "cover",
                                     borderRadius: "4px",
-                                    position: "relative"
+                                    position: "relative",
+                                    minWidth: { xs: "125px" }
                                 }}
                             >
                                 {index === selectedFiles.length - 1 ? (

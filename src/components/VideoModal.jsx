@@ -16,17 +16,30 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
     }, [file]);
 
     const HandleDelete = () => {
-        setVideoData({ video: null, thumbnail: null })
-        handleClose()
-    }
+        setVideoData({ video: null, thumbnail: null });
+        setNewThumbnail(null);
+        setThumbnailPreview(null);
+        setIsFileUploaded(false);
+
+        // Reset the file input field
+        if (fileInputRef.current) {
+            fileInputRef.current.value = null;
+        }
+
+        handleClose();
+    };
+
 
     const handleFileChange = (e) => {
-        const files = e.target.files;
-        if (files.length > 0) {
-            setNewThumbnail(files[0]);
-            setIsFileUploaded(true)
+        if (e.target.files.length > 0) {
+            // Reset file input before setting a new file
+            fileInputRef.current.value = null;
+            
+            setNewThumbnail(e.target.files[0]);
+            setIsFileUploaded(true);
         }
     };
+    
 
 
 
@@ -62,9 +75,13 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
                     },
                 }}
             />
-            <Box sx={{ display: "flex", backgroundColor: "#FCFCFC", borderRadius: "4px", height: "440px", p: "15px", justifyContent: "space-between" }}>
-                {/* Video Section */}
-                <Box sx={{ width: "80%", height: "100%", position: 'relative' }}>
+            <Box sx={{
+                display: "flex", backgroundColor: "#FCFCFC", borderRadius: "4px", height: "440px", p: "15px", justifyContent: "space-between",
+                flexDirection: { xs: "column", md: "row" }, rowGap: '10px',
+                overflowY: "auto"
+            }}>
+
+                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', maxHeight: { xs: "230px", md: "auto" } }}>
                     {videoData.video && (
                         <video
                             src={URL.createObjectURL(videoData.video)}
@@ -83,7 +100,7 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
 
                 <Box
                     sx={{
-                        width: '18%',
+                        width: { xs: "100%", md: '18%' },
                         height: "100%",
                         overflowY: "auto",
                         display: "flex",
@@ -95,7 +112,7 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
                 >
                     <Box
                         sx={{
-                            width: "95%",
+                            width: { xs: "100%", md: "95%" },
                             minHeight: "125px",
                             display: "flex",
                             justifyContent: isFileUploaded ? "flex-end" : "center",

@@ -92,7 +92,7 @@ const ViewEventModal = ({ values, handleScheduleClick, handleEditClick }) => {
 
                 <Box sx={{ display: 'flex', columnGap: "10px", alignItems: "center" }}>
                     <img src={timer} alt="Icon" style={{ width: "24px", height: '24px', cursor: "pointer" }} onClick={handleScheduleClick} />
-                    <Button type="submit" sx={{ width: "150px", height: "36px", fontSize: "16px" }}>
+                    <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
                         Next
                     </Button>
                 </Box>
