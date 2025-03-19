@@ -102,7 +102,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                         </Stack>
                     </Box>
 
-                    <Box sx={{ backgroundColor: "#f4f2ee", padding: "0.4rem 2.4rem", borderRadius: "2.4rem", width: { xs: "100%", md: "auto" } }}>
+                    <Box sx={{ backgroundColor: "#f4f2ee", padding: { xs: "0.4rem 0.4rem", md: "0.4rem 2.4rem" }, borderRadius: "2.4rem", width: { xs: "100%", md: "auto" } }}>
                         <div id="toolbar-container">
                             <span className="ql-formats">
                                 <button className="ql-bold"></button>
