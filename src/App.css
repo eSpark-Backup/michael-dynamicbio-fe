@@ -4,8 +4,21 @@
     box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-    display: none;
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #FFFFFF;
+    border-radius: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #FFFFFF;
+    border-radius: 7px;
+    box-shadow: 0px 4px 4px 0px #00000040 inset;
 }
 
 @font-face {
@@ -63,5 +76,32 @@ body {
 
     40% {
         transform: translateY(-10px);
+    }
+}
+
+.css-iuvrud-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected,
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:focus-visible,
+.css-hvi11r-MuiButtonBase-root-MuiMenuItem-root-MuiMultiSectionDigitalClockSection-item.Mui-selected:hover,
+.css-eutvm9-MuiButtonBase-root-MuiPickersDay-root:focus.Mui-selected {
+    color: white;
+}
+
+.ql-container.ql-snow {
+    border: none !important;
+    font-size: 20px !important;
+    /* margin-left: 30px; */
+}
+
+.ql-toolbar.ql-snow {
+    border: none !important;
+}
+
+.ql-snow.ql-toolbar button {
+    width: 60px !important;
+}
+
+@media screen and (min-width:769px) {
+    .ql-container.ql-snow {
+        margin-left: 30px;
     }
 }

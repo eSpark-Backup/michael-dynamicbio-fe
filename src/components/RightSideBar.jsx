@@ -1,6 +1,6 @@
 import { Box, Button, Paper, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
-import { bondMain, plus, user } from '../assets'
+import { plus } from '../assets'
 import { interestSuggestions } from '../constant'
 
 const RightSideBar = ({ hideResearch }) => {

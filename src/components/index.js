@@ -18,6 +18,18 @@ import DynamicModal from "./dynamic-modal";
 import CustomizeTabs from "./CustomizeTabs";
 import PulseProfileCard from "./PulseProfileCard";
 import CreatePageForm from "./create-page-form";
+import PostModal from "./PostModal";
+import ScheduleModal from "./ScheduleModal";
+import PhotoModal from "./PhotoModal";
+import VideoModal from "./VideoModal";
+import EventModal from "./EventModal";
+import ViewEventModal from "./ViewEventModal";
+import ShareModal from "./ShareModal";
+import RepostWithThoughts from "./RepostWithThoughts";
+import ConfirmationModal from "./ConfirmationModal";
+import GroupShareModal from "./GroupShareModal";
+import PollModal from "./PollModal";
+import ViewArticle from "./ViewArticle";
 
 export {
     Input,
@@ -40,4 +52,16 @@ export {
     CustomizeTabs,
     PulseProfileCard,
     CreatePageForm,
+    PostModal,
+    ScheduleModal,
+    PhotoModal,
+    VideoModal,
+    EventModal,
+    ViewEventModal,
+    ShareModal,
+    RepostWithThoughts,
+    ConfirmationModal,
+    GroupShareModal,
+    PollModal,
+    ViewArticle,
 }

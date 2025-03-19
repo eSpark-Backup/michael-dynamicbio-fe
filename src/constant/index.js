@@ -420,6 +420,133 @@ export const pageTypes = [
   },
 ];
 
+
+export const timezoneOptions = [
+  {
+    label: "(UTC-12:00) International Date Line West",
+    value: "UTC-12:00"
+  },
+  {
+    label: "(UTC-11:00) Midway Island, Samoa",
+    value: "UTC-11:00"
+  },
+  {
+    label: "(UTC-10:00) Hawaii",
+    value: "UTC-10:00"
+  },
+  {
+    label: "(UTC-09:30) Marquesas Islands",
+    value: "UTC-09:30"
+  },
+  {
+    label: "(UTC-09:30) Marquesas Islands",
+    value: "UTC-09:30"
+  },
+]
+
+export const shareModalContent = [
+  {
+    id: 1,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 2,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 3,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 4,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 5,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 6,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+  {
+    id: 7,
+    image: profilePicture,
+    name: "Areeba Shakeel",
+    designation: "UI | UX Designer at eSpark Consulting Group",
+    education: "University of Karachi"
+  },
+]
+
+export const groupsCOntent = [
+  {
+    id: 1,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 2,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 3,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 4,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 5,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 6,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+  {
+    id: 7,
+    name: "Group name",
+    status: "Public",
+    picture: profilePicture
+  },
+]
+
+export const eventDuration = [
+  { label: "1 day", value: "1day" },
+  { label: "3 days", value: "3days" },
+  { label: "1 week", value: "1week" },
+  { label: "2 weeks", value: "2weeks" },
+]
 export const suggestedSearchBonds = [
   {
     label: "You might be interested in bonding with following people",

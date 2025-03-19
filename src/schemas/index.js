@@ -103,3 +103,32 @@ export const createPageSchema = Yup.object({
     .oneOf([true], "You must accept the permission")
     .required("This field is required"),
 });
+
+
+export const onlineEventSchema = Yup.object({
+  format: Yup.string().required("Event format is required"),
+  name: Yup.string().required("Event name is required").max(75, "Must be 75 characters or less"),
+  timezone: Yup.string().required("Timezone is required"),
+  description: Yup.string().max(5000, "Must be 5000 characters or less"),
+  // externalLink: Yup.string().max(1024, "Must be 1024 characters or less"),
+});
+
+export const inpersonEventSchema = Yup.object({
+  name: Yup.string().required("Event name is required").max(75, "Must be 75 characters or less"),
+  timezone: Yup.string().required("Timezone is required"),
+  address: Yup.string().required("Address is required"),
+  description: Yup.string().max(5000, "Must be 5000 characters or less"),
+  externalLink: Yup.string().max(1024, "Must be 1024 characters or less"),
+});
+
+export const pollSchema = Yup.object({
+  question: Yup.string().required("Question is required").max(100, "Must be 100 characters or less"),
+  opt1: Yup.string().required("Option 1 is required").max(100, "Must be 100 characters or less"),
+  opt2: Yup.string().required("Option 2 is required").max(100, "Must be 100 characters or less"),
+  options: Yup.array()
+    .of(
+      Yup.string()
+        .max(100, "Must be 100 characters or less")
+    )
+    .optional(),
+})
