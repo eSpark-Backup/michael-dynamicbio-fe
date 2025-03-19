@@ -33,7 +33,7 @@ const SelectEmail = () => {
     >
       <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Recognize Your profile</Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
-        By continuing, you will receive a six-digit code at your email.
+        By continuing, you'll receive an email containing a link to reset your password.
       </Typography>
       <Stack sx={{ width: "100%", marginTop: "20px" }} gap={2}>
         <Stack
@@ -64,7 +64,7 @@ const SelectEmail = () => {
       <Box sx={{ marginTop: "132px", width: "250px" }}>
         <Button loading={isLoading} onClick={handleSubmit}>Continue</Button>
       </Box>
-      <Typography sx={{ marginTop: "24px" }}>
+      <Typography sx={{ marginTop: "24px", mb: 5 }}>
         Back to
         <Link
           style={{

@@ -62,7 +62,7 @@ const VerifyEmail = () => {
         </Button>
       </Box>
       <Typography
-        sx={{ mt: "30px", cursor: "pointer" }}
+        sx={{ mt: "30px", cursor: "pointer", mb: 5 }}
         onClick={() => navigate(-1)}
       >
         Back

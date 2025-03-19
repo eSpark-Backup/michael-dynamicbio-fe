@@ -60,7 +60,7 @@ const FindEmail = () => {
           Search
         </Button>
       </Box>
-      <Typography sx={{ marginTop: "24px" }}>
+      <Typography sx={{ marginTop: "24px", mb: 5 }}>
         Back to
         <Link
           style={{

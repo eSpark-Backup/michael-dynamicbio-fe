@@ -159,9 +159,9 @@ const Navbar = () => {
               }}
             >
               <MenuItem
-                  onClick={() => {
+                  onClick={(e) => {
                     navigate(`/profile/${userData?.id}`);
-                    handleClose();
+                    handleClose(e);
                   }}
                 >
                   Profile
@@ -170,10 +170,10 @@ const Navbar = () => {
               <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
               <MenuItem onClick={handleClose}>Language</MenuItem>
               <MenuItem onClick={handleClose}>Help</MenuItem>
-              <MenuItem onClick={() => {
+              <MenuItem onClick={(e) => {
                 dispatch(logout());
                 navigate("/login");
-                handleClose();
+                handleClose(e);
               }}>Logout</MenuItem>
             </Menu>
           </Box>
@@ -333,9 +333,9 @@ const Navbar = () => {
               >
                 <MenuItem
                   sx={{ width: "245px" }}
-                  onClick={() => {
+                  onClick={(e) => {
                     navigate(`/profile/${userData?.id}`);
-                    handleClose();
+                    handleClose(e);
                   }}
                 >
                   Profile
@@ -346,10 +346,10 @@ const Navbar = () => {
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
                 <MenuItem
                   sx={{ width: "245px" }}
-                  onClick={() => {
+                  onClick={(e) => {
                     dispatch(logout());
                     navigate("/login");
-                    handleClose();
+                    handleClose(e);
                   }}
                 >
                   Logout
