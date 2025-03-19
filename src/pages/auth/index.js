@@ -5,6 +5,9 @@ import OtpVerified from "./otp-verified";
 import FindEmail from "./find-email";
 import SelectEmail from "./select-email";
 import VerifyEmail from "./verify-email";
+import EmailVerified from "./email-verified";
+import AddMobile from "./add-mobile";
+import NumberOtp from "./verify-number-otp";
 import ForgetPassword from "./forget-password";
 import ResetSuccess from "./reset-success";
 import CompleteProfile from "./complete-profile";
@@ -21,6 +24,9 @@ export {
   FindEmail,
   SelectEmail,
   VerifyEmail,
+  EmailVerified,
+  AddMobile,
+  NumberOtp,
   ForgetPassword,
   ResetSuccess,
   CompleteProfile,

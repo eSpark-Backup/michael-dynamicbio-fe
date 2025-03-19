@@ -547,3 +547,58 @@ export const eventDuration = [
   { label: "1 week", value: "1week" },
   { label: "2 weeks", value: "2weeks" },
 ]
+export const suggestedSearchBonds = [
+  {
+    label: "You might be interested in bonding with following people",
+    accounts: [
+      {
+        id: 1,
+        profileImage: olivia,
+        name: "Olivia Rhye",
+        role: "Founder & CEO",
+        desc: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+        isPage: false,
+      },
+      {
+        id: 2,
+        profileImage: olivia,
+        name: "Olivia Rhye",
+        role: "Founder & CEO",
+        desc: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+        isPage: false,
+      },
+      {
+        id: 3,
+        profileImage: olivia,
+        name: "Olivia Rhye",
+        role: "Founder & CEO",
+        desc: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+        isPage: false,
+      },
+      {
+        id: 4,
+        profileImage: olivia,
+        name: "Olivia Rhye",
+        role: "Founder & CEO",
+        desc: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+        isPage: false,
+      },
+    ],
+  },
+];
+
+export const suggestionSearchPostContent = [
+  {
+    userName: "Albert Einstein",
+    userRole: "Heading liner",
+    postTime: "2h ago",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "Posts with “Albert”",
+    postPic: postPicture,
+    postContent: null,
+    commentsContent: [],
+  },
+];

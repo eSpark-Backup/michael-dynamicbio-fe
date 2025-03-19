@@ -17,6 +17,9 @@ import {
   searchIcon,
 } from "../../assets";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { handleChange } from "../../store/slices/search";
+import { logout } from "../../store/slices/auth";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -80,6 +83,14 @@ const Navbar = () => {
     event.stopPropagation();
     setAnchorEl(null);
   };
+
+  const { search } = useSelector(state => state.search);
+  const dispatch = useDispatch();
+  const onInputChange = (e) => {
+    dispatch(handleChange(e.target.value));
+  }
+
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Box
@@ -147,12 +158,23 @@ const Navbar = () => {
                 horizontal: "left",
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem
+                  onClick={() => {
+                    navigate(`/profile/${userData?.id}`);
+                    handleClose();
+                  }}
+                >
+                  Profile
+                </MenuItem>
               <MenuItem onClick={handleClose}>Account</MenuItem>
               <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
               <MenuItem onClick={handleClose}>Language</MenuItem>
               <MenuItem onClick={handleClose}>Help</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={() => {
+                dispatch(logout());
+                navigate("/login");
+                handleClose();
+              }}>Logout</MenuItem>
             </Menu>
           </Box>
           <IconButton
@@ -250,6 +272,8 @@ const Navbar = () => {
               }}
             >
               <OutlinedInput
+                value={search}
+                onInputChange={onInputChange}
                 sx={{ width: "280px" }}
                 placeholder="Search"
                 startAdornment={searchIcon}
@@ -307,12 +331,29 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Profile</MenuItem>
+                <MenuItem
+                  sx={{ width: "245px" }}
+                  onClick={() => {
+                    navigate(`/profile/${userData?.id}`);
+                    handleClose();
+                  }}
+                >
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
                 <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Logout</MenuItem>
+                <MenuItem
+                  sx={{ width: "245px" }}
+                  onClick={() => {
+                    dispatch(logout());
+                    navigate("/login");
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </Box>
           </Box>

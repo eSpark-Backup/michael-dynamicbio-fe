@@ -1,15 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Box, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
+import { useForgotPasswordMutation } from "../../../services/auth";
+import { maskEmail, useQuery } from "../../../utils";
 import { userAvatar } from "../../../assets";
 
 const SelectEmail = () => {
+  const query = useQuery();
+  const email = query.get("email");
+  const image = query.get("image");
   const navigate = useNavigate();
+  const [forgotPw, { isLoading }] = useForgotPasswordMutation();
 
-  const handleSubmit = (values) => {
-    //select Email
-    console.log(values, "values");
-    navigate("/verify-email?type=reset");
+  const handleSubmit = () => {
+    forgotPw({ email }).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        navigate(`/verify-email?email=${res?.data?.data?.email}&reset=true`);
+      }
+    });
   };
   return (
     <Stack
@@ -18,7 +31,7 @@ const SelectEmail = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography fontSize="40px">Recognize Your profile</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Recognize Your profile</Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
         By continuing, you will receive a six-digit code at your email.
       </Typography>
@@ -36,8 +49,8 @@ const SelectEmail = () => {
             alignItems="center"
             gap={2}
           >
-            <img src={userAvatar} alt="user" />
-            <Typography fontSize="24px">a***@gmail.com</Typography>
+            <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={image || userAvatar} alt="user" />
+            <Typography fontSize="24px">{maskEmail(email)}</Typography>
           </Stack>
           <Link
             style={{ textDecoration: "none", color: "#000" }}
@@ -49,7 +62,7 @@ const SelectEmail = () => {
       </Stack>
 
       <Box sx={{ marginTop: "132px", width: "250px" }}>
-        <Button onClick={handleSubmit}>Continue</Button>
+        <Button loading={isLoading} onClick={handleSubmit}>Continue</Button>
       </Box>
       <Typography sx={{ marginTop: "24px" }}>
         Back to

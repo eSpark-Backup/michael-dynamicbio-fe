@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Box,
   Checkbox,
@@ -8,11 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Input, Button } from "../../../components";
+import { useLoginMutation } from "../../../services/auth";
 import { loginSchema } from "../../../schemas";
 import { facebook, google, linkedin } from "../../../assets";
-import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
   const formik = useFormik({
@@ -22,9 +25,27 @@ const Login = () => {
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
-      //login
-      console.log(values, "values");
-      navigate("/google-auth");
+      login(values).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          const response = res?.data?.data
+          if (response?.user?.profileStatus === "completed") {
+            if (response?.user?.is2FAEnabled) {
+              localStorage.setItem("temp-token", response?.token)
+            } else {
+              localStorage.setItem("token", response?.token)
+            }
+            navigate("/google-auth");
+          } else if (response?.user?.profileStatus === "both_verified") {
+            localStorage.setItem("token", response?.token)
+            navigate("/complete-profile");
+            localStorage.setItem("temp_user_data", JSON.stringify(response?.user));
+          }
+        }
+      });
     },
   });
   return (
@@ -36,7 +57,7 @@ const Login = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography fontSize="40px">Login</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Login</Typography>
       <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
           label={"Email"}
@@ -84,7 +105,7 @@ const Login = () => {
         label="Remember me"
       />
       <Box sx={{ width: "250px" }}>
-        <Button type="submit">login</Button>
+        <Button loading={isLoading} type="submit">login</Button>
       </Box>
       <Typography sx={{ marginTop: "24px" }}>
         Don’t have an account?
@@ -92,13 +113,12 @@ const Login = () => {
           style={{
             textDecoration: "none",
             marginLeft: "8px",
-            width: "100%",  
+            width: "100%",
           }}
           to="/signup"
         >
           <Typography
             variant="gradientText"
-            ml={1}
             fontSize="18px"
             fontWeight={500}
             component="span"
@@ -112,7 +132,7 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         gap={2}
-        sx={{ marginTop: "38px" }}
+        sx={{ marginY: "38px" }}
       >
         <Typography fontWeight={300}>Or Sign up via</Typography>
         <img style={{ cursor: "pointer" }} src={google} alt="google" />

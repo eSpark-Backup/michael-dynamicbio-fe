@@ -10,6 +10,9 @@ import {
   FindEmail,
   SelectEmail,
   VerifyEmail,
+  EmailVerified,
+  AddMobile,
+  NumberOtp,
   ForgetPassword,
   ResetSuccess,
   CompleteProfile,
@@ -26,8 +29,24 @@ import {
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useGetUserInfoMutation } from "./services/auth";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const App = () => {
+  const token = localStorage.getItem("token");
+  const [getInfo, { isLoading }] = useGetUserInfoMutation();
+
+  useEffect(() => {
+    if (token) {
+      getInfo().then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+      });
+    }
+  }, [token]);
   return (
     <>
       <Routes>
@@ -42,6 +61,9 @@ const App = () => {
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/reset-success" element={<ResetSuccess />} />
+          <Route path="/email-verified" element={<EmailVerified />} />
+          <Route path="/add-mobile" element={<AddMobile />} />
+          <Route path="/verify-mobile" element={<NumberOtp />} />
           {/* Signup */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/complete-profile" element={<CompleteProfile />} />
@@ -52,7 +74,7 @@ const App = () => {
           <Route path="/resync-mfa" element={<ResyncMfa />} />
         </Route>
 
-        <Route element={<PrivateLayout isAuthenticated={true} />}>
+        <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/bonds" element={<Bonds />} />
           <Route path="/cells" element={<Cells />} />

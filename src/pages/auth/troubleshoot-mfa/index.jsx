@@ -1,9 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Box, Button, Stack, Typography } from "@mui/material";
+import { useVerifymfaWithEmailMutation } from "../../../services/auth";
 import { email, mobile } from "../../../assets";
 
 const TroubleshootMfa = () => {
   const navigate = useNavigate();
+  const [verifymfaWithEmail] = useVerifymfaWithEmailMutation();
+
+  const handleEmailMfa = () => {
+    verifymfaWithEmail().then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        navigate(`/email-mfa?email=${res?.data?.data?.email}`)
+      }
+    });
+  };
   return (
     <Stack
       sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
@@ -11,7 +26,7 @@ const TroubleshootMfa = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography textAlign="center" fontSize="40px">
+      <Typography textAlign="center" sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Multi Factor Authentication
       </Typography>
       <Typography
@@ -36,7 +51,7 @@ const TroubleshootMfa = () => {
           <Typography>Re-sync with server</Typography>
         </Stack>
         <Stack
-          onClick={() => navigate("/email-mfa")}
+          onClick={handleEmailMfa}
           direction="row"
           alignItems="center"
           justifyContent="flex-start"

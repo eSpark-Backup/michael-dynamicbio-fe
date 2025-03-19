@@ -5,6 +5,7 @@ import { profileDetailsSchema } from "../../../schemas";
 import { useNavigate } from "react-router-dom";
 
 const CompleteProfile = () => {
+  const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -15,14 +16,13 @@ const CompleteProfile = () => {
     },
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
-      console.log(values, "form submit");
-      navigate("/upload-image");
+      navigate(`/upload-image?data=${JSON.stringify(values)}`);
     },
   });
   return (
     <>
       <Typography mt="50px" fontSize={"29px"} textAlign="center">
-        Welcome, James!
+        Welcome, {tempUser?.firstName}!
       </Typography>
       <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Let’s begin your profile, connect to the people you know, and engage

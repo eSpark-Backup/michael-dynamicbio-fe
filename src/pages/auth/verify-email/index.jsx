@@ -1,22 +1,43 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Box, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
-import { useQuery } from "../../../utils";
+import { maskEmail, useQuery } from "../../../utils";
 import { successTick } from "../../../assets";
+import { useForgotPasswordMutation, useRegisterMutation } from "../../../services/auth";
 
 const VerifyEmail = () => {
+  const [register, { isLoading }] = useRegisterMutation();
+  const [forgotPw, { isLoading: resetLoading }] = useForgotPasswordMutation();
   const navigate = useNavigate();
   const query = useQuery();
-  const type = query.get("type");
+  const email = query.get("email");
+  const reset = query.get("reset");
 
-  useEffect(() => {
-    if (type === "reset") {
-      /// reset password api
-    } else {
-      /// set password api
-    }
-  }, []);
+  const handleResend = () => {
+    const dataToSend = JSON.parse(localStorage.getItem("temp_user_data"));
+    register(dataToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        toast.success(res?.data?.message);
+      }
+    });
+  };
+
+  const handleReset = () => {
+    forgotPw({ email }).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        toast.success(res?.data?.message);
+      }
+    });
+  };
 
   return (
     <Stack
@@ -29,13 +50,21 @@ const VerifyEmail = () => {
     >
       <img style={{ marginTop: "134px" }} src={successTick} alt="success" />
       <Typography mt={4} fontSize="29px" textAlign="center">
-        Verification link has been sent to ar*******@gmail.com Please check your
+        Verification link has been sent to {maskEmail(email)} Please check your
         email and verify.
       </Typography>
       <Box sx={{ width: "250px", mt: "75px" }}>
-        <Button onClick={() => navigate(`/forget-password?type=${type}`)}>Resend</Button>
+        <Button
+          loading={isLoading || resetLoading}
+          onClick={reset ? handleReset : handleResend}
+        >
+          Resend
+        </Button>
       </Box>
-      <Typography sx={{ mt: "30px", cursor: "pointer" }} onClick={() => navigate(-1)}>
+      <Typography
+        sx={{ mt: "30px", cursor: "pointer" }}
+        onClick={() => navigate(-1)}
+      >
         Back
       </Typography>
     </Stack>

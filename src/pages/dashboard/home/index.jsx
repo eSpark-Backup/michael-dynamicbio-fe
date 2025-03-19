@@ -1,12 +1,13 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { article, bondMain, event, photo, profilePicture, research, user, video } from '../../../assets';
+import { article, bondMain, event, photo, profilePicture, research, user, video, userWithCamera } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showMore, setShowMore] = useState(false);
@@ -23,7 +24,6 @@ const Home = () => {
   const [viewEventModal, setViewEventModal] = useState(false)
   const [groupShareModal, setGroupShareModal] = useState(false)
   const [pollModal, setPollModal] = useState(false)
-  const navigate = useNavigate()
 
   const HandlePostTypeClick = (item) => {
     if (item === "Photo") {
@@ -104,6 +104,7 @@ const Home = () => {
     setEventModal(true)
     setViewEventModal(false)
   }
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -119,25 +120,28 @@ const Home = () => {
               }}
             >
               <img
-                src={profilePicture}
+                src={userData?.profileImage || profilePicture}
                 alt="Profile"
                 style={{
                   position: "absolute",
                   top: "75%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%"
                 }}
               />
             </Box>
             <Box sx={{ pt: "25px" }}>
-              <Typography sx={{ fontSize: "20px", fontWeight: 500, color: theme.palette.primary.dark, textAlign: "center" }}>
-                James Bond
+              <Typography onClick={() => navigate(`/profile/${userData?.id}`)} sx={{ fontSize: "20px", fontWeight: 500, color: theme.palette.primary.dark, textAlign: "center" }}>
+                {userData?.firstName} {userData?.lastName}
               </Typography>
               <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
-                UI/UX at eSpark Consulting Group
+                {userData?.designation} at {userData?.company}
               </Typography>
               <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
-                Karachi, Sindh, Pakistan
+                {userData?.country}
               </Typography>
             </Box>
           </Paper>
@@ -179,9 +183,9 @@ const Home = () => {
         <Grid2 size={{ xs: 12, lg: 6.5 }} sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
           <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
-              <img src={user} alt="User" />
-              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%" }} readOnly onClick={() => setShowPostModal(true)} />
-            </Box>
+              <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={userData?.profileImage || user} alt="User" />
+              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%", cursor: "pointer" }} readOnly onClick={() => setShowPostModal(true)} />
+            </Box >
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
                 .map((item, index) => (
@@ -191,7 +195,7 @@ const Home = () => {
                   </Box>
                 ))}
             </Box>
-          </Paper>
+          </Paper >
 
           <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -208,31 +212,33 @@ const Home = () => {
               ))}
             </Box>
           </Paper>
-          {suggestionPostContent?.map((item, index) => (
-            <SuggestionPost
-              userName={item?.userName}
-              userImage={item?.userImage}
-              userRole={item?.userRole}
-              postTime={item?.postTime}
-              numberofLikes={item?.numberofLikes}
-              isLiked={item?.isLiked}
-              comments={item?.comments}
-              activity={item?.activity}
-              postPic={item?.postPic}
-              postContent={item?.postContent}
-              commentsContent={item?.commentsContent}
-              key={index}
-              index={index}
-              length={suggestionPostContent?.length}
-            />
-          ))}
-        </Grid2>
+          {
+            suggestionPostContent?.map((item, index) => (
+              <SuggestionPost
+                userName={item?.userName}
+                userImage={item?.userImage}
+                userRole={item?.userRole}
+                postTime={item?.postTime}
+                numberofLikes={item?.numberofLikes}
+                isLiked={item?.isLiked}
+                comments={item?.comments}
+                activity={item?.activity}
+                postPic={item?.postPic}
+                postContent={item?.postContent}
+                commentsContent={item?.commentsContent}
+                key={index}
+                index={index}
+                length={suggestionPostContent?.length}
+              />
+            ))
+          }
+        </Grid2 >
 
 
         <Grid2 size={{ xs: 12, lg: 3 }}>
           <RightSideBar />
         </Grid2>
-      </Grid2>
+      </Grid2 >
 
       <input
         type="file"
@@ -283,7 +289,7 @@ const Home = () => {
       <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
         <PollModal handleSuccess={() => setPollModal(false)} />
       </DynamicModal>
-    </Box>
+    </Box >
   );
 };
 

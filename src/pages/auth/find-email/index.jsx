@@ -1,20 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { Box, Stack, Typography } from "@mui/material";
 import { Input, Button } from "../../../components";
 import { findEmailSchema } from "../../../schemas";
+import { useFindEmailMutation } from "../../../services/auth";
 
 const FindEmail = () => {
   const navigate = useNavigate();
+  const [findEmail, { isLoading }] = useFindEmailMutation();
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: findEmailSchema,
     onSubmit: (values) => {
-      //find Email
-      console.log(values, "values");
-      navigate("/select-email");
+      findEmail(values).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res) {
+          navigate(
+            `/select-email?email=${res?.data?.data?.email}${
+              res?.data?.data?.image ? `&image=${res?.data?.data?.image}` : ""
+            }`
+          );
+        }
+      });
     },
   });
   return (
@@ -26,7 +39,7 @@ const FindEmail = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography fontSize="40px">Find Your Account</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Find Your Account</Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
         Please enter your email address to search for your account.
       </Typography>
@@ -43,7 +56,9 @@ const FindEmail = () => {
         />
       </Box>
       <Box sx={{ marginTop: "132px", width: "250px" }}>
-        <Button type="submit">Search</Button>
+        <Button loading={isLoading} type="submit">
+          Search
+        </Button>
       </Box>
       <Typography sx={{ marginTop: "24px" }}>
         Back to

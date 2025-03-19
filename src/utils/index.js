@@ -65,3 +65,11 @@ export const formatEventTime = (startDate, startTime, endDate = null, endTime = 
     return `${startDateStr}, ${startTimeStr} - ${endDateStr}, ${endTimeStr} ${timeZoneString}`;
   }
 };
+export function maskEmail(email) {
+  const [name, domain] = email.split("@");
+  if (name.length > 2) {
+    const maskedName = name.slice(0, 2) + "*".repeat(name.length - 2);
+    return `${maskedName}@${domain}`;
+  }
+  return email;
+}
