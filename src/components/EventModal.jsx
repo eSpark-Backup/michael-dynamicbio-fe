@@ -1,6 +1,5 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import React, { useEffect, useRef, useState } from "react";
 import { uploadIcon } from "../assets";
 import Dropdown from "./Dropdown";
@@ -47,8 +46,6 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
         },
     });
 
-    useEffect(() => { console.log(formik.errors) }, [formik.errors])
-
 
     React.useEffect(() => {
         if (formik.values.selectedFile) {
@@ -74,7 +71,6 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
     return (
         <form onSubmit={formik.handleSubmit}>
             <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
-                {/* Image Upload */}
                 <Box
                     sx={{
                         width: "100%",
@@ -105,7 +101,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     )}
                 </Box>
 
-                {/* Event Type */}
+                
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Event type</Typography>
                 <RadioGroup
                     name="eventType"
@@ -123,7 +119,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     </Box>
                 </RadioGroup>
 
-                {/* Event Format */}
+                
                 {formik.values.eventType !== "Inperson" && <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Event format*</Typography>
                     <Dropdown
@@ -506,11 +502,9 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     sx={{
                         height: "55px",
                         borderTop: "1px solid #E4E4E4",
-                        // boxShadow: "0px 0px 10px 0px #00000040",
                         width: "100%",
                         display: "flex",
                         alignItems: "center",
-                        // margin: "0 -20px -20px -20px",
                         position: "fixed",
                         bottom: "0px",
                         right: "0px",

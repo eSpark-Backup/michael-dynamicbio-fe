@@ -14,8 +14,6 @@ const ViewEventModal = ({ values, handleScheduleClick, handleEditClick }) => {
         }
     }, [values]);
 
-    console.log(formatEventTime(values?.startDate, values?.startTime, values?.showEndTime ? values?.endDate : null, values?.showEndTime ? values?.endTime : null))
-
     return (
         <Box sx={{ mb: "30px" }}>
             <TextField

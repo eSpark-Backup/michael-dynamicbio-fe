@@ -1,6 +1,6 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { article, bondMain, event, photo, profilePicture, research, user, userWithCamera, video } from '../../../assets';
+import { article, bondMain, event, photo, profilePicture, research, user, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
@@ -26,7 +26,6 @@ const Home = () => {
   const navigate = useNavigate()
 
   const HandlePostTypeClick = (item) => {
-    console.log(item)
     if (item === "Photo") {
       fileInputRef.current.click();
     }
@@ -76,8 +75,6 @@ const Home = () => {
       }
     }
   };
-
-  useEffect(() => { console.log(videoData) }, [videoData])
 
   const HandleSelectedFile = (files) => {
     setSelectedFiles(files)
@@ -274,7 +271,7 @@ const Home = () => {
         <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
       </DynamicModal>
 
-      <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
+      <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
         <ScheduleModal />
       </DynamicModal>
 
@@ -283,7 +280,7 @@ const Home = () => {
       </DynamicModal>
 
 
-      <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} styledHeader={true} hideFooter={true}>
+      <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
         <PollModal handleSuccess={() => setPollModal(false)} />
       </DynamicModal>
     </Box>

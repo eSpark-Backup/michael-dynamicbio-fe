@@ -1,6 +1,6 @@
 import { Stack, Box, Typography, Modal, Menu, MenuItem, RadioGroup, Radio, FormControlLabel } from "@mui/material";
 import Button from "./button";
-import { close, downArrowFilled, heart, profile2, rightArrow, timer } from "../assets";
+import { close, downArrowFilled, profile2, rightArrow, timer } from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
@@ -105,7 +105,7 @@ const DynamicModal = ({
             margin: "20px 0",
             height: "calc(100% - 130px)",
             overflowY: "auto",
-            "-ms-overflow-style": "none",
+            msOverflowStyle: "none",
             scrollbarWidth: "none",
             "::-webkit-scrollbar": {
               display: "none",

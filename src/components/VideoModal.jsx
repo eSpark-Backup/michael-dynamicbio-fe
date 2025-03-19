@@ -32,7 +32,6 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
 
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
-            // Reset file input before setting a new file
             fileInputRef.current.value = null;
             
             setNewThumbnail(e.target.files[0]);
@@ -81,7 +80,7 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
                 overflowY: "auto"
             }}>
 
-                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', maxHeight: { xs: "230px", md: "auto" } }}>
+                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', maxHeight: { xs: "230px", md: "100%" } }}>
                     {videoData.video && (
                         <video
                             src={URL.createObjectURL(videoData.video)}

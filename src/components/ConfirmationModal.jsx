@@ -47,7 +47,7 @@ const ConfirmationModal = ({ open, handleClose, title, children, acceptButtonTex
                         height: "calc(100% - 130px)",
                         overflowY: "auto",
                         padding: "20px",
-                        "-ms-overflow-style": "none",
+                        msOverflowStyle: "none",
                         scrollbarWidth: "none",
                         "::-webkit-scrollbar": {
                             display: "none",

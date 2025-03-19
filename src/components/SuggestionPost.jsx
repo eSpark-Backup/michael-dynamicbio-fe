@@ -1,5 +1,5 @@
-import { Box, Menu, MenuItem, Paper, Stack, Typography, useTheme } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
+import React, { useState } from 'react'
 import { camera, comment, emoji, like, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
@@ -166,7 +166,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                 <RepostWithThoughts onChange={(e) => setThoughts(e.target.value)} />
             </DynamicModal>
 
-            <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
+            <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
                 <ScheduleModal />
             </DynamicModal>
 

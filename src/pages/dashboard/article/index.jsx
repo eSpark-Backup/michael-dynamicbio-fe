@@ -30,7 +30,6 @@ const Article = ({ userName = "Abdul Rehman" }) => {
     };
 
     const handleClick2 = (event) => {
-        console.log("hello")
         setAnchorEl2(event.currentTarget);
     };
 
@@ -326,7 +325,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
             </DynamicModal>
 
 
-            <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => console.log("HELLo")} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
+            <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
                 <ScheduleModal />
             </DynamicModal>
             <input

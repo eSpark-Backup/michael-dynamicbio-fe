@@ -16,8 +16,6 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
     const HandlePostTypeClick = (item) => {
         if (item === "Photo") {
             fileInputRef.current.click();
-        } else {
-            console.log(`Selected: ${item}`);
         }
     };
     const handleFileChange = (e) => {

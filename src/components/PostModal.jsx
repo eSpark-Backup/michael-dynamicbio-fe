@@ -1,7 +1,6 @@
 import { Box, OutlinedInput, Typography } from '@mui/material';
 import React, { useRef } from 'react';
-import { article, emoji, event, photo, poll, video } from '../assets';
-import { generateThumbnail } from '../utils';
+import { emoji, event, photo, poll, video } from '../assets';
 
 const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
     const fileInputRef = useRef(null);

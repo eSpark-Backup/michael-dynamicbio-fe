@@ -1,7 +1,7 @@
 import { Box, Button, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material'
 import React from 'react'
 import OutlinedInput from './outline-input'
-import { earth, profilePicture, searchIcon } from '../assets'
+import { earth, searchIcon } from '../assets'
 import { groupsCOntent } from '../constant'
 
 const GroupShareModal = () => {
