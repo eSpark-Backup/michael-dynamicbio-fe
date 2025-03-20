@@ -109,6 +109,7 @@ export const chatsContent = [
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
     name: "Friend",
+    type: "personal"
   },
   {
     id: 2,
@@ -116,6 +117,7 @@ export const chatsContent = [
     lastMessage: "Please send details.",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 3,
@@ -123,6 +125,7 @@ export const chatsContent = [
     lastMessage: "Done!",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 4,
@@ -130,6 +133,7 @@ export const chatsContent = [
     lastMessage: "Ok! Deal",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 5,
@@ -137,6 +141,7 @@ export const chatsContent = [
     lastMessage: "Let’s catch!",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 6,
@@ -144,6 +149,7 @@ export const chatsContent = [
     lastMessage: ":)",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 7,
@@ -151,6 +157,7 @@ export const chatsContent = [
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 8,
@@ -158,6 +165,7 @@ export const chatsContent = [
     lastMessage: "Close deal!",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 9,
@@ -165,6 +173,7 @@ export const chatsContent = [
     lastMessage: "Happy to help!",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 10,
@@ -172,13 +181,15 @@ export const chatsContent = [
     lastMessage: "Hi!",
     time: "Jan 2",
     name: "Alex",
+    type: "personal"
   },
   {
     id: 11,
     image: friend,
     lastMessage: "Sent a photo",
     time: "Jan 2",
-    name: "Alex",
+    name: "Jhon Smith, Bob Brown, and you",
+    type: "group"
   },
 ];
 
@@ -602,3 +613,24 @@ export const suggestionSearchPostContent = [
     commentsContent: [],
   },
 ];
+
+export const groupMembers = [
+  {
+    image: user,
+    name: "John Doe",
+    role: "Developer",
+    id: 1
+  },
+  {
+    image: profilePicture,
+    name: "Jan Smith",
+    role: "--",
+    id: 2
+  },
+  {
+    image: userAvatar,
+    name: "Bob Brown",
+    role: "UI / UX Designer",
+    id: 3
+  },
+]

@@ -83,6 +83,7 @@ import link2 from "./icons/link2.svg"
 import close2 from "./icons/close2.svg"
 import earth from "./icons/earth.svg"
 import poll from "./icons/poll.svg"
+import chipClose from "./icons/chipClose.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -181,4 +182,5 @@ export {
   close2,
   earth,
   poll,
+  chipClose,
 };

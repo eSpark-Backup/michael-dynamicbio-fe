@@ -30,6 +30,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import GroupShareModal from "./GroupShareModal";
 import PollModal from "./PollModal";
 import ViewArticle from "./ViewArticle";
+import GroupChatModal from "./GroupChatModal";
 
 export {
     Input,
@@ -64,4 +65,5 @@ export {
     GroupShareModal,
     PollModal,
     ViewArticle,
+    GroupChatModal,
 }
