@@ -4,7 +4,6 @@ import { camera, chipClose, emoji, filter, friend, link, photo, plus, profilePic
 import { ContactBox, DynamicModal, GroupChatModal, MessageList, OutlinedInput, RightSideBar } from '../../../components'
 import { chatsContent, messages } from '../../../constant'
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-import { Close } from '@mui/icons-material'
 
 const Cells = () => {
   const theme = useTheme()
@@ -182,11 +181,6 @@ const Cells = () => {
                                 );
 
                                 setSelectedNames(uniqueValues);
-
-
-                                if (newValue.length > selectedNames.length) {
-                                  console.log("Item selected:", newValue[newValue.length - 1]);
-                                }
                                 setShowInput(false)
                               }}
                               isOptionEqualToValue={(option, value) => option.id === value.id}

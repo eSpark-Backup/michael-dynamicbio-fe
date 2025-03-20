@@ -1,6 +1,6 @@
 import { Autocomplete, Box, Button, Chip, Menu, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { chipClose, profilePicture, three_vertical_dots } from '../assets';
+import { chipClose, three_vertical_dots } from '../assets';
 import { groupMembers } from '../constant';
 
 const GroupChatModal = () => {
@@ -34,7 +34,6 @@ const GroupChatModal = () => {
         setMenuAnchor(null);
     }
 
-    useEffect(() => { console.log(removedIndex) }, [removedIndex])
     return (
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px", pt: "20px" }}>
             <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Sample</Typography>
@@ -66,11 +65,6 @@ const GroupChatModal = () => {
                             );
 
                             setSelectedNames(uniqueValues);
-
-
-                            if (newValue.length > selectedNames.length) {
-                                console.log("Item selected:", newValue[newValue.length - 1]);
-                            }
                         }}
                         isOptionEqualToValue={(option, value) => option.id === value.id}
                         filterSelectedOptions
@@ -112,7 +106,7 @@ const GroupChatModal = () => {
                 display: "flex",
                 flexDirection: "column",
                 maxHeight: "300px",
-                overflowY: "auto", // Use "auto" to show scrollbar only when needed
+                overflowY: "auto",
                 mb: '80px',
             }}>
                 {groupMembers?.map((item, index) => (
@@ -122,7 +116,7 @@ const GroupChatModal = () => {
                             borderBottom: index !== groupMembers?.length - 1 ? "1px solid #e0e0e0" : "none",
                             display: 'flex',
                             justifyContent: "space-between",
-                            alignItems: "center", // Ensure items are aligned properly
+                            alignItems: "center",
                         }}
                         key={index}
                     >
