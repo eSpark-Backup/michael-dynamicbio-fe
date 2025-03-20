@@ -292,7 +292,7 @@ const Cells = () => {
               </>
             }
 
-            <Box sx={{ minHeight: "68%", overflowY: "auto", pt: "10px" }}>
+            <Box sx={{ minHeight: "calc(68% - 100px)", overflowY: "auto", pt: "10px" }}>
               {showChatScreen && <MessageList messages={messages} />}
             </Box>
             <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
