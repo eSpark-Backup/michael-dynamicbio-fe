@@ -20,6 +20,8 @@ import {
 
 import { Home, Bonds, Pulses, Cells, Article } from "./dashboard";
 
+import PageDetailsPage from "./dashboard/pageDetails";
+
 export {
   Login,
   Signup,
@@ -43,4 +45,5 @@ export {
   Pulses,
   Cells,
   Article,
+  PageDetailsPage,
 };

@@ -25,6 +25,7 @@ import {
   Cells,
   Pulses,
   Article,
+  PageDetailsPage,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -80,6 +81,7 @@ const App = () => {
           <Route path="/cells" element={<Cells />} />
           <Route path="/pulses" element={<Pulses />} />
           <Route path="/article" element={<Article />} />
+          <Route path="/page/:id" element={<PageDetailsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

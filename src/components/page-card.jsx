@@ -1,7 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { verticleDots } from "../assets";
+import { useNavigate } from "react-router-dom";
 
-const PageCard = ({ userImage, title, desc, type }) => {
+const PageCard = ({ userImage, title, desc, type, id }) => {
+
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -32,7 +35,9 @@ const PageCard = ({ userImage, title, desc, type }) => {
                 fontWeight: 500,
                 color: "#171717",
                 textAlign: { xs: "center", sm: "left" },
+                cursor: "pointer"
               }}
+              onClick={() => navigate(`/page/${id}`)}
             >
               {title}
             </Typography>
