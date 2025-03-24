@@ -84,6 +84,10 @@ import close2 from "./icons/close2.svg"
 import earth from "./icons/earth.svg"
 import poll from "./icons/poll.svg"
 import chipClose from "./icons/chipClose.svg"
+import noPosts from "./icons/noPosts.svg"
+import noUser from "./icons/noUser.svg"
+import growPage from "./icons/growPage.svg"
+import conversation from "./icons/conversation.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -183,4 +187,8 @@ export {
   earth,
   poll,
   chipClose,
+  noPosts,
+  noUser,
+  growPage,
+  conversation,
 };

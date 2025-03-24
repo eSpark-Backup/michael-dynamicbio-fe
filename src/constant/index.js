@@ -634,3 +634,27 @@ export const groupMembers = [
     id: 3
   },
 ]
+
+
+export const pageStats = [
+  {
+    value: 0,
+    name: "Search appearance",
+    description: "last 7 days"
+  },
+  {
+    value: 0,
+    name: "New followers",
+    description: "N/A"
+  },
+  {
+    value: 0,
+    name: "Post impressions",
+    description: "N/A"
+  },
+  {
+    value: 0,
+    name: "Page visitors",
+    description: "N/A"
+  },
+]

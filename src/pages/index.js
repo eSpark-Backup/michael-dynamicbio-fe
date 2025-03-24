@@ -21,6 +21,7 @@ import {
 import { Home, Bonds, Pulses, Cells, Article } from "./dashboard";
 
 import PageDetailsPage from "./dashboard/pageDetails";
+import AdminView from "./dashboard/pageDetails/AdminView";
 
 export {
   Login,
@@ -46,4 +47,5 @@ export {
   Cells,
   Article,
   PageDetailsPage,
+  AdminView,
 };
