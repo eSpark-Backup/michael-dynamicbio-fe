@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
@@ -25,6 +25,7 @@ import {
   Cells,
   Pulses,
   Article,
+  Profile,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -32,16 +33,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useGetUserInfoMutation } from "./services/auth";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { logout } from "./store/slices/auth";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const token = localStorage.getItem("token");
   const [getInfo, { isLoading }] = useGetUserInfoMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
+      localStorage.removeItem("temp-token");
       getInfo().then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
+          dispatch(logout());
+          navigate("/login");
           return;
         }
       });
@@ -74,13 +82,14 @@ const App = () => {
           <Route path="/resync-mfa" element={<ResyncMfa />} />
         </Route>
 
-        <Route element={<PrivateLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/bonds" element={<Bonds />} />
-          <Route path="/cells" element={<Cells />} />
-          <Route path="/pulses" element={<Pulses />} />
-          <Route path="/article" element={<Article />} />
-        </Route>
+      <Route element={<PrivateLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/bonds" element={<Bonds />} />
+        <Route path="/cells" element={<Cells />} />
+        <Route path="/pulses" element={<Pulses />} />
+        <Route path="/article" element={<Article />} />
+        <Route path="/profile/:id" element={<Profile />} />
+      </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

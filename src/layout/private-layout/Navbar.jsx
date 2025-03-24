@@ -90,7 +90,7 @@ const Navbar = () => {
     dispatch(handleChange(e.target.value));
   }
 
-  const userData = JSON.parse(localStorage.getItem("user"));
+  const { user } = useSelector(state => state.auth);
 
   return (
     <Box
@@ -160,7 +160,7 @@ const Navbar = () => {
             >
               <MenuItem
                   onClick={(e) => {
-                    navigate(`/profile/${userData?.id}`);
+                    navigate(`/profile/${user?.id}`);
                     handleClose(e);
                   }}
                 >
@@ -334,7 +334,7 @@ const Navbar = () => {
                 <MenuItem
                   sx={{ width: "245px" }}
                   onClick={(e) => {
-                    navigate(`/profile/${userData?.id}`);
+                    navigate(`/profile/${user?.id}`);
                     handleClose(e);
                   }}
                 >
