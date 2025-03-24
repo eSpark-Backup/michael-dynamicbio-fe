@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
-import { useFormik } from "formik";
-import { Box, Grid2, Stack, Typography } from "@mui/material";
-import { DynamicModal, Input } from "../../../components";
-import { profileDetailsSchema } from "../../../schemas";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { Box, CircularProgress, Grid2, Stack, Typography } from "@mui/material";
+import EditProfileModal from "./modals/edit-profile";
+import { updateUser } from "../../../store/slices/auth";
+import { useUpdateUserInfoMutation } from "../../../services/auth";
 import {
   primaryEdit,
   primaryEye,
@@ -12,10 +14,11 @@ import {
 } from "../../../assets";
 
 const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
+  const dispatch = useDispatch();
+  const [updateProfile] = useUpdateUserInfoMutation();
   const coverRef = useRef(null);
   const ProfileRef = useRef(null);
-  const [cover, setCover] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [editProfileModal, setEditProfileModal] = useState(false);
 
   const handleViewProfile = () => {
@@ -34,20 +37,30 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
     console.log("share profile");
   };
 
-  const formik = useFormik({
-    initialValues: {
-      country: userData?.country,
-      city: userData?.city,
-      company: userData?.company,
-      industry: userData?.industry,
-      role: userData?.designation,
-    },
-    enableReinitialize: true,
-    validationSchema: profileDetailsSchema,
-    onSubmit: (values) => {
-      console.log("values", values);
-    },
-  });
+  const handleImageUpload = (e, type) => {
+    setLoading(type);
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append(type, file);
+      updateProfile(formData).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          setLoading(false);
+          return;
+        }
+        if (res) {
+          toast.success(
+            `Your ${
+              type === "image" ? "profile" : type
+            } image updated successfully`
+          );
+          dispatch(updateUser(res?.data?.data));
+          setLoading(false);
+        }
+      });
+    }
+  };
 
   return (
     <>
@@ -63,7 +76,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
           background: "#B8B8B8",
         }}
       >
-        {cover && (
+        {userData?.coverImage && (
           <img
             style={{
               width: "100%",
@@ -72,31 +85,34 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
               position: "absolute",
               opacity: isPublicView ? 1 : 0.5,
             }}
-            src={URL.createObjectURL(cover)}
+            src={userData?.coverImage}
             alt="cover"
           />
         )}
-        {!isPublicView && (
-          <Box
-            onClick={() => coverRef.current.click()}
-            sx={{
-              cursor: "pointer",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              zIndex: 1,
-            }}
-          >
-            <Typography>Cover Photo</Typography>
-            <img src={uploadIcon} alt="upload" />
-          </Box>
-        )}
+        {!isPublicView &&
+          (loading === "cover" ? (
+            <CircularProgress sx={{ color: "#1877F2" }} />
+          ) : (
+            <Box
+              onClick={() => coverRef.current.click()}
+              sx={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                zIndex: 1,
+              }}
+            >
+              <Typography>Cover Photo</Typography>
+              <img src={uploadIcon} alt="upload" />
+            </Box>
+          ))}
         <input
           ref={coverRef}
           type="file"
           style={{ display: "none" }}
-          onChange={(e) => setCover(e.target.files[0])}
+          onChange={(e) => handleImageUpload(e, "cover")}
         />
       </Box>
       <Grid2
@@ -118,23 +134,35 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
           }}
           onClick={isPublicView ? () => {} : () => ProfileRef.current.click()}
         >
-          <img
-            style={{
-              width: "100px",
-              height: "100px",
-              borderRadius: "50%",
-              position: "relative",
-              zIndex: 2,
-            }}
-            src={
-              profile
-                ? URL.createObjectURL(profile)
-                : userData?.profileImage
-                ? userData?.profileImage
-                : userAvatar
-            }
-            alt="profile"
-          />
+          {loading === "image" ? (
+            <Box
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                position: "relative",
+                zIndex: 2,
+                border: "1px solid #1877F2",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress size={20} sx={{ color: "#1877F2" }} />
+            </Box>
+          ) : (
+            <img
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                position: "relative",
+                zIndex: 2,
+              }}
+              src={userData?.profileImage ? userData?.profileImage : userAvatar}
+              alt="profile"
+            />
+          )}
           {!isPublicView && (
             <img
               style={{ position: "absolute", top: "0px", right: "0px" }}
@@ -146,7 +174,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
             ref={ProfileRef}
             type="file"
             style={{ display: "none" }}
-            onChange={(e) => setProfile(e.target.files[0])}
+            onChange={(e) => handleImageUpload(e, "image")}
           />
         </Box>
         <Typography fontSize="29px" fontWeight={500}>
@@ -216,7 +244,8 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                   fontSize="12px"
                   fontWeight={400}
                 >
-                  Karachi, {userData?.country}
+                  {userData?.city && `${userData?.city}, `}
+                  {userData?.country}
                 </Typography>
               </Stack>
               <Stack
@@ -294,68 +323,11 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
           </Stack>
         </Box>
       </Grid2>
-      <DynamicModal
-        title="Update profile"
-        buttonText="Update"
+      <EditProfileModal
+        userData={userData}
         open={editProfileModal}
-        onSuccess={formik.handleSubmit}
         handleClose={handleClose}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "10px",
-          }}
-        >
-          <Input
-            customLabel="Country/Region *"
-            variant="outlined"
-            name="country"
-            value={formik.values.country}
-            handleChange={formik.handleChange}
-            error={formik.touched.country && !!formik.errors.country}
-            helperText={formik.touched.country && formik.errors.country}
-          />
-          <Input
-            customLabel="City *"
-            variant="outlined"
-            name="city"
-            value={formik.values.city}
-            handleChange={formik.handleChange}
-            error={formik.touched.city && !!formik.errors.city}
-            helperText={formik.touched.city && formik.errors.city}
-          />
-          <Input
-            customLabel="Company *"
-            variant="outlined"
-            name="company"
-            value={formik.values.company}
-            handleChange={formik.handleChange}
-            error={formik.touched.company && !!formik.errors.company}
-            helperText={formik.touched.company && formik.errors.company}
-          />
-          <Input
-            customLabel="Industry *"
-            variant="outlined"
-            name="industry"
-            value={formik.values.industry}
-            handleChange={formik.handleChange}
-            error={formik.touched.industry && !!formik.errors.industry}
-            helperText={formik.touched.industry && formik.errors.industry}
-          />
-          <Input
-            customLabel="Role *"
-            variant="outlined"
-            name="role"
-            value={formik.values.role}
-            handleChange={formik.handleChange}
-            error={formik.touched.role && !!formik.errors.role}
-            helperText={formik.touched.role && formik.errors.role}
-          />
-        </Box>
-      </DynamicModal>
+      />
     </>
   );
 };

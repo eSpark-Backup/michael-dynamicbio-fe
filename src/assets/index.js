@@ -86,6 +86,7 @@ import poll from "./icons/poll.svg"
 import primaryEdit from "./icons/fe_edit.svg";
 import primaryEye from "./icons/primary-eye.svg";
 import share from "./icons/share.svg";
+import copy from "./icons/copy.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -187,4 +188,5 @@ export {
   primaryEdit,
   primaryEye,
   share,
+  copy,
 };

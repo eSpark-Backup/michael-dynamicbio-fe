@@ -30,31 +30,8 @@ import {
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useGetUserInfoMutation } from "./services/auth";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { logout } from "./store/slices/auth";
-import { useDispatch } from "react-redux";
 
 const App = () => {
-  const token = localStorage.getItem("token");
-  const [getInfo, { isLoading }] = useGetUserInfoMutation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      localStorage.removeItem("temp-token");
-      getInfo().then((res) => {
-        if (res?.error) {
-          toast.error(res?.error?.data?.message);
-          dispatch(logout());
-          navigate("/login");
-          return;
-        }
-      });
-    }
-  }, [token]);
   return (
     <>
       <Routes>

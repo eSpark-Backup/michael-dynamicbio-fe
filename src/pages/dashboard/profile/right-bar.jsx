@@ -1,8 +1,10 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { Button } from "../../../components";
-import { primaryEdit } from "../../../assets";
+import { copyToClipboard } from "../../../utils";
+import { copy } from "../../../assets";
 
 const RightBar = () => {
+  const url = "www.fnkdfhudfhidjfvhdfkvgjdhfkbhkfddsfd/jdsfiods.com";
   return (
     <>
       <Paper
@@ -29,7 +31,6 @@ const RightBar = () => {
           >
             Language
           </Typography>
-          <img src={primaryEdit} alt="edit" />
         </Box>
         <Box
           sx={{
@@ -77,7 +78,12 @@ const RightBar = () => {
           >
             URL
           </Typography>
-          <img src={primaryEdit} alt="edit" />
+          <img
+            onClick={() => copyToClipboard(url)}
+            style={{ cursor: "pointer" }}
+            src={copy}
+            alt="copy"
+          />
         </Box>
         <Box
           sx={{
@@ -99,7 +105,7 @@ const RightBar = () => {
               overflow: "hidden",
             }}
           >
-            www.fnkdfhudfhidjfvhdfkvgjdhfkbhkfddsfd/jdsfiods.com
+            {url}
           </Typography>
         </Box>
       </Paper>
