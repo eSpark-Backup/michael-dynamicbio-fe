@@ -9,10 +9,10 @@ export const loginSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(12, 'Password must be at least 12 characters long.')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter.')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter.')
-    .matches(/[0-9]/, 'Password must contain at least one number.')
+    .min(12, "Password must be at least 12 characters long.")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+    .matches(/[0-9]/, "Password must contain at least one number."),
 });
 
 export const findEmailSchema = Yup.object({
@@ -27,10 +27,10 @@ export const findEmailSchema = Yup.object({
 export const ForgetPasswordSchema = Yup.object({
   password: Yup.string()
     .required("Password is required")
-    .min(12, 'Password must be at least 12 characters long.')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter.')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter.')
-    .matches(/[0-9]/, 'Password must contain at least one number.'),
+    .min(12, "Password must be at least 12 characters long.")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+    .matches(/[0-9]/, "Password must contain at least one number."),
   conPassword: Yup.string()
     .required("Confirm password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
@@ -47,10 +47,10 @@ export const signupSchema = Yup.object({
     .required("Email is required"),
   password: Yup.string()
     .required("Password is required")
-    .min(12, 'Password must be at least 12 characters long.')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter.')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter.')
-    .matches(/[0-9]/, 'Password must contain at least one number.'),
+    .min(12, "Password must be at least 12 characters long.")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+    .matches(/[0-9]/, "Password must contain at least one number."),
   conPassword: Yup.string()
     .required("Confirm password is required")
     .oneOf([Yup.ref("password")], "Passwords must match"),
@@ -70,9 +70,10 @@ export const addMobileSchema = Yup.object({
 
 export const profileDetailsSchema = Yup.object({
   country: Yup.string().required("Country is required."),
+  city: Yup.string().required("City is required."),
   company: Yup.string().required("Company is required."),
   industry: Yup.string().required("Industry is required."),
-  role: Yup.string().required("Role is required"),
+  designation: Yup.string().required("Role is required"),
 });
 
 export const createGroupSchema = Yup.object({
@@ -104,17 +105,20 @@ export const createPageSchema = Yup.object({
     .required("This field is required"),
 });
 
-
 export const onlineEventSchema = Yup.object({
   format: Yup.string().required("Event format is required"),
-  name: Yup.string().required("Event name is required").max(75, "Must be 75 characters or less"),
+  name: Yup.string()
+    .required("Event name is required")
+    .max(75, "Must be 75 characters or less"),
   timezone: Yup.string().required("Timezone is required"),
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
   // externalLink: Yup.string().max(1024, "Must be 1024 characters or less"),
 });
 
 export const inpersonEventSchema = Yup.object({
-  name: Yup.string().required("Event name is required").max(75, "Must be 75 characters or less"),
+  name: Yup.string()
+    .required("Event name is required")
+    .max(75, "Must be 75 characters or less"),
   timezone: Yup.string().required("Timezone is required"),
   address: Yup.string().required("Address is required"),
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
@@ -122,13 +126,47 @@ export const inpersonEventSchema = Yup.object({
 });
 
 export const pollSchema = Yup.object({
-  question: Yup.string().required("Question is required").max(100, "Must be 100 characters or less"),
-  opt1: Yup.string().required("Option 1 is required").max(100, "Must be 100 characters or less"),
-  opt2: Yup.string().required("Option 2 is required").max(100, "Must be 100 characters or less"),
+  question: Yup.string()
+    .required("Question is required")
+    .max(100, "Must be 100 characters or less"),
+  opt1: Yup.string()
+    .required("Option 1 is required")
+    .max(100, "Must be 100 characters or less"),
+  opt2: Yup.string()
+    .required("Option 2 is required")
+    .max(100, "Must be 100 characters or less"),
   options: Yup.array()
-    .of(
-      Yup.string()
-        .max(100, "Must be 100 characters or less")
-    )
+    .of(Yup.string().max(100, "Must be 100 characters or less"))
     .optional(),
-})
+});
+
+export const experienceSchema = Yup.object({
+  title: Yup.string().required("Job title is required"),
+  type: Yup.string().required("Job type is required"),
+  company: Yup.string().required("Company name is required"),
+  location: Yup.string().required("Location is required."),
+  currently: Yup.boolean(),
+  startingDate: Yup.string().required("Starting date is required"),
+  endingDate: Yup.string().when("currently", {
+    is: false,
+    then: (schema) => schema.required("Ending date is required"),
+    otherwise: (schema) => schema.nullable(),
+  }),
+});
+
+export const educationSchema = Yup.object({
+  school: Yup.string().required("School is required"),
+  degree: Yup.string().required("Degree is required"),
+  field: Yup.string().required("Field name is required"),
+  grade: Yup.string().required("Grade is required."),
+  startingDate: Yup.string().required("Starting date is required"),
+  endingDate: Yup.string().required("Ending date is required"),
+});
+
+export const skillSchema = Yup.object({
+  skill: Yup.string().required("Skill is required"),
+});
+
+export const phoneNoSchema = Yup.object({
+  phone: Yup.string().required("Please enter a phone number."),
+});
