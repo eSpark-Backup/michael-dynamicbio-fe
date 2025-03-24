@@ -10,6 +10,7 @@ const CompleteProfile = () => {
   const formik = useFormik({
     initialValues: {
       country: "",
+      city: "",
       company: "",
       industry: "",
       role: "",
@@ -44,6 +45,14 @@ const CompleteProfile = () => {
           handleChange={formik.handleChange}
           error={formik.touched.country && !!formik.errors.country}
           helperText={formik.touched.country && formik.errors.country}
+        />
+        <Input
+          placeholder="City *"
+          name="city"
+          value={formik.values.city}
+          handleChange={formik.handleChange}
+          error={formik.touched.city && !!formik.errors.city}
+          helperText={formik.touched.city && formik.errors.city}
         />
         <Input
           placeholder="Company*"

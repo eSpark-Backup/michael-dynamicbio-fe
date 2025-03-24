@@ -18,7 +18,7 @@ import {
   ResyncMfa,
 } from "./auth";
 
-import { Home, Bonds, Pulses, Cells, Article } from "./dashboard";
+import { Home, Bonds, Pulses, Cells, Article, Profile } from "./dashboard";
 
 export {
   Login,
@@ -43,4 +43,5 @@ export {
   Pulses,
   Cells,
   Article,
+  Profile,
 };
