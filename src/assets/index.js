@@ -83,6 +83,7 @@ import link2 from "./icons/link2.svg"
 import close2 from "./icons/close2.svg"
 import earth from "./icons/earth.svg"
 import poll from "./icons/poll.svg"
+import chipClose from "./icons/chipClose.svg"
 import primaryEdit from "./icons/fe_edit.svg";
 import primaryEye from "./icons/primary-eye.svg";
 import share from "./icons/share.svg";
@@ -185,6 +186,7 @@ export {
   close2,
   earth,
   poll,
+  chipClose,
   primaryEdit,
   primaryEye,
   share,

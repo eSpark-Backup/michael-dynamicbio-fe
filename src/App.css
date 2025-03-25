@@ -100,6 +100,55 @@ body {
     width: 60px !important;
 }
 
+.custom-autocomplete {
+    width: 400px;
+    border-bottom: 0px;
+
+}
+
+.custom-autocomplete2 {
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    padding: 0px 5px;
+    /* height: 30px; */
+    width: 400px;
+}
+
+.css-by3w32-MuiInputBase-root-MuiInput-root::before,
+.css-by3w32-MuiInputBase-root-MuiInput-root::after {
+    border-bottom: none !important;
+}
+
+.custom-autocomplete .MuiOutlinedInput-root {
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: none;
+}
+
+.custom-autocomplete .MuiOutlinedInput-root fieldset {
+    border-color: #ccc;
+}
+
+.custom-autocomplete .MuiOutlinedInput-root:hover fieldset {
+    border-color: #999;
+}
+
+.custom-autocomplete .MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: #3f51b5;
+}
+
+.custom-autocomplete .MuiAutocomplete-listbox {
+    background-color: #f5f5f5;
+}
+
+.custom-autocomplete .MuiAutocomplete-listbox li {
+    color: #333;
+}
+
+/* .css-1umw9bq-MuiSvgIcon-root{
+    fill: #505050 !important;
+} */
+
 @media screen and (min-width:769px) {
     .ql-container.ql-snow {
         margin-left: 30px;

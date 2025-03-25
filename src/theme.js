@@ -199,5 +199,28 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    background: `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%),
+                             linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04))`,
+                    borderRadius: "4px",
+                    border: "1px solid #E4E4E4",
+                    color: "#fff",
+                    fontWeight: "400",
+                    paddingRight: "10px",
+                    fontSize: "12px",
+                },
+                deleteIcon: {
+                    color: "#505050",
+                    backgroundColor: "transparent !important",
+                    marginLeft: "1px",
+                    "&:hover": {
+                        color: "#505050",
+                        backgroundColor: "transparent !important",
+                    },
+                },
+            },
+        },
     }
 });
