@@ -188,7 +188,7 @@ export const chatsContent = [
     image: friend,
     lastMessage: "Sent a photo",
     time: "Jan 2",
-    name: "Jhon Smith, Bob Brown, and you",
+    name: "John Smith, Bob Brown, and you",
     type: "group"
   },
 ];
