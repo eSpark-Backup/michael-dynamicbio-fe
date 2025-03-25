@@ -125,18 +125,18 @@ export const theme = createTheme({
                 },
 
                 root: {
-                    border: "1px solid #000",
+                    border: "1px solid #DDE2E4",
                     width: "100%",
                     outline: "none",
                     padding: " 0px 5px",
-                    fontSize: "24px",
+                    fontSize: "17px",
                     color: "#000",
                     fontWeight: 400,
                     borderRadius: "4px",
                     backgroundColor: "transparent",
                     height: "42px",
                     ":focus": {
-                        border: "1px solid #000",
+                        border: "1px solid #DDE2E4",
                     },
                     fieldset: {
                         border: 0,
