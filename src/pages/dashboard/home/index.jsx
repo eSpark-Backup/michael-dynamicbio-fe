@@ -1,10 +1,11 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { article, bondMain, event, photo, profilePicture, research, user, video, userWithCamera } from '../../../assets';
+import { article, bondMain, event, photo, research, user, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ const Home = () => {
     setEventModal(true)
     setViewEventModal(false)
   }
-  const userData = JSON.parse(localStorage.getItem("user"));
+  const { user: userData } = useSelector(state => state.auth);
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -120,7 +121,7 @@ const Home = () => {
               }}
             >
               <img
-                src={userData?.profileImage || profilePicture}
+                src={userData?.profileImage || user}
                 alt="Profile"
                 style={{
                   position: "absolute",

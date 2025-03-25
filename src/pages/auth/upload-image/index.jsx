@@ -18,6 +18,7 @@ const UploadImage = () => {
   const handleSubmit = () => {
     const formdata = new FormData();
     formdata.append("country", data?.country);
+    formdata.append("city", data?.city);
     formdata.append("designation", data?.role);
     formdata.append("industry", data?.industry);
     formdata.append("company", data?.company);

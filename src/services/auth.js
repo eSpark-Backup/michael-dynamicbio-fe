@@ -17,6 +17,14 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    updateUserInfo: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/profile",
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
     generateQr: builder.mutation({
       query: () => ({
         url: "/user/generate-qr",
@@ -107,6 +115,7 @@ export const authApi = api.injectEndpoints({
 export const {
   useLoginMutation,
   useGetUserInfoMutation,
+  useUpdateUserInfoMutation,
   useGenerateQrMutation,
   useVerifyQrMutation,
   useResyncMfaMutation,

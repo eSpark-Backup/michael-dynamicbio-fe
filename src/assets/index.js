@@ -84,6 +84,10 @@ import close2 from "./icons/close2.svg"
 import earth from "./icons/earth.svg"
 import poll from "./icons/poll.svg"
 import chipClose from "./icons/chipClose.svg"
+import primaryEdit from "./icons/fe_edit.svg";
+import primaryEye from "./icons/primary-eye.svg";
+import share from "./icons/share.svg";
+import copy from "./icons/copy.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -183,4 +187,8 @@ export {
   earth,
   poll,
   chipClose,
+  primaryEdit,
+  primaryEye,
+  share,
+  copy,
 };
