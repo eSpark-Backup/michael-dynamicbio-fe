@@ -29,18 +29,18 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
         handleClose();
     };
 
-
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
-            fileInputRef.current.value = null;
-            
-            setNewThumbnail(e.target.files[0]);
+            const file = e.target.files[0]; // Store file in a variable
+            setNewThumbnail(file);
             setIsFileUploaded(true);
+
+            // Reset the input value after setting the new file
+            setTimeout(() => {
+                fileInputRef.current.value = null;
+            }, 0);
         }
     };
-    
-
-
 
     useEffect(() => {
         if (newThumbnail) {
