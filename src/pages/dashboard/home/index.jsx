@@ -41,6 +41,9 @@ const Home = () => {
       setPollModal(true)
       setShowPostModal(false)
     }
+    else if (item === "Article") {
+      navigate("/article")
+    }
   }
 
   useEffect(() => {
