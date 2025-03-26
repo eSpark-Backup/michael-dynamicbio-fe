@@ -137,14 +137,14 @@ const Cells = () => {
               }}
               onClick={HandleBack}
             />}
-            <Box sx={{ borderBottom: "1px solid #E4E4E4", width: "100%", display: "flex", justifyContent: "space-between", p: "5px 5px 15px 0px", alignItems: "center" }}>
-              <Stack gap={2} direction={"row"}>
+            <Box sx={{ borderBottom: "1px solid #E4E4E4", width: "100%", display: "flex", justifyContent: "space-between", p: "5px 5px 15px 0px", alignItems: "center", flexWrap: "wrap" }}>
+              <Stack gap={2} direction={"row"} width={"80%"}>
                 {showChatScreen && <Box sx={{ width: "40px", height: "40px", position: "relative" }}>
-                  <img src={friend} alt="user" style={{ width: "100%", height: '100%', borderRadius: "50%" }} />
+                  <img src={friend} alt="user" style={{ width: "45px", height: '45px', borderRadius: "50%" }} />
                   <Box sx={{ width: "10px", height: "10px", backgroundColor: "#12B76A", border: "1.5px solid #FFFFFF", borderRadius: "50%", position: "absolute", right: 0, bottom: 0 }}>
                   </Box>
                 </Box>}
-                <Stack direction={"column"}>
+                <Stack direction={"column"} width={"80%"}>
                   <Typography sx={{ fontSize: showChatScreen ? "18px" : "14px", fontWeight: showChatScreen ? 500 : 400, color: "#171717" }}>
                     {showChatScreen && chatType === "personal" ? "Phoenix Baker" : showChatScreen && chatType === "group" ? "Jon Smith, Bob Brown, and you" : "New Message"}
                   </Typography>

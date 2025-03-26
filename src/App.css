@@ -154,3 +154,11 @@ body {
         margin-left: 30px;
     }
 }
+
+@media screen and (max-width:768px) {
+
+    .custom-autocomplete2,
+    .custom-autocomplete {
+        width: 100%;
+    }
+}
