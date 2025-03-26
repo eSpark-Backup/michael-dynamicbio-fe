@@ -31,6 +31,9 @@ import GroupShareModal from "./GroupShareModal";
 import PollModal from "./PollModal";
 import ViewArticle from "./ViewArticle";
 import GroupChatModal from "./GroupChatModal";
+import PostSetting from "./PostSetting";
+import TargetAudienceModal from "./TargetAudienceModal";
+import PostChoiceModal from "./PostChoiceModal";
 
 export {
     Input,
@@ -66,4 +69,7 @@ export {
     PollModal,
     ViewArticle,
     GroupChatModal,
+    PostSetting,
+    TargetAudienceModal,
+    PostChoiceModal,
 }
