@@ -98,7 +98,7 @@ const DynamicModal = ({
               </Stack>
             </Box>
           }
-          <img onClick={handleClose} src={close} alt="close" />
+          <img onClick={handleClose} src={close} alt="close" style={{ cursor: "pointer" }} />
         </Stack>
         <Box
           sx={{
@@ -172,24 +172,61 @@ const DynamicModal = ({
           }}
         >
           <RadioGroup name="share" sx={{ width: "100%", px: "0px", marginRight: "0px !important" }}>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Everyone</Typography>
-              <FormControlLabel value="everyone" control={<Radio sx={{ marginRight: "0px !important" }} />} />
-            </MenuItem>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Only connections</Typography>
-              <FormControlLabel value="connections" control={<Radio sx={{ marginRight: "0px !important" }} />} />
-            </MenuItem>
-            <MenuItem onClick={(e) => e.stopPropagation()} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "0px" }}>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Only me</Typography>
-              <FormControlLabel value="me" control={<Radio sx={{ marginRight: "0px !important" }} />} />
-            </MenuItem>
-            <MenuItem onClick={HandlegroupItemClicked} sx={{ width: "245px", backgroundColor: "#F8FCFF !important", marginTop: "10px", display: "flex", borderRadius: "4px", justifyContent: "space-between", pr: "30px" }}>
+            {[
+              { label: "Everyone", value: "everyone" },
+              { label: "Only connections", value: "connections" },
+              { label: "Only me", value: "me" },
+            ].map((item) => (
+              <MenuItem
+                key={item.value}
+                sx={{
+                  width: "245px",
+                  backgroundColor: "#F8FCFF !important",
+                  marginTop: "10px",
+                  display: "flex",
+                  borderRadius: "4px",
+                  justifyContent: "space-between",
+                  pr: "0px",
+                }}
+              >
+                <FormControlLabel
+                  value={item.value}
+                  control={<Radio sx={{ marginLeft: "auto !important" }} />}
+                  label={
+                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+                      {item.label}
+                    </Typography>
+                  }
+                  labelPlacement="start"
+                  sx={{
+                    width: "100%",
+                    margin: 0,
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                />
+
+              </MenuItem>
+            ))}
+
+            <MenuItem
+              onClick={HandlegroupItemClicked}
+              sx={{
+                width: "245px",
+                backgroundColor: "#F8FCFF !important",
+                marginTop: "10px",
+                display: "flex",
+                borderRadius: "4px",
+                justifyContent: "space-between",
+                pr: "30px",
+              }}
+            >
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Group</Typography>
-              <img src={rightArrow} alt="Icon" style={{ width: "12px", height: "6px" }} />
+              <img src={rightArrow} alt="Icon" style={{ width: "12px", height: "6px", position: "relative", left: "15px" }} />
             </MenuItem>
           </RadioGroup>
         </Menu>
+
       </Box>
 
     </Modal>

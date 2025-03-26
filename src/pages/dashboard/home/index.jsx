@@ -105,6 +105,12 @@ const Home = () => {
     setEventModal(true)
     setViewEventModal(false)
   }
+
+  const HandleViewEventClose = () => {
+    setViewEventModal(false)
+    setEventFormValues({})
+  }
+
   const { user: userData } = useSelector(state => state.auth);
 
   return (
@@ -274,7 +280,7 @@ const Home = () => {
         <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} />
       </DynamicModal>
 
-      <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true} handleGroupClick={() => setGroupShareModal(true)}>
+      <DynamicModal open={viewEventModal} handleClose={HandleViewEventClose} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true} handleGroupClick={() => setGroupShareModal(true)}>
         <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
       </DynamicModal>
 
