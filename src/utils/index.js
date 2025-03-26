@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -73,3 +74,14 @@ export function maskEmail(email) {
   }
   return email;
 }
+
+export const copyToClipboard = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard!");
+    return true;
+  } catch (error) {
+    toast.error("Failed to copy to clipboard");
+    return false;
+  }
+};

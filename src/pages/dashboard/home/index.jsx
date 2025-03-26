@@ -1,10 +1,11 @@
 import { Box, OutlinedInput, Paper, Typography, useTheme, Button, useMediaQuery, Grid2 } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { article, bondMain, event, photo, profilePicture, research, user, video, userWithCamera } from '../../../assets';
+import { article, bondMain, event, photo, research, user, video } from '../../../assets';
 import { bondSuggestions, suggestionPostContent } from '../../../constant';
 import { BondCard2, DynamicModal, EventModal, GroupShareModal, PhotoModal, PollModal, PostModal, RightSideBar, ScheduleModal, SuggestionPost, VideoModal, ViewEventModal } from '../../../components';
 import { generateThumbnail } from '../../../utils';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -101,7 +102,7 @@ const Home = () => {
     setEventModal(true)
     setViewEventModal(false)
   }
-  const userData = JSON.parse(localStorage.getItem("user"));
+  const { user: userData } = useSelector(state => state.auth);
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -117,7 +118,7 @@ const Home = () => {
               }}
             >
               <img
-                src={userData?.profileImage || profilePicture}
+                src={userData?.profileImage || user}
                 alt="Profile"
                 style={{
                   position: "absolute",
@@ -181,9 +182,9 @@ const Home = () => {
           <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
               <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={userData?.profileImage || user} alt="User" />
-              <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%", cursor: "pointer" }} readOnly onClick={() => setShowPostModal(true)} />
+              <OutlinedInput placeholder='Start a post' sx={{ height: "60px", width: "100%", cursor: "pointer", display: "flex", alignItems: "center" }} readOnly onClick={() => setShowPostModal(true)} />
             </Box >
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
+            <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "10px" }}>
               {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }, { img: research, label: "Research" }]
                 .map((item, index) => (
                   <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#F8FCFF", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center", cursor: "pointer" }} onClick={() => HandlePostTypeClick(item.label)}>

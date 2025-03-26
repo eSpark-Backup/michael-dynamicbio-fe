@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
@@ -27,28 +27,13 @@ import {
   Article,
   PageDetailsPage,
   AdminView,
+  Profile,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useGetUserInfoMutation } from "./services/auth";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 const App = () => {
-  const token = localStorage.getItem("token");
-  const [getInfo, { isLoading }] = useGetUserInfoMutation();
-
-  useEffect(() => {
-    if (token) {
-      getInfo().then((res) => {
-        if (res?.error) {
-          toast.error(res?.error?.data?.message);
-          return;
-        }
-      });
-    }
-  }, [token]);
   return (
     <>
       <Routes>
@@ -84,6 +69,7 @@ const App = () => {
           <Route path="/article" element={<Article />} />
           <Route path="/page/:id" element={<PageDetailsPage />} />
           <Route path="/page/:id/admin" element={<AdminView />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

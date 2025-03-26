@@ -5,7 +5,7 @@ import { like, three_vertical_dots } from '../assets'
 const Comment = ({ userImage, userName, comment, time }) => {
     const theme = useTheme()
     return (
-        <Box sx={{ backgroundColor: "#FCFCFC", py: "10px", display: "flex", px: "4px", justifyContent: 'flex-start', columnGap: "5px", flexDirection: { xs: "column", sm: "row" } }}>
+        <Box sx={{ backgroundColor: "#F2F8FD", py: "10px", display: "flex", px: "4px", justifyContent: 'flex-start', columnGap: "5px", flexDirection: { xs: "column", sm: "row" } }}>
             <img src={userImage} alt="user" style={{ width: "43px", height: '43px' }} />
             <Box flex={1}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

@@ -4,6 +4,7 @@ import { close, downArrowFilled, profile2, rightArrow, timer } from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
+  isLoading,
   open,
   handleClose,
   title,
@@ -155,7 +156,7 @@ const DynamicModal = ({
               <Typography variant="gradientText" sx={{ fontSize: "16px", fontWeight: "400" }}>Back</Typography>
             </Box>
           }
-          <Button type="submit" sx={{ maxWidth: postModal ? "150px" : "250px", height: postModal ? "36px" : "65px", fontSize: postModal ? "16px" : "20px" }} onClick={onSuccess}>
+          <Button loading={isLoading} type="submit" sx={{ maxWidth: postModal ? "150px" : "250px", height: postModal ? "36px" : "65px", fontSize: postModal ? "16px" : "20px" }} onClick={onSuccess}>
             {buttonText}
           </Button>
         </Stack>}
