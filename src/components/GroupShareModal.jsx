@@ -28,7 +28,7 @@ const GroupShareModal = () => {
                 <Box sx={{ maxHeight: "630px", overflowY: "auto", display: "flex", flexDirection: "column", rowGap: "15px" }}>
                     {groupsCOntent?.map((item, index) => {
                         return (
-                            <Box sx={{ backgroundColor: "#FCFCFC", borderRadius: "2px", display: "flex", justifyContent: "space-between", padding: "15px" }}>
+                            <Box sx={{ backgroundColor: "#FCFCFC", borderRadius: "2px", display: "flex", justifyContent: "space-between", padding: "15px" }} key={index}>
                                 <Stack direction={"row"} gap={2} alignItems={"center"}>
                                     <img src={item?.picture} alt="Avatar" style={{ width: "60px", height: "60px" }} />
                                     <Box sx={{ display: "flex", flexDirection: "column" }}>

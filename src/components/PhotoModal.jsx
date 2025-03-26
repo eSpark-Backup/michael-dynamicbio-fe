@@ -6,6 +6,7 @@ import { article, deleteIcon, emoji, event, photo, plus, video } from '../assets
 const PhotoModal = ({ files, placeholder, handleClose }) => {
     const fileInputRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [currentActiveIndex, setCurrentActiveIndex] = useState(-1)
     useEffect(() => {
         if (files.length > 0) {
             setSelectedFiles(files);
@@ -20,18 +21,36 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
     };
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+        setSelectedFiles((prevFiles) => {
+            const updatedFiles = [...prevFiles, ...files];
+            setCurrentActiveIndex(updatedFiles.length - 1); // Ensure the last uploaded file is visible
+            return updatedFiles;
+        });
     };
+
 
     const handleDeleteFile = (index) => {
         setSelectedFiles((prevFiles) => {
             const updatedFiles = prevFiles.filter((_, i) => i !== index);
+
             if (updatedFiles.length === 0) {
                 handleClose();
+                return updatedFiles;
             }
+
+            setCurrentActiveIndex((prevIndex) => {
+                if (prevIndex === index) {
+                    return index === updatedFiles.length ? index - 1 : index;
+                }
+                return prevIndex > index ? prevIndex - 1 : prevIndex;
+            });
+
             return updatedFiles;
         });
     };
+
+
+    useEffect(() => { console.log(currentActiveIndex) }, [currentActiveIndex])
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", rowGap: "15px" }}>
             <OutlinedInput placeholder={placeholder}
@@ -48,7 +67,7 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                 flexDirection: { xs: "column", md: "row" },
                 rowGap: "10px"
             }}>
-                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', backgroundImage: selectedFiles?.length > 0 ? `url(${URL.createObjectURL(selectedFiles[selectedFiles?.length - 1])})` : "", backgroundPosition: "center", backgroundSize: "cover" }}>
+                <Box sx={{ width: { xs: "100%", md: "80%" }, height: "100%", position: 'relative', backgroundImage: selectedFiles?.length > 0 ? `url(${URL.createObjectURL(currentActiveIndex === -1 ? selectedFiles[selectedFiles?.length - 1] : selectedFiles[currentActiveIndex])})` : "", backgroundPosition: "center", backgroundSize: "cover" }}>
                     {selectedFiles?.length > 0 && <img src={deleteIcon} alt="Icon" style={{ width: '24px', height: "24px", position: "absolute", right: "15px", top: "15px", cursor: "pointer" }} onClick={() => handleDeleteFile(selectedFiles.length - 1)} />}
                 </Box>
                 <Box sx={{
@@ -79,9 +98,13 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                                     position: "relative",
                                     minWidth: { xs: "125px" }
                                 }}
+                                onClick={() => setCurrentActiveIndex(index)}
                             >
                                 {index === selectedFiles.length - 1 ? (
-                                    <img src={plus} alt="Add" style={{ width: "40px", height: "40px", cursor: "pointer" }} onClick={() => fileInputRef.current.click()} />
+                                    <img src={plus} alt="Add" style={{ width: "40px", height: "40px", cursor: "pointer" }} onClick={(e) => {
+                                        e.stopPropagation();
+                                        fileInputRef.current.click();
+                                    }} />
                                 ) : (
                                     <img
                                         src={deleteIcon}
@@ -94,7 +117,10 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                                             top: "10px",
                                             right: "10px"
                                         }}
-                                        onClick={() => handleDeleteFile(index)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteFile(index);
+                                        }}
                                     />
                                 )}
                             </Box>
