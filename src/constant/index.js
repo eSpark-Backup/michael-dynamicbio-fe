@@ -202,7 +202,7 @@ export const messages = [
       { count: 1, item: heart },
       { count: 2, item: best },
     ],
-    timestamp: "Friday 2:30pm",
+    timestamp: "Friday 2:29pm",
     isUser: true,
   },
   {
