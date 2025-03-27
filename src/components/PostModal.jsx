@@ -2,7 +2,7 @@ import { Box, OutlinedInput, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import { emoji, event, photo, poll, video } from '../assets';
 
-const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
+const PostModal = ({ title, setTitle, fileChange, placeholder, videoChange, openModal }) => {
     const fileInputRef = useRef(null);
     const videoInputRef = useRef(null);
 
@@ -36,6 +36,8 @@ const PostModal = ({ fileChange, placeholder, videoChange, openModal }) => {
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", rowGap: "15px" }}>
             <OutlinedInput
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder={placeholder}
                 sx={{
                     height: "60px",
