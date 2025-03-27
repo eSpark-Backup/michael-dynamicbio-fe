@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import DynamicModal from '../../../components/dynamic-modal.jsx';
 import ViewArticle from '../../../components/ViewArticle.jsx';
 import ScheduleModal from '../../../components/ScheduleModal.jsx';
+import { useSelector } from 'react-redux';
 
 const modules = {
     toolbar: "#toolbar-container",
@@ -24,6 +25,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
     const [viewArticleModal, setViewArticleModal] = useState(false)
     const [toSendValues, setToSendValues] = useState({})
     const [showScheduleModal, setShowScheduleModal] = useState(false)
+    const { user } = useSelector(state => state.auth);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -79,7 +81,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         }
         setViewArticleModal(true)
         setToSendValues({
-            userName: "Abdul Rehman",
+            userName: user?.firstName?`${user?.firstName} ${user?.lastName}`:"Abdul Rehman",
             title,
             selectedFile,
         })
