@@ -110,7 +110,7 @@ const Cells = () => {
                       Reach out & start a conversation to advance your career
                     </Typography>
                   </Box>
-                  <Box sx={{ height: "46px", border: "1px solid #E4E4E4", borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
+                  <Box sx={{ border: "1px solid #E4E4E4", borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
                     <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "400" }}>
                       Start conversation
                     </Typography>
@@ -118,8 +118,8 @@ const Cells = () => {
                 </Box>
               }
             </Box>
-            {chatsContent?.length > 0 && <Box sx={{ borderTop: "1px solid #E4E4E4", height: "46px", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={HandleNewConversation}>
-              <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: 400 }}>
+            {chatsContent?.length > 0 && <Box sx={{ borderTop: "1px solid #E4E4E4", height: "46px !important", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={HandleNewConversation}>
+              <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: 400, pt: "10px" }}>
                 Start conversation
               </Typography>
             </Box>}
