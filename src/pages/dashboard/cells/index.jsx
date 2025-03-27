@@ -110,8 +110,8 @@ const Cells = () => {
                       Reach out & start a conversation to advance your career
                     </Typography>
                   </Box>
-                  <Box sx={{ height: "46px", border: "1px solid #E4E4E4", borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
-                    <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "400" }}>
+                  <Box sx={{ height: "46px !important", border: "1px solid #E4E4E4", borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
+                    <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "400", pt: "10px" }}>
                       Start conversation
                     </Typography>
                   </Box>
