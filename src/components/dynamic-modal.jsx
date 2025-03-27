@@ -20,7 +20,9 @@ const DynamicModal = ({
   styledHeader,
   footerDirection,
   hideFooter,
-  handleGroupClick
+  handleGroupClick,
+  adminPage,
+  handleDropdown
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -92,7 +94,7 @@ const DynamicModal = ({
               <Stack direction={"column"}>
                 <Stack direction={"row"} gap={1}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>{userName}</Typography>
-                  <img src={downArrowFilled} alt="Icon" style={{ cursor: "pointer" }} onClick={handleClick} />
+                  <img src={downArrowFilled} alt="Icon" style={{ cursor: "pointer" }} onClick={adminPage ? handleDropdown : handleClick} />
                 </Stack>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Post to anyone</Typography>
               </Stack>

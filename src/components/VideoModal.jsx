@@ -29,7 +29,6 @@ const VideoModal = ({ placeholder, file, handleClose }) => {
         handleClose();
     };
 
-
     const handleFileChange = (e) => {
         if (e.target.files.length > 0) {
             const file = e.target.files[0];
