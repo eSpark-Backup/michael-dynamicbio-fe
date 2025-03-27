@@ -34,6 +34,7 @@ import GroupChatModal from "./GroupChatModal";
 import PostSetting from "./PostSetting";
 import TargetAudienceModal from "./TargetAudienceModal";
 import PostChoiceModal from "./PostChoiceModal";
+import CreateAdminPost from "./CreateAdminPost";
 
 export {
     Input,
@@ -72,4 +73,5 @@ export {
     PostSetting,
     TargetAudienceModal,
     PostChoiceModal,
+    CreateAdminPost,
 }

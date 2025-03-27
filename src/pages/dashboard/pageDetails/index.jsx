@@ -5,6 +5,7 @@ import AboutSection from './AboutSection';
 import PostSection from './PostSection';
 import PeopleSection from './PeopleSection';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { RightSideBar } from '../../../components';
 
 const PageDetailsPage = () => {
     const { id } = useParams();
@@ -155,7 +156,7 @@ const PageDetailsPage = () => {
                     </Grid2>
                     <Grid2 size={{ xs: 12, lg: 3 }}>
                         <Paper>
-                            hello
+                            <RightSideBar hideResearch type="bonds" />
                         </Paper>
                     </Grid2>
                 </Grid2>

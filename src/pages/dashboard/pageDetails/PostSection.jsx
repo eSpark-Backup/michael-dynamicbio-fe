@@ -1,6 +1,6 @@
 import { Box, Divider, Menu, MenuItem, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { downArrowFilled, noPosts } from '../../../assets'
+import { downArrowFilled, edit, like, noPosts, plus } from '../../../assets'
 
 const PostSection = () => {
     const [activeItem, setActiveItem] = useState("All")
@@ -53,6 +53,23 @@ const PostSection = () => {
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
                         <Typography sx={{ fontSize: "24px", fontWeight: "500", color: "#171717", textAlign: "center" }}>No posts yet</Typography>
                         <Typography sx={{ fontSize: "17px", fontWeight: "400", color: "#505050", textAlign: "center" }}>Check back later for posts!</Typography>
+                    </Box>
+                </Paper>
+                <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                        <Typography sx={{ fontSize: "24px", fontWeight: "500", color: "#171717", textAlign: "center" }}>Featured</Typography>
+                        <Box sx={{ display: "flex", columnGap: "10px", pr: "15px" }}>
+                            <img src={plus} alt="Icon" />
+                            <img src={edit} alt="Icon" />
+                        </Box>
+                    </Box>
+                    <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "4px", p: "15px", display: "flex", flexDirection: "column", rowGap: '15px' }}>
+                        <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#505050" }}>Post</Typography>
+                        <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}>Hi</Typography>
+                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050", display: "flex", alignItems: "center", columnGap: "4px", pl: "5px" }}>
+                            <img src={like} alt="Icon" style={{ width: "14px", height: "14px" }} />
+                            1
+                        </Typography>
                     </Box>
                 </Paper>
             </Box>

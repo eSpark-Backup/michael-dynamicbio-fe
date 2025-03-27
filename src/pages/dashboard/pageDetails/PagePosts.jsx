@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { article, close, comment, downArrowFilled, dummyPhoto, earth, like, photo, postPicture, repost, three_vertical_dots, user, video, world } from '../../../assets'
 import { generateThumbnail } from '../../../utils'
 import { DynamicModal, EventModal, PhotoModal, PollModal, PostChoiceModal, PostModal, ScheduleModal, VideoModal, ViewEventModal } from '../../../components'
+import { useNavigate } from 'react-router-dom'
 
 const PagePosts = () => {
     const [activeItem, setActiveItem] = useState("Published")
@@ -22,6 +23,7 @@ const PagePosts = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [postChoiceModal, setPostChoiceModal] = useState(false)
+    const navigate = useNavigate()
 
 
     const handleClick = (event) => {
@@ -47,6 +49,9 @@ const PagePosts = () => {
         else if (item === "Poll") {
             setPollModal(true)
             setShowPostModal(false)
+        }
+        else if (item === "Article") {
+            navigate("/article")
         }
     }
 

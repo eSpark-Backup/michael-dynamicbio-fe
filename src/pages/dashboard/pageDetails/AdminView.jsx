@@ -1,11 +1,12 @@
 import { Box, Button, Divider, Grid2, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import { close2, conversation, dummyPhoto, edit, growPage, noPosts, plus, three_vertical_dots } from '../../../assets'
-import { BoxWithTextIcon, DynamicModal, EventModal, PhotoModal, PollModal, PostModal, PostSetting, ScheduleModal, VideoModal, ViewEventModal } from '../../../components'
+import { BoxWithTextIcon, CreateAdminPost, DynamicModal, EventModal, PhotoModal, PollModal, PostModal, PostSetting, ScheduleModal, VideoModal, ViewEventModal } from '../../../components'
 import { pageStats } from '../../../constant'
 import { generateThumbnail } from '../../../utils'
 import DashboardSection from './DashboardSection'
 import PagePosts from './PagePosts'
+import ActivitySection from './ActivitySection'
 
 const AdminView = () => {
     const items = ["Dashboard", "Page posts", "Analytics", "Feed", "Activity", "Inbox", "Edit page", "Breaker", "Try Premium Page", "Advertise today", "Settings"]
@@ -25,6 +26,7 @@ const AdminView = () => {
     const [pollModal, setPollModal] = useState(false)
     const [postSettingModal, setPostSettingModal] = useState(false)
     const [coverPhoto, setCoverPhoto] = useState(null)
+    const [createModal, setCreateModal] = useState(false)
 
     useEffect(() => {
         if (selectedFiles?.length > 0) {
@@ -116,7 +118,7 @@ const AdminView = () => {
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: activeItem === "Page posts" ? "98%" : "85%", lg: activeItem === "Page posts" ? "98%" : "80%", xl: activeItem === "Page posts" ? "98%" : "75%" }, py: "25px" }}>
+            <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "85%", lg: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "80%", xl: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "75%" }, py: "25px" }}>
                 <Grid2 size={{ xs: 12, lg: 3 }}>
                     <Paper sx={{ padding: "0px 0px" }}>
                         <Box sx={{ height: "90px", borderTopRightRadius: "4px", borderTopLeftRadius: "4px", position: "relative", backgroundImage: `url(${coverPhoto !== null ? coverPhoto : dummyPhoto})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
@@ -142,7 +144,7 @@ const AdminView = () => {
                         <Box sx={{ mt: "70px", px: "15px", display: "flex", flexDirection: "column", rowGap: "5px" }}>
                             <Typography sx={{ fontSize: "24px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>0 followers</Typography>
-                            <Button sx={{ maxWidth: "120px", height: "36px" }}>Create</Button>
+                            <Button sx={{ maxWidth: "120px", height: "36px" }} onClick={() => setCreateModal(true)} >Create</Button>
                             <Button sx={{ maxWidth: "100%", height: "36px", mt: "10px", background: "transparent", border: "1px solid #E4E4E4", textTransform: "none", borderRadius: "12px", ":hover": { background: "transparent", color: "#000" } }}>View as a member</Button>
 
                         </Box>
@@ -171,11 +173,11 @@ const AdminView = () => {
                         </Box>
                     </Paper>
                 </Grid2>
-                <Grid2 size={{ xs: 12, lg: activeItem === "Page posts" ? 6 : 9 }} sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+                <Grid2 size={{ xs: 12, lg: (activeItem === "Page posts" || activeItem === "Activity") ? 6 : 9 }} sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                     {/* */}
-                    {activeItem === "Page posts" ? <PagePosts /> : <DashboardSection handlePostButtonClick={() => setShowPostModal(true)} />}
+                    {activeItem === "Page posts" ? <PagePosts /> : activeItem === "Activity" ? <ActivitySection /> : <DashboardSection handlePostButtonClick={() => setShowPostModal(true)} />}
                 </Grid2>
-                {activeItem === "Page posts" &&
+                {(activeItem === "Page posts" || activeItem === "Activity") &&
                     <Grid2 size={{ xs: 12, lg: 2.5 }}>
                         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                             <Box>
@@ -246,6 +248,10 @@ const AdminView = () => {
 
             <DynamicModal open={postSettingModal} handleClose={() => setPostSettingModal(false)} title={"Post settings"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
                 <PostSetting />
+            </DynamicModal>
+
+            <DynamicModal open={createModal} handleClose={() => setCreateModal(false)} title={"Create"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
+                <CreateAdminPost />
             </DynamicModal>
         </Box>
     )

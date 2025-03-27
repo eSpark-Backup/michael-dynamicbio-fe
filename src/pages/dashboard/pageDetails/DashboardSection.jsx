@@ -84,10 +84,10 @@ const DashboardSection = ({ handlePostButtonClick }) => {
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Track performance</Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Grow you page 3x faster by leveraging insights and analytics</Typography>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10px", flexWrap: "wrap" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10px", flexWrap: "wrap", rowGap: "10px" }}>
                     {/*  */}
                     {pageStats?.map((item, index) => (
-                        <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "8px", p: "20px 15px", display: "flex", flexDirection: "column", rowGap: "4px", width: "24%", minWidth: "190px" }} key={index}>
+                        <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "8px", p: "20px 15px", display: "flex", flexDirection: "column", rowGap: "4px", width: { xs: "100%", md: "24%" }, minWidth: "190px" }} key={index}>
                             <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>{item?.value}</Typography>
                             <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }} variant={index !== 0 ? "gradientText" : "body1"}>{item?.name}</Typography>
                             <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{item?.description}</Typography>
