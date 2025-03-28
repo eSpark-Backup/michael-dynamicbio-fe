@@ -6,6 +6,8 @@ import { Box, CircularProgress } from "@mui/material";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import { useGetUserInfoMutation } from "../../services/auth";
+import { logout } from "../../store/slices/auth";
+
 
 const PrivateLayout = () => {
   const token = localStorage.getItem("token");

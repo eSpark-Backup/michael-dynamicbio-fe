@@ -41,33 +41,6 @@ const RightSideBar = ({ hideResearch }) => {
                     </Box>
                 ))}
             </Box>
-            {!hideResearch && <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "20px", px: "20px" }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}>
-                        Research
-                    </Typography>
-                    <Typography sx={{ fontSize: "14px", fontWeight: 400, cursor: "pointer" }} variant='gradientText'>
-                        View all
-                    </Typography>
-                </Box>
-                {[1, 2]?.map((item, index) => {
-                    return (
-                        <Box sx={{ display: "flex", border: "1px solid #E4E4E4", p: "10px 5px 15px 5px", borderRadius: "4px", flexDirection: "column", rowGap: "5px" }} key={index}>
-                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Typography sx={{ fontSize: "16px", fontWeight: 400, color: "#171717" }}>Hydrogen discovery</Typography>
-                                <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#505050" }}>
-                                    {index === 0 ? "Author" : "Member"}
-                                </Typography>
-                            </Box>
-                            <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "4px", p: "5px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#171717" }}>Approvals</Typography>
-                                <Typography sx={{ fontSize: "16px", fontWeight: 300, color: theme.palette.primary.dark }}>0</Typography>
-                            </Box>
-                        </Box>
-                    )
-                })}
-                <Button sx={{ height: "40px", fontSize: "14px", fontWeight: 400, color: "#171717" }}>Manage</Button>
-            </Paper>}
         </Box>
     )
 }

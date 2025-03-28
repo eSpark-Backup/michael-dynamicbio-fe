@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import OutlinedInput from './outline-input'
 import { article, deleteIcon, emoji, event, photo, plus, video } from '../assets'
 
-const PhotoModal = ({ files, placeholder, handleClose }) => {
+const PhotoModal = ({ title, setTitle, files, placeholder, handleClose }) => {
     const fileInputRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [currentActiveIndex, setCurrentActiveIndex] = useState(-1)
@@ -53,7 +53,7 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
     useEffect(() => { console.log(currentActiveIndex) }, [currentActiveIndex])
     return (
         <Box sx={{ display: 'flex', flexDirection: "column", rowGap: "15px" }}>
-            <OutlinedInput placeholder={placeholder}
+            <OutlinedInput placeholder={placeholder} value={title} onInputChange={(e) => setTitle(e.target.value)}
                 sx={{
                     height: "60px",
                     width: "100%",
@@ -62,7 +62,7 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                     },
 
                 }} />
-            <Box sx={{
+            {useMemo(() => (<Box sx={{
                 display: "flex", backgroundColor: "#FCFCFC", borderRadius: "4px", height: "440px", p: "15px", justifyContent: "space-between",
                 flexDirection: { xs: "column", md: "row" },
                 rowGap: "10px"
@@ -128,7 +128,7 @@ const PhotoModal = ({ files, placeholder, handleClose }) => {
                     })}
                 </Box>
 
-            </Box>
+            </Box>),[selectedFiles])}
             <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} />
             <Box sx={{ height: "50px" }}>
                 {selectedFiles?.length === 0 && <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "20px" }}>
