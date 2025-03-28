@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import OutlinedInput from './outline-input'
 import { article, deleteIcon, emoji, event, photo, plus, video } from '../assets'
 
-const PhotoModal = ({ title, setTitle, files, placeholder, handleClose }) => {
+const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose }) => {
     const fileInputRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [currentActiveIndex, setCurrentActiveIndex] = useState(-1)
@@ -26,6 +26,10 @@ const PhotoModal = ({ title, setTitle, files, placeholder, handleClose }) => {
             setCurrentActiveIndex(updatedFiles.length - 1); // Ensure the last uploaded file is visible
             return updatedFiles;
         });
+        setFiles((prevFiles) => {
+            const updatedFiles = [...prevFiles, ...files];
+            return updatedFiles;
+        });
     };
 
 
@@ -45,6 +49,13 @@ const PhotoModal = ({ title, setTitle, files, placeholder, handleClose }) => {
                 return prevIndex > index ? prevIndex - 1 : prevIndex;
             });
 
+            return updatedFiles;
+        });
+        setFiles((prevFiles) => {
+            const updatedFiles = prevFiles.filter((_, i) => i !== index);
+            if (updatedFiles.length === 0) {
+                return updatedFiles;
+            }
             return updatedFiles;
         });
     };

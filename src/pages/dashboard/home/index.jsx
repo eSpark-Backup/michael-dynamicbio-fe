@@ -556,6 +556,7 @@ const Home = () => {
           title={title}
           setTitle={setTitle}
           files={selectedFiles}
+          setFiles={setSelectedFiles}
           placeholder={"Say something about this photo"}
           handleClose={HandleModalClose}
         />
