@@ -25,6 +25,8 @@ import {
   Cells,
   Pulses,
   Article,
+  PageDetailsPage,
+  AdminView,
   Profile,
 } from "./pages";
 import "./App.css";
@@ -59,14 +61,16 @@ const App = () => {
           <Route path="/resync-mfa" element={<ResyncMfa />} />
         </Route>
 
-      <Route element={<PrivateLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/bonds" element={<Bonds />} />
-        <Route path="/cells" element={<Cells />} />
-        <Route path="/pulses" element={<Pulses />} />
-        <Route path="/article" element={<Article />} />
-        <Route path="/profile/:id" element={<Profile />} />
-      </Route>
+        <Route element={<PrivateLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/bonds" element={<Bonds />} />
+          <Route path="/cells" element={<Cells />} />
+          <Route path="/pulses" element={<Pulses />} />
+          <Route path="/article" element={<Article />} />
+          <Route path="/page/:id" element={<PageDetailsPage />} />
+          <Route path="/page/:id/admin" element={<AdminView />} />
+          <Route path="/profile/:id" element={<Profile />} />
+        </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

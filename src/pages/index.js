@@ -20,6 +20,9 @@ import {
 
 import { Home, Bonds, Pulses, Cells, Article, Profile } from "./dashboard";
 
+import PageDetailsPage from "./dashboard/pageDetails";
+import AdminView from "./dashboard/pageDetails/AdminView";
+
 export {
   Login,
   Signup,
@@ -43,5 +46,7 @@ export {
   Pulses,
   Cells,
   Article,
+  PageDetailsPage,
+  AdminView,
   Profile,
 };

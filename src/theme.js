@@ -222,5 +222,37 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiSwitch: {
+            styleOverrides: {
+                root: {
+                    width: 42,
+                    height: 26,
+                    padding: 0,
+                },
+                switchBase: {
+                    padding: 2,
+                    transitionDuration: "300ms",
+                    "&.Mui-checked": {
+                        transform: "translateX(16px)",
+                        color: "#FFFFFF",
+                        "& + .MuiSwitch-track": {
+                            background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                            opacity: 1,
+                        },
+                    },
+                },
+                thumb: {
+                    width: 22,
+                    height: 22,
+                    backgroundColor: "#FFFFFF",
+                },
+                track: {
+                    borderRadius: 13,
+                    backgroundColor: "#BDBDBD",
+                    opacity: 1,
+                    transition: "300ms",
+                },
+            },
+        },
     }
 });

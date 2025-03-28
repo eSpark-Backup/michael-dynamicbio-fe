@@ -34,6 +34,8 @@ const DynamicModal = ({
   userData,
   visibility,
   setVisibility,
+  adminPage,
+  handleDropdown
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -129,7 +131,7 @@ const DynamicModal = ({
                     src={downArrowFilled}
                     alt="Icon"
                     style={{ cursor: "pointer" }}
-                    onClick={handleClick}
+                    onClick={adminPage ? handleDropdown : handleClick}
                   />
                 </Stack>
                 <Typography
