@@ -96,6 +96,8 @@ import editBlue from "./icons/editBlue.svg"
 import bulb from "./icons/bulb.svg"
 import pin from "./icons/pin.svg"
 import copyLink from "./icons/copyLink.svg"
+import prevArrow from "./icons/prevArrow.svg"
+import nextArrow from "./icons/nextArrow.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -207,4 +209,6 @@ export {
   bulb,
   pin,
   copyLink,
+  prevArrow,
+  nextArrow
 };

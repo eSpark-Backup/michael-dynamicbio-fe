@@ -1,6 +1,6 @@
 import { Box, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { camera, comment, emoji, like, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
+import { camera, comment, emoji, like, plus, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
 import BondCard2 from './BondCard.jsx';
@@ -10,6 +10,8 @@ import ScheduleModal from './ScheduleModal.jsx';
 import RepostWithThoughts from './RepostWithThoughts.jsx';
 import ConfirmationModal from './ConfirmationModal.jsx';
 import GroupShareModal from './GroupShareModal.jsx';
+import PhotoDetailsModal from './PhotoDetailsModal.jsx';
+import PostDetails from './PostDetails.jsx';
 
 const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index }) => {
     const theme = useTheme();
@@ -22,6 +24,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
     const [thoughts, setThoughts] = useState("")
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [groupShareModal, setGroupShareModal] = useState(false)
+    const [showPostDetails, setShowPostDetails] = useState(false)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -57,6 +60,10 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             setShowThoughtsModal(false)
         }
     }
+
+    const handleLastImageClick = () => {
+        setShowPostDetails(true)
+    }
     return (
         <>
             <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -67,7 +74,45 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                     <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                 </Box>
                 <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
-                {postPic && <img src={postPicture} alt="Post" />}
+                {(postPic && Array.isArray(postPic) && postPic?.length === 1) && <img src={postPic[0]} alt="Post" style={{ height: "375px" }} />}
+                {
+                    (postPic && Array.isArray(postPic) && postPic?.length > 1) &&
+                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                        <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px" }} />
+                        <Box sx={{ width: "20%", display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
+                            {postPic?.slice(1, 4)?.map((item, index) => {
+                                return (
+                                    <Box sx={{ width: "100%", height: postPic.length === 2 ? "100%" : postPic.length === 3 ? "48%" : "30%", objectFit: "cover", backgroundImage: `url("${item}")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative", cursor: (postPic?.length > 4 && index === 2) ? "pointer" : "auto" }} key={index} onClick={(postPic?.length > 4 && index === 2) ? handleLastImageClick : undefined}
+                                    >
+                                        {
+                                            (postPic?.length > 4 && index === 2) &&
+                                            <Box
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    backgroundColor: "#00000033",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    color: "#fff",
+                                                    fontSize: "20px",
+                                                    fontWeight: "bold",
+                                                    columnGap: "5px"
+                                                }}
+                                            >
+                                                <img src={plus} alt="Icon" style={{ width: "16px", height: "16px" }} />
+                                                <Typography variant='gradientText' sx={{ fontSize: "24px", fontWeight: 600 }}>{postPic?.length - 4}</Typography>
+                                            </Box>
+                                        }
+                                    </Box>
+                                )
+                            })}
+                        </Box>
+                    </Box>
+                }
                 {postContent &&
                     <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                     </Typography>
@@ -181,6 +226,11 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             >
                 <Typography sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}>If you repost without adding your thoughts, all new comments & reactions will be added to XYZ’s post.</Typography>
             </ConfirmationModal>
+
+            <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
+                <PostDetails images={postPic} userImage={user} userName={"Gerry’s International"} userRole={"5,365 followers"} postTime={"4d•"} postContent={`<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice. I vividly remember those hours spent waiting at Dubai airport.
+Develop modern apps with the languages, frameworks, and databases of Develop modern apps with the languages, frameworks, and databases of your choice. I vividly remember those hours spent waiting .`} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
+            </PhotoDetailsModal>
         </>
     )
 }

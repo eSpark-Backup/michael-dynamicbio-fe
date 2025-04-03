@@ -35,6 +35,8 @@ import PostSetting from "./PostSetting";
 import TargetAudienceModal from "./TargetAudienceModal";
 import PostChoiceModal from "./PostChoiceModal";
 import CreateAdminPost from "./CreateAdminPost";
+import PhotoDetailsModal from "./PhotoDetailsModal";
+import PostDetails from "./PostDetails";
 
 export {
     Input,
@@ -74,4 +76,6 @@ export {
     TargetAudienceModal,
     PostChoiceModal,
     CreateAdminPost,
+    PhotoDetailsModal,
+    PostDetails,
 }

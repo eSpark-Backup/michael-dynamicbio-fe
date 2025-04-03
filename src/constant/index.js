@@ -68,7 +68,7 @@ export const suggestionPostContent = [
     isLiked: false,
     comments: 0,
     activity: "Suggestion for you to create bonds",
-    postPic: postPicture,
+    postPic: [postPicture, postPicture, postPicture, postPicture, postPicture],
     postContent: null,
     commentsContent: [],
   },
