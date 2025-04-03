@@ -72,7 +72,6 @@ const EditEmailModal = ({ email, userData, open, handleClose }) => {
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          rowGap: "10px",
           ".MuiOutlinedInput-root": { height: "auto !important" },
           textarea: { paddingBottom: "20px" },
         }}

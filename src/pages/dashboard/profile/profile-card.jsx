@@ -76,7 +76,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
           background: "#B8B8B8",
         }}
       >
-        {userData?.coverImage && (
+        {userData && userData?.coverImage && (
           <img
             style={{
               width: "100%",
@@ -159,7 +159,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                 position: "relative",
                 zIndex: 2,
               }}
-              src={userData?.profileImage ? userData?.profileImage : userAvatar}
+              src={userData && userData?.profileImage ? userData?.profileImage : userAvatar}
               alt="profile"
             />
           )}
@@ -233,7 +233,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                 gap="14px"
               >
                 <Typography
-                  sx={{ color: "#505050" }}
+                  sx={{ color: "#505050", width: "60px" }}
                   fontSize="12px"
                   fontWeight={400}
                 >
@@ -255,7 +255,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                 gap="14px"
               >
                 <Typography
-                  sx={{ color: "#505050" }}
+                  sx={{ color: "#505050", width: "60px" }}
                   fontSize="12px"
                   fontWeight={400}
                 >
@@ -276,7 +276,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                 gap="14px"
               >
                 <Typography
-                  sx={{ color: "#505050" }}
+                  sx={{ color: "#505050", width: "60px" }}
                   fontSize="12px"
                   fontWeight={400}
                 >
@@ -297,14 +297,14 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
                 gap="14px"
               >
                 <Typography
-                  sx={{ color: "#505050" }}
+                  sx={{ color: "#505050", width: "60px"  }}
                   fontSize="12px"
                   fontWeight={400}
                 >
                   Company:
                 </Typography>
                 <Typography
-                  sx={{ color: "#505050" }}
+                  sx={{ color: "#505050"}}
                   fontSize="12px"
                   fontWeight={400}
                 >

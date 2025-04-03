@@ -47,7 +47,7 @@ const Dropdown = ({
           {required && <Typography mb={1}>Required</Typography>}
         </Stack>
       )}
-      <FormControl variant="filled" error={error}>
+      <FormControl sx={{ width: "100%" }} variant="filled" error={error}>
         {!noLabel && <InputLabel id="demo-simple-select-filled-label">
           {placeholder}
         </InputLabel>}

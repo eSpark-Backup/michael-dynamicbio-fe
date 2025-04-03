@@ -181,6 +181,17 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiPickersYear: {
+            styleOverrides: {
+                root: {
+                    button: {
+                        "&.Mui-selected": {
+                            color: "#FFF !important"
+                       },
+                    },
+                },
+            },
+        },
         MuiList: {
             styleOverrides: {
                 root: {

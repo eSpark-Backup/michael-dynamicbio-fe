@@ -75,71 +75,81 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
           textarea: { paddingBottom: "20px" },
         }}
       >
-        <Input
-          customLabel="Title *"
-          variant="outlined"
-          placeholder="Please enter your job title"
-          name="title"
-          value={formik.values.title}
-          handleChange={formik.handleChange}
-          error={formik.touched.title && !!formik.errors.title}
-          helperText={formik.touched.title && formik.errors.title}
-        />
-        <Dropdown
-          variant="outlined"
-          options={[
-            { label: "Full-Time", value: "Full-Time" },
-            { label: "Part-Time", value: "Part-Time" },
-          ]}
-          handleChange={(event) =>
-            formik.setFieldValue("type", event.target.value)
-          }
-          customLabel="Employment type *"
-          noLabel
-          placeholder="Select employment type"
-          error={formik.touched.type && !!formik.errors.type}
-          helperText={formik.touched.type && formik.errors.type}
-          value={formik.values.type}
-        />
-        <Input
-          customLabel="Company *"
-          variant="outlined"
-          placeholder="company you worked with"
-          name="company"
-          value={formik.values.company}
-          handleChange={formik.handleChange}
-          error={formik.touched.company && !!formik.errors.company}
-          helperText={formik.touched.company && formik.errors.company}
-        />
-        <Input
-          customLabel="Location *"
-          variant="outlined"
-          placeholder="Please enter location"
-          name="location"
-          value={formik.values.location}
-          handleChange={formik.handleChange}
-          error={formik.touched.location && !!formik.errors.location}
-          helperText={formik.touched.location && formik.errors.location}
-        />
-        <FormControlLabel
-          sx={{
-            width: "100%",
-            alignItems: "flex-start",
-            padding: 0,
-            margin: 0,
-            mt: 2,
-            gap: "10px",
-            span: { padding: 0 },
-          }}
-          control={
-            <Checkbox
-              checked={formik.values.currently}
-              onChange={formik.handleChange}
-              name="currently"
-            />
-          }
-          label="I am currently working in this role"
-        />
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Title *"
+            variant="outlined"
+            placeholder="Please enter your job title"
+            name="title"
+            value={formik.values.title}
+            handleChange={formik.handleChange}
+            error={formik.touched.title && !!formik.errors.title}
+            helperText={formik.touched.title && formik.errors.title}
+          />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Dropdown
+            variant="outlined"
+            options={[
+              { label: "Full-Time", value: "Full-Time" },
+              { label: "Part-Time", value: "Part-Time" },
+            ]}
+            handleChange={(event) =>
+              formik.setFieldValue("type", event.target.value)
+            }
+            customLabel="Employment type *"
+            noLabel
+            placeholder="Select employment type"
+            error={formik.touched.type && !!formik.errors.type}
+            helperText={formik.touched.type && formik.errors.type}
+            value={formik.values.type}
+          />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Company *"
+            variant="outlined"
+            placeholder="company you worked with"
+            name="company"
+            value={formik.values.company}
+            handleChange={formik.handleChange}
+            error={formik.touched.company && !!formik.errors.company}
+            helperText={formik.touched.company && formik.errors.company}
+          />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Location *"
+            variant="outlined"
+            placeholder="Please enter location"
+            name="location"
+            value={formik.values.location}
+            handleChange={formik.handleChange}
+            error={formik.touched.location && !!formik.errors.location}
+            helperText={formik.touched.location && formik.errors.location}
+          />
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <FormControlLabel
+            sx={{
+              width: "100%",
+              alignItems: "flex-start",
+              padding: 0,
+              margin: 0,
+              mt: 2,
+              gap: "10px",
+              span: { padding: 0 },
+            }}
+            control={
+              <Checkbox
+                checked={formik.values.currently}
+                onChange={formik.handleChange}
+                name="currently"
+              />
+            }
+            label="I am currently working in this role"
+          />
+        </Box>
         <Stack
           direction="row"
           alignItems="center"
@@ -147,7 +157,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
           gap={2}
         >
           <Box sx={{ width: "100%" }}>
-            <Typography>Starting Date</Typography>
+            <Typography mb={1}>Starting Date</Typography>
             <DatePicker
               value={formik.values.startingDate}
               onChange={(value) => formik.setFieldValue("startingDate", value)}
@@ -168,7 +178,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
           </Box>
 
           <Box sx={{ width: "100%" }}>
-            <Typography>Ending Date</Typography>
+            <Typography mb={1}>Ending Date</Typography>
             <DatePicker
               value={formik.values.endingDate}
               onChange={(value) => formik.setFieldValue("endingDate", value)}

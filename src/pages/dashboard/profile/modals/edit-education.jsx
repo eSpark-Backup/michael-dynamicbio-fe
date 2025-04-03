@@ -85,46 +85,55 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
           textarea: { paddingBottom: "20px" },
         }}
       >
-        <Input
-          customLabel="School *"
-          variant="outlined"
-          placeholder="Please enter your school"
-          name="school"
-          value={formik.values.school}
-          handleChange={formik.handleChange}
-          error={formik.touched.school && !!formik.errors.school}
-          helperText={formik.touched.school && formik.errors.school}
-        />
-        <Input
-          customLabel="Degree *"
-          variant="outlined"
-          placeholder="Please enter your degree"
-          name="degree"
-          value={formik.values.degree}
-          handleChange={formik.handleChange}
-          error={formik.touched.degree && !!formik.errors.degree}
-          helperText={formik.touched.degree && formik.errors.degree}
-        />
-        <Input
-          customLabel="Field of study *"
-          variant="outlined"
-          placeholder="Please enter your field"
-          name="field"
-          value={formik.values.field}
-          handleChange={formik.handleChange}
-          error={formik.touched.field && !!formik.errors.field}
-          helperText={formik.touched.field && formik.errors.field}
-        />
-        <Input
-          customLabel="Grade *"
-          variant="outlined"
-          placeholder="Please enter your grade"
-          name="grade"
-          value={formik.values.grade}
-          handleChange={formik.handleChange}
-          error={formik.touched.grade && !!formik.errors.grade}
-          helperText={formik.touched.grade && formik.errors.grade}
-        />
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="School *"
+            variant="outlined"
+            placeholder="Please enter your school"
+            name="school"
+            value={formik.values.school}
+            handleChange={formik.handleChange}
+            error={formik.touched.school && !!formik.errors.school}
+            helperText={formik.touched.school && formik.errors.school}
+          />{" "}
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Degree *"
+            variant="outlined"
+            placeholder="Please enter your degree"
+            name="degree"
+            value={formik.values.degree}
+            handleChange={formik.handleChange}
+            error={formik.touched.degree && !!formik.errors.degree}
+            helperText={formik.touched.degree && formik.errors.degree}
+          />{" "}
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Field of study *"
+            variant="outlined"
+            placeholder="Please enter your field"
+            name="field"
+            value={formik.values.field}
+            handleChange={formik.handleChange}
+            error={formik.touched.field && !!formik.errors.field}
+            helperText={formik.touched.field && formik.errors.field}
+          />{" "}
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Grade *"
+            variant="outlined"
+            placeholder="Please enter your grade"
+            name="grade"
+            value={formik.values.grade}
+            handleChange={formik.handleChange}
+            error={formik.touched.grade && !!formik.errors.grade}
+            helperText={formik.touched.grade && formik.errors.grade}
+          />{" "}
+        </Box>
+
         <Stack
           direction="row"
           alignItems="center"
@@ -132,7 +141,7 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
           gap={2}
         >
           <Box sx={{ width: "100%" }}>
-            <Typography>Starting Date</Typography>
+            <Typography mb={1}>Starting Date</Typography>
             <DatePicker
               value={formik.values.startingDate}
               onChange={(value) => formik.setFieldValue("startingDate", value)}
@@ -151,9 +160,8 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
               }}
             />
           </Box>
-
           <Box sx={{ width: "100%" }}>
-            <Typography>Ending Date (or expected)</Typography>
+            <Typography mb={1}>Ending Date (or expected)</Typography>
             <DatePicker
               value={formik.values.endingDate}
               onChange={(value) => formik.setFieldValue("endingDate", value)}
