@@ -48,9 +48,9 @@ const PageDetailsPage = () => {
             </Box>
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "80%", xl: "75%" }, py: "25px" }}>
-                    <Grid2 size={{ xs: 12, lg: 9 }}>
+                    <Grid2 size={{ xs: 12, lg: 8, xl: 9 }}>
                         <Paper sx={{ p: "0px" }}>
-                            <Box sx={{ height: "134px", backgroundImage: `url(${dummyPhoto})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat", position: "relative", borderTopLeftRadius: "4px", borderTopRightRadius: "4px", width: "100%" }}>
+                            <Box sx={{ height: "134px", backgroundImage: `url(${dummyPhoto})`, backgroundPosition: "center", backgroundSize: "101% auto", backgroundRepeat: "no-repeat", position: "relative", borderTopLeftRadius: "4px", borderTopRightRadius: "4px", width: "100%" }}>
 
                                 <Box sx={{ width: "128px", height: "128px", border: "4px solid #fff", position: "absolute", top: "70px", left: "25px", backgroundImage: `url(${dummyPhoto})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}></Box>
                             </Box>
@@ -139,6 +139,20 @@ const PageDetailsPage = () => {
                                             "-webkit-background-clip": "text",
                                             "-webkit-text-fill-color":
                                                 tab?.label === activeTab?.label ? "transparent" : "#000",
+                                            textAlign: "center",
+                                            "&::after": {
+                                                content: '""',
+                                                display: tab?.label === activeTab?.label ? "block" : "none",
+                                                width: "90px",
+                                                height: "4px",
+                                                background:
+                                                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                                position: "absolute",
+                                                bottom: "-20px",
+                                                left: "50%",
+                                                transform: "translateX(-50%)",
+                                                borderRadius: "2px",
+                                            },
                                         }}
                                         fontSize="14px"
                                         fontWeight={500}
@@ -147,6 +161,8 @@ const PageDetailsPage = () => {
                                     >
                                         {tab.label}
                                     </Typography>
+
+
                                 ))}
                             </Stack>
                         </Paper>
@@ -154,7 +170,7 @@ const PageDetailsPage = () => {
                             {activeTab?.component}
                         </Box>
                     </Grid2>
-                    <Grid2 size={{ xs: 12, lg: 3 }}>
+                    <Grid2 size={{ xs: 12, lg: 4, xl: 3 }}>
                         <Paper>
                             <RightSideBar hideResearch type="bonds" />
                         </Paper>

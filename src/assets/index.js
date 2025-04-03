@@ -92,6 +92,10 @@ import primaryEdit from "./icons/fe_edit.svg";
 import primaryEye from "./icons/primary-eye.svg";
 import share from "./icons/share.svg";
 import copy from "./icons/copy.svg";
+import editBlue from "./icons/editBlue.svg"
+import bulb from "./icons/bulb.svg"
+import pin from "./icons/pin.svg"
+import copyLink from "./icons/copyLink.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -199,4 +203,8 @@ export {
   primaryEye,
   share,
   copy,
+  editBlue,
+  bulb,
+  pin,
+  copyLink,
 };
