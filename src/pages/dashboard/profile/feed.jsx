@@ -7,7 +7,7 @@ const Feed = ({ userData, isPublicView }) => {
 
   return (
     <>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack direction="row" alignItems="center" justifyContent="space-between" gap={2}>
         {[
           { title: "Bonds", count: 0 },
           { title: "Your Groups", count: 0 },

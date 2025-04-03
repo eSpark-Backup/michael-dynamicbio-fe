@@ -119,7 +119,7 @@ const LeftBar = ({ userData, isPublicView }) => {
           {!isPublicView && (
             <img
               onClick={() => setModal("addemail")}
-              style={{ cursor: "ponter" }}
+              style={{ cursor: "pointer" }}
               src={plus}
               alt="add"
             />
@@ -155,7 +155,7 @@ const LeftBar = ({ userData, isPublicView }) => {
                       setModal("editemail");
                       setItem(item);
                     }}
-                    style={{ cursor: "ponter" }}
+                    style={{ cursor: "pointer" }}
                     src={primaryEdit}
                     alt="edit"
                   />
@@ -185,7 +185,7 @@ const LeftBar = ({ userData, isPublicView }) => {
           {!isPublicView && (
             <img
               onClick={() => setModal("addphone")}
-              style={{ cursor: "ponter" }}
+              style={{ cursor: "pointer" }}
               src={plus}
               alt="add"
             />
@@ -221,7 +221,7 @@ const LeftBar = ({ userData, isPublicView }) => {
                       setModal("editphone");
                       setItem(item);
                     }}
-                    style={{ cursor: "ponter" }}
+                    style={{ cursor: "pointer" }}
                     src={primaryEdit}
                     alt="edit"
                   />

@@ -254,14 +254,14 @@ const Home = () => {
                 width: "100%",
               }}
             >
-              {userData && (
+              {userData && userData?.coverImage && (
                 <img
                   style={{ height: "71px", width: "100%", objectFit: "cover" }}
                   src={userData?.coverImage}
                 />
               )}
               <img
-                src={userData?.profileImage || user}
+                src={userData && userData?.profileImage ? userData?.profileImage : user}
                 alt="Profile"
                 style={{
                   position: "absolute",
@@ -395,7 +395,7 @@ const Home = () => {
             >
               <img
                 style={{ width: "73px", height: "73px", borderRadius: "50%" }}
-                src={userData?.profileImage || user}
+                src={userData && userData?.profileImage ? userData?.profileImage : user}
                 alt="User"
               />
               <OutlinedInput

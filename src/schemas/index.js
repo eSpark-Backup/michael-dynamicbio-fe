@@ -147,11 +147,23 @@ export const experienceSchema = Yup.object({
   location: Yup.string().required("Location is required."),
   currently: Yup.boolean(),
   startingDate: Yup.string().required("Starting date is required"),
-  endingDate: Yup.string().when("currently", {
-    is: false,
-    then: (schema) => schema.required("Ending date is required"),
-    otherwise: (schema) => schema.nullable(),
-  }),
+  endingDate: Yup.date()
+    .nullable()
+    .when("currently", {
+      is: false,
+      then: (schema) => schema.required("Ending date is required"),
+    })
+    .test(
+      "is-after-start",
+      "Ending date must be after the starting date",
+      function (endingDate) {
+        const { startingDate, currently } = this.parent;
+        if (!currently && startingDate && endingDate) {
+          return new Date(endingDate) >= new Date(startingDate);
+        }
+        return true;
+      }
+    ),
 });
 
 export const educationSchema = Yup.object({
@@ -160,7 +172,19 @@ export const educationSchema = Yup.object({
   field: Yup.string().required("Field name is required"),
   grade: Yup.string().required("Grade is required."),
   startingDate: Yup.string().required("Starting date is required"),
-  endingDate: Yup.string().required("Ending date is required"),
+  endingDate: Yup.string()
+    .required("Ending date is required")
+    .test(
+      "is-after-start",
+      "Ending date must be after the starting date",
+      function (endingDate) {
+        const { startingDate, currently } = this.parent;
+        if (!currently && startingDate && endingDate) {
+          return new Date(endingDate) >= new Date(startingDate);
+        }
+        return true;
+      }
+    ),
 });
 
 export const skillSchema = Yup.object({
