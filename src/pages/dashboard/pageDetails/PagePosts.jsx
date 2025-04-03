@@ -1,6 +1,6 @@
 import { Box, Divider, Menu, MenuItem, OutlinedInput, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import { article, close, comment, downArrowFilled, dummyPhoto, earth, like, photo, postPicture, repost, three_vertical_dots, user, video, world } from '../../../assets'
+import { article, close, comment, copyLink, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, like, photo, pin, postPicture, repost, three_vertical_dots, user, video, world } from '../../../assets'
 import { generateThumbnail } from '../../../utils'
 import { DynamicModal, EventModal, PhotoModal, PollModal, PostChoiceModal, PostModal, ScheduleModal, VideoModal, ViewEventModal } from '../../../components'
 import { useNavigate } from 'react-router-dom'
@@ -306,10 +306,22 @@ const PagePosts = () => {
                 }}
             >
 
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Edit post</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Delete post</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Pin to top</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Copy link to post</MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
+                    <img src={editBlue} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
+                    <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
+                    <img src={pin} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Pin to top</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
+                    <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                </MenuItem>
             </Menu>
         </Box>
     )

@@ -4,7 +4,7 @@ import { rightArrow } from '../assets'
 import DynamicModal from './dynamic-modal'
 import TargetAudienceModal from './TargetAudienceModal'
 
-const PostSetting = () => {
+const PostSetting = ({ handleClose }) => {
     const [showTargetModal, setTargetModal] = useState(false)
     return (
         <Box sx={{ mt: "30px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
@@ -74,7 +74,7 @@ const PostSetting = () => {
                         maskComposite: "exclude",
                     },
                     cursor: "pointer"
-                }}>
+                }} onClick={handleClose}>
                     <Typography variant='gradientText'>Back</Typography>
                 </Box>
                 <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
@@ -83,7 +83,7 @@ const PostSetting = () => {
             </Stack>
 
             <DynamicModal open={showTargetModal} handleClose={() => setTargetModal(false)} title={"Target audience settings"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true} smallModal={true}>
-                <TargetAudienceModal />
+                <TargetAudienceModal handleClose={() => setTargetModal(false)} />
             </DynamicModal>
         </Box>
     )

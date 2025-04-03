@@ -2,7 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { plus } from '../assets'
 
-const TargetAudienceModal = () => {
+const TargetAudienceModal = ({ handleClose }) => {
     const items = ["Language", "region", "job function", "location", "university", "company size", "Seniority", "Industry"]
     return (
         <Box sx={{ mt: "35px" }}>
@@ -16,8 +16,8 @@ const TargetAudienceModal = () => {
                             </Typography>
                             <Box sx={{ display: "flex", pl: "10px", columnGap: "10px" }}>
                                 <img src={plus} alt="Icon" />
-                                <Typography variant='gradientText' sx={{ fontSize: "17px", fontWeight: "500", textTransform: "lowercase" }}>
-                                    {`Add ${item}`}
+                                <Typography variant='gradientText' sx={{ fontSize: "17px", fontWeight: "500" }}>
+                                    Add <span style={{ fontSize: "17px", fontWeight: "500" }}>{item}</span>
                                 </Typography>
                             </Box>
                         </Stack>
@@ -59,10 +59,10 @@ const TargetAudienceModal = () => {
                         maskComposite: "exclude",
                     },
                     cursor: "pointer"
-                }}>
-                    <Typography variant='gradientText'>Back</Typography>
+                }} onClick={handleClose}>
+                    <Typography variant='gradientText' >Back</Typography>
                 </Box>
-                <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
+                <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }} disabled>
                     Save
                 </Button>
             </Stack>

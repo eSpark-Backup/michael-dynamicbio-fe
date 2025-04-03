@@ -113,7 +113,7 @@ const DynamicModal = ({
                 style={{ borderRadius: "50%" }}
                 width={44}
                 height={44}
-                src={userData?.profileImage}
+                src={userData?.profileImage ? userData?.profileImage : profile2}
                 alt="Avatar"
               />
               <Stack direction={"column"}>
@@ -140,10 +140,10 @@ const DynamicModal = ({
                   {visibility === "PUBLIC"
                     ? "Post to anyone"
                     : visibility === "CONNECTIONS"
-                    ? "Post to my connections"
-                    : visibility === "ONLY_ME"
-                    ? "Post only for me"
-                    : "Post for group"}
+                      ? "Post to my connections"
+                      : visibility === "ONLY_ME"
+                        ? "Post only for me"
+                        : "Post for group"}
                 </Typography>
               </Stack>
             </Box>

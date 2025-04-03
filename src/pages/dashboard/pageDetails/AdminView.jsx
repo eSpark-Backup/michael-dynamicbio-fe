@@ -161,7 +161,12 @@ const AdminView = () => {
                                             cursor: "pointer"
                                         }}
                                         key={index}
-                                        onClick={() => item !== "Breaker" && setActiveItem(item)}
+                                        onClick={() => {
+                                            if (item !== "Breaker") {
+                                                setActiveItem(item);
+                                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                            }
+                                        }}
                                     >
                                         {item === "Breaker" ? <Divider /> : <Typography variant={item === activeItem ? "gradientText" : "body1"}>
                                             {item}
@@ -247,7 +252,7 @@ const AdminView = () => {
             </DynamicModal>
 
             <DynamicModal open={postSettingModal} handleClose={() => setPostSettingModal(false)} title={"Post settings"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
-                <PostSetting />
+                <PostSetting handleClose={() => setPostSettingModal(false)} />
             </DynamicModal>
 
             <DynamicModal open={createModal} handleClose={() => setCreateModal(false)} title={"Create"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
