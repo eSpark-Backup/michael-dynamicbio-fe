@@ -28,6 +28,7 @@
     "react-redux": "^9.0.4",
     "react-router-dom": "^7.1.5",
     "react-toastify": "^11.0.5",
+    "video-react": "^0.16.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {

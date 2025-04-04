@@ -71,6 +71,7 @@ export const suggestionPostContent = [
     postPic: [postPicture, postPicture, postPicture, postPicture, postPicture],
     postContent: null,
     commentsContent: [],
+    type: "normal",
   },
   {
     userName: "James Bond",
@@ -99,6 +100,21 @@ export const suggestionPostContent = [
         time: "14min ago",
       },
     ],
+    type: "normal",
+  },
+  {
+    userName: "Gerry’s International",
+    userRole: "5,365 followers",
+    postTime: "4d•",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "Albert Einstein reposted this",
+    postPic: [],
+    postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
+    commentsContent: [],
+    type: "video",
   },
 ];
 

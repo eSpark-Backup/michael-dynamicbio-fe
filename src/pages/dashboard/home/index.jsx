@@ -509,6 +509,7 @@ const Home = () => {
               key={index}
               index={index}
               length={suggestionPostContent?.length}
+              type={item?.type}
             />
           ))}
         </Grid2>

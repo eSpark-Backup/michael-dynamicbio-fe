@@ -37,6 +37,7 @@ import PostChoiceModal from "./PostChoiceModal";
 import CreateAdminPost from "./CreateAdminPost";
 import PhotoDetailsModal from "./PhotoDetailsModal";
 import PostDetails from "./PostDetails";
+import VideoPost from "./VideoPost";
 
 export {
     Input,
@@ -78,4 +79,5 @@ export {
     CreateAdminPost,
     PhotoDetailsModal,
     PostDetails,
+    VideoPost,
 }
