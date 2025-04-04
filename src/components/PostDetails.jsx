@@ -25,7 +25,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
 
     const HandlePrevClick = () => {
         if (activeIndex === 0) {
-            setActiveIndex(0)
+            setActiveIndex(images?.length - 1)
         }
         else {
             setActiveIndex(activeIndex - 1)
@@ -34,6 +34,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
 
     const HandleNextClick = () => {
         if (activeIndex === images?.length - 1) {
+            setActiveIndex(0)
         }
         else {
             setActiveIndex(activeIndex + 1)

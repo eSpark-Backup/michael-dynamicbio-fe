@@ -235,8 +235,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             </ConfirmationModal>
 
             <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
-                <PostDetails images={postPic} userImage={user} userName={"Gerry’s International"} userRole={"5,365 followers"} postTime={"4d•"} postContent={`<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice. I vividly remember those hours spent waiting at Dubai airport.
-Develop modern apps with the languages, frameworks, and databases of Develop modern apps with the languages, frameworks, and databases of your choice. I vividly remember those hours spent waiting .`} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
+                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={"4d•"} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
             </PhotoDetailsModal>
         </>
     )
