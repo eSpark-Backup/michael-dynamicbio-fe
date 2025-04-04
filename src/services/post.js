@@ -49,7 +49,13 @@ export const postApi = api.injectEndpoints({
         };
       },
     }),
+    getMyPost: builder.query({
+      query: () => ({
+        url: "/post",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useNewPostMutation } = postApi;
+export const { useNewPostMutation, useGetMyPostQuery } = postApi;

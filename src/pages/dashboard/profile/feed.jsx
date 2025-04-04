@@ -1,9 +1,20 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard } from "../../../components";
 import { settings } from "../../../assets";
+import { useGetMyPostQuery } from "../../../services/post";
 
 const Feed = ({ isPublicView }) => {
   const tabOptions = ["Posts", "Collaborations", "Events"];
+  const { data, error, isLoading } = useGetMyPostQuery();
+  console.log(data, "data");
+
+  useEffect(() => {
+    if(error){
+      toast.error(error?.data?.message);
+    }
+  },[error])
 
   return (
     <>
@@ -69,6 +80,15 @@ const Feed = ({ isPublicView }) => {
         </Stack>
         <CustomizeTabs tabs={tabOptions} />
         {!isPublicView && <PostCard />}
+        {isLoading ? (
+          <LinearProgress />
+        ) : !data?.data?.posts?.length > 0 ? (
+          "print data"
+        ) : (
+          <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
+            No posts available
+          </Typography>
+        )}
       </Paper>
     </>
   );
