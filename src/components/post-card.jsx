@@ -54,6 +54,7 @@ const PostCard = () => {
         setVideoModal(false);
         setPollModal(false);
         setViewEventModal(false);
+        setEventFormValues({});
       }
     });
   };

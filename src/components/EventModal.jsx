@@ -1,6 +1,6 @@
 import { Box, Button, Checkbox, Divider, FormControlLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { uploadIcon } from "../assets";
 import Dropdown from "./Dropdown";
 import Input from "./Input";
@@ -21,31 +21,37 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
         setIsEditMode(Object.keys(receivedValues || {}).length > 0 ? true : false)
     }, [receivedValues])
 
+    const initialFormValues = useMemo(() => {
+        return Object.keys(receivedValues || {}).length > 0
+          ? receivedValues
+          : {
+              eventType: "online",
+              format: "",
+              name: "",
+              selectedFile: null,
+              timezone: timezoneOptions[0]?.value || "",
+              startDate: new Date(),
+              startTime: new Date(),
+              endDate: new Date(),
+              endTime: new Date(),
+              showEndTime: true,
+              description: "",
+              speakers: "",
+              address: "",
+              venue: "",
+              externalLink: "",
+            };
+      }, [receivedValues, timezoneOptions]);
+
     const formik = useFormik({
-        initialValues: Object.keys(receivedValues || {}).length > 0 ? receivedValues : {
-            eventType: "online",
-            format: "",
-            name: "",
-            selectedFile: null,
-            timezone: timezoneOptions[0]?.value || "",
-            startDate: new Date(),
-            startTime: new Date(),
-            endDate: new Date(),
-            endTime: new Date(),
-            showEndTime: true,
-            description: "",
-            speakers: "",
-            address: "",
-            venue: "",
-            externalLink: "",
-        },
+        initialValues: initialFormValues,
+        enableReinitialize: true,
         validationSchema: tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
-        onSubmit: (values) => {
-            console.log("Form submitted:", values);
+        onSubmit: (values, { resetForm }) => {
             onFormSubmit(values);
+            resetForm();
         },
     });
-
 
     React.useEffect(() => {
         if (formik.values.selectedFile) {
