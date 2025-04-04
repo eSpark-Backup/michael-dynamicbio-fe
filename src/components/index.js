@@ -35,6 +35,7 @@ import PostSetting from "./PostSetting";
 import TargetAudienceModal from "./TargetAudienceModal";
 import PostChoiceModal from "./PostChoiceModal";
 import CreateAdminPost from "./CreateAdminPost";
+import PostCard from "./post-card";
 
 export {
     Input,
@@ -74,4 +75,5 @@ export {
     TargetAudienceModal,
     PostChoiceModal,
     CreateAdminPost,
+    PostCard,
 }
