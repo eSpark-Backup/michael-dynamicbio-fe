@@ -146,7 +146,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         setArticleTitle("");
         setContent("");
         setViewArticleModal(false);
-        navigate("/");
+        navigate(-1);
       }
     });
   };
