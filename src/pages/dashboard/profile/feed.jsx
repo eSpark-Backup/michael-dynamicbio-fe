@@ -1,13 +1,18 @@
-import { Paper, Stack, Typography, Box } from "@mui/material";
-import { CustomizeTabs, OutlinedInput } from "../../../components";
-import { article, event, photo, research, settings, user, video } from "../../../assets";
+import { Paper, Stack, Typography } from "@mui/material";
+import { CustomizeTabs, PostCard } from "../../../components";
+import { settings } from "../../../assets";
 
-const Feed = ({ userData, isPublicView }) => {
+const Feed = ({ isPublicView }) => {
   const tabOptions = ["Posts", "Collaborations", "Events"];
 
   return (
     <>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        gap={2}
+      >
         {[
           { title: "Bonds", count: 0 },
           { title: "Your Groups", count: 0 },
@@ -63,81 +68,7 @@ const Feed = ({ userData, isPublicView }) => {
           )}
         </Stack>
         <CustomizeTabs tabs={tabOptions} />
-        {!isPublicView && (
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                columnGap: "30px",
-                flexDirection: { xs: "column", md: "row" },
-                rowGap: "5px",
-              }}
-            >
-              <img
-                style={{
-                  width: "73px",
-                  height: "73px",
-                  borderRadius: "50%",
-                }}
-                src={userData?.profileImage || user}
-                alt="User"
-              />
-              <OutlinedInput
-                placeholder="Start a post"
-                sx={{ height: "73px", width: "100%" }}
-              />
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-                rowGap: "10px",
-              }}
-            >
-              {[
-                { img: photo, label: "Photo" },
-                { img: video, label: "Video" },
-                { img: article, label: "Article" },
-                { img: event, label: "Event" },
-                { img: research, label: "Research" },
-              ].map((item, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    width: { xs: "100%", md: "180px" },
-                    height: "50px",
-                    padding: "20px",
-                    backgroundColor: "#F8FCFF",
-                    borderRadius: "2px",
-                    display: "flex",
-                    columnGap: "15px",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <img
-                    style={{ width: "24px", height: "24px" }}
-                    src={item.img}
-                    alt={item.label}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "#505050",
-                    }}
-                  >
-                    {item.label}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </>
-        )}
+        {!isPublicView && <PostCard />}
       </Paper>
     </>
   );

@@ -56,51 +56,81 @@ const EditProfileModal = ({ userData, open, handleClose }) => {
           rowGap: "10px",
         }}
       >
-        <Input
-          customLabel="Country/Region *"
-          variant="outlined"
-          name="country"
-          value={formik.values.country}
-          handleChange={formik.handleChange}
-          error={formik.touched.country && !!formik.errors.country}
-          helperText={formik.touched.country && formik.errors.country}
-        />
-        <Input
-          customLabel="City *"
-          variant="outlined"
-          name="city"
-          value={formik.values.city}
-          handleChange={formik.handleChange}
-          error={formik.touched.city && !!formik.errors.city}
-          helperText={formik.touched.city && formik.errors.city}
-        />
-        <Input
-          customLabel="Company *"
-          variant="outlined"
-          name="company"
-          value={formik.values.company}
-          handleChange={formik.handleChange}
-          error={formik.touched.company && !!formik.errors.company}
-          helperText={formik.touched.company && formik.errors.company}
-        />
-        <Input
-          customLabel="Industry *"
-          variant="outlined"
-          name="industry"
-          value={formik.values.industry}
-          handleChange={formik.handleChange}
-          error={formik.touched.industry && !!formik.errors.industry}
-          helperText={formik.touched.industry && formik.errors.industry}
-        />
-        <Input
-          customLabel="Role *"
-          variant="outlined"
-          name="designation"
-          value={formik.values.designation}
-          handleChange={formik.handleChange}
-          error={formik.touched.designation && !!formik.errors.designation}
-          helperText={formik.touched.designation && formik.errors.designation}
-        />
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="Country/Region *"
+            variant="outlined"
+            name="country"
+            value={formik.values.country}
+            handleChange={formik.handleChange}
+            error={formik.touched.country && !!formik.errors.country}
+            helperText={formik.touched.country && formik.errors.country}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="City *"
+            variant="outlined"
+            name="city"
+            value={formik.values.city}
+            handleChange={formik.handleChange}
+            error={formik.touched.city && !!formik.errors.city}
+            helperText={formik.touched.city && formik.errors.city}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="Company *"
+            variant="outlined"
+            name="company"
+            value={formik.values.company}
+            handleChange={formik.handleChange}
+            error={formik.touched.company && !!formik.errors.company}
+            helperText={formik.touched.company && formik.errors.company}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="Industry *"
+            variant="outlined"
+            name="industry"
+            value={formik.values.industry}
+            handleChange={formik.handleChange}
+            error={formik.touched.industry && !!formik.errors.industry}
+            helperText={formik.touched.industry && formik.errors.industry}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="Role *"
+            variant="outlined"
+            name="designation"
+            value={formik.values.designation}
+            handleChange={formik.handleChange}
+            error={formik.touched.designation && !!formik.errors.designation}
+            helperText={formik.touched.designation && formik.errors.designation}
+          />
+        </Box>
       </Box>
     </DynamicModal>
   );

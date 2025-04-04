@@ -38,6 +38,7 @@ import CreateAdminPost from "./CreateAdminPost";
 import PhotoDetailsModal from "./PhotoDetailsModal";
 import PostDetails from "./PostDetails";
 import VideoPost from "./VideoPost";
+import PostCard from "./post-card";
 
 export {
     Input,
@@ -80,4 +81,5 @@ export {
     PhotoDetailsModal,
     PostDetails,
     VideoPost,
+    PostCard,
 }
