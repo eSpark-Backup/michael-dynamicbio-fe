@@ -12,7 +12,7 @@ import ConfirmationModal from './ConfirmationModal';
 import ShareModal from './ShareModal';
 import ScheduleModal from './ScheduleModal';
 
-const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent }) => {
+const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -73,11 +73,16 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
             }
-            <div className="video-container">
+            <div className="video-container" style={{ width: '100%', aspectRatio: '16/9' }}>
                 <Player
                     playsInline
-                    poster="https://via.placeholder.com"
-                    src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+                    poster={thumbnail}
+                    src={videoUrl}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover', // Forces video to stretch and fill the container
+                    }}
                 >
                     <ControlBar autoHide={false}>
                         <PlayToggle order={1} />

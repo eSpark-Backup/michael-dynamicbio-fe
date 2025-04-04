@@ -14,7 +14,7 @@ import PhotoDetailsModal from './PhotoDetailsModal.jsx';
 import PostDetails from './PostDetails.jsx';
 import VideoPost from './VideoPost.jsx';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail }) => {
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
     const [showShareModal, setShowShareModal] = useState(false)
@@ -70,7 +70,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} />
                     :
                     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -80,11 +80,15 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                             <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                         </Box>
                         <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
+                        {postContent &&
+                            <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
+                            </Typography>
+                        }
                         {(postPic && Array.isArray(postPic) && postPic?.length === 1) && <img src={postPic[0]} alt="Post" style={{ height: "375px" }} />}
                         {
                             (postPic && Array.isArray(postPic) && postPic?.length > 1) &&
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px" }} />
+                                <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px", maxHeight: "375px" }} />
                                 <Box sx={{ width: "20%", display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
                                     {postPic?.slice(1, 4)?.map((item, index) => {
                                         return (
@@ -118,10 +122,6 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                     })}
                                 </Box>
                             </Box>
-                        }
-                        {postContent &&
-                            <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
-                            </Typography>
                         }
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>

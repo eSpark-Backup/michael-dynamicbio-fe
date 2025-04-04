@@ -147,7 +147,19 @@ body {
 
 .video-container {
     width: 100%;
-    /* height: 379px !important; */
+    height: 380px;
+    /* Fixed container height */
+}
+
+/* Constrain the video player */
+.video-react {
+    height: 100% !important;
+    padding-top: 0 !important;
+}
+
+.video-react .video-react-video {
+    object-fit: contain;
+    height: 100% !important;
 }
 
 .video-container .video-react .video-react-big-play-button {
