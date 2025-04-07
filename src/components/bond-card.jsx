@@ -13,7 +13,7 @@ const BondCard = ({
   place,
   members,
 }) => {
-  const [icon, setIcon] = useState(bondBlack2);
+  const [hovered, setHovered] = useState(false);
   return (
     <Box
       sx={{
@@ -100,8 +100,8 @@ const BondCard = ({
       )}
       <Button
         sx={{ mt: 1, height: "48px", position: "relative" }}
-        onMouseEnter={() => setIcon(bondWhite)}
-        onMouseLeave={() => setIcon(bondBlack2)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <img
           style={{
@@ -109,8 +109,22 @@ const BondCard = ({
             top: "50%",
             right: "10px",
             transform: "translateY(-50%)",
+            opacity: hovered ? 1 : 0,
+            transition: "all 0.3s ease-in-out",
           }}
-          src={icon}
+          src={bondWhite}
+          alt="add"
+        />
+        <img
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "10px",
+            transform: "translateY(-50%)",
+            opacity: hovered ? 0 : 1,
+            transition: "all 0.3s ease-in-out",
+          }}
+          src={bondBlack2}
           alt="add"
         />
         Bond
