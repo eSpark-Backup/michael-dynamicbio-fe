@@ -1,8 +1,8 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
-import { bondMain, earth, user } from '../assets'
+import { bondMain, earth, user, three_vertical_dots, close } from '../assets'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose }) => {
     const theme = useTheme()
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }}>
@@ -18,7 +18,14 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     </Box>
                 </Stack>
             </Box>
-            <img src={bondMain} alt="Bond" />
+            {showActionIcon ?
+                <Box sx={{ display: "flex", columnGap: "10px" }}>
+                    <img src={three_vertical_dots} alt="Icon" />
+                    <img src={close} alt="Icon" onClick={handleClose} style={{ cursor: "pointer" }} />
+                </Box>
+                :
+                <img src={bondMain} alt="Bond" />
+            }
         </Box>
     )
 }

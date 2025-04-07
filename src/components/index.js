@@ -39,6 +39,9 @@ import PhotoDetailsModal from "./PhotoDetailsModal";
 import PostDetails from "./PostDetails";
 import VideoPost from "./VideoPost";
 import PostCard from "./post-card";
+import PollPost from "./PollPost";
+import RemovePostModal from "./RemovePostModal";
+import ViewPolls from "./ViewPolls";
 
 export {
     Input,
@@ -82,4 +85,7 @@ export {
     PostDetails,
     VideoPost,
     PostCard,
+    PollPost,
+    RemovePostModal,
+    ViewPolls,
 }

@@ -25,6 +25,16 @@ const Feed = ({ isPublicView }) => {
     if (isSuccess && data?.data) {
       const allPosts = data?.data?.posts?.map((item) => {
         const postImages = item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [];
+        const pollOptions = item?.type === "POLL" ? [
+          { id: 1, value: item?.content?.opt1, isChecked: false, numbersVoted: 0 },
+          { id: 2, value: item?.content?.opt2, isChecked: false, numbersVoted: 0 },
+          ...item?.content?.options?.map((option, index) => ({
+            id: index + 3,
+            value: option,
+            isChecked: false,
+            numbersVoted: 0,
+          }))
+        ] : [];
         return {
           userName: item?.author?.firstName + item?.author?.lastName,
           userRole: item?.author?.company,
@@ -37,9 +47,12 @@ const Feed = ({ isPublicView }) => {
           postPic: postImages,
           postContent: item?.content?.title,
           commentsContent: [],
-          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : "",
+          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : item?.type === "POLL" ? "poll" : "",
           videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
-          thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : ''
+          thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
+          question: item?.type === "POLL" ? item?.content?.question : "",
+          options: pollOptions,
+          isVoted: false,
         }
       })
       setPosts(allPosts)
@@ -134,6 +147,9 @@ const Feed = ({ isPublicView }) => {
               type={item?.type}
               videoUrl={item?.videoUrl}
               thumbnail={item?.thumbnail}
+              question={item?.question}
+              options={item?.options}
+              isVoted={item?.isVoted}
             />
           )) : (
             <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>

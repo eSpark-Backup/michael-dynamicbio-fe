@@ -115,6 +115,38 @@ export const suggestionPostContent = [
     postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
     commentsContent: [],
     type: "video",
+    videoUrl: "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
+    thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg"
+  },
+  {
+    userName: "Gerry’s International",
+    userRole: "5,365 followers",
+    postTime: "4d•",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "",
+    postPic: [],
+    postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
+    commentsContent: [],
+    type: "poll",
+    question: "How do you commute ar work?",
+    options: [
+      {
+        id: 1,
+        value: "Public transport",
+        isChecked: true,
+        numbersVoted: 163
+      },
+      {
+        id: 2,
+        value: "Drive myself",
+        isChecked: false,
+        numbersVoted: 120
+      },
+    ],
+    isVoted: true
   },
 ];
 

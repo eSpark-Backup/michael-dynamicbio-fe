@@ -240,6 +240,11 @@ const Home = () => {
               index={index}
               length={suggestionPostContent?.length}
               type={item?.type}
+              videoUrl={item?.videoUrl}
+              thumbnail={item?.thumbnail}
+              question={item?.question}
+              options={item?.options}
+              isVoted={item?.isVoted}
             />
           ))}
         </Grid2>
