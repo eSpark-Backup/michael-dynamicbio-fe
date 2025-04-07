@@ -112,7 +112,7 @@ const Grow = ({ requests }) => {
             <Typography
               fontSize="14px"
               sx={{
-                width: "60px",
+                minWidth: "60px",
                 cursor: "pointer",
                 background:
                   "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
