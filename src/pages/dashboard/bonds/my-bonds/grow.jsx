@@ -66,8 +66,11 @@ const Grow = ({ requests }) => {
                   >
                     {item?.name}
                   </Typography>
-                  <Typography fontSize="17px" fontWeight={300}>
-                    {`${item?.company} Company, ${item?.country}`}
+                  <Typography sx={{ color: "#505050" }} fontSize="14px" fontWeight={400}>
+                    {`${item?.designation} at “${item?.company}” `}
+                  </Typography>
+                  <Typography sx={{ color: "#505050" }} fontSize="14px" fontWeight={400}>
+                    {`${item?.city}, ${item?.country}`}
                   </Typography>
                 </Box>
               </Stack>
@@ -109,6 +112,7 @@ const Grow = ({ requests }) => {
             <Typography
               fontSize="14px"
               sx={{
+                width: "60px",
                 cursor: "pointer",
                 background:
                   "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",

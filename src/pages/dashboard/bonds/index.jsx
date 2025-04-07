@@ -35,6 +35,11 @@ const Bonds = () => {
       label: "Pages",
       component: <Pages />,
     },
+    {
+      sub: "events",
+      label: "Events",
+      component: <></>,
+    },
   ];
   const bondSidebar2 = [
     {

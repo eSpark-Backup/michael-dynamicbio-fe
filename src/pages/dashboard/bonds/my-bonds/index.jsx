@@ -6,9 +6,11 @@ const requests = [
   {
     id: 1,
     profileImage: null,
-    name: "Albert Einstein",
-    company: "XYZ",
-    country: "USA",
+    name: "James Bond",
+    designation: "UI/UX Designer",
+    company: "eSpark Consulting Group",
+    city: "Karachi",
+    country: "Karachi, Pakistan",
   },
 ];
 
