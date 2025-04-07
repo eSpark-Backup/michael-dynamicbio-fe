@@ -245,6 +245,15 @@ const Home = () => {
               question={item?.question}
               options={item?.options}
               isVoted={item?.isVoted}
+              eventImage={item?.eventImage}
+              eventName={item?.eventName}
+              startTime={item?.eventEndTime}
+              endTime={item?.eventEndTime}
+              eventType={item?.eventFormat}
+              eventLink={item?.eventLink}
+              attendees={item?.attendees}
+              eventPosts={item?.eventPost}
+              id={item?.id}
             />
           ))}
         </Grid2>

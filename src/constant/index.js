@@ -11,7 +11,8 @@ import {
   userAvatar,
   profilePicture,
   company,
-  school
+  school,
+  dummyPhoto
 } from "../assets";
 
 export const bondSuggestions = [
@@ -147,6 +148,29 @@ export const suggestionPostContent = [
       },
     ],
     isVoted: true
+  },
+  {
+    userName: "rotten ria",
+    userRole: "--",
+    postTime: "34m ago",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "",
+    postPic: [],
+    postContent: "Bring Back",
+    commentsContent: [],
+    type: "event",
+    eventStartTime: "2025-04-03T20:00:00Z",
+    eventEndTime: "2025-04-03T21:00:00Z",
+    eventName: "mocking",
+    eventFormat: "online",
+    eventLink: "https://www.linkedin.com/feed",
+    attendees: [{ image: user }],
+    eventPost: "bringback",
+    eventImage: dummyPhoto,
+    id: 123
   },
 ];
 

@@ -42,6 +42,8 @@ import PostCard from "./post-card";
 import PollPost from "./PollPost";
 import RemovePostModal from "./RemovePostModal";
 import ViewPolls from "./ViewPolls";
+import EventPost from "./EventPost";
+import EventDetails from "./EventDetails";
 
 export {
     Input,
@@ -88,4 +90,6 @@ export {
     PollPost,
     RemovePostModal,
     ViewPolls,
+    EventPost,
+    EventDetails,
 }
