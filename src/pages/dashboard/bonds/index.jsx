@@ -10,6 +10,7 @@ import SearchBonds from "./search-bonds";
 import { useQuery } from "../../../utils";
 import { pageTypes } from "../../../constant";
 import { handleChange } from "../../../store/slices/search";
+import Events from "./events";
 
 const Bonds = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Bonds = () => {
     {
       sub: "events",
       label: "Events",
-      component: <></>,
+      component: <Events />,
     },
   ];
   const bondSidebar2 = [
