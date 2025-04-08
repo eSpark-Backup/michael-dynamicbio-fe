@@ -102,6 +102,7 @@ import qrcode from "./images/qr-code.png";
 import olivia from "./images/olivia.png";
 import pheonix from "./images/pheonix.png";
 import friend from "./images/friend.jpeg"
+import eventImage from "./images/event.jpeg"
 
 export {
   eye,
@@ -207,4 +208,5 @@ export {
   bulb,
   pin,
   copyLink,
+  eventImage,
 };
