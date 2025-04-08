@@ -98,6 +98,12 @@ import pin from "./icons/pin.svg"
 import copyLink from "./icons/copyLink.svg"
 import prevArrow from "./icons/prevArrow.svg"
 import nextArrow from "./icons/nextArrow.svg"
+import send2 from "./icons/send2.svg"
+import twitter from "./icons/twitter.svg"
+import facebook2 from "./icons/facebook2.svg"
+import cancelIcon from "./icons/cancelIcon.svg"
+import calendar from "./icons/calendar.svg"
+import videoIcon from "./icons/videoIcon.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -210,5 +216,11 @@ export {
   pin,
   copyLink,
   prevArrow,
-  nextArrow
+  nextArrow,
+  facebook2,
+  twitter,
+  send2,
+  cancelIcon,
+  calendar,
+  videoIcon,
 };

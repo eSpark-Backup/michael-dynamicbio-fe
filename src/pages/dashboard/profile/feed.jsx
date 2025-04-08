@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
-import { settings } from "../../../assets";
+import { settings, user } from "../../../assets";
 import { useGetMyPostQuery } from "../../../services/post";
 import { suggestionPostContent } from "../../../constant";
 import dayjs from "dayjs";
@@ -47,19 +47,26 @@ const Feed = ({ isPublicView }) => {
           postPic: postImages,
           postContent: item?.content?.title,
           commentsContent: [],
-          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : item?.type === "POLL" ? "poll" : "",
+          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : item?.type === "POLL" ? "poll" : item?.type === "EVENT" ? "event" : "",
           videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
           thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
           question: item?.type === "POLL" ? item?.content?.question : "",
           options: pollOptions,
           isVoted: false,
-        }
+          eventName: item?.content?.name,
+          eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+          startTime: item?.content?.startTime,
+          endTime: item?.content?.showEndTime && item?.content?.endTime,
+          eventType: item?.content?.eventType,
+          eventLink: item?.content?.externalLink,
+          attendees: [{ image: user }],
+          eventPost: "bringback",
+          id: item ?.id
+      }
       })
       setPosts(allPosts)
     }
   }, [data, isSuccess])
-
-  useEffect(() => { console.log(posts) }, [posts])
 
   return (
     <>
@@ -150,6 +157,15 @@ const Feed = ({ isPublicView }) => {
               question={item?.question}
               options={item?.options}
               isVoted={item?.isVoted}
+              eventName={item?.eventName}
+              eventImage={item?.eventImage}
+              startTime={item?.startTime}
+              endTime={item?.endTime}
+              eventType={item?.eventType}
+              eventLink={item?.eventLink}
+              attendees={item?.attendees}
+              eventPosts={item?.eventPost}
+              id={item?.id}
             />
           )) : (
             <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>

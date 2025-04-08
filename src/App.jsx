@@ -32,7 +32,7 @@ import {
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { EventDetails } from "./components";
+import { ArticleDetails, EventDetails } from "./components";
 
 const App = () => {
   return (
@@ -72,6 +72,7 @@ const App = () => {
           <Route path="/page/:id/admin" element={<AdminView />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/event/:id" element={<EventDetails />} />
+          <Route path="/article/:id" element={<ArticleDetails />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

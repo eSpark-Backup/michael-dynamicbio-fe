@@ -118,3 +118,23 @@ export function formatEventPostTime(startTime, endTime = null) {
 
   return `${dateLabel}, ${formattedStartTime} - ${formattedEndTime}`;
 }
+
+
+export function formatEventTimeLocal(startTime, endTime) {
+  const start = dayjs(startTime);
+  const end = dayjs(endTime);
+
+  const dateFormat = 'ddd, MMM D, YYYY';
+  const timeFormat = 'h:mm A';
+
+  const dateStr = start.format(dateFormat);
+  const startTimeStr = start.format(timeFormat);
+  const endTimeStr = end.format(timeFormat);
+
+  
+  if (start.isSame(end, 'minute')) {
+    return `${dateStr}, ${startTimeStr}`;
+  }
+
+  return `${dateStr}, ${startTimeStr} - ${endTimeStr}`;
+}

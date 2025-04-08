@@ -254,6 +254,9 @@ const Home = () => {
               attendees={item?.attendees}
               eventPosts={item?.eventPost}
               id={item?.id}
+              articleImage={item?.articleImage}
+              articleTitle={item?.articleTitle}
+              articleDescription={item?.articleDescription}
             />
           ))}
         </Grid2>

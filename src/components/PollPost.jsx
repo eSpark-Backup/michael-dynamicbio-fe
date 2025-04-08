@@ -67,8 +67,6 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
     setSelectedValue(event.target.value);
   };
 
-  console.log(options)
-
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
       <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} />

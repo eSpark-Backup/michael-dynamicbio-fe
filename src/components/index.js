@@ -44,6 +44,7 @@ import RemovePostModal from "./RemovePostModal";
 import ViewPolls from "./ViewPolls";
 import EventPost from "./EventPost";
 import EventDetails from "./EventDetails";
+import ArticleDetails from "./ArticleDetails";
 
 export {
     Input,
@@ -92,4 +93,5 @@ export {
     ViewPolls,
     EventPost,
     EventDetails,
+    ArticleDetails,
 }
