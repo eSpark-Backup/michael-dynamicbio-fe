@@ -11,7 +11,8 @@ import {
   userAvatar,
   profilePicture,
   company,
-  school
+  school,
+  dummyPhoto
 } from "../assets";
 
 export const bondSuggestions = [
@@ -68,9 +69,10 @@ export const suggestionPostContent = [
     isLiked: false,
     comments: 0,
     activity: "Suggestion for you to create bonds",
-    postPic: postPicture,
+    postPic: [postPicture, postPicture, postPicture, postPicture, postPicture],
     postContent: null,
     commentsContent: [],
+    type: "normal",
   },
   {
     userName: "James Bond",
@@ -99,6 +101,94 @@ export const suggestionPostContent = [
         time: "14min ago",
       },
     ],
+    type: "normal",
+  },
+  {
+    userName: "Gerry’s International",
+    userRole: "5,365 followers",
+    postTime: "4d•",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "Albert Einstein reposted this",
+    postPic: [],
+    postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
+    commentsContent: [],
+    type: "video",
+    videoUrl: "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
+    thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg"
+  },
+  {
+    userName: "Gerry’s International",
+    userRole: "5,365 followers",
+    postTime: "4d•",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "",
+    postPic: [],
+    postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
+    commentsContent: [],
+    type: "poll",
+    question: "How do you commute ar work?",
+    options: [
+      {
+        id: 1,
+        value: "Public transport",
+        isChecked: true,
+        numbersVoted: 163
+      },
+      {
+        id: 2,
+        value: "Drive myself",
+        isChecked: false,
+        numbersVoted: 120
+      },
+    ],
+    isVoted: true
+  },
+  {
+    userName: "rotten ria",
+    userRole: "--",
+    postTime: "34m ago",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "",
+    postPic: [],
+    postContent: "Bring Back",
+    commentsContent: [],
+    type: "event",
+    eventStartTime: "2025-04-03T20:00:00Z",
+    eventEndTime: "2025-04-03T21:00:00Z",
+    eventName: "mocking",
+    eventFormat: "online",
+    eventLink: "https://www.linkedin.com/feed",
+    attendees: [{ image: user }],
+    eventPost: "bringback",
+    eventImage: dummyPhoto,
+    id: 123
+  },
+  {
+    userName: "rotten ria",
+    userRole: "--",
+    postTime: "34m ago",
+    userImage: user,
+    numberofLikes: 0,
+    isLiked: false,
+    comments: 0,
+    activity: "",
+    postPic: [],
+    postContent: "Sample article",
+    commentsContent: [],
+    type: "article",
+    id: 123,
+    articleImage: dummyPhoto,
+    articleTitle: "Lorem Ipsum",
+    articleDescription: "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   },
 ];
 
@@ -658,3 +748,46 @@ export const pageStats = [
     description: "N/A"
   },
 ]
+
+
+export const otherEvents = [
+  {
+    image: dummyPhoto,
+    time: "Happening now",
+    name: "DC and Master Trust Symposium managemnet",
+    eventBy: "Pesnions Management"
+  },
+  {
+    image: dummyPhoto,
+    time: "Happening now",
+    name: "Rebound obsolescences",
+    eventBy: "Rebound Electic"
+  },
+  {
+    image: dummyPhoto,
+    time: "Today, 1:30 PM",
+    name: "Navigating New Employment Law: ",
+    eventBy: "GM Business Group"
+  },
+  {
+    image: dummyPhoto,
+    time: "Happening now",
+    name: "Swiss Rhinoplasty Masterclass",
+    eventBy: "Dr. med. Mesutution"
+  },
+  {
+    image: dummyPhoto,
+    time: "Happening now",
+    name: "Mindset & Action Live",
+    eventBy: "Donna Eade"
+  },
+]
+
+export const articleDummyContent = `<h1>What is Lorem Ipsum?</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    
+    <h2>Why do we use it?</h2>
+    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    
+    <h2>Where does it come from?</h2>
+    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>`

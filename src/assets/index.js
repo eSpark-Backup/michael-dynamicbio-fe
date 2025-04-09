@@ -96,6 +96,21 @@ import editBlue from "./icons/editBlue.svg"
 import bulb from "./icons/bulb.svg"
 import pin from "./icons/pin.svg"
 import copyLink from "./icons/copyLink.svg"
+import prevArrow from "./icons/prevArrow.svg"
+import nextArrow from "./icons/nextArrow.svg"
+import send2 from "./icons/send2.svg"
+import twitter from "./icons/twitter.svg"
+import facebook2 from "./icons/facebook2.svg"
+import cancelIcon from "./icons/cancelIcon.svg"
+import calendar from "./icons/calendar.svg"
+import videoIcon from "./icons/videoIcon.svg"
+import noComments from "./icons/noComments.svg"
+import invite from "./icons/invite.svg"
+import reading from "./icons/reading.svg"
+import save from "./icons/save.svg"
+import location from "./icons/location.svg"
+import aboutEvent from "./icons/aboutEvent.svg"
+import eventSpeakers from "./icons/eventSpeakers.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -208,5 +223,20 @@ export {
   bulb,
   pin,
   copyLink,
+  prevArrow,
+  nextArrow,
+  facebook2,
+  twitter,
+  send2,
+  cancelIcon,
+  calendar,
+  videoIcon,
+  noComments,
+  invite,
+  save,
+  reading,
+  location,
+  eventSpeakers,
+  aboutEvent,
   eventImage,
 };

@@ -239,6 +239,24 @@ const Home = () => {
               key={index}
               index={index}
               length={suggestionPostContent?.length}
+              type={item?.type}
+              videoUrl={item?.videoUrl}
+              thumbnail={item?.thumbnail}
+              question={item?.question}
+              options={item?.options}
+              isVoted={item?.isVoted}
+              eventImage={item?.eventImage}
+              eventName={item?.eventName}
+              startTime={item?.eventEndTime}
+              endTime={item?.eventEndTime}
+              eventType={item?.eventFormat}
+              eventLink={item?.eventLink}
+              attendees={item?.attendees}
+              eventPosts={item?.eventPost}
+              id={item?.id}
+              articleImage={item?.articleImage}
+              articleTitle={item?.articleTitle}
+              articleDescription={item?.articleDescription}
             />
           ))}
         </Grid2>

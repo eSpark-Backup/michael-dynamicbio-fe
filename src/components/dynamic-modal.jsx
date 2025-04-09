@@ -35,7 +35,8 @@ const DynamicModal = ({
   visibility,
   setVisibility,
   adminPage,
-  handleDropdown
+  handleDropdown,
+  showUndoText
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -148,12 +149,12 @@ const DynamicModal = ({
               </Stack>
             </Box>
           )}
-          <img
+          {showUndoText ? <Typography variant="gradientText" onClick={handleClose} sx={{ cursor: "pointer" }}>Undo</Typography> : <img
             onClick={handleClose}
             src={close}
             alt="close"
             style={{ cursor: "pointer" }}
-          />
+          />}
         </Stack>
         <Box
           sx={{

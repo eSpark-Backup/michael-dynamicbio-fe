@@ -1,5 +1,11 @@
+import dayjs from "dayjs";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -85,3 +91,50 @@ export const copyToClipboard = async (text) => {
     return false;
   }
 };
+
+
+
+export function formatEventPostTime(startTime, endTime = null) {
+  const start = dayjs.utc(startTime).local();
+  const today = dayjs().startOf("day");
+
+  let dateLabel;
+  if (start.isSame(today, "day")) {
+    dateLabel = "Today";
+  } else if (start.isSame(today.add(1, "day"), "day")) {
+    dateLabel = "Tomorrow";
+  } else {
+    dateLabel = start.format("MMMM D, YYYY");
+  }
+
+  const formattedStartTime = start.format("h:mm A");
+
+  if (!endTime) {
+    return `${dateLabel}, ${formattedStartTime}`;
+  }
+
+  const end = dayjs.utc(endTime).local();
+  const formattedEndTime = end.format("h:mm A");
+
+  return `${dateLabel}, ${formattedStartTime} - ${formattedEndTime}`;
+}
+
+
+export function formatEventTimeLocal(startTime, endTime) {
+  const start = dayjs(startTime);
+  const end = dayjs(endTime);
+
+  const dateFormat = 'ddd, MMM D, YYYY';
+  const timeFormat = 'h:mm A';
+
+  const dateStr = start.format(dateFormat);
+  const startTimeStr = start.format(timeFormat);
+  const endTimeStr = end.format(timeFormat);
+
+  
+  if (start.isSame(end, 'minute')) {
+    return `${dateStr}, ${startTimeStr}`;
+  }
+
+  return `${dateStr}, ${startTimeStr} - ${endTimeStr}`;
+}

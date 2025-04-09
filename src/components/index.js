@@ -35,7 +35,16 @@ import PostSetting from "./PostSetting";
 import TargetAudienceModal from "./TargetAudienceModal";
 import PostChoiceModal from "./PostChoiceModal";
 import CreateAdminPost from "./CreateAdminPost";
+import PhotoDetailsModal from "./PhotoDetailsModal";
+import PostDetails from "./PostDetails";
+import VideoPost from "./VideoPost";
 import PostCard from "./post-card";
+import PollPost from "./PollPost";
+import RemovePostModal from "./RemovePostModal";
+import ViewPolls from "./ViewPolls";
+import EventPost from "./EventPost";
+import EventDetails from "./EventDetails";
+import ArticleDetails from "./ArticleDetails";
 
 export {
     Input,
@@ -75,5 +84,14 @@ export {
     TargetAudienceModal,
     PostChoiceModal,
     CreateAdminPost,
+    PhotoDetailsModal,
+    PostDetails,
+    VideoPost,
     PostCard,
+    PollPost,
+    RemovePostModal,
+    ViewPolls,
+    EventPost,
+    EventDetails,
+    ArticleDetails,
 }
