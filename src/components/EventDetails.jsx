@@ -46,6 +46,10 @@ const EventDetails = () => {
     eventPost: "bringback"
   })
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(id)
 
   const handleClick = (event) => {
@@ -151,8 +155,8 @@ const EventDetails = () => {
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "80%", xl: "75%" }, py: "25px" }}>
-        <Grid2 size={{ xs: 12, lg: 8.5, xl: 9 }}>
+      <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "85%", xl: "75%" }, py: "25px" }}>
+        <Grid2 size={{ xs: 12, lg: 8.3, xl: 9 }}>
           <Paper sx={{ p: "0px" }}>
             <Box sx={{ paddingTop: "56.25%", backgroundImage: `url("${postData?.eventImage ? postData?.eventImage : dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat", width: "100.1%" }}>
             </Box>
@@ -161,7 +165,7 @@ const EventDetails = () => {
               <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                 <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{postData?.eventName}</Typography>
                 <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Event by {postData?.eventMaker}</Typography>
-                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
+                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center", flexWrap: "wrap", rowGap: "4px" }}>
                   <img src={calendar} alt="" />
                   <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>{formatEventTimeLocal(postData?.startTime, !postData?.endTime ? postData?.startTime : postData?.endTime)}</Typography>
                   <Box sx={{ display: "flex", columnGap: "4px", backgroundColor: "#E4E4E4", p: "4px", borderRadius: "4px", cursor: "pointer" }} onClick={handleClick2}>
@@ -198,26 +202,26 @@ const EventDetails = () => {
                   <KeyboardArrowUpIcon />
                 </Box>
               </Box>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: "48%", borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
+                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>About</Typography>
-                  <Box sx={{ display: "flex", columnGap: "10px" }}>
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                     <img src={conversation} alt="Image" style={{ width: "60px" }} />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add a description to attract the right audience.</Typography>
-                      <Button sx={{ display: "flex", columnGap: "3px", width: '180px', height: "30px", background: "white !important", border: "1px solid black" }}>
+                      <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
                         <Typography sx={{ color: "black" }}>Add Description</Typography>
                       </Button>
                     </Box>
                   </Box>
                 </Box>
-                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: "48%", borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
+                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>Speakers</Typography>
-                  <Box sx={{ display: "flex", columnGap: "10px" }}>
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                     <img src={conversation} alt="Image" style={{ width: "60px" }} />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add speakers to generate more interest in your event.</Typography>
-                      <Button sx={{ display: "flex", columnGap: "3px", width: '180px', height: "30px", background: "white !important", border: "1px solid black" }}>
+                      <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
                         <Typography sx={{ color: "black" }}>Add Speakers</Typography>
                       </Button>
                     </Box>
@@ -251,7 +255,7 @@ const EventDetails = () => {
                     "&::after": {
                       content: '""',
                       display: tab?.label === activeTab?.label ? "block" : "none",
-                      width: "90px",
+                      width: { xs: "45px", md: "90px" },
                       height: "4px",
                       background:
                         "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
@@ -262,7 +266,7 @@ const EventDetails = () => {
                       borderRadius: "2px",
                     },
                   }}
-                  fontSize="14px"
+                  fontSize={{ xs: "12px", md: "14px" }}
                   fontWeight={500}
                   onClick={() => setActiveTab(tab)}
                   key={tab.label}
@@ -346,7 +350,7 @@ const EventDetails = () => {
             </Paper>}
           </Box>
         </Grid2>
-        <Grid2 size={{ xs: 12, lg: 3.5, xl: 3 }}>
+        <Grid2 size={{ xs: 12, lg: 3.7, xl: 3 }}>
           <EventsSidebar />
         </Grid2>
       </Grid2>

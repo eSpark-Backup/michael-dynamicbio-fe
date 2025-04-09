@@ -47,7 +47,7 @@ const Feed = ({ isPublicView }) => {
           postPic: postImages,
           postContent: item?.content?.title,
           commentsContent: [],
-          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : item?.type === "POLL" ? "poll" : item?.type === "EVENT" ? "event" : "",
+          type: item?.type === "IMAGE" ? "normal" : item?.type === "VIDEO" ? "video" : item?.type === "TEXT" ? "normal" : item?.type === "POLL" ? "poll" : item?.type === "EVENT" ? "event" : item?.type === "ARTICLE" ? "article" : "",
           videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
           thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
           question: item?.type === "POLL" ? item?.content?.question : "",
@@ -61,8 +61,11 @@ const Feed = ({ isPublicView }) => {
           eventLink: item?.content?.externalLink,
           attendees: [{ image: user }],
           eventPost: "bringback",
-          id: item ?.id
-      }
+          id: item?.id,
+          articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+          articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+          articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+        }
       })
       setPosts(allPosts)
     }
@@ -166,6 +169,9 @@ const Feed = ({ isPublicView }) => {
               attendees={item?.attendees}
               eventPosts={item?.eventPost}
               id={item?.id}
+              articleImage={item?.articleImage}
+              articleDescription={item?.articleDescription}
+              articleTitle={item?.articleTitle}
             />
           )) : (
             <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>

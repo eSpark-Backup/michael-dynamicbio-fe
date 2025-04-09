@@ -25,7 +25,7 @@ const EventsSidebar = () => {
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
                     {/*  */}
                     {otherEvents?.map((item, index) => (
-                        <Box sx={{ display: "flex", justifyContent: "space-between" }} key={index}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", columnGap: '5px' }} key={index}>
                             <img src={item?.image} alt="Image" style={{ width: "50%", height: "100px", borderRadius: "8px" }} />
                             <Box sx={{ display: "flex", flexDirection: "column", width: "50%", }}>
                                 <Typography sx={{ fontSize: "12px", fontWeight: "400", color: item?.time === "Happening now" ? "#01754F" : "#171717" }}>{item?.time}</Typography>

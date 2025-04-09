@@ -104,6 +104,7 @@ import facebook2 from "./icons/facebook2.svg"
 import cancelIcon from "./icons/cancelIcon.svg"
 import calendar from "./icons/calendar.svg"
 import videoIcon from "./icons/videoIcon.svg"
+import noComments from "./icons/noComments.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -223,4 +224,5 @@ export {
   cancelIcon,
   calendar,
   videoIcon,
+  noComments,
 };

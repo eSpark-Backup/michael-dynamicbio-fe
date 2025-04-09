@@ -108,7 +108,7 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                     </Box>
                     <Box>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{eventName}</Typography>
-                        <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{eventType}</Typography>
+                        <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", textTransform: "capitalize" }}>{eventType === "Inperson" ? "In Person" : eventType}</Typography>
                     </Box>
                 </Box>
             </Box>

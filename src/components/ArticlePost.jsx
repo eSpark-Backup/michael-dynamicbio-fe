@@ -76,7 +76,15 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                 <Box sx={{ p: "0px 20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
                     <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>{articleTitle}</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}>{userName}</Typography>
-                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}>{articleDescription?.length > 94 ? articleDescription?.slice(0, 93) + "..." : articleDescription}</Typography>
+                    <Typography
+                        sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
+                        dangerouslySetInnerHTML={{
+                            __html:
+                                articleDescription?.length > 94
+                                    ? articleDescription?.slice(0, 93) + "..."
+                                    : articleDescription,
+                        }}
+                    />
                 </Box>
             </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>

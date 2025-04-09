@@ -17,7 +17,7 @@ const PhotoDetailsModal = ({ open, handleClose, sx, children }) => {
                     transform: "translate(-50%, -50%)",
                     width: {
                         xs: "99%",
-                        md: "85%",
+                        md: "95%",
                         lg: "80%",
                     },
                     maxHeight: "90vh",

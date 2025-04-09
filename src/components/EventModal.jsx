@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
+import { toast } from "react-toastify";
 
 const EventModal = ({ onFormSubmit, receivedValues }) => {
     const eventImgRef = useRef(null);
@@ -23,31 +24,35 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
 
     const initialFormValues = useMemo(() => {
         return Object.keys(receivedValues || {}).length > 0
-          ? receivedValues
-          : {
-              eventType: "online",
-              format: "",
-              name: "",
-              selectedFile: null,
-              timezone: timezoneOptions[0]?.value || "",
-              startDate: new Date(),
-              startTime: new Date(),
-              endDate: new Date(),
-              endTime: new Date(),
-              showEndTime: true,
-              description: "",
-              speakers: "",
-              address: "",
-              venue: "",
-              externalLink: "",
+            ? receivedValues
+            : {
+                eventType: "online",
+                format: "",
+                name: "",
+                selectedFile: null,
+                timezone: timezoneOptions[0]?.value || "",
+                startDate: new Date(),
+                startTime: new Date(),
+                endDate: new Date(),
+                endTime: new Date(),
+                showEndTime: true,
+                description: "",
+                speakers: "",
+                address: "",
+                venue: "",
+                externalLink: "",
             };
-      }, [receivedValues, timezoneOptions]);
+    }, [receivedValues, timezoneOptions]);
 
     const formik = useFormik({
         initialValues: initialFormValues,
         enableReinitialize: true,
         validationSchema: tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
         onSubmit: (values, { resetForm }) => {
+            if (values.showEndTime && values.endTime <= values.startTime) {
+                toast.error("Please check end time");
+                return;
+            }
             onFormSubmit(values);
             resetForm();
         },
@@ -107,7 +112,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     )}
                 </Box>
 
-                
+
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Event type</Typography>
                 <RadioGroup
                     name="eventType"
@@ -125,7 +130,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     </Box>
                 </RadioGroup>
 
-                
+
                 {formik.values.eventType !== "Inperson" && <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Event format*</Typography>
                     <Dropdown
@@ -491,7 +496,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                     </Typography>
                     <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> Fusion’s event policy</Typography>
                 </Box>
-                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px", flexWrap: "wrap"  }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px", flexWrap: "wrap" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
                         Make the most of LinkedIn Events.
                     </Typography>
