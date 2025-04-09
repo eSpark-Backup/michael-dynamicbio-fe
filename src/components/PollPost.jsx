@@ -73,7 +73,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
       {postContent &&
         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}></Typography>
       }
-      <Box sx={{ backgroundColor: "#FCFCFC", borderRadius: "4px", p: "24px 32px" }}>
+      <Box sx={{ backgroundColor: "#FCFCFC", borderRadius: "4px", p: { xs: "5px", md: "24px 32px" } }}>
         <Box sx={{ minHeight: "250px", width: "100%", backgroundColor: "#FFFFFF", border: "1px solid #E4E4E4", maxHeight: "350px", overflowY: "auto", p: "25px 0px 5px 0px", display: "flex", flexDirection: "column", rowGap: "20px" }}>
           <Box sx={{ backgroundColor: "#F2F8FD", borderRadius: "2px", border: "1px solid #E4E4E4", p: "15px 25px", fontSize: "18px", fontWeight: "500", color: "#171717" }}>
             {question}

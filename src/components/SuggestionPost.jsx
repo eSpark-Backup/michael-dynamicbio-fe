@@ -104,7 +104,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                         (postPic && Array.isArray(postPic) && postPic?.length > 1) &&
                                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                             <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px", maxHeight: "375px" }} />
-                                            <Box sx={{ width: "20%", display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
+                                            <Box sx={{ width: "20%", display: "flex", flexDirection: "column", height: "375px", justifyContent: "space-between" }}>
                                                 {postPic?.slice(1, 4)?.map((item, index) => {
                                                     return (
                                                         <Box sx={{ width: "100%", height: postPic.length === 2 ? "100%" : postPic.length === 3 ? "48%" : "30%", objectFit: "cover", backgroundImage: `url("${item}")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative", cursor: (postPic?.length > 4 && index === 2) ? "pointer" : "auto" }} key={index} onClick={(postPic?.length > 4 && index === 2) ? handleLastImageClick : undefined}

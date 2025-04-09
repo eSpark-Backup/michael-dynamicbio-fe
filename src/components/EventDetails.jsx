@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Divider, Grid2, LinearProgress, Menu, MenuItem, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { calendar, camera, cancelIcon, comment, conversation, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, emoji, facebook2, like, link2, repost, send, send2, twitter, user, videoIcon } from '../assets'
+import { aboutEvent, calendar, camera, cancelIcon, comment, conversation, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, emoji, eventSpeakers, facebook2, invite, like, link2, location, repost, send, send2, twitter, user, videoIcon } from '../assets'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DynamicModal from './dynamic-modal';
@@ -43,7 +43,9 @@ const EventDetails = () => {
     eventType: "",
     eventLink: "",
     attendees: [{ image: user }],
-    eventPost: "bringback"
+    eventPost: "bringback",
+    venue: "",
+    address: ""
   })
 
   useEffect(() => {
@@ -141,6 +143,8 @@ const EventDetails = () => {
         eventMaker: data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
         eventType: data?.data?.content?.eventType,
         eventLink: data?.data?.content?.externalLink,
+        venue: data?.data?.content?.eventType === "Inperson" ? data?.data?.content?.venue : "",
+        address: data?.data?.content?.eventType === "Inperson" ? data?.data?.content?.address : "",
       }))
     }
   }, [data, isSuccess])
@@ -174,8 +178,12 @@ const EventDetails = () => {
                   </Box>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                  <img src={videoIcon} alt="" />
-                  <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050", textTransform: "capitalize" }}>{postData?.eventType === "Inperson" ? "In person" : postData?.eventType}</Typography>
+                  <img src={postData?.eventType === "online" ? videoIcon : location} alt="" />
+                  {postData?.eventType === "online" && <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050", textTransform: "capitalize" }}>{postData?.eventType}</Typography>}
+                  <Box sx={{ display: "flex", flexDirection: "column", rowGap: '3px' }}>
+                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717", textTransform: "capitalize" }}>{postData?.address}</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", textTransform: "capitalize" }}>{postData?.venue}</Typography>
+                  </Box>
                 </Box>
                 {postData?.eventLink !== "" && <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Event link • <span style={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>{postData?.eventLink}</span></Typography>}
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
@@ -205,8 +213,8 @@ const EventDetails = () => {
               <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>About</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                    <img src={conversation} alt="Image" style={{ width: "60px" }} />
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
+                    <img src={aboutEvent} alt="Image"  />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add a description to attract the right audience.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
@@ -217,8 +225,8 @@ const EventDetails = () => {
                 </Box>
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>Speakers</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                    <img src={conversation} alt="Image" style={{ width: "60px" }} />
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
+                    <img src={eventSpeakers} alt="Image"  />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add speakers to generate more interest in your event.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
@@ -407,9 +415,11 @@ const EventDetails = () => {
           Share on Fusion
         </MenuItem>
         <MenuItem onClick={handleClose3} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={invite} alt="" />
           <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Invite</Typography>
         </MenuItem>
         <MenuItem onClick={handleClose3} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={editBlue} alt="" />
           <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Repost to Feed</Typography>
         </MenuItem>
         <MenuItem onClick={handleClose3} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>

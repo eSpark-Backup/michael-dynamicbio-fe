@@ -50,9 +50,13 @@ export const postApi = api.injectEndpoints({
       },
     }),
     getMyPost: builder.query({
-      query: () => ({
+      query: ({ page = 1, limit = 15 }) => ({
         url: "/post",
         method: "GET",
+        params: {
+          page,
+          limit
+        }
       }),
     }),
     getPostById: builder.query({

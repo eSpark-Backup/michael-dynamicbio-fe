@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid2, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, comment, downArrowFilled, dummyPhoto, editBlue, emoji, like, noComments, primaryEye, repost, send, user } from '../assets'
+import { camera, comment, downArrowFilled, dummyPhoto, editBlue, emoji, like, noComments, primaryEye, reading, repost, save, send, user } from '../assets'
 import { articleDummyContent } from '../constant'
 import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
@@ -87,8 +87,18 @@ const ArticleDetails = () => {
                         <Box sx={{ p: "30px 20px" }}>
                             <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#171717" }}>{articleContent?.articleTitle}</Typography>
                             <Box sx={{ p: "20px 0px 20px 40px   ", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Box sx={{ display: "flex", flexDirection: "column", rowGap: '3px' }}>
-                                    <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>{articleContent?.articleMaker}</Typography>
+                                <Box sx={{ display: "flex", flexDirection: "column", rowGap: '3px', width: "100%" }}>
+                                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>{articleContent?.articleMaker}</Typography>
+                                        <Box sx={{ display: "flex", columnGap: "15px" }}>
+                                            <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <img src={reading} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                                            </Box>
+                                            <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <img src={save} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                                            </Box>
+                                        </Box>
+                                    </Box>
                                     <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>{articleContent?.articleMakerRole}</Typography>
                                 </Box>
                             </Box>
