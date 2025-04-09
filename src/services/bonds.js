@@ -8,7 +8,15 @@ export const bondApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    sendBondReq: builder.mutation({
+      query: (credentials) => ({
+        url: "/bond",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useAllBondsQuery } = bondApi;
+export const { useAllBondsQuery, useSendBondReqMutation } = bondApi;
