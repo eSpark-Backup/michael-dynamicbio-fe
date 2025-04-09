@@ -89,7 +89,12 @@ const Events = () => {
           gap={2}
         >
           <Typography fontSize="22px">Events</Typography>
-          <img onClick={() => setEventModal(true)} style={{ cursor: "pointer" }} src={plus} alt="add" />
+          <img
+            onClick={() => setEventModal(true)}
+            style={{ cursor: "pointer" }}
+            src={plus}
+            alt="add"
+          />
         </Stack>
       </Box>
       <Box
@@ -166,7 +171,7 @@ const Events = () => {
         <Stack
           mt={2}
           direction="row"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="flex-start"
           flexWrap="wrap"
           gap={2}
@@ -178,18 +183,19 @@ const Events = () => {
               alignItems="flex-start"
               gap={1}
               sx={{
-                width: { xs: "100%", lg: "48%" },
-                border: "1px solid #505050",
+                // width: { xs: "100%", lg: "48%" },
+                border: "1px solid #aba8a8",
                 borderRadius: "15px",
+                overflow: "hidden",
               }}
             >
               <img
-                style={{ width: "100%", height: "auto", borderRadius: "15px" }}
+                style={{ width: "100%", height: "auto" }}
                 src={eventImage}
                 alt="event"
               />
               <Box sx={{ width: "100%", padding: "0 16px 16px 16px" }}>
-                <Typography fontSize="20px" sx={{ color: "#171717" }}>
+                <Typography sx={{ color: "#171717" }}>
                   Mon, Mar 3, 2025, 5:00 PM
                 </Typography>
                 <Typography fontSize="20px" sx={{ color: "#171717" }}>
@@ -205,7 +211,7 @@ const Events = () => {
                   alignItems="center"
                   gap={2}
                 >
-                  <Button sx={{ flex: 1 }}>View</Button>
+                  <Button sx={{ flex: 1, height: "40px" }}>View</Button>
                   <img
                     style={{ cursor: "pointer" }}
                     width={40}
