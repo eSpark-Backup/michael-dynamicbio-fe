@@ -72,7 +72,7 @@ const CompleteProfile = () => {
         />
         <Input
           placeholder="Role*"
-          name="role"
+          name="designation"
           value={formik.values.designation}
           handleChange={formik.handleChange}
           error={formik.touched.designation && !!formik.errors.designation}
