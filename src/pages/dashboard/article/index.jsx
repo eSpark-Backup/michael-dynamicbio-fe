@@ -31,6 +31,7 @@ import ScheduleModal from "../../../components/ScheduleModal.jsx";
 import { useSelector } from "react-redux";
 import { useNewPostMutation } from "../../../services/post.js";
 import { useNavigate } from "react-router-dom";
+import AddMembersModal from "../../../components/AddMembersModal.jsx";
 
 const modules = {
   toolbar: "#toolbar-container",
@@ -47,6 +48,12 @@ const Article = ({ userName = "Abdul Rehman" }) => {
   const [viewArticleModal, setViewArticleModal] = useState(false);
   const [toSendValues, setToSendValues] = useState({});
   const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("yourself")
+  const [addMembersModal, setAddMembersModal] = useState(false)
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -164,7 +171,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       >
         <Box
           sx={{
-            width: { xs: "100%", md: "80%", lg: "70%" },
+            width: { xs: "100%", md: "80%", lg: "75%" },
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -196,7 +203,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
-                Individual Article
+                {selectedValue === "yourself" ? "Individual article" : "Group article"}
               </Typography>
             </Stack>
           </Box>
@@ -231,6 +238,12 @@ const Article = ({ userName = "Abdul Rehman" }) => {
               width: { xs: "100%", md: "auto" },
             }}
           >
+            {selectedValue === "group" && <Button
+              sx={{ width: { xs: "100%", sm: "150px" }, height: "36px", color: "white" }}
+              onClick={() => setAddMembersModal(true)}
+            >
+              Members
+            </Button>}
             <Box
               onClick={handleClick2}
               sx={{
@@ -301,14 +314,14 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
           "&:hover::after": previewImage
             ? {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgb(0 0 0 / 0.6)",
-              }
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgb(0 0 0 / 0.6)",
+            }
             : {},
 
           "&:hover .cover-text": {
@@ -469,7 +482,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         }}
         sx={{ p: "0px !important" }}
       >
-        <RadioGroup name="share">
+        <RadioGroup name="share" value={selectedValue} onChange={handleChange}>
           <Box
             sx={{
               display: "flex",
@@ -501,6 +514,35 @@ const Article = ({ userName = "Abdul Rehman" }) => {
               </Stack>
               <FormControlLabel
                 value="yourself"
+                control={<Radio sx={{ marginRight: "0px !important" }} />}
+              />
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "20px",
+              width: { xs: "270px", sm: "320px" },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                py: "10px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.08)",
+                },
+              }}
+            >
+              <Stack alignItems={"center"} direction={"row"} gap={1}>
+                <Typography>Group Article</Typography>
+              </Stack>
+              <FormControlLabel
+                value="group"
                 control={<Radio sx={{ marginRight: "0px !important" }} />}
               />
             </Box>
@@ -548,6 +590,18 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       </DynamicModal>
 
       <DynamicModal
+        open={addMembersModal}
+        handleClose={() => setAddMembersModal(false)}
+        postModal={true}
+        hideFooter={true}
+        styledHeader={true}
+        title={"Invite connections"}
+        smallModal={true}
+      >
+        <AddMembersModal />
+      </DynamicModal>
+
+      <DynamicModal
         open={showScheduleModal}
         onSuccess={() => {
           setSchedule({
@@ -562,7 +616,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

@@ -45,6 +45,7 @@ import ViewPolls from "./ViewPolls";
 import EventPost from "./EventPost";
 import EventDetails from "./EventDetails";
 import ArticleDetails from "./ArticleDetails";
+import AddMembersModal from "./AddMembersModal";
 
 export {
     Input,
@@ -94,4 +95,5 @@ export {
     EventPost,
     EventDetails,
     ArticleDetails,
+    AddMembersModal,
 }
