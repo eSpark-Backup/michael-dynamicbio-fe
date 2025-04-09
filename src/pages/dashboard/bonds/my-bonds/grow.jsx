@@ -1,6 +1,8 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { BondCard } from "../../../../components";
-import { suggestedBonds } from "../../../../constant";
+import { useAllBondsQuery } from "../../../../services/bonds";
 import {
   addBond,
   deleteBond,
@@ -9,6 +11,40 @@ import {
 } from "../../../../assets";
 
 const Grow = ({ requests }) => {
+  const { data, isLoading, error, isError } = useAllBondsQuery();
+  const [showAll, setShowAll] = useState(false);
+  const [users, setUsers] = useState(data?.data?.users || []);
+  const [displayedBonds, setDisplayedBonds] = useState(
+    showAll ? data?.data?.users : data?.data?.users?.slice(0, 4)
+  );
+
+  useEffect(() => {
+    if (users?.length > 0) {
+      setDisplayedBonds(showAll ? users : users?.slice(0, 4));
+    } else {
+      setDisplayedBonds(
+        showAll ? data?.data?.users : data?.data?.users?.slice(0, 4)
+      );
+      setUsers(data?.data?.users);
+    }
+  }, [showAll, data]);
+
+  useEffect(() => {
+    if (error && isError) {
+      toast.error("Something went wrong!s");
+    }
+  }, [error, isError]);
+
+  const handleRemoveUser = (id) => {
+    const filteredUsers = users?.filter((item) => item.id !== id);
+    setUsers(filteredUsers);
+    setDisplayedBonds(showAll ? filteredUsers : filteredUsers?.slice(0, 4));
+  };
+
+  const handleSendBondReq = (id) => {
+    console.log(id, "id");
+  };
+  
   return (
     <Box>
       <Box
@@ -66,10 +102,18 @@ const Grow = ({ requests }) => {
                   >
                     {item?.name}
                   </Typography>
-                  <Typography sx={{ color: "#505050" }} fontSize="14px" fontWeight={400}>
+                  <Typography
+                    sx={{ color: "#505050" }}
+                    fontSize="14px"
+                    fontWeight={400}
+                  >
                     {`${item?.designation} at “${item?.company}” `}
                   </Typography>
-                  <Typography sx={{ color: "#505050" }} fontSize="14px" fontWeight={400}>
+                  <Typography
+                    sx={{ color: "#505050" }}
+                    fontSize="14px"
+                    fontWeight={400}
+                  >
                     {`${item?.city}, ${item?.country}`}
                   </Typography>
                 </Box>
@@ -90,26 +134,25 @@ const Grow = ({ requests }) => {
             </Stack>
           ))}
       </Box>
-      {suggestedBonds.map(({ label, accounts }, index) => (
-        <Box
-          sx={{
-            mt: index === 0 ? "40px" : "24px",
-            mb: index === suggestedBonds.length - 1 ? "24px" : "",
-            padding: "20px 32px 25px 32px",
-            background: "#FFF",
-            border: "1px solid #E4E4E4",
-            borderRadius: "4px",
-          }}
-          key={label}
+      <Box
+        sx={{
+          mt: "40px",
+          padding: "20px 32px 25px 32px",
+          background: "#FFF",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
+        }}
+      >
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          gap={2}
         >
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={2}
-          >
-            <Typography fontSize="14px">{label}</Typography>
+          <Typography fontSize="14px">People you may know</Typography>
+          {users?.length > 4 && (
             <Typography
+              onClick={() => setShowAll(!showAll)}
               fontSize="14px"
               sx={{
                 minWidth: "60px",
@@ -122,21 +165,34 @@ const Grow = ({ requests }) => {
             >
               View all
             </Typography>
-          </Stack>
-          <Stack
-            mt={3}
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            gap={2}
-            flexWrap="wrap"
-          >
-            {accounts.map((bond) => (
-              <BondCard key={bond.id} {...bond} />
-            ))}
-          </Stack>
-        </Box>
-      ))}
+          )}
+        </Stack>
+        <Stack
+          mt={3}
+          direction="row"
+          alignItems="center"
+          justifyContent={
+            isLoading || !users?.length > 0 ? "center" : "space-between"
+          }
+          gap={2}
+          flexWrap="wrap"
+        >
+          {isLoading ? (
+            <CircularProgress sx={{ color: "#1877F2" }} />
+          ) : users?.length <= 0 ? (
+            <Typography textAlign="center">No bonds available</Typography>
+          ) : (
+            displayedBonds?.map((bond) => (
+              <BondCard
+                handleRemoveUser={handleRemoveUser}
+                handleSendBondReq={handleSendBondReq}
+                key={bond.id}
+                {...bond}
+              />
+            ))
+          )}
+        </Stack>
+      </Box>
     </Box>
   );
 };
