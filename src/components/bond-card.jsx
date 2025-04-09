@@ -1,13 +1,19 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Button from "./button";
-import { bondBlack2, close, bondWhite } from "../assets";
+import { bondBlack2, close, bondWhite, userAvatar } from "../assets";
 import { useState } from "react";
 
 const BondCard = ({
+  handleRemoveUser,
+  handleSendBondReq,
+  isLoading,
+  id,
   profileImage,
-  name,
-  role,
-  desc,
+  coverImage,
+  firstName,
+  lastName,
+  designation,
+  about,
   isPage,
   orgination,
   place,
@@ -24,6 +30,7 @@ const BondCard = ({
       }}
     >
       <img
+        onClick={() => handleRemoveUser(id)}
         style={{
           position: "absolute",
           top: 0,
@@ -41,7 +48,9 @@ const BondCard = ({
           alignItems: "center",
           "&:after": {
             content: '""',
-            background: "linear-gradient(180deg, #948F8F 0%, #2E2C2C 100%)",
+            backgroundImage: coverImage
+              ? `url(${coverImage})`
+              : "linear-gradient(180deg, #948F8F 0%, #2E2C2C 100%)",
             width: "calc(100% - 40px)",
             height: "36px",
             position: "absolute",
@@ -57,26 +66,28 @@ const BondCard = ({
             borderRadius: "50%",
             zIndex: 2,
           }}
-          src={profileImage}
+          src={profileImage || userAvatar}
           alt="profile"
         />
       </Box>
       <Typography textAlign="center" mt={1} fontWeight={500}>
-        {name}
+        {`${firstName} ${lastName}`}
       </Typography>
-      {role && (
+      {designation && (
         <Typography
           sx={{ color: "#505050" }}
           mb={1}
           textAlign="center"
           fontSize="12px"
         >
-          {role}
+          {designation}
         </Typography>
       )}
-      <Typography fontSize="12px" textAlign="center">
-        {desc}
-      </Typography>
+      {about && (
+        <Typography fontSize="12px" textAlign="center">
+          {about?.bio}
+        </Typography>
+      )}
       {isPage && (
         <Stack
           direction="row"
@@ -99,9 +110,12 @@ const BondCard = ({
         </Stack>
       )}
       <Button
+        loading={isLoading}
+        disabled={isLoading}
         sx={{ mt: 1, height: "48px", position: "relative" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={() => handleSendBondReq(id)}
       >
         <img
           style={{
