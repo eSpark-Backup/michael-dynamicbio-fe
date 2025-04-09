@@ -175,24 +175,25 @@ const Feed = ({ isPublicView }) => {
         </Stack>
         <CustomizeTabs tabs={tabOptions} />
         {!isPublicView && <PostCard />}
-        <InfiniteScroll
-          dataLength={posts.length} // Use the length of posts you're actually rendering
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={(isLoading || isFetching) && <LinearProgress />}
-          endMessage={
-            <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
-              {posts.length === 0 ? 'No posts available' : 'No more posts'}
-            </Typography>
-          }
-        >
-          <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-            {posts.map((item) => (
-              <SuggestionPost key={item.id} {...item} />
-            ))}
-          </Box>
-        </InfiniteScroll>
+
       </Paper>
+      <InfiniteScroll
+        dataLength={posts.length} // Use the length of posts you're actually rendering
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={(isLoading || isFetching) && <LinearProgress />}
+        endMessage={
+          <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
+            {posts.length === 0 ? 'No posts available' : 'No more posts'}
+          </Typography>
+        }
+      >
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+          {posts.map((item) => (
+            <SuggestionPost key={item.id} {...item} />
+          ))}
+        </Box>
+      </InfiniteScroll>
     </>
   );
 };
