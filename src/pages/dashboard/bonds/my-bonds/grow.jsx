@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { BondCard } from "../../../../components";
-import { useAllBondsQuery } from "../../../../services/bonds";
+import {
+  useAllBondsQuery,
+  useSendBondReqMutation,
+} from "../../../../services/bonds";
 import {
   addBond,
   deleteBond,
@@ -11,7 +14,9 @@ import {
 } from "../../../../assets";
 
 const Grow = ({ requests }) => {
+  const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
   const { data, isLoading, error, isError } = useAllBondsQuery();
+  const [id, setId] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const [users, setUsers] = useState(data?.data?.users || []);
   const [displayedBonds, setDisplayedBonds] = useState(
@@ -42,7 +47,21 @@ const Grow = ({ requests }) => {
   };
 
   const handleSendBondReq = (id) => {
-    console.log(id, "id");
+    setId(id);
+    const bodyToSend = {
+      recipientId: id,
+    };
+    sendReq(bodyToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        setId(null);
+        return;
+      }
+      if (res) {
+        toast.success("Your Request sent successfully");
+        setId(null);
+      }
+    });
   };
   
   return (
@@ -184,6 +203,7 @@ const Grow = ({ requests }) => {
           ) : (
             displayedBonds?.map((bond) => (
               <BondCard
+                isLoading={isReqLoading && id === bond?.id}
                 handleRemoveUser={handleRemoveUser}
                 handleSendBondReq={handleSendBondReq}
                 key={bond.id}
