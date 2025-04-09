@@ -65,6 +65,13 @@ const ArticleDetails = () => {
         )
     }
 
+
+    if (!isLoading && isSuccess && !data?.data) {
+        return (
+            <Typography>No data Found</Typography>
+        )
+    }
+
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px", mt: '20px' }}>
 

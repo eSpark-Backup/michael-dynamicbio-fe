@@ -157,6 +157,12 @@ const EventDetails = () => {
     )
   }
 
+  if (!isLoading && isSuccess && !data?.data) {
+    return (
+      <Typography>No data Found</Typography>
+    )
+  }
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
       <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "85%", xl: "75%" }, py: "25px" }}>
@@ -214,7 +220,7 @@ const EventDetails = () => {
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>About</Typography>
                   <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
-                    <img src={aboutEvent} alt="Image"  />
+                    <img src={aboutEvent} alt="Image" />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add a description to attract the right audience.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
@@ -226,7 +232,7 @@ const EventDetails = () => {
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>Speakers</Typography>
                   <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
-                    <img src={eventSpeakers} alt="Image"  />
+                    <img src={eventSpeakers} alt="Image" />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add speakers to generate more interest in your event.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>

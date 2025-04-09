@@ -187,7 +187,7 @@ export const theme = createTheme({
                     button: {
                         "&.Mui-selected": {
                             color: "#FFF !important"
-                       },
+                        },
                     },
                 },
             },
@@ -262,6 +262,16 @@ export const theme = createTheme({
                     backgroundColor: "#BDBDBD",
                     opacity: 1,
                     transition: "300ms",
+                },
+            },
+        },
+        MuiLinearProgress: {
+            styleOverrides: {
+                root: {
+                    background: "#FFF",
+                    span: {
+                        background: "#1877F2",
+                    },
                 },
             },
         },
