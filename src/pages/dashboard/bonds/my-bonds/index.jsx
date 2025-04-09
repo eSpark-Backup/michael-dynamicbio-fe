@@ -22,7 +22,7 @@ const MyBond = () => {
     },
     {
       label: "Catch up",
-      component: <Grow requests={requests} />,
+      component: <></>,
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]);
