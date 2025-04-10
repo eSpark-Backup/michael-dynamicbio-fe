@@ -40,6 +40,7 @@ const Events = () => {
       status: "PUBLISH",
       visibility,
       type: "EVENT",
+      cover: selectedFile,
     };
     newPost(obj).then((res) => {
       if (res?.error) {
