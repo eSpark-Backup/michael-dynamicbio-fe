@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import mitt from 'mitt';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -138,3 +139,5 @@ export function formatEventTimeLocal(startTime, endTime) {
 
   return `${dateStr}, ${startTimeStr} - ${endTimeStr}`;
 }
+
+export const eventBus = mitt();

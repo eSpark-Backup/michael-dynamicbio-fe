@@ -1,0 +1,1 @@
+export const NEW_BOND_REQUEST = "NEW_BOND_REQUEST";
