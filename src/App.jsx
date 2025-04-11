@@ -33,10 +33,12 @@ import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ArticleDetails, EventDetails } from "./components";
+import SocketListener from "./socket/socket-listener";
 
 const App = () => {
   return (
     <>
+      <SocketListener />
       <Routes>
         <Route element={<AuthLayout />}>
           {/* Login */}

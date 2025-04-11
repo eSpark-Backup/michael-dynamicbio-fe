@@ -21,6 +21,7 @@ import {
   userAvatar,
   verticleDots,
 } from "../../../../assets";
+import { eventBus } from "../../../../utils";
 
 const Grow = () => {
   const [sent, setSent] = useState(null);
@@ -118,6 +119,18 @@ const Grow = () => {
       }
     });
   };
+
+  useEffect(() => {
+    const handleRefetch = () => {
+      refetch();
+    };
+  
+    eventBus.on("refetchBondData", handleRefetch);
+  
+    return () => {
+      eventBus.off("refetchBondData", handleRefetch);
+    };
+  }, []);
 
   return (
     <Box>
