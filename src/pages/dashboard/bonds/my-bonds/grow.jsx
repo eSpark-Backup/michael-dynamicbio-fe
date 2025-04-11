@@ -13,6 +13,7 @@ import {
   useAllBondsQuery,
   useAllBondsReqQuery,
   useSendBondReqMutation,
+  useUpdateBondReqMutation,
 } from "../../../../services/bonds";
 import {
   addBond,
@@ -24,6 +25,8 @@ import {
 const Grow = () => {
   const [sent, setSent] = useState(null);
   const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+  const [updateReq, { isLoading: isUpdateReqLoading }] =
+    useUpdateBondReqMutation();
   const { data, isLoading, error, isError } = useAllBondsQuery();
   const {
     data: reqData,
@@ -31,6 +34,7 @@ const Grow = () => {
     isFetching,
     error: reqError,
     isError: reqIsError,
+    refetch,
   } = useAllBondsReqQuery(sent ? "sent" : "received");
   const requests = reqData?.data?.bonds;
 
@@ -93,13 +97,26 @@ const Grow = () => {
       }
       if (res) {
         toast.success("Your Request sent successfully");
+        refetch();
         setId(null);
       }
     });
   };
 
   const handleBond = (id, type) => {
-    console.log(id, type);
+    const bodyToSend = {
+      bondId: id,
+      action: type,
+    };
+    updateReq(bodyToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        refetch();
+      }
+    });
   };
 
   return (
@@ -114,7 +131,7 @@ const Grow = () => {
           overflowY: "auto",
         }}
       >
-        {reqLoading || isFetching ? (
+        {isUpdateReqLoading || reqLoading || isFetching ? (
           <Stack direction="row" justifyContent="center" alignItems="center">
             <CircularProgress sx={{ color: "#1877F2" }} />
           </Stack>

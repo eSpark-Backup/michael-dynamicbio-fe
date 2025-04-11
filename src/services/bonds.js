@@ -24,8 +24,20 @@ export const bondApi = api.injectEndpoints({
         refetchOnMountOrArgChange: true,
       }),
     }),
+    updateBondReq: builder.mutation({
+      query: (credentials) => ({
+        url: "/bond/update-status",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useAllBondsQuery, useSendBondReqMutation, useAllBondsReqQuery } =
-  bondApi;
+export const {
+  useAllBondsQuery,
+  useSendBondReqMutation,
+  useAllBondsReqQuery,
+  useUpdateBondReqMutation,
+} = bondApi;
