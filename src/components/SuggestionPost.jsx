@@ -99,15 +99,15 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>
                                     }
-                                    {(postPic && Array.isArray(postPic) && postPic?.length === 1) && <img src={postPic[0]} alt="Post" style={{ height: "375px" }} />}
+                                    {(postPic && Array.isArray(postPic) && postPic?.length === 1) && <img src={postPic[0]} alt="Post" style={{ height: "375px", cursor: "pointer" }} onClick={handleLastImageClick} />}
                                     {
                                         (postPic && Array.isArray(postPic) && postPic?.length > 1) &&
                                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px", maxHeight: "375px" }} />
+                                            <img src={postPic[0]} alt="Post" style={{ width: "77%", objectFit: "cover", minHeight: "375px", maxHeight: "375px", cursor: "pointer" }} onClick={handleLastImageClick} />
                                             <Box sx={{ width: "20%", display: "flex", flexDirection: "column", height: "375px", justifyContent: "space-between" }}>
                                                 {postPic?.slice(1, 4)?.map((item, index) => {
                                                     return (
-                                                        <Box sx={{ width: "100%", height: postPic.length === 2 ? "100%" : postPic.length === 3 ? "48%" : "30%", objectFit: "cover", backgroundImage: `url("${item}")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative", cursor: (postPic?.length > 4 && index === 2) ? "pointer" : "auto" }} key={index} onClick={(postPic?.length > 4 && index === 2) ? handleLastImageClick : undefined}
+                                                        <Box sx={{ width: "100%", height: postPic.length === 2 ? "100%" : postPic.length === 3 ? "48%" : "30%", objectFit: "cover", backgroundImage: `url("${item}")`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", position: "relative", cursor: "pointer" }} key={index} onClick={handleLastImageClick}
                                                         >
                                                             {
                                                                 (postPic?.length > 4 && index === 2) &&
@@ -250,7 +250,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             </ConfirmationModal>
 
             <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
-                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={"4d•"} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
+                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
             </PhotoDetailsModal>
         </>
     )

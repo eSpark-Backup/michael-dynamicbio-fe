@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Input from "./Input";
 import { pollSchema } from "../schemas";
 import { plus } from "../assets";
@@ -23,6 +23,19 @@ const PollModal = ({ isLoading, handleSuccess }) => {
     },
   });
 
+  const scrollContainerRef = useRef(null);
+  const prevOptionsLength = useRef(formik.values.options.length);
+
+  useEffect(() => {
+    if (formik.values.options.length > prevOptionsLength.current) {
+      
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      }
+    }
+    prevOptionsLength.current = formik.values.options.length;
+  }, [formik.values.options]);
+
   const handleAddOption = () => {
     formik.setFieldValue("options", [...formik.values.options, ""]);
   };
@@ -31,6 +44,7 @@ const PollModal = ({ isLoading, handleSuccess }) => {
     <form onSubmit={formik.handleSubmit}>
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
         <Box
+          ref={scrollContainerRef}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -160,6 +174,7 @@ const PollModal = ({ isLoading, handleSuccess }) => {
                     formik.errors.options?.[index]
                   }
                   onBlur={formik.handleBlur}
+                  
                 />
               </Box>
             ))}

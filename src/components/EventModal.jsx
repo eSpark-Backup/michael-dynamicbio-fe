@@ -12,7 +12,7 @@ import { TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 import { toast } from "react-toastify";
 
-const EventModal = ({ onFormSubmit, receivedValues }) => {
+const EventModal = ({ onFormSubmit, receivedValues,handleClose }) => {
     const eventImgRef = useRef(null);
     const [tempEventType, setEventType] = useState("online")
     const [imagePreview, setImagePreview] = useState(null);
@@ -343,6 +343,38 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                         </LocalizationProvider>
                     </Box>
                 }
+                {
+                    (formik.values.eventType !== "Inperson" && formik.values.format === "ExternalEventLink") &&
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            rowGap: "3px",
+                            ".MuiOutlinedInput-root": { height: "65px !important" },
+                            input: { paddingBottom: "20px" },
+                        }}
+                    >
+                        <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>External event link</Typography>
+                        <Input
+                            wordLimit={1024}
+                            customLabel=""
+                            placeholder=""
+                            type="text"
+                            name="externalLink"
+                            variant="outlined"
+                            value={formik.values.externalLink}
+                            handleChange={formik.handleChange}
+                            error={
+                                formik.touched.externalLink && !!formik.errors.externalLink
+                            }
+                            helperText={
+                                formik.touched.externalLink && formik.errors.externalLink
+                            }
+                            onBlur={formik.handleBlur}
+                        />
+                    </Box>
+
+                }
                 {formik?.values?.eventType === "Inperson" &&
                     <>
                         <Box
@@ -505,7 +537,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                 <input
                     type="file"
                     ref={eventImgRef}
-                    accept="image/*"
+                    accept=".jpeg,.jpg,.tiff,.png"
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
@@ -544,7 +576,7 @@ const EventModal = ({ onFormSubmit, receivedValues }) => {
                             maskComposite: "exclude",
                         },
                         cursor: "pointer"
-                    }}>
+                    }} onClick={handleClose}>
                         <Typography variant="gradientText" sx={{ fontSize: "16px", fontWeight: "400" }}>Back</Typography>
                     </Box>
                     <Button type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px" }} disabled={!(formik.isValid && (formik.dirty || isEditMode))} >

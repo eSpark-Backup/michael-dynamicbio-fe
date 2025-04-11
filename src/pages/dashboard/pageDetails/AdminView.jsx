@@ -201,7 +201,7 @@ const AdminView = () => {
             <input
                 type="file"
                 ref={fileInputRef}
-                accept="image/*"
+                accept=".jpeg,.jpg,.tiff,.png"
                 style={{ display: "none" }}
                 multiple
                 onChange={handleFileChange}
@@ -209,7 +209,7 @@ const AdminView = () => {
             <input
                 type="file"
                 ref={coverPhotoRef}
-                accept="image/*"
+                accept=".jpeg,.jpg,.tiff,.png"
                 style={{ display: "none" }}
                 onChange={handleCoverChange}
             />
@@ -239,7 +239,7 @@ const AdminView = () => {
             </DynamicModal>
 
             <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"} hideFooter={true}>
-                <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} />
+                <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} handleClose={() => setEventModal(false)} />
             </DynamicModal>
 
 

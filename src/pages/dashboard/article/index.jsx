@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
   FormControlLabel,
   Menu,
@@ -29,8 +30,8 @@ import DynamicModal from "../../../components/dynamic-modal.jsx";
 import ViewArticle from "../../../components/ViewArticle.jsx";
 import ScheduleModal from "../../../components/ScheduleModal.jsx";
 import { useSelector } from "react-redux";
-import { useNewPostMutation } from "../../../services/post.js";
-import { useNavigate } from "react-router-dom";
+import { useEditPostMutation, useGetPostByIdQuery, useNewPostMutation } from "../../../services/post.js";
+import { useNavigate, useParams } from "react-router-dom";
 
 const modules = {
   toolbar: "#toolbar-container",
@@ -82,10 +83,26 @@ const Article = ({ userName = "Abdul Rehman" }) => {
     date: null,
     time: null,
   });
+  const { id } = useParams();
+  const { data, isSuccess, isLoading: articleDetailsLoading, isError, error } = useGetPostByIdQuery(id, { skip: !id })
+
+  useEffect(() => {
+    if (isSuccess && data?.data) {
+      setContent(data?.data?.content?.content)
+      setArticleTitle(data?.data?.content?.articleTitle)
+      setTitle(data?.data?.content?.title)
+      setSelectedFile(data?.data?.media["ARTICLES"][0]?.url)
+      setPreveiwImage(data?.data?.media["ARTICLES"][0]?.url)
+    }
+  }, [data, isSuccess])
 
   const HandleImageDelete = () => {
     setSelectedFile(null);
     setPreveiwImage(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""
+    }
   };
 
   const HandleNext = () => {
@@ -120,6 +137,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
   const { user: userData } = useSelector((state) => state.auth);
   const [newPost, { isLoading }] = useNewPostMutation();
+  const [editPost, { isLoading: editPostLoading }] = useEditPostMutation();
   const navigate = useNavigate();
 
   const handleArticlePost = () => {
@@ -134,22 +152,50 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       visibility,
       type: "ARTICLE",
       cover: selectedFile,
+      id: id
     };
-    newPost(obj).then((res) => {
-      if (res?.error) {
-        toast.error(res?.error?.data?.message);
-        return;
-      }
-      if (res?.data) {
-        toast.success("Your post is uploaded successfully");
-        setTitle("");
-        setArticleTitle("");
-        setContent("");
-        setViewArticleModal(false);
-        navigate(-1);
-      }
-    });
+    if (id) {
+      editPost(obj).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res?.data) {
+          toast.success("Your post is updated successfully");
+          setTitle("");
+          setArticleTitle("");
+          setContent("");
+          setViewArticleModal(false);
+          navigate(-1);
+        }
+      });
+    }
+    else {
+      newPost(obj).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res?.data) {
+          toast.success("Your post is uploaded successfully");
+          setTitle("");
+          setArticleTitle("");
+          setContent("");
+          setViewArticleModal(false);
+          navigate(-1);
+        }
+      });
+    }
+    console.log(obj)
   };
+
+  if (articleDetailsLoading) {
+    return (
+      <Box sx={{ width: "100%", height: "calc(100vh - 150px)", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <CircularProgress sx={{ color: "#1877F2" }} />
+      </Box>
+    )
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -301,14 +347,14 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
           "&:hover::after": previewImage
             ? {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgb(0 0 0 / 0.6)",
-              }
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgb(0 0 0 / 0.6)",
+            }
             : {},
 
           "&:hover .cover-text": {
@@ -538,7 +584,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         setVisibility={setVisibility}
       >
         <ViewArticle
-          isLoading={isLoading}
+          isLoading={isLoading || editPostLoading}
           onSuccess={handleArticlePost}
           title={title}
           setTitle={setTitle}
@@ -562,7 +608,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -577,7 +623,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       <input
         type="file"
         ref={fileInputRef}
-        accept="image/*"
+        accept=".jpeg,.jpg,.tiff,.png"
         style={{ display: "none" }}
         onChange={handleFileChange}
       />

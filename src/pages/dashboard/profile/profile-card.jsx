@@ -165,7 +165,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
           )}
           {!isPublicView && (
             <img
-              style={{ position: "absolute", top: "0px", right: "0px" }}
+              style={{ position: "absolute", top: "-3px", right: "-5px" }}
               src={primaryEdit}
               alt="edit"
             />

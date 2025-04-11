@@ -155,7 +155,7 @@ const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose
             <input
                 type="file"
                 ref={fileInputRef}
-                accept="image/*"
+                accept=".jpeg,.jpg,.tiff,.png"
                 style={{ display: "none" }}
                 multiple
                 onChange={handleFileChange}

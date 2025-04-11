@@ -84,7 +84,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
               <Box sx={{ display: "flex", p: "10px 35px", alignItems: "center", backgroundColor: "#FCFCFC", justifyContent: "space-between" }} key={index}>
                 <Box sx={{
                   display: "flex", width: "95%", alignItems: "center", minHeight: "20px", py: "0px", maxHeight: "45px",
-                  background: selectedValue === item.value ? `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)` : "#FCFCFC", cursor: "pointer"
+                  background: selectedValue === item.value ? `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)` : "#FCFCFC", cursor: "pointer", p: "4px"
                 }} onClick={() => handleChange({ target: { value: item.value } })}>
                   <FormControlLabel
                     value={item.value}

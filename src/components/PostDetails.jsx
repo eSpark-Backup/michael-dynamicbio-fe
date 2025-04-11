@@ -90,16 +90,16 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                 </Box>
             </Box>
             <Box sx={{ display: "flex", gap: "15px", flexDirection: { xs: "column", md: "row" }, mt: { xs: "15px", md: "0px" } }}>
-                <Box sx={{ width: { xs: "100%", md: "48%" }, height: "70vh", position: "relative", backgroundImage: `url("${images[activeIndex]}")`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
-                    <Box sx={{
+                <Box sx={{ width: { xs: "100%", md: "55%" }, height: "70vh", position: "relative", backgroundImage: `url("${images[activeIndex]}")`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "100%" }}>
+                    {Array.isArray(images) && images?.length > 1 && <Box sx={{
                         position: "absolute", width: "100%", top: "50%", transform: "translateY(-50%)", px: "10px",
                         display: "flex", justifyContent: "space-between"
                     }}>
                         <img src={prevArrow} alt="Icon" style={{ width: "24px", height: "24px", cursor: "pointer" }} onClick={HandlePrevClick} />
                         <img src={nextArrow} alt="Icon" style={{ width: "24px", height: "24px", cursor: "pointer" }} onClick={HandleNextClick} />
-                    </Box>
+                    </Box>}
                 </Box>
-                <Box sx={{ width: { xs: "100%", md: "50%" }, display: "flex", flexDirection: "column", rowGap: "15px" }}>
+                <Box sx={{ width: { xs: "100%", md: "44%" }, display: "flex", flexDirection: "column", rowGap: "15px" }}>
                     <Box sx={{ display: { xs: "none", md: "flex" }, justifyContent: "space-between", alignItems: "center" }}>
                         <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                             <img src={profile2} alt="Avatar" style={{ width: "44px", height: "44px" }} />

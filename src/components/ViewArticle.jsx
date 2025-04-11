@@ -15,16 +15,21 @@ const ViewArticle = ({
 
   React.useEffect(() => {
     if (values?.selectedFile) {
-      const objectUrl = URL.createObjectURL(values?.selectedFile);
-      setImgPreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
+      if (typeof values.selectedFile === "string") {
+        setImgPreview(values.selectedFile);
+      } else {
+        const objectUrl = URL.createObjectURL(values.selectedFile);
+        setImgPreview(objectUrl);
+        return () => URL.revokeObjectURL(objectUrl);
+      }
     }
   }, [values]);
+  
 
   return (
     <Box sx={{ mb: "30px" }}>
       <TextField
-        title={title}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="What do you want to talk about?"
         sx={{

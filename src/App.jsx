@@ -68,6 +68,7 @@ const App = () => {
           <Route path="/cells" element={<Cells />} />
           <Route path="/pulses" element={<Pulses />} />
           <Route path="/article" element={<Article />} />
+          <Route path="/article/edit/:id" element={<Article />} />
           <Route path="/page/:id" element={<PageDetailsPage />} />
           <Route path="/page/:id/admin" element={<AdminView />} />
           <Route path="/profile/:id" element={<Profile />} />

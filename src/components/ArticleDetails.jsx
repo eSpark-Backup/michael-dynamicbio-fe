@@ -6,7 +6,7 @@ import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
 import ShareModal from './ShareModal'
 import PostChoiceModal from './PostChoiceModal'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetPostByIdQuery } from '../services/post'
 import dayjs from 'dayjs'
 
@@ -17,7 +17,8 @@ const ArticleDetails = () => {
     const [showShareModal, setShowShareModal] = useState(false)
     const [postChoiceModal, setPostChoiceModal] = useState(false)
     const { id } = useParams();
-    const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(id)
+    const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(id, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true })
+    const navigate = useNavigate()
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -76,7 +77,7 @@ const ArticleDetails = () => {
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px", mt: '20px' }}>
 
             <Box sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, backgroundColor: "#F2F8FD", border: '1px solid #E4E4E4', borderRadius: "8px", p: "25px", display: "flex", columnGap: "20px" }}>
-                <Box sx={{ display: "flex", columnGap: "3px" }}>
+                <Box sx={{ display: "flex", columnGap: "3px", cursor: "pointer" }} onClick={() => navigate(`/article/edit/${id}`)}>
                     <img src={editBlue} alt="Icon" style={{ width: "16px" }} />
                     <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>Edit article</Typography>
                 </Box>
@@ -160,11 +161,11 @@ const ArticleDetails = () => {
                         {
                             showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px", mt: "25px" }}>
                                 <Box sx={{ display: "flex", columnGap: "5px", flexDirection: { xs: "column", md: "row" } }}>
-                                    <Box sx={{ width: { xs: "35px", md: "70px" } }}>
+                                    <Box sx={{ width: { xs: "35px", md: "45px" } }}>
                                         <img src={user} alt="User" style={{ width: "100%" }} />
                                     </Box>
 
-                                    <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", height: '73px' }}>
+                                    <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", height: '45px' }}>
                                         <OutlinedInput sx={{
                                             height: "100%",
                                             width: "100%",
