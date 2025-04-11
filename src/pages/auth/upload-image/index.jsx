@@ -19,7 +19,7 @@ const UploadImage = () => {
     const formdata = new FormData();
     formdata.append("country", data?.country);
     formdata.append("city", data?.city);
-    formdata.append("designation", data?.role);
+    formdata.append("designation", data?.designation);
     formdata.append("industry", data?.industry);
     formdata.append("company", data?.company);
     if (image) {
@@ -88,7 +88,7 @@ const UploadImage = () => {
             <Box>
               <Typography fontSize="24px">{`${tempUser?.firstName} ${tempUser?.lastName}`}</Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                {data?.role} At “{data?.company}”
+                {data?.designation} At “{data?.company}”
               </Typography>
               <Typography fontSize="17px" fontWeight={300}>
                 {data?.country}

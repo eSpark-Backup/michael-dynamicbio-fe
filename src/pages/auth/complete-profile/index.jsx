@@ -13,7 +13,7 @@ const CompleteProfile = () => {
       city: "",
       company: "",
       industry: "",
-      role: "",
+      designation: "",
     },
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
@@ -72,11 +72,11 @@ const CompleteProfile = () => {
         />
         <Input
           placeholder="Role*"
-          name="role"
-          value={formik.values.role}
+          name="designation"
+          value={formik.values.designation}
           handleChange={formik.handleChange}
-          error={formik.touched.role && !!formik.errors.role}
-          helperText={formik.touched.role && formik.errors.role}
+          error={formik.touched.designation && !!formik.errors.designation}
+          helperText={formik.touched.designation && formik.errors.designation}
         />
         <Box
           sx={{
