@@ -47,6 +47,7 @@ const EventDetails = () => {
     venue: "",
     address: ""
   })
+  const [showSuccessCards, setShowSuccessCards] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -212,15 +213,15 @@ const EventDetails = () => {
             <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography sx={{ fontSize: '20px', fontWeight: "400", color: "#171717" }}>Set up your event for success</Typography>
-                <Box sx={{ border: "1px solid #E4E4E4", width: "35px", height: "35px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <KeyboardArrowUpIcon />
+                <Box sx={{ border: "1px solid #E4E4E4", width: "35px", height: "35px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setShowSuccessCards(!showSuccessCards)}>
+                  {showSuccessCards ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </Box>
               </Box>
-              <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
+              {showSuccessCards && <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>About</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
-                    <img src={aboutEvent} alt="Image" />
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" }, alignItems: "flex-start" }}>
+                    <img src={aboutEvent} alt="Image" style={{ width: "48px", height: "48px" }} />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add a description to attract the right audience.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
@@ -231,8 +232,8 @@ const EventDetails = () => {
                 </Box>
                 <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
                   <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>Speakers</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" } }}>
-                    <img src={eventSpeakers} alt="Image" />
+                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" }, alignItems: "flex-start" }}>
+                    <img src={eventSpeakers} alt="Image" style={{ width: "48px", height: "48px" }} />
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                       <Typography>Add speakers to generate more interest in your event.</Typography>
                       <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
@@ -240,8 +241,9 @@ const EventDetails = () => {
                       </Button>
                     </Box>
                   </Box>
+
                 </Box>
-              </Box>
+              </Box>}
             </Box>
             <Stack
               direction="row"
@@ -331,11 +333,11 @@ const EventDetails = () => {
               {
                 showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
                   <Box sx={{ display: "flex", columnGap: "5px", flexDirection: { xs: "column", md: "row" } }}>
-                    <Box sx={{ width: { xs: "35px", md: "70px" } }}>
+                    <Box sx={{ width: { xs: "35px", md: "45px" } }}>
                       <img src={user} alt="User" style={{ width: "100%" }} />
                     </Box>
 
-                    <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", height: '73px' }}>
+                    <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", height: '45px' }}>
                       <OutlinedInput sx={{
                         height: "100%",
                         width: "100%",

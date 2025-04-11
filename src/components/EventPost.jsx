@@ -1,4 +1,4 @@
-import { Box, Menu, MenuItem, Paper, Typography } from '@mui/material'
+import { Box, Button, Menu, MenuItem, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import BondCard2 from './BondCard'
 import { formatEventPostTime } from '../utils'
@@ -105,6 +105,9 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                         >
                             <Typography variant="gradientText">View event</Typography>
                         </Box>
+                        {/* <Button sx={{ width: "150px", height: "36px" }} onClick={() => navigate(`/event/${id}`)}>
+                            View event
+                        </Button> */}
                     </Box>
                     <Box>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{eventName}</Typography>

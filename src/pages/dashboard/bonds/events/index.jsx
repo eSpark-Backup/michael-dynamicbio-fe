@@ -241,6 +241,7 @@ const Events = () => {
         <EventModal
           onFormSubmit={handleFormSubmit}
           receivedValues={eventFormValues}
+          handleClose={() => setEventModal(false)}
         />
       </DynamicModal>
 

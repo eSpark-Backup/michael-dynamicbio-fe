@@ -18,7 +18,7 @@ const Feed = ({ isPublicView }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Modify your query to accept page parameter
-  const { data, error, isLoading, isSuccess, isFetching } = useGetMyPostQuery({ page, limit: 15 });
+  const { data, error, isLoading, isSuccess, isFetching } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
 
   useEffect(() => {
     if (error) {
@@ -110,6 +110,12 @@ const Feed = ({ isPublicView }) => {
       setPage(prev => prev + 1);
     }
   };
+
+  if (isLoading) {
+    return (
+      <LinearProgress />
+    )
+  }
 
   return (
     <>

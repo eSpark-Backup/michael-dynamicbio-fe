@@ -97,7 +97,7 @@ const UploadImage = () => {
           </Stack>
           <input
             type="file"
-            accept="image/*"
+            accept=".jpeg,.jpg,.tiff,.png"
             ref={fileInputRef}
             onChange={handleFileChange}
             style={{ display: "none" }}

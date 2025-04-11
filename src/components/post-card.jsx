@@ -40,6 +40,13 @@ const PostCard = () => {
     time: null,
   });
 
+  const handleThumbnailUpload = (file) => {
+    setVideoData((prev) => ({
+      ...prev,
+      thumbnail: file
+    }))
+  }
+
   const handlePost = (obj) => {
     newPost(obj).then((res) => {
       if (res?.error) {
@@ -295,7 +302,7 @@ const PostCard = () => {
       <input
         type="file"
         ref={fileInputRef}
-        accept="image/*"
+        accept=".jpeg,.jpg,.tiff,.png"
         style={{ display: "none" }}
         multiple
         onChange={handleFileChange}
@@ -361,6 +368,7 @@ const PostCard = () => {
           file={videoData}
           placeholder={"Say something about this video"}
           handleClose={HandleVideoModalClose}
+          handleThumbnailUpload={handleThumbnailUpload}
         />
       </DynamicModal>
 
@@ -406,6 +414,7 @@ const PostCard = () => {
         <EventModal
           onFormSubmit={handleFormSubmit}
           receivedValues={eventFormValues}
+          handleClose={() => setEventModal(false)}
         />
       </DynamicModal>
 
@@ -450,7 +459,7 @@ const PostCard = () => {
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -485,7 +494,7 @@ const PostCard = () => {
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
       >

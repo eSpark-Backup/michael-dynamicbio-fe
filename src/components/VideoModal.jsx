@@ -10,6 +10,7 @@ const VideoModal = ({
   placeholder,
   file,
   handleClose,
+  handleThumbnailUpload
 }) => {
   const fileInputRef = useRef(null);
   const [newThumbnail, setNewThumbnail] = useState(null);
@@ -38,15 +39,16 @@ const VideoModal = ({
 
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
-        const file = e.target.files[0];
-        setNewThumbnail(file);
-        setIsFileUploaded(true);
+      const file = e.target.files[0];
+      setNewThumbnail(file);
+      setIsFileUploaded(true);
+      handleThumbnailUpload(file)
 
-        setTimeout(() => {
-            fileInputRef.current.value = null;
-        }, 0);
+      setTimeout(() => {
+        fileInputRef.current.value = null;
+      }, 0);
     }
-};
+  };
 
   useEffect(() => {
     if (newThumbnail) {
@@ -67,16 +69,18 @@ const VideoModal = ({
   }, [newThumbnail, videoData.thumbnail]);
 
 
-    const HandleDeleteThumbnail = () => {
-        setNewThumbnail(null);
-        setThumbnailPreview(videoData.thumbnail instanceof File ? URL.createObjectURL(videoData.thumbnail) : videoData.thumbnail);
-        setIsFileUploaded(false);
+  const HandleDeleteThumbnail = () => {
+    setNewThumbnail(null);
+    setThumbnailPreview(null); // Clear the preview
+    setIsFileUploaded(false);
+    handleThumbnailUpload(null)
 
-        // Reset the file input field
-        if (fileInputRef.current) {
-            fileInputRef.current.value = null;
-        }
-    };
+    // Reset file input field
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -173,10 +177,7 @@ const VideoModal = ({
               >
                 {isFileUploaded ? (
                   <img
-                    onClick={() => {
-                      setNewThumbnail(null);
-                      setIsFileUploaded(false);
-                    }}
+                    onClick={HandleDeleteThumbnail}
                     src={deleteIcon}
                     alt="Delete"
                     style={{
@@ -205,7 +206,7 @@ const VideoModal = ({
       <input
         type="file"
         ref={fileInputRef}
-        accept="image/*"
+        accept=".jpeg,.jpg,.tiff,.png"
         style={{ display: "none" }}
         onChange={handleFileChange}
       />

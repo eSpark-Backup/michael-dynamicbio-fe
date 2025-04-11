@@ -65,7 +65,28 @@ export const postApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    editPost: builder.mutation({
+      query: (credentials) => {
+        const formData = new FormData();
+
+        formData.append("content", JSON.stringify(credentials.content));
+        formData.append("status", credentials.status);
+        formData.append("visibility", credentials.visibility);
+        formData.append("type", credentials.type);
+
+        if (typeof credentials.cover !== "string" && credentials.cover) {
+          formData.append("cover", credentials.cover);
+        }
+
+        return {
+          url: `/post/${credentials?.id}`,
+          method: "PUT",
+          body: formData,
+          credentials: "include",
+        };
+      },
+    }),
   }),
 });
 
-export const { useNewPostMutation, useGetMyPostQuery, useGetPostByIdQuery } = postApi;
+export const { useNewPostMutation, useGetMyPostQuery, useGetPostByIdQuery, useEditPostMutation } = postApi;
