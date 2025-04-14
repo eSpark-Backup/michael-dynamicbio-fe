@@ -245,7 +245,7 @@ const PagePosts = () => {
             <input
                 type="file"
                 ref={fileInputRef}
-                accept=".jpeg,.jpg,.tiff,.png"
+                accept=".jpeg, .jpg, .tiff, .png, .webp"
                 style={{ display: "none" }}
                 multiple
                 onChange={handleFileChange}
@@ -277,7 +277,7 @@ const PagePosts = () => {
             </DynamicModal>
 
             <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
-                <PollModal handleSuccess={() => setPollModal(false)} />
+                <PollModal handleSuccess={() => setPollModal(false)} handleBack={() => setPollModal(false)} />
             </DynamicModal>
 
             <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"} hideFooter={true}>

@@ -112,7 +112,7 @@ export const onlineEventSchema = Yup.object({
     .max(75, "Must be 75 characters or less"),
   timezone: Yup.string().required("Timezone is required"),
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
-  // externalLink: Yup.string().max(1024, "Must be 1024 characters or less"),
+  externalLink: Yup.string().max(1024, "Must be 1024 characters or less").url("Must be a valid URL"),
 });
 
 export const inpersonEventSchema = Yup.object({

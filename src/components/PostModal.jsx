@@ -77,7 +77,7 @@ const PostModal = ({ title, setTitle, fileChange, placeholder, videoChange, open
             <input
                 type="file"
                 ref={fileInputRef}
-                accept=".jpeg,.jpg,.tiff,.png"
+                accept=".jpeg, .jpg, .tiff, .png, .webp"
                 multiple
                 style={{ display: "none" }}
                 onChange={handleFileChange}
