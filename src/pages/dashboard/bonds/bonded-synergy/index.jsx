@@ -1,66 +1,50 @@
-import { useState } from "react";
-import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { searchIcon, user, verticleDots } from "../../../../assets";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import {
+  Box,
+  CircularProgress,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Button, OutlinedInput } from "../../../../components";
-
-const bonds = [
-  {
-    id: 1,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-  {
-    id: 2,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-  {
-    id: 3,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-  {
-    id: 4,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-  {
-    id: 5,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-  {
-    id: 6,
-    firstName: "Zaheer",
-    lastName: "Babar",
-    designation: "React JS",
-    company: "eSpark",
-    createdAt: "1st April 2025",
-  },
-];
+import { useGetMyBondsQuery } from "../../../../services/bonds";
+import { formatDate } from "../../../../utils";
+import { searchIcon, user, verticleDots } from "../../../../assets";
 
 const BondedSynergy = () => {
   const [search, setSearch] = useState("");
-  const [myBonds] = useState(bonds);
-  const [count] = useState(bonds?.length);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [page] = useState(1);
+  const [pageSize] = useState(100);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selected, setSelected] = useState(null);
   const open = Boolean(anchorEl);
+
+useEffect(() => {
+  const handler = setTimeout(() => {
+    setDebouncedSearch(search);
+  }, 500);
+
+  return () => {
+    clearTimeout(handler);
+  };
+}, [search]);
+
+  const { data, error, isLoading, isFetching } = useGetMyBondsQuery({
+    page,
+    pageSize,
+    search: debouncedSearch,
+  });
+  const myBonds = data?.data;
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+      return;
+    }
+  }, [error]);
 
   const handleClick = (event, id) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +65,7 @@ const BondedSynergy = () => {
   const handleMessage = (id) => {
     console.log(id, "message");
   };
+
   return (
     <Box
       sx={{
@@ -98,7 +83,7 @@ const BondedSynergy = () => {
         sx={{ pb: 2, borderBottom: "1px solid #aaaeb0" }}
       >
         <Typography fontSize="20px">
-          {count} {`Bond${count > 1 ? "s" : ""}`}
+          {data?.total} {`Bond${data?.total > 1 ? "s" : ""}`}
         </Typography>
         <Box
           sx={{
@@ -119,57 +104,77 @@ const BondedSynergy = () => {
         </Box>
       </Stack>
       <Stack sx={{ maxHeight: "650px", overflowY: "auto" }} gap={2}>
-        {myBonds.map((bond, ind) => {
-          return (
-            <Stack
-              sx={{ padding: "10px" }}
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              gap={1}
-              key={ind}
-            >
+        {isLoading || isFetching ? (
+          <Stack
+            p={3}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <CircularProgress sx={{ color: "#1877F2" }} />
+          </Stack>
+        ) : data?.total > 0 ? (
+          myBonds.map((bond, ind) => {
+            return (
               <Stack
+                sx={{ padding: "10px" }}
                 direction="row"
                 alignItems="center"
-                justifyContent="center"
-                gap={2}
+                justifyContent="space-between"
+                gap={1}
+                key={ind}
               >
-                <img src={user} alt="profile" />
-                <Box>
-                  <Typography sx={{ color: "#171717" }} fontSize="18px">
-                    {`${bond?.firstName} ${bond?.lastName}`}
-                  </Typography>
-                  <Typography sx={{ color: "#171717" }} fontSize="18px">
-                    {`${bond?.designation} at ${bond?.company}`}
-                  </Typography>
-                  <Typography sx={{ color: "#505050" }} fontSize="14px">
-                    {`Bonded on ${bond?.createdAt}`}
-                  </Typography>
-                </Box>
-              </Stack>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                gap={2}
-              >
-                <Button
-                  onClick={() => handleMessage(bond?.id)}
-                  sx={{ height: "45px", fontSize: "16px", width: "100px" }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
                 >
-                  Message
-                </Button>
-                <img
-                  style={{ cursor: "pointer" }}
-                  onClick={(e) => handleClick(e, bond?.id)}
-                  src={verticleDots}
-                  alt="menu"
-                />
+                  <img
+                    width={73}
+                    height={73}
+                    src={bond?.friend?.profileImage || user}
+                    alt="profile"
+                  />
+                  <Box>
+                    <Typography sx={{ color: "#171717" }} fontSize="18px">
+                      {`${bond?.friend?.firstName} ${bond?.friend?.lastName}`}
+                    </Typography>
+                    <Typography sx={{ color: "#171717" }} fontSize="18px">
+                      {`${bond?.friend?.designation} at ${bond?.friend?.company}`}
+                    </Typography>
+                    <Typography sx={{ color: "#505050" }} fontSize="14px">
+                      {`Bonded on ${formatDate(bond?.createdAt)}`}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  gap={2}
+                >
+                  <Button
+                    onClick={() => handleMessage(bond?.id)}
+                    sx={{ height: "45px", fontSize: "16px", width: "100px" }}
+                  >
+                    Message
+                  </Button>
+                  <img
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => handleClick(e, bond?.id)}
+                    src={verticleDots}
+                    alt="menu"
+                  />
+                </Stack>
               </Stack>
-            </Stack>
-          );
-        })}
+            );
+          })
+        ) : (
+          <Typography textAlign="center" fontSize="20px" p={3}>
+            No bonds
+          </Typography>
+        )}
       </Stack>
       <Menu
         anchorEl={anchorEl}
