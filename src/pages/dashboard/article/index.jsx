@@ -623,7 +623,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       <input
         type="file"
         ref={fileInputRef}
-        accept=".jpeg,.jpg,.tiff,.png"
+        accept=".jpeg, .jpg, .tiff, .png, .webp"
         style={{ display: "none" }}
         onChange={handleFileChange}
       />

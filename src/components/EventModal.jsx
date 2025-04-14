@@ -537,7 +537,7 @@ const EventModal = ({ onFormSubmit, receivedValues,handleClose }) => {
                 <input
                     type="file"
                     ref={eventImgRef}
-                    accept=".jpeg,.jpg,.tiff,.png"
+                    accept=".jpeg, .jpg, .tiff, .png, .webp"
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />

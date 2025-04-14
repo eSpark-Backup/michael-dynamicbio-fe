@@ -94,10 +94,16 @@ const ArticleDetails = () => {
                         </Box>
                         <Box sx={{ p: "30px 20px" }}>
                             <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#171717" }}>{articleContent?.articleTitle}</Typography>
-                            <Box sx={{ p: "20px 0px 20px 40px   ", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Box sx={{ display: "flex", flexDirection: "column", rowGap: '3px', width: "100%" }}>
+                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <Box sx={{ display: "flex", flexDirection: "column", rowGap: '3px', width: "100%", p: "20px 0px 40px 0px" }}>
                                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>{articleContent?.articleMaker}</Typography>
+                                        <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center" }}>
+                                            <img src={articleContent?.articleMakerImage ? articleContent?.articleMakerImage : user} alt="Avatar" style={{ width: "42px", height: '42px', borderRadius: "50%" }} />
+                                            <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
+                                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>{articleContent?.articleMaker}</Typography>
+                                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>{articleContent?.articleMakerRole}</Typography>
+                                            </Box>
+                                        </Box>
                                         <Box sx={{ display: "flex", columnGap: "15px" }}>
                                             <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <img src={reading} alt="Icon" style={{ width: "20px", height: "20px" }} />
@@ -107,7 +113,7 @@ const ArticleDetails = () => {
                                             </Box>
                                         </Box>
                                     </Box>
-                                    <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>{articleContent?.articleMakerRole}</Typography>
+                                    {/*  */}
                                 </Box>
                             </Box>
                             <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>April 3, 2025</Typography>

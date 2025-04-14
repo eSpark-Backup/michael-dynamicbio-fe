@@ -55,7 +55,7 @@ export const postApi = api.injectEndpoints({
         method: "GET",
         params: {
           page,
-          limit
+          pageSize: limit
         }
       }),
     }),

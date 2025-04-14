@@ -8,6 +8,7 @@ import { suggestionPostContent } from "../../../constant";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
 
 dayjs.extend(relativeTime);
 
@@ -16,6 +17,7 @@ const Feed = ({ isPublicView }) => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const { user } = useSelector(state => state.auth);
 
   // Modify your query to accept page parameter
   const { data, error, isLoading, isSuccess, isFetching } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
@@ -27,7 +29,19 @@ const Feed = ({ isPublicView }) => {
   }, [error]);
 
   useEffect(() => {
-    if (isSuccess && data?.data) {
+    if (isSuccess) {
+
+      if (!data?.data) {
+        // Handle "No Posts Found"
+        setPosts([]); // clear any existing posts
+        setHasMore(false); // no more posts to fetch
+        return;
+      }
+
+      if (user.id !== data?.data?.posts[0]?.author?.id) {
+        return;
+      }
+
       const newPosts = transformPosts(data.data.posts);
 
       if (page === 1) {
