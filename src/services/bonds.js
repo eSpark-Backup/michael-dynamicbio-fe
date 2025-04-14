@@ -3,7 +3,7 @@ import { api } from "./rtk";
 export const bondApi = api.injectEndpoints({
   endpoints: (builder) => ({
     allBonds: builder.query({
-      query: ({page, pageSize}) => ({
+      query: ({ page, pageSize }) => ({
         url: `/bond?page=${page}&pageSize=${pageSize}`,
         method: "GET",
       }),
@@ -32,6 +32,14 @@ export const bondApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getMyBonds: builder.query({
+      query: ({ page, pageSize, search }) => ({
+        url: `/bond/user-bonds?page=${page}&pageSize=${pageSize}&search=${search}`,
+        method: "GEt",
+        keepUnusedDataFor: 0,
+        refetchOnMountOrArgChange: true,
+      }),
+    }),
   }),
 });
 
@@ -40,4 +48,5 @@ export const {
   useSendBondReqMutation,
   useAllBondsReqQuery,
   useUpdateBondReqMutation,
+  useGetMyBondsQuery,
 } = bondApi;

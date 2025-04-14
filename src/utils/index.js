@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import mitt from 'mitt';
+import mitt from "mitt";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -38,9 +38,12 @@ export const generateThumbnail = (file) => {
       };
 
       // Manually trigger seeking to ensure onseeked fires
-      video.play().then(() => {
-        video.pause();
-      }).catch(reject);
+      video
+        .play()
+        .then(() => {
+          video.pause();
+        })
+        .catch(reject);
     };
 
     video.onerror = (error) => {
@@ -49,23 +52,40 @@ export const generateThumbnail = (file) => {
   });
 };
 
-
-export const formatEventTime = (startDate, startTime, endDate = null, endTime = null) => {
-  const options = { weekday: "short", month: "short", day: "numeric", year: "numeric" };
+export const formatEventTime = (
+  startDate,
+  startTime,
+  endDate = null,
+  endTime = null
+) => {
+  const options = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  };
   const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
 
   const timeZoneOffset = new Date().getTimezoneOffset() / -60;
-  const timeZoneString = `(UTC ${timeZoneOffset >= 0 ? "+" : ""}${timeZoneOffset}:00)`;
+  const timeZoneString = `(UTC ${
+    timeZoneOffset >= 0 ? "+" : ""
+  }${timeZoneOffset}:00)`;
 
-  const startDateStr = new Intl.DateTimeFormat("en-US", options).format(startDate);
-  const startTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(startTime);
+  const startDateStr = new Intl.DateTimeFormat("en-US", options).format(
+    startDate
+  );
+  const startTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(
+    startTime
+  );
 
   if (!endDate || !endTime) {
     return `${startDateStr}, ${startTimeStr} ${timeZoneString}`;
   }
 
   const endDateStr = new Intl.DateTimeFormat("en-US", options).format(endDate);
-  const endTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(endTime);
+  const endTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(
+    endTime
+  );
 
   if (startDate.toDateString() === endDate.toDateString()) {
     return `${startDateStr}, ${startTimeStr} - ${endTimeStr} ${timeZoneString}`;
@@ -93,8 +113,6 @@ export const copyToClipboard = async (text) => {
   }
 };
 
-
-
 export function formatEventPostTime(startTime, endTime = null) {
   const start = dayjs.utc(startTime).local();
   const today = dayjs().startOf("day");
@@ -120,20 +138,18 @@ export function formatEventPostTime(startTime, endTime = null) {
   return `${dateLabel}, ${formattedStartTime} - ${formattedEndTime}`;
 }
 
-
 export function formatEventTimeLocal(startTime, endTime) {
   const start = dayjs(startTime);
   const end = dayjs(endTime);
 
-  const dateFormat = 'ddd, MMM D, YYYY';
-  const timeFormat = 'h:mm A';
+  const dateFormat = "ddd, MMM D, YYYY";
+  const timeFormat = "h:mm A";
 
   const dateStr = start.format(dateFormat);
   const startTimeStr = start.format(timeFormat);
   const endTimeStr = end.format(timeFormat);
 
-  
-  if (start.isSame(end, 'minute')) {
+  if (start.isSame(end, "minute")) {
     return `${dateStr}, ${startTimeStr}`;
   }
 
@@ -141,3 +157,27 @@ export function formatEventTimeLocal(startTime, endTime) {
 }
 
 export const eventBus = mitt();
+
+export const formatDate = (isoString) => {
+  const date = new Date(isoString);
+
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+
+  const getOrdinalSuffix = (n) => {
+    if (n > 3 && n < 21) return "th";
+    switch (n % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+};
