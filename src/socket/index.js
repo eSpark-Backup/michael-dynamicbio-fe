@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_BASE_URL_SOCKET;
+const SOCKET_URL = "https://fusion-stg-api.esparkconsultants.com/socket";
 const token = localStorage.getItem("token");
 
 export const socket = io(SOCKET_URL, {
