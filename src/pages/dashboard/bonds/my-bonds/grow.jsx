@@ -28,7 +28,10 @@ const Grow = () => {
   const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
-  const { data, isLoading, error, isError } = useAllBondsQuery();
+  const { data, isLoading, error, isError } = useAllBondsQuery({
+    page: 1,
+    pageSize: 100,
+  });
   const {
     data: reqData,
     isLoading: reqLoading,
@@ -124,9 +127,9 @@ const Grow = () => {
     const handleRefetch = () => {
       refetch();
     };
-  
+
     eventBus.on("refetchBondData", handleRefetch);
-  
+
     return () => {
       eventBus.off("refetchBondData", handleRefetch);
     };
@@ -294,6 +297,8 @@ const Grow = () => {
           background: "#FFF",
           border: "1px solid #E4E4E4",
           borderRadius: "4px",
+          maxHeight: "800px",
+          overflowY: "auto",
         }}
       >
         <Stack

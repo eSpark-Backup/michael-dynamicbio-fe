@@ -3,8 +3,8 @@ import { api } from "./rtk";
 export const bondApi = api.injectEndpoints({
   endpoints: (builder) => ({
     allBonds: builder.query({
-      query: () => ({
-        url: "/bond",
+      query: ({page, pageSize}) => ({
+        url: `/bond?page=${page}&pageSize=${pageSize}`,
         method: "GET",
       }),
     }),
