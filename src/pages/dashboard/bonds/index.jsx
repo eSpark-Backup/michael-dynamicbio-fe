@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { RightSideBar } from "../../../components";
 import MyBond from "./my-bonds";
+import BondedSynergy from "./bonded-synergy";
 import Groups from "./groups";
 import Pages from "./pages";
+import Events from "./events";
 import SearchBonds from "./search-bonds";
 import { useQuery } from "../../../utils";
 import { pageTypes } from "../../../constant";
 import { handleChange } from "../../../store/slices/search";
-import Events from "./events";
 
 const Bonds = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ const Bonds = () => {
       sub: "bond",
       label: "Bonds",
       component: <MyBond />,
+    },
+    {
+      sub: "bonded-synergy",
+      label: "Bonded Synergy",
+      component: <BondedSynergy />,
     },
     {
       sub: "group",
