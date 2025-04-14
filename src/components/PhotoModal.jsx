@@ -139,7 +139,7 @@ const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose
                     })}
                 </Box>
 
-            </Box>),[selectedFiles])}
+            </Box>), [selectedFiles])}
             <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} />
             <Box sx={{ height: "50px" }}>
                 {selectedFiles?.length === 0 && <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "20px" }}>
@@ -155,7 +155,7 @@ const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose
             <input
                 type="file"
                 ref={fileInputRef}
-                accept=".jpeg,.jpg,.tiff,.png"
+                accept=".jpeg, .jpg, .tiff, .png, .webp"
                 style={{ display: "none" }}
                 multiple
                 onChange={handleFileChange}

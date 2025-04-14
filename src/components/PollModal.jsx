@@ -8,7 +8,7 @@ import Dropdown from "./Dropdown";
 import { eventDuration } from "../constant";
 import Button from "./button";
 
-const PollModal = ({ isLoading, handleSuccess }) => {
+const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
   const formik = useFormik({
     initialValues: {
       question: "",
@@ -28,7 +28,7 @@ const PollModal = ({ isLoading, handleSuccess }) => {
 
   useEffect(() => {
     if (formik.values.options.length > prevOptionsLength.current) {
-      
+
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
       }
@@ -174,7 +174,7 @@ const PollModal = ({ isLoading, handleSuccess }) => {
                     formik.errors.options?.[index]
                   }
                   onBlur={formik.handleBlur}
-                  
+
                 />
               </Box>
             ))}
@@ -276,6 +276,7 @@ const PollModal = ({ isLoading, handleSuccess }) => {
               },
               cursor: "pointer",
             }}
+            onClick={handleBack}
           >
             <Typography variant="gradientText">Back</Typography>
           </Box>

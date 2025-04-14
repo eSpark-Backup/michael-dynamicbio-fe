@@ -302,7 +302,7 @@ const PostCard = () => {
       <input
         type="file"
         ref={fileInputRef}
-        accept=".jpeg,.jpg,.tiff,.png"
+        accept=".jpeg, .jpg, .tiff, .png, .webp"
         style={{ display: "none" }}
         multiple
         onChange={handleFileChange}
@@ -498,7 +498,7 @@ const PostCard = () => {
         styledHeader={true}
         hideFooter={true}
       >
-        <PollModal isLoading={isLoading} handleSuccess={handlePollPost} />
+        <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
       </DynamicModal>
     </Box>
   );
