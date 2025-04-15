@@ -17,7 +17,7 @@ import PollPost from './PollPost.jsx';
 import EventPost from './EventPost.jsx';
 import ArticlePost from './ArticlePost.jsx';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost }) => {
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
     const [showShareModal, setShowShareModal] = useState(false)
@@ -73,28 +73,30 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} />
+                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} />
+                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} />
+                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>
-                                            {activity}
-                                        </Typography>
-                                        <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
-                                    </Box>
-                                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} />
+                                    {
+                                        (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                            <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>
+                                                {activity}
+                                            </Typography>
+                                            <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
+                                        </Box>
+                                    }
+                                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} />
                                     {postContent &&
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>

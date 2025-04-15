@@ -111,6 +111,7 @@ import save from "./icons/save.svg"
 import location from "./icons/location.svg"
 import aboutEvent from "./icons/aboutEvent.svg"
 import eventSpeakers from "./icons/eventSpeakers.svg"
+import flag from "./icons/flag.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -239,4 +240,5 @@ export {
   eventSpeakers,
   aboutEvent,
   eventImage,
+  flag,
 };

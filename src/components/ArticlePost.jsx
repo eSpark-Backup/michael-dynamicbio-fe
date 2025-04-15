@@ -12,7 +12,7 @@ import RepostWithThoughts from './RepostWithThoughts'
 import PostChoiceModal from './PostChoiceModal'
 import { useNavigate } from 'react-router-dom'
 
-const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription }) => {
+const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost }) => {
 
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -62,7 +62,7 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
 
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon />
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon isFriendPost={isFriendPost} ownPost={ownPost} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

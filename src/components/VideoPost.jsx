@@ -12,7 +12,7 @@ import ConfirmationModal from './ConfirmationModal';
 import ShareModal from './ShareModal';
 import ScheduleModal from './ScheduleModal';
 
-const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail }) => {
+const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -58,17 +58,19 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
 
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                    <img src={profile2} alt="Avatar" style={{ width: "44px", height: "44px" }} />
-                    <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Albert Einstein <span style={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}> reposted this</span></Typography>
+            {
+                (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
+                        <img src={profile2} alt="Avatar" style={{ width: "44px", height: "44px" }} />
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Albert Einstein <span style={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}> reposted this</span></Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
+                        <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                        <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} />
+                    </Box>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
-                    <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} />
-                    <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} />
-                </Box>
-            </Box>
-            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon />
+            }
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
