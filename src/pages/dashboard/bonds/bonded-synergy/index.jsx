@@ -13,7 +13,7 @@ import {
   useGetMyBondsQuery,
   useUpdateBondReqMutation,
 } from "../../../../services/bonds";
-import { formatDate } from "../../../../utils";
+import { eventBus, formatDate } from "../../../../utils";
 import { searchIcon, user, verticleDots } from "../../../../assets";
 
 const BondedSynergy = () => {
@@ -35,11 +35,16 @@ const BondedSynergy = () => {
     };
   }, [search]);
 
-  const { data, error, isLoading, isFetching, refetch } = useGetMyBondsQuery({
-    page,
-    pageSize,
-    search: debouncedSearch,
-  });
+  const { data, error, isLoading, isFetching, refetch } = useGetMyBondsQuery(
+    {
+      page,
+      pageSize,
+      search: debouncedSearch,
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const myBonds = data?.data;
 
   const [updateReq, { isLoading: isReqLoading }] = useUpdateBondReqMutation();
@@ -63,6 +68,7 @@ const BondedSynergy = () => {
   };
 
   const handleRemove = (e) => {
+    handleClose(e);
     const bodyToSend = {
       bondId: selected,
       action: "unfriend",
@@ -70,15 +76,25 @@ const BondedSynergy = () => {
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
-        handleClose(e);
         return;
       }
       if (res) {
         refetch();
-        handleClose(e);
       }
     });
   };
+
+  useEffect(() => {
+    const handleRefetch = () => {
+      refetch();
+    };
+
+    eventBus.on("refetchBondData", handleRefetch);
+
+    return () => {
+      eventBus.off("refetchBondData", handleRefetch);
+    };
+  }, []);
 
   const handleMessage = (id) => {
     console.log(id, "message");
