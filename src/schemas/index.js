@@ -139,8 +139,8 @@ export const pollSchema = Yup.object({
     .of(
       Yup.string()
         .max(100, "Must be 100 characters or less")
-        .required("Option cannot be empty") // Ensures non-empty strings
-        .matches(/^.+$/, "Option cannot be empty") // Explicitly rejects ""
+        .required("Option cannot be empty")
+        .matches(/^.+$/, "Option cannot be empty")
     )
     .optional(),
 });
