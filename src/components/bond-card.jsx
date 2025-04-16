@@ -13,7 +13,6 @@ const BondCard = ({
   firstName,
   lastName,
   designation,
-  about,
   isPage,
   orgination,
   place,
@@ -81,11 +80,6 @@ const BondCard = ({
           fontSize="12px"
         >
           {designation}
-        </Typography>
-      )}
-      {about && (
-        <Typography fontSize="12px" textAlign="center">
-          {about?.bio}
         </Typography>
       )}
       {isPage && (

@@ -151,7 +151,12 @@ const SearchBonds = () => {
             flexWrap="wrap"
           >
             {accounts.map((bond) => (
-              <BondCard key={bond.id} {...bond} />
+              <BondCard
+                handleRemoveUser={() => console.log("remove")}
+                handleSendBondReq={() => console.log("send")}
+                key={bond.id}
+                {...bond}
+              />
             ))}
           </Stack>
         </Box>
