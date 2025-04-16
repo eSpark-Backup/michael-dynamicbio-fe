@@ -110,7 +110,7 @@ const BondedSynergy = () => {
       }}
     >
       <Stack
-        direction="row"
+        direction={{ xs: "column", sm: "row" }}
         alignItems="center"
         justifyContent="space-between"
         gap={1}
@@ -121,7 +121,7 @@ const BondedSynergy = () => {
         </Typography>
         <Box
           sx={{
-            width: "280px",
+            width: { xs: "100%", sm: "280px" },
             height: "42px",
             display: "flex",
             alignItems: "center",
@@ -131,7 +131,7 @@ const BondedSynergy = () => {
           <OutlinedInput
             value={search}
             onInputChange={(e) => setSearch(e.target.value)}
-            sx={{ width: "280px" }}
+            sx={{ width: { xs: "100%", sm: "280px" } }}
             placeholder="Search by name"
             startAdornment={searchIcon}
           />
@@ -152,7 +152,7 @@ const BondedSynergy = () => {
             return (
               <Stack
                 sx={{ padding: "10px" }}
-                direction="row"
+                direction={{ xs: "column", sm: "row" }}
                 alignItems="center"
                 justifyContent="space-between"
                 gap={1}
@@ -161,8 +161,9 @@ const BondedSynergy = () => {
                 <Stack
                   direction="row"
                   alignItems="center"
-                  justifyContent="center"
+                  justifyContent={{ xs: "flex-start", sm: "center" }}
                   gap={2}
+                  sx={{ width: { xs: "100%", sm: "max-content" } }}
                 >
                   <img
                     width={73}
@@ -185,8 +186,9 @@ const BondedSynergy = () => {
                 <Stack
                   direction="row"
                   alignItems="center"
-                  justifyContent="center"
+                  justifyContent={{ xs: "flex-end", sm: "center" }}
                   gap={2}
+                  sx={{ width: { xs: "100%", sm: "max-content" } }}
                 >
                   <Button
                     onClick={() => handleMessage(bond?.bondId)}
