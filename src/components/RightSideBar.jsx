@@ -7,7 +7,7 @@ const RightSideBar = ({ hideResearch }) => {
     const theme = useTheme()
     return (
         <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pt: "15px" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pt: "15px", gap: 2 }}>
                 <Typography sx={{
                     fontSize: "14px",
                     fontWeight: 400, color: "#171717"
@@ -15,6 +15,7 @@ const RightSideBar = ({ hideResearch }) => {
                     You might be interested in following
                 </Typography>
                 <Typography sx={{
+                    minWidth: "60px",
                     fontSize: "14px",
                     fontWeight: 400,
                     cursor: "pointer"
