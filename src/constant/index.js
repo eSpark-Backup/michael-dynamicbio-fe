@@ -795,63 +795,63 @@ export const articleDummyContent = `<h1>What is Lorem Ipsum?</h1>
 export const reportArticleChoices = [
   {
     value: "Illegal goods and services",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Content that attempts to sell illegal or regulated goods and services, including solicitation of escort services, prostitution and content that depicts and/or promotes sex trafficking or human trafficking"
   },
   {
     value: "Fraud or scam",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Illegal activities, malware, or promotion of illegal products or services"
   },
   {
     value: "Spam",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Irrelevant, repititive content intended to artificially increase engagement, or other inappropirate promotional content"
   },
   {
     value: "Misinformation",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "False content or information, including news stories, that present untrue facts or events as though they are true or likely to be true"
   },
   {
     value: "Fake account",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Inaccurate or misleading representation of a person or organization"
   },
   {
     value: "Harassment",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Attacks or intimidation toward others with abusive language or deliberately and repeatedly disrupting conversations, including revealing others’ personal or sensitive information. This includes unwanted romantic advances, sexual remarks and or requests for sexual favors."
   },
   {
     value: "Hateful speech",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Attacks or incitement of violence against individuals or groups based on their actual or perceived traits, or any other speech that promotes hatred"
   },
   {
     value: "Graphic content",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Excessively gruesome or graphic material"
   },
   {
     value: "Sexual content",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Nudity or other content that’s sexual in nature"
   },
   {
     value: "Dangerous or extremist organizations",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Depicting or encouraging terrorist acts or severe harm, or promoting terrorist organizations or violent extremist groups"
   },
   {
     value: "Threats or violence",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Content that promotes or encourages violence or criminal activity, or depicts extreme violence"
   },
   {
     value: "Self-harm",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Promotion, encouragement or any portrayal of suicide or self-harm"
   },
   {
     value: "Hacked account",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Unauthorized account takeover"
   },
   {
     value: "Impersonation",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Pretending to be someone else, such as using someone's else's profile photo or name as your own"
   },
   {
     value: "Child exploitation",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description: "Material that features or promotes child exploitation or nudity"
   },
   {
     value: "Infringement",

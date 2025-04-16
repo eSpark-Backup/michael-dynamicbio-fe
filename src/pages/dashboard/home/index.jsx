@@ -146,11 +146,6 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(isLoading, "ISLOADING")
-    console.log(data, "Data")
-  }, [isLoading, data])
-
   if (isLoading) {
     return (
       <LinearProgress />

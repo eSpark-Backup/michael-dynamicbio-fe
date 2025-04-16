@@ -18,7 +18,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     </Box>
                 </Stack>
             </Box>
-            {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
+            {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>
                     <img src={three_vertical_dots} alt="Icon" />
@@ -30,7 +30,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 <>
                     <img src={three_vertical_dots} alt="Icon" />
                 </>
-            }
+            } */}
         </Box>
     )
 }

@@ -127,7 +127,7 @@ const ArticleDetails = () => {
                             <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>April 3, 2025</Typography>
                             <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717", pt: "15px" }} dangerouslySetInnerHTML={{ __html: articleContent?.content }}></Typography>
                             {articleContent?.authorId !== userData?.id && <Box sx={{ mt: "20px" }} onClick={() => setReportArticle1(true)}>
-                                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer",width:"fit-content" }}>Report this article</Typography>
+                                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", width: "fit-content" }}>Report this article</Typography>
                             </Box>}
                             <Box sx={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", alignItems: "flex-end" }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", rowGap: "10px" }}>
@@ -154,10 +154,10 @@ const ArticleDetails = () => {
                     <Paper>
                         <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Comments</Typography>
                         <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" }, mt: "25px" }}>
-                            <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
+                            {articleContent?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                                 <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                                 <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                            </Box>
+                            </Box>}
                             <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "25%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
                                 <img src={like} alt="Like" />
                                 <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none" }, color: "#505050", "@media (min-width:1750px)": { display: "block" } }}>Like</Typography>

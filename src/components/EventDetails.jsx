@@ -234,9 +234,9 @@ const EventDetails = () => {
                     <Typography sx={{ color: "black" }}>{postData?.authorId === userData?.id ? "Manage" : "Share"}</Typography>
                     <KeyboardArrowDownIcon sx={{ color: "black" }} />
                   </Button>
-                  {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
+                  {/* {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
                     <img src={three_vertical_dots} alt="" />
-                  </Box>}
+                  </Box>} */}
                 </Box>
 
               </Box>
@@ -332,7 +332,7 @@ const EventDetails = () => {
                 <Stack sx={{ width: "100%" }}>
                   <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
-                    <img src={three_vertical_dots} alt="" onClick={handleClick6} style={{ cursor: "pointer" }} />
+                    {/* <img src={three_vertical_dots} alt="" onClick={handleClick6} style={{ cursor: "pointer" }} /> */}
                   </Box>
                   <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>--</Typography>
                   <Box sx={{ display: "flex", columnGap: "4px" }}>

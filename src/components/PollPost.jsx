@@ -127,13 +127,13 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
               selectedValue !== "" && ownPost &&
               <>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
-                <Typography sx={{ fontSize: "14px", fontWeight: "500" }} variant='gradientText'>Undo</Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }} variant='gradientText' onClick={() => setSelectedValue("")}>Undo</Typography>
               </>
             }
             {
               selectedValue !== "" && !ownPost &&
               <>
-                <Typography sx={{ fontSize: "14px", fontWeight: "500" }} variant='gradientText'>Undo</Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }} variant='gradientText' onClick={() => setSelectedValue("")}>Undo</Typography>
               </>
             }
           </Box>
