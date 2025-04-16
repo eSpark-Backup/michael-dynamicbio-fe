@@ -12,7 +12,7 @@ import OutlinedInput from './outline-input';
 import RemovePostModal from './RemovePostModal';
 import ViewPolls from './ViewPolls';
 
-const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent }) => {
+const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost }) => {
 
   const initialSelectedValue = options?.find(option => option.isChecked)?.value || "";
 
@@ -69,7 +69,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-      <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} />
+      <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} isFriendPost={isFriendPost} ownPost={ownPost} />
       {postContent &&
         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}></Typography>
       }
@@ -111,14 +111,29 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
           </RadioGroup>
 
           <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
-            <Typography sx={{ fontSize: "14px", fontWeight: "400", cursor: "pointer" }} variant='gradientText' onClick={() => setViewVotes(true)}>0 votes</Typography>
-            <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
-            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>2d left</Typography>
-            {
+            {ownPost && <>
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", cursor: "pointer" }} variant='gradientText' onClick={() => setViewVotes(true)}>0 votes</Typography>
+              <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>2d left</Typography>
+            </>}
+            {/* {
               selectedValue !== "" &&
               <>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "500" }} variant='gradientText'>Undo</Typography>
+              </>
+            } */}
+            {
+              selectedValue !== "" && ownPost &&
+              <>
+                <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
+                <Typography sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }} variant='gradientText' onClick={() => setSelectedValue("")}>Undo</Typography>
+              </>
+            }
+            {
+              selectedValue !== "" && !ownPost &&
+              <>
+                <Typography sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }} variant='gradientText' onClick={() => setSelectedValue("")}>Undo</Typography>
               </>
             }
           </Box>

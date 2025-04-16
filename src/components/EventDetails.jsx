@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Divider, Grid2, LinearProgress, Menu, MenuItem, Paper, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { aboutEvent, calendar, camera, cancelIcon, comment, conversation, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, emoji, eventSpeakers, facebook2, invite, like, link2, location, repost, send, send2, twitter, user, videoIcon } from '../assets'
+import { aboutEvent, calendar, camera, cancelIcon, comment, conversation, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, emoji, eventSpeakers, facebook2, flag, invite, like, link2, location, repost, save, send, send2, three_vertical_dots, twitter, user, videoIcon } from '../assets'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DynamicModal from './dynamic-modal';
@@ -15,6 +15,7 @@ import EventsSidebar from './EventsSidebar';
 import { useGetPostByIdQuery } from '../services/post';
 import { useParams } from 'react-router-dom';
 import { formatEventPostTime, formatEventTimeLocal } from '../utils';
+import { useSelector } from 'react-redux';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -27,6 +28,10 @@ const EventDetails = () => {
   const open3 = Boolean(anchorEl3);
   const [anchorEl4, setAnchorEl4] = useState(null);
   const open4 = Boolean(anchorEl4);
+  const [anchorEl5, setAnchorEl5] = useState(null);
+  const open5 = Boolean(anchorEl5);
+  const [anchorEl6, setAnchorEl6] = useState(null);
+  const open6 = Boolean(anchorEl6);
   const [thoughts, setThoughts] = useState("")
   const [showThoughtsModal, setShowThoughtsModal] = useState(false)
   const [groupShareModal, setGroupShareModal] = useState(false)
@@ -45,9 +50,11 @@ const EventDetails = () => {
     attendees: [{ image: user }],
     eventPost: "bringback",
     venue: "",
-    address: ""
+    address: "",
+    authorId: ""
   })
   const [showSuccessCards, setShowSuccessCards] = useState(true)
+  const { user: userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -69,6 +76,14 @@ const EventDetails = () => {
 
   const handleClick4 = (event) => {
     setAnchorEl4(event.currentTarget);
+  };
+
+  const handleClick5 = (event) => {
+    setAnchorEl5(event.currentTarget);
+  };
+
+  const handleClick6 = (event) => {
+    setAnchorEl6(event.currentTarget);
   };
 
   const CommentHandler = () => {
@@ -113,6 +128,16 @@ const EventDetails = () => {
     setAnchorEl4(null);
   };
 
+  const handleClose5 = (event) => {
+    event.stopPropagation();
+    setAnchorEl5(null);
+  };
+
+  const handleClose6 = (event) => {
+    event.stopPropagation();
+    setAnchorEl6(null);
+  };
+
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
@@ -146,6 +171,7 @@ const EventDetails = () => {
         eventLink: data?.data?.content?.externalLink,
         venue: data?.data?.content?.eventType === "Inperson" ? data?.data?.content?.venue : "",
         address: data?.data?.content?.eventType === "Inperson" ? data?.data?.content?.address : "",
+        authorId: data?.data?.author?.id
       }))
     }
   }, [data, isSuccess])
@@ -179,10 +205,12 @@ const EventDetails = () => {
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center", flexWrap: "wrap", rowGap: "4px" }}>
                   <img src={calendar} alt="" />
                   <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>{formatEventTimeLocal(postData?.startTime, !postData?.endTime ? postData?.startTime : postData?.endTime)}</Typography>
-                  <Box sx={{ display: "flex", columnGap: "4px", backgroundColor: "#E4E4E4", p: "4px", borderRadius: "4px", cursor: "pointer" }} onClick={handleClick2}>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Add to calendar</Typography>
-                    <img src={downArrowFilled} alt="Icon" />
-                  </Box>
+                  {
+                    postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "4px", backgroundColor: "#E4E4E4", p: "4px", borderRadius: "4px", cursor: "pointer" }} onClick={handleClick2}>
+                      <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Add to calendar</Typography>
+                      <img src={downArrowFilled} alt="Icon" />
+                    </Box>
+                  }
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <img src={postData?.eventType === "online" ? videoIcon : location} alt="" />
@@ -197,20 +225,23 @@ const EventDetails = () => {
                   <img src={user} alt="Avatar" style={{ width: "24px", height: "24px" }} />
                   <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>1 attendee</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "10px" }}>
-                  <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px" }} onClick={handleClick3}>
-                    <Typography sx={{ color: "white" }}>Share</Typography>
-                    <KeyboardArrowDownIcon sx={{ color: "white" }} />
+                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
+                  <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px" }} onClick={postData?.authorId === userData?.id ? handleClick3 : () => { }}>
+                    <Typography sx={{ color: "white" }}>{postData?.authorId === userData?.id ? "Share" : "Attend"}</Typography>
+                    {postData?.authorId === userData?.id && <KeyboardArrowDownIcon sx={{ color: "white" }} />}
                   </Button>
                   <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px", background: "white !important", border: "1px solid black" }} onClick={handleClick4}>
-                    <Typography sx={{ color: "black" }}>Manage</Typography>
+                    <Typography sx={{ color: "black" }}>{postData?.authorId === userData?.id ? "Manage" : "Share"}</Typography>
                     <KeyboardArrowDownIcon sx={{ color: "black" }} />
                   </Button>
+                  {/* {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
+                    <img src={three_vertical_dots} alt="" />
+                  </Box>} */}
                 </Box>
 
               </Box>
             </Box>
-            <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
+            {postData?.authorId === userData?.id && <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography sx={{ fontSize: '20px', fontWeight: "400", color: "#171717" }}>Set up your event for success</Typography>
                 <Box sx={{ border: "1px solid #E4E4E4", width: "35px", height: "35px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setShowSuccessCards(!showSuccessCards)}>
@@ -244,8 +275,8 @@ const EventDetails = () => {
 
                 </Box>
               </Box>}
-            </Box>
-            <Stack
+            </Box>}
+            {postData?.authorId === userData?.id && <Stack
               direction="row"
               alignItems="center"
               justifyContent="flex-start"
@@ -292,27 +323,30 @@ const EventDetails = () => {
 
 
               ))}
-            </Stack>
+            </Stack>}
           </Paper>
           <Box sx={{ marginTop: "10px" }}>
-            {activeTab?.label === "Comments" && <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
+            {(activeTab?.label === "Comments" || postData?.authorId !== userData?.id) && <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
               <Box sx={{ display: "flex", columnGap: "20px" }}>
                 <img src={user} alt="Image" style={{ width: "73px", height: "73px" }} />
-                <Stack>
-                  <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
+                <Stack sx={{ width: "100%" }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                    <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
+                    {/* <img src={three_vertical_dots} alt="" onClick={handleClick6} style={{ cursor: "pointer" }} /> */}
+                  </Box>
                   <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>--</Typography>
                   <Box sx={{ display: "flex", columnGap: "4px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>now . </Typography>
-                    <img src={earth} alt="Icon" />
+                    <img src={earth} alt="Icon" style={{ width: "14px" }} />
                   </Box>
                 </Stack>
               </Box>
               <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>bringback</Typography>
               <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
+                {postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                   <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                   <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                </Box>
+                </Box>}
                 <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
                   <img src={like} alt="Like" />
                   <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
@@ -465,20 +499,100 @@ const EventDetails = () => {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
-          <Typography>Manage attendees</Typography>
+        {postData?.authorId === userData?.id ?
+          <>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <Typography>Manage attendees</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={editBlue} alt="Icon" />
+              <Typography>Edit Event</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={cancelIcon} alt="Icon" />
+              <Typography>Cancel event</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={deleteIcon} alt="Icon" />
+              <Typography>Delete event</Typography>
+            </MenuItem>
+          </>
+          :
+          <>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+              Share on Fusion
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={editBlue} alt="" />
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Repost to Feed</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={send2} alt="" />
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Send in a message</Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+              Other options
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={link2} alt="" />
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Copy link</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={twitter} alt="" />
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Twitter</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+              <img src={facebook2} alt="" />
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Facebook</Typography>
+            </MenuItem>
+          </>
+        }
+      </Menu>
+
+      <Menu
+        anchorEl={anchorEl5}
+        open={open5}
+        onClose={handleClose5}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={handleClose5} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={flag} alt="" />
+          <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Report this event</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
-          <img src={editBlue} alt="Icon" />
-          <Typography>Edit Event</Typography>
+      </Menu>
+
+      <Menu
+        anchorEl={anchorEl6}
+        open={open6}
+        onClose={handleClose6}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={handleClose6} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={save} alt="" />
+          <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Save</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
-          <img src={cancelIcon} alt="Icon" />
-          <Typography>Cancel event</Typography>
+        <MenuItem onClick={handleClose6} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={link2} alt="" />
+          <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Copy link to post</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose4} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
-          <img src={deleteIcon} alt="Icon" />
-          <Typography>Delete event</Typography>
+        <MenuItem onClick={handleClose6} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+          <img src={flag} alt="" />
+          <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Report post</Typography>
         </MenuItem>
       </Menu>
 

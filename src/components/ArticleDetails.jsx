@@ -9,6 +9,8 @@ import PostChoiceModal from './PostChoiceModal'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetPostByIdQuery } from '../services/post'
 import dayjs from 'dayjs'
+import { useSelector } from 'react-redux'
+import ReportArticle from './ReportArticle'
 
 const ArticleDetails = () => {
     const [showComments, setShowComments] = useState(false)
@@ -19,6 +21,8 @@ const ArticleDetails = () => {
     const { id } = useParams();
     const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(id, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true })
     const navigate = useNavigate()
+    const { user: userData } = useSelector((state) => state.auth);
+    const [showReportArticle1, setReportArticle1] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -31,7 +35,8 @@ const ArticleDetails = () => {
         articleMakerRole: "",
         time: "",
         content: "",
-        articleMakerImage: ""
+        articleMakerImage: "",
+        authorId: ""
     })
 
     const CommentHandler = () => {
@@ -52,7 +57,8 @@ const ArticleDetails = () => {
                 articleMakerRole: data?.data?.author?.company,
                 time: dayjs(data?.data?.createdAt).format("LL"),
                 content: data?.data?.content?.content,
-                articleMakerImage: data?.data?.author?.profileImage
+                articleMakerImage: data?.data?.author?.profileImage,
+                authorId: data?.data?.author?.id
             }))
         }
     }, [data, isSuccess])
@@ -76,16 +82,18 @@ const ArticleDetails = () => {
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px", mt: '20px' }}>
 
-            <Box sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, backgroundColor: "#F2F8FD", border: '1px solid #E4E4E4', borderRadius: "8px", p: "25px", display: "flex", columnGap: "20px" }}>
-                <Box sx={{ display: "flex", columnGap: "3px", cursor: "pointer" }} onClick={() => navigate(`/article/edit/${id}`)}>
-                    <img src={editBlue} alt="Icon" style={{ width: "16px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>Edit article</Typography>
+            {
+                articleContent?.authorId === userData?.id && <Box sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, backgroundColor: "#F2F8FD", border: '1px solid #E4E4E4', borderRadius: "8px", p: "25px", display: "flex", columnGap: "20px" }}>
+                    <Box sx={{ display: "flex", columnGap: "3px", cursor: "pointer" }} onClick={() => navigate(`/article/edit/${id}`)}>
+                        <img src={editBlue} alt="Icon" style={{ width: "16px" }} />
+                        <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>Edit article</Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", columnGap: "3px" }}>
+                        <img src={primaryEye} alt="Icon" style={{ width: "16px" }} />
+                        <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>View post</Typography>
+                    </Box>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "3px" }}>
-                    <img src={primaryEye} alt="Icon" style={{ width: "16px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>View post</Typography>
-                </Box>
-            </Box>
+            }
 
             <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, py: "25px" }}>
                 <Grid2 size={{ xs: 12, lg: 8, xl: 9 }}>
@@ -118,6 +126,9 @@ const ArticleDetails = () => {
                             </Box>
                             <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>April 3, 2025</Typography>
                             <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717", pt: "15px" }} dangerouslySetInnerHTML={{ __html: articleContent?.content }}></Typography>
+                            {articleContent?.authorId !== userData?.id && <Box sx={{ mt: "20px" }} onClick={() => setReportArticle1(true)}>
+                                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", width: "fit-content" }}>Report this article</Typography>
+                            </Box>}
                             <Box sx={{ display: "flex", justifyContent: "flex-end", flexDirection: "column", alignItems: "flex-end" }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", rowGap: "10px" }}>
                                     <img src={articleContent?.articleMakerImage ? articleContent?.articleMakerImage : user} alt="Avatar" style={{ width: "42px", height: '42px', borderRadius: "50%" }} />
@@ -143,10 +154,10 @@ const ArticleDetails = () => {
                     <Paper>
                         <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Comments</Typography>
                         <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" }, mt: "25px" }}>
-                            <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
+                            {articleContent?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                                 <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                                 <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                            </Box>
+                            </Box>}
                             <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "25%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
                                 <img src={like} alt="Like" />
                                 <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none" }, color: "#505050", "@media (min-width:1750px)": { display: "block" } }}>Like</Typography>
@@ -244,6 +255,10 @@ const ArticleDetails = () => {
 
             <DynamicModal open={postChoiceModal} handleClose={() => setPostChoiceModal(false)} title={"Comment, react, and repost as"} buttonText={"Save"} postModal={true} userName={"Areeba Shakeel"} hideFooter={true} smallModal={true} styledHeader={true} >
                 <PostChoiceModal />
+            </DynamicModal>
+
+            <DynamicModal open={showReportArticle1} handleClose={() => setReportArticle1(false)} title={"Report this article"} buttonText={"Next"} postModal={true} userName={"Areeba Shakeel"} hideFooter={true} smallModal={true} styledHeader={true} >
+                <ReportArticle handleSubmit={() => setReportArticle1(false)} />
             </DynamicModal>
         </Box>
     )

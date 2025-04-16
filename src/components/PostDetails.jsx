@@ -85,7 +85,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                     <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Albert Einstein <span style={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}> reposted this</span></Typography>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
-                    <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                    {/* <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} /> */}
                     <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                 </Box>
             </Box>
@@ -106,7 +106,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Albert Einstein <span style={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}> reposted this</span></Typography>
                         </Box>
                         <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
-                            <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                            {/* <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} /> */}
                             <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                         </Box>
                     </Box>
