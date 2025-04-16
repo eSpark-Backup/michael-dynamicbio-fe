@@ -9,7 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Button, OutlinedInput } from "../../../../components";
-import { useGetMyBondsQuery } from "../../../../services/bonds";
+import {
+  useGetMyBondsQuery,
+  useUpdateBondReqMutation,
+} from "../../../../services/bonds";
 import { formatDate } from "../../../../utils";
 import { searchIcon, user, verticleDots } from "../../../../assets";
 
@@ -22,22 +25,24 @@ const BondedSynergy = () => {
   const [selected, setSelected] = useState(null);
   const open = Boolean(anchorEl);
 
-useEffect(() => {
-  const handler = setTimeout(() => {
-    setDebouncedSearch(search);
-  }, 500);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
 
-  return () => {
-    clearTimeout(handler);
-  };
-}, [search]);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
-  const { data, error, isLoading, isFetching } = useGetMyBondsQuery({
+  const { data, error, isLoading, isFetching, refetch } = useGetMyBondsQuery({
     page,
     pageSize,
     search: debouncedSearch,
   });
   const myBonds = data?.data;
+
+  const [updateReq, { isLoading: isReqLoading }] = useUpdateBondReqMutation();
 
   useEffect(() => {
     if (error) {
@@ -58,8 +63,21 @@ useEffect(() => {
   };
 
   const handleRemove = (e) => {
-    console.log(selected, "remove bond");
-    handleClose(e);
+    const bodyToSend = {
+      bondId: selected,
+      action: "unfriend",
+    };
+    updateReq(bodyToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        handleClose(e);
+        return;
+      }
+      if (res) {
+        refetch();
+        handleClose(e);
+      }
+    });
   };
 
   const handleMessage = (id) => {
@@ -104,7 +122,7 @@ useEffect(() => {
         </Box>
       </Stack>
       <Stack sx={{ maxHeight: "650px", overflowY: "auto" }} gap={2}>
-        {isLoading || isFetching ? (
+        {isLoading || isFetching || isReqLoading ? (
           <Stack
             p={3}
             direction="row"
@@ -155,14 +173,14 @@ useEffect(() => {
                   gap={2}
                 >
                   <Button
-                    onClick={() => handleMessage(bond?.id)}
+                    onClick={() => handleMessage(bond?.bondId)}
                     sx={{ height: "45px", fontSize: "16px", width: "100px" }}
                   >
                     Message
                   </Button>
                   <img
                     style={{ cursor: "pointer" }}
-                    onClick={(e) => handleClick(e, bond?.id)}
+                    onClick={(e) => handleClick(e, bond?.bondId)}
                     src={verticleDots}
                     alt="menu"
                   />
