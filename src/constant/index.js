@@ -791,3 +791,70 @@ export const articleDummyContent = `<h1>What is Lorem Ipsum?</h1>
     
     <h2>Where does it come from?</h2>
     <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>`
+
+export const reportArticleChoices = [
+  {
+    value: "Illegal goods and services",
+    description: "Content that attempts to sell illegal or regulated goods and services, including solicitation of escort services, prostitution and content that depicts and/or promotes sex trafficking or human trafficking"
+  },
+  {
+    value: "Fraud or scam",
+    description: "Illegal activities, malware, or promotion of illegal products or services"
+  },
+  {
+    value: "Spam",
+    description: "Irrelevant, repititive content intended to artificially increase engagement, or other inappropirate promotional content"
+  },
+  {
+    value: "Misinformation",
+    description: "False content or information, including news stories, that present untrue facts or events as though they are true or likely to be true"
+  },
+  {
+    value: "Fake account",
+    description: "Inaccurate or misleading representation of a person or organization"
+  },
+  {
+    value: "Harassment",
+    description: "Attacks or intimidation toward others with abusive language or deliberately and repeatedly disrupting conversations, including revealing others’ personal or sensitive information. This includes unwanted romantic advances, sexual remarks and or requests for sexual favors."
+  },
+  {
+    value: "Hateful speech",
+    description: "Attacks or incitement of violence against individuals or groups based on their actual or perceived traits, or any other speech that promotes hatred"
+  },
+  {
+    value: "Graphic content",
+    description: "Excessively gruesome or graphic material"
+  },
+  {
+    value: "Sexual content",
+    description: "Nudity or other content that’s sexual in nature"
+  },
+  {
+    value: "Dangerous or extremist organizations",
+    description: "Depicting or encouraging terrorist acts or severe harm, or promoting terrorist organizations or violent extremist groups"
+  },
+  {
+    value: "Threats or violence",
+    description: "Content that promotes or encourages violence or criminal activity, or depicts extreme violence"
+  },
+  {
+    value: "Self-harm",
+    description: "Promotion, encouragement or any portrayal of suicide or self-harm"
+  },
+  {
+    value: "Hacked account",
+    description: "Unauthorized account takeover"
+  },
+  {
+    value: "Impersonation",
+    description: "Pretending to be someone else, such as using someone's else's profile photo or name as your own"
+  },
+  {
+    value: "Child exploitation",
+    description: "Material that features or promotes child exploitation or nudity"
+  },
+  {
+    value: "Infringement",
+    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+  },
+]

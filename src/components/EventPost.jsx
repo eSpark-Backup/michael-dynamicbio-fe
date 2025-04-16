@@ -13,7 +13,7 @@ import GroupShareModal from './GroupShareModal'
 import RepostWithThoughts from './RepostWithThoughts'
 import Comment from './Comment'
 
-const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id }) => {
+const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost }) => {
     const navigate = useNavigate()
 
     const [showComments, setShowComments] = useState(false)
@@ -61,7 +61,7 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
 
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon />
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

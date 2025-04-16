@@ -32,9 +32,8 @@ const Feed = ({ isPublicView }) => {
     if (isSuccess) {
 
       if (!data?.data) {
-        // Handle "No Posts Found"
-        setPosts([]); // clear any existing posts
-        setHasMore(false); // no more posts to fetch
+        setPosts([]);
+        setHasMore(false);
         return;
       }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
   Button,
   useMediaQuery,
   Grid2,
+  LinearProgress,
 } from "@mui/material";
 import {
   BondCard2,
@@ -18,14 +19,138 @@ import {
 } from "../../../components";
 import { bondSuggestions, suggestionPostContent } from "../../../constant";
 import { bondMain, user } from "../../../assets";
+import { useGetFeedPostsQuery } from "../../../services/feed";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const [showMore, setShowMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [posts, setPosts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
   const { user: userData } = useSelector((state) => state.auth);
+
+  const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery({ page, limit: 15, userId: userData?.id }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
+
+  useEffect(() => {
+    setPosts([]);
+    setPage(1);
+    setHasMore(true);
+  }, [userData?.id]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.data?.message);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+
+      if (!data?.data) {
+        setPosts([]);
+        setHasMore(false);
+        return;
+      }
+
+      const newPosts = transformPosts(data.data.posts);
+
+      if (page === 1) {
+        setPosts(newPosts);
+      } else {
+        const existingIds = new Set(posts.map(p => p.id));
+        const uniqueNewPosts = newPosts.filter(post => !existingIds.has(post.id));
+        setPosts(prev => [...prev, ...uniqueNewPosts]);
+      }
+
+      setHasMore(
+        data.data.pagination.currentPage < data.data.pagination.totalPages
+      );
+    }
+  }, [data, isSuccess, page]);
+
+  const transformPosts = (posts) => {
+    return posts?.map((item) => {
+      const isOwnPost = item?.author?.id === userData?.id;
+      return {
+        userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
+        userRole: item?.author?.company,
+        postTime: dayjs(item?.createdAt).fromNow(),
+        userImage: item?.author?.profileImage,
+        numberofLikes: 0,
+        isLiked: false,
+        comments: 0,
+        activity: "",
+        postPic: item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [],
+        postContent: item?.content?.title,
+        commentsContent: [],
+        type: getPostType(item?.type),
+        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
+        thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
+        question: item?.type === "POLL" ? item?.content?.question : "",
+        options: getPollOptions(item),
+        isVoted: false,
+        eventName: item?.content?.name,
+        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        startTime: item?.content?.startTime,
+        endTime: item?.content?.showEndTime && item?.content?.endTime,
+        eventType: item?.content?.eventType,
+        eventLink: item?.content?.externalLink,
+        attendees: [{ image: user }],
+        eventPost: "bringback",
+        id: item?.id,
+        articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+        ownPost: isOwnPost,
+        isFriendPost: !isOwnPost
+      };
+    });
+  };
+
+  const getPostType = (type) => {
+    const typeMap = {
+      IMAGE: "normal",
+      VIDEO: "video",
+      TEXT: "normal",
+      POLL: "poll",
+      EVENT: "event",
+      ARTICLE: "article"
+    };
+    return typeMap[type] || "";
+  };
+
+  const getPollOptions = (item) => {
+    if (item?.type !== "POLL") return [];
+
+    return [
+      { id: 1, value: item?.content?.opt1, isChecked: false, numbersVoted: 0 },
+      { id: 2, value: item?.content?.opt2, isChecked: false, numbersVoted: 0 },
+      ...(item?.content?.options?.map((option, index) => ({
+        id: index + 3,
+        value: option,
+        isChecked: false,
+        numbersVoted: 0,
+      })) || [])
+    ];
+  };
+
+  const fetchMoreData = () => {
+    if (!isLoading) {
+      setPage(prev => prev + 1);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <LinearProgress />
+    )
+  }
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -223,42 +348,23 @@ const Home = () => {
               ))}
             </Box>
           </Paper>
-          {suggestionPostContent?.map((item, index) => (
-            <SuggestionPost
-              userName={item?.userName}
-              userImage={item?.userImage}
-              userRole={item?.userRole}
-              postTime={item?.postTime}
-              numberofLikes={item?.numberofLikes}
-              isLiked={item?.isLiked}
-              comments={item?.comments}
-              activity={item?.activity}
-              postPic={item?.postPic}
-              postContent={item?.postContent}
-              commentsContent={item?.commentsContent}
-              key={index}
-              index={index}
-              length={suggestionPostContent?.length}
-              type={item?.type}
-              videoUrl={item?.videoUrl}
-              thumbnail={item?.thumbnail}
-              question={item?.question}
-              options={item?.options}
-              isVoted={item?.isVoted}
-              eventImage={item?.eventImage}
-              eventName={item?.eventName}
-              startTime={item?.eventEndTime}
-              endTime={item?.eventEndTime}
-              eventType={item?.eventFormat}
-              eventLink={item?.eventLink}
-              attendees={item?.attendees}
-              eventPosts={item?.eventPost}
-              id={item?.id}
-              articleImage={item?.articleImage}
-              articleTitle={item?.articleTitle}
-              articleDescription={item?.articleDescription}
-            />
-          ))}
+          <InfiniteScroll
+            dataLength={posts.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={(isLoading || isFetching) && <LinearProgress />}
+            endMessage={
+              <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
+                {posts.length === 0 ? 'No posts available' : 'No more posts'}
+              </Typography>
+            }
+          >
+            <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+              {posts.map((item) => (
+                <SuggestionPost key={item.id} {...item} />
+              ))}
+            </Box>
+          </InfiniteScroll>
         </Grid2>
 
         <Grid2 size={{ xs: 12, lg: 3 }}>
