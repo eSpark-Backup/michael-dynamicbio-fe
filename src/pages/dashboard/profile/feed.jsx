@@ -22,6 +22,7 @@ const Feed = ({ isPublicView }) => {
   // Modify your query to accept page parameter
   const { data, error, isLoading, isSuccess, isFetching } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
 
+
   useEffect(() => {
     if (error) {
       toast.error(error?.data?.message);
@@ -55,40 +56,47 @@ const Feed = ({ isPublicView }) => {
         data.data.pagination.currentPage < data.data.pagination.totalPages
       );
     }
-  }, [data, isSuccess, page]);
+  }, [data, isSuccess, page, user.id]);
 
   const transformPosts = (posts) => {
-    return posts?.map((item) => ({
-      userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
-      userRole: item?.author?.company,
-      postTime: dayjs(item?.createdAt).fromNow(),
-      userImage: item?.author?.profileImage,
-      numberofLikes: 0,
-      isLiked: false,
-      comments: 0,
-      activity: "",
-      postPic: item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [],
-      postContent: item?.content?.title,
-      commentsContent: [],
-      type: getPostType(item?.type),
-      videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
-      thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
-      question: item?.type === "POLL" ? item?.content?.question : "",
-      options: getPollOptions(item),
-      isVoted: false,
-      eventName: item?.content?.name,
-      eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
-      startTime: item?.content?.startTime,
-      endTime: item?.content?.showEndTime && item?.content?.endTime,
-      eventType: item?.content?.eventType,
-      eventLink: item?.content?.externalLink,
-      attendees: [{ image: user }],
-      eventPost: "bringback",
-      id: item?.id,
-      articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-      articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-      articleDescription: item?.type === "ARTICLE" && item?.content?.content,
-    }));
+    return posts?.map((item) => {
+      const isOwnPost = item?.author?.id === user?.id;
+      const isuserLiked = item?.likes && Array.isArray(item?.likes) && item?.likes?.some((item) => item?.user?.firstName?.toLowerCase() === user?.firstName?.toLowerCase() && item?.user?.lastName?.toLowerCase() === user?.lastName?.toLowerCase())
+      return {
+        userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
+        userRole: item?.author?.company,
+        postTime: dayjs(item?.createdAt).fromNow(),
+        userImage: item?.author?.profileImage,
+        numberofLikes: item?.likesCount,
+        isLiked: isuserLiked,
+        comments: 0,
+        activity: "",
+        postPic: item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [],
+        postContent: item?.content?.title,
+        commentsContent: [],
+        type: getPostType(item?.type),
+        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
+        thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
+        question: item?.type === "POLL" ? item?.content?.question : "",
+        options: getPollOptions(item),
+        isVoted: false,
+        eventName: item?.content?.name,
+        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        startTime: item?.content?.startTime,
+        endTime: item?.content?.showEndTime && item?.content?.endTime,
+        eventType: item?.content?.eventType,
+        eventLink: item?.content?.externalLink,
+        attendees: [{ image: user }],
+        eventPost: "bringback",
+        id: item?.id,
+        articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+        ownPost: isOwnPost,
+        isFriendPost: !isOwnPost,
+        lastUserLiked: item?.lastLikedUser
+      };
+    });
   };
 
   const getPostType = (type) => {
@@ -124,10 +132,8 @@ const Feed = ({ isPublicView }) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <LinearProgress />
-    )
+  if (isLoading && posts.length === 0) {
+    return <LinearProgress />;
   }
 
   return (
@@ -197,15 +203,17 @@ const Feed = ({ isPublicView }) => {
 
       </Paper>
       <InfiniteScroll
-        dataLength={posts.length} // Use the length of posts you're actually rendering
+        dataLength={posts.length}
         next={fetchMoreData}
-        hasMore={hasMore}
+        hasMore={hasMore && !isLoading}
         loader={(isLoading || isFetching) && <LinearProgress />}
         endMessage={
           <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
             {posts.length === 0 ? 'No posts available' : 'No more posts'}
           </Typography>
         }
+        scrollThreshold="100px"
+        style={{ overflow: 'visible' }}
       >
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
           {posts.map((item) => (
