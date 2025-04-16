@@ -1,5 +1,5 @@
 import { Box, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { camera, comment, emoji, like, plus, postPicture, refresh, repost, send, three_vertical_dots, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
@@ -16,8 +16,11 @@ import VideoPost from './VideoPost.jsx';
 import PollPost from './PollPost.jsx';
 import EventPost from './EventPost.jsx';
 import ArticlePost from './ArticlePost.jsx';
+import { useLikeMutation } from '../services/interaction.js';
+import { useSelector } from 'react-redux';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked }) => {
+    const [likeData, { data, isSuccess, isError, error }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
     const [showShareModal, setShowShareModal] = useState(false)
@@ -29,6 +32,30 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [groupShareModal, setGroupShareModal] = useState(false)
     const [showPostDetails, setShowPostDetails] = useState(false)
+    const [totalLikes, setTotalLikes] = useState(numberofLikes)
+    const [isPostLiked, setIsPostLiked] = useState(isLiked)
+    const { user: userData } = useSelector((state) => state.auth);
+
+
+    const LikeHandler = (id) => {
+        setIsPostLiked((prevLiked) => {
+            const newLiked = !prevLiked;
+            setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
+            likeData({ entityId: id, type: "POST" });
+            return newLiked;
+        });
+    };
+
+    useEffect(() => {
+        if (isError && !error?.data?.status) {
+            setIsPostLiked((prevLiked) => {
+                const newLiked = !prevLiked;
+                setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
+                return newLiked;
+            });
+        }
+    }, [isError, error]);
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -73,19 +100,19 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={125} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} />
+                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={125} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} />
+                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={125} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} />
+                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={125} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -142,15 +169,31 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                     }
                                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                         <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>
-                                            {numberofLikes > 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
+                                            {totalLikes > 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
                                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
-                                                {numberofLikes === 0 ? "Be first to like this" : isLiked && numberofLikes === 1 ? "You Liked This Post" : isLiked && numberofLikes > 1 ? `You and ${numberofLikes - 1} more like` : `${numberofLikes} likes`}
+                                                {totalLikes === 0 ? (
+                                                    "Be first to like this"
+                                                ) : isPostLiked && totalLikes === 1 ? (
+                                                    "You Liked This Post"
+                                                ) : isPostLiked && totalLikes > 1 ? (
+                                                    `You and ${totalLikes - 1} more like this`
+                                                ) : !isPostLiked && totalLikes === 1 ? (
+                                                    lastUserLiked === `${userData?.firstName} ${userData?.lastName}` ? (
+                                                        "1 user likes this"
+                                                    ) : (
+                                                        `${lastUserLiked} likes this`
+                                                    )
+                                                ) : lastUserLiked === `${userData?.firstName} ${userData?.lastName}` ? (
+                                                    `${totalLikes} users like this`
+                                                ) : (
+                                                    `${lastUserLiked} and ${totalLikes - 1} like this`
+                                                )}
                                             </Typography>
                                         </Box>
                                         <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
                                     </Box>
                                     <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => LikeHandler(id)}>
                                             <img src={like} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
                                         </Box>

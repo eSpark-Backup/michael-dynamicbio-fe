@@ -77,13 +77,14 @@ const Home = () => {
   const transformPosts = (posts) => {
     return posts?.map((item) => {
       const isOwnPost = item?.author?.id === userData?.id;
+      const isuserLiked = item?.likes && Array.isArray(item?.likes) && item?.likes?.some((item) => item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() && item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase())
       return {
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
         postTime: dayjs(item?.createdAt).fromNow(),
         userImage: item?.author?.profileImage,
-        numberofLikes: 0,
-        isLiked: false,
+        numberofLikes: item?.likesCount,
+        isLiked: isuserLiked,
         comments: 0,
         activity: "",
         postPic: item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [],
@@ -108,7 +109,8 @@ const Home = () => {
         articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
-        isFriendPost: !isOwnPost
+        isFriendPost: !isOwnPost,
+        lastUserLiked: item?.lastLikedUser
       };
     });
   };

@@ -11,8 +11,9 @@ import GroupShareModal from './GroupShareModal'
 import RepostWithThoughts from './RepostWithThoughts'
 import PostChoiceModal from './PostChoiceModal'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost }) => {
+const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike }) => {
 
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -24,6 +25,9 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
     const [showShareModal, setShowShareModal] = useState(false)
     const [showScheduleModal, setShowScheduleModal] = useState(false)
     const [postChoiceModal, setPostChoiceModal] = useState(false)
+    const { user: userData } = useSelector((state) => state.auth);
+    
+
 
     const navigate = useNavigate()
 
@@ -87,12 +91,41 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                     />
                 </Box>
             </Box>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>
+                    {numberofLikes > 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        {numberofLikes === 0 ? (
+                            "Be first to like this"
+                        ) : isLiked && numberofLikes === 1 ? (
+                            "You Liked This Post"
+                        ) : isLiked && numberofLikes > 1 ? (
+                            `You and ${numberofLikes - 1} more like this`
+                        ) : !isLiked && numberofLikes === 1 ? (
+                            lastUserLiked === `${userData?.firstName} ${userData?.lastName}` ? (
+                                "1 user likes this"
+                            ) : (
+                                `${lastUserLiked} likes this`
+                            )
+                        ) : lastUserLiked === `${userData?.firstName} ${userData?.lastName}` ? (
+                            `${numberofLikes} users like this`
+                        ) : (
+                            `${lastUserLiked} and ${numberofLikes - 1} like this`
+                        )}
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", columnGap: "10px" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>•</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>18 reposts</Typography>
+                </Box>
+            </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
                 {ownPost && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                     <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                     <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
                 </Box>}
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
                     <img src={like} alt="Like" />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
                 </Box>
