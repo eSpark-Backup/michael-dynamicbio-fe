@@ -157,7 +157,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
             ))}
           </RadioGroup>
 
-          <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
+          <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center", pl: "5px" }}>
             {ownPost && <>
               <Typography sx={{ fontSize: "14px", fontWeight: "400", cursor: "pointer" }} variant='gradientText' onClick={() => setViewVotes(true)}>0 votes</Typography>
               <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>

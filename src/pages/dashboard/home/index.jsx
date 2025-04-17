@@ -16,6 +16,7 @@ import {
   RightSideBar,
   SuggestionPost,
   PostCard,
+  SuggestedBonds,
 } from "../../../components";
 import { bondSuggestions, suggestionPostContent } from "../../../constant";
 import { bondMain, user } from "../../../assets";
@@ -342,7 +343,7 @@ const Home = () => {
             <PostCard />
           </Paper>
 
-          <Paper
+          {/* <Paper
             sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}
           >
             <Box
@@ -377,7 +378,8 @@ const Home = () => {
                 />
               ))}
             </Box>
-          </Paper>
+          </Paper> */}
+          <SuggestedBonds feedPage={true} />
           <InfiniteScroll
             dataLength={posts.length}
             next={fetchMoreData}
