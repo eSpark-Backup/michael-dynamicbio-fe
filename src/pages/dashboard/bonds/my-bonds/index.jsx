@@ -1,18 +1,7 @@
 import { useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import Grow from "./grow";
-
-const requests = [
-  {
-    id: 1,
-    profileImage: null,
-    name: "James Bond",
-    designation: "UI/UX Designer",
-    company: "eSpark Consulting Group",
-    city: "Karachi",
-    country: "Karachi, Pakistan",
-  },
-];
+import CatchUp from "./catch-up";
 
 const MyBond = () => {
   const tabs = [
@@ -22,7 +11,16 @@ const MyBond = () => {
     },
     {
       label: "Catch up",
-      component: <></>,
+      component: (
+        <CatchUp
+          onGrow={() =>
+            setActiveTab({
+              label: "Grow",
+              component: <Grow />,
+            })
+          }
+        />
+      ),
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]);
