@@ -223,7 +223,9 @@ const EventDetails = () => {
                 {postData?.eventLink !== "" && <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Event link • <span style={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>{postData?.eventLink}</span></Typography>}
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <img src={user} alt="Avatar" style={{ width: "24px", height: "24px" }} />
-                  <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>1 attendee</Typography>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>
+                    {postData?.authorId === userData?.id ?"1 attendee":"rotten ria is an attendee"}
+                  </Typography>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px" }} onClick={postData?.authorId === userData?.id ? handleClick3 : () => { }}>

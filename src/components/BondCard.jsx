@@ -6,7 +6,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
     const theme = useTheme()
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }}>
-            <Box sx={{ display: "flex", columnGap: "30px", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
+            <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
                 <img src={userImage ? userImage : user} alt="User" style={{ width: "60px", height: "60px", borderRadius: "50%" }} />
                 <Stack direction={"column"}>
                     {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }}>{userName}</Typography>}

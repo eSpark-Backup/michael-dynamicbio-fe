@@ -10,7 +10,7 @@ import ConfirmationModal from './ConfirmationModal'
 import GroupShareModal from './GroupShareModal'
 import RepostWithThoughts from './RepostWithThoughts'
 import PostChoiceModal from './PostChoiceModal'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost }) => {
 
@@ -67,26 +67,42 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
             }
-            <Box sx={{
-                border: "1px solid #E4E4E4", borderRadius: "8px", display: "flex", flexDirection: 'column', rowGap: "15px",
-                height: "375px", backgroundColor: "#F2F8FD", cursor: "pointer"
-            }} onClick={() => navigate(`/article/${id}`)}>
-                <Box sx={{ height: "65%", backgroundImage: `url("${articleImage ? articleImage : dummyPhoto}")`, borderTopRightRadius: "8px", borderTopLeftRadius: "8px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center", width: "100.1%" }}>
+            <Link to={`/article/${id}`} style={{ textDecoration: 'none' }}>
+                <Box sx={{
+                    border: "1px solid #E4E4E4",
+                    borderRadius: "8px",
+                    display: "flex",
+                    flexDirection: 'column',
+                    rowGap: "15px",
+                    height: "375px",
+                    backgroundColor: "#F2F8FD",
+                    cursor: "pointer"
+                }}>
+                    <Box sx={{
+                        height: "65%",
+                        backgroundImage: `url("${articleImage ? articleImage : dummyPhoto}")`,
+                        borderTopRightRadius: "8px",
+                        borderTopLeftRadius: "8px",
+                        backgroundSize: "cover",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        width: "100.1%"
+                    }} />
+                    <Box sx={{ p: "0px 20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>{articleTitle}</Typography>
+                        <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}>{userName}</Typography>
+                        <Typography
+                            sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
+                            dangerouslySetInnerHTML={{
+                                __html:
+                                    articleDescription?.length > 94
+                                        ? articleDescription?.slice(0, 93) + "..."
+                                        : articleDescription,
+                            }}
+                        />
+                    </Box>
                 </Box>
-                <Box sx={{ p: "0px 20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
-                    <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>{articleTitle}</Typography>
-                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}>{userName}</Typography>
-                    <Typography
-                        sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
-                        dangerouslySetInnerHTML={{
-                            __html:
-                                articleDescription?.length > 94
-                                    ? articleDescription?.slice(0, 93) + "..."
-                                    : articleDescription,
-                        }}
-                    />
-                </Box>
-            </Box>
+            </Link>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
                 {ownPost && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                     <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
