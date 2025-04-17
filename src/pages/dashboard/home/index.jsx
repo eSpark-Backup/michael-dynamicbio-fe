@@ -35,7 +35,18 @@ const Home = () => {
 
   const { user: userData } = useSelector((state) => state.auth);
 
-  const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery({ page, limit: 15, userId: userData?.id }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
+  const skip = !userData?.id;
+
+  const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery(
+    { page, limit: 15, userId: userData?.id },
+    {
+      skip,
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: true,
+    }
+  );
+
 
   useEffect(() => {
     setPosts([]);
@@ -78,6 +89,23 @@ const Home = () => {
     return posts?.map((item) => {
       const isOwnPost = item?.author?.id === userData?.id;
       const isuserLiked = item?.likes && Array.isArray(item?.likes) && item?.likes?.some((item) => item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() && item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase())
+
+      let lastLike = ""
+
+      const isOnlyUserLiked = item?.likes?.length === 1;
+      if (isuserLiked && isOnlyUserLiked) {
+        lastLike = ""
+      }
+      else if (!isuserLiked) {
+        lastLike = item?.lastLikedUser
+      }
+
+      else if (Array.isArray(item?.likes)) {
+        const newItem = item?.likes?.find((item2) => item2?.user?.firstName?.toLowerCase() !== userData?.firstName?.toLowerCase() && item2?.user?.lastName?.toLowerCase() !== userData?.lastName?.toLowerCase())
+
+        lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`
+      }
+
       return {
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
@@ -110,7 +138,7 @@ const Home = () => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: item?.lastLikedUser
+        lastUserLiked: lastLike
       };
     });
   };

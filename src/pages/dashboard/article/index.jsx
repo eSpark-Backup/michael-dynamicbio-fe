@@ -339,11 +339,12 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           rowGap: "15px",
           minWidth: { md: "720px" },
           backgroundImage: previewImage ? `url(${previewImage})` : "none",
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundPosition: "center",
           position: "relative",
           cursor: previewImage ? "pointer" : "default",
           overflow: "hidden",
+          backgroundRepeat:"no-repeat",
 
           "&:hover::after": previewImage
             ? {

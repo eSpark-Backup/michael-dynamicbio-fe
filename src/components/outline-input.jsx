@@ -8,6 +8,7 @@ const OutlinedInput = ({
   sx,
   value,
   startAdornment,
+  multiline,
 }) => {
   return (
     <Box
@@ -25,6 +26,7 @@ const OutlinedInput = ({
         onChange={onInputChange}
         value={value}
         sx={sx}
+        
         InputProps={{
           startAdornment: startAdornment && (
             <InputAdornment position="start">
@@ -40,6 +42,7 @@ const OutlinedInput = ({
             </InputAdornment>
           ),
         }}
+        multiline={multiline}
       />
     </Box>
   );

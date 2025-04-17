@@ -75,9 +75,10 @@ const ViewArticle = ({
               ? `url(${imgPreview})`
               : `url(${dummyPhoto})`,
             backgroundPosition: "center",
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             borderTopRightRadius: "0.8rem",
             borderTopLeftRadius: "0.8rem",
+            backgroundRepeat:"no-repeat"
           }}
         ></Box>
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "0px" }}>

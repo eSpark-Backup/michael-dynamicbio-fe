@@ -62,6 +62,23 @@ const Feed = ({ isPublicView }) => {
     return posts?.map((item) => {
       const isOwnPost = item?.author?.id === user?.id;
       const isuserLiked = item?.likes && Array.isArray(item?.likes) && item?.likes?.some((item) => item?.user?.firstName?.toLowerCase() === user?.firstName?.toLowerCase() && item?.user?.lastName?.toLowerCase() === user?.lastName?.toLowerCase())
+
+      let lastLike = ""
+
+      const isOnlyUserLiked = item?.likes?.length === 1;
+      if (isuserLiked && isOnlyUserLiked) {
+        lastLike = ""
+      }
+      else if (!isuserLiked) {
+        lastLike = item?.lastLikedUser
+      }
+
+      else if (Array.isArray(item?.likes)) {
+        const newItem = item?.likes?.find((item2) => item2?.user?.firstName?.toLowerCase() !== user?.firstName?.toLowerCase() && item2?.user?.lastName?.toLowerCase() !== user?.lastName?.toLowerCase())
+
+        lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`
+      }
+
       return {
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
@@ -94,7 +111,7 @@ const Feed = ({ isPublicView }) => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: item?.lastLikedUser
+        lastUserLiked: lastLike
       };
     });
   };
