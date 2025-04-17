@@ -116,6 +116,11 @@ const PagePosts = () => {
         setViewEventModal(false)
     }
 
+    const handleViewEventClose = () => {
+        setViewEventModal(false)
+        setEventFormValues({})
+    }
+
     return (
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
             <Paper>
@@ -285,7 +290,7 @@ const PagePosts = () => {
             </DynamicModal>
 
             <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true} handleGroupClick={() => setGroupShareModal(true)}>
-                <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
+                <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} handleDelete={handleViewEventClose} />
             </DynamicModal>
 
             <DynamicModal open={postChoiceModal} handleClose={() => setPostChoiceModal(false)} title={"Comment, react, and repost as"} buttonText={"Save"} postModal={true} userName={"Areeba Shakeel"} hideFooter={true} smallModal={true} styledHeader={true} >

@@ -12,6 +12,7 @@ const ViewEventModal = ({
   values,
   handleScheduleClick,
   handleEditClick,
+  handleDelete
 }) => {
   const [imgPreview, setImgPreview] = useState(null);
 
@@ -64,6 +65,7 @@ const ViewEventModal = ({
           src={deleteIcon}
           alt="Icon"
           style={{ width: "24px", height: "24px", cursor: "pointer" }}
+          onClick={handleDelete}
         />
       </Box>
       <Box

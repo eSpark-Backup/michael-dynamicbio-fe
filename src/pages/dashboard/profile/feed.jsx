@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
@@ -29,6 +29,12 @@ const Feed = ({ isPublicView }) => {
   }, [error]);
 
   useEffect(() => {
+    setPage(1);
+    setPosts([]);
+    setHasMore(true);
+  }, [user.id]);
+
+  useEffect(() => {
     if (isSuccess) {
 
       if (!data?.data) {
@@ -55,7 +61,7 @@ const Feed = ({ isPublicView }) => {
         data.data.pagination.currentPage < data.data.pagination.totalPages
       );
     }
-  }, [data, isSuccess, page]);
+  }, [data, isSuccess, page, user.id]);
 
   const transformPosts = (posts) => {
     return posts?.map((item) => ({
@@ -118,16 +124,14 @@ const Feed = ({ isPublicView }) => {
     ];
   };
 
-  const fetchMoreData = () => {
-    if (!isLoading) {
+  const fetchMoreData = useCallback(() => {
+    if (!isFetching && hasMore) {
       setPage(prev => prev + 1);
     }
-  };
+  }, [hasMore, isFetching]);
 
-  if (isLoading) {
-    return (
-      <LinearProgress />
-    )
+  if (isLoading && posts.length === 0) {
+    return <LinearProgress />;
   }
 
   return (
@@ -197,15 +201,17 @@ const Feed = ({ isPublicView }) => {
 
       </Paper>
       <InfiniteScroll
-        dataLength={posts.length} // Use the length of posts you're actually rendering
+        dataLength={posts.length}
         next={fetchMoreData}
-        hasMore={hasMore}
+        hasMore={hasMore && !isLoading}
         loader={(isLoading || isFetching) && <LinearProgress />}
         endMessage={
           <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
             {posts.length === 0 ? 'No posts available' : 'No more posts'}
           </Typography>
         }
+        scrollThreshold="100px"
+        style={{ overflow: 'visible' }}
       >
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
           {posts.map((item) => (

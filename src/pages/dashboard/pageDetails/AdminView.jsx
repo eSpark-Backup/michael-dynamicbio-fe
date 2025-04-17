@@ -116,6 +116,12 @@ const AdminView = () => {
         setViewEventModal(false)
     }
 
+
+    const handleViewEventModalClose = () => {
+        setViewEventModal(false)
+        setEventFormValues({})
+    }
+
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "85%", lg: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "80%", xl: (activeItem === "Page posts" || activeItem === "Activity") ? "98%" : "75%" }, py: "25px" }}>
@@ -243,8 +249,8 @@ const AdminView = () => {
             </DynamicModal>
 
 
-            <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true}>
-                <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} />
+            <DynamicModal open={viewEventModal} handleClose={handleViewEventModalClose} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true}>
+                <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} handleDelete={handleViewEventModalClose} />
             </DynamicModal>
 
             <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
