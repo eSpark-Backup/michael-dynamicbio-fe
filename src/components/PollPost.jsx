@@ -213,19 +213,19 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
       <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
         <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
           <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
-          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
         </Box>
         <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
           <img src={comment} alt="Like" />
-          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Comment</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Comment</Typography>
         </Box>
         <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
           <img src={repost} alt="Like" />
-          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Repost</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
         </Box>
         <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
           <img src={send} alt="Like" />
-          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Share</Typography>
+          <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Share</Typography>
         </Box>
       </Box>
       {
@@ -237,23 +237,23 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
               </Box>
               :
               <>
-                <Box
+                {/* <Box
                   sx={{
                     width: { xs: "35px", md: "70px" },
                     height: { xs: "35px", md: "70px" },
                     borderRadius: "50%",
                     overflow: "hidden",
                   }}
-                >
-                  <img
-                    src={userData?.profileImage ? userData.profileImage : user}
-                    alt="User"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </Box>
+                > */}
+                <img
+                  src={userData?.profileImage ? userData.profileImage : user}
+                  alt="User"
+                  style={{ width: "60px", height: "60px", borderRadius:"50%" }}
+                />
+                {/* </Box> */}
 
 
-                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '73px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
                   <OutlinedInput sx={{
                     height: "100%",
                     width: "100%",

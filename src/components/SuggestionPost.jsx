@@ -45,6 +45,13 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
+    const handleKeyDown = (e) => {
+        // if (e.key === "Enter" && !e.shiftKey) {
+        //     e.preventDefault();
+        //     console.log("Submit comment:", commentContent);
+        // }
+    };
+
 
     const LikeHandler = (id) => {
         setIsPostLiked((prevLiked) => {
@@ -257,22 +264,13 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                                     </Box>
                                                     :
                                                     <>
-                                                        <Box
-                                                            sx={{
-                                                                width: { xs: "35px", md: "70px" },
-                                                                height: { xs: "35px", md: "70px" },
-                                                                borderRadius: "50%",
-                                                                overflow: "hidden",
-                                                            }}
-                                                        >
-                                                            <img
-                                                                src={userData?.profileImage ? userData.profileImage : user}
-                                                                alt="User"
-                                                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                                            />
-                                                        </Box>
+                                                        <img
+                                                            src={userData?.profileImage ? userData.profileImage : user}
+                                                            alt="User"
+                                                            style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+                                                        />
 
-                                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '73px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
                                                             <OutlinedInput sx={{
                                                                 height: "100%",
                                                                 width: "100%",
@@ -285,7 +283,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                                                 },
                                                                 p: "10px"
 
-                                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} />
+                                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={handleKeyDown} />
                                                             <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
                                                                 <Box sx={{ display: "flex", columnGap: "10px" }}>
                                                                     <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />

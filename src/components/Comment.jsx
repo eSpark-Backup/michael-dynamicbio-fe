@@ -17,7 +17,7 @@ const Comment = ({ userImage, userName, comment, time }) => {
                         <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} />
                     </Box>
                 </Box>
-                <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#18181B",pr:'4px' }}>
+                <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#18181B", pr: '4px', whiteSpace: 'pre-line', }}>
                     {comment}
                 </Typography>
                 {/* <Box sx={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
