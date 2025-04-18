@@ -162,7 +162,7 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
                 <Box sx={{ display: "flex", columnGap: "10px" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
                     <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>•</Typography>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>18 reposts</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>0 reposts</Typography>
                 </Box>
             </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
