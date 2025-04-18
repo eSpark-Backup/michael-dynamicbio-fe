@@ -22,7 +22,7 @@ import Button from './button.jsx';
 import { toast } from 'react-toastify';
 
 const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked }) => {
-    const [likeData, { data, isSuccess, isError, error }] = useLikeMutation()
+    const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
     const [showShareModal, setShowShareModal] = useState(false)
@@ -45,15 +45,27 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
+    const handleKeyDown = (e) => { };
+
 
     const LikeHandler = (id) => {
-        setIsPostLiked((prevLiked) => {
-            const newLiked = !prevLiked;
-            setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
-            likeData({ entityId: id, type: "POST" });
-            return newLiked;
-        });
+        // setIsPostLiked((prevLiked) => {
+        // const newLiked = !prevLiked;
+        // setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
+        likeData({ entityId: id, type: "POST" });
+        // return newLiked;
+        // });
     };
+
+    useEffect(() => {
+        if (isSuccess && data?.status) {
+            setIsPostLiked((prevLiked) => {
+                const newLiked = !prevLiked;
+                setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
+                return newLiked;
+            });
+        }
+    }, [data, isSuccess])
 
     const HandleComment = (id) => {
         const data = {
@@ -143,19 +155,19 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
+                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
+                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} />
+                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -231,7 +243,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                         <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
                                     </Box>
                                     <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => LikeHandler(id)}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => LikeHandler(id)}>
                                             <img src={isPostLiked ? like : unlike} alt="Like" style={{ width: "24px", height: "24px" }} />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isPostLiked ? "Liked" : "Like"}</Typography>
                                         </Box>
@@ -257,22 +269,13 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                                     </Box>
                                                     :
                                                     <>
-                                                        <Box
-                                                            sx={{
-                                                                width: { xs: "35px", md: "70px" },
-                                                                height: { xs: "35px", md: "70px" },
-                                                                borderRadius: "50%",
-                                                                overflow: "hidden",
-                                                            }}
-                                                        >
-                                                            <img
-                                                                src={userData?.profileImage ? userData.profileImage : user}
-                                                                alt="User"
-                                                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                                            />
-                                                        </Box>
+                                                        <img
+                                                            src={userData?.profileImage ? userData.profileImage : user}
+                                                            alt="User"
+                                                            style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+                                                        />
 
-                                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '73px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
                                                             <OutlinedInput sx={{
                                                                 height: "100%",
                                                                 width: "100%",
@@ -285,7 +288,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                                                 },
                                                                 p: "10px"
 
-                                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} />
+                                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={handleKeyDown} />
                                                             <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
                                                                 <Box sx={{ display: "flex", columnGap: "10px" }}>
                                                                     <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
