@@ -149,6 +149,29 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                     </Box>
                 </Box>
             </Link>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>
+                    {numberofLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                        {numberofLikes === 0 ? (
+                            "Be first to like this"
+                        ) : isLiked && numberofLikes === 1 ? (
+                            "You liked this post"
+                        ) : isLiked && numberofLikes > 1 ? (
+                            `You and ${numberofLikes - 1} more like this`
+                        ) : numberofLikes === 1 ? (
+                            `${lastUserLiked} likes this`
+                        ) : (
+                            `${lastUserLiked} and ${numberofLikes - 1} like this`
+                        )}
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", columnGap: "10px" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>•</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>0 reposts</Typography>
+                </Box>
+            </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
                 {ownPost && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                     <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
@@ -156,7 +179,7 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                 </Box>}
                 <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
                     <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
-                    <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked?"Liked":"Like"}</Typography>
+                    <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
                     <img src={comment} alt="Like" />
