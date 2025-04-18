@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Menu, MenuItem, Paper, Typography } from
 import React, { useEffect, useState } from 'react'
 import BondCard2 from './BondCard'
 import { formatEventPostTime } from '../utils'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { camera, comment, dummyPhoto, emoji, like, repost, send, unlike, user } from '../assets'
 import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
@@ -115,45 +115,44 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                 <Box sx={{ height: "65%", backgroundImage: `url("${eventImage ? eventImage : dummyPhoto}")`, borderTopRightRadius: "8px", borderTopLeftRadius: "8px", backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center", width: "100.1%" }}>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px", px: "15px" }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#ad4601" }}>{formatEventPostTime(startTime, endTime)}</Typography>
-                        <Box
-                            sx={{
-                                width: "150px",
-                                height: "36px",
-                                borderRadius: "2px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                background: "white",
-                                position: "relative",
-                                "&::before": {
-                                    content: '""',
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    borderRadius: "8px",
-                                    padding: "1px",
-                                    background:
-                                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                                    mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                                    WebkitMask:
-                                        "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                                    WebkitMaskComposite: "destination-out",
-                                    maskComposite: "exclude",
-                                },
-                                cursor: "pointer",
-                            }}
-                            onClick={() => navigate(`/event/${id}`)}
-                        >
-                            <Typography variant="gradientText">View event</Typography>
+                    <Link to={`/event/${id}`} style={{ textDecoration: 'none' }}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#ad4601" }}>{formatEventPostTime(startTime, endTime)}</Typography>
+                            <Box
+                                sx={{
+                                    width: "150px",
+                                    height: "36px",
+                                    borderRadius: "2px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    background: "white",
+                                    position: "relative",
+                                    "&::before": {
+                                        content: '""',
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        borderRadius: "8px",
+                                        padding: "1px",
+                                        background:
+                                            "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                        mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                        WebkitMask:
+                                            "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                        WebkitMaskComposite: "destination-out",
+                                        maskComposite: "exclude",
+                                    },
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <Typography variant="gradientText">View event</Typography>
+                            </Box>
+
                         </Box>
-                        {/* <Button sx={{ width: "150px", height: "36px" }} onClick={() => navigate(`/event/${id}`)}>
-                            View event
-                        </Button> */}
-                    </Box>
+                    </Link>
                     <Box>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{eventName}</Typography>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", textTransform: "capitalize" }}>{eventType === "Inperson" ? "In Person" : eventType}</Typography>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
@@ -28,6 +28,12 @@ const Feed = ({ isPublicView }) => {
       toast.error(error?.data?.message);
     }
   }, [error]);
+
+  useEffect(() => {
+    setPage(1);
+    setPosts([]);
+    setHasMore(true);
+  }, [user.id]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -143,11 +149,11 @@ const Feed = ({ isPublicView }) => {
     ];
   };
 
-  const fetchMoreData = () => {
-    if (!isLoading) {
+  const fetchMoreData = useCallback(() => {
+    if (!isFetching && hasMore) {
       setPage(prev => prev + 1);
     }
-  };
+  }, [hasMore, isFetching]);
 
   if (isLoading && posts.length === 0) {
     return <LinearProgress />;

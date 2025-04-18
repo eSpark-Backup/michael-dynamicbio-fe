@@ -36,7 +36,8 @@ const DynamicModal = ({
   setVisibility,
   adminPage,
   handleDropdown,
-  showUndoText
+  showUndoText,
+  noBtn,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -238,7 +239,7 @@ const DynamicModal = ({
                 </Typography>
               </Box>
             )}
-            <Button
+            {!noBtn && <Button
               disabled={isLoading}
               loading={isLoading}
               type="submit"
@@ -250,7 +251,7 @@ const DynamicModal = ({
               onClick={onSuccess}
             >
               {buttonText}
-            </Button>
+            </Button>}
           </Stack>
         )}
         <Menu

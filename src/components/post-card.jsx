@@ -441,6 +441,7 @@ const PostCard = () => {
           values={eventFormValues}
           handleScheduleClick={() => setShowScheduleModal(true)}
           handleEditClick={handleEditClick}
+          handleDelete={HandleViewEventClose}
         />
       </DynamicModal>
 

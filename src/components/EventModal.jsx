@@ -12,7 +12,7 @@ import { TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 import { toast } from "react-toastify";
 
-const EventModal = ({ onFormSubmit, receivedValues,handleClose }) => {
+const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
     const eventImgRef = useRef(null);
     const [tempEventType, setEventType] = useState("online")
     const [imagePreview, setImagePreview] = useState(null);
@@ -23,6 +23,8 @@ const EventModal = ({ onFormSubmit, receivedValues,handleClose }) => {
     }, [receivedValues])
 
     const initialFormValues = useMemo(() => {
+        const startTime = new Date();
+
         return Object.keys(receivedValues || {}).length > 0
             ? receivedValues
             : {
@@ -32,9 +34,9 @@ const EventModal = ({ onFormSubmit, receivedValues,handleClose }) => {
                 selectedFile: null,
                 timezone: timezoneOptions[0]?.value || "",
                 startDate: new Date(),
-                startTime: new Date(),
+                startTime: startTime,
                 endDate: new Date(),
-                endTime: new Date(),
+                endTime: new Date(startTime.getTime() + 5 * 60 * 1000),
                 showEndTime: true,
                 description: "",
                 speakers: "",
