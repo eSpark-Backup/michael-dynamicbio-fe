@@ -17,7 +17,7 @@ import Button from './button';
 import Comment from './Comment';
 import { toast } from 'react-toastify';
 
-const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked }) => {
+const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
 
   const initialSelectedValue = options?.find(option => option.isChecked)?.value || "";
 
@@ -211,7 +211,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
         </Box>
       </Box>
       <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
+        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => handleLike(id)}>
           <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
           <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
         </Box>
@@ -248,7 +248,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
                 <img
                   src={userData?.profileImage ? userData.profileImage : user}
                   alt="User"
-                  style={{ width: "60px", height: "60px", borderRadius:"50%" }}
+                  style={{ width: "60px", height: "60px", borderRadius: "50%" }}
                 />
                 {/* </Box> */}
 

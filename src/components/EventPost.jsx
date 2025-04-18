@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 import { useCommentMutation, useGetPostCommentsQuery } from '../services/interaction'
 import { toast } from 'react-toastify'
 
-const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked }) => {
+const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading }) => {
     const navigate = useNavigate()
 
     const [showComments, setShowComments] = useState(false)
@@ -183,7 +183,7 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                 </Box>
             </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => handleLike(id)}>
                     <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
                 </Box>
@@ -209,12 +209,12 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                             </Box>
                             :
                             <>
-                                
-                                    <img
-                                        src={userData?.profileImage ? userData.profileImage : user}
-                                        alt="User"
-                                        style={{ width: "60px", height: "60px", borderRadius:"50%" }}
-                                    />
+
+                                <img
+                                    src={userData?.profileImage ? userData.profileImage : user}
+                                    alt="User"
+                                    style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+                                />
 
                                 <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
                                     <OutlinedInput sx={{

@@ -17,7 +17,7 @@ import Button from './button';
 import { toast } from 'react-toastify';
 import Comment from './Comment';
 
-const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked }) => {
+const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -166,7 +166,7 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
                 </Box>
             </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => handleLike(id)}>
                     <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
                 </Box>
@@ -271,7 +271,7 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
             <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
                 <ScheduleModal />
             </DynamicModal>
-        </Paper>
+        </Paper >
     )
 }
 
