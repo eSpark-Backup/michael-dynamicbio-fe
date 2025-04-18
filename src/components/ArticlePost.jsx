@@ -1,7 +1,7 @@
-import { Box, Menu, MenuItem, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, CircularProgress, Menu, MenuItem, Paper, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import BondCard2 from './BondCard'
-import { camera, comment, downArrowFilled, dummyPhoto, emoji, like, repost, send, user } from '../assets'
+import { camera, comment, downArrowFilled, dummyPhoto, emoji, like, repost, send, unlike, user } from '../assets'
 import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
 import ScheduleModal from './ScheduleModal'
@@ -10,9 +10,14 @@ import ConfirmationModal from './ConfirmationModal'
 import GroupShareModal from './GroupShareModal'
 import RepostWithThoughts from './RepostWithThoughts'
 import PostChoiceModal from './PostChoiceModal'
+import { useSelector } from 'react-redux'
+import { useCommentMutation, useGetPostCommentsQuery } from '../services/interaction'
+import { toast } from 'react-toastify'
+import Comment from './Comment'
+import Button from './button'
 import { Link, useNavigate } from 'react-router-dom'
 
-const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost }) => {
+const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike }) => {
 
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -24,6 +29,14 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
     const [showShareModal, setShowShareModal] = useState(false)
     const [showScheduleModal, setShowScheduleModal] = useState(false)
     const [postChoiceModal, setPostChoiceModal] = useState(false)
+    const { user: userData } = useSelector((state) => state.auth);
+    const [postId, setPostId] = useState("")
+    const [commentContent, setCommentContent] = useState("")
+    const [postComments, setPostComments] = useState([])
+
+    const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
+
+    const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, { skip: !postId })
 
     const navigate = useNavigate()
 
@@ -56,9 +69,42 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
         }
     }
 
-    const CommentHandler = () => {
-        setShowComments(!showComments)
+    const CommentHandler = (id) => {
+        setPostId(id)
+        setShowComments(true)
     }
+
+    const HandleComment = (id) => {
+        const data = {
+            content: commentContent,
+            postId: id
+        }
+        commentData(data).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message)
+                return;
+            }
+            if (res?.data) {
+                toast.success("Comment added successfully");
+                setCommentContent("")
+                refetch()
+            }
+        })
+    }
+
+
+    useEffect(() => {
+        if (getCommentsSuccess && getCommentsData?.data) {
+            const comments = getCommentsData?.data?.map((item) => ({
+                userImage: item?.user?.profileImage,
+                userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                comment: item?.content,
+                time: "14m ago"
+            }))
+            setPostComments(comments)
+
+        }
+    }, [getCommentsSuccess, getCommentsData])
 
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -108,11 +154,11 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                     <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                     <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
                 </Box>}
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
-                    <img src={like} alt="Like" />
-                    <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => handleLike(id)}>
+                    <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
+                    <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked?"Liked":"Like"}</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={CommentHandler}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
                     <img src={comment} alt="Like" />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Comment</Typography>
                 </Box>
@@ -128,34 +174,57 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
             {
                 showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
                     <Box sx={{ display: "flex", columnGap: "5px", flexDirection: { xs: "column", md: "row" } }}>
-                        <Box sx={{ width: { xs: "35px", md: "70px" } }}>
-                            <img src={user} alt="User" style={{ width: "100%" }} />
-                        </Box>
-
-                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", height: '73px' }}>
-                            <OutlinedInput sx={{
-                                height: "100%",
-                                width: "100%",
-                                "& .MuiOutlinedInput-root": {
-                                    border: "none !important",
-                                    height: "100%",
-                                },
-                                "& .MuiOutlinedInput-notchedOutline": {
-                                    border: "none !important",
-                                },
-
-                            }} placeholder={"Add a comment"} />
-                            <Box sx={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
-                                <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                        {isGetCommentsLoading ?
+                            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+                                <CircularProgress sx={{ color: "black" }} />
                             </Box>
-                        </Box>
+                            :
+                            <>
+                                <Box
+                                    sx={{
+                                        width: { xs: "35px", md: "70px" },
+                                        height: { xs: "35px", md: "70px" },
+                                        borderRadius: "50%",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <img
+                                        src={userData?.profileImage ? userData.profileImage : user}
+                                        alt="User"
+                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    />
+                                </Box>
+
+                                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '73px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                    <OutlinedInput sx={{
+                                        height: "100%",
+                                        width: "100%",
+                                        "& .MuiOutlinedInput-root": {
+                                            border: "none !important",
+                                            height: "100%",
+                                        },
+                                        "& .MuiOutlinedInput-notchedOutline": {
+                                            border: "none !important",
+                                        },
+                                        p: "10px"
+
+                                    }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} />
+                                    <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
+                                        <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                            <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
+                                            <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                        </Box>
+                                        {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
+                                    </Box>
+                                </Box>
+                            </>
+                        }
                     </Box>
-                    {/* {Array.isArray(commentsContent) && commentsContent?.length > 0 &&
-                            commentsContent?.map((item, index) => (
-                              <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
-                            ))
-                          } */}
+                    {Array.isArray(postComments) && postComments?.length > 0 &&
+                        postComments?.map((item, index) => (
+                            <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
+                        ))
+                    }
                 </Box>
             }
             <Menu

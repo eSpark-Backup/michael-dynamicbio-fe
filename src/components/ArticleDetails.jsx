@@ -99,7 +99,7 @@ const ArticleDetails = () => {
             <Grid2 container spacing={3} sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, py: "25px" }}>
                 <Grid2 size={{ xs: 12, lg: 8, xl: 9 }}>
                     <Paper sx={{ p: "0px" }}>
-                        <Box sx={{ paddingTop: "46.25%", backgroundImage: `url("${articleContent?.articleImage ? articleContent?.articleImage : dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat", width: "100.1%" }}>
+                        <Box sx={{ paddingTop: "46.25%", backgroundImage: `url("${articleContent?.articleImage ? articleContent?.articleImage : dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "contain", backgroundRepeat: "no-repeat", width: "100.1%" }}>
                         </Box>
                         <Box sx={{ p: "30px 20px" }}>
                             <Typography sx={{ fontSize: "24px", fontWeight: "600", color: "#171717" }}>{articleContent?.articleTitle}</Typography>

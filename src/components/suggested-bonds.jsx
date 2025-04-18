@@ -3,12 +3,16 @@ import { toast } from "react-toastify";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import BondCard from "./bond-card";
 import { useAllBondsQuery, useSendBondReqMutation } from "../services/bonds";
+import BondCard2 from "./BondCard";
+import { useNavigate } from "react-router-dom";
 
-const SuggestedBonds = ({ refetch }) => {
+const SuggestedBonds = ({ refetch, feedPage }) => {
   const [id, setId] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [users, setUsers] = useState([]);
   const [displayedBonds, setDisplayedBonds] = useState([]);
+  const [feedBonds, setFeedBonds] = useState([])
+  const navigate = useNavigate()
 
   const {
     data,
@@ -31,6 +35,14 @@ const SuggestedBonds = ({ refetch }) => {
     const filteredUsers = data?.data?.users?.filter(
       (user) => !user.isFriend && !user?.isPendingFriendRequest
     );
+    const feedUsers = filteredUsers?.map((item) => ({
+      img: item?.profileImage,
+      name: `${item?.firstName} ${item?.lastName}`,
+      address: "",
+      role: item?.designation,
+      id: item?.id
+    }))
+    setFeedBonds(feedUsers?.slice(0, 3))
     setDisplayedBonds(showAll ? filteredUsers : filteredUsers?.slice(0, 4));
     setUsers(filteredUsers);
   }, [showAll, data]);
@@ -72,7 +84,7 @@ const SuggestedBonds = ({ refetch }) => {
   return (
     <Box
       sx={{
-        mt: "40px",
+        mt: feedPage ? "0px" : "40px",
         padding: "20px 32px 25px 32px",
         background: "#FFF",
         border: "1px solid #E4E4E4",
@@ -87,10 +99,10 @@ const SuggestedBonds = ({ refetch }) => {
         justifyContent="space-between"
         gap={2}
       >
-        <Typography fontSize="14px">People you may know</Typography>
+        <Typography fontSize="14px">{feedPage ? "Suggestion for you to create bonds" : "People you may know"}</Typography>
         {users?.length > 4 && (
           <Typography
-            onClick={() => setShowAll(!showAll)}
+            onClick={feedPage ? () => navigate("/bonds") : () => setShowAll(!showAll)}
             fontSize="14px"
             sx={{
               minWidth: "60px",
@@ -105,30 +117,51 @@ const SuggestedBonds = ({ refetch }) => {
           </Typography>
         )}
       </Stack>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
-        gap={2}
-        mt={3}
-      >
-        {isLoading ? (
-          <Stack justifyContent="center" alignItems="center">
-            <CircularProgress sx={{ color: "#1877F2" }} />
-          </Stack>
-        ) : users?.length <= 0 ? (
-          <Typography textAlign="center">No bonds available</Typography>
-        ) : (
-          displayedBonds?.map((bond) => (
-            <BondCard
-              isLoading={isReqLoading && id === bond?.id}
-              handleRemoveUser={handleRemoveUser}
-              handleSendBondReq={handleSendBondReq}
-              key={bond.id}
-              {...bond}
-            />
-          ))
-        )}
-      </Box>
+      {feedPage
+        ?
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", mt: '30px' }}>
+          {feedBonds?.map((item, index) => {
+            return (
+              <BondCard2
+                key={index}
+                userImage={item?.img}
+                userName={item?.name}
+                userAddress={item?.address}
+                userRole={item?.role}
+                id={item?.id}
+                showBondIcon={true}
+                handleBondClick={handleSendBondReq}
+                isLoading={isReqLoading && item?.id === id}
+              />
+            )
+          })}
+        </Box>
+        :
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+          gap={2}
+          mt={3}
+        >
+          {isLoading ? (
+            <Stack justifyContent="center" alignItems="center">
+              <CircularProgress sx={{ color: "#1877F2" }} />
+            </Stack>
+          ) : users?.length <= 0 ? (
+            <Typography textAlign="center">No bonds available</Typography>
+          ) : (
+            displayedBonds?.map((bond) => (
+              <BondCard
+                isLoading={isReqLoading && id === bond?.id}
+                handleRemoveUser={handleRemoveUser}
+                handleSendBondReq={handleSendBondReq}
+                key={bond.id}
+                {...bond}
+              />
+            ))
+          )}
+        </Box>
+      }
     </Box>
   );
 };

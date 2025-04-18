@@ -1,8 +1,8 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { bondMain, earth, user, three_vertical_dots, close } from '../assets'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading }) => {
     const theme = useTheme()
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }}>
@@ -18,6 +18,8 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     </Box>
                 </Stack>
             </Box>
+            {(showBondIcon && !isLoading) && <img src={bondMain} alt="Bond" onClick={() => handleBondClick(id)} style={{ cursor: "pointer" }} />}
+            {isLoading && <CircularProgress sx={{color:"black"}} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>
