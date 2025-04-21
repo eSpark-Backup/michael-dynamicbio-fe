@@ -113,6 +113,9 @@ import aboutEvent from "./icons/aboutEvent.svg"
 import eventSpeakers from "./icons/eventSpeakers.svg"
 import flag from "./icons/flag.svg"
 import unlike from "./icons/unlike.svg"
+import group from "./icons/group.svg"
+import arrowUpRight from "./icons/arrow-up-right.svg"
+import info from "./icons/info.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -243,4 +246,7 @@ export {
   eventImage,
   flag,
   unlike,
+  group,
+  info,
+  arrowUpRight
 };

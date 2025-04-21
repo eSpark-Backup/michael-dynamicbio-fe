@@ -32,7 +32,7 @@ import {
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ArticleDetails, EventDetails } from "./components";
+import { ArticleDetails, EventDetails, GroupDetails } from "./components";
 import SocketListener from "./socket/socket-listener";
 
 const App = () => {
@@ -76,6 +76,7 @@ const App = () => {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/article/:id" element={<ArticleDetails />} />
+          <Route path="/group/:id" element={<GroupDetails />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

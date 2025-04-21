@@ -47,6 +47,7 @@ import EventDetails from "./EventDetails";
 import ArticleDetails from "./ArticleDetails";
 import SuggestedBonds from "./suggested-bonds";
 import ReportArticle from "./ReportArticle";
+import GroupDetails from "./GroupDetails";
 
 export {
     Input,
@@ -98,4 +99,5 @@ export {
     ArticleDetails,
     SuggestedBonds,
     ReportArticle,
+    GroupDetails,
 }
