@@ -14,7 +14,7 @@ import {
   Input,
   SuggestedBonds,
 } from "../../../../components";
-import { userAvatar, verticleDots } from "../../../../assets";
+import { cellBlack, userAvatar, verticleDots } from "../../../../assets";
 
 const CatchUp = ({ onGrow }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -31,6 +31,8 @@ const CatchUp = ({ onGrow }) => {
     "Education",
   ];
   const [activeTab, setActiveTab] = useState("All");
+  const [myValue, setMyValue] = useState(true);
+  const [celeb, setCeleb] = useState(true);
 
   return (
     <Box>
@@ -97,14 +99,32 @@ const CatchUp = ({ onGrow }) => {
                   <Button
                     onClick={() => setMsgModal(true)}
                     sx={{
-                      height: "40px",
+                      height: "auto",
                       padding: "6px 30px",
                       borderRadius: "20px",
-                      fontSize: "16px",
                       mt: 1,
+                      width: { xs: "150px", sm: "max-content" },
                     }}
                   >
-                    Wishing you a very happy birthday
+                    <img
+                      style={{
+                        marginRight: "5px",
+                        width: "20px",
+                        height: "20px",
+                      }}
+                      src={cellBlack}
+                      alt="message"
+                    />
+                    <Typography
+                      sx={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Wishing you a very happy birthday!
+                    </Typography>
                   </Button>
                 </Box>
               </Stack>
@@ -153,7 +173,15 @@ const CatchUp = ({ onGrow }) => {
           gap={1}
         >
           <Typography fontSize="20px">Zaheer babar</Typography>
-          <Switch />
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            gap={1}
+          >
+            <Typography fontSize="20px">{myValue ? "On" : "Off"}</Typography>
+            <Switch checked={myValue} onChange={(_, e) => setMyValue(e)} />
+          </Stack>
         </Stack>
         <Stack
           direction="row"
@@ -165,7 +193,15 @@ const CatchUp = ({ onGrow }) => {
           <Typography fontSize="20px">
             Work Anniversary in your network
           </Typography>
-          <Switch />
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            gap={1}
+          >
+            <Typography fontSize="20px">{celeb ? "On" : "Off"}</Typography>
+            <Switch checked={celeb} onChange={(_, e) => setCeleb(e)} />
+          </Stack>
         </Stack>
       </DynamicModal>
       <DynamicModal
