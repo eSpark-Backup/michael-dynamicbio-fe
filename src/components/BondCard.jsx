@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { bondMain, earth, user, three_vertical_dots, close } from '../assets'
 
@@ -7,7 +7,11 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: "space-between", alignItems: "center", p: "10px" }}>
             <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-                <img src={userImage ? userImage : user} alt="User" style={{ width: "60px", height: "60px", borderRadius: "50%" }} />
+                <Avatar
+                    src={userImage ? userImage : user}
+                    alt="User"
+                    sx={{ width: 60, height: 60, objectFit: "fill" }}
+                />
                 <Stack direction={"column"}>
                     {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }}>{userName}</Typography>}
                     {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userRole}</Typography>}
@@ -19,7 +23,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 </Stack>
             </Box>
             {(showBondIcon && !isLoading) && <img src={bondMain} alt="Bond" onClick={() => handleBondClick(id)} style={{ cursor: "pointer" }} />}
-            {isLoading && <CircularProgress sx={{color:"black"}} />}
+            {isLoading && <CircularProgress sx={{ color: "black" }} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>

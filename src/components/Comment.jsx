@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { einstein, like, three_vertical_dots } from '../assets'
 
@@ -6,7 +6,11 @@ const Comment = ({ userImage, userName, comment, time }) => {
     const theme = useTheme()
     return (
         <Box sx={{ backgroundColor: "#F2F8FD", py: "10px", display: "flex", px: "4px", justifyContent: 'flex-start', columnGap: "5px", flexDirection: { xs: "column", sm: "row" }, alignItems: 'flex-start' }}>
-            <img src={userImage ? userImage : einstein} alt="user" style={{ width: "43px", height: '43px', borderRadius: "50%" }} />
+            <Avatar
+                src={userImage ? userImage : einstein}
+                alt="User"
+                sx={{ width: 43, height: 43, objectFit: "fill !important" }}
+            />
             <Box flex={1}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography sx={{ color: "#171717", fontSize: "18px", fontWeight: 500 }}>{userName}</Typography>

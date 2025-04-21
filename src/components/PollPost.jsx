@@ -1,4 +1,4 @@
-import { Box, CircularProgress, FormControlLabel, Menu, MenuItem, Paper, Radio, RadioGroup, Typography } from '@mui/material';
+import { Avatar, Box, CircularProgress, FormControlLabel, LinearProgress, Menu, MenuItem, Paper, Radio, RadioGroup, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import BondCard2 from './BondCard';
 import { camera, comment, emoji, like, repost, send, unlike, user } from '../assets';
@@ -70,6 +70,13 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
     }
     else {
       setShowThoughtsModal(false)
+    }
+  }
+
+  const HandleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      HandleComment(id);
     }
   }
 
@@ -232,26 +239,26 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
         showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
           <Box sx={{ display: "flex", columnGap: "5px", flexDirection: { xs: "column", md: "row" } }}>
             {isGetCommentsLoading ?
-              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
-                <CircularProgress sx={{ color: "black" }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <LinearProgress
+                  sx={{ width: "100%", height: 6, bgcolor: "#F2F8FD", "& .MuiLinearProgress-bar": { backgroundColor: "white" } }}
+                />
               </Box>
               :
               <>
-                {/* <Box
-                  sx={{
-                    width: { xs: "35px", md: "70px" },
-                    height: { xs: "35px", md: "70px" },
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                  }}
-                > */}
-                <img
+
+                <Avatar
                   src={userData?.profileImage ? userData.profileImage : user}
                   alt="User"
-                  style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+                  sx={{ width: 60, height: 60, objectFit: "fill" }}
                 />
-                {/* </Box> */}
-
 
                 <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
                   <OutlinedInput sx={{
@@ -266,7 +273,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
                     },
                     p: "10px"
 
-                  }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} />
+                  }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={HandleKeyDown} />
                   <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
                     <Box sx={{ display: "flex", columnGap: "10px" }}>
                       <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
