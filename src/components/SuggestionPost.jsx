@@ -1,4 +1,4 @@
-import { Box, CircularProgress, colors, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
+import { Avatar, Box, CircularProgress, colors, LinearProgress, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { camera, comment, emoji, like, plus, postPicture, refresh, repost, send, three_vertical_dots, unlike, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
@@ -45,7 +45,14 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
-    const handleKeyDown = (e) => { };
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            HandleComment(id);
+        }
+    };
+
+
 
 
     const LikeHandler = (id) => {
@@ -264,15 +271,25 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                         showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
                                             <Box sx={{ display: "flex", columnGap: "5px", flexDirection: { xs: "column", md: "row" } }}>
                                                 {isGetCommentsLoading ?
-                                                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
-                                                        <CircularProgress sx={{ color: "black" }} />
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                            alignItems: "center",
+                                                            width: "100%",
+                                                        }}
+                                                    >
+                                                        <LinearProgress
+                                                            sx={{ width: "100%", height: 6, bgcolor: "#F2F8FD", "& .MuiLinearProgress-bar": { backgroundColor: "white" } }}
+                                                        />
                                                     </Box>
+
                                                     :
                                                     <>
-                                                        <img
+                                                        <Avatar
                                                             src={userData?.profileImage ? userData.profileImage : user}
                                                             alt="User"
-                                                            style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+                                                            sx={{ width: 60, height: 60, objectFit: "fill" }}
                                                         />
 
                                                         <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
