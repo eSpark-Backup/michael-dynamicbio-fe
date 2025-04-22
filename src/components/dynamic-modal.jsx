@@ -10,7 +10,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Button from "./button";
-import { close, downArrowFilled, profile2, rightArrow, timer } from "../assets";
+import { close, downArrowFilled, dummyPhoto, profile2, rightArrow, timer } from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
@@ -38,6 +38,7 @@ const DynamicModal = ({
   handleDropdown,
   showUndoText,
   noBtn,
+  groupAdmin,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -109,7 +110,7 @@ const DynamicModal = ({
           {!dropdownHeader && <Typography>{title}</Typography>}
           {dropdownHeader && (
             <Box
-              sx={{ display: "flex", columnGap: "15px", alignItems: "center" }}
+              sx={{ display: "flex", columnGap: "15px", alignItems: "center", position: "relative" }}
             >
               <img
                 style={{ borderRadius: "50%" }}
@@ -139,15 +140,21 @@ const DynamicModal = ({
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
-                  {visibility === "PUBLIC"
-                    ? "Post to anyone"
-                    : visibility === "CONNECTIONS"
-                      ? "Post to my connections"
-                      : visibility === "ONLY_ME"
-                        ? "Post only for me"
-                        : "Post for group"}
+                  {groupAdmin
+                    ? "Post to free"
+                    : visibility === "PUBLIC"
+                      ? "Post to anyone"
+                      : visibility === "CONNECTIONS"
+                        ? "Post to my connections"
+                        : visibility === "ONLY_ME"
+                          ? "Post only for me"
+                          : "Post for group"}
+
                 </Typography>
               </Stack>
+              {groupAdmin && <Box sx={{ position: "absolute", width: "30px", height: "30px", left: "25px", bottom: "-13px", backgroundImage: `url("${dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "100%" }}>
+
+              </Box>}
             </Box>
           )}
           {showUndoText ? <Typography variant="gradientText" onClick={handleClose} sx={{ cursor: "pointer" }}>Undo</Typography> : <img

@@ -858,3 +858,63 @@ export const reportArticleChoices = [
     description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
   },
 ]
+
+export const relatedGroups = [
+  {
+    name: "Graphic Design Freelancers",
+    followers: "99,517 members"
+  },
+  {
+    name: "Freelance Graphic Designer",
+    followers: "198,860 members"
+  },
+  {
+    name: "Digital Marketing Group - #1 Internet Online Advertising SEO Social Media Mobile",
+    followers: "460,543 members"
+  },
+  {
+    name: "The Social Media Marketing Group",
+    followers: "2,884,864 members"
+  },
+  {
+    name: "Fiverr Gigs Marketing & Promotion (world-wide) <Buyer 👉 Seller>",
+    followers: "31,603 members"
+  },
+]
+
+
+export const inviteMembers = [
+  {
+    id: 1,
+    name: "Abdul Rehman",
+    role: "Junior React js Developer"
+  },
+  {
+    id: 2,
+    name: "Saad Zafar",
+    role: "SQA Engineer"
+  },
+  {
+    id: 3,
+    name: "Muhammad Ahsan Badami",
+    role: "Backend Developer"
+  },
+  {
+    id: 4,
+    name: "Areeba Shakeel",
+    role: "UI | UX Designer"
+  },
+]
+
+export const groupMembersData = [
+  {
+    name: "Areeba Shakeel",
+    role: "UI/UX Designer | Product Designer | Figma",
+    groupRole: "member"
+  },
+  {
+    name: "rotten ria",
+    role: "--",
+    groupRole: "owner"
+  },
+]

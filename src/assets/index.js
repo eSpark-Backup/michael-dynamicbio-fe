@@ -116,6 +116,7 @@ import unlike from "./icons/unlike.svg"
 import group from "./icons/group.svg"
 import arrowUpRight from "./icons/arrow-up-right.svg"
 import info from "./icons/info.svg"
+import leave from "./icons/leave.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -248,5 +249,6 @@ export {
   unlike,
   group,
   info,
-  arrowUpRight
+  arrowUpRight,
+  leave,
 };

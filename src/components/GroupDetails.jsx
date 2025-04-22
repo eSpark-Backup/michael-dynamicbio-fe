@@ -1,14 +1,47 @@
-import { Box, Grid2, Paper, Typography } from '@mui/material'
+import { Box, Divider, Grid2, Menu, MenuItem, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { arrowUpRight, bell, bulb, close, conversation, dummyPhoto, editBlue, group, info, plus, three_vertical_dots } from '../assets'
+import { arrowUpRight, bell, bulb, close, conversation, dummyPhoto, editBlue, group, info, leave, link2, plus, send2, settings, three_vertical_dots } from '../assets'
 import GroupSlider from './GroupSlider'
 import PostCard from './post-card'
 import GroupSidebar from './GroupSidebar'
+import DynamicModal from './dynamic-modal'
+import AboutGroupModal from './AboutGroupModal'
+import NotificationSettingsModal from './NotificationSettingsModal'
+import GroupPostSettingModal from './GroupPostSettingModal'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const GroupDetails = () => {
     const [showSlider, setShowSlider] = useState(true);
     const [showTip, setShowTip] = useState(true)
     const [choice, setChoice] = useState("All")
+    const [aboutModal, setAboutModal] = useState(false)
+    const [notificationModal, setNotificationModal] = useState(false)
+    const [postSettingsModal, setPostSettingsModal] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const [anchorEl2, setAnchorEl2] = useState(null);
+    const open2 = Boolean(anchorEl2);
+    const navigate = useNavigate()
+    const { id } = useParams()
+
+
+    const handleClose = (event) => {
+        event.stopPropagation();
+        setAnchorEl(null);
+    };
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose2 = (event) => {
+        event.stopPropagation();
+        setAnchorEl2(null);
+    };
+
+    const handleClick2 = (event) => {
+        setAnchorEl2(event.currentTarget);
+    };
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Grid2 container spacing={3} sx={{
@@ -67,7 +100,7 @@ const GroupDetails = () => {
                                 <Typography sx={{ fontSize: "13px", fontWeight: "400" }} variant='gradientText'>0</Typography>
                             </Box>
                         </Box>
-                        <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
+                        <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={()=>navigate(`/group/${id}/manage`)}>
                             <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Manage group</Typography>
                         </Box>
                         <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
@@ -106,11 +139,11 @@ const GroupDetails = () => {
                         </Box>
                         <Box sx={{ p: "20px" }}>
                             <Box sx={{ display: "flex", justifyContent: "flex-end", columnGap: "15px" }}>
-                                <img src={info} alt="Icon" />
-                                <img src={arrowUpRight} alt="Icon" />
-                                <img src={bell} alt="Icon" />
+                                <img src={info} alt="Icon" onClick={() => setAboutModal(true)} style={{ cursor: "pointer" }} />
+                                <img src={arrowUpRight} alt="Icon" style={{ cursor: "pointer" }} onClick={handleClick} />
+                                <img src={bell} alt="Icon" style={{ cursor: "pointer" }} onClick={() => setNotificationModal(true)} />
                                 <img src={editBlue} alt="Icon" />
-                                <img src={three_vertical_dots} alt="Icon" />
+                                <img src={three_vertical_dots} alt="Icon" style={{ cursor: "pointer" }} onClick={handleClick2} />
                             </Box>
                             <Box sx={{ mt: "70px", p: "0px", display: "flex", flexDirection: "column", rowGap: "5px" }}>
                                 <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}>free</Typography>
@@ -126,7 +159,7 @@ const GroupDetails = () => {
                         <GroupSlider handleClose={() => setShowSlider(false)} />
                     </Paper>}
                     <Paper>
-                        <PostCard />
+                        <PostCard viewOnly={true} groupAdmin={true} adminPage={true} handleDropDown={() => setPostSettingsModal(true)} />
                     </Paper>
                     {showTip && <Paper sx={{ display: "flex", columnGap: "10px" }}>
                         <img src={bulb} alt="Icon" style={{ width: "64px", height: "64px" }} />
@@ -160,6 +193,79 @@ const GroupDetails = () => {
                     <GroupSidebar />
                 </Grid2>
             </Grid2>
+
+            <DynamicModal open={aboutModal} handleClose={() => setAboutModal(false)} title={"About this group"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
+                <AboutGroupModal onSuccess={() => setAboutModal(false)} />
+            </DynamicModal>
+
+            <DynamicModal open={notificationModal} handleClose={() => setNotificationModal(false)} title={"Notification settings disabled"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
+                <NotificationSettingsModal onSuccess={() => setNotificationModal(false)} />
+            </DynamicModal>
+
+            <DynamicModal open={postSettingsModal} handleClose={() => setPostSettingsModal(false)} title={"Post settings"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
+                <GroupPostSettingModal handleClose={() => setPostSettingsModal(false)} />
+            </DynamicModal>
+
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "bottom",
+                }}
+            >
+                <MenuItem onClick={handleClose} sx={{ width: "195px", fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+                    Share on Fusion
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={editBlue} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Repost to Feed</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={send2} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Send in a message</Typography>
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleClose} sx={{ width: "195px", fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+                    Other options
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={link2} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Copy link</Typography>
+                </MenuItem>
+            </Menu>
+            <Menu
+                anchorEl={anchorEl2}
+                open={open2}
+                onClose={handleClose2}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "bottom",
+                }}
+            >
+
+                <MenuItem onClick={handleClose2} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={bell} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Manage notifications</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose2} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={settings} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Update your settings</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleClose2} sx={{ width: "195px", display: "flex", columnGap: "5px" }}>
+                    <img src={leave} alt="" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Leave this group</Typography>
+                </MenuItem>
+            </Menu>
         </Box>
     )
 }

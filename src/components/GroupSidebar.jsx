@@ -1,9 +1,16 @@
 import { Avatar, Badge, Box, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { dummyPhoto, nextArrow, rightArrow, user } from '../assets'
 import Button from './button'
+import { relatedGroups } from '../constant'
+import InviteMembersModal from './InviteMembersModal'
+import DynamicModal from './dynamic-modal'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const GroupSidebar = () => {
+    const [showConnectionsModal, setShowConnectionsModal] = useState(false)
+    const navigate = useNavigate()
+    const { id } = useParams()
     return (
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
             <Paper sx={{ p: "0px" }}>
@@ -13,8 +20,8 @@ const GroupSidebar = () => {
                     alt="User"
                     sx={{ width: 40, height: 40, objectFit: "fill", ml: "25px" }}
                 />
-                <Button sx={{ mt: "20px", width: "fit-content", height: "36px", mb: "15px", ml: "25px" }}>Invite connections</Button>
-                <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer", columnGap: "10px" }}>
+                <Button sx={{ mt: "20px", width: "fit-content", height: "36px", mb: "15px", ml: "25px" }} onClick={() => setShowConnectionsModal(true)}>Invite connections</Button>
+                <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer", columnGap: "10px" }} onClick={()=>navigate(`/group/${id}/manage`)}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Show All</Typography>
                     <img src={rightArrow} alt="" />
                 </Box>
@@ -66,19 +73,33 @@ const GroupSidebar = () => {
                     </Box>
                 </Box>
             </Paper>
-            <Paper>
-                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Groups you might be interested in</Typography>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box sx={{ display: "flex", columnGap: "10px", pb: "15px", borderBottom: "1px solid #E4E4E4",mt:"20px" }}>
-                        <img src={dummyPhoto} alt="Image" style={{ width: "40px", height: "40px", objectFit: "fill" }} />
-                        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
-                            <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Graphic Design Freelancers</Typography>
-                            <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>99, 517 members</Typography>
-                            <Box sx={{ border: "1px solid black", p: "8px 15px", borderRadius: "12px", width: "fit-content", mt: "10px" }}>Join</Box>
-                        </Box>
-                    </Box>
+            <Paper sx={{ p: "15px 0px 0px 0px" }}>
+                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", pl: "15px" }}>Groups you might be interested in</Typography>
+                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    {/*  */}
+                    {relatedGroups?.map((item, index) => {
+                        return (
+                            <Box sx={{ display: "flex", columnGap: "10px", pb: "15px", borderBottom: index === relatedGroups?.length - 1 ? "none" : "1px solid #E4E4E4", mt: "20px", width: "90%" }} key={index}>
+                                <img src={dummyPhoto} alt="Image" style={{ width: "40px", height: "40px", objectFit: "fill" }} />
+                                <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
+                                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", textWrap: "wrap" }}>{item?.name}</Typography>
+                                    <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{item?.followers}</Typography>
+                                    <Box sx={{ border: "1px solid black", p: "8px 15px", borderRadius: "12px", width: "fit-content", mt: "10px" }}>Join</Box>
+                                </Box>
+                            </Box>
+                        )
+                    })}
+
+                </Box>
+                <Box sx={{ height: "55px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer", columnGap: "10px" }}>
+                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Show All</Typography>
+                    <img src={rightArrow} alt="" />
                 </Box>
             </Paper>
+
+            <DynamicModal open={showConnectionsModal} handleClose={() => setShowConnectionsModal(false)} title={"Invite connections"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
+                <InviteMembersModal handleClose={() => setShowConnectionsModal(false)} />
+            </DynamicModal>
         </Box>
     )
 }

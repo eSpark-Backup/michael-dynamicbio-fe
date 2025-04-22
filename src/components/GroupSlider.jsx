@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { aboutEvent } from "../assets";
+import WelcomePostModal from "./WelcomePostModal";
+import DynamicModal from "./dynamic-modal";
 
 const slides = [
     {
@@ -32,6 +34,7 @@ const slides = [
 
 const GroupSlider = ({ handleClose }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [showWelcomePostModal, setWelcomePostModal] = useState(false)
 
     const handleNext = () => {
         setCurrentIndex((prev) => (prev + 1) % slides.length);
@@ -102,6 +105,7 @@ const GroupSlider = ({ handleClose }) => {
                                 cursor: "pointer",
                                 p: "10px"
                             }}
+                            onClick={slides[currentIndex].buttonText === "Add welcome note" ? () => setWelcomePostModal(true) : () => { }}
                         >
                             <Typography variant="gradientText">{slides[currentIndex].buttonText}</Typography>
                         </Box>
@@ -111,6 +115,9 @@ const GroupSlider = ({ handleClose }) => {
                     </IconButton>
                 </CardContent>
             </Card>
+            <DynamicModal open={showWelcomePostModal} handleClose={() => setWelcomePostModal(false)} title={"Welcome note to new members"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
+                <WelcomePostModal handleClose={() => setWelcomePostModal(false)} />
+            </DynamicModal>
         </>
     );
 };

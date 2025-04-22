@@ -48,6 +48,8 @@ import ArticleDetails from "./ArticleDetails";
 import SuggestedBonds from "./suggested-bonds";
 import ReportArticle from "./ReportArticle";
 import GroupDetails from "./GroupDetails";
+import InviteMembersModal from "./InviteMembersModal";
+import ManageGroup from "./ManageGroup";
 
 export {
     Input,
@@ -100,4 +102,6 @@ export {
     SuggestedBonds,
     ReportArticle,
     GroupDetails,
+    InviteMembersModal,
+    ManageGroup
 }
