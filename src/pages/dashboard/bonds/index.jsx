@@ -100,11 +100,9 @@ const Bonds = () => {
     if (search !== null) {
       const delaySearch = setTimeout(() => {
         if (search === "") {
-          navigate("/bonds?sub=bond");
           setMySidebar(bondSidebar1);
           setActiveSidebar(bondSidebar1.find((item) => item.sub === sub));
         } else {
-          navigate(`/bonds?q=${search}&filter=${filter || "all"}`);
           setMySidebar(bondSidebar2);
           setActiveSidebar(bondSidebar2.find((item) => item.filter === filter));
         }

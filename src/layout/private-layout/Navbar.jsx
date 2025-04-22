@@ -272,7 +272,7 @@ const Navbar = () => {
               }}
             >
               <OutlinedInput
-                value={search}
+                value={search ? search : ""}
                 onInputChange={onInputChange}
                 sx={{ width: "280px" }}
                 placeholder="Search"

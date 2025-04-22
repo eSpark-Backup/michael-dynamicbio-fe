@@ -31,7 +31,7 @@ const Grow = () => {
     isFetching,
     error: reqError,
     refetch,
-  } = useAllBondsReqQuery(sent ? "sent" : "received", {
+  } = useAllBondsReqQuery({type: sent ? "sent" : "received"}, {
     refetchOnMountOrArgChange: true,
   });
   const requests = reqData?.data?.bonds;
