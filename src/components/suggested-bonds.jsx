@@ -186,6 +186,7 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
           ) : (
             displayedBonds?.map((bond) => (
               <BondCard
+                requestSentByMe={bond?.requestSentByMe}
                 isPending={bond?.isPendingFriendRequest}
                 isFriend={bond?.isFriend}
                 isLoading={isReqLoading && id === bond?.id}

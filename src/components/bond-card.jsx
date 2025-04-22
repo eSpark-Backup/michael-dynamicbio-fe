@@ -33,6 +33,7 @@ const BondCard = ({
   refetch,
   refetchUsers,
   bondId,
+  requestSentByMe,
 }) => {
   const [hovered, setHovered] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -69,7 +70,7 @@ const BondCard = ({
     handleClose(e);
     const bodyToSend = {
       bondId: selected,
-      action: type === "pending" ? "canceled" : "unfriend",
+      action: type === "pending" ? requestSentByMe ? "canceled" : "rejected" : "unfriend",
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
@@ -216,7 +217,7 @@ const BondCard = ({
         }}
       >
         <MenuItem onClick={(e) => handleBondReq(e, type)}>
-          {type === "pending" ? "Withdraw request" : "Remove bond"}
+          {type === "pending" ? requestSentByMe ? "Withdraw request" : "Reject request" : "Remove bond"}
         </MenuItem>
       </Menu>
     </Box>
