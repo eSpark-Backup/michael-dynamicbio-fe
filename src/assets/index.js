@@ -113,6 +113,10 @@ import aboutEvent from "./icons/aboutEvent.svg"
 import eventSpeakers from "./icons/eventSpeakers.svg"
 import flag from "./icons/flag.svg"
 import unlike from "./icons/unlike.svg"
+import cancelWhite from "./icons/cancel-white.svg"
+import cancelBlack from "./icons/cancel-black.svg"
+import pendingWhite from "./icons/pending-white.svg"
+import pendingBlack from "./icons/pending-black.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -243,4 +247,8 @@ export {
   eventImage,
   flag,
   unlike,
+  cancelBlack,
+  cancelWhite,
+  pendingBlack,
+  pendingWhite,
 };

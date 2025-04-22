@@ -116,7 +116,7 @@ const Home = () => {
         isLiked: isuserLiked,
         comments: 0,
         activity: "",
-        postPic: item?.media["IMAGES"]?.map((mediaItem) => mediaItem?.url) || [],
+        postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),

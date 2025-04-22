@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import BondCard from "./bond-card";
 import { useAllBondsQuery, useSendBondReqMutation } from "../services/bonds";
 import BondCard2 from "./BondCard";
-import { useNavigate } from "react-router-dom";
 
-const SuggestedBonds = ({ refetch, feedPage }) => {
+const SuggestedBonds = ({ refetch, feedPage, search }) => {
   const [id, setId] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [users, setUsers] = useState([]);
   const [displayedBonds, setDisplayedBonds] = useState([]);
-  const [feedBonds, setFeedBonds] = useState([])
-  const navigate = useNavigate()
+  const [feedBonds, setFeedBonds] = useState([]);
+  const navigate = useNavigate();
 
   const {
     data,
@@ -24,6 +24,7 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
     {
       page: 1,
       pageSize: 100,
+      search,
     },
     {
       refetchOnMountOrArgChange: true,
@@ -40,12 +41,20 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
       name: `${item?.firstName} ${item?.lastName}`,
       address: "",
       role: item?.designation,
-      id: item?.id
-    }))
-    setFeedBonds(feedUsers?.slice(0, 3))
-    setDisplayedBonds(showAll ? filteredUsers : filteredUsers?.slice(0, 4));
-    setUsers(filteredUsers);
-  }, [showAll, data]);
+      id: item?.id,
+    }));
+    setFeedBonds(feedUsers?.slice(0, 3));
+    setDisplayedBonds(
+      showAll
+        ? search
+          ? data?.data?.users
+          : filteredUsers
+        : search
+        ? data?.data?.users?.slice(0, 4)
+        : filteredUsers?.slice(0, 4)
+    );
+    setUsers(search ? data?.data?.users : filteredUsers);
+  }, [search, showAll, data]);
 
   useEffect(() => {
     if (error && isError) {
@@ -81,10 +90,22 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
     });
   };
 
+  if (isLoading && search) {
+    return (
+      <Stack justifyContent="center" alignItems="center">
+        <CircularProgress sx={{ color: "#1877F2" }} />
+      </Stack>
+    );
+  }
+
+  if (displayedBonds?.length <= 0 && search) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
-        mt: feedPage ? "0px" : "40px",
+        mt: feedPage || search ? "0px" : "40px",
         padding: "20px 32px 25px 32px",
         background: "#FFF",
         border: "1px solid #E4E4E4",
@@ -99,10 +120,16 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
         justifyContent="space-between"
         gap={2}
       >
-        <Typography fontSize="14px">{feedPage ? "Suggestion for you to create bonds" : "People you may know"}</Typography>
+        <Typography fontSize="14px">
+          {feedPage
+            ? "Suggestion for you to create bonds"
+            : "People you may know"}
+        </Typography>
         {users?.length > 4 && (
           <Typography
-            onClick={feedPage ? () => navigate("/bonds") : () => setShowAll(!showAll)}
+            onClick={
+              feedPage ? () => navigate("/bonds") : () => setShowAll(!showAll)
+            }
             fontSize="14px"
             sx={{
               minWidth: "60px",
@@ -117,9 +144,15 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
           </Typography>
         )}
       </Stack>
-      {feedPage
-        ?
-        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", mt: '30px' }}>
+      {feedPage ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "20px",
+            mt: "30px",
+          }}
+        >
           {feedBonds?.map((item, index) => {
             return (
               <BondCard2
@@ -129,17 +162,18 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
                 userAddress={item?.address}
                 userRole={item?.role}
                 id={item?.id}
+                bondId={item?.bondId}
                 showBondIcon={true}
                 handleBondClick={handleSendBondReq}
                 isLoading={isReqLoading && item?.id === id}
               />
-            )
+            );
           })}
         </Box>
-        :
+      ) : (
         <Box
           display="grid"
-          gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+          gridTemplateColumns="repeat(auto-fit, minmax(225px, 1fr))"
           gap={2}
           mt={3}
         >
@@ -152,16 +186,20 @@ const SuggestedBonds = ({ refetch, feedPage }) => {
           ) : (
             displayedBonds?.map((bond) => (
               <BondCard
+                isPending={bond?.isPendingFriendRequest}
+                isFriend={bond?.isFriend}
                 isLoading={isReqLoading && id === bond?.id}
                 handleRemoveUser={handleRemoveUser}
                 handleSendBondReq={handleSendBondReq}
+                refetch={refetch}
+                refetchUsers={refetchUsers}
                 key={bond.id}
                 {...bond}
               />
             ))
           )}
         </Box>
-      }
+      )}
     </Box>
   );
 };
