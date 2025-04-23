@@ -71,7 +71,9 @@ const App = () => {
   }, [search, filter]);
 
   useEffect(() => {
-    dispatch(handleChange(null));
+    if(pathname !== "/bonds") {
+      dispatch(handleChange(null));
+    }
   }, [pathname]);
   return (
     <>
