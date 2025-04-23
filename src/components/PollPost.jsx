@@ -16,9 +16,11 @@ import { useCommentMutation, useGetPostCommentsQuery } from '../services/interac
 import Button from './button';
 import Comment from './Comment';
 import { toast } from 'react-toastify';
+import { useInteractPollMutation } from '../services/post';
 
-const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
+const PollPost = ({ pollId, endDate, voteCount, userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
 
+  const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const initialSelectedValue = options?.find(option => option.isChecked)?.value || "";
 
 
@@ -86,7 +88,17 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
   }
 
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+    const optionIndex = event.target.value?.id - 3
+    interact({ id: pollId, credentials: { optionIndex } })
+    .then(res => {
+      if(res?.error) {
+        toast.error(res?.error?.data?.message || "Something went wrong");
+        return;
+      }
+      if(res?.data) {
+        setSelectedValue(event.target.value?.value)
+      }
+    })
   };
 
   const HandleComment = (id) => {
@@ -133,13 +145,18 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
             {question}
           </Box>
 
+          {pollLoading ?
+            <Box sx={{ width: "100%", height: "200px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <CircularProgress sx={{ color: "#1877F2" }} />
+            </Box>
+          : 
           <RadioGroup name='groups' value={selectedValue} onChange={handleChange} sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
             {options?.map((item, index) => (
               <Box sx={{ display: "flex", p: "10px 35px", alignItems: "center", backgroundColor: "#FCFCFC", justifyContent: "space-between" }} key={index}>
                 <Box sx={{
                   display: "flex", width: "95%", alignItems: "center", minHeight: "20px", py: "0px", maxHeight: "45px",
                   background: selectedValue === item.value ? `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)` : "#FCFCFC", cursor: "pointer", p: "4px"
-                }} onClick={() => handleChange({ target: { value: item.value } })}>
+                }} onClick={() => handleChange({ target: { value: item } })}>
                   <FormControlLabel
                     value={item.value}
                     control={
@@ -162,13 +179,13 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
                 <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{item.numbersVoted}</Typography>
               </Box>
             ))}
-          </RadioGroup>
+          </RadioGroup>}
 
           <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center", pl: "5px" }}>
             {ownPost && <>
-              <Typography sx={{ fontSize: "14px", fontWeight: "400", cursor: "pointer" }} variant='gradientText' onClick={() => setViewVotes(true)}>0 votes</Typography>
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", cursor: "pointer" }} variant='gradientText' onClick={() => setViewVotes(true)}>{voteCount} votes</Typography>
               <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
-              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>2d left</Typography>
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{endDate}</Typography>
             </>}
             {/* {
               selectedValue !== "" &&
@@ -186,7 +203,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
             }
             {
               selectedValue !== "" && !ownPost &&
-              <>
+              <>  
                 <Typography sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }} variant='gradientText' onClick={() => setSelectedValue("")}>Undo</Typography>
               </>
             }
@@ -340,7 +357,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
       </DynamicModal>
 
       <DynamicModal open={viewVotes} handleClose={() => setViewVotes(false)} title={"Votes"} postModal={true} styledHeader={true} hideFooter={true} smallModal={true}>
-        <ViewPolls />
+        <ViewPolls options={options} />
       </DynamicModal>
     </Paper>
   );

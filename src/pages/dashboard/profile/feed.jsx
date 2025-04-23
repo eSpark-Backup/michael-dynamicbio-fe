@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
+import { getDaysLeft } from "../../../utils";
 
 dayjs.extend(relativeTime);
 
@@ -100,8 +101,11 @@ const Feed = ({ isPublicView }) => {
         type: getPostType(item?.type),
         videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
         thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
-        question: item?.type === "POLL" ? item?.content?.question : "",
+        question: item?.type === "POLL" ? item?.poll?.question : "",
         options: getPollOptions(item),
+        voteCount: item?.poll?.votes?.length || 0,
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+        pollId: item?.poll?.id || "",
         isVoted: false,
         eventName: item?.content?.name,
         eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
@@ -136,16 +140,18 @@ const Feed = ({ isPublicView }) => {
 
   const getPollOptions = (item) => {
     if (item?.type !== "POLL") return [];
-
+    const isVote = item?.poll?.votes?.find(
+      (vote) => vote?.userId === userData?.id
+    );
+    const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
-      { id: 1, value: item?.content?.opt1, isChecked: false, numbersVoted: 0 },
-      { id: 2, value: item?.content?.opt2, isChecked: false, numbersVoted: 0 },
-      ...(item?.content?.options?.map((option, index) => ({
+      ...(item?.pollResults?.map((option, index) => ({
         id: index + 3,
-        value: option,
-        isChecked: false,
-        numbersVoted: 0,
-      })) || [])
+        value: option?.option,
+        isChecked: myVoteIndex === index,
+        numbersVoted: option?.count,
+        voteBy : item?.poll?.votes?.map(item => item?.optionIndex === index ? item : null)
+      })) || []),
     ];
   };
 
