@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Box, OutlinedInput, Typography } from "@mui/material";
+import { Avatar, Box, OutlinedInput, Typography } from "@mui/material";
 import DynamicModal from "./dynamic-modal";
 import PhotoModal from "./PhotoModal";
 import VideoModal from "./VideoModal";
@@ -15,7 +15,7 @@ import PollModal from "./PollModal";
 import { useNewPostMutation } from "../services/post";
 import { article, event, photo, user, video } from "../assets";
 
-const PostCard = () => {
+const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   const [newPost, { isLoading }] = useNewPostMutation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -48,22 +48,33 @@ const PostCard = () => {
   }
 
   const handlePost = (obj) => {
-    newPost(obj).then((res) => {
-      if (res?.error) {
-        toast.error(res?.error?.data?.message);
-        return;
-      }
-      if (res?.data) {
-        toast.success("Your post is uploaded successfully");
-        setTitle("");
-        setShowPostModal(false);
-        HandleModalClose();
-        setVideoModal(false);
-        setPollModal(false);
-        setViewEventModal(false);
-        setEventFormValues({});
-      }
-    });
+    if (viewOnly) {
+      setShowPostModal(false);
+      HandleModalClose();
+      setVideoModal(false);
+      setPollModal(false);
+      setViewEventModal(false);
+      setEventFormValues({});
+      return
+    }
+    else {
+      newPost(obj).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res?.data) {
+          toast.success("Your post is uploaded successfully");
+          setTitle("");
+          setShowPostModal(false);
+          HandleModalClose();
+          setVideoModal(false);
+          setPollModal(false);
+          setViewEventModal(false);
+          setEventFormValues({});
+        }
+      });
+    }
   };
 
   const handleTextPost = () => {
@@ -233,12 +244,17 @@ const PostCard = () => {
             rowGap: "5px",
           }}
         >
-          <img
+          {/* <img
             style={{ width: "73px", height: "73px", borderRadius: "50%" }}
             src={
               userData && userData?.profileImage ? userData?.profileImage : user
             }
             alt="User"
+          /> */}
+          <Avatar
+            src={userData?.profileImage ? userData.profileImage : user}
+            alt="User"
+            sx={{ width: 60, height: 60, objectFit: "fill" }}
           />
           <OutlinedInput
             placeholder="Start a post"
@@ -332,6 +348,9 @@ const PostCard = () => {
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
         setVisibility={setVisibility}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
       >
         <PhotoModal
           title={title}
@@ -359,6 +378,9 @@ const PostCard = () => {
         footerDirection={"flex-end"}
         visibility={visibility}
         setVisibility={setVisibility}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
       >
         <VideoModal
           videoData={videoData}
@@ -388,6 +410,9 @@ const PostCard = () => {
         footerDirection={"flex-end"}
         visibility={visibility}
         setVisibility={setVisibility}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
       >
         <PostModal
           title={title}
@@ -410,6 +435,7 @@ const PostCard = () => {
         handleScheduleClick={() => setShowScheduleModal(true)}
         footerDirection={"flex-end"}
         hideFooter={true}
+        groupAdmin={groupAdmin}
       >
         <EventModal
           onFormSubmit={handleFormSubmit}
@@ -432,6 +458,9 @@ const PostCard = () => {
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
         setVisibility={setVisibility}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
       >
         <ViewEventModal
           isLoading={isLoading}
@@ -464,6 +493,7 @@ const PostCard = () => {
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
+        groupAdmin={groupAdmin}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}
@@ -483,6 +513,7 @@ const PostCard = () => {
         userName={`${userData?.firstName} ${userData?.lastName}`}
         footerDirection={"space-between"}
         hideFooter={true}
+        groupAdmin={groupAdmin}
       >
         <GroupShareModal />
       </DynamicModal>
@@ -498,6 +529,9 @@ const PostCard = () => {
         handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
       >
         <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
       </DynamicModal>

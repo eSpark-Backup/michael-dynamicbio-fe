@@ -1,7 +1,7 @@
 import { Avatar, Box, CircularProgress, FormControlLabel, LinearProgress, Menu, MenuItem, Paper, Radio, RadioGroup, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import BondCard2 from './BondCard';
-import { camera, comment, emoji, like, repost, send, unlike, user } from '../assets';
+import { camera, comment, emoji, like, pin, repost, send, unlike, user } from '../assets';
 import DynamicModal from './dynamic-modal';
 import RepostWithThoughts from './RepostWithThoughts';
 import GroupShareModal from './GroupShareModal';
@@ -17,7 +17,7 @@ import Button from './button';
 import Comment from './Comment';
 import { toast } from 'react-toastify';
 
-const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
+const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned }) => {
 
   const initialSelectedValue = options?.find(option => option.isChecked)?.value || "";
 
@@ -123,6 +123,61 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+      {
+        isGroupPost &&
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", pb: "8px", borderBottom: "1px solid #E4E4E4" }}>
+            <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+              {pinned && <img src={pin} alt="" />}
+              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{pinned ? "Pinned by admin" : "Highlight this post by pinning it at the top."}</Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "150px",
+                height: "36px",
+                borderRadius: "2px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                background: "white",
+                position: "relative",
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  borderRadius: "8px",
+                  padding: "1px",
+                  background:
+                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                  mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                  WebkitMask:
+                    "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                  WebkitMaskComposite: "destination-out",
+                  maskComposite: "exclude",
+                },
+                cursor: "pointer",
+              }}
+            >
+              <Typography variant="gradientText">{pinned ? "Unpin" : "Pin this post"}</Typography>
+            </Box>
+          </Box>
+          {pinned && <Box sx={{ display: "flex", justifyContent: "space-between", py: "8px", borderBottom: "1px solid #E4E4E4" }}>
+            <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+              <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#505050" }}>
+                <Box component="span" sx={{ fontWeight: 500, color: "#171717" }}>
+                  rotten ria
+                </Box>{" "}
+                posted in free
+              </Typography>
+
+            </Box>
+            <img src={three_vertical_dots} alt="" />
+          </Box>}
+        </Box>
+      }
       <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} isFriendPost={isFriendPost} ownPost={ownPost} />
       {postContent &&
         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}></Typography>

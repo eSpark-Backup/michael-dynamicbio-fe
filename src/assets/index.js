@@ -113,6 +113,12 @@ import aboutEvent from "./icons/aboutEvent.svg"
 import eventSpeakers from "./icons/eventSpeakers.svg"
 import flag from "./icons/flag.svg"
 import unlike from "./icons/unlike.svg"
+import group from "./icons/group.svg"
+import arrowUpRight from "./icons/arrow-up-right.svg"
+import info from "./icons/info.svg"
+import leave from "./icons/leave.svg"
+import commentOff from "./icons/commentOff.svg"
+import tick from "./icons/tick.svg"
 import cancelWhite from "./icons/cancel-white.svg"
 import cancelBlack from "./icons/cancel-black.svg"
 import pendingWhite from "./icons/pending-white.svg"
@@ -247,6 +253,12 @@ export {
   eventImage,
   flag,
   unlike,
+  group,
+  info,
+  arrowUpRight,
+  leave,
+  commentOff,
+  tick,
   cancelBlack,
   cancelWhite,
   pendingBlack,
