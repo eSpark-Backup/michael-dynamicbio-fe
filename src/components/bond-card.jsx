@@ -1,7 +1,18 @@
-import { Box, Stack, Typography } from "@mui/material";
-import Button from "./button";
-import { bondBlack2, close, bondWhite, userAvatar } from "../assets";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import Button from "./button";
+import { useUpdateBondReqMutation } from "../services/bonds";
+import {
+  bondBlack2,
+  close,
+  bondWhite,
+  userAvatar,
+  cancelWhite,
+  pendingWhite,
+  pendingBlack,
+  cancelBlack,
+} from "../assets";
 
 const BondCard = ({
   handleRemoveUser,
@@ -17,8 +28,62 @@ const BondCard = ({
   orgination,
   place,
   members,
+  isPending,
+  isFriend,
+  refetch,
+  refetchUsers,
+  bondId,
+  requestSentByMe,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [type, setType] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const [updateReq, { isLoading: isUpdateReqLoading }] =
+    useUpdateBondReqMutation();
+
+  const handleBond = (id, e) => {
+    if (isPending) {
+      setAnchorEl(e.currentTarget);
+      setSelected(id);
+      setType("pending");
+      return;
+    } else if (isFriend) {
+      setAnchorEl(e.currentTarget);
+      setSelected(id);
+      setType("cancel");
+      return;
+    } else {
+      handleSendBondReq(id);
+      return;
+    }
+  };
+
+  const handleClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
+  };
+
+  const handleBondReq = (e, type) => {
+    handleClose(e);
+    const bodyToSend = {
+      bondId: selected,
+      action: type === "pending" ? requestSentByMe ? "canceled" : "rejected" : "unfriend",
+    };
+    updateReq(bodyToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        refetch();
+        refetchUsers();
+      }
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -104,12 +169,12 @@ const BondCard = ({
         </Stack>
       )}
       <Button
-        loading={isLoading}
-        disabled={isLoading}
+        loading={isLoading || (isUpdateReqLoading && bondId === selected)}
+        disabled={isLoading || (isUpdateReqLoading && bondId === selected)}
         sx={{ mt: 1, height: "48px", position: "relative" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onClick={() => handleSendBondReq(id)}
+        onClick={(e) => handleBond(!isPending && !isFriend? id : bondId, e)}
       >
         <img
           style={{
@@ -120,9 +185,10 @@ const BondCard = ({
             opacity: hovered ? 1 : 0,
             transition: "all 0.3s ease-in-out",
           }}
-          src={bondWhite}
+          src={isPending ? pendingWhite : isFriend ? cancelWhite : bondWhite}
           alt="add"
         />
+
         <img
           style={{
             position: "absolute",
@@ -132,11 +198,28 @@ const BondCard = ({
             opacity: hovered ? 0 : 1,
             transition: "all 0.3s ease-in-out",
           }}
-          src={bondBlack2}
+          src={isPending ? pendingBlack : isFriend ? cancelBlack : bondBlack2}
           alt="add"
         />
-        Bond
+        {isPending ? "Pending" : isFriend ? "Bonded" : "Bond"}
       </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={(e) => handleBondReq(e, type)}>
+          {type === "pending" ? requestSentByMe ? "Withdraw request" : "Reject request" : "Remove bond"}
+        </MenuItem>
+      </Menu>
     </Box>
   );
 };

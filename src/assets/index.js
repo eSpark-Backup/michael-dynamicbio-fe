@@ -119,6 +119,10 @@ import info from "./icons/info.svg"
 import leave from "./icons/leave.svg"
 import commentOff from "./icons/commentOff.svg"
 import tick from "./icons/tick.svg"
+import cancelWhite from "./icons/cancel-white.svg"
+import cancelBlack from "./icons/cancel-black.svg"
+import pendingWhite from "./icons/pending-white.svg"
+import pendingBlack from "./icons/pending-black.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -255,4 +259,8 @@ export {
   leave,
   commentOff,
   tick,
+  cancelBlack,
+  cancelWhite,
+  pendingBlack,
+  pendingWhite,
 };

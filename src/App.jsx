@@ -1,4 +1,10 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import AuthLayout from "./layout/auth-layout";
 import PrivateLayout from "./layout/private-layout";
 
@@ -34,8 +40,41 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ArticleDetails, EventDetails, GroupDetails, ManageGroup } from "./components";
 import SocketListener from "./socket/socket-listener";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useQuery } from "./utils";
+import { handleChange } from "./store/slices/search";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const query = useQuery();
+  const q = query.get("q");
+  const filter = query.get("filter");
+  useEffect(() => {
+    dispatch(handleChange(q));
+  }, []);
+  const { search } = useSelector((state) => state.search);
+  useEffect(() => {
+    if (search !== null) {
+      const delaySearch = setTimeout(() => {
+        if (search === "") {
+          navigate("/bonds?sub=bond");
+        } else {
+          navigate(`/bonds?q=${search}&filter=${filter || "all"}`);
+        }
+      }, 500);
+
+      return () => clearTimeout(delaySearch);
+    }
+  }, [search, filter]);
+
+  useEffect(() => {
+    if(pathname !== "/bonds") {
+      dispatch(handleChange(null));
+    }
+  }, [pathname]);
   return (
     <>
       <SocketListener />
@@ -82,18 +121,6 @@ const App = () => {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        transition:Bounce
-      />
     </>
   );
 };
