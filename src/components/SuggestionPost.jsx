@@ -1,6 +1,6 @@
 import { Avatar, Box, CircularProgress, colors, LinearProgress, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, comment, emoji, like, plus, postPicture, refresh, repost, send, three_vertical_dots, unlike, user } from "../assets/index.js"
+import { camera, comment, emoji, like, pin, plus, postPicture, refresh, repost, send, three_vertical_dots, unlike, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
 import BondCard2 from './BondCard.jsx';
@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux';
 import Button from './button.jsx';
 import { toast } from 'react-toastify';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, isGroupPost, pinned }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -162,21 +162,76 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
+                        <PollPost userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
+                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} />
+                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+                                    {
+                                        isGroupPost &&
+                                        <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                            <Box sx={{ display: "flex", justifyContent: "space-between", pb: "8px", borderBottom: "1px solid #E4E4E4" }}>
+                                                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                                                    {pinned && <img src={pin} alt="" />}
+                                                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{pinned ? "Pinned by admin" : "Highlight this post by pinning it at the top."}</Typography>
+                                                </Box>
+                                                <Box
+                                                    sx={{
+                                                        width: "150px",
+                                                        height: "36px",
+                                                        borderRadius: "2px",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        background: "white",
+                                                        position: "relative",
+                                                        "&::before": {
+                                                            content: '""',
+                                                            position: "absolute",
+                                                            top: 0,
+                                                            left: 0,
+                                                            right: 0,
+                                                            bottom: 0,
+                                                            borderRadius: "8px",
+                                                            padding: "1px",
+                                                            background:
+                                                                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                                            mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                                            WebkitMask:
+                                                                "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                                            WebkitMaskComposite: "destination-out",
+                                                            maskComposite: "exclude",
+                                                        },
+                                                        cursor: "pointer",
+                                                    }}
+                                                >
+                                                    <Typography variant="gradientText">{pinned ? "Unpin" : "Pin this post"}</Typography>
+                                                </Box>
+                                            </Box>
+                                            {pinned && <Box sx={{ display: "flex", justifyContent: "space-between", py: "8px", borderBottom: "1px solid #E4E4E4" }}>
+                                                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                                                    <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#505050" }}>
+                                                        <Box component="span" sx={{ fontWeight: 500, color: "#171717" }}>
+                                                            rotten ria
+                                                        </Box>{" "}
+                                                        posted in free
+                                                    </Typography>
+
+                                                </Box>
+                                                <img src={three_vertical_dots} alt="" />
+                                            </Box>}
+                                        </Box>
+                                    }
                                     {
                                         (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                             <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>

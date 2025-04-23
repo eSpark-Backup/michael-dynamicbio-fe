@@ -73,6 +73,8 @@ export const suggestionPostContent = [
     postContent: null,
     commentsContent: [],
     type: "normal",
+    isFriendPost: true,
+    pinned: true
   },
   {
     userName: "James Bond",
@@ -102,6 +104,7 @@ export const suggestionPostContent = [
       },
     ],
     type: "normal",
+    isFriendPost: true
   },
   {
     userName: "Gerry’s International",
@@ -117,7 +120,8 @@ export const suggestionPostContent = [
     commentsContent: [],
     type: "video",
     videoUrl: "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
-    thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg"
+    thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg",
+    isFriendPost: true
   },
   {
     userName: "Gerry’s International",
@@ -147,7 +151,8 @@ export const suggestionPostContent = [
         numbersVoted: 120
       },
     ],
-    isVoted: true
+    isVoted: true,
+    isFriendPost: true
   },
   {
     userName: "rotten ria",
@@ -170,7 +175,8 @@ export const suggestionPostContent = [
     attendees: [{ image: user }],
     eventPost: "bringback",
     eventImage: dummyPhoto,
-    id: 123
+    id: 123,
+    isFriendPost: true
   },
   {
     userName: "rotten ria",
@@ -188,7 +194,8 @@ export const suggestionPostContent = [
     id: 123,
     articleImage: dummyPhoto,
     articleTitle: "Lorem Ipsum",
-    articleDescription: "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    articleDescription: "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    isFriendPost: true
   },
 ];
 
@@ -917,4 +924,27 @@ export const groupMembersData = [
     role: "--",
     groupRole: "owner"
   },
+]
+
+export const groupAdminsData = [
+  {
+    name: "Areeba Shakeel",
+    role: "UI/UX Designer | Product Designer | Figma",
+    groupRole: "admin",
+    madeBy: "rotten ria"
+  },
+  {
+    name: "rotten ria",
+    role: "--",
+    groupRole: "owner"
+  },
+]
+
+export const groupBlockedData = [
+  {
+    name: "Areeba Shakeel",
+    role: "UI/UX Designer | Product Designer | Figma",
+    groupRole: "admin",
+    madeBy: "rotten ria"
+  }
 ]

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Box, OutlinedInput, Typography } from "@mui/material";
+import { Avatar, Box, OutlinedInput, Typography } from "@mui/material";
 import DynamicModal from "./dynamic-modal";
 import PhotoModal from "./PhotoModal";
 import VideoModal from "./VideoModal";
@@ -244,12 +244,17 @@ const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
             rowGap: "5px",
           }}
         >
-          <img
+          {/* <img
             style={{ width: "73px", height: "73px", borderRadius: "50%" }}
             src={
               userData && userData?.profileImage ? userData?.profileImage : user
             }
             alt="User"
+          /> */}
+          <Avatar
+            src={userData?.profileImage ? userData.profileImage : user}
+            alt="User"
+            sx={{ width: 60, height: 60, objectFit: "fill" }}
           />
           <OutlinedInput
             placeholder="Start a post"

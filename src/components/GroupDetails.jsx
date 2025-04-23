@@ -1,5 +1,5 @@
-import { Box, Divider, Grid2, Menu, MenuItem, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, Divider, Grid2, IconButton, Menu, MenuItem, Paper, Popper, Typography } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { arrowUpRight, bell, bulb, close, conversation, dummyPhoto, editBlue, group, info, leave, link2, plus, send2, settings, three_vertical_dots } from '../assets'
 import GroupSlider from './GroupSlider'
 import PostCard from './post-card'
@@ -9,6 +9,9 @@ import AboutGroupModal from './AboutGroupModal'
 import NotificationSettingsModal from './NotificationSettingsModal'
 import GroupPostSettingModal from './GroupPostSettingModal'
 import { useNavigate, useParams } from 'react-router-dom'
+import { suggestionPostContent } from '../constant'
+import SuggestionPost from './SuggestionPost'
+import CloseIcon from "@mui/icons-material/Close";
 
 const GroupDetails = () => {
     const [showSlider, setShowSlider] = useState(true);
@@ -23,6 +26,21 @@ const GroupDetails = () => {
     const open2 = Boolean(anchorEl2);
     const navigate = useNavigate()
     const { id } = useParams()
+
+    const bellRef = useRef(null);
+    const [anchorEl3, setAnchorEl3] = useState(null);
+
+    useEffect(() => {
+        if (bellRef.current) {
+            setAnchorEl3(bellRef.current);
+        }
+    }, []);
+
+    const handleClose3 = () => {
+        setAnchorEl3(null);
+    };
+
+    const open3 = Boolean(anchorEl3);
 
 
     const handleClose = (event) => {
@@ -100,7 +118,7 @@ const GroupDetails = () => {
                                 <Typography sx={{ fontSize: "13px", fontWeight: "400" }} variant='gradientText'>0</Typography>
                             </Box>
                         </Box>
-                        <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={()=>navigate(`/group/${id}/manage`)}>
+                        <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => navigate(`/group/${id}/manage`)}>
                             <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Manage group</Typography>
                         </Box>
                         <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
@@ -141,7 +159,56 @@ const GroupDetails = () => {
                             <Box sx={{ display: "flex", justifyContent: "flex-end", columnGap: "15px" }}>
                                 <img src={info} alt="Icon" onClick={() => setAboutModal(true)} style={{ cursor: "pointer" }} />
                                 <img src={arrowUpRight} alt="Icon" style={{ cursor: "pointer" }} onClick={handleClick} />
-                                <img src={bell} alt="Icon" style={{ cursor: "pointer" }} onClick={() => setNotificationModal(true)} />
+                                <Box sx={{ position: "relative", display: "flex", justifyContent: "flex-end", columnGap: "15px" }}>
+                                    <img
+                                        src={bell}
+                                        alt="Bell Icon"
+                                        style={{ cursor: "pointer" }}
+                                        ref={bellRef}
+                                        onClick={() => setNotificationModal(true)}
+                                    />
+
+                                    <Popper open={open3} anchorEl={anchorEl3} placement="bottom-end" sx={{ zIndex: 1300 }}>
+                                        <Paper
+                                            sx={{
+                                                backgroundColor: "#2f2f2f",
+                                                color: "#fff",
+                                                padding: "8px 16px",
+                                                borderRadius: 1,
+                                                position: "relative",
+                                                maxWidth: 400,
+                                                marginTop: "15px",
+                                                left: "10px"
+                                            }}
+                                            elevation={3}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: "-8px",
+                                                    right: "12px",
+                                                    width: 0,
+                                                    height: 0,
+                                                    borderLeft: "8px solid transparent",
+                                                    borderRight: "8px solid transparent",
+                                                    borderBottom: "8px solid #2f2f2f",
+                                                }}
+                                            />
+
+                                            <Typography variant="body2" sx={{ fontWeight: "400", color: "white" }}>
+                                                Never miss a post. Turn on notifications for all posts from this group.
+                                            </Typography>
+
+                                            <IconButton
+                                                onClick={handleClose3}
+                                                size="small"
+                                                sx={{ position: "absolute", top: 4, right: 4, color: "#fff" }}
+                                            >
+                                                <CloseIcon fontSize="small" />
+                                            </IconButton>
+                                        </Paper>
+                                    </Popper>
+                                </Box>
                                 <img src={editBlue} alt="Icon" />
                                 <img src={three_vertical_dots} alt="Icon" style={{ cursor: "pointer" }} onClick={handleClick2} />
                             </Box>
@@ -181,13 +248,16 @@ const GroupDetails = () => {
                             Recommended
                         </Box>
                     </Box>
-                    <Paper sx={{ display: "flex", justifyContent: "center", flexDirection: "column", rowGap: "15px", alignItems: "center" }}>
-                        <img src={conversation} alt="Image" />
+                    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", rowGap: "15px", alignItems: "center" }}>
+                        {/* <img src={conversation} alt="Image" />
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>No posts to show</Typography>
                         <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
                             Join group to receive updates, add <br /> comments and create posts.
-                        </Typography>
-                    </Paper>
+                        </Typography> */}
+                        {suggestionPostContent.map((item) => (
+                            <SuggestionPost key={item.id} {...item} isGroupPost={true} />
+                        ))}
+                    </Box>
                 </Grid2>
                 <Grid2 size={{ xs: 12, lg: 3 }}>
                     <GroupSidebar />

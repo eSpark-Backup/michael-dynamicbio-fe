@@ -48,11 +48,9 @@ const GroupMembers = () => {
                     </Box>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    {/* <GroupMemberCard />
-                    <GroupMemberCard /> */}
                     {groupMembersData?.map((item, index) => {
                         return (
-                            <GroupMemberCard name={item?.name} role={item?.role} groupRole={item?.groupRole} />
+                            <GroupMemberCard mainType={"members"} name={item?.name} role={item?.role} groupRole={item?.groupRole} key={index} />
                         )
                     })}
                 </Box>

@@ -223,6 +223,10 @@ button.is-active {
     object-fit: fill !important;
 }
 
+.recharts-legend-wrapper{
+    display: none;
+}
+
 @media screen and (min-width:769px) {
     .ql-container.ql-snow {
         margin-left: 30px;

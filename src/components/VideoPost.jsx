@@ -1,6 +1,6 @@
 import { Avatar, Box, CircularProgress, LinearProgress, Menu, MenuItem, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, close, comment, emoji, like, profile2, repost, send, three_vertical_dots, unlike, user } from '../assets'
+import { camera, close, comment, emoji, like, pin, profile2, repost, send, three_vertical_dots, unlike, user } from '../assets'
 import BondCard2 from './BondCard'
 import { Player, ControlBar, PlayToggle, VolumeMenuButton, PlaybackRateMenuButton, CurrentTimeDisplay, TimeDivider, ProgressControl, FullscreenToggle } from "video-react";
 import "video-react/dist/video-react.css";
@@ -17,7 +17,7 @@ import Button from './button';
 import { toast } from 'react-toastify';
 import Comment from './Comment';
 
-const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading }) => {
+const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -110,7 +110,62 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
     }, [getCommentsSuccess, getCommentsData])
 
     return (
-        <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+        <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px", width: "100%" }}>
+            {
+                isGroupPost &&
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", pb: "8px", borderBottom: "1px solid #E4E4E4" }}>
+                        <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                            {pinned && <img src={pin} alt="" />}
+                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{pinned ? "Pinned by admin" : "Highlight this post by pinning it at the top."}</Typography>
+                        </Box>
+                        <Box
+                            sx={{
+                                width: "150px",
+                                height: "36px",
+                                borderRadius: "2px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                background: "white",
+                                position: "relative",
+                                "&::before": {
+                                    content: '""',
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    borderRadius: "8px",
+                                    padding: "1px",
+                                    background:
+                                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                                    mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                    WebkitMask:
+                                        "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                                    WebkitMaskComposite: "destination-out",
+                                    maskComposite: "exclude",
+                                },
+                                cursor: "pointer",
+                            }}
+                        >
+                            <Typography variant="gradientText">{pinned ? "Unpin" : "Pin this post"}</Typography>
+                        </Box>
+                    </Box>
+                    {pinned && <Box sx={{ display: "flex", justifyContent: "space-between", py: "8px", borderBottom: "1px solid #E4E4E4" }}>
+                        <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                            <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#505050" }}>
+                                <Box component="span" sx={{ fontWeight: 500, color: "#171717" }}>
+                                    rotten ria
+                                </Box>{" "}
+                                posted in free
+                            </Typography>
+
+                        </Box>
+                        <img src={three_vertical_dots} alt="" />
+                    </Box>}
+                </Box>
+            }
             {
                 (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>

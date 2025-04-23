@@ -30,6 +30,11 @@ const slides = [
         description: "Introduce yourself and group's purpose to get the conversation started",
         buttonText: "Create post"
     },
+    {
+        title: "Add a cover image to make ypur group standout",
+        description: "Use this as an opportunity to brand your group and make it unique",
+        buttonText: "Add cover image"
+    }
 ];
 
 const GroupSlider = ({ handleClose }) => {

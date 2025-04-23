@@ -1,6 +1,6 @@
 import { Box, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material'
 import React from 'react'
-import { comment } from '../assets'
+import { comment, commentOff } from '../assets'
 import Button from './button'
 
 const CommentsControlModal = ({ handleClose }) => {
@@ -19,7 +19,7 @@ const CommentsControlModal = ({ handleClose }) => {
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Stack direction={"row"} alignItems={"center"} gap={1}>
                         <Box sx={{ width: "50px", height: "50px", backgroundColor: "#ededed", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <img src={comment} alt="Icon" />
+                            <img src={commentOff} alt="Icon" />
                         </Box>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Off</Typography>
                     </Stack>

@@ -2,6 +2,8 @@ import { Box, Paper, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { dummyPhoto } from '../assets'
 import GroupMembership from './GroupMembership';
+import GroupContentSection from './GroupContentSection';
+import GroupAnalytics from './GroupAnalytics';
 
 const ManageGroup = () => {
 
@@ -14,11 +16,11 @@ const ManageGroup = () => {
         },
         {
             label: "Content",
-            component: <></>
+            component: <GroupContentSection />
         },
         {
             label: "Analytics",
-            component: <></>
+            component: <GroupAnalytics />
         },
     ];
     const [activeTab, setActiveTab] = useState(tabs[0]);

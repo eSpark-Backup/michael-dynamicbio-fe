@@ -1,6 +1,10 @@
 import { Box, Grid2, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import GroupMembers from './GroupMembers';
+import GroupAdmins from './GroupAdmins';
+import GroupRequests from './GroupRequests';
+import GroupInvited from './GroupInvited';
+import GroupBlocked from './GroupBlocked';
 
 const GroupMembership = () => {
     const tabs = [
@@ -12,19 +16,19 @@ const GroupMembership = () => {
         },
         {
             label: "Admins",
-            component: <></>
+            component: <GroupAdmins />
         },
         {
             label: "Requests",
-            component: <></>
+            component: <GroupRequests />
         },
         {
             label: "Invited",
-            component: <></>
+            component: <GroupInvited />
         },
         {
             label: "Blocked",
-            component: <></>
+            component: <GroupBlocked />
         },
     ];
     const [activeTab, setActiveTab] = useState(tabs[0]);

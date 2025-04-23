@@ -117,6 +117,8 @@ import group from "./icons/group.svg"
 import arrowUpRight from "./icons/arrow-up-right.svg"
 import info from "./icons/info.svg"
 import leave from "./icons/leave.svg"
+import commentOff from "./icons/commentOff.svg"
+import tick from "./icons/tick.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -251,4 +253,6 @@ export {
   info,
   arrowUpRight,
   leave,
+  commentOff,
+  tick,
 };

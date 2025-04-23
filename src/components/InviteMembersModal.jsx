@@ -90,9 +90,7 @@ const InviteMembersModal = ({ handleClose }) => {
                                 fontWeight: "500",
                                 color: "#171717",
                                 cursor: "pointer",
-                                '&:hover': {
-                                    textDecoration: 'underline'
-                                }
+                                
                             }}
                             onClick={handleUnselectAll}
                         >
