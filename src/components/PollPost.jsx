@@ -17,7 +17,7 @@ import Button from './button';
 import Comment from './Comment';
 import { toast } from 'react-toastify';
 
-const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned }) => {
+const PollPost = ({ userImage, userName, userRole, time, postContent, question, options, isVoted, numberofLikes, friendLiked, friend, isLiked, comments, commentsContent, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost }) => {
 
   const initialSelectedValue = options?.find(option => option.isChecked)?.value || "";
 
@@ -178,7 +178,7 @@ const PollPost = ({ userImage, userName, userRole, time, postContent, question, 
           </Box>}
         </Box>
       }
-      <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} isFriendPost={isFriendPost} ownPost={ownPost} />
+      <BondCard2 userName={userName} userImage={userImage} userRole={userRole} time={time} showActionIcon={true} showWorldIcon={true} handleClose={() => setPostRemoveModal(true)} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} />
       {postContent &&
         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}></Typography>
       }

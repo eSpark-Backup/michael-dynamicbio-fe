@@ -137,13 +137,13 @@ const GroupMemberCard = ({ name, role, groupRole, mainType, madeBy }) => {
 
                 <Typography sx={{ fontSize: 17, fontWeight: 300, color: "#595959" }}>
                     {selectedChoice === "manager"
-                        ? "As a group manager, Areeba Shakeel will be able to manage members and conversations."
+                        ? "As a group manager, Areeba Shakeel will be able to manage members and conversations. "
                         :
                         selectedChoice === "owner" ?
 
-                            "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations."
+                            "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
                             :
-                            "Areeba Shakeel will become a member of the group and be able to interact with the group again."
+                            "Areeba Shakeel will become a member of the group and be able to interact with the group again. "
                     }
                     <Typography
                         sx={{ fontSize: 17, fontWeight: 300, cursor: "pointer" }}

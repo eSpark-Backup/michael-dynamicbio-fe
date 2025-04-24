@@ -35,7 +35,7 @@ const GroupMembership = () => {
     return (
         <Box sx={{ margin: "20px 25px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "20px" }}>
-                <Box sx={{ width: { xs: "100%", md: "30%" } }}>
+                <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
                     <Paper sx={{ p: "0px" }}>
                         {tabs?.map((item) => {
                             const isActive = item.label === activeTab.label;
@@ -71,7 +71,7 @@ const GroupMembership = () => {
 
                     </Paper>
                 </Box>
-                <Box sx={{ width: { xs: "100%", md: "65%" } }}>
+                <Box sx={{ width: { xs: "100%", md: "65%", lg: "78%" } }}>
                     {activeTab?.component}
                 </Box>
             </Box >

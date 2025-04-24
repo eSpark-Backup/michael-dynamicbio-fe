@@ -23,7 +23,7 @@ export default function GroupAnalyticsChart() {
             <ResponsiveContainer width="100%" height="80%">
                 <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
+                    <XAxis dataKey="date" dy={5} />
                     <YAxis />
                     <Tooltip />
                     {showNew && (

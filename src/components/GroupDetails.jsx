@@ -1,6 +1,6 @@
 import { Box, Divider, Grid2, IconButton, Menu, MenuItem, Paper, Popper, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import { arrowUpRight, bell, bulb, close, conversation, dummyPhoto, editBlue, group, info, leave, link2, plus, send2, settings, three_vertical_dots } from '../assets'
+import { arrowUpRight, bell, bulb, calendarEvent, close, conversation, dummyPhoto, editBlue, group, info, leave, link2, plus, send2, settings, three_vertical_dots } from '../assets'
 import GroupSlider from './GroupSlider'
 import PostCard from './post-card'
 import GroupSidebar from './GroupSidebar'
@@ -129,6 +129,7 @@ const GroupDetails = () => {
                         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px", p: "20px" }}>
                             <Typography sx={{ fontSize: '14px', fontWeight: "400", color: "#171717" }}>Recent</Typography>
                             <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
+                                <img src={calendarEvent} alt="" />
                                 <Typography sx={{ fontSize: '14px', fontWeight: "400", color: "#505050" }}>mocking</Typography>
                             </Box>
                         </Box>
@@ -140,7 +141,10 @@ const GroupDetails = () => {
                             </Box>
                             <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-                                    <Typography sx={{ fontSize: '14px', fontWeight: "400", color: "#505050" }}>mocking</Typography>
+                                    <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
+                                        <img src={calendarEvent} alt="" />
+                                        <Typography sx={{ fontSize: '14px', fontWeight: "400", color: "#505050" }}>mocking</Typography>
+                                    </Box>
                                     <Typography sx={{ fontSize: '14px', fontWeight: "400", color: "#505050" }}>See all</Typography>
                                 </Box>
                             </Box>
@@ -168,7 +172,7 @@ const GroupDetails = () => {
                                         onClick={() => setNotificationModal(true)}
                                     />
 
-                                    <Popper open={open3} anchorEl={anchorEl3} placement="bottom-end" sx={{ zIndex: 1300 }}>
+                                    <Popper open={open3} anchorEl={anchorEl3} placement="bottom-end" sx={{ zIndex: 1300, display: { xs: "none", sm: "block" } }}>
                                         <Paper
                                             sx={{
                                                 backgroundColor: "#2f2f2f",
@@ -178,7 +182,15 @@ const GroupDetails = () => {
                                                 position: "relative",
                                                 maxWidth: 400,
                                                 marginTop: "15px",
-                                                left: "10px"
+                                                left: "10px",
+                                                width: "100%",
+                                                boxSizing: "border-box",
+                                                "@media (max-width:600px)": {
+                                                    maxWidth: "calc(100vw - 32px)",
+                                                    left: "0px",
+                                                    marginLeft: "16px",
+                                                    marginRight: "16px",
+                                                },
                                             }}
                                             elevation={3}
                                         >
@@ -192,6 +204,9 @@ const GroupDetails = () => {
                                                     borderLeft: "8px solid transparent",
                                                     borderRight: "8px solid transparent",
                                                     borderBottom: "8px solid #2f2f2f",
+                                                    "@media (max-width:600px)": {
+                                                        right: "24px", // adjust for center or edge alignment on mobile
+                                                    },
                                                 }}
                                             />
 

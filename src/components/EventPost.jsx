@@ -17,7 +17,7 @@ import { useCommentMutation, useGetPostCommentsQuery } from '../services/interac
 import { toast } from 'react-toastify'
 import Button from './button'
 
-const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned }) => {
+const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost }) => {
     const navigate = useNavigate()
 
     const [showComments, setShowComments] = useState(false)
@@ -169,7 +169,7 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                     </Box>}
                 </Box>
             }
-            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} />
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

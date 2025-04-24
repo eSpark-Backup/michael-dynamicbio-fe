@@ -199,3 +199,8 @@ export const skillSchema = Yup.object({
 export const phoneNoSchema = Yup.object({
   phone: Yup.string().required("Please enter a phone number."),
 });
+
+
+export const welcomeNoteSchema = Yup.object({
+  note: Yup.string().required("Note is required").max(1000, "Characters must be less or equal to 1000.")
+})

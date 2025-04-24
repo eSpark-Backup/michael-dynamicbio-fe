@@ -17,7 +17,7 @@ import Button from './button';
 import { toast } from 'react-toastify';
 import Comment from './Comment';
 
-const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned }) => {
+const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -178,7 +178,7 @@ const VideoPost = ({ userImage, userName, userRole, postTime, postContent, numbe
                     </Box>
                 </Box>
             }
-            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} />
+            <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

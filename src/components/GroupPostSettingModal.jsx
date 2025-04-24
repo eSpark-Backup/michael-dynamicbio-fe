@@ -6,6 +6,10 @@ import CommentsControlModal from './CommentsControlModal'
 
 const GroupPostSettingModal = ({ handleClose }) => {
     const [commentControl, setCommentControl] = useState(false)
+    const [checked, setChecked] = useState(false);
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+    };
     return (
         <Box sx={{ mt: "20px", display: "flex", flexDirection: "column", rowGap: "30px" }}>
             <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>Who can see your post?</Typography>
@@ -19,7 +23,7 @@ const GroupPostSettingModal = ({ handleClose }) => {
                 </Box>
 
             </RadioGroup>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: "35px",cursor:"pointer" }} onClick={() => setCommentControl(true)}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: "35px", cursor: "pointer" }} onClick={() => setCommentControl(true)}>
                 <Stack direction={"column"}>
                     <Typography sx={{ color: "#171717", fontSize: "17px", fontWeight: "500" }}>Comment control</Typography>
                     <Typography sx={{ color: "#505050", fontSize: "14px", fontWeight: "500" }}>On</Typography>
@@ -31,7 +35,10 @@ const GroupPostSettingModal = ({ handleClose }) => {
                     <Typography sx={{ color: "#171717", fontSize: "17px", fontWeight: "500" }}>Brand partnership</Typography>
                     <Typography sx={{ color: "#505050", fontSize: "14px", fontWeight: "500" }}>Off</Typography>
                 </Stack>
-                <Switch />
+                <Switch
+                    checked={checked}
+                    onChange={handleChange}
+                />
             </Box>
             <Stack justifyContent={"flex-end"} alignItems={"center"} px={6} direction={"row"} gap={3}
                 sx={{
@@ -71,7 +78,7 @@ const GroupPostSettingModal = ({ handleClose }) => {
                 }} onClick={handleClose}>
                     <Typography variant='gradientText'>Back</Typography>
                 </Box>
-                <Button disabled type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
+                <Button disabled={!checked} type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
                     Save
                 </Button>
             </Stack>
