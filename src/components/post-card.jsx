@@ -14,6 +14,7 @@ import GroupShareModal from "./GroupShareModal";
 import PollModal from "./PollModal";
 import { useNewPostMutation } from "../services/post";
 import { article, event, photo, user, video } from "../assets";
+import { addDays } from "../utils";
 
 const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   const [newPost, { isLoading }] = useNewPostMutation();
@@ -122,8 +123,16 @@ const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   const handlePollPost = (values) => {
     const obj = {
       content: {
-        ...values,
         ...(schedule.date && schedule.time ? { schedule } : {}),
+      },
+      poll: {
+        question: values?.question,
+        options: [values?.opt1, values?.opt2, ...values?.options],
+        endDate: addDays(values?.duration),
+        allowMultipleVotes: false,
+        showResults: true,
+        isAnonymous: false,
+        allowAddOptions: false,
       },
       status: "PUBLISH",
       visibility,

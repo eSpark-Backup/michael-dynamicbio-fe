@@ -662,10 +662,10 @@ export const groupsCOntent = [
 ]
 
 export const eventDuration = [
-  { label: "1 day", value: "1day" },
-  { label: "3 days", value: "3days" },
-  { label: "1 week", value: "1week" },
-  { label: "2 weeks", value: "2weeks" },
+  { label: "1 day", value: 1 },
+  { label: "3 days", value: 3 },
+  { label: "1 week", value: 7 },
+  { label: "2 weeks", value: 14 },
 ]
 export const suggestedSearchBonds = [
   {

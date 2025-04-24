@@ -181,3 +181,19 @@ export const formatDate = (isoString) => {
 
   return `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
 };
+
+export const addDays = (days) => {
+  const now = new Date();
+  const date = new Date(now);
+  date.setDate(date.getDate() + days);
+  return date.toISOString();
+};
+
+export const getDaysLeft = (isoDate) => {
+  const now = new Date();
+
+  const futureDate = new Date(isoDate);
+  const diffTime = futureDate - now;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return `${diffDays} day${diffDays > 1 ? "s" : ""} left`;
+};

@@ -24,6 +24,7 @@ import { useGetFeedPostsQuery } from "../../../services/feed";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { getDaysLeft } from "../../../utils";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -39,14 +40,14 @@ const Home = () => {
   const skip = !userData?.id;
 
   const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery(
-    { page, limit: 15, userId: userData?.id },
-    {
-      skip,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+      { page, limit: 15, userId: userData?.id },
+      {
+        skip,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+        refetchOnReconnect: true,
+      }
+    );
 
 
   useEffect(() => {
@@ -122,8 +123,11 @@ const Home = () => {
         type: getPostType(item?.type),
         videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
         thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
-        question: item?.type === "POLL" ? item?.content?.question : "",
+        question: item?.type === "POLL" ? item?.poll?.question : "",
         options: getPollOptions(item),
+        voteCount: item?.poll?.votes?.length || 0,
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+        pollId: item?.poll?.id || "",
         isVoted: false,
         eventName: item?.content?.name,
         eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
@@ -158,16 +162,18 @@ const Home = () => {
 
   const getPollOptions = (item) => {
     if (item?.type !== "POLL") return [];
-
+    const isVote = item?.poll?.votes?.find(
+      (vote) => vote?.userId === userData?.id
+    );
+    const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
-      { id: 1, value: item?.content?.opt1, isChecked: false, numbersVoted: 0 },
-      { id: 2, value: item?.content?.opt2, isChecked: false, numbersVoted: 0 },
-      ...(item?.content?.options?.map((option, index) => ({
+      ...(item?.pollResults?.map((option, index) => ({
         id: index + 3,
-        value: option,
-        isChecked: false,
-        numbersVoted: 0,
-      })) || [])
+        value: option?.option,
+        isChecked: myVoteIndex === index,
+        numbersVoted: option?.count,
+        voteBy : option?.voters,
+      })) || []),
     ];
   };
 
