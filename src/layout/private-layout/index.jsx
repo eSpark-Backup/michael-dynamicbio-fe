@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -19,8 +19,11 @@ const PrivateLayout = () => {
     return <Navigate to="/login" replace />;
   }
 
+  const hasFetchedRef = useRef(false);
+
   useEffect(() => {
-    if (token) {
+    if (token && !hasFetchedRef.current) {
+      hasFetchedRef.current = true;
       setLoading(true);
       localStorage.removeItem("temp-token");
       getInfo().then((res) => {

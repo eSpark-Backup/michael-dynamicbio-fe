@@ -36,9 +36,9 @@ import {
   Profile,
 } from "./pages";
 import "./App.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { ArticleDetails, EventDetails } from "./components";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ArticleDetails, EventDetails, GroupDetails, ManageGroup } from "./components";
 import SocketListener from "./socket/socket-listener";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -71,7 +71,9 @@ const App = () => {
   }, [search, filter]);
 
   useEffect(() => {
-    dispatch(handleChange(null));
+    if(pathname !== "/bonds") {
+      dispatch(handleChange(null));
+    }
   }, [pathname]);
   return (
     <>
@@ -113,22 +115,12 @@ const App = () => {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/article/:id" element={<ArticleDetails />} />
+          <Route path="/group/:id" element={<GroupDetails />} />
+          <Route path="/group/:id/manage" element={<ManageGroup />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        transition:Bounce
-      />
     </>
   );
 };

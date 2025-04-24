@@ -113,10 +113,20 @@ import aboutEvent from "./icons/aboutEvent.svg"
 import eventSpeakers from "./icons/eventSpeakers.svg"
 import flag from "./icons/flag.svg"
 import unlike from "./icons/unlike.svg"
+import group from "./icons/group.svg"
+import arrowUpRight from "./icons/arrow-up-right.svg"
+import info from "./icons/info.svg"
+import leave from "./icons/leave.svg"
+import commentOff from "./icons/commentOff.svg"
+import tick from "./icons/tick.svg"
 import cancelWhite from "./icons/cancel-white.svg"
 import cancelBlack from "./icons/cancel-black.svg"
 import pendingWhite from "./icons/pending-white.svg"
 import pendingBlack from "./icons/pending-black.svg"
+import calendarEvent from "./icons/calendarEvent.svg"
+import question from "./icons/question.svg"
+import deleteBlack from "./icons/deleteBlack.svg"
+import starBlack from "./icons/starBlack.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -247,8 +257,18 @@ export {
   eventImage,
   flag,
   unlike,
+  group,
+  info,
+  arrowUpRight,
+  leave,
+  commentOff,
+  tick,
   cancelBlack,
   cancelWhite,
   pendingBlack,
   pendingWhite,
+  calendarEvent,
+  question,
+  deleteBlack,
+  starBlack,
 };

@@ -37,7 +37,7 @@ const PageCard = ({ userImage, title, desc, type, id }) => {
                 textAlign: { xs: "center", sm: "left" },
                 cursor: "pointer"
               }}
-              onClick={() => navigate(`/page/${id}`)}
+              onClick={() => navigate(type === "my-groups" ? `/group/${id}` : `/page/${id}`)}
             >
               {title}
             </Typography>
