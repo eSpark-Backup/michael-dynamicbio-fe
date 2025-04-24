@@ -96,6 +96,14 @@ export const postApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    removePoll: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/poll/${id}/vote`,
+        method: "DELETE",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -105,4 +113,5 @@ export const {
   useGetPostByIdQuery,
   useEditPostMutation,
   useInteractPollMutation,
+  useRemovePollMutation,
 } = postApi;

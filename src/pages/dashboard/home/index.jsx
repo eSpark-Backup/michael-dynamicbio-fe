@@ -172,7 +172,7 @@ const Home = () => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : item?.poll?.votes?.map(item => item?.optionIndex === index ? item : null)
+        voteBy : option?.voters,
       })) || []),
     ];
   };

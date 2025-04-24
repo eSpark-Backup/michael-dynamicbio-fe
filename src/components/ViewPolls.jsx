@@ -1,9 +1,8 @@
 import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { profile2 } from "../assets";
+import { userAvatar } from "../assets";
 
 const ViewPolls = ({ options }) => {
-    console.log(options, "options")
   const [selectedTab, setSelectedTab] = useState(1);
   return (
     <Box sx={{ mt: "10px", height: "450px", overflowY: "auto" }}>
@@ -51,9 +50,11 @@ const ViewPolls = ({ options }) => {
           display: "flex",
           flexDirection: "column",
           rowGap: "20px",
+          maxHeight: "320px",
+          overflowY: "auto",  
         }}
       >
-        {options[selectedTab].voteBy?.length > 0 &&
+        {options[selectedTab].voteBy?.length > 0 && options[selectedTab].voteBy[0] &&
           options[selectedTab]?.voteBy?.map((item) => {
             return (
               <Box
@@ -64,9 +65,9 @@ const ViewPolls = ({ options }) => {
                 }}
               >
                 <img
-                  src={profile2}
+                  src={item?.profileImage || userAvatar}
                   alt="Icon"
-                  style={{ width: "64px", height: "64px" }}
+                  style={{ minWidth: "64px", minHeight: "64px", width: "64px", height: "64px", borderRadius: "50%" }}
                 />
                 <Box
                   sx={{
@@ -86,29 +87,11 @@ const ViewPolls = ({ options }) => {
                         fontSize: "16px",
                       }}
                     >
-                      Ammar Hassan
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#505050",
-                        fontWeight: "400",
-                        fontSize: "16px",
-                      }}
-                    >
-                      •
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#505050",
-                        fontWeight: "400",
-                        fontSize: "16px",
-                      }}
-                    >
-                      2nd
+                      {item?.firstName} {item?.lastName}
                     </Typography>
                   </Stack>
                   <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-                    --
+                      {item?.designation} at {item?.company}
                   </Typography>
                 </Box>
               </Box>

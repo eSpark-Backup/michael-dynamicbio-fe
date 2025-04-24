@@ -141,7 +141,7 @@ const Feed = ({ isPublicView }) => {
   const getPollOptions = (item) => {
     if (item?.type !== "POLL") return [];
     const isVote = item?.poll?.votes?.find(
-      (vote) => vote?.userId === userData?.id
+      (vote) => vote?.userId === user?.id
     );
     const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
@@ -150,7 +150,7 @@ const Feed = ({ isPublicView }) => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : item?.poll?.votes?.map(item => item?.optionIndex === index ? item : null)
+        voteBy : option?.voters,
       })) || []),
     ];
   };
