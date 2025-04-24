@@ -21,7 +21,7 @@ const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
                         </Stack>
                         <img src={send2} alt="" />
                     </Box>
-                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>{content}</Typography>
+                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050", wordBreak: "break-word" }}>{content}</Typography>
                 </Box>
             </Box>
             <Stack justifyContent={"flex-end"} alignItems={"center"} px={6} direction={"row"} gap={3}

@@ -1,7 +1,7 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import BondCard2 from './BondCard';
-import { deleteIcon, tick, user } from '../assets';
+import { deleteBlack, deleteIcon, tick, user } from '../assets';
 
 const GroupContentSection = () => {
     const tabs = [
@@ -16,7 +16,7 @@ const GroupContentSection = () => {
     return (
         <Box sx={{ margin: "20px 25px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "20px" }}>
-                <Box sx={{ width: { xs: "100%", md: "30%" } }}>
+                <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
                     <Paper sx={{ p: "0px" }}>
                         {tabs?.map((item) => {
                             const isActive = item.label === activeTab.label;
@@ -52,13 +52,13 @@ const GroupContentSection = () => {
 
                     </Paper>
                 </Box>
-                <Box sx={{ width: { xs: "100%", md: "65%" }, display: "flex", flexDirection: "column", rowGap: "20px" }}>
+                <Box sx={{ width: { xs: "100%", md: "65%", lg: "78%" }, display: "flex", flexDirection: "column", rowGap: "20px" }}>
                     <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Stack direction={"column"}>
                             <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                                 <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Review new posts</Typography>
-                                <Box sx={{ background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)", p: "5px 10px", borderRadius: "4px" }}>
-                                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#fff" }}>On</Typography>
+                                <Box sx={{ background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)", p: "2px 10px", borderRadius: "4px" }}>
+                                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#fff" }}>On</Typography>
                                 </Box>
                             </Box>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Pending posts expire in 14 days from the posting date. <span style={{ fontSize: "14px", fontWeight: "600", color: "#505050" }}>Learn more</span></Typography>
@@ -73,7 +73,7 @@ const GroupContentSection = () => {
                         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                             <Box sx={{ width: { xs: "100%", sm: "85%", md: "80%", lg: "70%" }, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <Box sx={{ display: "flex", columnGap: "5px",alignItems:"center" }}>
-                                    <img src={deleteIcon} alt="Icon" />
+                                    <img src={deleteBlack} alt="Icon" />
                                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Delete</Typography>
                                 </Box>
                                 <Box sx={{ display: "flex", columnGap: "5px",alignItems:"center" }}>

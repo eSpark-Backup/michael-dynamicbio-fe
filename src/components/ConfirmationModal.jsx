@@ -38,7 +38,7 @@ const ConfirmationModal = ({ open, handleClose, title, children, acceptButtonTex
                     }}
                 >
                     <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "#171717" }}>{title}</Typography>
-                    <img onClick={handleClose} src={close2} alt="close" />
+                    <img onClick={handleClose} src={close2} alt="close" style={{ cursor: "pointer" }} />
                 </Stack>
                 <Box
                     sx={{

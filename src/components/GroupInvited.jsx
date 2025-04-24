@@ -24,7 +24,7 @@ const GroupInvited = () => {
                     mt:"20px"
                 }}
             >
-                <Typography sx={{ color: "white" }}>Invite coneections</Typography>
+                <Typography sx={{ color: "white" }}>Invite connections</Typography>
             </Box>
         </Paper>
     )

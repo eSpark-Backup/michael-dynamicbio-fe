@@ -51,16 +51,16 @@ const GroupSlider = ({ handleClose }) => {
 
     return (
         <>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box display="flex" justifyContent="space-between" sx={{ flexDirection: { xs: "column", lg: "row" }, alignItems: { xs: "flex-start", lg: "center", rowGap: "10px" } }}>
                 <Typography variant="h6">Set your group up for success</Typography>
-                <Box>
-                    <IconButton onClick={handlePrev} sx={{ ":hover": { backgroundColor: "transparent" } }} disabled={currentIndex === 0}>
+                <Box sx={{ display: "flex", columnGap: "20px" }}>
+                    <IconButton onClick={handlePrev} sx={{ p: "0px", ":hover": { backgroundColor: "transparent" } }} disabled={currentIndex === 0}>
                         <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
                             <NavigateBeforeIcon fontSize="small" />
                             <Typography sx={{ fontSize: "14px", fontWeight: "400" }}>Previous</Typography>
                         </Box>
                     </IconButton>
-                    <IconButton onClick={handleNext} sx={{ ":hover": { backgroundColor: "transparent" } }} disabled={currentIndex === slides?.length - 1}>
+                    <IconButton onClick={handleNext} sx={{ p: "0px", ":hover": { backgroundColor: "transparent" } }} disabled={currentIndex === slides?.length - 1}>
                         <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400" }}>Next</Typography>
                             <NavigateNextIcon fontSize="small" />
@@ -70,8 +70,13 @@ const GroupSlider = ({ handleClose }) => {
             </Box>
             <Card sx={{ mx: "auto", mt: "10px", position: "relative", p: 2 }}>
 
-                <CardContent sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                    <img src={aboutEvent} alt="Image" style={{ width: "48px", height: "48px" }} />
+                <CardContent sx={{ display: "flex", alignItems: "flex-start", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: { xs: "100%", sm: "auto" } }}>
+                        <img src={aboutEvent} alt="Image" style={{ width: "48px", height: "48px" }} />
+                        <IconButton size="small" onClick={handleClose} sx={{ display: { xs: "block", sm: "none" } }}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                     <Box flex={1}>
                         <Typography fontWeight="bold" gutterBottom>
                             {slides[currentIndex].title}
@@ -82,7 +87,7 @@ const GroupSlider = ({ handleClose }) => {
 
                         <Box
                             sx={{
-                                width: "fit-content",
+                                width: { xs: "100%", sm: "fit-content" },
                                 height: "36px",
                                 borderRadius: "2px",
                                 display: "flex",
@@ -115,7 +120,7 @@ const GroupSlider = ({ handleClose }) => {
                             <Typography variant="gradientText">{slides[currentIndex].buttonText}</Typography>
                         </Box>
                     </Box>
-                    <IconButton size="small" onClick={handleClose}>
+                    <IconButton size="small" onClick={handleClose} sx={{ display: { xs: "none", sm: "block" } }}>
                         <CloseIcon />
                     </IconButton>
                 </CardContent>
