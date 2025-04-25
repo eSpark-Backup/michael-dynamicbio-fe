@@ -101,13 +101,25 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
 
     useEffect(() => {
         if (getCommentsSuccess && getCommentsData?.data) {
-            const comments = getCommentsData?.data?.map((item) => ({
-                userImage: item?.user?.profileImage,
-                userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-                comment: item?.content,
-                time: "14m ago"
-            }))
-            setPostComments(comments)
+            const comments = getCommentsData.data.map((item) => {
+                const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+                return {
+                    userImage: item?.user?.profileImage,
+                    userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                    comment: item?.content,
+                    time: item?.createdAt,
+                    commentId: item?.id,
+                    allLikes: item?.likes?.map((like) => ({
+                        ...like.user,
+                        isBond: like.isBond,
+                    })) || [],
+                    likesCount: item?.likesCount,
+                    hasLiked: hasLiked,
+                };
+            });
+
+            setPostComments(comments);
 
         }
     }, [getCommentsSuccess, getCommentsData])
@@ -315,7 +327,17 @@ const EventPost = ({ userName, userRole, postTime, userImage, numberofLikes, isL
                     </Box>
                     {Array.isArray(postComments) && postComments?.length > 0 &&
                         postComments?.map((item, index) => (
-                            <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
+                            <Comment
+                                key={item?.commentId}
+                                userImage={item?.userImage}
+                                userName={item?.userName}
+                                comment={item?.comment}
+                                time={item?.time}
+                                hasLiked={item?.hasLiked}
+                                likesCount={item?.likesCount}
+                                allLikes={item?.allLikes}
+                                commentId={item?.commentId}
+                            />
                         ))
                     }
                 </Box>

@@ -258,15 +258,28 @@ const PollPost = ({
 
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {
-      const comments = getCommentsData?.data?.map((item) => ({
-        userImage: item?.user?.profileImage,
-        userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-        comment: item?.content,
-        time: "14m ago",
-      }));
+      const comments = getCommentsData.data.map((item) => {
+        const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+        return {
+          userImage: item?.user?.profileImage,
+          userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+          comment: item?.content,
+          time: item?.createdAt,
+          commentId: item?.id,
+          allLikes: item?.likes?.map((like) => ({
+            ...like.user,
+            isBond: like.isBond,
+          })) || [],
+          likesCount: item?.likesCount,
+          hasLiked: hasLiked,
+        };
+      });
+
       setPostComments(comments);
+
     }
-  }, [getCommentsSuccess, getCommentsData]);
+  }, [getCommentsSuccess, getCommentsData])
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -612,12 +625,12 @@ const PollPost = ({
             {numberofLikes === 0
               ? "Be first to like this"
               : isLiked && numberofLikes === 1
-              ? "You liked this post"
-              : isLiked && numberofLikes > 1
-              ? `You and ${numberofLikes - 1} more like this`
-              : numberofLikes === 1
-              ? `${lastUserLiked} likes this`
-              : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                ? "You liked this post"
+                : isLiked && numberofLikes > 1
+                  ? `You and ${numberofLikes - 1} more like this`
+                  : numberofLikes === 1
+                    ? `${lastUserLiked} likes this`
+                    : `${lastUserLiked} and ${numberofLikes - 1} like this`}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -659,7 +672,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={isLoading ? () => {} : () => handleLike(id)}
+          onClick={isLoading ? () => { } : () => handleLike(id)}
         >
           <img
             src={isLiked ? like : unlike}
@@ -862,11 +875,15 @@ const PollPost = ({
             postComments?.length > 0 &&
             postComments?.map((item, index) => (
               <Comment
-                key={index}
+                key={item?.commentId}
                 userImage={item?.userImage}
                 userName={item?.userName}
                 comment={item?.comment}
                 time={item?.time}
+                hasLiked={item?.hasLiked}
+                likesCount={item?.likesCount}
+                allLikes={item?.allLikes}
+                commentId={item?.commentId}
               />
             ))}
         </Box>
@@ -958,7 +975,7 @@ const PollPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

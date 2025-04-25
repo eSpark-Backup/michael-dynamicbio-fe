@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux';
 import Button from './button.jsx';
 import { toast } from 'react-toastify';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -40,6 +40,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
     const [postId, setPostId] = useState("")
     const [commentContent, setCommentContent] = useState("")
     const [postComments, setPostComments] = useState([])
+    const [likesUserData, setLikesUserData] = useState(allLikesData)
 
     const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, { skip: !postId })
 
@@ -66,11 +67,25 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
     useEffect(() => {
         if (isSuccess && data?.status) {
-            setIsPostLiked((prevLiked) => {
-                const newLiked = !prevLiked;
-                setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
-                return newLiked;
-            });
+            const newLike = !isPostLiked
+            setIsPostLiked(newLike)
+            setTotalLikes(prevLikes => newLike ? prevLikes + 1 : prevLikes - 1);
+            const newUser = {
+                id: userData?.id,
+                firstName: userData?.firstName,
+                lastName: userData?.lastName,
+                email: userData?.email,
+                profileImage: userData?.profileImage,
+                role: userData?.role,
+                isBound: false
+            };
+            if (newLike) {
+                setLikesUserData([...likesUserData, newUser])
+            }
+            else {
+                const users = likesUserData?.filter((item) => item?.id !== userData?.id)
+                setLikesUserData(users)
+            }
         }
     }, [data, isSuccess])
 
@@ -94,14 +109,25 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
     useEffect(() => {
         if (getCommentsSuccess && getCommentsData?.data) {
-            const comments = getCommentsData?.data?.map((item) => ({
-                userImage: item?.user?.profileImage,
-                userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-                comment: item?.content,
-                time: "14m ago",
-                id: item?.id
-            }))
-            setPostComments(comments)
+            const comments = getCommentsData.data.map((item) => {
+                const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+                return {
+                    userImage: item?.user?.profileImage,
+                    userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                    comment: item?.content,
+                    time: item?.createdAt,
+                    commentId: item?.id,
+                    allLikes: item?.likes?.map((like) => ({
+                        ...like.user,
+                        isBond: like.isBond,
+                    })) || [],
+                    likesCount: item?.likesCount,
+                    hasLiked: hasLiked,
+                };
+            });
+
+            setPostComments(comments);
 
         }
     }, [getCommentsSuccess, getCommentsData])
@@ -374,7 +400,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                             </Box>
                                             {Array.isArray(postComments) && postComments?.length > 0 &&
                                                 postComments?.map((item, index) => (
-                                                    <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
+                                                    <Comment key={item?.commentId} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} hasLiked={item?.hasLiked} likesCount={item?.likesCount} allLikes={item?.allLikes} commentId={item?.commentId} />
                                                 ))
                                             }
                                         </Box>

@@ -121,7 +121,11 @@ const Feed = ({ isPublicView }) => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: lastLike
+        lastUserLiked: lastLike,
+        allLikesData: item?.likes?.map((like) => ({
+          ...like.user,
+          isBond: like.isBond,
+        })) || [],
       };
     });
   };
@@ -150,7 +154,7 @@ const Feed = ({ isPublicView }) => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : option?.voters,
+        voteBy: option?.voters,
       })) || []),
     ];
   };

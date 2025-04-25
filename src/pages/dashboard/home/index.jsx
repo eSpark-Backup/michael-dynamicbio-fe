@@ -40,14 +40,14 @@ const Home = () => {
   const skip = !userData?.id;
 
   const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery(
-      { page, limit: 15, userId: userData?.id },
-      {
-        skip,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true,
-        refetchOnReconnect: true,
-      }
-    );
+    { page, limit: 15, userId: userData?.id },
+    {
+      skip,
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: true,
+    }
+  );
 
 
   useEffect(() => {
@@ -143,7 +143,11 @@ const Home = () => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: lastLike
+        lastUserLiked: lastLike,
+        allLikesData: item?.likes?.map((like) => ({
+          ...like.user,
+          isBond: like.isBond,
+        })) || [],
       };
     });
   };
@@ -172,7 +176,7 @@ const Home = () => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : option?.voters,
+        voteBy: option?.voters,
       })) || []),
     ];
   };
