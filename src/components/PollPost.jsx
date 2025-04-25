@@ -46,6 +46,7 @@ import {
   useInteractPollMutation,
   useRemovePollMutation,
 } from "../services/post";
+import ShowLikesModal from "./ShowLikesModal";
 
 const PollPost = ({
   pollId,
@@ -74,6 +75,7 @@ const PollPost = ({
   isGroupPost,
   pinned,
   isAdminPost,
+  likesData,
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -98,6 +100,8 @@ const PollPost = ({
   const [postId, setPostId] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [postComments, setPostComments] = useState([]);
+  const [totalComments, setTotalComments] = useState(comments)
+  const [showLikesModal, setShowLikesModal] = useState(false)
 
   const [
     commentData,
@@ -117,7 +121,14 @@ const PollPost = ({
     error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
-  } = useGetPostCommentsQuery(postId, { skip: !postId });
+  } = useGetPostCommentsQuery(postId, {
+    skip: !postId,
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
+
+  useEffect(() => setTotalComments(comments), [comments])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -252,6 +263,7 @@ const PollPost = ({
         toast.success("Comment added successfully");
         setCommentContent("");
         refetch();
+        setTotalComments(prev => prev + 1);
       }
     });
   };
@@ -609,7 +621,6 @@ const PollPost = ({
             display: "flex",
             alignItems: "center",
             columnGap: "6px",
-            cursor: "pointer",
           }}
         >
           {numberofLikes >= 1 && (
@@ -620,7 +631,8 @@ const PollPost = ({
             />
           )}
           <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
+            onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
           >
             {numberofLikes === 0
               ? "Be first to like this"
@@ -637,7 +649,7 @@ const PollPost = ({
           <Typography
             sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
           >
-            {comments} comments
+            {totalComments} comments
           </Typography>
           <Typography
             sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
@@ -1006,6 +1018,11 @@ const PollPost = ({
         smallModal={true}
       >
         <ViewPolls options={options} />
+      </DynamicModal>
+
+
+      <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+        <ShowLikesModal allLikes={likesData} />
       </DynamicModal>
     </Paper>
   );

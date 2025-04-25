@@ -115,7 +115,7 @@ const Home = () => {
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
-        comments: 0,
+        comments: item?.commentsCount,
         activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
@@ -145,7 +145,11 @@ const Home = () => {
         isFriendPost: !isOwnPost,
         lastUserLiked: lastLike,
         allLikesData: item?.likes?.map((like) => ({
-          ...like.user,
+          id: like?.user?.id,
+          firstName: like?.user?.firstName,
+          lastName: like?.user?.lastName,
+          profileImage: like?.user?.profileImage,
+          designation: like?.user?.designation,
           isBond: like.isBond,
         })) || [],
       };

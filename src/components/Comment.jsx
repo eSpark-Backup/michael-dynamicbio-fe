@@ -4,14 +4,24 @@ import { einstein, like, three_vertical_dots, unlike, user } from '../assets'
 import dayjs from 'dayjs'
 import { useLikeMutation } from '../services/interaction'
 import { useSelector } from 'react-redux'
+import DynamicModal from './dynamic-modal'
+import ShowLikesModal from './ShowLikesModal'
 
 const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, allLikes, commentId }) => {
     const theme = useTheme()
     const [isUserLiked, setIsUserLiked] = useState(hasLiked);
     const [totalLikes, setTotalLikes] = useState(likesCount);
     const [likesData, setLikesData] = useState(allLikes)
+    const [showLikesModal, setShowLikesModal] = useState(false)
 
     const { user: userData } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        setIsUserLiked(hasLiked);
+        setTotalLikes(likesCount);
+        setLikesData(allLikes);
+    }, [hasLiked, likesCount, allLikes]);
+
 
 
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
@@ -27,7 +37,7 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
             lastName: userData?.lastName,
             email: userData?.email,
             profileImage: userData?.profileImage,
-            role: userData?.role,
+            designation: userData?.designation,
             isBound: false
         };
         if (newLiked) {
@@ -51,8 +61,8 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
                 lastName: userData?.lastName,
                 email: userData?.email,
                 profileImage: userData?.profileImage,
-                role: userData?.role,
-                isBound: false
+                designation: userData?.designation,
+                isBound: false,
             };
             if (newLiked) {
                 setLikesData([...likesData, newUser])
@@ -92,14 +102,19 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
                         <img src={isUserLiked ? like : unlike} alt="Like" style={{ height: "12px", width: "13.5", cursor: "pointer" }}
                             onClick={isLoading ? () => { } : () => LikeHandler(commentId)}
                         />
-                        <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A" }}>
+                        <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A", cursor: totalLikes > 0 ? "pointer" : "text" }} onClick={(totalLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}>
                             {totalLikes}
                         </Typography>
                     </Box>
                 </Box>
             </Box>
+
+            <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+                <ShowLikesModal allLikes={likesData} />
+            </DynamicModal>
         </Box>
     )
 }
 
 export default Comment
+

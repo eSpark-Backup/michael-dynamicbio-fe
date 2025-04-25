@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
-import { settings, user } from "../../../assets";
+import { email, settings, user } from "../../../assets";
 import { useGetMyPostQuery } from "../../../services/post";
 import { suggestionPostContent } from "../../../constant";
 import dayjs from "dayjs";
@@ -93,7 +93,7 @@ const Feed = ({ isPublicView }) => {
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
-        comments: 0,
+        comments: item?.commentsCount,
         activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
@@ -123,7 +123,11 @@ const Feed = ({ isPublicView }) => {
         isFriendPost: !isOwnPost,
         lastUserLiked: lastLike,
         allLikesData: item?.likes?.map((like) => ({
-          ...like.user,
+          id: like?.user?.id,
+          firstName: like?.user?.firstName,
+          lastName: like?.user?.lastName,
+          profileImage: like?.user?.profileImage,
+          designation: like?.user?.designation,
           isBond: like.isBond,
         })) || [],
       };
