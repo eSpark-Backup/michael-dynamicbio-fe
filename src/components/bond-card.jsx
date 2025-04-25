@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import Button from "./button";
@@ -35,6 +36,7 @@ const BondCard = ({
   bondId,
   requestSentByMe,
 }) => {
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selected, setSelected] = useState(null);
@@ -86,15 +88,20 @@ const BondCard = ({
 
   return (
     <Box
+      onClick={() => navigate(`/profile/${id}`)}
       sx={{
         padding: "10px 20px 20px 20px",
         width: "224px",
         background: "#F2F8FD",
         position: "relative",
+        cursor: "pointer",
       }}
     >
       <img
-        onClick={() => handleRemoveUser(id)}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleRemoveUser(id);
+        }}
         style={{
           position: "absolute",
           top: 0,
@@ -174,7 +181,10 @@ const BondCard = ({
         sx={{ mt: 1, height: "48px", position: "relative" }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onClick={(e) => handleBond(!isPending && !isFriend? id : bondId, e)}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleBond(!isPending && !isFriend? id : bondId, e);
+        }}
       >
         <img
           style={{

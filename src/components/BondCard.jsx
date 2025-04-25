@@ -1,11 +1,13 @@
 import { Avatar, Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { bondMain, earth, user, three_vertical_dots, close, starBlack } from '../assets'
+import { useNavigate } from 'react-router-dom'
 
 const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost }) => {
     const theme = useTheme()
+    const navigate = useNavigate();
     return (
-        <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: { xs: "center", sm: "space-between" }, alignItems: "center", p: "10px" }}>
+        <Box onClick={() => navigate(`/profile/${id}`)} sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: { xs: "center", sm: "space-between" }, alignItems: "center", p: "10px", cursor: "pointer" }}>
             <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" }, justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <Avatar
                     src={userImage ? userImage : user}
@@ -50,7 +52,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
 
                 </Stack>
             </Box>
-            {(showBondIcon && !isLoading) && <img src={bondMain} alt="Bond" onClick={() => handleBondClick(id)} style={{ cursor: "pointer" }} />}
+            {(showBondIcon && !isLoading) && <img src={bondMain} alt="Bond" onClick={(e) => {
+                e.stopPropagation();
+                handleBondClick(id);
+            }} style={{ cursor: "pointer" }} />}
             {isLoading && <CircularProgress sx={{ color: "black" }} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
