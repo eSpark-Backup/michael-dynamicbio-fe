@@ -259,10 +259,10 @@ const PollPost = ({
     const hasAlreadyVoted = votedOption?.length > 0;
     const votedOptionIndex = votedOption[0]?.id - 3;
     if (hasAlreadyVoted) {
-      removePoll(votedOptionIndex, () => handlePoll(event, optionIndex));
+      votedOptionIndex !== null && optionIndex !== null && removePoll(votedOptionIndex, () => handlePoll(event, optionIndex));
       return;
     } else {
-      handlePoll(event, optionIndex);
+      optionIndex !== null && handlePoll(event, optionIndex);
     }
   };
 
