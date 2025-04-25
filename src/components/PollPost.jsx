@@ -229,7 +229,6 @@ const PollPost = ({
       setIsVoting(false);
       return;
     } else if (res?.data) {
-      console.log(userData, "userData", options, votedOptionIndex);
       setOptions((prevOptions) =>
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
@@ -594,7 +593,7 @@ const PollPost = ({
                 <Typography sx={{ fontSize: "14px", fontWeight: "500" }} variant='gradientText'>Undo</Typography>
               </>
             } */}
-            {selectedValue !== "" && ownPost && (
+            {selectedValue && selectedValue !== "" && ownPost && (
               <>
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "400" }}
@@ -615,7 +614,7 @@ const PollPost = ({
                 </Typography>
               </>
             )}
-            {selectedValue !== "" && !ownPost && (
+            {selectedValue && selectedValue !== "" && !ownPost && (
               <>
                 <Typography
                   sx={{
