@@ -95,7 +95,9 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
                     {comment}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", columnGap: "8px" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A", cursor: "pointer" }}
+                        onClick={isLoading ? () => { } : () => LikeHandler(commentId)}
+                    >
                         {isUserLiked ? "Liked" : "Like"}
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", columnGap: "3px" }}>

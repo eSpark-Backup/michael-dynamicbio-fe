@@ -5,9 +5,9 @@ import { like, user } from '../assets'
 const ShowLikesModal = ({ allLikes }) => {
     return (
         <Box sx={{ mt: "20px", display: "flex", flexDirection: "column", rowGap: "20px" }}>
-            {allLikes?.map((item) => {
+            {allLikes?.map((item, index) => {
                 return (
-                    <Stack direction={"row"} alignItems={"center"} gap={"8px"}>
+                    <Stack direction={"row"} alignItems={"center"} gap={"8px"} key={index}>
                         <Box sx={{ width: "55px", height: "55px", position: "relative" }}>
                             <Avatar
                                 src={item?.profileImage ? item?.profileImage : user}

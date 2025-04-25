@@ -259,7 +259,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                                             alt="User"
                                             sx={{ width: 60, height: 60, objectFit: "fill" }}
                                         />
-                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px", maxHeight: "120px",overflowY:"auto" }}>
                                             <OutlinedInput sx={{
                                                 height: "100%",
                                                 width: "100%",
@@ -289,7 +289,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                                     </>
                                 }
                             </Box>
-                            <Box sx={{ maxHeight: "300px", overflowY: "auto", display: "flex", flexDirection: "column", rowGap: "20px" }}>
+                            <Box sx={{ maxHeight: "200px", overflowY: "auto", display: "flex", flexDirection: "column", rowGap: "20px" }}>
                                 {Array.isArray(postComments) && postComments?.length > 0 &&
                                     postComments?.map((item, index) => (
                                         <Comment key={item?.commentId} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} hasLiked={item?.hasLiked} likesCount={item?.likesCount} allLikes={item?.allLikes} commentId={item?.commentId} />
