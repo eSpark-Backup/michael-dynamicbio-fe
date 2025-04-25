@@ -3,8 +3,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { Input } from "../../../components";
 import { profileDetailsSchema } from "../../../schemas";
 import { useNavigate } from "react-router-dom";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const CompleteProfile = () => {
+  const currentYear = dayjs();
   const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
   const navigate = useNavigate();
   const formik = useFormik({
@@ -14,6 +17,7 @@ const CompleteProfile = () => {
       company: "",
       industry: "",
       designation: "",
+      startingDate: null,
     },
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
@@ -78,6 +82,35 @@ const CompleteProfile = () => {
           error={formik.touched.designation && !!formik.errors.designation}
           helperText={formik.touched.designation && formik.errors.designation}
         />
+        <Box sx={{ width: "100%" }}>
+          <Typography mb={1}>Starting Date</Typography>
+          <DatePicker
+            value={formik.values.startingDate}
+            onChange={(value) => formik.setFieldValue("startingDate", value)}
+            maxDate={currentYear}
+            openTo="day"
+            views={["year", "month", "day"]}
+            sx={{
+              ".MuiOutlinedInput-root": {
+                width: "100%",
+                backgroundColor: "#FCFCFC",
+                height: "65px",
+                border: "none",
+                borderBottom: "1px solid #000000 !important",
+                borderRadius: "0px",
+                fontSize: "18px",
+              },
+            }}
+            slotProps={{
+              textField: {
+                error:
+                  formik.touched.startingDate && !!formik.errors.startingDate,
+                helperText:
+                  formik.touched.startingDate && formik.errors.startingDate,
+              },
+            }}
+          />
+        </Box>
         <Box
           sx={{
             display: "flex",
