@@ -39,7 +39,7 @@ const Home = () => {
 
   const skip = !userData?.id;
 
-  const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery(
+  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetFeedPostsQuery(
       { page, limit: 15, userId: userData?.id },
       {
         skip,
@@ -346,7 +346,7 @@ const Home = () => {
           <Paper
             sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}
           >
-            <PostCard />
+            <PostCard refetch={refetch} />
           </Paper>
 
           {/* <Paper
