@@ -9,10 +9,10 @@ const GroupAdmins = () => {
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Stack direction={"row"} gap={1}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Admins</Typography>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>•</Typography>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>2 people</Typography>
+                <Stack direction={"row"} gap={1} alignItems={"center"}>
+                    <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}>Admins</Typography>
+                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>•</Typography>
+                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>2 people</Typography>
                 </Stack>
                 <Box sx={{ width: "35%" }}>
                     <OutlinedInput placeholder={"Search group admins"} startAdornment={searchIcon} sx={{

@@ -17,6 +17,7 @@ const Profile = () => {
   const [isPublicView, setIsPublicView] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [userData, setUserData] = useState();
+  const [modal, setModal] = useState("");
 
   useEffect(() => {
     if (userId === user?.id) {
@@ -66,13 +67,14 @@ const Profile = () => {
               isPublicView={isPublicView}
               isPublic={isPublic}
               setIsPublicView={setIsPublicView}
+              handleOpenExpModal={() => setModal("addexp")}
             />
           </Grid2>
           <Grid2
             size={{ xs: 12, lg: 3.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <LeftBar userData={userData} isPublicView={isPublicView} />
+            <LeftBar modal={modal} setModal={setModal} userData={userData} isPublicView={isPublicView} />
           </Grid2>
 
           <Grid2

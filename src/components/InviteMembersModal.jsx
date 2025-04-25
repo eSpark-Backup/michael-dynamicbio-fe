@@ -40,7 +40,7 @@ const InviteMembersModal = ({ handleClose }) => {
     return (
         <Box sx={{ display: "flex", mt: "20px", flexDirection: "column" }}>
 
-            <OutlinedInput placeholder={"Type a group name"} startAdornment={searchIcon} sx={{
+            <OutlinedInput placeholder={"Search by name"} startAdornment={searchIcon} sx={{
                 height: "42px",
                 width: "100%",
                 borderRadius: "4px",

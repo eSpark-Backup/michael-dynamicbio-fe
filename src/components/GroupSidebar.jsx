@@ -20,8 +20,8 @@ const GroupSidebar = () => {
                     alt="User"
                     sx={{ width: 40, height: 40, objectFit: "fill", ml: "25px" }}
                 />
-                <Button sx={{ mt: "20px", width: "fit-content", height: "36px", mb: "15px", ml: "25px" }} onClick={() => setShowConnectionsModal(true)}>Invite connections</Button>
-                <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer", columnGap: "10px" }} onClick={()=>navigate(`/group/${id}/manage`)}>
+                <Button sx={{ mt: "20px", width: "fit-content", height: "36px", mb: "15px", ml: "25px", fontSize: "16px" }} onClick={() => setShowConnectionsModal(true)}>Invite connections</Button>
+                <Box sx={{ height: "60px", borderTop: "1px solid #E5E5E5", display: 'flex', justifyContent: "center", alignItems: "center", cursor: "pointer", columnGap: "10px" }} onClick={() => navigate(`/group/${id}/manage`)}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Show All</Typography>
                     <img src={rightArrow} alt="" />
                 </Box>

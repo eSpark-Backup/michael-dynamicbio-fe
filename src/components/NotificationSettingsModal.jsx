@@ -37,7 +37,7 @@ const NotificationSettingsModal = ({ onSuccess }) => {
                         minWidth: { md: "150px" },
                     }}
                 >
-                    Ok
+                    OK
                 </Button>
             </Stack>
         </Box>

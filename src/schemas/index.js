@@ -45,6 +45,9 @@ export const signupSchema = Yup.object({
       "Invalid email address"
     )
     .required("Email is required"),
+  dob: Yup.date()
+    .max(new Date(), "Birthdate cannot be in the future")
+    .required("Birthdate is required"),
   password: Yup.string()
     .required("Password is required")
     .min(12, "Password must be at least 12 characters long.")
@@ -73,7 +76,19 @@ export const profileDetailsSchema = Yup.object({
   city: Yup.string().required("City is required."),
   company: Yup.string().required("Company is required."),
   industry: Yup.string().required("Industry is required."),
-  designation: Yup.string().required("Role is required"),
+  designation: Yup.string().required("Role is required."),
+  startingDate: Yup.string()
+    .required("Starting date is required")
+    .max(new Date(), "Start date must be in the past"),
+});
+
+export const editProfileDetailsSchema = Yup.object({
+  firstName: Yup.string().required("First name is required."),
+  lastName: Yup.string().required("Last name is required."),
+  country: Yup.string().required("Country is required."),
+  current: Yup.string().required("Current position is required."),
+  city: Yup.string().required("City is required."),
+  industry: Yup.string().required("Industry is required."),
 });
 
 export const createGroupSchema = Yup.object({
@@ -175,7 +190,7 @@ export const educationSchema = Yup.object({
   school: Yup.string().required("School is required"),
   degree: Yup.string().required("Degree is required"),
   field: Yup.string().required("Field name is required"),
-  grade: Yup.string().required("Grade is required."),
+  grade: Yup.string(),
   startingDate: Yup.string().required("Starting date is required"),
   endingDate: Yup.string()
     .required("Ending date is required")
@@ -199,3 +214,8 @@ export const skillSchema = Yup.object({
 export const phoneNoSchema = Yup.object({
   phone: Yup.string().required("Please enter a phone number."),
 });
+
+
+export const welcomeNoteSchema = Yup.object({
+  note: Yup.string().required("Note is required").max(1000, "Characters must be less or equal to 1000.")
+})

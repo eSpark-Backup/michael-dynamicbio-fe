@@ -1,27 +1,49 @@
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { Box } from "@mui/material";
-import { DynamicModal, Input } from "../../../../components";
+import { Box, Stack, Typography } from "@mui/material";
+import { Dropdown, DynamicModal, Input } from "../../../../components";
 import { useUpdateUserInfoMutation } from "../../../../services/auth";
 import { updateUser } from "../../../../store/slices/auth";
-import { profileDetailsSchema } from "../../../../schemas";
+import { editProfileDetailsSchema } from "../../../../schemas";
+import { plus } from "../../../../assets";
 
-const EditProfileModal = ({ userData, open, handleClose }) => {
+const EditProfileModal = ({
+  userData,
+  open,
+  handleClose,
+  handleOpenExpModal,
+}) => {
+  const options = userData?.about?.experience?.map((item) => {
+    if (item?.currently) {
+      return { value: item?.title, label: item?.title };
+    }
+  });
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
     initialValues: {
+      firstName: userData?.firstName,
+      lastName: userData?.lastName,
       country: userData?.country,
       city: userData?.city,
-      company: userData?.company,
+      current: userData?.designation,
       industry: userData?.industry,
-      designation: userData?.designation,
     },
     enableReinitialize: true,
-    validationSchema: profileDetailsSchema,
+    validationSchema: editProfileDetailsSchema,
     onSubmit: (values) => {
-      updateProfile(values).then((res) => {
+      const currentJob = userData?.about?.experience?.find(item => item.title === values?.current);
+      const bodyToSend = {
+        firstName: values?.firstName,
+        lastName: values?.lastName,
+        country: values?.country,
+        city: values?.city,
+        designation: currentJob?.title,
+        company: currentJob?.company,
+        industry: userData?.industry,
+      }
+      updateProfile(bodyToSend).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
           return;
@@ -62,6 +84,36 @@ const EditProfileModal = ({ userData, open, handleClose }) => {
           }}
         >
           <Input
+            customLabel="First Name *"
+            variant="outlined"
+            name="firstName"
+            value={formik.values.firstName}
+            handleChange={formik.handleChange}
+            error={formik.touched.firstName && !!formik.errors.firstName}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
+            customLabel="Last Name *"
+            variant="outlined"
+            name="lastName"
+            value={formik.values.lastName}
+            handleChange={formik.handleChange}
+            error={formik.touched.lastName && !!formik.errors.lastName}
+            helperText={formik.touched.lastName && formik.errors.lastName}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        >
+          <Input
             customLabel="Country/Region *"
             variant="outlined"
             name="country"
@@ -91,16 +143,39 @@ const EditProfileModal = ({ userData, open, handleClose }) => {
             width: "100%",
           }}
         >
-          <Input
-            customLabel="Company *"
+          <Dropdown
+            noLabel
+            options={options}
+            placeholder="Current position"
+            customLabel="Current position *"
             variant="outlined"
-            name="company"
-            value={formik.values.company}
+            name="current"
+            value={formik.values.current}
             handleChange={formik.handleChange}
-            error={formik.touched.company && !!formik.errors.company}
-            helperText={formik.touched.company && formik.errors.company}
+            error={formik.touched.current && !!formik.errors.current}
+            helperText={formik.touched.current && formik.errors.current}
           />
         </Box>
+        <Stack
+          onClick={() => {
+            handleClose();
+            handleOpenExpModal();
+          }}
+          sx={{
+            cursor: "pointer",
+            border: "1px solid #DDE2E4",
+            padding: "10px 0",
+            borderRadius: "4px",
+          }}
+          mt={2}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          gap={2}
+        >
+          <img src={plus} alt="add" />
+          <Typography>Add new experience</Typography>
+        </Stack>
         <Box
           sx={{
             width: "100%",
@@ -114,21 +189,6 @@ const EditProfileModal = ({ userData, open, handleClose }) => {
             handleChange={formik.handleChange}
             error={formik.touched.industry && !!formik.errors.industry}
             helperText={formik.touched.industry && formik.errors.industry}
-          />
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-          }}
-        >
-          <Input
-            customLabel="Role *"
-            variant="outlined"
-            name="designation"
-            value={formik.values.designation}
-            handleChange={formik.handleChange}
-            error={formik.touched.designation && !!formik.errors.designation}
-            helperText={formik.touched.designation && formik.errors.designation}
           />
         </Box>
       </Box>

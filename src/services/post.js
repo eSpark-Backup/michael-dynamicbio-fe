@@ -10,6 +10,8 @@ export const postApi = api.injectEndpoints({
         formData.append("status", credentials.status);
         formData.append("visibility", credentials.visibility);
         formData.append("type", credentials.type);
+        if (credentials?.poll)
+          formData.append("poll", JSON.stringify(credentials.poll));
 
         if (credentials.cover) formData.append("cover", credentials.cover);
         if (
@@ -86,7 +88,30 @@ export const postApi = api.injectEndpoints({
         };
       },
     }),
+    interactPoll: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/poll/${id}/vote`,
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    removePoll: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/poll/${id}/vote`,
+        method: "DELETE",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useNewPostMutation, useGetMyPostQuery, useGetPostByIdQuery, useEditPostMutation } = postApi;
+export const {
+  useNewPostMutation,
+  useGetMyPostQuery,
+  useGetPostByIdQuery,
+  useEditPostMutation,
+  useInteractPollMutation,
+  useRemovePollMutation,
+} = postApi;

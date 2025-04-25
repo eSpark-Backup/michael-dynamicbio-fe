@@ -83,9 +83,7 @@ body {
 .MuiPickersDay-root.Mui-selected,
 .MuiPickersDay-root.Mui-selected:hover,
 .MuiPickersDay-root.Mui-selected:focus,
-.MuiPickersDay-root.Mui-selected:focus-visible,
-.MuiMenuItem-root.Mui-selected:focus-visible,
-.MuiMenuItem-root.Mui-selected:hover {
+.MuiPickersDay-root.Mui-selected:focus-visible {
     background-color: rgb(2, 2, 2) !important;
     color: rgb(255, 255, 255) !important;
 }

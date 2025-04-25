@@ -5,6 +5,7 @@ import {
   InputAdornment,
   Typography,
   Stack,
+  Box,
 } from "@mui/material";
 import { eyeClose, eye } from "../assets/index.js";
 
@@ -59,14 +60,13 @@ const Input = ({
                   )}
                 </IconButton>
               </InputAdornment>
-            ) : wordLimit ? (
-              <Typography
-                sx={{ position: "absolute", right: "10px", bottom: "3px" }}
-              >{`${value.length}/${wordLimit} words`}</Typography>
             ) : null),
         }}
         {...rest}
       />
+      {wordLimit && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Typography sx={{ color: "#505050" }}>{`${value.length}/${wordLimit} words`}</Typography>
+      </Box>}
     </>
   );
 };

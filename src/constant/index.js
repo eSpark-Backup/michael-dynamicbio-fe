@@ -74,7 +74,9 @@ export const suggestionPostContent = [
     commentsContent: [],
     type: "normal",
     isFriendPost: true,
-    pinned: true
+    pinned: true,
+    groupPost: true,
+    isAdminPost: true
   },
   {
     userName: "James Bond",
@@ -104,7 +106,9 @@ export const suggestionPostContent = [
       },
     ],
     type: "normal",
-    isFriendPost: true
+    isFriendPost: true,
+    groupPost: true,
+    isAdminPost: true
   },
   {
     userName: "Gerry’s International",
@@ -121,7 +125,9 @@ export const suggestionPostContent = [
     type: "video",
     videoUrl: "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
     thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg",
-    isFriendPost: true
+    isFriendPost: true,
+    groupPost: true,
+    isAdminPost: true
   },
   {
     userName: "Gerry’s International",
@@ -152,7 +158,9 @@ export const suggestionPostContent = [
       },
     ],
     isVoted: true,
-    isFriendPost: true
+    isFriendPost: true,
+    groupPost: true,
+    isAdminPost: true
   },
   {
     userName: "rotten ria",
@@ -176,7 +184,9 @@ export const suggestionPostContent = [
     eventPost: "bringback",
     eventImage: dummyPhoto,
     id: 123,
-    isFriendPost: true
+    isFriendPost: true,
+    groupPost: true,
+    isAdminPost: true
   },
   {
     userName: "rotten ria",
@@ -195,7 +205,9 @@ export const suggestionPostContent = [
     articleImage: dummyPhoto,
     articleTitle: "Lorem Ipsum",
     articleDescription: "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    isFriendPost: true
+    isFriendPost: true,
+    groupPost: true,
+    isAdminPost: true
   },
 ];
 
@@ -650,10 +662,10 @@ export const groupsCOntent = [
 ]
 
 export const eventDuration = [
-  { label: "1 day", value: "1day" },
-  { label: "3 days", value: "3days" },
-  { label: "1 week", value: "1week" },
-  { label: "2 weeks", value: "2weeks" },
+  { label: "1 day", value: 1 },
+  { label: "3 days", value: 3 },
+  { label: "1 week", value: 7 },
+  { label: "2 weeks", value: 14 },
 ]
 export const suggestedSearchBonds = [
   {

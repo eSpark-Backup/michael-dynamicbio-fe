@@ -1,12 +1,13 @@
 import { Box, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { comment, commentOff } from '../assets'
 import Button from './button'
 
 const CommentsControlModal = ({ handleClose }) => {
+    const [choice, setChoice] = useState("on")
     return (
         <Box sx={{ mt: '30px' }}>
-            <RadioGroup name="control" defaultValue="on" sx={{ width: "100%", px: "0px", marginRight: "0px !important", display: 'flex', flexDirection: "column", rowGap: "25px",mb:"30px" }}>
+            <RadioGroup name="control" value={choice} sx={{ width: "100%", px: "0px", marginRight: "0px !important", display: 'flex', flexDirection: "column", rowGap: "25px", mb: "30px" }} onChange={(e) => setChoice(e.target.value)}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Stack direction={"row"} alignItems={"center"} gap={1}>
                         <Box sx={{ width: "50px", height: "50px", backgroundColor: "#ededed", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -64,7 +65,7 @@ const CommentsControlModal = ({ handleClose }) => {
                 }} onClick={handleClose}>
                     <Typography variant='gradientText'>Back</Typography>
                 </Box>
-                <Button disabled={true} type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
+                <Button disabled={choice === "on"} type="submit" sx={{ maxWidth: "150px", height: "36px", fontSize: "16px", minWidth: { md: "150px" } }}>
                     Save
                 </Button>
             </Stack>
