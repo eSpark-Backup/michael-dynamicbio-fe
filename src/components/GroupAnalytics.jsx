@@ -21,6 +21,10 @@ const GroupAnalytics = () => {
     ];
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [showAnalyticsBox, setShowAnalyticsBox] = useState(true)
+    const [selectedValue, setSelectedValue] = useState("title");
+    const handleChange = (e) => {
+        setSelectedValue(e.target.value);
+      };
     return (
         <Box sx={{ margin: "20px 25px", display: "flex", flexDirection: "column", rowGap: "20px" }}>
             {
@@ -136,7 +140,8 @@ const GroupAnalytics = () => {
                                 ]}
                                 noLabel
                                 placeholder="Select format"
-                                value={"title"}
+                                value={selectedValue}
+                                handleChange={handleChange}
                             />
                         </Box>
                         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>

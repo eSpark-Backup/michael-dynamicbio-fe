@@ -17,7 +17,7 @@ const CustomIcon = (props) => (
     alt="Dropdown Icon"
     width="16"
     height="8"
-    style={{ pointerEvents: "none", position: "relative", top: "5px" }}
+    style={{ pointerEvents: "none", position: "relative", top: "0px" }}
   />
 );
 

@@ -16,7 +16,7 @@ const GroupRequests = () => {
                     </Box>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Select members who can join this group without admin approval. <span style={{ fontSize: "14px", fontWeight: "600", color: "#505050" }}>Learn more</span></Typography>
                 </Stack>
-                <Box sx={{ p: "6px 15px", border: "1px solid #E4E4E4", borderRadius: "21px", position: "relative" }}>
+                <Box sx={{ p: "6px 15px", border: "1px solid black", borderRadius: "21px", position: "relative" }}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Set up</Typography>
                     <Box
                         sx={{

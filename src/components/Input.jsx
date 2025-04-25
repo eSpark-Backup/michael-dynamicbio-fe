@@ -65,7 +65,7 @@ const Input = ({
         {...rest}
       />
       {wordLimit && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Typography>{`${value.length}/${wordLimit} words`}</Typography>
+        <Typography sx={{ color: "#505050" }}>{`${value.length}/${wordLimit} words`}</Typography>
       </Box>}
     </>
   );
