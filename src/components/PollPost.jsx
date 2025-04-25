@@ -46,6 +46,7 @@ import {
   useInteractPollMutation,
   useRemovePollMutation,
 } from "../services/post";
+import ShowLikesModal from "./ShowLikesModal";
 
 const PollPost = ({
   pollId,
@@ -74,6 +75,7 @@ const PollPost = ({
   isGroupPost,
   pinned,
   isAdminPost,
+  likesData,
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -98,6 +100,8 @@ const PollPost = ({
   const [postId, setPostId] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [postComments, setPostComments] = useState([]);
+  const [totalComments, setTotalComments] = useState(comments)
+  const [showLikesModal, setShowLikesModal] = useState(false)
 
   const [
     commentData,
@@ -117,7 +121,14 @@ const PollPost = ({
     error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
-  } = useGetPostCommentsQuery(postId, { skip: !postId });
+  } = useGetPostCommentsQuery(postId, {
+    skip: !postId,
+    refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
+
+  useEffect(() => setTotalComments(comments), [comments])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -265,21 +276,35 @@ const PollPost = ({
         toast.success("Comment added successfully");
         setCommentContent("");
         refetch();
+        setTotalComments(prev => prev + 1);
       }
     });
   };
 
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {
-      const comments = getCommentsData?.data?.map((item) => ({
-        userImage: item?.user?.profileImage,
-        userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-        comment: item?.content,
-        time: "14m ago",
-      }));
+      const comments = getCommentsData.data.map((item) => {
+        const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+        return {
+          userImage: item?.user?.profileImage,
+          userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+          comment: item?.content,
+          time: item?.createdAt,
+          commentId: item?.id,
+          allLikes: item?.likes?.map((like) => ({
+            ...like.user,
+            isBond: like.isBond,
+          })) || [],
+          likesCount: item?.likesCount,
+          hasLiked: hasLiked,
+        };
+      });
+
       setPostComments(comments);
+
     }
-  }, [getCommentsSuccess, getCommentsData]);
+  }, [getCommentsSuccess, getCommentsData])
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -609,7 +634,6 @@ const PollPost = ({
             display: "flex",
             alignItems: "center",
             columnGap: "6px",
-            cursor: "pointer",
           }}
         >
           {numberofLikes >= 1 && (
@@ -620,24 +644,25 @@ const PollPost = ({
             />
           )}
           <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
+            onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
           >
             {numberofLikes === 0
               ? "Be first to like this"
               : isLiked && numberofLikes === 1
-              ? "You liked this post"
-              : isLiked && numberofLikes > 1
-              ? `You and ${numberofLikes - 1} more like this`
-              : numberofLikes === 1
-              ? `${lastUserLiked} likes this`
-              : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                ? "You liked this post"
+                : isLiked && numberofLikes > 1
+                  ? `You and ${numberofLikes - 1} more like this`
+                  : numberofLikes === 1
+                    ? `${lastUserLiked} likes this`
+                    : `${lastUserLiked} and ${numberofLikes - 1} like this`}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", columnGap: "10px" }}>
           <Typography
             sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
           >
-            {comments} comments
+            {totalComments} comments
           </Typography>
           <Typography
             sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
@@ -672,7 +697,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={isLoading ? () => {} : () => handleLike(id)}
+          onClick={isLoading ? () => { } : () => handleLike(id)}
         >
           <img
             src={isLiked ? like : unlike}
@@ -875,11 +900,15 @@ const PollPost = ({
             postComments?.length > 0 &&
             postComments?.map((item, index) => (
               <Comment
-                key={index}
+                key={item?.commentId}
                 userImage={item?.userImage}
                 userName={item?.userName}
                 comment={item?.comment}
                 time={item?.time}
+                hasLiked={item?.hasLiked}
+                likesCount={item?.likesCount}
+                allLikes={item?.allLikes}
+                commentId={item?.commentId}
               />
             ))}
         </Box>
@@ -971,7 +1000,7 @@ const PollPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -1002,6 +1031,11 @@ const PollPost = ({
         smallModal={true}
       >
         <ViewPolls options={options} />
+      </DynamicModal>
+
+
+      <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+        <ShowLikesModal allLikes={likesData} />
       </DynamicModal>
     </Paper>
   );

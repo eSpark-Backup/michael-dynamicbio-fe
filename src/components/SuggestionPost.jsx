@@ -20,8 +20,9 @@ import { useCommentMutation, useGetPostCommentsQuery, useLikeMutation } from '..
 import { useSelector } from 'react-redux';
 import Button from './button.jsx';
 import { toast } from 'react-toastify';
+import ShowLikesModal from './ShowLikesModal.jsx';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost }) => {
+const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -40,10 +41,25 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
     const [postId, setPostId] = useState("")
     const [commentContent, setCommentContent] = useState("")
     const [postComments, setPostComments] = useState([])
+    const [likesUserData, setLikesUserData] = useState(allLikesData)
+    const [showLikesModal, setShowLikesModal] = useState(false)
+    const [totalComments, setTotalComments] = useState(comments)
 
-    const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, { skip: !postId })
+    const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, {
+        skip: !postId,
+        refetchOnMountOrArgChange: true,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+    })
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
+
+    useEffect(() => {
+        setTotalLikes(numberofLikes)
+        setIsPostLiked(isLiked)
+        setLikesUserData(allLikesData)
+        setTotalComments(comments)
+    }, [numberofLikes, isLiked, allLikesData, comments])
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -56,23 +72,50 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
 
 
     const LikeHandler = (id) => {
-        // setIsPostLiked((prevLiked) => {
-        // const newLiked = !prevLiked;
-        // setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
+        const newLike = !isPostLiked
+        setIsPostLiked(newLike)
+        setTotalLikes(prevLikes => newLike ? prevLikes + 1 : prevLikes - 1);
+        const newUser = {
+            id: userData?.id,
+            firstName: userData?.firstName,
+            lastName: userData?.lastName,
+            profileImage: userData?.profileImage,
+            designation: userData?.designation,
+            isBound: false
+        };
+        if (newLike) {
+            setLikesUserData([...likesUserData, newUser])
+        }
+        else {
+            const users = likesUserData?.filter((item) => item?.id !== userData?.id)
+            setLikesUserData(users)
+        }
+
         likeData({ entityId: id, type: "POST" });
-        // return newLiked;
-        // });
     };
 
     useEffect(() => {
-        if (isSuccess && data?.status) {
-            setIsPostLiked((prevLiked) => {
-                const newLiked = !prevLiked;
-                setTotalLikes((prevLikes) => newLiked ? prevLikes + 1 : prevLikes - 1);
-                return newLiked;
-            });
+        if (isError && error?.data?.status === false) {
+            const newLike = !isPostLiked
+            setIsPostLiked(newLike)
+            setTotalLikes(prevLikes => newLike ? prevLikes + 1 : prevLikes - 1);
+            const newUser = {
+                id: userData?.id,
+                firstName: userData?.firstName,
+                lastName: userData?.lastName,
+                profileImage: userData?.profileImage,
+                designation: userData?.designation,
+                isBound: false
+            };
+            if (newLike) {
+                setLikesUserData([...likesUserData, newUser])
+            }
+            else {
+                const users = likesUserData?.filter((item) => item?.id !== userData?.id)
+                setLikesUserData(users)
+            }
         }
-    }, [data, isSuccess])
+    }, [error, isError])
 
     const HandleComment = (id) => {
         const data = {
@@ -88,20 +131,32 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                 toast.success("Comment added successfully");
                 setCommentContent("")
                 refetch()
+                setTotalComments(prev => prev + 1);
             }
         })
     }
 
     useEffect(() => {
         if (getCommentsSuccess && getCommentsData?.data) {
-            const comments = getCommentsData?.data?.map((item) => ({
-                userImage: item?.user?.profileImage,
-                userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-                comment: item?.content,
-                time: "14m ago",
-                id: item?.id
-            }))
-            setPostComments(comments)
+            const comments = getCommentsData.data.map((item) => {
+                const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+                return {
+                    userImage: item?.user?.profileImage,
+                    userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                    comment: item?.content,
+                    time: item?.createdAt,
+                    commentId: item?.id,
+                    allLikes: item?.likes?.map((like) => ({
+                        ...like.user,
+                        isBond: like.isBond,
+                    })) || [],
+                    likesCount: item?.likesCount,
+                    hasLiked: hasLiked,
+                };
+            });
+
+            setPostComments(comments);
 
         }
     }, [getCommentsSuccess, getCommentsData])
@@ -162,19 +217,19 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} />
+                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                     :
                     type === "poll"
                         ?
-                        <PollPost pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} />
+                        <PollPost pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} />
+                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={0} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} />
+                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -285,9 +340,11 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                         </Box>
                                     }
                                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}>
                                             {totalLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
-                                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: totalLikes > 0 ? "pointer" : "text" }}
+                                                onClick={(totalLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+                                            >
                                                 {totalLikes === 0 ? (
                                                     "Be first to like this"
                                                 ) : isPostLiked && totalLikes === 1 ? (
@@ -302,7 +359,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                             </Typography>
 
                                         </Box>
-                                        <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
+                                        <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{totalComments} comments</Typography>
                                     </Box>
                                     <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
                                         <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => LikeHandler(id)}>
@@ -374,7 +431,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                             </Box>
                                             {Array.isArray(postComments) && postComments?.length > 0 &&
                                                 postComments?.map((item, index) => (
-                                                    <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
+                                                    <Comment key={item?.commentId} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} hasLiked={item?.hasLiked} likesCount={item?.likesCount} allLikes={item?.allLikes} commentId={item?.commentId} />
                                                 ))
                                             }
                                         </Box>
@@ -431,8 +488,12 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             </ConfirmationModal>
 
             <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
-                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={4} isLiked={false} comments={125} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} />
+                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={totalComments} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} lastUserLiked={lastUserLiked} id={id} isLoading={isLoading} handleLike={LikeHandler} handleCommentCounter={() => setTotalComments(prev => prev + 1)} likesData={likesUserData} />
             </PhotoDetailsModal>
+
+            <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+                <ShowLikesModal allLikes={likesUserData} />
+            </DynamicModal>
         </>
     )
 }

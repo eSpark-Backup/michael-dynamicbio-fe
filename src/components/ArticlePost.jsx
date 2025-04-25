@@ -16,8 +16,9 @@ import { toast } from 'react-toastify'
 import Comment from './Comment'
 import Button from './button'
 import { Link, useNavigate } from 'react-router-dom'
+import ShowLikesModal from './ShowLikesModal'
 
-const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike, isLoading, isGroupPost, pinned, isAdminPost, groupPost }) => {
+const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData }) => {
 
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -33,10 +34,19 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
     const [postId, setPostId] = useState("")
     const [commentContent, setCommentContent] = useState("")
     const [postComments, setPostComments] = useState([])
+    const [totalComments, setTotalComments] = useState(comments)
+    const [showLikesModal, setShowLikesModal] = useState(false)
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
-    const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, { skip: !postId })
+    const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, {
+        skip: !postId,
+        refetchOnMountOrArgChange: true,
+        refetchOnFocus: true,
+        refetchOnReconnect: true,
+    })
+
+    useEffect(() => setTotalComments(comments), [comments])
 
     const navigate = useNavigate()
 
@@ -95,6 +105,7 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                 toast.success("Comment added successfully");
                 setCommentContent("")
                 refetch()
+                setTotalComments(prev => prev + 1);
             }
         })
     }
@@ -102,13 +113,25 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
 
     useEffect(() => {
         if (getCommentsSuccess && getCommentsData?.data) {
-            const comments = getCommentsData?.data?.map((item) => ({
-                userImage: item?.user?.profileImage,
-                userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
-                comment: item?.content,
-                time: "14m ago"
-            }))
-            setPostComments(comments)
+            const comments = getCommentsData.data.map((item) => {
+                const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+
+                return {
+                    userImage: item?.user?.profileImage,
+                    userName: `${item?.user?.firstName} ${item?.user?.lastName}`,
+                    comment: item?.content,
+                    time: item?.createdAt,
+                    commentId: item?.id,
+                    allLikes: item?.likes?.map((like) => ({
+                        ...like.user,
+                        isBond: like.isBond,
+                    })) || [],
+                    likesCount: item?.likesCount,
+                    hasLiked: hasLiked,
+                };
+            });
+
+            setPostComments(comments);
 
         }
     }, [getCommentsSuccess, getCommentsData])
@@ -212,9 +235,11 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                 </Box>
             </Link>
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px", cursor: "pointer" }}>
+                <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}>
                     {numberofLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
+                        onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+                    >
                         {numberofLikes === 0 ? (
                             "Be first to like this"
                         ) : isLiked && numberofLikes === 1 ? (
@@ -229,7 +254,7 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{comments} comments</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{totalComments} comments</Typography>
                     <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>•</Typography>
                     <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>0 reposts</Typography>
                 </Box>
@@ -308,7 +333,17 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
                     </Box>
                     {Array.isArray(postComments) && postComments?.length > 0 &&
                         postComments?.map((item, index) => (
-                            <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
+                            <Comment
+                                key={item?.commentId}
+                                userImage={item?.userImage}
+                                userName={item?.userName}
+                                comment={item?.comment}
+                                time={item?.time}
+                                hasLiked={item?.hasLiked}
+                                likesCount={item?.likesCount}
+                                allLikes={item?.allLikes}
+                                commentId={item?.commentId}
+                            />
                         ))
                     }
                 </Box>
@@ -357,6 +392,11 @@ const ArticlePost = ({ userName, userRole, postTime, userImage, numberofLikes, i
 
             <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
                 <ScheduleModal />
+            </DynamicModal>
+
+
+            <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+                <ShowLikesModal allLikes={likesData} />
             </DynamicModal>
         </Paper >
     )

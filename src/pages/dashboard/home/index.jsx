@@ -115,7 +115,7 @@ const Home = () => {
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
-        comments: 0,
+        comments: item?.commentsCount,
         activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
@@ -143,7 +143,15 @@ const Home = () => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: lastLike
+        lastUserLiked: lastLike,
+        allLikesData: item?.likes?.map((like) => ({
+          id: like?.user?.id,
+          firstName: like?.user?.firstName,
+          lastName: like?.user?.lastName,
+          profileImage: like?.user?.profileImage,
+          designation: like?.user?.designation,
+          isBond: like.isBond,
+        })) || [],
       };
     });
   };
@@ -172,7 +180,7 @@ const Home = () => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : option?.voters,
+        voteBy: option?.voters,
       })) || []),
     ];
   };

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
-import { settings, user } from "../../../assets";
+import { email, settings, user } from "../../../assets";
 import { useGetMyPostQuery } from "../../../services/post";
 import { suggestionPostContent } from "../../../constant";
 import dayjs from "dayjs";
@@ -91,7 +91,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
-        comments: 0,
+        comments: item?.commentsCount,
         activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
@@ -119,7 +119,15 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
-        lastUserLiked: lastLike
+        lastUserLiked: lastLike,
+        allLikesData: item?.likes?.map((like) => ({
+          id: like?.user?.id,
+          firstName: like?.user?.firstName,
+          lastName: like?.user?.lastName,
+          profileImage: like?.user?.profileImage,
+          designation: like?.user?.designation,
+          isBond: like.isBond,
+        })) || [],
       };
     });
   };
@@ -148,7 +156,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         value: option?.option,
         isChecked: myVoteIndex === index,
         numbersVoted: option?.count,
-        voteBy : option?.voters,
+        voteBy: option?.voters,
       })) || []),
     ];
   };
