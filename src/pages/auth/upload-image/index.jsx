@@ -16,12 +16,27 @@ const UploadImage = () => {
   const [image, setImage] = useState(null);
   const [completeProfile, { isLoading }] = useCompleteProfileMutation();
   const handleSubmit = () => {
+    const obj = {
+      dob: tempUser?.about?.dob,
+      experience: [
+        {
+          type: "Full-Time",
+          title: data?.designation,
+          company: data?.company,
+          location: data?.city,
+          currently: true,
+          endingDate: null,
+          startingDate: data?.endingDate,
+        },
+      ],
+    };
     const formdata = new FormData();
     formdata.append("country", data?.country);
     formdata.append("city", data?.city);
     formdata.append("designation", data?.designation);
     formdata.append("industry", data?.industry);
     formdata.append("company", data?.company);
+    formdata.append("about", JSON.stringify(obj));
     if (image) {
       formdata.append("image", image);
     }
@@ -91,7 +106,7 @@ const UploadImage = () => {
                 {data?.designation} At “{data?.company}”
               </Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                {data?.country}
+                {data?.city}, {data?.country}
               </Typography>
             </Box>
           </Stack>

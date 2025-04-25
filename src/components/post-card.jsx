@@ -16,7 +16,7 @@ import { useNewPostMutation } from "../services/post";
 import { article, event, photo, user, video } from "../assets";
 import { addDays } from "../utils";
 
-const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
+const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   const [newPost, { isLoading }] = useNewPostMutation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -66,6 +66,7 @@ const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
         }
         if (res?.data) {
           toast.success("Your post is uploaded successfully");
+          refetch && refetch();
           setTitle("");
           setShowPostModal(false);
           HandleModalClose();
@@ -121,24 +122,31 @@ const PostCard = ({ viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   };
 
   const handlePollPost = (values) => {
-    const obj = {
-      content: {
-        ...(schedule.date && schedule.time ? { schedule } : {}),
-      },
-      poll: {
-        question: values?.question,
-        options: [values?.opt1, values?.opt2, ...values?.options],
-        endDate: addDays(values?.duration),
-        allowMultipleVotes: false,
-        showResults: true,
-        isAnonymous: false,
-        allowAddOptions: false,
-      },
-      status: "PUBLISH",
-      visibility,
-      type: "POLL",
-    };
-    handlePost(obj);
+    const options = [values?.opt1, values?.opt2, ...values?.options];
+    const hasDuplicate = (arr) => new Set(arr).size !== arr.length;
+    if (hasDuplicate(options)) {
+      toast.error("Duplicate options are not allowed");
+      return;
+    } else {
+      const obj = {
+        content: {
+          ...(schedule.date && schedule.time ? { schedule } : {}),
+        },
+        poll: {
+          question: values?.question,
+          options,
+          endDate: addDays(values?.duration),
+          allowMultipleVotes: false,
+          showResults: true,
+          isAnonymous: false,
+          allowAddOptions: false,
+        },
+        status: "PUBLISH",
+        visibility,
+        type: "POLL",
+      };
+      handlePost(obj);
+    }
   };
 
   const handleEventPost = () => {

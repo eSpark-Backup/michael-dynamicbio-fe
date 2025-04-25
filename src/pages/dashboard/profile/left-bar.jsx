@@ -14,8 +14,7 @@ import EditEmailModal from "./modals/edit-email";
 import AddPhoneModal from "./modals/add-phone";
 import EditPhoneModal from "./modals/edit-phone";
 
-const LeftBar = ({ userData, isPublicView }) => {
-  const [modal, setModal] = useState("");
+const LeftBar = ({ userData, isPublicView, modal, setModal }) => {
   const [item, setItem] = useState(null);
 
   const handleClose = () => {

@@ -121,19 +121,6 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             helperText={formik.touched.field && formik.errors.field}
           />{" "}
         </Box>
-        <Box sx={{ width: "100%" }}>
-          <Input
-            customLabel="Grade *"
-            variant="outlined"
-            placeholder="Please enter your grade"
-            name="grade"
-            value={formik.values.grade}
-            handleChange={formik.handleChange}
-            error={formik.touched.grade && !!formik.errors.grade}
-            helperText={formik.touched.grade && formik.errors.grade}
-          />{" "}
-        </Box>
-
         <Stack
           direction="row"
           alignItems="center"
@@ -182,6 +169,18 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             />
           </Box>
         </Stack>
+        <Box sx={{ width: "100%" }}>
+          <Input
+            customLabel="Grade"
+            variant="outlined"
+            placeholder="Please enter your grade"
+            name="grade"
+            value={formik.values.grade}
+            handleChange={formik.handleChange}
+            error={formik.touched.grade && !!formik.errors.grade}
+            helperText={formik.touched.grade && formik.errors.grade}
+          />{" "}
+        </Box>
       </Box>
     </DynamicModal>
   );

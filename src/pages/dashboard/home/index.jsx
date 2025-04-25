@@ -39,15 +39,15 @@ const Home = () => {
 
   const skip = !userData?.id;
 
-  const { data, error, isLoading, isSuccess, isFetching } = useGetFeedPostsQuery(
-    { page, limit: 15, userId: userData?.id },
-    {
-      skip,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetFeedPostsQuery(
+      { page, limit: 15, userId: userData?.id },
+      {
+        skip,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+        refetchOnReconnect: true,
+      }
+    );
 
 
   useEffect(() => {
@@ -354,7 +354,7 @@ const Home = () => {
           <Paper
             sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}
           >
-            <PostCard />
+            <PostCard refetch={refetch} />
           </Paper>
 
           {/* <Paper

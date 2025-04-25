@@ -22,6 +22,7 @@ const CustomIcon = (props) => (
 );
 
 const Dropdown = ({
+  name,
   disabled,
   customLabel,
   required,
@@ -52,6 +53,7 @@ const Dropdown = ({
           {placeholder}
         </InputLabel>}
         <Select
+          name={name}
           variant={variant}
           disabled={disabled}
           labelId="demo-simple-select-filled-label"

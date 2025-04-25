@@ -9,6 +9,7 @@ import Feed from "./feed";
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const [isPublicView, setIsPublicView] = useState(false);
+  const [modal, setModal] = useState("");
 
   return (
     <Box sx={{ p: "20px" }}>
@@ -24,13 +25,14 @@ const Profile = () => {
               userData={user}
               isPublicView={isPublicView}
               setIsPublicView={setIsPublicView}
+              handleOpenExpModal={() => setModal("addexp")}
             />
           </Grid2>
           <Grid2
             size={{ xs: 12, lg: 3.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <LeftBar userData={user} isPublicView={isPublicView} />
+            <LeftBar modal={modal} setModal={setModal} userData={user} isPublicView={isPublicView} />
           </Grid2>
 
           <Grid2

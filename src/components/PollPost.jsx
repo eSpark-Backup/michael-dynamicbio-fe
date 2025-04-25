@@ -170,62 +170,75 @@ const PollPost = ({
     setShowComments(true);
   };
 
-  const handlePoll = (event, optionIndex) => {
-    interact({ id: pollId, credentials: { optionIndex } }).then((res) => {
-      if (res?.error) {
-        toast.error(res?.error?.data?.message || "Something went wrong");
-        return;
-      }
-      if (res?.data) {
-        setSelectedValue(event.target.value?.value);
-        setVoteCount((prev) => prev + 1);
-        setOptions((prevOptions) =>
-          prevOptions.map((item, idx) => {
-            if (item?.id - 3 === optionIndex) {
-              return {
+  const [isVoting, setIsVoting] = useState(false);
+
+  const handlePoll = async (event, optionIndex) => {
+    if (isVoting || optionIndex === null) return;
+    setIsVoting(true);
+
+    const res = await interact({
+      id: pollId,
+      credentials: { optionIndex },
+    });
+
+    if (res?.error) {
+      toast.error(res?.error?.data?.message || "Something went wrong");
+      setIsVoting(false);
+      return;
+    } else if (res?.data) {
+      setSelectedValue(event.target.value?.value);
+      setVoteCount((prev) => prev + 1);
+      setOptions((prevOptions) =>
+        prevOptions.map((item) =>
+          item.id - 3 === optionIndex
+            ? {
                 ...item,
                 isChecked: true,
                 numbersVoted: item.numbersVoted + 1,
                 voteBy: [...item.voteBy, { ...userData }],
-              };
-            }
-            return item;
-          })
-        );
-      }
-    });
+              }
+            : item
+        )
+      );
+    }
+
+    setIsVoting(false);
   };
 
-  const removePoll = (votedOptionIndex, onSuccess) => {
-    remove({
+  const removePoll = async (votedOptionIndex, onSuccess) => {
+    if (isVoting || votedOptionIndex === null) return;
+    setIsVoting(true);
+
+    const res = await remove({
       id: pollId,
       credentials: { optionIndex: votedOptionIndex },
-    }).then((res) => {
-      if (res?.error) {
-        toast.error(res?.error?.data?.message || "Something went wrong");
-        return;
-      }
-      if (res?.data) {
-        setOptions((prevOptions) =>
-          prevOptions.map((item, idx) => {
-            if (item?.id - 3 === votedOptionIndex) {
-              return {
+    });
+
+    if (res?.error) {
+      toast.error(res?.error?.data?.message || "Something went wrong");
+      setIsVoting(false);
+      return;
+    } else if (res?.data) {
+      setOptions((prevOptions) =>
+        prevOptions.map((item) =>
+          item?.id - 3 === votedOptionIndex
+            ? {
                 ...item,
                 isChecked: false,
                 numbersVoted: item.numbersVoted - 1,
-                voteBy: item?.voteBy?.filter(
-                  (vote) => vote?.userId !== userData?.id
+                voteBy: item.voteBy.filter(
+                  (vote) => vote.userId !== userData.id
                 ),
-              };
-            }
-            return item;
-          })
-        );
-        setVoteCount((prev) => prev - 1);
-        setSelectedValue(null);
-        onSuccess && onSuccess();
-      }
-    });
+              }
+            : item
+        )
+      );
+      setVoteCount((prev) => prev - 1);
+      setSelectedValue(null);
+      onSuccess && onSuccess();
+    }
+
+    setIsVoting(false);
   };
 
   const handleChange = (event) => {

@@ -21,7 +21,7 @@ const Feed = ({ isPublicView }) => {
   const { user } = useSelector(state => state.auth);
 
   // Modify your query to accept page parameter
-  const { data, error, isLoading, isSuccess, isFetching } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
+  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
 
 
   useEffect(() => {
@@ -236,7 +236,7 @@ const Feed = ({ isPublicView }) => {
           )}
         </Stack>
         <CustomizeTabs tabs={tabOptions} />
-        {!isPublicView && <PostCard />}
+        {!isPublicView && <PostCard refetch={refetch} />}
 
       </Paper>
       <InfiniteScroll
