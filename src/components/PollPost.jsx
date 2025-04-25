@@ -195,7 +195,17 @@ const PollPost = ({
                 ...item,
                 isChecked: true,
                 numbersVoted: item.numbersVoted + 1,
-                voteBy: [...item.voteBy, { ...userData }],
+                voteBy: [
+                  ...item.voteBy,
+                  {
+                    company: userData?.company,
+                    designation: userData?.designation,
+                    firstName: userData?.firstName,
+                    lastName: userData?.lastName,
+                    profileImage: userData?.profileImage,
+                    userId: userData?.id,
+                  },
+                ],
               }
             : item
         )
@@ -219,6 +229,7 @@ const PollPost = ({
       setIsVoting(false);
       return;
     } else if (res?.data) {
+      console.log(userData, "userData", options, votedOptionIndex);
       setOptions((prevOptions) =>
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
