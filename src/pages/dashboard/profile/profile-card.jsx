@@ -13,7 +13,7 @@ import {
   share,
 } from "../../../assets";
 
-const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
+const ProfileCard = ({ userData, isPublicView, setIsPublicView, handleOpenExpModal }) => {
   const dispatch = useDispatch();
   const [updateProfile] = useUpdateUserInfoMutation();
   const coverRef = useRef(null);
@@ -327,6 +327,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView }) => {
         userData={userData}
         open={editProfileModal}
         handleClose={handleClose}
+        handleOpenExpModal={handleOpenExpModal}
       />
     </>
   );

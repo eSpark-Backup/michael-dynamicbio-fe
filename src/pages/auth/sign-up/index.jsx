@@ -5,6 +5,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { Button, Input } from "../../../components";
 import { signupSchema } from "../../../schemas";
 import { useRegisterMutation } from "../../../services/auth";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const Signup = () => {
   const [register, { isLoading }] = useRegisterMutation();
@@ -16,6 +17,7 @@ const Signup = () => {
       firstName: "",
       lastName: "",
       email: "",
+      dob: null,
       password: "",
       conPassword: "",
     },
@@ -25,6 +27,7 @@ const Signup = () => {
         firstName: values?.firstName,
         lastName: values?.lastName,
         email: values?.email,
+        about: { dob: values?.dob },
         password: values?.password,
         loginType: "local",
         role: "user",
@@ -57,7 +60,11 @@ const Signup = () => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "28px", md: "40px" }, fontWeight: "400", textAlign: "center" }}
+          sx={{
+            fontSize: { xs: "28px", md: "40px" },
+            fontWeight: "400",
+            textAlign: "center",
+          }}
         >
           Sign Up
         </Typography>
@@ -84,6 +91,31 @@ const Signup = () => {
             handleChange={formik.handleChange}
             error={formik.touched.lastName && !!formik.errors.lastName}
             helperText={formik.touched.lastName && formik.errors.lastName}
+          />
+          <DatePicker
+            label="Birth Date"
+            variant="filled"
+            value={formik.values.dob}
+            onChange={(value) => formik.setFieldValue("dob", value)}
+            onBlur={() => formik.setFieldTouched("dob", true)}
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                error: formik.touched.dob && Boolean(formik.errors.dob),
+                helperText: formik.touched.dob && formik.errors.dob,
+              },
+            }}
+            sx={{
+              ".MuiOutlinedInput-root": {
+                width: "100%",
+                backgroundColor: "#FCFCFC",
+                height: "65px",
+                border: "none",
+                borderBottom: "1px solid #000000 !important",
+                borderRadius: "0px",
+                fontSize: "18px",
+              },
+            }}
           />
           <Input
             label="Email"
