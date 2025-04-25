@@ -74,14 +74,14 @@ const Profile = () => {
             size={{ xs: 12, lg: 3.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <LeftBar modal={modal} setModal={setModal} userData={userData} isPublicView={isPublicView} />
+            <LeftBar modal={modal} setModal={setModal} userData={userData} isPublicView={isPublicView} isPublic={isPublic} />
           </Grid2>
 
           <Grid2
             size={{ xs: 12, lg: 8.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <Feed userData={userData} isPublicView={isPublicView} />
+            <Feed userData={userData} isPublicView={isPublicView} isPublic={isPublic} userId={userId} />
           </Grid2>
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }}>

@@ -52,12 +52,13 @@ export const postApi = api.injectEndpoints({
       },
     }),
     getMyPost: builder.query({
-      query: ({ page = 1, limit = 15 }) => ({
-        url: "/post",
+      query: ({ page = 1, limit = 15, id }) => ({
+        url: id ? `/user/public-profile/post?profileId=${id}` : "/post",
         method: "GET",
         params: {
           page,
-          pageSize: limit
+          pageSize: limit,
+          status: "PUBLISH",
         }
       }),
     }),
