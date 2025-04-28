@@ -22,6 +22,8 @@ const Profile = () => {
   useEffect(() => {
     if (userId === user?.id) {
       setUserData(user);
+      setIsPublicView(false);
+      setIsPublic(false);
       return;
     }
     publicProfile(userId).then((res) => {
@@ -34,7 +36,7 @@ const Profile = () => {
         setIsPublic(true);
       }
     });
-  }, [userId, user]);
+  }, [userId, user, data]);
 
   if (isLoading) {
     return (

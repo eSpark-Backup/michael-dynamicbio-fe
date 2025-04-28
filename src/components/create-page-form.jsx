@@ -215,6 +215,7 @@ const CreatePageForm = ({ pageType }) => {
             }
           />
           <Input
+            type="number"
             variant="outlined"
             customLabel="How many fuel cells or how many (other) can be shipped at a time?"
             name="fuelCells"
@@ -226,7 +227,7 @@ const CreatePageForm = ({ pageType }) => {
           />
           <>
             <Typography mb={1} mt="24px">
-              Enter the places of shippinga
+              Enter the places of shipping
             </Typography>
             <Stack
               direction="row"
@@ -313,7 +314,7 @@ const CreatePageForm = ({ pageType }) => {
       />
 
       <>
-        <Typography mt="24px" mb={1}>
+        <Typography fontSize="12px" mt="24px" mb={1}>
           Logo
         </Typography>
         <Box
@@ -376,8 +377,8 @@ const CreatePageForm = ({ pageType }) => {
           alignItems="center"
           mt="24px"
         >
-          <Typography>permissions</Typography>
-          {<Typography>Required</Typography>}
+          <Typography fontSize="12px">permissions</Typography>
+          {<Typography fontSize="12px">Required</Typography>}
         </Stack>
         <Box
           sx={{
