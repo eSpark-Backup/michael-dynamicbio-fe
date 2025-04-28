@@ -48,8 +48,8 @@ const Dropdown = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography mb={1}>{customLabel}</Typography>
-          {required && <Typography mb={1}>Required</Typography>}
+          <Typography fontSize="12px" mb={1}>{customLabel}</Typography>
+          {required && <Typography fontSize="12px" mb={1}>Required</Typography>}
         </Stack>
       )}
       <FormControl sx={{ width: "100%" }} variant="filled" error={error}>

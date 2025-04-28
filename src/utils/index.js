@@ -195,5 +195,10 @@ export const getDaysLeft = (isoDate) => {
   const futureDate = new Date(isoDate);
   const diffTime = futureDate - now;
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return `${diffDays} day${diffDays > 1 ? "s" : ""} left`;
+
+  if (diffDays < 0) {
+    return "Poll ended";
+  }
+
+  return `${diffDays} day${diffDays !== 1 ? "s" : ""} left`;
 };
