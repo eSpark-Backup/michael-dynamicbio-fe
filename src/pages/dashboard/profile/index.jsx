@@ -85,7 +85,7 @@ const Profile = () => {
           </Grid2>
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }}>
-          <RightBar />
+          <RightBar isPublicView={isPublicView} />
         </Grid2>
       </Grid2>
     </Box>
