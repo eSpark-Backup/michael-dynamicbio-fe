@@ -49,6 +49,7 @@ import {
 import ShowLikesModal from "./ShowLikesModal";
 
 const PollPost = ({
+  userId,
   pollId,
   endDate,
   voteCount: totalVoteCount,
@@ -404,6 +405,7 @@ const PollPost = ({
         </Box>
       )}
       <BondCard2
+        id={userId}
         userName={userName}
         userImage={userImage}
         userRole={userRole}

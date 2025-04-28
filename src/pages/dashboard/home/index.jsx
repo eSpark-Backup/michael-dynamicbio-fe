@@ -109,6 +109,7 @@ const Home = () => {
       }
 
       return {
+        userId: item?.author?.id,
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
         postTime: dayjs(item?.createdAt).fromNow(),

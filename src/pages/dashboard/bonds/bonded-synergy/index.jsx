@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   Box,
@@ -17,6 +18,7 @@ import { eventBus, formatDate } from "../../../../utils";
 import { searchIcon, user, verticleDots } from "../../../../assets";
 
 const BondedSynergy = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page] = useState(1);
@@ -159,11 +161,12 @@ const BondedSynergy = () => {
                 key={ind}
               >
                 <Stack
+                  onClick={() => navigate(`/profile/${bond?.friend?.id}`)}
                   direction="row"
                   alignItems="center"
                   justifyContent={{ xs: "flex-start", sm: "center" }}
                   gap={2}
-                  sx={{ width: { xs: "100%", sm: "max-content" } }}
+                  sx={{ width: { xs: "100%", sm: "max-content" }, cursor: "pointer" }}
                 >
                   <img
                     width={73}

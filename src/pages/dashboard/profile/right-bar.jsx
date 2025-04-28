@@ -3,7 +3,7 @@ import { Button } from "../../../components";
 import { copyToClipboard } from "../../../utils";
 import { copy } from "../../../assets";
 
-const RightBar = () => {
+const RightBar = ({ isPublicView }) => {
   const url = "www.fnkdfhudfhidjfvhdfkvgjdhfkbhkfddsfd/jdsfiods.com";
   return (
     <>
@@ -109,7 +109,7 @@ const RightBar = () => {
           </Typography>
         </Box>
       </Paper>
-      <Paper
+      {!isPublicView && <Paper
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -196,7 +196,7 @@ const RightBar = () => {
         >
           Manage
         </Button>
-      </Paper>
+      </Paper>}
     </>
   );
 };
