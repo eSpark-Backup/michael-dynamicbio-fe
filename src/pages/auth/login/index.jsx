@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,10 +13,14 @@ import { Input, Button } from "../../../components";
 import { useLoginMutation } from "../../../services/auth";
 import { loginSchema } from "../../../schemas";
 import { facebook, google, linkedin } from "../../../assets";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
+
+  const { loginWithRedirect, logout, isAuthenticated, user, error, isLoading: authloading } = useAuth0();
+
   const [rememberMe, setRememberMe] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -48,6 +52,57 @@ const Login = () => {
       });
     },
   });
+
+  const handleGoogleLogin = () => {
+    console.log('1. Initiating Google login...');
+    loginWithRedirect({
+      connection: 'google',
+      authorizationParams: {
+        prompt: 'login'
+      }
+    }).then(() => {
+      console.log('2. Redirect initiated');
+    });
+  };
+  const handleFacebookLogin = () => {
+    console.log('Initiating Facebook login...');
+    loginWithRedirect({
+      connection: 'facebook',
+      authorizationParams: {
+        prompt: 'login'
+      }
+    }).then(() => {
+      console.log('2. Redirect initiated');
+    });
+  };
+
+  const handleLinkedInLogin = () => {
+    console.log('Initiating LinkedIn login...');
+    loginWithRedirect({
+      connection: 'linkedin',
+      authorizationParams: {
+        prompt: 'login'
+      }
+    }).then(() => {
+      console.log('2. Redirect initiated');
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      console.log('User successfully logged in via:', user.sub.split('|')[0]);
+      console.log(user)
+    }
+    console.log(user)
+    console.log(isAuthenticated)
+  }, [isAuthenticated, user]);
+
+  useEffect(() => {
+    if (error) {
+      console.error('Soical auth error:', error);
+    }
+  }, [error]);
+
   return (
     <Stack
       sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
@@ -135,9 +190,9 @@ const Login = () => {
         sx={{ marginY: "38px" }}
       >
         <Typography fontWeight={300}>Or Sign up via</Typography>
-        <img style={{ cursor: "pointer" }} src={google} alt="google" />
-        <img style={{ cursor: "pointer" }} src={facebook} alt="facebook" />
-        <img style={{ cursor: "pointer" }} src={linkedin} alt="linkedin" />
+        <img style={{ cursor: "pointer" }} src={google} alt="google" onClick={handleGoogleLogin} />
+        <img style={{ cursor: "pointer" }} src={facebook} alt="facebook" onClick={handleFacebookLogin} />
+        <img style={{ cursor: "pointer" }} src={linkedin} alt="linkedin" onClick={handleLinkedInLogin} />
       </Stack>
     </Stack>
   );
