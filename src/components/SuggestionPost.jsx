@@ -22,7 +22,7 @@ import Button from './button.jsx';
 import { toast } from 'react-toastify';
 import ShowLikesModal from './ShowLikesModal.jsx';
 
-const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData }) => {
+const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -217,19 +217,19 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
             {
                 type === "video"
                     ?
-                    <VideoPost userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
+                    <VideoPost userId={userId} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                     :
                     type === "poll"
                         ?
-                        <PollPost pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
+                        <PollPost userId={userId} pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                         :
                         type === "event"
                             ?
-                            <EventPost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
+                            <EventPost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
+                                <ArticlePost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -295,7 +295,7 @@ const SuggestionPost = ({ userName, userRole, postTime, userImage, numberofLikes
                                             <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                                         </Box>
                                     }
-                                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} />
+                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} />
                                     {postContent &&
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>

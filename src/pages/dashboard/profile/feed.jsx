@@ -10,10 +10,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSelector } from "react-redux";
 import { getDaysLeft } from "../../../utils";
+import { useNavigate } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
-const Feed = ({ isPublicView }) => {
+const Feed = ({ userData, isPublicView, isPublic, userId }) => {
+  const navigate = useNavigate();
   const tabOptions = ["Posts", "Collaborations", "Events"];
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
@@ -21,7 +23,7 @@ const Feed = ({ isPublicView }) => {
   const { user } = useSelector(state => state.auth);
 
   // Modify your query to accept page parameter
-  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetMyPostQuery({ page, limit: 15 }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
+  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetMyPostQuery({ page, limit: 15, id: isPublic ? userId : null }, { refetchOnFocus: true, refetchOnMountOrArgChange: true, refetchOnReconnect: true });
 
 
   useEffect(() => {
@@ -42,10 +44,6 @@ const Feed = ({ isPublicView }) => {
       if (!data?.data) {
         setPosts([]);
         setHasMore(false);
-        return;
-      }
-
-      if (user.id !== data?.data?.posts[0]?.author?.id) {
         return;
       }
 
@@ -182,7 +180,7 @@ const Feed = ({ isPublicView }) => {
         gap={2}
       >
         {[
-          { title: "Bonds", count: 0 },
+          { title: "Bonds", count: userData?.bondCount, link: "/bonds?sub=bonded-synergy" },
           { title: "Your Groups", count: 0 },
           { title: "Joined Groups", count: 0 },
         ].map((item) => {
@@ -192,7 +190,9 @@ const Feed = ({ isPublicView }) => {
               alignItems="center"
               justifyContent="center"
               key={item.title}
+              onClick={!isPublic && item?.link ? () => navigate(item?.link) : () => {}}
               sx={{
+                cursor: !isPublic && item?.link ? "pointer" : "default",
                 width: "315px",
                 height: "61px",
                 borderRadius: "4px",

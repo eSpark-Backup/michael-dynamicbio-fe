@@ -24,20 +24,20 @@ const EditSkillModal = ({ skill, userData, open, handleClose }) => {
     enableReinitialize: true,
     validationSchema: skillSchema,
     onSubmit: (values) => {
-      const ind = userData?.about?.skill?.findIndex(
+      const ind = userData?.about?.skills?.findIndex(
         (item) => JSON.stringify(item) === JSON.stringify(skill)
       );
       let updatedSkill;
       if (ind !== -1) {
-        updatedSkill = [...userData?.about?.skill];
+        updatedSkill = [...userData?.about?.skills];
         updatedSkill[ind] = values;
       } else {
-        updatedSkill = [...userData?.about?.skill, values];
+        updatedSkill = [...userData?.about?.skills, values];
       }
       updateProfile({
         about: {
           ...userData?.about,
-          skill: updatedSkill,
+          skills: updatedSkill,
         },
       }).then((res) => {
         if (res?.error) {

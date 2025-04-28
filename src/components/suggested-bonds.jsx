@@ -78,12 +78,12 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
         setId(null);
-        refetchUsers();
+        refetchUsers && refetchUsers();
         return;
       }
       if (res) {
         toast.success("Your Request sent successfully");
-        refetchUsers();
+        refetchUsers && refetchUsers();
         refetch && refetch();
         setId(null);
       }

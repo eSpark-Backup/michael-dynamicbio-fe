@@ -109,6 +109,7 @@ const Home = () => {
       }
 
       return {
+        userId: item?.author?.id,
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
         postTime: (() => {
@@ -260,6 +261,7 @@ const Home = () => {
                   fontWeight: 500,
                   color: theme.palette.primary.dark,
                   textAlign: "center",
+                  cursor: "pointer",
                 }}
               >
                 {userData?.firstName} {userData?.lastName}

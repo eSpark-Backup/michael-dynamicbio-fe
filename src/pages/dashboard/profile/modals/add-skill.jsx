@@ -16,12 +16,12 @@ const AddSkillModal = ({ userData, open, handleClose }) => {
     },
     validationSchema: skillSchema,
     onSubmit: (values) => {
-      const arrToSend = userData?.about?.skill
-        ? [...userData?.about?.skill, { ...values }]
+      const arrToSend = userData?.about?.skills
+        ? [...userData?.about?.skills, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({
-        about: { ...userData?.about, skill: filteredArr },
+        about: { ...userData?.about, skills: filteredArr },
       }).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);

@@ -13,7 +13,7 @@ import {
   share,
 } from "../../../assets";
 
-const ProfileCard = ({ userData, isPublicView, setIsPublicView, handleOpenExpModal }) => {
+const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handleOpenExpModal }) => {
   const dispatch = useDispatch();
   const [updateProfile] = useUpdateUserInfoMutation();
   const coverRef = useRef(null);
@@ -195,12 +195,12 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, handleOpenExpMod
               justifyContent="center"
               gap="12px"
             >
-              <img
+              {!isPublic && <img
                 onClick={handleViewProfile}
                 style={{ cursor: "pointer" }}
                 src={primaryEye}
                 alt="eye"
-              />
+              />}
               {isPublicView && (
                 <img
                   onClick={handleShareProfile}

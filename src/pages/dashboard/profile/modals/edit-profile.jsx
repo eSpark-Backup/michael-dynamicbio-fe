@@ -14,11 +14,12 @@ const EditProfileModal = ({
   handleClose,
   handleOpenExpModal,
 }) => {
-  const options = userData?.about?.experience?.map((item) => {
-    if (item?.currently) {
-      return { value: item?.title, label: item?.title };
-    }
-  });
+  const options = userData?.about?.experience
+  ?.filter((item) => item?.currently)
+  ?.map((item) => ({
+    value: item.title,
+    label: item.title,
+  }));
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
