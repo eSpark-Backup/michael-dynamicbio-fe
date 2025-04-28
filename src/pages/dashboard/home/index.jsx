@@ -40,14 +40,14 @@ const Home = () => {
   const skip = !userData?.id;
 
   const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetFeedPostsQuery(
-      { page, limit: 15, userId: userData?.id },
-      {
-        skip,
-        refetchOnFocus: true,
-        refetchOnMountOrArgChange: true,
-        refetchOnReconnect: true,
-      }
-    );
+    { page, limit: 15, userId: userData?.id },
+    {
+      skip,
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: true,
+    }
+  );
 
 
   useEffect(() => {
@@ -112,7 +112,14 @@ const Home = () => {
         userId: item?.author?.id,
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
-        postTime: dayjs(item?.createdAt).fromNow(),
+        postTime: (() => {
+          const now = dayjs();
+          const createdAt = dayjs(item?.createdAt);
+          if (createdAt.isAfter(now)) {
+            return now.fromNow(); // fix: if future, show as now
+          }
+          return createdAt.fromNow();
+        })(),
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
