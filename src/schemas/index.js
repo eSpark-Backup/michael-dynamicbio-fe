@@ -110,7 +110,7 @@ export const createPageSchema = Yup.object({
     .max(100, "Organization name must not exceed 100 digits.")
     .required("Organization name is required"),
   address: Yup.string().required("Address is required"),
-  location: Yup.string().required(100, "Location is required."),
+  location: Yup.string().required("Location is required."),
   size: Yup.string().required("Please select Organization size"),
   type: Yup.string().required("Please select Organization type"),
   website: Yup.string().required("Website is required"),

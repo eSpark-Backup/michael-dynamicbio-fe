@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { DropDownIcon } from "../assets";
 
 const CustomIcon = (props) => (
@@ -28,7 +28,7 @@ const Dropdown = ({
   required,
   variant,
   noLabel,
-  options,
+  options: dropdownOptions,
   handleChange,
   placeholder,
   isCountries,
@@ -36,6 +36,10 @@ const Dropdown = ({
   helperText,
   value,
 }) => {
+  const [options] = useState(noLabel ? [
+    { label: placeholder, value: placeholder },
+    ...dropdownOptions,
+  ] : dropdownOptions);
   return (
     <>
       {customLabel && (
@@ -59,18 +63,27 @@ const Dropdown = ({
           labelId="demo-simple-select-filled-label"
           id="demo-simple-select-filled"
           onChange={handleChange}
-          value={value}
+          value={value || options[0]?.value}
           IconComponent={CustomIcon}
+          renderValue={(selected) => {
+            if (!selected) {
+              return <span style={{ color: "#aaa" }}>Place holder</span>;
+            }
+            const selectedOption = options?.find(
+              (opt) => (!isCountries ? opt.value : opt.dialCode) === selected
+            );
+            return selectedOption ? selectedOption.label : selected;
+          }}
         >
           {!isCountries &&
             options?.map((item, index) => (
-              <MenuItem value={item?.value} key={index}>
+              index !== 0 && <MenuItem value={item?.value} key={index}>
                 {item?.label}
               </MenuItem>
             ))}
           {isCountries &&
             options?.map((item, index) => (
-              <MenuItem value={item.dialCode} key={index}>
+              index !== 0 && <MenuItem value={item.dialCode} key={index}>
                 {item.name} ({item.dialCode})
               </MenuItem>
             ))}
