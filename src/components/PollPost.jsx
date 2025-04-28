@@ -11,7 +11,7 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BondCard2 from "./BondCard";
 import {
   camera,
@@ -170,11 +170,12 @@ const PollPost = ({
     setShowComments(true);
   };
 
-  const [isVoting, setIsVoting] = useState(false);
+  const isVotingRef = useRef(false);
+  const isVotingRemoveRef = useRef(false);
 
   const handlePoll = async (event, optionIndex) => {
-    if (isVoting || optionIndex === null) return;
-    setIsVoting(true);
+    if (isVotingRef.current || optionIndex === null) return;
+    isVotingRef.current = true;
 
     const res = await interact({
       id: pollId,
@@ -183,7 +184,6 @@ const PollPost = ({
 
     if (res?.error) {
       toast.error(res?.error?.data?.message || "Something went wrong");
-      setIsVoting(false);
       return;
     } else if (res?.data) {
       setSelectedValue(event.target.value?.value);
@@ -212,12 +212,12 @@ const PollPost = ({
       );
     }
 
-    setIsVoting(false);
+    isVotingRef.current = false;
   };
 
   const removePoll = async (votedOptionIndex, onSuccess) => {
-    if (isVoting || votedOptionIndex === null) return;
-    setIsVoting(true);
+    if (isVotingRemoveRef.current || votedOptionIndex === null) return;
+    isVotingRemoveRef.current = true;
 
     const res = await remove({
       id: pollId,
@@ -226,7 +226,6 @@ const PollPost = ({
 
     if (res?.error) {
       toast.error(res?.error?.data?.message || "Something went wrong");
-      setIsVoting(false);
       return;
     } else if (res?.data) {
       setOptions((prevOptions) =>
@@ -248,7 +247,7 @@ const PollPost = ({
       onSuccess && onSuccess();
     }
 
-    setIsVoting(false);
+    isVotingRemoveRef.current = false;
   };
 
   const handleChange = (event) => {
