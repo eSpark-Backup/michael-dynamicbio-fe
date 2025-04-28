@@ -77,15 +77,15 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
     return (
         <Box sx={{ backgroundColor: "#F2F8FD", py: "10px", display: "flex", px: "4px", justifyContent: 'flex-start', columnGap: "5px", flexDirection: { xs: "column", sm: "row" }, alignItems: 'flex-start' }}>
             <Avatar
-                src={userImage ? userImage : einstein}
+                src={userImage ? userImage : user}
                 alt="User"
-                sx={{ width: 43, height: 43, objectFit: "fill !important" }}
+                sx={{ width: 44, height: 44, objectFit: "fill !important" }}
             />
-            <Box flex={1}>
+            <Box flex={1} sx={{ width: "100%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography sx={{ color: "#171717", fontSize: "18px", fontWeight: 500 }}>{userName}</Typography>
+                    <Typography sx={{ color: "#171717", fontSize: "16px", fontWeight: 500 }}>{userName}</Typography>
                     <Box display={"flex"} alignContent={"center"} columnGap={2}>
-                        <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A" }}>
+                        <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#71717A" }}>
                             {dayjs(time).fromNow()}
                         </Typography>
                         <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} />
@@ -95,7 +95,7 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
                     {comment}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", columnGap: "8px" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#71717A", cursor: "pointer" }}
+                    <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#71717A", cursor: "pointer" }}
                         onClick={isLoading ? () => { } : () => LikeHandler(commentId)}
                     >
                         {isUserLiked ? "Liked" : "Like"}
