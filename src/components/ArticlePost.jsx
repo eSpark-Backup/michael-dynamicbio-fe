@@ -193,7 +193,7 @@ const ArticlePost = ({ userId, userName, userRole, postTime, userImage, numberof
                     </Box>}
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

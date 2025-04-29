@@ -417,6 +417,7 @@ const PollPost = ({
         ownPost={ownPost}
         isAdminPost={isAdminPost}
         groupPost={isGroupPost}
+        postId={id}
       />
       {postContent && (
         <Typography

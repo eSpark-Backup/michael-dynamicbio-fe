@@ -1,21 +1,55 @@
-import { Avatar, Box, CircularProgress, Stack, Typography, useTheme } from '@mui/material'
-import React from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack } from '../assets'
+import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
+import React, { useState } from 'react'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save } from '../assets'
 import { useNavigate } from 'react-router-dom'
+import { useSavePostMutation } from '../services/post'
+import { toast } from 'react-toastify'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId }) => {
     const theme = useTheme()
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const HandleMenuItemClicked = async (event) => {
+        if (event === "Save") {
+            const res = await savePostData({
+                postId,
+                type: "POST"
+            })
+            console.log({ postId, type: "POST" })
+            if (res?.error) {
+                toast.error(res?.error?.data?.message || "Something went wrong");
+                return;
+            }
+            else if (res?.data) {
+                console.log(res?.data)
+                toast.success(res?.data?.message)
+                handleMenuClose()
+            }
+        }
+    }
     return (
-        <Box onClick={() => navigate(`/profile/${id}`)} sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: { xs: "center", sm: "space-between" }, alignItems: "center", p: "10px", cursor: "pointer" }}>
+        <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: { xs: "center", sm: "space-between" }, alignItems: "center", p: "10px", cursor: "pointer" }}>
             <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" }, justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <Avatar
                     src={userImage ? userImage : user}
                     alt="User"
                     sx={{ width: 60, height: 60, objectFit: "fill" }}
+                    onClick={() => navigate(`/profile/${id}`)}
                 />
                 <Stack direction={"column"}>
-                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }}>{userName}</Typography>}
+                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={() => navigate(`/profile/${id}`)}>{userName}</Typography>}
                     {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userRole}</Typography>}
                     {userAddress && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userAddress}</Typography>}
                     <Box
@@ -57,6 +91,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 handleBondClick(id);
             }} style={{ cursor: "pointer" }} />}
             {isLoading && <CircularProgress sx={{ color: "black" }} />}
+            {(isFriendPost || ownPost) && <img src={three_vertical_dots} alt="Icon" onClick={handleClick} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>
@@ -70,6 +105,26 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     <img src={three_vertical_dots} alt="Icon" />
                 </>
             } */}
+
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                }}
+            >
+
+                <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                    <img src={save} alt="Icon" />
+                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Save</Typography>
+                </MenuItem>
+            </Menu>
         </Box>
     )
 }

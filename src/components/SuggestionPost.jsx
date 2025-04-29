@@ -295,7 +295,7 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                             <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                                         </Box>
                                     }
-                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} />
+                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} postId={id} />
                                     {postContent &&
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>
@@ -488,7 +488,7 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
             </ConfirmationModal>
 
             <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
-                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={totalComments} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} lastUserLiked={lastUserLiked} id={id} isLoading={isLoading} handleLike={LikeHandler} handleCommentCounter={() => setTotalComments(prev => prev + 1)} likesData={likesUserData} />
+                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={totalComments} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} lastUserLiked={lastUserLiked} id={id} isLoading={isLoading} handleLike={LikeHandler} handleCommentCounter={() => setTotalComments(prev => prev + 1)} likesData={likesUserData} ownPost={ownPost} friendPost={isFriendPost} />
             </PhotoDetailsModal>
 
             <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>

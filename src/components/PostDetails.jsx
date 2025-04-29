@@ -16,7 +16,7 @@ import Button from './button'
 import { toast } from 'react-toastify'
 import ShowLikesModal from './ShowLikesModal'
 
-const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData }) => {
+const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -188,7 +188,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                         </Box>
                     </Box>
-                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon />
+                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} />
                     {postContent &&
                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                         </Typography>
@@ -259,7 +259,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                                             alt="User"
                                             sx={{ width: 60, height: 60, objectFit: "fill" }}
                                         />
-                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px", maxHeight: "120px",overflowY:"auto" }}>
+                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px", maxHeight: "120px", overflowY: "auto" }}>
                                             <OutlinedInput sx={{
                                                 height: "100%",
                                                 width: "100%",
