@@ -11,6 +11,7 @@ import { theme } from "./theme.js";
 import store from "./store/index.js";
 import "./index.css";
 
+
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
     <ThemeProvider theme={theme}>

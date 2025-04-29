@@ -112,14 +112,7 @@ const Home = () => {
         userId: item?.author?.id,
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,
-        postTime: (() => {
-          const now = dayjs();
-          const createdAt = dayjs(item?.createdAt);
-          if (createdAt.isAfter(now)) {
-            return now.fromNow(); // fix: if future, show as now
-          }
-          return createdAt.fromNow();
-        })(),
+        postTime: dayjs(item?.createdAt).fromNow(),
         userImage: item?.author?.profileImage,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
