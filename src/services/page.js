@@ -10,7 +10,13 @@ export const pageApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getMyPages: builder.query({
+      query: () => ({
+        url: "/page/user/my",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreatePageMutation } = pageApi;
+export const { useCreatePageMutation, useGetMyPagesQuery } = pageApi;
