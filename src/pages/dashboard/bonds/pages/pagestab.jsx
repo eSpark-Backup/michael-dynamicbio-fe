@@ -1,32 +1,57 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
 import { PageCard } from "../../../../components";
 import { plus } from "../../../../assets";
 
-const PagesTab = ({ suggestedPages, accounts, type }) => {
+const PagesTab = ({
+  showSuggestion,
+  suggestedPages: suggestedContent,
+  accounts,
+  type,
+}) => {
   const navigate = useNavigate();
+  const [showAll, setShowAll] = useState(false);
+  const [suggestedPages, setSuggestedPages] = useState(
+    showAll ? suggestedContent : suggestedContent?.slice(0, 4)
+  );
+
+  useEffect(() => {
+    setSuggestedPages(
+      showAll ? suggestedContent : suggestedContent?.slice(0, 4)
+    );
+  }, [showAll]);
   return (
     <Box sx={{ width: "100%" }}>
-      {accounts?.length > 0 ? (
-        <Stack
-          sx={{ width: "100%" }}
-          mt={2}
-          direction="column"
-          alignItems="center"
-          justifyContent="flex-start"
-          gap={2}
-        >
-          {accounts.map((group) => (
-            <PageCard type={type} key={group.id} {...group} />
-          ))}
-        </Stack>
-      ) : (
-        <Typography>
-          {type === "my-pages"
-            ? "You  don’t have any page"
-            : "You  didn't followed any page"}
-        </Typography>
-      )}
+      <Stack
+        sx={{ width: "100%", maxHeight: "420px", overflow: "auto" }}
+        mt={2}
+        direction="column"
+        alignItems="center"
+        justifyContent="flex-start"
+        gap={2}
+      >
+        {accounts?.length > 0 ? (
+          <Stack
+            sx={{ width: "100%" }}
+            mt={2}
+            direction="column"
+            alignItems="center"
+            justifyContent="flex-start"
+            gap={2}
+          >
+            {accounts.map((group) => (
+              <PageCard type={type} key={group.id} {...group} />
+            ))}
+          </Stack>
+        ) : (
+          <Typography>
+            {type === "my-pages"
+              ? "You  don’t have any page"
+              : "You  didn't followed any page"}
+          </Typography>
+        )}
+      </Stack>
       {type === "my-pages" && (
         <Stack
           mt={5}
@@ -47,7 +72,7 @@ const PagesTab = ({ suggestedPages, accounts, type }) => {
           </Stack>
         </Stack>
       )}
-      {suggestedPages && (
+      {showSuggestion && suggestedPages && (
         <>
           <Stack
             direction="row"
@@ -59,19 +84,22 @@ const PagesTab = ({ suggestedPages, accounts, type }) => {
             <Typography fontSize="14px">
               Pages you might be interested in
             </Typography>
-            <Typography
-              fontSize="14px"
-              variant="gradientText"
-              sx={{
-                cursor: "pointer",
-              }}
-            >
-              View all
-            </Typography>
+            {suggestedContent?.length > 4 && (
+              <Typography
+                onClick={() => setShowAll(!showAll)}
+                fontSize="14px"
+                variant="gradientText"
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                {showAll ? "View less" : "View all"}
+              </Typography>
+            )}
           </Stack>
 
           <Stack
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", maxHeight: "400px", overflow: "auto" }}
             mt={2}
             direction="column"
             alignItems="center"
