@@ -202,3 +202,21 @@ export const getDaysLeft = (isoDate) => {
 
   return `${diffDays} day${diffDays !== 1 ? "s" : ""} left`;
 };
+
+export function convertToFormData(data) {
+  const formData = new FormData();
+
+  Object.entries(data).forEach(([key, value]) => {
+    const isEmpty =
+      value === undefined ||
+      value === null ||
+      (typeof value === 'string' && value.trim() === '') ||
+      (Array.isArray(value) && value.length === 0);
+
+    if (!isEmpty) {
+      formData.append(key, value);
+    }
+  });
+
+  return formData;
+}
