@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { verticleDots } from "../assets";
+import { userAvatar, verticleDots } from "../assets";
 
-const PageCard = ({ userImage, title, desc, type, id }) => {
+const PageCard = ({ logoUrl, name, followerCount, type, id, creatorId }) => {
+  const { user } = useSelector((state) => state.auth);
+  const owner = creatorId === user?.id;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -30,45 +33,45 @@ const PageCard = ({ userImage, title, desc, type, id }) => {
         }}
       >
         <Box
+          onClick={() => navigate(`/page/${id}`)}
           sx={{
+            cursor: "pointer",
             display: "flex",
             columnGap: "20px",
             alignItems: "center",
             flexDirection: { xs: "column", sm: "row" },
           }}
         >
-          <img src={userImage} alt="User" />
+          <img
+            style={{ width: "73px", height: "73px", borderRadius: "50%" }}
+            src={logoUrl || userAvatar}
+            alt="User"
+          />
           <Stack direction={"column"}>
-            {title && (
-              <Typography
-                sx={{
-                  fontSize: "18px",
-                  fontWeight: 500,
-                  color: "#171717",
-                  textAlign: { xs: "center", sm: "left" },
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  navigate(
-                    type === "my-groups" ? `/group/${id}` : `/page/${id}`
-                  )
-                }
-              >
-                {title}
-              </Typography>
-            )}
-            {desc && (
-              <Typography
-                sx={{
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  color: "#505050",
-                  textAlign: { xs: "center", sm: "left" },
-                }}
-              >
-                {desc}
-              </Typography>
-            )}
+            <Typography
+              sx={{
+                fontSize: "18px",
+                fontWeight: 500,
+                color: "#171717",
+                textAlign: { xs: "center", sm: "left" },
+                cursor: "pointer",
+              }}
+              onClick={() =>
+                navigate(type === "my-groups" ? `/group/${id}` : `/page/${id}`)
+              }
+            >
+              {name}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                fontWeight: 400,
+                color: "#505050",
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+              {followerCount}
+            </Typography>
           </Stack>
         </Box>
         {type === "joined-groups" ? (
@@ -95,9 +98,19 @@ const PageCard = ({ userImage, title, desc, type, id }) => {
           horizontal: "left",
         }}
       >
-        <MenuItem>Follow</MenuItem>
-        <MenuItem>Message</MenuItem>
-        <MenuItem>Report</MenuItem>
+        {owner ? (
+          <>
+            <MenuItem>Invite members</MenuItem>
+            <MenuItem>Delete page</MenuItem>
+            <MenuItem>Leave page</MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem>Follow</MenuItem>
+            <MenuItem>Message</MenuItem>
+            <MenuItem>Report</MenuItem>
+          </>
+        )}
       </Menu>
     </>
   );
