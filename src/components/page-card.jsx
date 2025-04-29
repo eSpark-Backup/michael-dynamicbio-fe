@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { userAvatar, verticleDots } from "../assets";
 
-const PageCard = ({ logoUrl, name, followerCount, type, id, creatorId }) => {
+const PageCard = ({ followers, logoUrl, name, followerCount, type, id, creatorId }) => {
   const { user } = useSelector((state) => state.auth);
+  const isFollowed = followers.some(item => item?.id === user?.id);
   const owner = creatorId === user?.id;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -106,7 +107,7 @@ const PageCard = ({ logoUrl, name, followerCount, type, id, creatorId }) => {
           </>
         ) : (
           <>
-            <MenuItem>Follow</MenuItem>
+            <MenuItem>{isFollowed ? "Unfollow" : "Follow"}</MenuItem>
             <MenuItem>Message</MenuItem>
             <MenuItem>Report</MenuItem>
           </>
