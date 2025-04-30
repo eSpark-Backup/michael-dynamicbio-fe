@@ -1,15 +1,16 @@
 import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack, save } from '../assets'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled } from '../assets'
 import { useNavigate } from 'react-router-dom'
 import { useSavePostMutation } from '../services/post'
 import { toast } from 'react-toastify'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved }) => {
     const theme = useTheme()
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const [saved, setSaved] = useState(isSaved)
 
     const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
 
@@ -27,7 +28,6 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 postId,
                 type: "POST"
             })
-            console.log({ postId, type: "POST" })
             if (res?.error) {
                 toast.error(res?.error?.data?.message || "Something went wrong");
                 return;
@@ -35,9 +35,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
             else if (res?.data) {
                 console.log(res?.data)
                 toast.success(res?.data?.message)
-                handleMenuClose()
+                setSaved(!saved)
             }
         }
+        handleMenuClose()
     }
     return (
         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "2px", backgroundColor: "#F2F8FD", display: "flex", justifyContent: { xs: "center", sm: "space-between" }, alignItems: "center", p: "10px", cursor: "pointer" }}>
@@ -109,7 +110,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
             <Menu
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={handleMenuClose}
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
@@ -121,8 +122,8 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
             >
 
                 <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
-                    <img src={save} alt="Icon" />
-                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Save</Typography>
+                    <img src={saved ? save : saveUnfilled} alt="Icon" />
+                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
                 </MenuItem>
             </Menu>
         </Box>

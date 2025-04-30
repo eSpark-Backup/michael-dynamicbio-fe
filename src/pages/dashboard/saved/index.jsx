@@ -8,16 +8,19 @@ import { toast } from 'react-toastify'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import duration from 'dayjs/plugin/duration';
+import { useSelector } from 'react-redux'
 
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
 const SavedPosts = () => {
     const [selectedChoice, setSelectedChoice] = useState("All")
-    const [showMore, setShowMore] = useState(false);
     const [page, setPage] = useState(1);
     const [posts, setPosts] = useState([]);
     const [hasMore, setHasMore] = useState(true);
+    const [hasFetchedFirstTime, setHasFetchedFirstTime] = useState(false)
+    const { user: userData } = useSelector((state) => state.auth);
+
 
     const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetSavedPostsQuery(
         { page, limit: 15 },
@@ -25,15 +28,36 @@ const SavedPosts = () => {
             refetchOnFocus: true,
             refetchOnMountOrArgChange: true,
             refetchOnReconnect: true,
+            skip: !userData?.id,
         }
     );
 
+    useEffect(() => {
+        const resetState = () => {
+            setPosts([]);
+            setPage(1);
+            setHasMore(true);
+            setHasFetchedFirstTime(false);
+        };
+
+        resetState();
+        if (userData?.id) {
+            refetch();
+        }
+    }, [userData?.id]);
 
     useEffect(() => {
         setPosts([]);
         setPage(1);
         setHasMore(true);
     }, []);
+
+    useEffect(() => {
+        setPosts([]);
+        setPage(1);
+        setHasMore(true);
+        refetch();
+    }, [selectedChoice]);
 
     useEffect(() => {
         if (error) {
@@ -43,20 +67,25 @@ const SavedPosts = () => {
 
     useEffect(() => {
         if (isSuccess) {
-
             if (!data?.data) {
                 setPosts([]);
                 setHasMore(false);
                 return;
             }
-            console.log(data?.data)
+            setHasFetchedFirstTime(true)
+
             const newPosts = transformPosts(data.data?.savedPosts);
 
+            // Filter by selected choice
+            const filteredPosts = selectedChoice === "All"
+                ? newPosts
+                : newPosts.filter(post => post.type === "article");
+
             if (page === 1) {
-                setPosts(newPosts);
+                setPosts(filteredPosts);
             } else {
                 const existingIds = new Set(posts.map(p => p.id));
-                const uniqueNewPosts = newPosts.filter(post => !existingIds.has(post.id));
+                const uniqueNewPosts = filteredPosts.filter(post => !existingIds.has(post.id));
                 setPosts(prev => [...prev, ...uniqueNewPosts]);
             }
 
@@ -64,7 +93,8 @@ const SavedPosts = () => {
                 data.data.pagination.currentPage < data.data.pagination.totalPages
             );
         }
-    }, [data, isSuccess, page]);
+    }, [data, isSuccess, page, selectedChoice]);
+
 
     const fetchMoreData = () => {
         if (!isLoading) {
@@ -99,11 +129,14 @@ const SavedPosts = () => {
             } else if (post?.type === "ARTICLE") {
                 postImage = post?.media?.ARTICLES?.[0]?.url || "";
             }
+            else if (post?.type === "EVENT") {
+                postImage = post?.media?.EVENTS?.[0]?.url || "";
+            }
 
             return {
                 userImage: post?.author?.profileImage,
                 userName: `${post?.author?.firstName} ${post?.author?.lastName}`,
-                role: post?.author?.role,
+                role: !post?.author?.about?.bio ? post?.author?.designation : post?.author?.about?.bio,
                 time: dayjs(post?.createdAt).fromNow(),
                 type: getPostType(post?.type),
                 text: post?.content?.title,
@@ -112,7 +145,8 @@ const SavedPosts = () => {
                 pollTimeLeft,
                 postImage,
                 articleTitle: post?.type === "ARTICLE" && post?.content?.articleTitle,
-                id: post?.id
+                id: post?.id,
+                eventName: post?.type === "EVENT" && post?.content?.name
             };
         });
     };
@@ -130,7 +164,13 @@ const SavedPosts = () => {
         return typeMap[type] || "";
     };
 
-    useEffect(() => { console.log(posts) }, [posts])
+    useEffect(() => { console.log(isLoading) }, [isLoading])
+
+    if (isLoading) {
+        return (
+            <LinearProgress />
+        )
+    }
 
     return (
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -169,7 +209,7 @@ const SavedPosts = () => {
                             }}
                         >
                             <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>Saved posts and articles</Typography>
-                            <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>3</Typography>
+                            <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>{data?.data?.pagination?.totalItems}</Typography>
                         </Box>
 
                     </Paper>
@@ -185,11 +225,9 @@ const SavedPosts = () => {
                                 Articles
                             </Box>
                         </Box>
-                        {/* <Box sx={{ mt: "10px" }}>
-                            <SavedItemCard />
-                        </Box> */}
                         <Box sx={{ mt: "10px" }}>
                             <InfiniteScroll
+                                key={userData?.id || 'no-user'}
                                 dataLength={posts.length}
                                 next={fetchMoreData}
                                 hasMore={hasMore}
@@ -202,7 +240,7 @@ const SavedPosts = () => {
                             >
                                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                                     {posts.map((item) => (
-                                        <SavedItemCard key={item.id} {...item} />
+                                        <SavedItemCard key={item.id} {...item} handleRefetch={() => refetch()} />
                                     ))}
                                 </Box>
                             </InfiniteScroll>
