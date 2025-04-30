@@ -22,6 +22,12 @@ export const pageApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getFollowedPages: builder.query({
+      query: () => ({
+        url: `/page/user/followed?page=1&pageSize=100`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -29,4 +35,5 @@ export const {
   useCreatePageMutation,
   useGetMyPagesQuery,
   useGetAllPagesQuery,
+  useGetFollowedPagesQuery,
 } = pageApi;

@@ -7,6 +7,7 @@ import CreatePage from "./createPage";
 import { useQuery } from "../../../../utils";
 import {
   useGetAllPagesQuery,
+  useGetFollowedPagesQuery,
   useGetMyPagesQuery,
 } from "../../../../services/page";
 
@@ -33,16 +34,27 @@ const Pages = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const {
+    data: followedPagesData,
+    isLoading: isFollowedPagesLoading,
+    isError: isFollowedPagesError,
+    error: followedPagesError,
+  } = useGetFollowedPagesQuery(activeTabLabel, {
+    refetchOnMountOrArgChange: true,
+  });
+
   useEffect(() => {
     if (isMyPagesError) toast.error(myPagesError?.data?.message);
     if (isAllPagesError) toast.error(allPagesError?.data?.message);
-  }, [isMyPagesError, isAllPagesError]);
+    if (isFollowedPagesError) toast.error(followedPagesError?.data?.message);
+  }, [isMyPagesError, isAllPagesError, isFollowedPagesError]);
 
   const { user } = useSelector((state) => state.auth);
 
   const tabs = useMemo(() => {
     const myPages = myPagesData?.data?.pages || [];
     const allPages = allPagesData?.data?.pages || [];
+    const followedPages = followedPagesData?.data?.pages || [];
     const filteredPages = allPages?.filter(
       (item) => item?.creatorId !== user?.id
     );
@@ -60,14 +72,14 @@ const Pages = () => {
       },
       {
         label: "Followed",
-        component: <PagesTab accounts={[]} />,
+        component: <PagesTab accounts={followedPages} />,
       },
     ];
-  }, [myPagesData, allPagesData]);
+  }, [myPagesData, allPagesData, followedPagesData]);
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 
-  if (isMyPagesLoading || isAllPagesLoading) {
+  if (isMyPagesLoading || isAllPagesLoading || isFollowedPagesLoading) {
     return (
       <Box
         sx={{
