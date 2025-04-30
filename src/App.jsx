@@ -34,6 +34,7 @@ import {
   PageDetailsPage,
   AdminView,
   Profile,
+  SavedPosts,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -117,6 +118,7 @@ const App = () => {
           <Route path="/article/:id" element={<ArticleDetails />} />
           <Route path="/group/:id" element={<GroupDetails />} />
           <Route path="/group/:id/manage" element={<ManageGroup />} />
+          <Route path="/save-posts" element={<SavedPosts />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

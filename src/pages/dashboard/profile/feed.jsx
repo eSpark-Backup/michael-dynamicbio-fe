@@ -129,6 +129,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           designation: like?.user?.designation,
           isBond: like.isBond,
         })) || [],
+        isSaved: item?.isSaved,
       };
     });
   };
@@ -191,7 +192,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
               alignItems="center"
               justifyContent="center"
               key={item.title}
-              onClick={!isPublic && item?.link ? () => navigate(item?.link) : () => {}}
+              onClick={!isPublic && item?.link ? () => navigate(item?.link) : () => { }}
               sx={{
                 cursor: !isPublic && item?.link ? "pointer" : "default",
                 width: "315px",

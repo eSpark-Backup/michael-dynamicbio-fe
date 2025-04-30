@@ -153,6 +153,7 @@ const Home = () => {
           designation: like?.user?.designation,
           isBond: like.isBond,
         })) || [],
+        isSaved: item?.isSaved,
       };
     });
   };
@@ -319,6 +320,12 @@ const Home = () => {
                   sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
                 >
                   Events
+                </Typography>
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                  onClick={() => navigate("/save-posts")}
+                >
+                  Saved Items
                 </Typography>
                 <Box
                   sx={{

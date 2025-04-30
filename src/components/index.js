@@ -50,6 +50,7 @@ import ReportArticle from "./ReportArticle";
 import GroupDetails from "./GroupDetails";
 import InviteMembersModal from "./InviteMembersModal";
 import ManageGroup from "./ManageGroup";
+import SavedItemCard from "./SavedItemCard";
 
 export {
     Input,
@@ -103,5 +104,6 @@ export {
     ReportArticle,
     GroupDetails,
     InviteMembersModal,
-    ManageGroup
+    ManageGroup,
+    SavedItemCard,
 }

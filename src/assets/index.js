@@ -127,6 +127,7 @@ import calendarEvent from "./icons/calendarEvent.svg"
 import question from "./icons/question.svg"
 import deleteBlack from "./icons/deleteBlack.svg"
 import starBlack from "./icons/starBlack.svg"
+import saveUnfilled from "./icons/saveUnfilled.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -271,4 +272,5 @@ export {
   question,
   deleteBlack,
   starBlack,
+  saveUnfilled,
 };
