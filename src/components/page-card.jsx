@@ -7,6 +7,8 @@ import { userAvatar, verticleDots } from "../assets";
 const PageCard = ({
   isFollowLoading,
   handleFollow,
+  isDeleteLoading,
+  handleDelete,
   followers,
   logoUrl,
   name,
@@ -16,7 +18,7 @@ const PageCard = ({
   creatorId,
 }) => {
   const { user } = useSelector((state) => state.auth);
-  const isFollowed = followers.some(item => item?.id === user?.id);
+  const isFollowed = followers?.some((item) => item?.id === user?.id);
   const owner = creatorId === user?.id;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -112,7 +114,16 @@ const PageCard = ({
         {owner ? (
           <>
             <MenuItem onClick={handleClose}>Invite members</MenuItem>
-            <MenuItem onClick={handleClose}>Delete page</MenuItem>
+            <MenuItem
+              onClick={(e) => {
+                if (!isDeleteLoading) {
+                  handleDelete(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isDeleteLoading ? "loading..." : "Delete page"}
+            </MenuItem>
             <MenuItem onClick={handleClose}>Leave page</MenuItem>
           </>
         ) : (

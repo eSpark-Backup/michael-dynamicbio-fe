@@ -7,6 +7,8 @@ import { plus } from "../../../../assets";
 const PagesTab = ({
   isFollowLoading,
   handleFollow,
+  isDeleteLoading,
+  handleDelete,
   showSuggestion,
   suggestedPages: suggestedContent,
   accounts,
@@ -46,6 +48,8 @@ const PagesTab = ({
               <PageCard
                 isFollowLoading={isFollowLoading}
                 handleFollow={handleFollow}
+                isDeleteLoading={isDeleteLoading}
+                handleDelete={handleDelete}
                 type={type}
                 key={group.id}
                 {...group}
@@ -118,6 +122,8 @@ const PagesTab = ({
               <PageCard
                 isFollowLoading={isFollowLoading}
                 handleFollow={handleFollow}
+                isDeleteLoading={isDeleteLoading}
+                handleDelete={handleDelete}
                 type={type}
                 key={group.id}
                 {...group}
