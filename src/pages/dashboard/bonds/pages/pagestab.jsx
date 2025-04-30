@@ -5,6 +5,8 @@ import { PageCard } from "../../../../components";
 import { plus } from "../../../../assets";
 
 const PagesTab = ({
+  isFollowLoading,
+  handleFollow,
   showSuggestion,
   suggestedPages: suggestedContent,
   accounts,
@@ -20,7 +22,7 @@ const PagesTab = ({
     setSuggestedPages(
       showAll ? suggestedContent : suggestedContent?.slice(0, 4)
     );
-  }, [showAll]);
+  }, [showAll, suggestedContent]);
   return (
     <Box sx={{ width: "100%" }}>
       <Stack
@@ -41,7 +43,13 @@ const PagesTab = ({
             gap={2}
           >
             {accounts.map((group) => (
-              <PageCard type={type} key={group.id} {...group} />
+              <PageCard
+                isFollowLoading={isFollowLoading}
+                handleFollow={handleFollow}
+                type={type}
+                key={group.id}
+                {...group}
+              />
             ))}
           </Stack>
         ) : (
@@ -107,7 +115,13 @@ const PagesTab = ({
             gap={2}
           >
             {suggestedPages.map((group) => (
-              <PageCard type={type} key={group.id} {...group} />
+              <PageCard
+                isFollowLoading={isFollowLoading}
+                handleFollow={handleFollow}
+                type={type}
+                key={group.id}
+                {...group}
+              />
             ))}
           </Stack>
         </>
