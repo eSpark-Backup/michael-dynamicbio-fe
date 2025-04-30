@@ -6,6 +6,7 @@ import PagesTab from "./pagestab";
 import CreatePage from "./createPage";
 import { useQuery } from "../../../../utils";
 import {
+  useFollowPageMutation,
   useGetAllPagesQuery,
   useGetFollowedPagesQuery,
   useGetMyPagesQuery,
@@ -21,7 +22,7 @@ const Pages = () => {
     isLoading: isMyPagesLoading,
     isError: isMyPagesError,
     error: myPagesError,
-  } = useGetMyPagesQuery(activeTabLabel, {
+  } = useGetMyPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -30,7 +31,9 @@ const Pages = () => {
     isLoading: isAllPagesLoading,
     isError: isAllPagesError,
     error: allPagesError,
-  } = useGetAllPagesQuery(activeTabLabel, {
+    refetch: allPagesRefetch,
+    isFetching: isAllPagesFetcing,
+  } = useGetAllPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -39,9 +42,27 @@ const Pages = () => {
     isLoading: isFollowedPagesLoading,
     isError: isFollowedPagesError,
     error: followedPagesError,
-  } = useGetFollowedPagesQuery(activeTabLabel, {
+    refetch: followPagesRefetch,
+    isFetching: isFollowedPagesFetcing,
+  } = useGetFollowedPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
+
+  const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
+
+  const handleFollow = (id) => {
+    follow(id).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        toast.success(res?.data?.message);
+        allPagesRefetch();
+        followPagesRefetch();
+      }
+    });
+  };
 
   useEffect(() => {
     if (isMyPagesError) toast.error(myPagesError?.data?.message);
@@ -63,6 +84,8 @@ const Pages = () => {
         label: "Your",
         component: (
           <PagesTab
+            isFollowLoading={isFollowLoading}
+            handleFollow={handleFollow}
             showSuggestion
             suggestedPages={filteredPages}
             accounts={myPages}
@@ -72,14 +95,26 @@ const Pages = () => {
       },
       {
         label: "Followed",
-        component: <PagesTab accounts={followedPages} />,
+        component: (
+          <PagesTab
+            isFollowLoading={isFollowLoading}
+            handleFollow={handleFollow}
+            accounts={followedPages}
+          />
+        ),
       },
     ];
-  }, [myPagesData, allPagesData, followedPagesData]);
+  }, [myPagesData, allPagesData, followedPagesData, isFollowLoading]);
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 
-  if (isMyPagesLoading || isAllPagesLoading || isFollowedPagesLoading) {
+  if (
+    isMyPagesLoading ||
+    isAllPagesLoading ||
+    isFollowedPagesLoading ||
+    isAllPagesFetcing ||
+    isFollowedPagesFetcing
+  ) {
     return (
       <Box
         sx={{

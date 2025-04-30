@@ -28,6 +28,12 @@ export const pageApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    followPage: builder.mutation({
+      query: (id) => ({
+        url: `/page/${id}/follow`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -36,4 +42,5 @@ export const {
   useGetMyPagesQuery,
   useGetAllPagesQuery,
   useGetFollowedPagesQuery,
+  useFollowPageMutation,
 } = pageApi;

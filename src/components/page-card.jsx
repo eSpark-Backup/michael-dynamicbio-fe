@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { userAvatar, verticleDots } from "../assets";
 
-const PageCard = ({ followers, logoUrl, name, followerCount, type, id, creatorId }) => {
+const PageCard = ({
+  isFollowLoading,
+  handleFollow,
+  followers,
+  logoUrl,
+  name,
+  followerCount,
+  type,
+  id,
+  creatorId,
+}) => {
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers.some(item => item?.id === user?.id);
   const owner = creatorId === user?.id;
@@ -101,15 +111,28 @@ const PageCard = ({ followers, logoUrl, name, followerCount, type, id, creatorId
       >
         {owner ? (
           <>
-            <MenuItem>Invite members</MenuItem>
-            <MenuItem>Delete page</MenuItem>
-            <MenuItem>Leave page</MenuItem>
+            <MenuItem onClick={handleClose}>Invite members</MenuItem>
+            <MenuItem onClick={handleClose}>Delete page</MenuItem>
+            <MenuItem onClick={handleClose}>Leave page</MenuItem>
           </>
         ) : (
           <>
-            <MenuItem>{isFollowed ? "Unfollow" : "Follow"}</MenuItem>
-            <MenuItem>Message</MenuItem>
-            <MenuItem>Report</MenuItem>
+            <MenuItem
+              onClick={(e) => {
+                if (!isFollowLoading) {
+                  handleFollow(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isFollowLoading
+                ? "loading..."
+                : isFollowed
+                ? "Unfollow"
+                : "Follow"}
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Message</MenuItem>
+            <MenuItem onClick={handleClose}>Report</MenuItem>
           </>
         )}
       </Menu>
