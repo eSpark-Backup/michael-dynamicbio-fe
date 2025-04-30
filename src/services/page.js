@@ -34,6 +34,12 @@ export const pageApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
+    deletePage: builder.mutation({
+      query: (id) => ({
+        url: `/page/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -43,4 +49,5 @@ export const {
   useGetAllPagesQuery,
   useGetFollowedPagesQuery,
   useFollowPageMutation,
+  useDeletePageMutation,
 } = pageApi;

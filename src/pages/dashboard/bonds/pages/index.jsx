@@ -6,6 +6,7 @@ import PagesTab from "./pagestab";
 import CreatePage from "./createPage";
 import { useQuery } from "../../../../utils";
 import {
+  useDeletePageMutation,
   useFollowPageMutation,
   useGetAllPagesQuery,
   useGetFollowedPagesQuery,
@@ -22,6 +23,8 @@ const Pages = () => {
     isLoading: isMyPagesLoading,
     isError: isMyPagesError,
     error: myPagesError,
+    refetch: myPagesRefetch,
+    isFetching: isMyPagesFetcing,
   } = useGetMyPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
@@ -64,6 +67,21 @@ const Pages = () => {
     });
   };
 
+  const [deletePage, { isLoading: isDeleteLoading }] = useDeletePageMutation();
+
+  const handleDelete = (id) => {
+    deletePage(id).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        toast.success(res?.data?.message);
+        myPagesRefetch();
+      }
+    });
+  };
+
   useEffect(() => {
     if (isMyPagesError) toast.error(myPagesError?.data?.message);
     if (isAllPagesError) toast.error(allPagesError?.data?.message);
@@ -86,6 +104,8 @@ const Pages = () => {
           <PagesTab
             isFollowLoading={isFollowLoading}
             handleFollow={handleFollow}
+            isDeleteLoading={isDeleteLoading}
+            handleDelete={handleDelete}
             showSuggestion
             suggestedPages={filteredPages}
             accounts={myPages}
@@ -99,12 +119,14 @@ const Pages = () => {
           <PagesTab
             isFollowLoading={isFollowLoading}
             handleFollow={handleFollow}
+            isDeleteLoading={isDeleteLoading}
+            handleDelete={handleDelete}
             accounts={followedPages}
           />
         ),
       },
     ];
-  }, [myPagesData, allPagesData, followedPagesData, isFollowLoading]);
+  }, [myPagesData, allPagesData, followedPagesData, isFollowLoading, isDeleteLoading]);
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 
@@ -113,7 +135,8 @@ const Pages = () => {
     isAllPagesLoading ||
     isFollowedPagesLoading ||
     isAllPagesFetcing ||
-    isFollowedPagesFetcing
+    isFollowedPagesFetcing ||
+    isMyPagesFetcing
   ) {
     return (
       <Box
