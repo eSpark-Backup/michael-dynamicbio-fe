@@ -179,9 +179,8 @@ const EditExperienceModal = ({ exp, userData, open, handleClose }) => {
               value={formik.values.startingDate}
               onChange={(value) => formik.setFieldValue("startingDate", value)}
               maxDate={currentYear}
-              openTo="year"
-              views={["year"]}
-              yearsOrder="desc"
+              openTo="day"
+              views={["year", "month", "day"]}
               sx={{ minWidth: 250 }}
               slotProps={{
                 textField: {
@@ -200,9 +199,8 @@ const EditExperienceModal = ({ exp, userData, open, handleClose }) => {
               onChange={(value) => formik.setFieldValue("endingDate", value)}
               disabled={formik.values.currently}
               maxDate={currentYear}
-              openTo="year"
-              views={["year"]}
-              yearsOrder="desc"
+              openTo="day"
+              views={["year", "month", "day"]}
               sx={{ minWidth: 250 }}
               slotProps={{
                 textField: {
