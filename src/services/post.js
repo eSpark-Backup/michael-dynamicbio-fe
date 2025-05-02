@@ -105,6 +105,24 @@ export const postApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    savePost: builder.mutation({
+      query: ({ postId, type }) => ({
+        url: `/user/save/${postId}`,
+        method: "POST",
+        credentials: "include",
+        body: { type }
+      })
+    }),
+    getSavedPosts: builder.query({
+      query: ({ page = 1, limit = 15 }) => ({
+        url: "/user/saved-posts",
+        method: "GET",
+        params: {
+          page,
+          pageSize: limit
+        }
+      })
+    })
   }),
 });
 
@@ -115,4 +133,6 @@ export const {
   useEditPostMutation,
   useInteractPollMutation,
   useRemovePollMutation,
+  useSavePostMutation,
+  useGetSavedPostsQuery
 } = postApi;
