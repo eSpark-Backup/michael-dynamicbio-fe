@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import {
   Box,
   Checkbox,
@@ -11,14 +13,19 @@ import Input from "./Input";
 import Dropdown from "./Dropdown";
 import Button from "./button";
 import { createPageSchema } from "../schemas";
+import { useCreatePageMutation } from "../services/page";
+import { industryTypeOptions, sizeOptions, typeOptions } from "../constant";
 import { uploadIcon } from "../assets";
+import { convertToFormData } from "../utils";
 
 const CreatePageForm = ({ pageType }) => {
+  const navigate = useNavigate();
+  const [createPage, { isLoading }] = useCreatePageMutation();
   const imageRef = useRef(null);
   const [image, setImage] = useState(null);
   const formik = useFormik({
     initialValues: {
-      pageType,
+      pageType: pageType?.toUpperCase(),
       organizationName: "",
       address: "",
       location: "",
@@ -37,14 +44,53 @@ const CreatePageForm = ({ pageType }) => {
       //transportation
       shippingItem: "",
       fuelCells: "",
+      to: "",
+      from: "",
       transportCost: "",
-      //storage and miscellaneous
+      //storage
       storageDuration: "",
       storageTemp: "",
+      //miscellaneous
+      sellingItemOthers: "",
+      itemCostOthers: "",
     },
     validationSchema: createPageSchema,
     onSubmit: (values) => {
-      console.log(values, "values")
+      const bodyToSend = {
+        name: values?.organizationName,
+        type: values?.pageType,
+        address: values?.address,
+        locationCountry: values?.location,
+        branchesCountries: values?.branches !== "" ? [values?.branches] : [],
+        organizationSize: values?.size,
+        organizationType: values?.type,
+        industry: values?.industry,
+        website: values?.website,
+        tagline: values?.tagline,
+        logo: image,
+        productionDescription: values?.sellingItem,
+        energyConsumption: values?.megajooules,
+        certifications: values?.energyDuration,
+        costDetails: values?.cost,
+        transportationDescription: values?.shippingItem,
+        fleetSize: values?.fuelCells,
+        operatingRange: `${values?.from} ${values?.to}`,
+        transportationCostDetails: values?.transportCost,
+        storageCapacity: values?.storageDuration,
+        storageTemperature: values?.storageTemp,
+        otherDescription: values?.sellingItemOthers,
+        otherCostDetails: values?.itemCostOthers,
+      };
+      const formData = convertToFormData(bodyToSend);
+      createPage(formData).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+        }
+        if (res?.data) {
+          toast.error(res?.data?.message);
+          navigate(`/page/${res?.data?.data?.id}`)
+        }
+      });
     },
   });
   return (
@@ -108,7 +154,7 @@ const CreatePageForm = ({ pageType }) => {
       />
       <Dropdown
         variant="outlined"
-        options={[{ label: "abc", value: "abc" }]}
+        options={sizeOptions}
         handleChange={(event) =>
           formik.setFieldValue("size", event.target.value)
         }
@@ -122,7 +168,7 @@ const CreatePageForm = ({ pageType }) => {
       />
       <Dropdown
         variant="outlined"
-        options={[{ label: "abc", value: "abc" }]}
+        options={typeOptions}
         handleChange={(event) =>
           formik.setFieldValue("type", event.target.value)
         }
@@ -136,12 +182,7 @@ const CreatePageForm = ({ pageType }) => {
       />
       <Dropdown
         variant="outlined"
-        options={[
-          { label: "Production", value: "production" },
-          { label: "Transportation", value: "transportation" },
-          { label: "Storage", value: "storage" },
-          { label: "Miscellaneous services", value: "miscellaneous_services" },
-        ]}
+        options={industryTypeOptions}
         handleChange={(event) =>
           formik.setFieldValue("industry", event.target.value)
         }
@@ -152,7 +193,7 @@ const CreatePageForm = ({ pageType }) => {
         helperText={formik.touched.industry && formik.errors.industry}
         value={formik.values.industry}
       />
-      {formik?.values?.industry === "production" && (
+      {formik?.values?.industry === "PRODUCTION" && (
         <>
           <Input
             variant="outlined"
@@ -166,7 +207,7 @@ const CreatePageForm = ({ pageType }) => {
           />
           <Input
             variant="outlined"
-            customLabel="How many megajooules of energy are created?"
+            customLabel="How many megajoules of energy are created?"
             name="megajooules"
             placeholder="Write here..."
             value={formik.values.megajooules}
@@ -200,7 +241,7 @@ const CreatePageForm = ({ pageType }) => {
           />
         </>
       )}
-      {formik?.values?.industry === "transportation" && (
+      {formik?.values?.industry === "TRANSPORTATION" && (
         <>
           <Input
             variant="outlined"
@@ -272,8 +313,7 @@ const CreatePageForm = ({ pageType }) => {
           />
         </>
       )}
-      {(formik?.values?.industry === "storage" ||
-        formik?.values?.industry === "miscellaneous_services") && (
+      {formik?.values?.industry === "STORAGE" && (
         <>
           <Input
             variant="outlined"
@@ -298,6 +338,40 @@ const CreatePageForm = ({ pageType }) => {
             handleChange={formik.handleChange}
             error={formik.touched.storageTemp && !!formik.errors.storageTemp}
             helperText={formik.touched.storageTemp && formik.errors.storageTemp}
+          />
+        </>
+      )}
+      {formik?.values?.industry === "OTHER" && (
+        <>
+          <Input
+            variant="outlined"
+            customLabel="What are you selling?"
+            name="sellingItemOthers"
+            placeholder="Write here..."
+            value={formik.values.sellingItemOthers}
+            handleChange={formik.handleChange}
+            error={
+              formik.touched.sellingItemOthers &&
+              !!formik.errors.sellingItemOthers
+            }
+            helperText={
+              formik.touched.sellingItemOthers &&
+              formik.errors.sellingItemOthers
+            }
+          />
+          <Input
+            variant="outlined"
+            customLabel="How much it will cost?"
+            name="itemCostOthers"
+            placeholder="Write here..."
+            value={formik.values.itemCostOthers}
+            handleChange={formik.handleChange}
+            error={
+              formik.touched.itemCostOthers && !!formik.errors.itemCostOthers
+            }
+            helperText={
+              formik.touched.itemCostOthers && formik.errors.itemCostOthers
+            }
           />
         </>
       )}
@@ -333,8 +407,10 @@ const CreatePageForm = ({ pageType }) => {
             <img
               style={{
                 position: "absolute",
-                width: "100%",
-                height: "100%",
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                border: "1px solid #000",
                 objectFit: "cover",
                 opacity: 0.5,
               }}
@@ -429,7 +505,12 @@ const CreatePageForm = ({ pageType }) => {
         }}
       >
         <Box sx={{ width: "250px" }}>
-          <Button type="submit" onClick={formik.handleSubmit}>
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            type="submit"
+            onClick={formik.handleSubmit}
+          >
             Confirm Email
           </Button>
         </Box>
