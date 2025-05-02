@@ -40,6 +40,12 @@ export const pageApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getPageById: builder.query({
+      query: (id) => ({
+        url: `/page/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -50,4 +56,5 @@ export const {
   useGetFollowedPagesQuery,
   useFollowPageMutation,
   useDeletePageMutation,
+  useGetPageByIdQuery,
 } = pageApi;
