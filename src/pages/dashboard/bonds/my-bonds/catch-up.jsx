@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   Box,
   CircularProgress,
@@ -15,13 +16,17 @@ import {
   SuggestedBonds,
 } from "../../../../components";
 import { cellBlack, userAvatar, verticleDots } from "../../../../assets";
+import { useGetCatchupQuery } from "../../../../services/bonds";
+import { getDesc, getMessage } from "../../../../utils";
 
 const CatchUp = ({ onGrow }) => {
+  const { data, isLoading, isError, error } = useGetCatchupQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
   const [openMenu, setOpenMenu] = useState(false);
   const [msgModal, setMsgModal] = useState(false);
-  const [wishInput, setWishInput] = useState(
-    "Wishing you a very happy birthday!"
-  );
+  const [wishInput, setWishInput] = useState("");
 
   const tabs = [
     "All",
@@ -30,9 +35,60 @@ const CatchUp = ({ onGrow }) => {
     "Work anniversaries",
     "Education",
   ];
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState(0);
   const [myValue, setMyValue] = useState(true);
   const [celeb, setCeleb] = useState(true);
+  const [catchupData, setCatchupData] = useState([]);
+
+  useEffect(() => {
+    const myData = data?.data;
+    if (myData) {
+      if (!activeTab || activeTab === 0) {
+        const all = [
+          ...myData?.anniversaries.map((item) => ({
+            ...item,
+            type: "anniversary",
+          })),
+          ...myData?.birthdays.map((item) => ({ ...item, type: "birthday" })),
+          ...myData?.educationChanges.map((item) => ({
+            ...item,
+            type: "educationChange",
+          })),
+          ...myData?.jobChanges.map((item) => ({ ...item, type: "jobChange" })),
+        ];
+        setCatchupData(all);
+      } else if (activeTab === 1) {
+        setCatchupData(
+          myData?.jobChanges.map((item) => ({ ...item, type: "jobChange" }))
+        );
+      } else if (activeTab === 2) {
+        setCatchupData(
+          myData?.birthdays.map((item) => ({ ...item, type: "birthday" }))
+        );
+      } else if (activeTab === 3) {
+        setCatchupData(
+          myData?.anniversaries.map((item) => ({
+            ...item,
+            type: "anniversary",
+          }))
+        );
+      } else if (activeTab === 4) {
+        setCatchupData(
+          myData?.educationChanges.map((item) => ({
+            ...item,
+            type: "educationChange",
+          }))
+        );
+      }
+    }
+  }, [data, activeTab]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.data?.message);
+      return;
+    }
+  }, [isError]);
 
   return (
     <Box>
@@ -50,7 +106,7 @@ const CatchUp = ({ onGrow }) => {
           overflowY: "auto",
         }}
       >
-        {false ? (
+        {isLoading ? (
           <Stack
             mt={3}
             direction="row"
@@ -59,8 +115,8 @@ const CatchUp = ({ onGrow }) => {
           >
             <CircularProgress sx={{ color: "#1877F2" }} />
           </Stack>
-        ) : 10 > 0 ? (
-          Array.from({ length: 10 }).map((_, ind) => (
+        ) : catchupData?.length > 0 ? (
+          catchupData.map((item, ind) => (
             <Stack
               key={ind}
               direction="row"
@@ -78,7 +134,7 @@ const CatchUp = ({ onGrow }) => {
                   width={73}
                   height={73}
                   style={{ borderRadius: "50%" }}
-                  src={userAvatar}
+                  src={item?.profileImage || userAvatar}
                   alt="profile"
                 />
                 <Box>
@@ -87,23 +143,28 @@ const CatchUp = ({ onGrow }) => {
                     fontSize="17px"
                     fontWeight={300}
                   >
-                    Zaheer Babar
+                    {`${item?.firstName} ${item?.lastName}`}
                   </Typography>
                   <Typography
                     sx={{ color: "#505050" }}
                     fontSize="14px"
                     fontWeight={400}
                   >
-                    Celebrate Zaheer babar's birthday today
+                    {getDesc(item)}
                   </Typography>
                   <Button
-                    onClick={() => setMsgModal(true)}
+                    onClick={() => {
+                      setMsgModal(item);
+                      const msg = getMessage(item);
+                      setWishInput(msg);
+                    }}
                     sx={{
+                      justifyContent: "flex-start",
                       height: "auto",
                       padding: "6px 30px",
                       borderRadius: "20px",
                       mt: 1,
-                      width: { xs: "150px", sm: "max-content" },
+                      width: { xs: "150px", sm: "300px", lg: "400px" },
                     }}
                   >
                     <img
@@ -123,18 +184,18 @@ const CatchUp = ({ onGrow }) => {
                         fontSize: "16px",
                       }}
                     >
-                      Wishing you a very happy birthday!
+                      {getMessage(item)}
                     </Typography>
                   </Button>
                 </Box>
               </Stack>
 
-              <img
+              {/* <img
                 style={{ cursor: "pointer" }}
                 onClick={() => setOpenMenu(true)}
                 src={verticleDots}
                 alt="menu"
-              />
+              /> */}
             </Stack>
           ))
         ) : (
@@ -172,7 +233,9 @@ const CatchUp = ({ onGrow }) => {
           justifyContent="space-between"
           gap={1}
         >
-          <Typography fontSize="20px">Zaheer babar</Typography>
+          <Typography fontSize="20px">
+            {`${msgModal?.firstName} ${msgModal?.lastName}`}r
+          </Typography>
           <Stack
             direction="row"
             alignItems="center"
@@ -220,15 +283,15 @@ const CatchUp = ({ onGrow }) => {
             width={73}
             height={73}
             style={{ borderRadius: "50%" }}
-            src={userAvatar}
+            src={msgModal?.profileImage || userAvatar}
             alt="profile"
           />
           <Box>
             <Typography sx={{ color: "#171717" }} fontSize="18px">
-              Zaheer babar
+              {`${msgModal?.firstName} ${msgModal?.lastName}`}
             </Typography>
             <Typography sx={{ color: "#505050" }}>
-              Celebrate Zaheer babar's birthday today
+              {getDesc(msgModal)}
             </Typography>
           </Box>
         </Stack>
@@ -237,7 +300,7 @@ const CatchUp = ({ onGrow }) => {
             variant="outlined"
             value={wishInput}
             onChange={(e) => setWishInput(e.target.value)}
-            placeholder="Wishing you a very happy birthday!"
+            placeholder={getDesc(msgModal)}
             sx={{
               backgroundColor: "transparent",
               border: "1px solid white",
