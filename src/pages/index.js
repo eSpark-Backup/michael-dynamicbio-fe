@@ -23,6 +23,7 @@ import { Home, Bonds, Pulses, Cells, Article, Profile } from "./dashboard";
 import PageDetailsPage from "./dashboard/pageDetails";
 import AdminView from "./dashboard/pageDetails/AdminView";
 import SavedPosts from "./dashboard/saved";
+import SinglePost from "./dashboard/singlePost";
 
 export {
   Login,
@@ -51,4 +52,5 @@ export {
   AdminView,
   Profile,
   SavedPosts,
+  SinglePost,
 };
