@@ -2,7 +2,7 @@ import { Avatar, Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { earth, save, three_vertical_dots, user } from '../assets';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSavePostMutation } from '../services/post';
 
@@ -10,6 +10,8 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
     const [fullText, setFullText] = useState(text)
     const [expanded, setExpanded] = useState(false);
     const charLimit = 120;
+
+    const navigate = useNavigate()
 
     const displayedText = expanded ? fullText : fullText?.slice(0, charLimit);
     const shouldShowSeeMore = fullText?.length > charLimit && !expanded;
@@ -77,8 +79,9 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
                             columnGap: '15px',
                             alignItems: 'flex-start',
                             mt: "15px",
-                            background: type === "article" ? "#F2F8FD" : "transparent"
-                        }}>
+                            background: type === "article" ? "#F2F8FD" : "transparent",
+                            cursor: "pointer"
+                        }} onClick={() => navigate(`/post/${id}`)}>
                             {postImage && <Box sx={{ position: 'relative', width: 80, height: 80 }}>
                                 <Avatar
                                     variant="rounded"
@@ -135,7 +138,7 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
                                         </Typography>
                                     )}
                                 </Typography>
-                                <Box sx={{ backgroundColor: "#F2F8FD", p: "20px 15px", mt: "10px" }}>
+                                <Box sx={{ backgroundColor: "#F2F8FD", p: "20px 15px", mt: "10px", cursor: "pointer" }} onClick={() => navigate(`/post/${id}`)}>
                                     <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{question}</Typography>
                                     <Box sx={{ display: "flex", columnGap: "4px" }}>
                                         <Typography sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}>Poll</Typography>
