@@ -122,7 +122,15 @@ export const postApi = api.injectEndpoints({
           pageSize: limit
         }
       })
-    })
+    }),
+    deletePostById: builder.mutation({
+      query: (id) => ({
+        url: `/post/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ['post'],
+    }),
   }),
 });
 
@@ -134,5 +142,6 @@ export const {
   useInteractPollMutation,
   useRemovePollMutation,
   useSavePostMutation,
-  useGetSavedPostsQuery
+  useGetSavedPostsQuery,
+  useDeletePostByIdMutation
 } = postApi;

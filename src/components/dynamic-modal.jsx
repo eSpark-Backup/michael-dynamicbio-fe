@@ -10,7 +10,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Button from "./button";
-import { close, downArrowFilled, dummyPhoto, profile2, rightArrow, timer } from "../assets";
+import { close, downArrowFilled, dummyPhoto, profile2, rightArrow, timer, user } from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
@@ -116,7 +116,7 @@ const DynamicModal = ({
                 style={{ borderRadius: "50%" }}
                 width={44}
                 height={44}
-                src={userData?.profileImage ? userData?.profileImage : profile2}
+                src={userData?.profileImage ? userData?.profileImage : user}
                 alt="Avatar"
               />
               <Stack direction={"column"}>

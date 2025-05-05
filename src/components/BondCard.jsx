@@ -1,8 +1,8 @@
 import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled } from '../assets'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye } from '../assets'
 import { useNavigate } from 'react-router-dom'
-import { useSavePostMutation } from '../services/post'
+import { useDeletePostByIdMutation, useSavePostMutation } from '../services/post'
 import { toast } from 'react-toastify'
 
 const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved }) => {
@@ -13,6 +13,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
     const [saved, setSaved] = useState(isSaved)
 
     const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
+    const [deletePost, { isLoading: deletePostLoading }] = useDeletePostByIdMutation()
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -36,6 +37,16 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 console.log(res?.data)
                 toast.success(res?.data?.message)
                 setSaved(!saved)
+            }
+        }
+        else if (event === "delete") {
+            const res = await deletePost(postId)
+            if (res?.error) {
+                toast.error(res?.error?.data?.message || "Something went wrong");
+                return;
+            }
+            else if (res?.data) {
+                toast.success(res?.data?.message)
             }
         }
         handleMenuClose()
@@ -121,10 +132,47 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 }}
             >
 
-                <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
-                    <img src={saved ? save : saveUnfilled} alt="Icon" />
-                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
-                </MenuItem>
+                {ownPost
+                    ?
+                    <>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={editBlue} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Feature on top of profile</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={saved ? save : saveUnfilled} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={copyLink} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={editBlue} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Embed this post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={editBlue} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("delete")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={deleteIcon} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={comment} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can comment on this post?</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={primaryEye} alt="Icon" />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can see on this post?</Typography>
+                        </MenuItem>
+                    </>
+                    :
+                    <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                        <img src={saved ? save : saveUnfilled} alt="Icon" />
+                        <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                    </MenuItem>}
             </Menu>
         </Box>
     )
