@@ -1,13 +1,13 @@
 import { Avatar, Box, CircularProgress, Grid2, LinearProgress, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, comment, downArrowFilled, dummyPhoto, editBlue, emoji, like, noComments, primaryEye, reading, repost, save, send, unlike, user } from '../assets'
+import { camera, comment, downArrowFilled, dummyPhoto, editBlue, emoji, like, noComments, primaryEye, reading, repost, save, saveUnfilled, send, unlike, user } from '../assets'
 import { articleDummyContent } from '../constant'
 import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
 import ShareModal from './ShareModal'
 import PostChoiceModal from './PostChoiceModal'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetPostByIdQuery } from '../services/post'
+import { useGetPostByIdQuery, useSavePostMutation } from '../services/post'
 import dayjs from 'dayjs'
 import { useSelector } from 'react-redux'
 import ReportArticle from './ReportArticle'
@@ -15,6 +15,7 @@ import Button from './button'
 import { useCommentMutation, useGetPostCommentsQuery, useLikeMutation } from '../services/interaction'
 import Comment from './Comment'
 import { toast } from 'react-toastify'
+import { useSendBondReqMutation, useUpdateBondReqMutation } from '../services/bonds'
 
 const ArticleDetails = () => {
     const [showComments, setShowComments] = useState(false)
@@ -33,6 +34,9 @@ const ArticleDetails = () => {
 
     const [likeData, { data: likeDataReceived, isSuccess: isLikeSucess, isError: isLikeError, error: likeError, isLoading: isLikeloading }] = useLikeMutation()
 
+    const [updateReq, { isLoading: isUpdateReqLoading }] = useUpdateBondReqMutation();
+    const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -47,7 +51,10 @@ const ArticleDetails = () => {
         content: "",
         articleMakerImage: "",
         authorId: "",
-        postId: null
+        postId: null,
+        isSaved: null,
+        bondId: null,
+        isFriend: null
     })
 
     const [postComments, setPostComments] = useState([])
@@ -59,6 +66,8 @@ const ArticleDetails = () => {
         refetchOnFocus: true,
         refetchOnReconnect: true,
     })
+
+    const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
 
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
@@ -109,7 +118,10 @@ const ArticleDetails = () => {
                 content: data?.data?.content?.content,
                 articleMakerImage: data?.data?.author?.profileImage,
                 authorId: data?.data?.author?.id,
-                postId: data?.data?.id
+                postId: data?.data?.id,
+                isSaved: data?.data?.isSaved,
+                bondId: data?.data?.bondId,
+                isFriend: data?.data?.bondId ? true : false
             }))
             const isPostLiked = data?.data?.likes?.some((item) => item?.user?.id === userData?.id)
             if (isPostLiked) {
@@ -160,6 +172,63 @@ const ArticleDetails = () => {
         }
     };
 
+    const SavePostHandler = async () => {
+        const res = await savePostData({
+            postId: articleContent?.postId,
+            type: "POST"
+        })
+        if (res?.error) {
+            toast.error(res?.error?.data?.message || "Something went wrong");
+            return;
+        }
+        else if (res?.data) {
+            toast.success(res?.data?.message)
+            setArticleContent((prev) => ({
+                ...prev,
+                isSaved: !prev?.isSaved
+            }))
+        }
+    }
+
+    const BondHandler = async () => {
+        const bodyToSend = {
+            otherUserId: articleContent?.authorId,
+            action: "unfriend",
+        };
+        updateReq(bodyToSend).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast?.success(res?.data?.message)
+                setArticleContent((prev) => ({
+                    ...prev,
+                    isFriend: !prev?.isFriend
+                }))
+            }
+        });
+    }
+
+    const SendRequestHandler = async () => {
+        const bodyToSend = {
+            recipientId: articleContent?.authorId,
+        };
+        sendReq(bodyToSend).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Your Request sent successfully");
+                setArticleContent((prev) => ({
+                    ...prev,
+                    isFriend: !prev?.isFriend
+                }))
+            }
+        });
+    }
+
 
     if (isLoading) {
         return (
@@ -168,6 +237,8 @@ const ArticleDetails = () => {
             </Box>
         )
     }
+
+
 
 
     if (!isLoading && isSuccess && !data?.data) {
@@ -213,8 +284,8 @@ const ArticleDetails = () => {
                                             <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <img src={reading} alt="Icon" style={{ width: "20px", height: "20px" }} />
                                             </Box>
-                                            <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                <img src={save} alt="Icon" style={{ width: "20px", height: "20px" }} />
+                                            <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={SavePostHandler}>
+                                                <img src={articleContent?.isSaved ? save : saveUnfilled} alt="Icon" style={{ width: "20px", height: "20px" }} />
                                             </Box>
                                         </Box>
                                     </Box>
@@ -230,7 +301,7 @@ const ArticleDetails = () => {
                                     <img src={articleContent?.articleMakerImage ? articleContent?.articleMakerImage : user} alt="Avatar" style={{ width: "42px", height: '42px', borderRadius: "50%" }} />
                                     <Typography sx={{ textAlign: "center" }}>{articleContent?.articleMaker}</Typography>
                                     <Typography sx={{ textAlign: "center" }}>{articleContent?.articleMakerRole}</Typography>
-                                    {articleContent?.authorId !== userData?.id && <Button sx={{ width: "150px", height: "36px" }}>Unbound</Button>}
+                                    {articleContent?.authorId !== userData?.id && <Button sx={{ width: "150px", height: "36px" }} onClick={articleContent?.isFriend ? BondHandler : SendRequestHandler} loading={isUpdateReqLoading || isReqLoading}>{articleContent?.isFriend ? "Unbond" : "Bond"}</Button>}
                                 </Box>
                             </Box>
                             <Box sx={{ pt: "35px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
