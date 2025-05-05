@@ -960,3 +960,32 @@ export const groupBlockedData = [
     madeBy: "rotten ria"
   }
 ]
+
+export const sizeOptions = [
+  { label: "0-1 employees", value: "ZERO_TO_ONE" },
+  { label: "2-10 employees", value: "TWO_TO_TEN" },
+  { label: "11-50 employees", value: "ELEVEN_TO_FIFTY" },
+  { label: "51-200 employees", value: "FIFTY_ONE_TO_TWO_HUNDRED" },
+  { label: "201-500 employees", value: "TWO_HUNDRED_ONE_TO_FIVE_HUNDRED" },
+  { label: "501-1,000 employees", value: "FIVE_HUNDRED_ONE_TO_ONE_THOUSAND" },
+  { label: "1,001-5,000 employees", value: "ONE_THOUSAND_ONE_TO_FIVE_THOUSAND" },
+  { label: "5,001-10,000 employees", value: "FIVE_THOUSAND_ONE_TO_TEN_THOUSAND" },
+  { label: "10,000+ employees", value: "TEN_THOUSAND_PLUS" },
+];
+
+export const typeOptions = [
+  { label: "Public company", value: "PUBLIC_COMPANY" },
+  { label: "Self-employed", value: "SELF_EMPLOYED" },
+  { label: "Government agency", value: "GOVERNMENT_AGENCY" },
+  { label: "Nonprofit", value: "NONPROFIT" },
+  { label: "Sole proprietorship", value: "SOLE_PROPRIETORSHIP" },
+  { label: "Privately held", value: "PRIVATELY_HELD" },
+  { label: "Partnership", value: "PARTNERSHIP" },
+];
+
+export const industryTypeOptions = [
+  { label: "Production", value: "PRODUCTION" },
+  { label: "Transportation", value: "TRANSPORTATION" },
+  { label: "Storage", value: "STORAGE" },
+  { label: "Miscellaneous services", value: "OTHER" },
+];
