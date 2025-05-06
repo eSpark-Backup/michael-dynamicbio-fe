@@ -225,3 +225,48 @@ export function toCapitalized(str) {
   const lower = str?.toLowerCase();
   return str ? lower.charAt(0).toUpperCase() + lower.slice(1) : null;
 }
+
+
+export const getDesc = (item) => {
+  switch (item?.type) {
+    case "birthday":
+      return dayjs().isSame(dayjs(item?.dob), "day")
+        ? `Celebrate ${item?.firstName} ${item?.lastName}'s birthday today`
+        : `Celebrate ${item?.firstName} ${
+            item?.lastName
+          }'s recent birthday on ${dayjs(item?.dob).format('MMM D')}`;
+    case "anniversary":
+      return `Completed ${item?.yearsCompleted} year at ${item?.company}`;
+    case "jobChange":
+      return `Started a new position as ${item?.designation} at ${item?.company}`;
+    case "educationChange":
+      return item?.changeType === "startedEducation"
+        ? `Congratulate ${item?.firstName} ${item?.lastName} on starting school at ${item?.institution}`
+        : `Congratulate ${item?.firstName} ${item?.lastName} on completing school at ${item?.institution}`;
+    default:
+      return "";
+  }
+};
+
+export const getMessage = (item) => {
+  let message = "";
+
+  switch (item?.type) {
+    case "birthday":
+      message = "Wishing you a very happy birthday!";
+      break;
+    case "anniversary":
+      message = `Congrats on your ${item?.yearsCompleted} year anniversary at ${item?.company}`;
+      break;
+    case "jobChange":
+      message = `Congrats on starting your new role at ${item?.company}`;
+      break;
+    case "educationChange":
+      message =
+        item?.changeType === "startedEducation"
+          ? `Congrats on starting at ${item?.institution}`
+          : `Congrats on finishing up at ${item?.institution}`;
+      break;
+  }
+  return message;
+};

@@ -77,6 +77,7 @@ const PollPost = ({
   pinned,
   isAdminPost,
   likesData,
+  isSaved
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -193,21 +194,21 @@ const PollPost = ({
         prevOptions.map((item) =>
           item.id - 3 === optionIndex
             ? {
-                ...item,
-                isChecked: true,
-                numbersVoted: item.numbersVoted + 1,
-                voteBy: [
-                  ...item.voteBy,
-                  {
-                    company: userData?.company,
-                    designation: userData?.designation,
-                    firstName: userData?.firstName,
-                    lastName: userData?.lastName,
-                    profileImage: userData?.profileImage,
-                    userId: userData?.id,
-                  },
-                ],
-              }
+              ...item,
+              isChecked: true,
+              numbersVoted: item.numbersVoted + 1,
+              voteBy: [
+                ...item.voteBy,
+                {
+                  company: userData?.company,
+                  designation: userData?.designation,
+                  firstName: userData?.firstName,
+                  lastName: userData?.lastName,
+                  profileImage: userData?.profileImage,
+                  userId: userData?.id,
+                },
+              ],
+            }
             : item
         )
       );
@@ -233,13 +234,13 @@ const PollPost = ({
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
             ? {
-                ...item,
-                isChecked: false,
-                numbersVoted: item.numbersVoted - 1,
-                voteBy: item.voteBy.filter(
-                  (vote) => vote.userId !== userData.id
-                ),
-              }
+              ...item,
+              isChecked: false,
+              numbersVoted: item.numbersVoted - 1,
+              voteBy: item.voteBy.filter(
+                (vote) => vote.userId !== userData.id
+              ),
+            }
             : item
         )
       );
@@ -417,6 +418,8 @@ const PollPost = ({
         ownPost={ownPost}
         isAdminPost={isAdminPost}
         groupPost={isGroupPost}
+        postId={id}
+        isSaved={isSaved}
       />
       {postContent && (
         <Typography

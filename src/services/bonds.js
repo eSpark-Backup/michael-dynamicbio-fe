@@ -39,7 +39,15 @@ export const bondApi = api.injectEndpoints({
     getMyBonds: builder.query({
       query: ({ page, pageSize, search }) => ({
         url: `/bond/user-bonds?page=${page}&pageSize=${pageSize}&search=${search}`,
-        method: "GEt",
+        method: "GET",
+        keepUnusedDataFor: 0,
+        refetchOnMountOrArgChange: true,
+      }),
+    }),
+    getCatchup: builder.query({
+      query: () => ({
+        url: `/user/catchup`,
+        method: "GET",
         keepUnusedDataFor: 0,
         refetchOnMountOrArgChange: true,
       }),
@@ -53,4 +61,5 @@ export const {
   useAllBondsReqQuery,
   useUpdateBondReqMutation,
   useGetMyBondsQuery,
+  useGetCatchupQuery,
 } = bondApi;

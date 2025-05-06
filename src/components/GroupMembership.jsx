@@ -41,7 +41,7 @@ const GroupMembership = () => {
                             const isActive = item.label === activeTab.label;
                             return (
                                 <Box
-                                    onClick={() => setActiveTab(item)} // Missing tab switch on click
+                                    onClick={() => setActiveTab(item)}
                                     sx={{
                                         p: "15px 30px",
                                         cursor: "pointer",
