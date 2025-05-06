@@ -50,7 +50,7 @@ const CreatePage = () => {
         ) : (
           <Stack
             sx={{ padding: "18px 30px" }}
-            direction="row"
+            direction={{ xs: "column", lg: "row" }}
             alignItems="center"
             justifyContent="center"
             gap="34px"
