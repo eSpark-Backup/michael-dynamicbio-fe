@@ -1,6 +1,6 @@
 import { Avatar, Box, CircularProgress, LinearProgress, Menu, MenuItem, Paper, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, close, comment, emoji, like, pin, profile2, repost, send, three_vertical_dots, unlike, user } from '../assets'
+import { camera, close, comment, commentOff, emoji, like, pin, profile2, repost, send, three_vertical_dots, unlike, user } from '../assets'
 import BondCard2 from './BondCard'
 import { Player, ControlBar, PlayToggle, VolumeMenuButton, PlaybackRateMenuButton, CurrentTimeDisplay, TimeDivider, ProgressControl, FullscreenToggle } from "video-react";
 import "video-react/dist/video-react.css";
@@ -17,8 +17,9 @@ import Button from './button';
 import { toast } from 'react-toastify';
 import Comment from './Comment';
 import ShowLikesModal from './ShowLikesModal';
+import EditModal from './EditModal';
 
-const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved }) => {
+const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -34,6 +35,9 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
     const [postComments, setPostComments] = useState([])
     const [totalComments, setTotalComments] = useState(comments)
     const [showLikesModal, setShowLikesModal] = useState(false)
+    const [showEditModal, setShowEditModal] = useState(false)
+    const [visibility, setVisibility] = useState(postVisibility);
+
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
@@ -201,7 +205,7 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                     </Box>
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setShowEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"VIDEO"} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
@@ -214,7 +218,7 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                     style={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover', // Forces video to stretch and fill the container
+                        objectFit: 'cover',
                     }}
                 >
                     <ControlBar autoHide={false}>
@@ -288,33 +292,39 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                             </Box>
                             :
                             <>
-                                <Avatar
-                                    src={userData?.profileImage ? userData.profileImage : user}
-                                    alt="User"
-                                    sx={{ width: 60, height: 60, objectFit: "fill" }}
-                                />
-                                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
-                                    <OutlinedInput sx={{
-                                        height: "100%",
-                                        width: "100%",
-                                        "& .MuiOutlinedInput-root": {
-                                            border: "none !important",
+                                {canComment ? <>
+                                    <Avatar
+                                        src={userData?.profileImage ? userData.profileImage : user}
+                                        alt="User"
+                                        sx={{ width: 60, height: 60, objectFit: "fill" }}
+                                    />
+                                    <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                        <OutlinedInput sx={{
                                             height: "100%",
-                                        },
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: "none !important",
-                                        },
-                                        p: "10px"
+                                            width: "100%",
+                                            "& .MuiOutlinedInput-root": {
+                                                border: "none !important",
+                                                height: "100%",
+                                            },
+                                            "& .MuiOutlinedInput-notchedOutline": {
+                                                border: "none !important",
+                                            },
+                                            p: "10px"
 
-                                    }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={HandleKeyDown} />
-                                    <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
-                                        <Box sx={{ display: "flex", columnGap: "10px" }}>
-                                            <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                            <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                        }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={HandleKeyDown} />
+                                        <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
+                                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                                <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
+                                                <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                            </Box>
+                                            {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
                                         </Box>
-                                        {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
                                     </Box>
-                                </Box>
+                                </> :
+                                    <Box sx={{ backgroundColor: "#F2F8FD", p: "10px", display: "flex", columnGap: "5px", width: "100%" }}>
+                                        <img src={commentOff} alt="Icon" />
+                                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Comments are restricted on this post.</Typography>
+                                    </Box>}
                             </>
                         }
                     </Box>
@@ -370,6 +380,12 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
 
             <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
                 <ShowLikesModal allLikes={likesData} />
+            </DynamicModal>
+
+            <DynamicModal open={showEditModal} handleClose={() => setShowEditModal(false)} dropdownHeader={true} userData={userData}
+                userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={visibility}
+                setVisibility={setVisibility} isEditModal={true}>
+                <EditModal type={"video"} title={postContent} id={id} videoPostData={{ thumbnail, videoUrl }} handleClose={() => setShowEditModal(false)} visibility={visibility} commentSetting={commentSetting} />
             </DynamicModal>
         </Paper >
     )

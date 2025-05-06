@@ -130,6 +130,8 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           isBond: like.isBond,
         })) || [],
         isSaved: item?.isSaved,
+        postVisibility: item?.visibility,
+        commentVisibility: item?.commentVisibility,
       };
     });
   };

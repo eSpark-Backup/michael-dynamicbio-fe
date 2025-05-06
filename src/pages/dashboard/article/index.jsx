@@ -76,13 +76,14 @@ const Article = ({ userName = "Abdul Rehman" }) => {
   const [content, setContent] = useState("");
   const [articleTitle, setArticleTitle] = useState("");
   const [title, setTitle] = useState("");
-  const [visibility, setVisibility] = useState("PUBLIC");
+  const [visibility, setVisibility] = useState("");
   const [scheduleDate, setScheduleDate] = useState(new Date());
   const [scheduleTime, setScheduleTime] = useState(new Date());
   const [schedule, setSchedule] = useState({
     date: null,
     time: null,
   });
+  const [commentVisibility, setCommentvisibility] = useState("")
   const { id } = useParams();
   const { data, isSuccess, isLoading: articleDetailsLoading, isError, error } = useGetPostByIdQuery(id, { skip: !id })
 
@@ -93,6 +94,8 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       setTitle(data?.data?.content?.title)
       setSelectedFile(data?.data?.media["ARTICLES"][0]?.url)
       setPreveiwImage(data?.data?.media["ARTICLES"][0]?.url)
+      setCommentvisibility(data?.data?.commentVisibility)
+      setVisibility(data?.data?.visibility)
     }
   }, [data, isSuccess])
 
@@ -152,8 +155,10 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       visibility,
       type: "ARTICLE",
       cover: selectedFile,
+      commentVisibility,
       id: id
     };
+    console.log(obj)
     if (id) {
       editPost(obj).then((res) => {
         if (res?.error) {
@@ -186,7 +191,6 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         }
       });
     }
-    console.log(obj)
   };
 
   if (articleDetailsLoading) {
@@ -344,7 +348,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           position: "relative",
           cursor: previewImage ? "pointer" : "default",
           overflow: "hidden",
-          backgroundRepeat:"no-repeat",
+          backgroundRepeat: "no-repeat",
 
           "&:hover::after": previewImage
             ? {

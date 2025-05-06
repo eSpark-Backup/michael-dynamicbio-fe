@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import BondCard2 from './BondCard'
 import { formatEventPostTime } from '../utils'
 import { Link, useNavigate } from 'react-router-dom'
-import { camera, comment, dummyPhoto, emoji, like, pin, repost, send, unlike, user } from '../assets'
+import { camera, comment, commentOff, dummyPhoto, emoji, like, pin, repost, send, unlike, user } from '../assets'
 import OutlinedInput from './outline-input'
 import DynamicModal from './dynamic-modal'
 import ScheduleModal from './ScheduleModal'
@@ -17,8 +17,9 @@ import { useCommentMutation, useGetPostCommentsQuery } from '../services/interac
 import { toast } from 'react-toastify'
 import Button from './button'
 import ShowLikesModal from './ShowLikesModal'
+import EditModal from './EditModal'
 
-const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved }) => {
+const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment }) => {
     const navigate = useNavigate()
 
     const [showComments, setShowComments] = useState(false)
@@ -36,6 +37,11 @@ const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLi
     const [postComments, setPostComments] = useState([])
     const [totalComments, setTotalComments] = useState(comments)
     const [showLikesModal, setShowLikesModal] = useState(false)
+    const [visibility, setVisibility] = useState(postVisibility);
+    const [showEditModal, setEditModal] = useState(false)
+    const [editTitle, setEditTitle] = useState(postContent)
+
+    useEffect(() => setEditTitle(postContent), [postContent])
 
     const [commentData, { data: postCommentData, isSuccess: postCommentSucces, isError: isPostCommentError, error: postCommentError, isLoading: postCommentLoading }] = useCommentMutation()
 
@@ -191,7 +197,7 @@ const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLi
                     </Box>}
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"EVENT"} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
@@ -306,34 +312,43 @@ const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLi
                             :
                             <>
 
-                                <Avatar
-                                    src={userData?.profileImage ? userData.profileImage : user}
-                                    alt="User"
-                                    sx={{ width: 60, height: 60, objectFit: "fill" }}
-                                />
+                                {
+                                    canComment ? <>
+                                        <Avatar
+                                            src={userData?.profileImage ? userData.profileImage : user}
+                                            alt="User"
+                                            sx={{ width: 60, height: 60, objectFit: "fill" }}
+                                        />
 
-                                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
-                                    <OutlinedInput sx={{
-                                        height: "100%",
-                                        width: "100%",
-                                        "& .MuiOutlinedInput-root": {
-                                            border: "none !important",
-                                            height: "100%",
-                                        },
-                                        "& .MuiOutlinedInput-notchedOutline": {
-                                            border: "none !important",
-                                        },
-                                        p: "10px"
+                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                            <OutlinedInput sx={{
+                                                height: "100%",
+                                                width: "100%",
+                                                "& .MuiOutlinedInput-root": {
+                                                    border: "none !important",
+                                                    height: "100%",
+                                                },
+                                                "& .MuiOutlinedInput-notchedOutline": {
+                                                    border: "none !important",
+                                                },
+                                                p: "10px"
 
-                                    }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={HandleKeyDown} />
-                                    <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
-                                        <Box sx={{ display: "flex", columnGap: "10px" }}>
-                                            <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                            <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={HandleKeyDown} />
+                                            <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
+                                                <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                                    <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
+                                                    <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                                </Box>
+                                                {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
+                                            </Box>
                                         </Box>
-                                        {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
-                                    </Box>
-                                </Box>
+                                    </>
+                                        :
+                                        <Box sx={{ backgroundColor: "#F2F8FD", p: "10px", display: "flex", columnGap: "5px", width: "100%" }}>
+                                            <img src={commentOff} alt="Icon" />
+                                            <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Comments are restricted on this post.</Typography>
+                                        </Box>
+                                }
                             </>
                         }
                     </Box>
@@ -400,6 +415,12 @@ const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLi
 
             <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
                 <ShowLikesModal allLikes={likesData} />
+            </DynamicModal>
+
+            <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
+                userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={visibility}
+                setVisibility={setVisibility} isEditModal={true}>
+                <EditModal type={"event"} title={editTitle} id={id} eventData={{ eventImage, startTime, startDate: startTime, endTime: endTime ? endTime : null, endDate: endTime ? endTime : null, name: eventName, format: eventType, showEndTime: endTime ? endTime : null }} handleClose={() => setEditModal(false)} visibility={visibility} commentSetting={commentSetting} />
             </DynamicModal>
         </Paper>
     )

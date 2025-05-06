@@ -143,7 +143,7 @@ const Home = () => {
         articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
         articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
-        isFriendPost: !isOwnPost,
+        isFriendPost: item?.isBond,
         lastUserLiked: lastLike,
         allLikesData: item?.likes?.map((like) => ({
           id: like?.user?.id,
@@ -154,6 +154,9 @@ const Home = () => {
           isBond: like.isBond,
         })) || [],
         isSaved: item?.isSaved,
+        postVisibility: item?.visibility,
+        commentVisibility: item?.commentVisibility,
+        canComment: item?.canComment,
       };
     });
   };
@@ -192,6 +195,11 @@ const Home = () => {
       setPage(prev => prev + 1);
     }
   };
+
+  const handlePostDelete = (postId) => {
+    setPosts(prev => prev.filter(post => post.id !== postId));
+  };
+
 
   if (isLoading) {
     return (
@@ -416,7 +424,7 @@ const Home = () => {
           >
             <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
               {posts.map((item) => (
-                <SuggestionPost key={item.id} {...item} />
+                <SuggestionPost key={item.id} {...item} handlePostDelete={handlePostDelete} />
               ))}
             </Box>
           </InfiniteScroll>

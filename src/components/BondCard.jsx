@@ -1,19 +1,39 @@
 import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye } from '../assets'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye, deleteBond } from '../assets'
 import { useNavigate } from 'react-router-dom'
 import { useDeletePostByIdMutation, useSavePostMutation } from '../services/post'
 import { toast } from 'react-toastify'
+import ViewAndCommentModal from './ViewAndCommentModal'
+import DynamicModal from './dynamic-modal'
+import { useSendBondReqMutation, useUpdateBondReqMutation } from '../services/bonds'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved, handleEdit, handleDelete, visibility, commentSetting, type }) => {
     const theme = useTheme()
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [saved, setSaved] = useState(isSaved)
+    const [showPermissionModal, setShowPermissionModal] = useState(false)
+    const [permission, setPermission] = useState("")
+    const [postVisibility, setPostVisibility] = useState(visibility)
+    const [commentVisibility, setCommentVisibility] = useState(commentSetting)
+    const [isFriend, setFriend] = useState(isFriendPost)
 
     const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
     const [deletePost, { isLoading: deletePostLoading }] = useDeletePostByIdMutation()
+
+    const [updateReq, { isLoading: isUpdateReqLoading }] = useUpdateBondReqMutation();
+    const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+
+    const HandleChoiceChange = (value, type) => {
+        if (type === "comment") {
+            setCommentVisibility(value)
+        }
+        else {
+            setPostVisibility(value)
+        }
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -46,8 +66,51 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 return;
             }
             else if (res?.data) {
+                handleDelete(postId)
                 toast.success(res?.data?.message)
             }
+        }
+        else if (event === "edit") {
+            handleEdit()
+        }
+        else if (event === "view") {
+            setShowPermissionModal(true)
+            setPermission("view")
+        }
+        else if (event === "comment") {
+            setShowPermissionModal(true)
+            setPermission("comment")
+        }
+        else if (event === "friend") {
+            const bodyToSend = {
+                recipientId: id,
+            };
+            sendReq(bodyToSend).then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    return;
+                }
+                if (res) {
+                    toast.success("Your Request sent successfully");
+                    setFriend(!isFriend)
+                }
+            });
+        }
+        else if (event === "unfriend") {
+            const bodyToSend = {
+                otherUserId: id,
+                action: "unfriend",
+            };
+            updateReq(bodyToSend).then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    return;
+                }
+                if (res) {
+                    toast?.success(res?.data?.message)
+                    setFriend(!isFriend)
+                }
+            });
         }
         handleMenuClose()
     }
@@ -103,7 +166,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 handleBondClick(id);
             }} style={{ cursor: "pointer" }} />}
             {isLoading && <CircularProgress sx={{ color: "black" }} />}
-            {(isFriendPost || ownPost) && <img src={three_vertical_dots} alt="Icon" onClick={handleClick} />}
+            {postId && <img src={three_vertical_dots} alt="Icon" onClick={handleClick} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>
@@ -135,45 +198,62 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 {ownPost
                     ?
                     <>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={editBlue} alt="Icon" />
-                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Feature on top of profile</Typography>
-                        </MenuItem>
+
                         <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={saved ? save : saveUnfilled} alt="Icon" />
+                            <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
                         </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={copyLink} alt="Icon" />
+                        {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
-                        </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={editBlue} alt="Icon" />
-                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Embed this post</Typography>
-                        </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={editBlue} alt="Icon" />
+                        </MenuItem> */}
+                        <MenuItem onClick={() => HandleMenuItemClicked("edit")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={editBlue} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
                         </MenuItem>
                         <MenuItem onClick={() => HandleMenuItemClicked("delete")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={deleteIcon} alt="Icon" />
+                            <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
                         </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={comment} alt="Icon" />
+                        <MenuItem onClick={() => HandleMenuItemClicked("comment")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={comment} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can comment on this post?</Typography>
                         </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                            <img src={primaryEye} alt="Icon" />
+                        <MenuItem onClick={() => HandleMenuItemClicked("view")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={primaryEye} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can see on this post?</Typography>
                         </MenuItem>
                     </>
                     :
-                    <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
-                        <img src={saved ? save : saveUnfilled} alt="Icon" />
-                        <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
-                    </MenuItem>}
+                    <>
+                        <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                        </MenuItem>
+                        {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                        </MenuItem> */}
+                        <MenuItem onClick={() => HandleMenuItemClicked(isFriend ? "unfriend" : "friend")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={isFriend ? deleteBond : bondMain} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{isFriend ? `Unbond ${userName}` : `Bond ${userName}`}</Typography>
+                        </MenuItem>
+                    </>
+                }
             </Menu>
+
+
+            <DynamicModal
+                open={showPermissionModal}
+                handleClose={() => setShowPermissionModal(false)}
+                postModal={true}
+                hideFooter={true}
+                title={permission === "view" ? "Who can view this post?" : "Who can comment on this post?"}
+                description={permission === "comment" && "Existing comment will remain on post"}
+                smallModal={true}
+            >
+                <ViewAndCommentModal permission={permission} visibility={postVisibility} commentSettings={commentVisibility} handleClose={() => setShowPermissionModal(false)} onChange={HandleChoiceChange} id={postId} type={type} />
+            </DynamicModal>
         </Box>
     )
 }

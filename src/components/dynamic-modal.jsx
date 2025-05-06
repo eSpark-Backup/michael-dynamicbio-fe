@@ -39,6 +39,8 @@ const DynamicModal = ({
   showUndoText,
   noBtn,
   groupAdmin,
+  isEditModal,
+  description
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -97,7 +99,7 @@ const DynamicModal = ({
           gap={2}
           sx={{
             ...(styledHeader && {
-              height: "55px",
+              height: description ? "65px" : "55px",
               borderTop: "1px solid #E4E4E4",
               boxShadow: "0px 0px 10px 0px #00000040",
               width: "calc(100% + 40px)",
@@ -107,7 +109,10 @@ const DynamicModal = ({
             }),
           }}
         >
-          {!dropdownHeader && <Typography>{title}</Typography>}
+          {!dropdownHeader && <Box>
+            <Typography>{title}</Typography>
+            {description && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{description}</Typography>}
+          </Box>}
           {dropdownHeader && (
             <Box
               sx={{ display: "flex", columnGap: "15px", alignItems: "center", position: "relative" }}
@@ -134,7 +139,7 @@ const DynamicModal = ({
                     src={downArrowFilled}
                     alt="Icon"
                     style={{ cursor: "pointer" }}
-                    onClick={adminPage ? handleDropdown : handleClick}
+                    onClick={adminPage ? handleDropdown : isEditModal ? () => { } : handleClick}
                   />
                 </Stack>
                 <Typography
