@@ -2,14 +2,21 @@ import {
   Box,
   Button,
   CircularProgress,
+  Divider,
+  FormControlLabel,
   Grid2,
+  Menu,
+  MenuItem,
   Paper,
+  Radio,
+  RadioGroup,
   Stack,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { close, dummyPhoto } from "../../../assets";
+import { useSelector } from "react-redux";
+import { close, dummyPhoto, bellActive, verticleDots } from "../../../assets";
 import AboutSection from "./AboutSection";
 import PostSection from "./PostSection";
 import PeopleSection from "./PeopleSection";
@@ -22,6 +29,25 @@ import {
 import { toCapitalized } from "../../../utils";
 
 const PageDetailsPage = () => {
+  const [selectedOption, setSelectedOption] = useState("relevant");
+  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event, type) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedMenu(type);
+  };
+
+  const handleClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
+    setSelectedMenu(null);
+  };
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -29,6 +55,9 @@ const PageDetailsPage = () => {
     useGetPageByIdQuery(id, {
       refetchOnMountOrArgChange: true,
     });
+
+  const { user } = useSelector((state) => state.auth);
+  const isMyPage = data?.data?.creatorId === user?.id;
 
   const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
 
@@ -60,7 +89,7 @@ const PageDetailsPage = () => {
     },
     {
       label: "Posts",
-      component: <PostSection />,
+      component: <PostSection data={data?.data} />,
     },
     {
       label: "People",
@@ -88,46 +117,48 @@ const PageDetailsPage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          background:
-            "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%), linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04))",
-          py: "10px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      {isMyPage && (
         <Box
           sx={{
-            width: { xs: "98%", md: "85%", lg: "80%", xl: "75%" },
+            background:
+              "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%), linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04))",
+            py: "10px",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Typography
-            sx={{ fontSize: "16px", fontWeight: "500", color: "#fff" }}
+          <Box
+            sx={{
+              width: { xs: "98%", md: "85%", lg: "80%", xl: "75%" },
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            You are viewing this page as a member
-          </Typography>
-          <Box sx={{ minWidth: "180px" }}>
-            <Button
-              sx={{
-                height: "36px",
-                backgroundColor: "transparent",
-                border: "1px solid white",
-                color: "white",
-                borderRadius: "15px",
-                cursor: "pointer !important",
-              }}
-              onClick={() => navigate(`/page/${id}/admin`)}
+            <Typography
+              sx={{ fontSize: "16px", fontWeight: "500", color: "#fff" }}
             >
-              View as admin
-            </Button>
+              You are viewing this page as a member
+            </Typography>
+            <Box sx={{ minWidth: "180px" }}>
+              <Button
+                sx={{
+                  height: "36px",
+                  backgroundColor: "transparent",
+                  border: "1px solid white",
+                  color: "white",
+                  borderRadius: "15px",
+                  cursor: "pointer !important",
+                }}
+                onClick={() => navigate(`/page/${id}/admin`)}
+              >
+                View as admin
+              </Button>
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
@@ -171,9 +202,24 @@ const PageDetailsPage = () => {
                   }}
                 ></Box>
               </Box>
+              {data?.data?.isFollowing && (
+                <Stack
+                  sx={{ width: "100%", padding: "20px" }}
+                  direction="row"
+                  alignItems="flex-start"
+                  justifyContent="flex-end"
+                >
+                  <img
+                    onClick={(e) => handleClick(e, "notifications")}
+                    style={{ cursor: "pointer" }}
+                    src={bellActive}
+                    alt="bell"
+                  />
+                </Stack>
+              )}
               <Box
                 sx={{
-                  mt: "90px",
+                  mt: data?.data?.isFollowing ? "22px" : "90px",
                   px: "25px",
                   display: "flex",
                   flexDirection: "column",
@@ -187,6 +233,9 @@ const PageDetailsPage = () => {
                       fontSize: "24px",
                       fontWeight: "500",
                       color: "#171717",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {data?.data?.name}
@@ -249,6 +298,39 @@ const PageDetailsPage = () => {
                   >
                     <Typography variant="gradientText">Use AI</Typography>
                   </Box>
+                  <Box
+                    onClick={(e) => handleClick(e, "menu")}
+                    sx={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      background: "white",
+                      position: "relative",
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        borderRadius: "50%",
+                        padding: "1px",
+                        background:
+                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                        WebkitMask:
+                          "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                        WebkitMaskComposite: "destination-out",
+                        maskComposite: "exclude",
+                      },
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img src={verticleDots} alt="menu" />
+                  </Box>
                 </Box>
                 {bar && (
                   <Box
@@ -267,6 +349,7 @@ const PageDetailsPage = () => {
                         fontSize: "14px",
                         fontWeight: "400",
                         color: "#505050",
+                        width: "75%",
                       }}
                     >
                       Follow other organizations as your Page to grow visibility
@@ -276,6 +359,11 @@ const PageDetailsPage = () => {
                           fontSize: "16px",
                           fontWeight: "500",
                           color: "#171717",
+                          display: "inline-block",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          width: "100%",
                         }}
                       >
                         {data?.data?.name}
@@ -385,6 +473,80 @@ const PageDetailsPage = () => {
           </Grid2>
         </Grid2>
       </Box>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        sx={{ maxWidth: { xs: "300px", md: "420px" } }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        {selectedMenu === "notifications" ? (
+          <>
+            <MenuItem disabled>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  fontWeight: 600,
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  width: "100%",
+                }}
+              >
+                {`Manage notifications about ${data?.data?.name}`}
+              </Typography>
+            </MenuItem>
+            <Divider />
+            <RadioGroup
+              value={selectedOption}
+              onChange={handleRadioChange}
+              sx={{ pl: 2, pr: 2, pt: 1, pb: 1 }}
+            >
+              <FormControlLabel value="all" control={<Radio />} label="All" />
+              <FormControlLabel
+                value="relevant"
+                control={<Radio />}
+                label="Most relevant"
+              />
+              <FormControlLabel value="off" control={<Radio />} label="Off" />
+            </RadioGroup>
+          </>
+        ) : (
+          <>
+            {isMyPage && (
+              <MenuItem
+                onClick={(e) => {
+                  handleClose(e);
+                }}
+              >
+                Invite connections
+              </MenuItem>
+            )}
+            <MenuItem
+              onClick={(e) => {
+                handleClose(e);
+              }}
+            >
+              Send in a message
+            </MenuItem>
+            <MenuItem
+              onClick={(e) => {
+                navigate("/bonds?sub=page&edit=true");
+                handleClose(e);
+              }}
+            >
+              Create a page
+            </MenuItem>
+          </>
+        )}
+      </Menu>
     </>
   );
 };
