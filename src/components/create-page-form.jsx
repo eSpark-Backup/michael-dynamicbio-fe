@@ -9,6 +9,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import countries from "country-telephone-data";
+import MultiSelect from "./AutoComplete";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
 import Button from "./button";
@@ -19,6 +21,10 @@ import { uploadIcon } from "../assets";
 import { convertToFormData } from "../utils";
 
 const CreatePageForm = ({ pageType }) => {
+  const countriesOptions = countries?.allCountries?.map((item) => ({
+    label: item?.name,
+    code: item?.iso2,
+  }));
   const navigate = useNavigate();
   const [createPage, { isLoading }] = useCreatePageMutation();
   const imageRef = useRef(null);
@@ -28,8 +34,8 @@ const CreatePageForm = ({ pageType }) => {
       pageType: pageType?.toUpperCase(),
       organizationName: "",
       address: "",
-      location: "",
-      branches: "",
+      location: null,
+      branches: [],
       size: "",
       type: "",
       industry: "",
@@ -61,7 +67,7 @@ const CreatePageForm = ({ pageType }) => {
         type: values?.pageType,
         address: values?.address,
         locationCountry: values?.location,
-        branchesCountries: values?.branches !== "" ? [values?.branches] : [],
+        branchesCountries: values?.branches,
         organizationSize: values?.size,
         organizationType: values?.type,
         industry: values?.industry,
@@ -87,8 +93,8 @@ const CreatePageForm = ({ pageType }) => {
           toast.error(res?.error?.data?.message);
         }
         if (res?.data) {
-          toast.error(res?.data?.message);
-          navigate(`/page/${res?.data?.data?.id}`)
+          toast.success(res?.data?.message);
+          navigate(`/page/${res?.data?.data?.id}`);
         }
       });
     },
@@ -99,7 +105,10 @@ const CreatePageForm = ({ pageType }) => {
         width: { xs: "100%", sm: "70%" },
         display: "flex",
         flexDirection: "column",
-        ".MuiOutlinedInput-root": { height: "65px !important" },
+        ".MuiOutlinedInput-root": {
+          minHeight: "65px !important",
+          height: "auto",
+        },
         input: { paddingBottom: "20px" },
         ".MuiStack-root": { marginTop: "24px" },
       }}
@@ -121,6 +130,7 @@ const CreatePageForm = ({ pageType }) => {
         }
       />
       <Input
+        wordLimit={200}
         variant="outlined"
         customLabel="Address"
         required
@@ -131,24 +141,27 @@ const CreatePageForm = ({ pageType }) => {
         error={formik.touched.address && !!formik.errors.address}
         helperText={formik.touched.address && formik.errors.address}
       />
-      <Input
+      <MultiSelect
+        options={countriesOptions}
         variant="outlined"
         customLabel="Location/Country"
         required
         name="location"
         placeholder="Add a headquater/main location"
         value={formik.values.location}
-        handleChange={formik.handleChange}
+        setFieldValue={formik.setFieldValue}
         error={formik.touched.location && !!formik.errors.location}
         helperText={formik.touched.location && formik.errors.location}
       />
-      <Input
+      <MultiSelect
+        multiple
+        options={countriesOptions}
         variant="outlined"
         customLabel="Branches/ Operating in"
         name="branches"
         placeholder="Add country(s)"
         value={formik.values.branches}
-        handleChange={formik.handleChange}
+        setFieldValue={formik.setFieldValue}
         error={formik.touched.branches && !!formik.errors.branches}
         helperText={formik.touched.branches && formik.errors.branches}
       />
@@ -271,7 +284,7 @@ const CreatePageForm = ({ pageType }) => {
               Enter the places of shipping
             </Typography>
             <Stack
-              direction="row"
+              direction={{ xs: "column", md: "row" }}
               alignItems="flex-end"
               justifyContent="center"
               gap={2}
@@ -376,6 +389,7 @@ const CreatePageForm = ({ pageType }) => {
         </>
       )}
       <Input
+        wordLimit={200}
         variant="outlined"
         customLabel="Website"
         required
@@ -429,12 +443,22 @@ const CreatePageForm = ({ pageType }) => {
           <input
             ref={imageRef}
             type="file"
+            accept="image/*"
             style={{ display: "none" }}
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file && file.type.startsWith("image/")) {
+                setImage(file);
+              } else {
+                alert("Please select a valid image file.");
+                e.target.value = "";
+              }
+            }}
           />
         </Box>
       </>
       <Input
+        wordLimit={200}
         variant="outlined"
         customLabel="Tagline"
         required
