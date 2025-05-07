@@ -450,7 +450,7 @@ const CreatePageForm = ({ pageType }) => {
               if (file && file.type.startsWith("image/")) {
                 setImage(file);
               } else {
-                alert("Please select a valid image file.");
+                toast.error("Please select a valid image file.");
                 e.target.value = "";
               }
             }}
