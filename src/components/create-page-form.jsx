@@ -443,9 +443,17 @@ const CreatePageForm = ({ pageType }) => {
           <input
             ref={imageRef}
             type="file"
-            accept=".jpg, .jpeg, .png, .svg"
+            accept="image/*"
             style={{ display: "none" }}
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file && file.type.startsWith("image/")) {
+                setImage(file);
+              } else {
+                alert("Please select a valid image file.");
+                e.target.value = "";
+              }
+            }}
           />
         </Box>
       </>
