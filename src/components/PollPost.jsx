@@ -83,7 +83,11 @@ const PollPost = ({
   postVisibility,
   commentSetting,
   handleDelete,
-  canComment
+  canComment,
+  isPagePost,
+  isUserPost,
+  isPageFollowing,
+  pageId
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -436,6 +440,10 @@ const PollPost = ({
         visibility={postVisibility}
         commentSetting={commentSetting}
         type={"POLL"}
+        isPagePost={isPagePost}
+        isUserPost={isUserPost}
+        isPageFollowing={isPageFollowing}
+        pageId={pageId}
       />
       {postContent && (
         <Typography

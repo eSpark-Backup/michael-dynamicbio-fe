@@ -19,7 +19,7 @@ import Comment from './Comment';
 import ShowLikesModal from './ShowLikesModal';
 import EditModal from './EditModal';
 
-const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment }) => {
+const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -205,7 +205,7 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                     </Box>
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setShowEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"VIDEO"} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setShowEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"VIDEO"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
