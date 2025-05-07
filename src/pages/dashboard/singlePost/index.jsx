@@ -30,74 +30,86 @@ const SinglePost = () => {
     }, [isSuccess, data])
 
     const transformPosts = (posts) => {
-        return posts?.map((item) => {
-            const isOwnPost = item?.author?.id === userData?.id;
-            const isuserLiked = item?.likes && Array.isArray(item?.likes) && item?.likes?.some((item) => item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() && item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase())
+        return posts
+            // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
+            .map((item) => {
+                const isOwnPost = item?.author?.id === userData?.id;
+                const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
+                    item?.likes?.some((item) =>
+                        item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() &&
+                        item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase()
+                    );
 
-            let lastLike = ""
+                let lastLike = "";
 
-            const isOnlyUserLiked = item?.likes?.length === 1;
-            if (isuserLiked && isOnlyUserLiked) {
-                lastLike = ""
-            }
-            else if (!isuserLiked) {
-                lastLike = item?.lastLikedUser
-            }
+                const isOnlyUserLiked = item?.likes?.length === 1;
+                if (isuserLiked && isOnlyUserLiked) {
+                    lastLike = "";
+                } else if (!isuserLiked) {
+                    lastLike = item?.lastLikedUser;
+                } else if (Array.isArray(item?.likes)) {
+                    const newItem = item?.likes?.find((item2) =>
+                        item2?.user?.firstName?.toLowerCase() !== userData?.firstName?.toLowerCase() &&
+                        item2?.user?.lastName?.toLowerCase() !== userData?.lastName?.toLowerCase()
+                    );
+                    lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
+                }
 
-            else if (Array.isArray(item?.likes)) {
-                const newItem = item?.likes?.find((item2) => item2?.user?.firstName?.toLowerCase() !== userData?.firstName?.toLowerCase() && item2?.user?.lastName?.toLowerCase() !== userData?.lastName?.toLowerCase())
-
-                lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`
-            }
-
-            return {
-                userId: item?.author?.id,
-                userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
-                userRole: item?.author?.company,
-                postTime: dayjs(item?.createdAt).fromNow(),
-                userImage: item?.author?.profileImage,
-                numberofLikes: item?.likesCount,
-                isLiked: isuserLiked,
-                comments: item?.commentsCount,
-                activity: "",
-                postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
-                postContent: item?.content?.title,
-                commentsContent: [],
-                type: getPostType(item?.type),
-                videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
-                thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
-                question: item?.type === "POLL" ? item?.poll?.question : "",
-                options: getPollOptions(item),
-                voteCount: item?.poll?.votes?.length || 0,
-                endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-                pollId: item?.poll?.id || "",
-                isVoted: false,
-                eventName: item?.content?.name,
-                eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
-                startTime: item?.content?.startTime,
-                endTime: item?.content?.showEndTime && item?.content?.endTime,
-                eventType: item?.content?.eventType,
-                eventLink: item?.content?.externalLink,
-                attendees: [{ image: user }],
-                eventPost: "bringback",
-                id: item?.id,
-                articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-                articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-                articleDescription: item?.type === "ARTICLE" && item?.content?.content,
-                ownPost: isOwnPost,
-                isFriendPost: !isOwnPost,
-                lastUserLiked: lastLike,
-                allLikesData: item?.likes?.map((like) => ({
-                    id: like?.user?.id,
-                    firstName: like?.user?.firstName,
-                    lastName: like?.user?.lastName,
-                    profileImage: like?.user?.profileImage,
-                    designation: like?.user?.designation,
-                    isBond: like.isBond,
-                })) || [],
-                isSaved: item?.isSaved,
-            };
-        });
+                return {
+                    userId: item?.author?.id,
+                    userName: item?.isPagePost ? item?.page?.name : `${item?.author?.firstName} ${item?.author?.lastName}`,
+                    userRole: item?.isPagePost ? item?.pageFollowerCount : item?.author?.company,
+                    postTime: dayjs(item?.createdAt).fromNow(),
+                    userImage: item?.isPagePost ? item?.page?.logoUrl : item?.author?.profileImage,
+                    numberofLikes: item?.likesCount,
+                    isLiked: isuserLiked,
+                    comments: item?.commentsCount,
+                    activity: "",
+                    postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
+                    postContent: item?.content?.title,
+                    commentsContent: [],
+                    type: getPostType(item?.type),
+                    videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
+                    thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
+                    question: item?.type === "POLL" ? item?.poll?.question : "",
+                    options: getPollOptions(item),
+                    voteCount: item?.poll?.votes?.length || 0,
+                    endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+                    pollId: item?.poll?.id || "",
+                    isVoted: false,
+                    eventName: item?.content?.name,
+                    eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+                    startTime: item?.content?.startTime,
+                    endTime: item?.content?.showEndTime && item?.content?.endTime,
+                    eventType: item?.content?.eventType,
+                    eventLink: item?.content?.externalLink,
+                    attendees: [{ image: user }],
+                    eventPost: "bringback",
+                    id: item?.id,
+                    articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+                    articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+                    articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+                    ownPost: isOwnPost,
+                    isFriendPost: item?.isBond,
+                    lastUserLiked: lastLike,
+                    allLikesData: item?.likes?.map((like) => ({
+                        id: like?.user?.id,
+                        firstName: like?.user?.firstName,
+                        lastName: like?.user?.lastName,
+                        profileImage: like?.user?.profileImage,
+                        designation: like?.user?.designation,
+                        isBond: like.isBond,
+                    })) || [],
+                    isSaved: item?.isSaved,
+                    postVisibility: item?.visibility,
+                    commentVisibility: item?.commentVisibility,
+                    canComment: item?.canComment,
+                    isPagePost: item?.isPagePost,
+                    isUserPost: !isOwnPost && !item?.isPagePost,
+                    isPageFollowing: item?.isPageFollowing,
+                    pageId: item?.isPagePost ? item?.page?.id : ""
+                };
+            });
     };
 
     const getPostType = (type) => {

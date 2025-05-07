@@ -13,6 +13,8 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
 
     const navigate = useNavigate()
 
+    console.log(typeof (role))
+
     const displayedText = expanded ? fullText : fullText?.slice(0, charLimit);
     const shouldShowSeeMore = fullText?.length > charLimit && !expanded;
 
@@ -63,7 +65,7 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
                             <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>{userName}</Typography>
                             <img src={three_vertical_dots} alt="Icon" onClick={handleClick} style={{ cursor: "pointer" }} />
                         </Box>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{role?.length > 100 ? role?.slice(0, 98) + "..." : role}</Typography>
+                        {typeof (role) === "string" ? <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{role?.length > 100 ? role?.slice(0, 98) + "..." : role}</Typography> : <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{`${role} ${role > 1 ? "followers" : "follower"}`}</Typography>}
                         <Box sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{time}</Typography>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>•</Typography>

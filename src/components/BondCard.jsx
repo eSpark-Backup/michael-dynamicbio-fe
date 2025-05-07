@@ -9,7 +9,7 @@ import DynamicModal from './dynamic-modal'
 import { useSendBondReqMutation, useUpdateBondReqMutation } from '../services/bonds'
 import { useFollowPageMutation } from '../services/page'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved, handleEdit, handleDelete, visibility, commentSetting, type, isPagePost, isUserPost, isPageFollowing, pageId }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved, handleEdit, handleDelete, visibility, commentSetting, type, isPagePost, isUserPost, isPageFollowing, pageId, isDetails, handleDetailsClose }) => {
     const theme = useTheme()
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -77,6 +77,9 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
             else if (res?.data) {
                 handleDelete(postId)
                 toast.success(res?.data?.message)
+            }
+            if (isDetails) {
+                handleDetailsClose()
             }
         }
         else if (event === "edit") {
