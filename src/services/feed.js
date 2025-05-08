@@ -9,8 +9,9 @@ export const feedApi = api.injectEndpoints({
                 params: {
                     page,
                     pageSize: limit
-                }
-            })
+                },
+            }),
+            providesTags: ['post']
         })
     })
 })

@@ -1,18 +1,48 @@
 import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
-import React, { useState } from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled } from '../assets'
+import React, { useEffect, useState } from 'react'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye, deleteBond, tick, close2 } from '../assets'
 import { useNavigate } from 'react-router-dom'
-import { useSavePostMutation } from '../services/post'
+import { useDeletePostByIdMutation, useSavePostMutation } from '../services/post'
 import { toast } from 'react-toastify'
+import ViewAndCommentModal from './ViewAndCommentModal'
+import DynamicModal from './dynamic-modal'
+import { useSendBondReqMutation, useUpdateBondReqMutation } from '../services/bonds'
+import { useFollowPageMutation } from '../services/page'
 
-const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved }) => {
+const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorldIcon, showActionIcon, handleClose, isFriendPost, ownPost, id, showBondIcon, handleBondClick, isLoading, isAdminPost, groupPost, postId, isSaved, handleEdit, handleDelete, visibility, commentSetting, type, isPagePost, isUserPost, isPageFollowing, pageId, isDetails, handleDetailsClose }) => {
     const theme = useTheme()
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [saved, setSaved] = useState(isSaved)
+    const [showPermissionModal, setShowPermissionModal] = useState(false)
+    const [permission, setPermission] = useState("")
+    const [postVisibility, setPostVisibility] = useState(visibility)
+    const [commentVisibility, setCommentVisibility] = useState(commentSetting)
+    const [isFriend, setFriend] = useState(isFriendPost)
+    const [isFollowing, setIsFollowing] = useState(isPageFollowing)
+    const [followerCount, setFollowerCount] = useState(isPagePost ? userRole : null)
+
+    useEffect(() => {
+        setIsFollowing(isPageFollowing)
+    }, [isPageFollowing])
 
     const [savePostData, { isLoading: isSavingPostLoading }] = useSavePostMutation()
+    const [deletePost, { isLoading: deletePostLoading }] = useDeletePostByIdMutation()
+
+    const [updateReq, { isLoading: isUpdateReqLoading }] = useUpdateBondReqMutation();
+    const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+
+    const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
+
+    const HandleChoiceChange = (value, type) => {
+        if (type === "comment") {
+            setCommentVisibility(value)
+        }
+        else {
+            setPostVisibility(value)
+        }
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -38,6 +68,80 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 setSaved(!saved)
             }
         }
+        else if (event === "delete") {
+            const res = await deletePost(postId)
+            if (res?.error) {
+                toast.error(res?.error?.data?.message || "Something went wrong");
+                return;
+            }
+            else if (res?.data) {
+                handleDelete(postId)
+                toast.success(res?.data?.message)
+            }
+            if (isDetails) {
+                handleDetailsClose()
+            }
+        }
+        else if (event === "edit") {
+            handleEdit()
+        }
+        else if (event === "view") {
+            setShowPermissionModal(true)
+            setPermission("view")
+        }
+        else if (event === "comment") {
+            setShowPermissionModal(true)
+            setPermission("comment")
+        }
+        else if (event === "friend") {
+            const bodyToSend = {
+                recipientId: id,
+            };
+            sendReq(bodyToSend).then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    return;
+                }
+                if (res) {
+                    toast.success("Your Request sent successfully");
+                    setFriend(!isFriend)
+                }
+            });
+        }
+        else if (event === "unfriend") {
+            const bodyToSend = {
+                otherUserId: id,
+                action: "unfriend",
+            };
+            updateReq(bodyToSend).then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    return;
+                }
+                if (res) {
+                    toast?.success(res?.data?.message)
+                    setFriend(!isFriend)
+                }
+            });
+        }
+        else if (event === "follow") {
+            follow(pageId).then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message);
+                    return;
+                }
+                if (res?.data) {
+                    toast.success(res?.data?.message);
+                    if (isFollowing) {
+                        setFollowerCount(followerCount - 1)
+                    }
+                    else {
+                        setFollowerCount(followerCount + 1)
+                    }
+                    setIsFollowing(!isFollowing)
+                }
+            });
+        }
         handleMenuClose()
     }
     return (
@@ -47,11 +151,11 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     src={userImage ? userImage : user}
                     alt="User"
                     sx={{ width: 60, height: 60, objectFit: "fill" }}
-                    onClick={() => navigate(`/profile/${id}`)}
+                    onClick={() => navigate(isPagePost ? () => { } : `/profile/${id}`)}
                 />
                 <Stack direction={"column"}>
-                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={() => navigate(`/profile/${id}`)}>{userName}</Typography>}
-                    {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userRole}</Typography>}
+                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={() => navigate(isPagePost ? () => { } : `/profile/${id}`)}>{userName}</Typography>}
+                    {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{isPagePost ? `${followerCount} ${followerCount > 1 ? "followers" : "follower"}` : userRole}</Typography>}
                     {userAddress && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userAddress}</Typography>}
                     <Box
                         sx={{
@@ -92,7 +196,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 handleBondClick(id);
             }} style={{ cursor: "pointer" }} />}
             {isLoading && <CircularProgress sx={{ color: "black" }} />}
-            {(isFriendPost || ownPost) && <img src={three_vertical_dots} alt="Icon" onClick={handleClick} />}
+            {(postId && (ownPost || isUserPost || isPagePost)) && <img src={three_vertical_dots} alt="Icon" onClick={handleClick} />}
             {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
             {
                 (isFriendPost && !ownPost) && <Box>
@@ -121,11 +225,78 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                 }}
             >
 
-                <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
-                    <img src={saved ? save : saveUnfilled} alt="Icon" />
-                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
-                </MenuItem>
+                {ownPost
+                    ?
+                    <>
+
+                        <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                        </MenuItem>
+                        {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                        </MenuItem> */}
+                        <MenuItem onClick={() => HandleMenuItemClicked("edit")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={editBlue} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("delete")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("comment")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={comment} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can comment on this post?</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() => HandleMenuItemClicked("view")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={primaryEye} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Who can see on this post?</Typography>
+                        </MenuItem>
+                    </>
+                    :
+                    isPagePost
+                        ?
+                        <>
+                            <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                                <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                                <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={isFollowLoading ? () => { } : () => HandleMenuItemClicked("follow")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                                <img src={isFollowing ? close : tick} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                                <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{`${isFollowing ? "Unfollow" : "Follow"} ${userName}`}</Typography>
+                            </MenuItem>
+                        </>
+                        :
+                        <>
+                            <MenuItem onClick={isSavingPostLoading ? () => { } : () => HandleMenuItemClicked("Save")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
+                                <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                                <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
+                            </MenuItem>
+                            {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                            <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                        </MenuItem> */}
+                            <MenuItem onClick={() => HandleMenuItemClicked(isFriend ? "unfriend" : "friend")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                                <img src={isFriend ? deleteBond : bondMain} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                                <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{isFriend ? `Unbond ${userName}` : `Bond ${userName}`}</Typography>
+                            </MenuItem>
+                        </>
+                }
             </Menu>
+
+
+            <DynamicModal
+                open={showPermissionModal}
+                handleClose={() => setShowPermissionModal(false)}
+                postModal={true}
+                hideFooter={true}
+                title={permission === "view" ? "Who can view this post?" : "Who can comment on this post?"}
+                description={permission === "comment" && "Existing comment will remain on post"}
+                smallModal={true}
+            >
+                <ViewAndCommentModal permission={permission} visibility={postVisibility} commentSettings={commentVisibility} handleClose={() => setShowPermissionModal(false)} onChange={HandleChoiceChange} id={postId} type={type} />
+            </DynamicModal>
         </Box>
     )
 }

@@ -1,6 +1,6 @@
 import { Avatar, Box, CircularProgress, colors, LinearProgress, Menu, MenuItem, Paper, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { camera, comment, emoji, like, pin, plus, postPicture, refresh, repost, send, three_vertical_dots, unlike, user } from "../assets/index.js"
+import { camera, comment, commentOff, emoji, like, pin, plus, postPicture, refresh, repost, send, three_vertical_dots, unlike, user } from "../assets/index.js"
 import OutlinedInput from './outline-input.jsx';
 import Comment from './Comment.jsx';
 import BondCard2 from './BondCard.jsx';
@@ -21,8 +21,9 @@ import { useSelector } from 'react-redux';
 import Button from './button.jsx';
 import { toast } from 'react-toastify';
 import ShowLikesModal from './ShowLikesModal.jsx';
+import EditModal from './EditModal.jsx';
 
-const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData, isSaved }) => {
+const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData, isSaved, postVisibility, commentVisibility, handlePostDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -44,6 +45,12 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
     const [likesUserData, setLikesUserData] = useState(allLikesData)
     const [showLikesModal, setShowLikesModal] = useState(false)
     const [totalComments, setTotalComments] = useState(comments)
+    const [showEditModal, setEditModal] = useState(false)
+    const [visibility, setVisibility] = useState(postVisibility);
+    const [commentSettings, setCommentSettings] = useState(commentVisibility)
+    const [editTitle, setEditTitle] = useState(postContent)
+
+    useEffect(() => setEditTitle(postContent), [postContent])
 
     const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, {
         skip: !postId,
@@ -217,19 +224,19 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
             {
                 type === "video"
                     ?
-                    <VideoPost userId={userId} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} />
+                    <VideoPost userId={userId} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userId={userId} pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} />
+                        <PollPost userId={userId} pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
                         :
                         type === "event"
                             ?
-                            <EventPost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} />
+                            <EventPost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} />
+                                <ArticlePost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} handleDelete={handlePostDelete} postVisibility={postVisibility} commentSetting={commentSettings} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -287,15 +294,15 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                             </Box>}
                                         </Box>
                                     }
-                                    {
+                                    {/* {
                                         (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                             <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>
                                                 {activity}
                                             </Typography>
                                             <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                                         </Box>
-                                    }
-                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} postId={id} isSaved={isSaved} />
+                                    } */}
+                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handlePostDelete} visibility={visibility} commentSetting={commentSettings} type={postPic?.length > 0 ? "IMAGE" : "TEXT"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
                                     {postContent &&
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>
@@ -398,34 +405,43 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
 
                                                     :
                                                     <>
-                                                        <Avatar
-                                                            src={userData?.profileImage ? userData.profileImage : user}
-                                                            alt="User"
-                                                            sx={{ width: 60, height: 60, objectFit: "fill" }}
-                                                        />
+                                                        {canComment ?
+                                                            <>
+                                                                <Avatar
+                                                                    src={userData?.profileImage ? userData.profileImage : user}
+                                                                    alt="User"
+                                                                    sx={{ width: 60, height: 60, objectFit: "fill" }}
+                                                                />
 
-                                                        <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
-                                                            <OutlinedInput sx={{
-                                                                height: "100%",
-                                                                width: "100%",
-                                                                "& .MuiOutlinedInput-root": {
-                                                                    border: "none !important",
-                                                                    height: "100%",
-                                                                },
-                                                                "& .MuiOutlinedInput-notchedOutline": {
-                                                                    border: "none !important",
-                                                                },
-                                                                p: "10px"
+                                                                <Box sx={{ border: "1px solid #DDE2E4", width: "100%", display: "flex", pr: "10px", minHeight: '60px', flexDirection: commentContent ? "column" : "row", pb: commentContent ? '10px' : "0px", rowGap: "13px" }}>
+                                                                    <OutlinedInput sx={{
+                                                                        height: "100%",
+                                                                        width: "100%",
+                                                                        "& .MuiOutlinedInput-root": {
+                                                                            border: "none !important",
+                                                                            height: "100%",
+                                                                        },
+                                                                        "& .MuiOutlinedInput-notchedOutline": {
+                                                                            border: "none !important",
+                                                                        },
+                                                                        p: "10px"
 
-                                                            }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={handleKeyDown} />
-                                                            <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
-                                                                <Box sx={{ display: "flex", columnGap: "10px" }}>
-                                                                    <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                                                    <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                                                    }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={handleKeyDown} />
+                                                                    <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
+                                                                        <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                                                            <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
+                                                                            <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
+                                                                        </Box>
+                                                                        {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
+                                                                    </Box>
                                                                 </Box>
-                                                                {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
+                                                            </>
+                                                            :
+                                                            <Box sx={{ backgroundColor: "#F2F8FD", p: "10px", display: "flex", columnGap: "5px", width: "100%" }}>
+                                                                <img src={commentOff} alt="Icon" />
+                                                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Comments are restricted on this post.</Typography>
                                                             </Box>
-                                                        </Box>
+                                                        }
                                                     </>
                                                 }
                                             </Box>
@@ -488,11 +504,17 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
             </ConfirmationModal>
 
             <PhotoDetailsModal open={showPostDetails} handleClose={() => setShowPostDetails(false)}>
-                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={totalComments} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} lastUserLiked={lastUserLiked} id={id} isLoading={isLoading} handleLike={LikeHandler} handleCommentCounter={() => setTotalComments(prev => prev + 1)} likesData={likesUserData} ownPost={ownPost} friendPost={isFriendPost} />
+                <PostDetails images={postPic} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={totalComments} friendLiked={true} friend={"Albert"} handleModalClose={() => setShowPostDetails(false)} lastUserLiked={lastUserLiked} id={id} isLoading={isLoading} handleLike={LikeHandler} handleCommentCounter={() => setTotalComments(prev => prev + 1)} likesData={likesUserData} ownPost={ownPost} friendPost={isFriendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} visibility={visibility} commentSetting={commentSettings} pageId={pageId} userId={userId} />
             </PhotoDetailsModal>
 
             <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
                 <ShowLikesModal allLikes={likesUserData} />
+            </DynamicModal>
+
+            <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
+                userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={visibility}
+                setVisibility={setVisibility} isEditModal={true}>
+                <EditModal type={"normal"} title={editTitle} id={id} normalPostData={{ images: postPic }} handleClose={() => setEditModal(false)} visibility={visibility} commentSetting={commentSettings} />
             </DynamicModal>
         </>
     )

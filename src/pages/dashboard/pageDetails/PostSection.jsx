@@ -213,10 +213,17 @@ const PostSection = ({ data }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: { xs: "column", md: "row" },
+        rowGap: "15px",
+      }}
+    >
       <Box
         sx={{
-          width: "25%",
+          width: { xs: "100%", md: "25%" },
           display: "flex",
           flexDirection: "column",
           rowGap: "10px",
@@ -267,13 +274,20 @@ const PostSection = ({ data }) => {
       </Box>
       <Box
         sx={{
-          width: "70%",
+          width: { xs: "100%", md: "70%" },
           display: "flex",
           flexDirection: "column",
           rowGap: "10px",
         }}
       >
-        <Box sx={{ display: "flex", columnGap: "10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            columnGap: "10px",
+            flexWrap: "wrap",
+            rowGap: "15px",
+          }}
+        >
           {["All", "Images", "Videos", "Articles", "Documents"]?.map(
             (item, index) => (
               <Box
@@ -309,9 +323,11 @@ const PostSection = ({ data }) => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexWrap: "wrap",
+            rowGap: "15px",
           }}
         >
-          <Box sx={{ width: "85%" }}>
+          <Box sx={{ width: { xs: "100%", md: "85%" } }}>
             <Divider />
           </Box>
           <Box sx={{ display: "flex", columnGap: "1px", alignItems: "center" }}>
