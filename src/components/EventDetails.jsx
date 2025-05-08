@@ -166,7 +166,7 @@ const EventDetails = () => {
         startTime: data?.data?.content?.startTime,
         endTime: data?.data?.content?.showEndTime && data?.data?.content?.endTime,
         eventName: data?.data?.content?.name,
-        eventMaker: data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
+        eventMaker: data?.data?.isPagePost ? data?.data?.page?.name : data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
         eventType: data?.data?.content?.eventType,
         eventLink: data?.data?.content?.externalLink,
         venue: data?.data?.content?.eventType === "Inperson" ? data?.data?.content?.venue : "",
@@ -224,7 +224,7 @@ const EventDetails = () => {
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <img src={user} alt="Avatar" style={{ width: "24px", height: "24px" }} />
                   <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>
-                    {postData?.authorId === userData?.id ?"1 attendee":"rotten ria is an attendee"}
+                    {postData?.authorId === userData?.id ? "1 attendee" : "rotten ria is an attendee"}
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
