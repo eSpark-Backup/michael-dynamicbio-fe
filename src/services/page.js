@@ -46,6 +46,12 @@ export const pageApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getPostsByPage: builder.query({
+      query: ({ pageId, page, pageSize }) => ({
+        url: `/post/page/${pageId}?page=${page}&pageSize=${pageSize}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -57,4 +63,5 @@ export const {
   useFollowPageMutation,
   useDeletePageMutation,
   useGetPageByIdQuery,
+  useGetPostsByPageQuery,
 } = pageApi;

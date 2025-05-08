@@ -81,15 +81,11 @@ const PageDetailsPage = () => {
   const tabs = [
     {
       label: "Home",
-      component: <></>,
+      component: <PostSection data={data?.data} />,
     },
     {
       label: "About",
       component: <AboutSection data={data?.data} />,
-    },
-    {
-      label: "Posts",
-      component: <PostSection data={data?.data} />,
     },
     {
       label: "People",
