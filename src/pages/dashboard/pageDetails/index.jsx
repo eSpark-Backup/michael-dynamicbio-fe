@@ -13,7 +13,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { close, dummyPhoto, bellActive, verticleDots } from "../../../assets";
@@ -78,21 +78,24 @@ const PageDetailsPage = () => {
     if (isError) toast.error(error?.data?.message);
   }, [isError]);
 
-  const tabs = [
-    {
-      label: "Home",
-      component: <PostSection data={data?.data} />,
-    },
-    {
-      label: "About",
-      component: <AboutSection data={data?.data} />,
-    },
-    {
-      label: "People",
-      component: <PeopleSection />,
-    },
-  ];
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const tabs = useMemo(() => {
+    return [
+      {
+        label: "Home",
+        component: <PostSection data={data?.data} />,
+      },
+      {
+        label: "About",
+        component: <AboutSection data={data?.data} />,
+      },
+      // {
+      //   label: "People",
+      //   component: <PeopleSection />,
+      // },
+    ];
+  }, [data?.data]);
+    const [activeTabLabel, setActiveTabLabel] = useState("Home");
+  const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
   const [bar, setBar] = useState(true);
 
   if (isLoading) {
@@ -452,7 +455,7 @@ const PageDetailsPage = () => {
                     }}
                     fontSize="14px"
                     fontWeight={500}
-                    onClick={() => setActiveTab(tab)}
+                    onClick={() => setActiveTabLabel(tab?.label)}
                     key={tab.label}
                   >
                     {tab.label}

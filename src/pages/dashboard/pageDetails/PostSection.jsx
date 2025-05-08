@@ -86,12 +86,6 @@ const PostSection = ({ data }) => {
     }
   }, [data, isSuccess, page]);
 
-  useEffect(() => {
-    setPosts([]);
-    setPage(1);
-    setHasMore(true);
-  }, [id]);
-
   const transformPosts = (posts) => {
     return posts?.map((item) => {
       const isOwnPost = item?.author?.id === userData?.id;
@@ -112,7 +106,7 @@ const PostSection = ({ data }) => {
       if (isuserLiked && isOnlyUserLiked) {
         lastLike = "";
       } else if (!isuserLiked) {
-        lastLike = item?.lastLikedUser;
+        lastLike = `${item?.lastLikedUser?.user?.firstName} ${item?.lastLikedUser?.user?.lastNaen}`;
       } else if (Array.isArray(item?.likes)) {
         const newItem = item?.likes?.find(
           (item2) =>
