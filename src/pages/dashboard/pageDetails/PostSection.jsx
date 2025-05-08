@@ -14,8 +14,8 @@ const PostSection = () => {
         setAnchorEl(event.currentTarget);
     };
     return (
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ width: "25%", display: "flex", flexDirection: "column", rowGap: "10px" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
+            <Box sx={{ width: { xs: "100%", md: "25%" }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
                 <Paper sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
                 </Paper>
@@ -28,8 +28,8 @@ const PostSection = () => {
                     </Typography>
                 </Paper>
             </Box>
-            <Box sx={{ width: "70%", display: "flex", flexDirection: "column", rowGap: "10px" }}>
-                <Box sx={{ display: "flex", columnGap: "10px" }}>
+            <Box sx={{ width: { xs: "100%", md: "70%" }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
+                <Box sx={{ display: "flex", columnGap: "10px", flexWrap: "wrap", rowGap: "15px" }}>
                     {["All", "Images", "Videos", "Articles", "Documents"]?.map((item, index) => (
                         <Box sx={{ p: ".8rem 1.2rem", width: "fit-content", background: activeItem === item ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%), linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04))" : "transparent", border: activeItem === item ? "none" : "1px solid #E4E4E4", borderRadius: "1.9rem", cursor: "pointer" }} key={index} onClick={() => setActiveItem(item)}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: activeItem === item ? "#fff" : "#505050" }}>{item}</Typography>
@@ -37,8 +37,8 @@ const PostSection = () => {
                     ))}
 
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Box sx={{ width: "85%" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "15px" }}>
+                    <Box sx={{ width: { xs: "100%", md: "85%" } }}>
                         <Divider />
                     </Box>
                     <Box sx={{ display: "flex", columnGap: "1px", alignItems: "center" }}>

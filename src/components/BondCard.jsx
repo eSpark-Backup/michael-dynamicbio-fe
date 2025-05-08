@@ -151,10 +151,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     src={userImage ? userImage : user}
                     alt="User"
                     sx={{ width: 60, height: 60, objectFit: "fill" }}
-                    onClick={() => navigate(isPagePost ? `/page/${pageId}` : `/profile/${id}`)}
+                    onClick={() => navigate(isPagePost ? () => { } : `/profile/${id}`)}
                 />
                 <Stack direction={"column"}>
-                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={() => navigate(isPagePost ? `/page/${pageId}` : `/profile/${id}`)}>{userName}</Typography>}
+                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={() => navigate(isPagePost ? () => { } : `/profile/${id}`)}>{userName}</Typography>}
                     {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{isPagePost ? `${followerCount} ${followerCount > 1 ? "followers" : "follower"}` : userRole}</Typography>}
                     {userAddress && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userAddress}</Typography>}
                     <Box
