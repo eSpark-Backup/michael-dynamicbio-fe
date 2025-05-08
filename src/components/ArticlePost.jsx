@@ -18,7 +18,7 @@ import Button from './button'
 import { Link, useNavigate } from 'react-router-dom'
 import ShowLikesModal from './ShowLikesModal'
 
-const ArticlePost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, handleDelete, commentSetting, postVisibility, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
+const ArticlePost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, postContent, id, articleImage, articleTitle, articleDescription, isFriendPost, ownPost, lastUserLiked, handleLike, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, handleDelete, commentSetting, postVisibility, canComment, isPagePost, isUserPost, isPageFollowing, pageId, shareableLink }) => {
 
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
@@ -193,7 +193,7 @@ const ArticlePost = ({ userId, userName, userRole, postTime, userImage, numberof
                     </Box>}
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => navigate(`/article/edit/${id}`)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"ARTICLE"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon showActionIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => navigate(`/article/edit/${id}`)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"ARTICLE"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} shareableLink={shareableLink} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

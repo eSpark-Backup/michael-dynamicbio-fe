@@ -39,6 +39,7 @@ import {
   GeneralPage,
   GeneralArticle,
   GeneralEvent,
+  GeneralPost,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -110,6 +111,10 @@ const App = () => {
         <Route path="/:type/:name/share" element={<GeneralPage />} />
         <Route path="/general/article" element={<GeneralArticle />} />
         <Route path="/general/event" element={<GeneralEvent />} />
+        <Route path="/general/text" element={<GeneralPost />} />
+        <Route path="/general/image" element={<GeneralPost />} />
+        <Route path="/general/video" element={<GeneralPost />} />
+        <Route path="/general/poll" element={<GeneralPost />} />
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/bonds" element={<Bonds />} />

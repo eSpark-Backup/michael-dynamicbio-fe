@@ -19,7 +19,7 @@ import Button from './button'
 import ShowLikesModal from './ShowLikesModal'
 import EditModal from './EditModal'
 
-const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
+const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, commentsContent, friend, friendLiked, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, postContent, id, isFriendPost, ownPost, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId, shareableLink }) => {
     const navigate = useNavigate()
 
     const [showComments, setShowComments] = useState(false)
@@ -197,7 +197,7 @@ const EventPost = ({ userId, userName, userRole, postTime, userImage, numberofLi
                     </Box>}
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"EVENT"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"EVENT"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} shareableLink={shareableLink} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>

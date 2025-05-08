@@ -45,6 +45,38 @@ const GeneralPage = () => {
                     navigate(`/general/event?data=${encodedData}`)
                 }
             }
+            else if (getGeneralData?.data?.type === "TEXT") {
+                if (token) {
+                    navigate(`/post/${getGeneralData?.data?.id}`)
+                }
+                else {
+                    navigate(`/general/text?data=${encodedData}`)
+                }
+            }
+            else if (getGeneralData?.data?.type === "IMAGE") {
+                if (token) {
+                    navigate(`/post/${getGeneralData?.data?.id}`)
+                }
+                else {
+                    navigate(`/general/image?data=${encodedData}`)
+                }
+            }
+            else if (getGeneralData?.data?.type === "VIDEO") {
+                if (token) {
+                    navigate(`/post/${getGeneralData?.data?.id}`)
+                }
+                else {
+                    navigate(`/general/video?data=${encodedData}`)
+                }
+            }
+            else if (getGeneralData?.data?.type === "POLL") {
+                if (token) {
+                    navigate(`/post/${getGeneralData?.data?.id}`)
+                }
+                else {
+                    navigate(`/general/poll?data=${encodedData}`)
+                }
+            }
         }
     }, [getGeneralData, getGeneralSuccess]);
 
