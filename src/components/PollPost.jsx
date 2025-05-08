@@ -16,6 +16,7 @@ import BondCard2 from "./BondCard";
 import {
   camera,
   comment,
+  commentOff,
   emoji,
   like,
   pin,
@@ -47,6 +48,7 @@ import {
   useRemovePollMutation,
 } from "../services/post";
 import ShowLikesModal from "./ShowLikesModal";
+import EditModal from "./EditModal";
 
 const PollPost = ({
   userId,
@@ -77,7 +79,15 @@ const PollPost = ({
   pinned,
   isAdminPost,
   likesData,
-  isSaved
+  isSaved,
+  postVisibility,
+  commentSetting,
+  handleDelete,
+  canComment,
+  isPagePost,
+  isUserPost,
+  isPageFollowing,
+  pageId
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -104,6 +114,11 @@ const PollPost = ({
   const [postComments, setPostComments] = useState([]);
   const [totalComments, setTotalComments] = useState(comments)
   const [showLikesModal, setShowLikesModal] = useState(false)
+  const [showEditModal, setEditModal] = useState(false)
+  const [visibility, setVisibility] = useState(postVisibility);
+  const [editTitle, setEditTitle] = useState(postContent)
+
+  useEffect(() => setEditTitle(postContent), [postContent])
 
   const [
     commentData,
@@ -420,6 +435,15 @@ const PollPost = ({
         groupPost={isGroupPost}
         postId={id}
         isSaved={isSaved}
+        handleEdit={() => setEditModal(true)}
+        handleDelete={handleDelete}
+        visibility={postVisibility}
+        commentSetting={commentSetting}
+        type={"POLL"}
+        isPagePost={isPagePost}
+        isUserPost={isUserPost}
+        isPageFollowing={isPageFollowing}
+        pageId={pageId}
       />
       {postContent && (
         <Typography
@@ -839,74 +863,80 @@ const PollPost = ({
               </Box>
             ) : (
               <>
-                <Avatar
-                  src={userData?.profileImage ? userData.profileImage : user}
-                  alt="User"
-                  sx={{ width: 60, height: 60, objectFit: "fill" }}
-                />
-
-                <Box
-                  sx={{
-                    border: "1px solid #DDE2E4",
-                    width: "100%",
-                    display: "flex",
-                    pr: "10px",
-                    minHeight: "60px",
-                    flexDirection: commentContent ? "column" : "row",
-                    pb: commentContent ? "10px" : "0px",
-                    rowGap: "13px",
-                  }}
-                >
-                  <OutlinedInput
-                    sx={{
-                      height: "100%",
-                      width: "100%",
-                      "& .MuiOutlinedInput-root": {
-                        border: "none !important",
-                        height: "100%",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        border: "none !important",
-                      },
-                      p: "10px",
-                    }}
-                    placeholder={"Add a comment"}
-                    onInputChange={(e) => setCommentContent(e.target.value)}
-                    value={commentContent}
-                    multiline={true}
-                    onKeyDown={HandleKeyDown}
+                {canComment ? <>
+                  <Avatar
+                    src={userData?.profileImage ? userData.profileImage : user}
+                    alt="User"
+                    sx={{ width: 60, height: 60, objectFit: "fill" }}
                   />
+
                   <Box
                     sx={{
+                      border: "1px solid #DDE2E4",
+                      width: "100%",
                       display: "flex",
-                      alignItems: "center",
-                      pl: "10px",
-                      justifyContent: "space-between",
+                      pr: "10px",
+                      minHeight: "60px",
+                      flexDirection: commentContent ? "column" : "row",
+                      pb: commentContent ? "10px" : "0px",
+                      rowGap: "13px",
                     }}
                   >
-                    <Box sx={{ display: "flex", columnGap: "10px" }}>
-                      <img
-                        src={emoji}
-                        alt="Emoji"
-                        style={{ width: "24px", height: "24px" }}
-                      />
-                      <img
-                        src={camera}
-                        alt="Camera"
-                        style={{ width: "24px", height: "24px" }}
-                      />
+                    <OutlinedInput
+                      sx={{
+                        height: "100%",
+                        width: "100%",
+                        "& .MuiOutlinedInput-root": {
+                          border: "none !important",
+                          height: "100%",
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          border: "none !important",
+                        },
+                        p: "10px",
+                      }}
+                      placeholder={"Add a comment"}
+                      onInputChange={(e) => setCommentContent(e.target.value)}
+                      value={commentContent}
+                      multiline={true}
+                      onKeyDown={HandleKeyDown}
+                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        pl: "10px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box sx={{ display: "flex", columnGap: "10px" }}>
+                        <img
+                          src={emoji}
+                          alt="Emoji"
+                          style={{ width: "24px", height: "24px" }}
+                        />
+                        <img
+                          src={camera}
+                          alt="Camera"
+                          style={{ width: "24px", height: "24px" }}
+                        />
+                      </Box>
+                      {commentContent && (
+                        <Button
+                          loading={postCommentLoading}
+                          onClick={() => HandleComment(id)}
+                          sx={{ width: "150px", height: "36px", color: "white" }}
+                        >
+                          Comment
+                        </Button>
+                      )}
                     </Box>
-                    {commentContent && (
-                      <Button
-                        loading={postCommentLoading}
-                        onClick={() => HandleComment(id)}
-                        sx={{ width: "150px", height: "36px", color: "white" }}
-                      >
-                        Comment
-                      </Button>
-                    )}
                   </Box>
-                </Box>
+                </> :
+                  <Box sx={{ backgroundColor: "#F2F8FD", p: "10px", display: "flex", columnGap: "5px", width: "100%" }}>
+                    <img src={commentOff} alt="Icon" />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Comments are restricted on this post.</Typography>
+                  </Box>}
               </>
             )}
           </Box>
@@ -1050,6 +1080,12 @@ const PollPost = ({
 
       <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
         <ShowLikesModal allLikes={likesData} />
+      </DynamicModal>
+
+      <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
+        userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={visibility}
+        setVisibility={setVisibility} isEditModal={true}>
+        <EditModal type={"poll"} title={editTitle} id={id} pollData={{ question, options, numberOfVotes: totalVoteCount, endDate }} handleClose={() => setEditModal(false)} visibility={visibility} commentSetting={commentSetting} />
       </DynamicModal>
     </Paper>
   );

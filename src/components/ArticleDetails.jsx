@@ -16,6 +16,7 @@ import { useCommentMutation, useGetPostCommentsQuery, useLikeMutation } from '..
 import Comment from './Comment'
 import { toast } from 'react-toastify'
 import { useSendBondReqMutation, useUpdateBondReqMutation } from '../services/bonds'
+import { useFollowPageMutation } from '../services/page'
 
 const ArticleDetails = () => {
     const [showComments, setShowComments] = useState(false)
@@ -32,10 +33,12 @@ const ArticleDetails = () => {
     const [commentContent, setCommentContent] = useState("")
 
 
+
     const [likeData, { data: likeDataReceived, isSuccess: isLikeSucess, isError: isLikeError, error: likeError, isLoading: isLikeloading }] = useLikeMutation()
 
     const [updateReq, { isLoading: isUpdateReqLoading }] = useUpdateBondReqMutation();
     const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+    const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
 
 
     useEffect(() => {
@@ -54,7 +57,9 @@ const ArticleDetails = () => {
         postId: null,
         isSaved: null,
         bondId: null,
-        isFriend: null
+        isFriend: null,
+        isFollowed: null,
+        pageId: null
     })
 
     const [postComments, setPostComments] = useState([])
@@ -112,16 +117,18 @@ const ArticleDetails = () => {
                 ...prev,
                 articleImage: data?.data?.media["ARTICLES"][0]?.url,
                 articleTitle: data?.data?.content?.articleTitle,
-                articleMaker: data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
-                articleMakerRole: data?.data?.author?.company,
+                articleMaker: data?.data?.isPagePost ? data?.data?.page?.name : data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
+                articleMakerRole: data?.data?.isPagePost ? data?.data?.pageFollowerCount : data?.data?.author?.company,
                 time: dayjs(data?.data?.createdAt).format("LL"),
                 content: data?.data?.content?.content,
-                articleMakerImage: data?.data?.author?.profileImage,
+                articleMakerImage: data?.data?.isPagePost ? data?.data?.page?.logoUrl : data?.data?.author?.profileImage,
                 authorId: data?.data?.author?.id,
                 postId: data?.data?.id,
                 isSaved: data?.data?.isSaved,
                 bondId: data?.data?.bondId,
-                isFriend: data?.data?.bondId ? true : false
+                isFriend: data?.data?.bondId ? true : false,
+                isFollowed: data?.data?.isPageFollowing,
+                pageId: data?.data?.page?.id
             }))
             const isPostLiked = data?.data?.likes?.some((item) => item?.user?.id === userData?.id)
             if (isPostLiked) {
@@ -229,6 +236,23 @@ const ArticleDetails = () => {
         });
     }
 
+    const FollowHandler = () => {
+        follow(articleContent?.pageId).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res?.data) {
+                toast.success(res?.data?.message);
+                setArticleContent((prev) => ({
+                    ...prev,
+                    articleMakerRole: prev?.isFollowed ? prev?.articleMakerRole - 1 : prev?.articleMakerRole + 1,
+                    isFollowed: !prev?.isFollowed
+                }))
+            }
+        });
+    }
+
 
     if (isLoading) {
         return (
@@ -277,7 +301,9 @@ const ArticleDetails = () => {
                                             <img src={articleContent?.articleMakerImage ? articleContent?.articleMakerImage : user} alt="Avatar" style={{ width: "42px", height: '42px', borderRadius: "50%" }} />
                                             <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
                                                 <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>{articleContent?.articleMaker}</Typography>
-                                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>{articleContent?.articleMakerRole}</Typography>
+                                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>
+                                                    {typeof (articleContent?.articleMakerRole) === "string" ? articleContent?.articleMakerRole : `${articleContent?.articleMakerRole} ${articleContent?.articleMakerRole > 1 ? "followers" : "follower"}`}
+                                                </Typography>
                                             </Box>
                                         </Box>
                                         <Box sx={{ display: "flex", columnGap: "15px" }}>
@@ -300,8 +326,12 @@ const ArticleDetails = () => {
                                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", rowGap: "10px" }}>
                                     <img src={articleContent?.articleMakerImage ? articleContent?.articleMakerImage : user} alt="Avatar" style={{ width: "42px", height: '42px', borderRadius: "50%" }} />
                                     <Typography sx={{ textAlign: "center" }}>{articleContent?.articleMaker}</Typography>
-                                    <Typography sx={{ textAlign: "center" }}>{articleContent?.articleMakerRole}</Typography>
-                                    {articleContent?.authorId !== userData?.id && <Button sx={{ width: "150px", height: "36px" }} onClick={articleContent?.isFriend ? BondHandler : SendRequestHandler} loading={isUpdateReqLoading || isReqLoading}>{articleContent?.isFriend ? "Unbond" : "Bond"}</Button>}
+                                    <Typography sx={{ textAlign: "center" }}>
+                                        {typeof (articleContent?.articleMakerRole) === "string" ? articleContent?.articleMakerRole : `${articleContent?.articleMakerRole} ${articleContent?.articleMakerRole > 1 ? "followers" : "follower"}`}
+                                    </Typography>
+                                    {(articleContent?.authorId !== userData?.id && !data?.data?.isPagePost) && <Button sx={{ width: "150px", height: "36px" }} onClick={articleContent?.isFriend ? BondHandler : SendRequestHandler} loading={isUpdateReqLoading || isReqLoading}>{articleContent?.isFriend ? "Unbond" : "Bond"}</Button>}
+
+                                    {(articleContent?.authorId !== userData?.id && data?.data?.isPagePost) && <Button sx={{ width: "150px", height: "36px" }} onClick={FollowHandler} loading={isFollowLoading}>{articleContent?.isFollowed ? "Unfollow" : "Follow"}</Button>}
                                 </Box>
                             </Box>
                             <Box sx={{ pt: "35px", display: "flex", flexDirection: "column", rowGap: "15px" }}>

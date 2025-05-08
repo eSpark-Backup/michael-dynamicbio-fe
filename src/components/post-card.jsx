@@ -15,6 +15,7 @@ import PollModal from "./PollModal";
 import { useNewPostMutation } from "../services/post";
 import { article, event, photo, user, video } from "../assets";
 import { addDays } from "../utils";
+import ViewPollPost from "./ViewPollPost";
 
 const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) => {
   const [newPost, { isLoading }] = useNewPostMutation();
@@ -40,6 +41,8 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
     date: null,
     time: null,
   });
+  const [viewPollModal, setViewPollModal] = useState(false)
+  const [pollValues, setPollValues] = useState({})
 
   const handleThumbnailUpload = (file) => {
     setVideoData((prev) => ({
@@ -74,6 +77,8 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
           setPollModal(false);
           setViewEventModal(false);
           setEventFormValues({});
+          setViewPollModal(false)
+          setPollValues({})
         }
       });
     }
@@ -127,27 +132,34 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
     if (hasDuplicate(options)) {
       toast.error("Duplicate options are not allowed");
       return;
-    } else {
-      const obj = {
-        content: {
-          ...(schedule.date && schedule.time ? { schedule } : {}),
-        },
-        poll: {
-          question: values?.question,
-          options,
-          endDate: addDays(values?.duration),
-          allowMultipleVotes: false,
-          showResults: true,
-          isAnonymous: false,
-          allowAddOptions: false,
-        },
-        status: "PUBLISH",
-        visibility,
-        type: "POLL",
-      };
-      handlePost(obj);
+    }
+    else {
+      setViewPollModal(true)
+      setPollValues({ question: values.question, options, endDate: values?.duration })
     }
   };
+
+  const HandleFinalPollPost = () => {
+    const obj = {
+      content: {
+        ...(schedule.date && schedule.time ? { schedule } : {}),
+        title
+      },
+      poll: {
+        question: pollValues?.question,
+        options: pollValues?.options,
+        endDate: addDays(pollValues?.endDate),
+        allowMultipleVotes: false,
+        showResults: true,
+        isAnonymous: false,
+        allowAddOptions: false,
+      },
+      status: "PUBLISH",
+      visibility,
+      type: "POLL",
+    };
+    handlePost(obj);
+  }
 
   const handleEventPost = () => {
     const { selectedFile, ...rest } = eventFormValues;
@@ -245,6 +257,12 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
     setViewEventModal(false);
     setEventFormValues({});
   };
+
+  const HandleViewPollClose = () => {
+    setViewPollModal(false)
+    setPollModal(false)
+    setPollValues({})
+  }
 
   const { user: userData } = useSelector((state) => state.auth);
 
@@ -551,6 +569,32 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         handleDropdown={handleDropDown}
       >
         <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
+      </DynamicModal>
+
+      <DynamicModal
+        open={viewPollModal}
+        handleClose={HandleViewPollClose}
+        postModal={true}
+        userData={userData}
+        userName={`${userData?.firstName} ${userData?.lastName}`}
+        dropdownHeader={true}
+        hideFooter={true}
+        handleGroupClick={() => setGroupShareModal(true)}
+        visibility={visibility}
+        setVisibility={setVisibility}
+        groupAdmin={groupAdmin}
+        adminPage={adminPage}
+        handleDropdown={handleDropDown}
+      >
+        <ViewPollPost
+          values={pollValues}
+          numberOfVotes={0}
+          handleScheduleClick={() => setShowScheduleModal(true)}
+          title={title}
+          setTitle={setTitle}
+          onSuccess={HandleFinalPollPost}
+          isLoading={isLoading}
+        />
       </DynamicModal>
     </Box>
   );

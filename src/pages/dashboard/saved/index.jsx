@@ -134,9 +134,9 @@ const SavedPosts = () => {
             }
 
             return {
-                userImage: post?.author?.profileImage,
-                userName: `${post?.author?.firstName} ${post?.author?.lastName}`,
-                role: !post?.author?.about?.bio ? post?.author?.designation : post?.author?.about?.bio,
+                userImage: post?.isPagePost ? post?.page?.logoUrl : post?.author?.profileImage,
+                userName: post?.isPagePost ? post?.page?.name : `${post?.author?.firstName} ${post?.author?.lastName}`,
+                role: post?.isPagePost ? post?.pageFollowerCount : !post?.author?.about?.bio ? post?.author?.designation : post?.author?.about?.bio,
                 time: dayjs(post?.createdAt).fromNow(),
                 type: getPostType(post?.type),
                 text: post?.content?.title,
@@ -163,8 +163,6 @@ const SavedPosts = () => {
         };
         return typeMap[type] || "";
     };
-
-    useEffect(() => { console.log(isLoading) }, [isLoading])
 
     if (isLoading) {
         return (

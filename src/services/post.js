@@ -71,15 +71,27 @@ export const postApi = api.injectEndpoints({
     editPost: builder.mutation({
       query: (credentials) => {
         const formData = new FormData();
+        if (credentials?.edit) {
+          formData.append("edit", credentials.edit);
+        }
 
-        formData.append("content", JSON.stringify(credentials.content));
+        if (credentials?.content) {
+          formData.append("content", JSON.stringify(credentials.content));
+        }
         formData.append("status", credentials.status);
-        formData.append("visibility", credentials.visibility);
-        formData.append("type", credentials.type);
-
-        if (typeof credentials.cover !== "string" && credentials.cover) {
+        if (credentials?.visibility) {
+          formData.append("visibility", credentials.visibility);
+        }
+        if (credentials?.commentVisibility) {
+          formData.append("commentVisibility", credentials.commentVisibility);
+        }
+        if (credentials?.type) {
+          formData.append("type", credentials.type);
+        }
+        if (!credentials?.edit && typeof credentials.cover !== "string" && credentials.cover) {
           formData.append("cover", credentials.cover);
         }
+
 
         return {
           url: `/post/${credentials?.id}`,
@@ -88,6 +100,7 @@ export const postApi = api.injectEndpoints({
           credentials: "include",
         };
       },
+      invalidatesTags: ['post'],
     }),
     interactPoll: builder.mutation({
       query: ({ id, credentials }) => ({
@@ -122,7 +135,15 @@ export const postApi = api.injectEndpoints({
           pageSize: limit
         }
       })
-    })
+    }),
+    deletePostById: builder.mutation({
+      query: (id) => ({
+        url: `/post/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ['post'],
+    }),
   }),
 });
 
@@ -134,5 +155,6 @@ export const {
   useInteractPollMutation,
   useRemovePollMutation,
   useSavePostMutation,
-  useGetSavedPostsQuery
+  useGetSavedPostsQuery,
+  useDeletePostByIdMutation
 } = postApi;

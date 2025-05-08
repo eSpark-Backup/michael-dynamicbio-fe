@@ -15,8 +15,9 @@ import { useSelector } from 'react-redux'
 import Button from './button'
 import { toast } from 'react-toastify'
 import ShowLikesModal from './ShowLikesModal'
+import EditModal from './EditModal'
 
-const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved }) => {
+const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved, isUserPost, isPagePost, isPageFollowing, visibility, commentSetting, pageId, userId }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -33,7 +34,10 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
     const { user: userData } = useSelector((state) => state.auth);
     const [totalComments, setTotalComments] = useState(comments)
     const [showLikesModal, setShowLikesModal] = useState(false)
-
+    const [showEditModal, setEditModal] = useState(false)
+    const [postVisibility, setPostVisibility] = useState(visibility);
+    const [commentSettings, setCommentSettings] = useState(commentSetting)
+    const [editTitle, setEditTitle] = useState(postContent)
 
     const { data: getCommentsData, isSuccess: getCommentsSuccess, isError: isGetCommentsError, error: getCommentsError, isLoading: isGetCommentsLoading, refetch } = useGetPostCommentsQuery(postId, {
         skip: !postId,
@@ -188,7 +192,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                         </Box>
                     </Box>
-                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} />
+                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isDetails={true} handleDetailsClose={handleModalClose} visibility={visibility} commentSetting={commentSetting} type={"IMAGE"} pageId={pageId} handleEdit={() => setEditModal(true)} id={userId} />
                     {postContent &&
                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                         </Typography>
@@ -344,6 +348,12 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
 
                 <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
                     <ShowLikesModal allLikes={likesData} />
+                </DynamicModal>
+
+                <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
+                    userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={postVisibility}
+                    setVisibility={setPostVisibility} isEditModal={true}>
+                    <EditModal type={"normal"} title={editTitle} id={id} normalPostData={{ images }} handleClose={() => setEditModal(false)} visibility={postVisibility} commentSetting={commentSettings} />
                 </DynamicModal>
             </Box>
         </>
