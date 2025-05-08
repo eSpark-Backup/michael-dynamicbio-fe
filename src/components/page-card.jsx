@@ -48,6 +48,7 @@ const PageCard = ({
         <Box
           onClick={() => navigate(`/page/${id}`)}
           sx={{
+            width: "calc(100% - 20px)",
             cursor: "pointer",
             display: "flex",
             columnGap: "20px",
@@ -60,7 +61,7 @@ const PageCard = ({
             src={logoUrl || userAvatar}
             alt="User"
           />
-          <Stack direction={"column"}>
+          <Stack sx={{ width: "calc(100% - 100px)" }} direction={"column"}>
             <Typography
               sx={{
                 fontSize: "18px",
@@ -68,6 +69,9 @@ const PageCard = ({
                 color: "#171717",
                 textAlign: { xs: "center", sm: "left" },
                 cursor: "pointer",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
               }}
               onClick={() =>
                 navigate(type === "my-groups" ? `/group/${id}` : `/page/${id}`)
