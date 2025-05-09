@@ -396,8 +396,8 @@ const ArticlePost = ({ userId, userName, userRole, postTime, userImage, numberof
             </ConfirmationModal>
 
 
-            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={"Share Areeba Shakeel’s Post"} postModal={true} dropdownHeader={false} hideFooter={true}>
-                <ShareModal />
+            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={`Share ${userName} Post`} postModal={true} dropdownHeader={false} hideFooter={true}>
+                <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
             </DynamicModal>
 
             <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>

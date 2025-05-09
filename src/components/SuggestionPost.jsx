@@ -385,10 +385,10 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                             <img src={repost} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
                                         </Box>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}>
+                                        {visibility === "PUBLIC" && <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}>
                                             <img src={send} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Share</Typography>
-                                        </Box>
+                                        </Box>}
                                     </Box>
                                     {
                                         showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
@@ -466,8 +466,8 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
             }
 
 
-            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={"Share Areeba Shakeel’s Post"} postModal={true} dropdownHeader={false} hideFooter={true}>
-                <ShareModal />
+            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={`Share ${userName} Post`} postModal={true} dropdownHeader={false} hideFooter={true}>
+                <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
             </DynamicModal>
 
             <Menu

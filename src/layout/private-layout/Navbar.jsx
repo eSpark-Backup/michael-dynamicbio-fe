@@ -290,6 +290,7 @@ const Navbar = () => {
                 sx={{ width: "280px" }}
                 placeholder="Search"
                 startAdornment={searchIcon}
+                disabled={!token}
               />
             </Box>
             <Box

@@ -241,10 +241,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                             <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
                         </MenuItem>
-                        <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                        {postVisibility === "PUBLIC" && <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
                             <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
-                        </MenuItem>
+                        </MenuItem>}
                         <MenuItem onClick={() => HandleMenuItemClicked("edit")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
                             <img src={editBlue} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
@@ -270,10 +270,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                                 <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            {postVisibility === "PUBLIC" && <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
                                 <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
-                            </MenuItem>
+                            </MenuItem>}
                             <MenuItem onClick={isFollowLoading ? () => { } : () => HandleMenuItemClicked("follow")} sx={{ width: "245px", display: "flex", columnGap: "5px" }}>
                                 <img src={isFollowing ? close : tick} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{`${isFollowing ? "Unfollow" : "Follow"} ${userName}`}</Typography>
@@ -285,10 +285,10 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                                 <img src={saved ? save : saveUnfilled} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{saved ? "Unsave" : "Save"}</Typography>
                             </MenuItem>
-                            <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                            {postVisibility === "PUBLIC" && <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
                                 <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
-                            </MenuItem>
+                            </MenuItem>}
                             <MenuItem onClick={() => HandleMenuItemClicked(isFriend ? "unfriend" : "friend")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
                                 <img src={isFriend ? deleteBond : bondMain} alt="Icon" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{isFriend ? `Unbond ${userName}` : `Bond ${userName}`}</Typography>
