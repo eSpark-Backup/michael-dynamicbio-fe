@@ -210,7 +210,7 @@ export function convertToFormData(data) {
     const isEmpty =
       value === undefined ||
       value === null ||
-      (typeof value === 'string' && value.trim() === '') ||
+      (typeof value === "string" && value.trim() === "") ||
       (Array.isArray(value) && value.length === 0);
 
     if (!isEmpty) {
@@ -219,6 +219,11 @@ export function convertToFormData(data) {
   });
 
   return formData;
+}
+
+export function toCapitalized(str) {
+  const lower = str?.toLowerCase();
+  return str ? lower.charAt(0).toUpperCase() + lower.slice(1) : null;
 }
 
 
