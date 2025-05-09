@@ -17,7 +17,7 @@ import { toast } from 'react-toastify'
 import ShowLikesModal from './ShowLikesModal'
 import EditModal from './EditModal'
 
-const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved, isUserPost, isPagePost, isPageFollowing, visibility, commentSetting, pageId, userId }) => {
+const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved, isUserPost, isPagePost, isPageFollowing, visibility, commentSetting, pageId, userId, isGeneralPost, shareableLink }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -159,6 +159,10 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
         }
     }
 
+    const ALertHandler = () => {
+        toast.warning("Please login for actions")
+    }
+
     return (
         <>
             <Box sx={{ display: { xs: "flex", md: "none" }, justifyContent: "space-between", alignItems: "center" }}>
@@ -192,7 +196,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                         </Box>
                     </Box>
-                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isDetails={true} handleDetailsClose={handleModalClose} visibility={visibility} commentSetting={commentSetting} type={"IMAGE"} pageId={pageId} handleEdit={() => setEditModal(true)} id={userId} />
+                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isDetails={true} handleDetailsClose={handleModalClose} visibility={visibility} commentSetting={commentSetting} type={"IMAGE"} pageId={pageId} handleEdit={() => setEditModal(true)} id={userId} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
                     {postContent &&
                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                         </Typography>
@@ -201,7 +205,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                         <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}>
                             {numberofLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
-                                onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+                                onClick={isGeneralPost ? ALertHandler : (numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
                             >
                                 {numberofLikes === 0 ? (
                                     "Be first to like this"
@@ -223,19 +227,19 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                         </Box>
                     </Box>
                     <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => handleLike(id)}>
+                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : isLoading ? () => { } : () => handleLike(id)}>
                             <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
                         </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
+                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : () => CommentHandler(id)}>
                             <img src={comment} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Comment</Typography>
                         </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
+                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : handleClick}>
                             <img src={repost} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Repost</Typography>
                         </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
+                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : () => setShowShareModal(true)}>
                             <img src={send} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Share</Typography>
                         </Box>
