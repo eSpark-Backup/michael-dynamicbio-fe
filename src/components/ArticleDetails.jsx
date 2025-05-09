@@ -59,7 +59,9 @@ const ArticleDetails = () => {
         bondId: null,
         isFriend: null,
         isFollowed: null,
-        pageId: null
+        pageId: null,
+        shareableLink: null,
+        visibility: null
     })
 
     const [postComments, setPostComments] = useState([])
@@ -128,7 +130,9 @@ const ArticleDetails = () => {
                 bondId: data?.data?.bondId,
                 isFriend: data?.data?.bondId ? true : false,
                 isFollowed: data?.data?.isPageFollowing,
-                pageId: data?.data?.page?.id
+                pageId: data?.data?.page?.id,
+                shareableLink: data?.data?.shareableLink,
+                visibility: data?.data?.visibility
             }))
             const isPostLiked = data?.data?.likes?.some((item) => item?.user?.id === userData?.id)
             if (isPostLiked) {
@@ -368,10 +372,10 @@ const ArticleDetails = () => {
                                 <img src={repost} alt="Repost" />
                                 <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
                             </Box> */}
-                            <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "25%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
+                            {articleContent?.visibility === "PUBLIC" && <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "25%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
                                 <img src={send} alt="Repost" />
                                 <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none" }, color: "#505050", "@media (min-width:1750px)": { display: "block" } }}>Send</Typography>
-                            </Box>
+                            </Box>}
                         </Box>
                         {
                             showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px", mt: "25px" }}>
@@ -485,8 +489,8 @@ const ArticleDetails = () => {
                 </Grid2>
             </Grid2>
 
-            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={"Share Areeba Shakeel’s Post"} postModal={true} dropdownHeader={false} hideFooter={true}>
-                <ShareModal />
+            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={`Share ${articleContent?.articleMaker} Post`} postModal={true} dropdownHeader={false} hideFooter={true}>
+                <ShareModal shareableLink={articleContent?.shareableLink} handleClose={() => setShowShareModal(false)} />
             </DynamicModal>
 
             <DynamicModal open={postChoiceModal} handleClose={() => setPostChoiceModal(false)} title={"Comment, react, and repost as"} buttonText={"Save"} postModal={true} userName={"Areeba Shakeel"} hideFooter={true} smallModal={true} styledHeader={true} >

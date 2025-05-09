@@ -1,13 +1,21 @@
-import { Box, Button, Paper, Stack, Typography } from '@mui/material'
-import React from 'react'
-import { close2, conversation, growPage, noPosts, plus, three_vertical_dots } from '../../../assets'
-import { BoxWithTextIcon } from '../../../components'
-import { pageStats } from '../../../constant'
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 
-const DashboardSection = ({ handlePostButtonClick }) => {
-    return (
-        <>
-            <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
+import {
+  close2,
+  conversation,
+  growPage,
+  noPosts,
+  plus,
+  three_vertical_dots,
+} from "../../../assets";
+import { BoxWithTextIcon, PostCard } from "../../../components";
+import { pageStats } from "../../../constant";
+import PostSlider from "../../../components/postSlider";
+
+const DashboardSection = ({ page, posts, refetch }) => {
+  return (
+    <>
+      {/* <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
                 <Box>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Today's action</Typography>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Pages that complete these actions regularly grow 4x faster</Typography>
@@ -44,29 +52,61 @@ const DashboardSection = ({ handlePostButtonClick }) => {
                         </Box>
                     </Stack>
                 </Box>
-            </Paper>
-            <Paper>
-                <Box>
-                    <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Manage recent posts</Typography>
-                    <Box sx={{ display: "flex", alignItems: "center", columnGap: "3px" }}>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>
-                            Manage you page's content and amplify your reach with boosting.
-                        </Typography>
-                        <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "500" }}>
+            </Paper> */}
+      <Paper>
+        <Box>
+          <Typography
+            sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
+          >
+            Manage recent posts
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", columnGap: "3px" }}>
+            <Typography
+              sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}
+            >
+              Manage you page's content and amplify your reach with boosting.
+            </Typography>
+            {/* <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "500" }}>
                             Learn more
-                        </Typography>
-                    </Box>
+                        </Typography> */}
+          </Box>
+        </Box>
+        {posts?.length > 0 ? (
+          <PostSlider refetch={refetch} page={page} posts={posts} />
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              rowGap: "20px",
+            }}
+          >
+            <img src={noPosts} alt="Image" />
+            <Typography
+              sx={{ fontSize: "24px", fontWeight: "500", color: "#171717" }}
+            >
+              Your page doesn't have any posts
+            </Typography>
+            <Typography
+              sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
+            >
+              Pages that post 2x a week grow 5x faster
+            </Typography>
+            <PostCard
+              page={page}
+              adminPage={true}
+              childComp={
+                <Box sx={{ width: "220px" }}>
+                  <BoxWithTextIcon icon={plus} text={"Start a post"} />
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "20px" }}>
-                    <img src={noPosts} alt="Image" />
-                    <Typography sx={{ fontSize: "24px", fontWeight: "500", color: "#171717" }}>Your page doesn't have any posts from the last 90 days</Typography>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Pages that post 2x a week grow 5x faster</Typography>
-                    <Box sx={{ width: "220px" }} onClick={handlePostButtonClick}>
-                        <BoxWithTextIcon icon={plus} text={"Start a post"} />
-                    </Box>
-                </Box>
-            </Paper>
-            <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              }
+            />
+          </Box>
+        )}
+      </Paper>
+      {/* <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Grow your page faster</Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Attract prospects and convert more clients with a Premium Company Page</Typography>
@@ -78,14 +118,13 @@ const DashboardSection = ({ handlePostButtonClick }) => {
                     <img src={growPage} alt="Image" />
                     <img src={three_vertical_dots} alt="Icon" />
                 </Box>
-            </Paper>
-            <Paper>
+            </Paper> */}
+      {/* <Paper>
                 <Box>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Track performance</Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Grow you page 3x faster by leveraging insights and analytics</Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10px", flexWrap: "wrap", rowGap: "10px" }}>
-                    {/*  */}
                     {pageStats?.map((item, index) => (
                         <Box sx={{ border: "1px solid #E4E4E4", borderRadius: "8px", p: "20px 15px", display: "flex", flexDirection: "column", rowGap: "4px", width: { xs: "100%", md: "24%" }, minWidth: "190px" }} key={index}>
                             <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>{item?.value}</Typography>
@@ -94,8 +133,8 @@ const DashboardSection = ({ handlePostButtonClick }) => {
                         </Box>
                     ))}
                 </Box>
-            </Paper>
-            <Paper>
+            </Paper> */}
+      {/* <Paper>
                 <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Join conversations</Typography>
                 <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Build brand awareness and community by engaging with recent conversations.</Typography>
                 <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", rowGap: "10px", mt: "25px" }}>
@@ -106,9 +145,9 @@ const DashboardSection = ({ handlePostButtonClick }) => {
                         <BoxWithTextIcon icon={plus} text={"Add pages to follow"} />
                     </Box>
                 </Box>
-            </Paper>
-        </>
-    )
-}
+            </Paper> */}
+    </>
+  );
+};
 
-export default DashboardSection
+export default DashboardSection;

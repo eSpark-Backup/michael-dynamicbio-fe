@@ -107,7 +107,8 @@ const SinglePost = () => {
                     isPagePost: item?.isPagePost,
                     isUserPost: !isOwnPost && !item?.isPagePost,
                     isPageFollowing: item?.isPageFollowing,
-                    pageId: item?.isPagePost ? item?.page?.id : ""
+                    pageId: item?.isPagePost ? item?.page?.id : "",
+                    shareableLink: item?.shareableLink
                 };
             });
     };

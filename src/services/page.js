@@ -52,6 +52,14 @@ export const pageApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    editPage: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/page/${id}`,
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -64,4 +72,5 @@ export const {
   useDeletePageMutation,
   useGetPageByIdQuery,
   useGetPostsByPageQuery,
+  useEditPageMutation,
 } = pageApi;

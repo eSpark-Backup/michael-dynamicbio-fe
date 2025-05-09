@@ -6,6 +6,7 @@ export const postApi = api.injectEndpoints({
       query: (credentials) => {
         const formData = new FormData();
 
+        if(credentials?.pageId) formData.append("pageId", credentials?.pageId);
         formData.append("content", JSON.stringify(credentials.content));
         formData.append("status", credentials.status);
         formData.append("visibility", credentials.visibility);

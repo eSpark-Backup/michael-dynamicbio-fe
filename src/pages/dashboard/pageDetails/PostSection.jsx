@@ -106,7 +106,7 @@ const PostSection = ({ data }) => {
       if (isuserLiked && isOnlyUserLiked) {
         lastLike = "";
       } else if (!isuserLiked) {
-        lastLike = `${item?.lastLikedUser?.user?.firstName} ${item?.lastLikedUser?.user?.lastNaen}`;
+        lastLike = `${item?.lastLikedUser?.user?.firstName} ${item?.lastLikedUser?.user?.lastName}`;
       } else if (Array.isArray(item?.likes)) {
         const newItem = item?.likes?.find(
           (item2) =>
@@ -120,6 +120,7 @@ const PostSection = ({ data }) => {
       }
 
       return {
+        canComment: true,
         userId: item?.author?.id,
         userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
         userRole: item?.author?.company,

@@ -87,7 +87,9 @@ const PollPost = ({
   isPagePost,
   isUserPost,
   isPageFollowing,
-  pageId
+  pageId,
+  isGeneralPost,
+  shareableLink
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -332,6 +334,10 @@ const PollPost = ({
     }
   }, [getCommentsSuccess, getCommentsData])
 
+  const AlertHandler = () => {
+    toast.warning("Please login for actions")
+  }
+
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
       {isGroupPost && (
@@ -444,6 +450,8 @@ const PollPost = ({
         isUserPost={isUserPost}
         isPageFollowing={isPageFollowing}
         pageId={pageId}
+        isGeneralPost={isGeneralPost}
+        shareableLink={shareableLink}
       />
       {postContent && (
         <Typography
@@ -502,7 +510,7 @@ const PollPost = ({
             <RadioGroup
               name="groups"
               value={selectedValue}
-              onChange={handleChange}
+              onChange={isGeneralPost ? AlertHandler : handleChange}
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
               {options?.map((item, index) => (
@@ -531,7 +539,7 @@ const PollPost = ({
                       cursor: "pointer",
                       p: "4px",
                     }}
-                    onClick={() => handleChange({ target: { value: item } })}
+                    onClick={isGeneralPost ? () => { } : () => handleChange({ target: { value: item } })}
                   >
                     <FormControlLabel
                       value={item.value}
@@ -597,7 +605,7 @@ const PollPost = ({
                     cursor: "pointer",
                   }}
                   variant="gradientText"
-                  onClick={() => setViewVotes(true)}
+                  onClick={isGeneralPost ? AlertHandler : () => setViewVotes(true)}
                 >
                   {voteCount} votes
                 </Typography>
@@ -636,7 +644,7 @@ const PollPost = ({
                     cursor: "pointer",
                   }}
                   variant="gradientText"
-                  onClick={handleUndo}
+                  onClick={isGeneralPost ? AlertHandler : handleUndo}
                 >
                   Undo
                 </Typography>
@@ -651,7 +659,7 @@ const PollPost = ({
                     cursor: "pointer",
                   }}
                   variant="gradientText"
-                  onClick={handleUndo}
+                  onClick={isGeneralPost ? AlertHandler : handleUndo}
                 >
                   Undo
                 </Typography>
@@ -683,7 +691,7 @@ const PollPost = ({
           )}
           <Typography
             sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
-            onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+            onClick={isGeneralPost ? AlertHandler : (numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
           >
             {numberofLikes === 0
               ? "Be first to like this"
@@ -735,7 +743,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={isLoading ? () => { } : () => handleLike(id)}
+          onClick={isGeneralPost ? AlertHandler : isLoading ? () => { } : () => handleLike(id)}
         >
           <img
             src={isLiked ? like : unlike}
@@ -764,7 +772,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={() => CommentHandler(id)}
+          onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}
         >
           <img src={comment} alt="Like" />
           <Typography
@@ -788,7 +796,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={handleClick}
+          onClick={isGeneralPost ? AlertHandler : handleClick}
         >
           <img src={repost} alt="Like" />
           <Typography
@@ -812,7 +820,7 @@ const PollPost = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={() => setShowShareModal(true)}
+          onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}
         >
           <img src={send} alt="Like" />
           <Typography
@@ -1029,12 +1037,12 @@ const PollPost = ({
       <DynamicModal
         open={showShareModal}
         handleClose={() => setShowShareModal(false)}
-        title={"Share Areeba Shakeel’s Post"}
+        title={`Share ${userName} Post`}
         postModal={true}
         dropdownHeader={false}
         hideFooter={true}
       >
-        <ShareModal />
+        <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
       </DynamicModal>
 
       <DynamicModal

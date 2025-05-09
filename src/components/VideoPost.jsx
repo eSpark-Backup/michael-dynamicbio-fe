@@ -19,7 +19,7 @@ import Comment from './Comment';
 import ShowLikesModal from './ShowLikesModal';
 import EditModal from './EditModal';
 
-const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
+const VideoPost = ({ userId, userImage, userName, userRole, postTime, postContent, numberofLikes, isLiked, friendLiked, friend, comments, commentsContent, videoUrl, thumbnail, isFriendPost, ownPost, id, handleLike, lastUserLiked, isLoading, isGroupPost, pinned, isAdminPost, groupPost, likesData, isSaved, postVisibility, commentSetting, handleDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId, isGeneralPost, shareableLink }) => {
     const [showComments, setShowComments] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -136,6 +136,10 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
         }
     }, [getCommentsSuccess, getCommentsData])
 
+    const AlertHandler = () => {
+        toast.warning("Please login for actions")
+    }
+
     return (
         <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px", width: "100%" }}>
             {
@@ -205,7 +209,7 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                     </Box>
                 </Box>
             }
-            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setShowEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"VIDEO"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
+            <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={isGroupPost} postId={id} isSaved={isSaved} handleEdit={() => setShowEditModal(true)} handleDelete={handleDelete} visibility={postVisibility} commentSetting={commentSetting} type={"VIDEO"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
             {postContent &&
                 <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                 </Typography>
@@ -235,7 +239,7 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                 <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}>
                     {numberofLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
-                        onClick={(numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+                        onClick={isGeneralPost ? AlertHandler : (numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
                     >
                         {numberofLikes === 0 ? (
                             "Be first to like this"
@@ -257,22 +261,22 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
                 </Box>
             </Box>
             <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => handleLike(id)}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : isLoading ? () => { } : () => handleLike(id)}>
                     <img src={isLiked ? like : unlike} alt="Like" style={{ width: "24px", height: '24px' }} />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isLiked ? "Liked" : "Like"}</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}>
                     <img src={comment} alt="Like" />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Comment</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
+                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : handleClick}>
                     <img src={repost} alt="Like" />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
+                {visibility === "PUBLIC" && <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}>
                     <img src={send} alt="Like" />
                     <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Share</Typography>
-                </Box>
+                </Box>}
             </Box>
             {
                 showComments && <Box sx={{ px: { xs: "0px", md: '10px' }, display: "flex", flexDirection: "column", rowGap: "10px" }}>
@@ -370,8 +374,8 @@ const VideoPost = ({ userId, userImage, userName, userRole, postTime, postConten
             </ConfirmationModal>
 
 
-            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={"Share Areeba Shakeel’s Post"} postModal={true} dropdownHeader={false} hideFooter={true}>
-                <ShareModal />
+            <DynamicModal open={showShareModal} handleClose={() => setShowShareModal(false)} title={`Share ${userName} Post`} postModal={true} dropdownHeader={false} hideFooter={true}>
+                <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
             </DynamicModal>
 
             <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>

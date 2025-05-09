@@ -29,6 +29,8 @@ const Navbar = () => {
   const [activeItem, setActiveItem] = useState("Home");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const token = window.localStorage.getItem("token")
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -158,23 +160,34 @@ const Navbar = () => {
                 horizontal: "left",
               }}
             >
-              <MenuItem
-                  onClick={(e) => {
-                    navigate(`/profile/${user?.id}`);
+              {
+                token
+                  ?
+                  <>
+                    <MenuItem
+                      onClick={(e) => {
+                        navigate(`/profile/${user?.id}`);
+                        handleClose(e);
+                      }}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>Account</MenuItem>
+                    <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
+                    <MenuItem onClick={handleClose}>Language</MenuItem>
+                    <MenuItem onClick={handleClose}>Help</MenuItem>
+                    <MenuItem onClick={(e) => {
+                      dispatch(logout());
+                      navigate("/login");
+                      handleClose(e);
+                    }}>Logout</MenuItem>
+                  </>
+                  :
+                  <MenuItem onClick={(e) => {
+                    navigate("/login");
                     handleClose(e);
-                  }}
-                >
-                  Profile
-                </MenuItem>
-              <MenuItem onClick={handleClose}>Account</MenuItem>
-              <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
-              <MenuItem onClick={handleClose}>Language</MenuItem>
-              <MenuItem onClick={handleClose}>Help</MenuItem>
-              <MenuItem onClick={(e) => {
-                dispatch(logout());
-                navigate("/login");
-                handleClose(e);
-              }}>Logout</MenuItem>
+                  }} sx={{ width: "245px" }}>Login</MenuItem>
+              }
             </Menu>
           </Box>
           <IconButton
@@ -277,6 +290,7 @@ const Navbar = () => {
                 sx={{ width: "280px" }}
                 placeholder="Search"
                 startAdornment={searchIcon}
+                disabled={!token}
               />
             </Box>
             <Box
@@ -331,29 +345,40 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                <MenuItem
-                  sx={{ width: "245px" }}
-                  onClick={(e) => {
-                    navigate(`/profile/${user?.id}`);
-                    handleClose(e);
-                  }}
-                >
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
-                <MenuItem
-                  sx={{ width: "245px" }}
-                  onClick={(e) => {
-                    dispatch(logout());
-                    navigate("/login");
-                    handleClose(e);
-                  }}
-                >
-                  Logout
-                </MenuItem>
+                {
+                  token
+                    ?
+                    <>
+                      <MenuItem
+                        sx={{ width: "245px" }}
+                        onClick={(e) => {
+                          navigate(`/profile/${user?.id}`);
+                          handleClose(e);
+                        }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
+                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
+                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
+                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
+                      <MenuItem
+                        sx={{ width: "245px" }}
+                        onClick={(e) => {
+                          dispatch(logout());
+                          navigate("/login");
+                          handleClose(e);
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
+                    </>
+                    :
+                    <MenuItem onClick={(e) => {
+                      navigate("/login");
+                      handleClose(e);
+                    }} sx={{ width: "245px" }}>Login</MenuItem>
+                }
               </Menu>
             </Box>
           </Box>
