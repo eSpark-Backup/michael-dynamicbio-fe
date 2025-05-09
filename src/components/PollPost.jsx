@@ -1037,12 +1037,12 @@ const PollPost = ({
       <DynamicModal
         open={showShareModal}
         handleClose={() => setShowShareModal(false)}
-        title={"Share Areeba Shakeel’s Post"}
+        title={`Share ${userName} Post`}
         postModal={true}
         dropdownHeader={false}
         hideFooter={true}
       >
-        <ShareModal />
+        <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
       </DynamicModal>
 
       <DynamicModal

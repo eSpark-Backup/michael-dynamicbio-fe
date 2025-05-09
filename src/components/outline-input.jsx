@@ -10,6 +10,7 @@ const OutlinedInput = ({
   startAdornment,
   multiline,
   onKeyDown,
+  disabled
 }) => {
   return (
     <Box
@@ -28,7 +29,7 @@ const OutlinedInput = ({
         value={value}
         sx={sx}
         onKeyDown={onKeyDown}
-        
+        disabled={disabled}
         InputProps={{
           startAdornment: startAdornment && (
             <InputAdornment position="start">

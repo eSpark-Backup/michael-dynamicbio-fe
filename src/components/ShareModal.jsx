@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import OutlinedInput from './outline-input'
 import { link2, profilePicture, searchIcon, timer } from '../assets'
 import { shareModalContent } from '../constant'
+import { toast } from 'react-toastify'
 
-const ShareModal = () => {
+const ShareModal = ({ shareableLink, handleClose }) => {
     const [checkedItems, setCheckedItems] = useState({});
     const [checkedCount, setCheckedCount] = useState(0);
 
@@ -21,11 +22,17 @@ const ShareModal = () => {
         setCheckedCount(Object.values(checkedItems).filter(Boolean).length);
     }, [checkedItems]);
 
+    const CopyLinkHandler = () => {
+        navigator.clipboard.writeText(shareableLink)
+        toast.success("Link copied successfully")
+        handleClose()
+    }
+
 
     return (
         <Box>
-            <OutlinedInput startAdornment={searchIcon} placeholder={"Type a name"} />
-            <Box sx={{ width: "100%", height: checkedCount === 0 ? "650px" : "550px", overflowY: "auto", display: "flex", flexDirection: "column", mb: "25px" }}>
+            {/* <OutlinedInput startAdornment={searchIcon} placeholder={"Type a name"} /> */}
+            {/* <Box sx={{ width: "100%", height: checkedCount === 0 ? "650px" : "550px", overflowY: "auto", display: "flex", flexDirection: "column", mb: "25px" }}>
                 {shareModalContent.map((item) => (
                     <Box
                         key={item.id}
@@ -90,7 +97,7 @@ const ShareModal = () => {
 
                     }} />
                 </Box>
-            }
+            } */}
             <Stack
                 justifyContent={checkedCount === 0 ? "flex-start" : "flex-end"}
                 alignItems={"center"}
@@ -114,7 +121,7 @@ const ShareModal = () => {
                 {
                     checkedCount === 0
                         ?
-                        <Box sx={{ display: "flex", columnGap: "5px" }}>
+                        <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer" }} onClick={CopyLinkHandler}>
                             <img src={link2} alt="Icon" style={{ width: "24px", height: "24px" }} />
                             <Typography variant='gradientText'>Copy link to post</Typography>
                         </Box>
