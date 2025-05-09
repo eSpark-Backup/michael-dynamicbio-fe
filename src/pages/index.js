@@ -25,6 +25,11 @@ import AdminView from "./dashboard/pageDetails/AdminView";
 import SavedPosts from "./dashboard/saved";
 import SinglePost from "./dashboard/singlePost";
 
+import GeneralPage from "./dashboard/general";
+import GeneralArticle from "./dashboard/general/GeneralArticle";
+import GeneralEvent from "./dashboard/general/GeneralEvent";
+import GeneralPost from "./dashboard/general/GeneralPost";
+
 export {
   Login,
   Signup,
@@ -53,4 +58,8 @@ export {
   Profile,
   SavedPosts,
   SinglePost,
+  GeneralPage,
+  GeneralArticle,
+  GeneralEvent,
+  GeneralPost
 };

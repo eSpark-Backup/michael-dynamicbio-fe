@@ -23,7 +23,7 @@ import { toast } from 'react-toastify';
 import ShowLikesModal from './ShowLikesModal.jsx';
 import EditModal from './EditModal.jsx';
 
-const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData, isSaved, postVisibility, commentVisibility, handlePostDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId }) => {
+const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numberofLikes, isLiked, comments, activity, postPic, postContent, commentsContent, length, index, type, videoUrl, thumbnail, question, options, isVoted, eventName, eventImage, startTime, endTime, eventType, eventLink, attendees, eventPosts, id, articleImage, articleTitle, articleDescription, ownPost, isFriendPost, lastUserLiked, voteCount, endDate, pollId, isGroupPost, pinned, isAdminPost, groupPost, allLikesData, isSaved, postVisibility, commentVisibility, handlePostDelete, canComment, isPagePost, isUserPost, isPageFollowing, pageId, isGeneralPost, shareableLink }) => {
     const [likeData, { data, isSuccess, isError, error, isLoading }] = useLikeMutation()
     const theme = useTheme();
     const [showComments, setShowComments] = useState(false)
@@ -219,24 +219,28 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
         setShowPostDetails(true)
     }
 
+    const AlertHandler = () => {
+        toast.warning("Please login for actions")
+    }
+
     return (
         <>
             {
                 type === "video"
                     ?
-                    <VideoPost userId={userId} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
+                    <VideoPost userId={userId} userImage={userImage} userName={userName} userRole={userRole} postTime={postTime} postContent={postContent} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} videoUrl={videoUrl} thumbnail={thumbnail} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
                     :
                     type === "poll"
                         ?
-                        <PollPost userId={userId} pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
+                        <PollPost userId={userId} pollId={pollId} voteCount={voteCount} endDate={endDate} userImage={userImage} userName={userName} userRole={userRole} time={postTime} postContent={postContent} question={question} options={options} isVoted={isVoted} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} isFriendPost={isFriendPost} ownPost={ownPost} id={id} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
                         :
                         type === "event"
                             ?
-                            <EventPost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
+                            <EventPost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} eventName={eventName} eventImage={eventImage} startTime={startTime} endTime={endTime} eventType={eventType} eventLink={eventLink} attendees={attendees} eventPosts={eventPosts} postContent={postContent} id={id} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} postVisibility={postVisibility} commentSetting={commentSettings} handleDelete={handlePostDelete} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} shareableLink={shareableLink} />
                             :
                             type === "article"
                                 ?
-                                <ArticlePost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} handleDelete={handlePostDelete} postVisibility={postVisibility} commentSetting={commentSettings} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} />
+                                <ArticlePost userId={userId} userName={userName} userRole={userRole} postTime={postTime} userImage={userImage} numberofLikes={totalLikes} isLiked={isPostLiked} comments={comments} friendLiked={true} friend={"Albert"} id={id} postContent={postContent} articleImage={articleImage} articleTitle={articleTitle} articleDescription={articleDescription} isFriendPost={isFriendPost} ownPost={ownPost} handleLike={LikeHandler} lastUserLiked={lastUserLiked} isLoading={isLoading} isGroupPost={isGroupPost} pinned={pinned} isAdminPost={isAdminPost} likesData={likesUserData} isSaved={isSaved} handleDelete={handlePostDelete} postVisibility={postVisibility} commentSetting={commentSettings} canComment={canComment} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} shareableLink={shareableLink} />
                                 :
                                 <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                                     {
@@ -302,7 +306,7 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                             <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
                                         </Box>
                                     } */}
-                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handlePostDelete} visibility={visibility} commentSetting={commentSettings} type={postPic?.length > 0 ? "IMAGE" : "TEXT"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} />
+                                    <BondCard2 id={userId} userImage={userImage} userName={userName} userRole={userRole} time={postTime} isFriendPost={isFriendPost} ownPost={ownPost} isAdminPost={isAdminPost} groupPost={groupPost} postId={id} isSaved={isSaved} handleEdit={() => setEditModal(true)} handleDelete={handlePostDelete} visibility={visibility} commentSetting={commentSettings} type={postPic?.length > 0 ? "IMAGE" : "TEXT"} isPagePost={isPagePost} isUserPost={isUserPost} isPageFollowing={isPageFollowing} pageId={pageId} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
                                     {postContent &&
                                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                                         </Typography>
@@ -350,7 +354,7 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                         <Box sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}>
                                             {totalLikes >= 1 && <img src={like} alt="Like" style={{ width: "13.43px", height: "12px" }} />}
                                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: totalLikes > 0 ? "pointer" : "text" }}
-                                                onClick={(totalLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
+                                                onClick={isGeneralPost ? AlertHandler : (totalLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
                                             >
                                                 {totalLikes === 0 ? (
                                                     "Be first to like this"
@@ -369,19 +373,19 @@ const SuggestionPost = ({ userId, userName, userRole, postTime, userImage, numbe
                                         <Typography sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}>{totalComments} comments</Typography>
                                     </Box>
                                     <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isLoading ? () => { } : () => LikeHandler(id)}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : isLoading ? () => { } : () => LikeHandler(id)}>
                                             <img src={isPostLiked ? like : unlike} alt="Like" style={{ width: "24px", height: "24px" }} />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>{isPostLiked ? "Liked" : "Like"}</Typography>
                                         </Box>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => CommentHandler(id)}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: showComments ? "#FFFFFF" : "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}>
                                             <img src={comment} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Comment</Typography>
                                         </Box>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : handleClick}>
                                             <img src={repost} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
                                         </Box>
-                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
+                                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}>
                                             <img src={send} alt="Like" />
                                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Share</Typography>
                                         </Box>
