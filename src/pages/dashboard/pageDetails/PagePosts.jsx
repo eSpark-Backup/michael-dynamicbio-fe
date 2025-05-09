@@ -1,180 +1,226 @@
-import { Box, Divider, Menu, MenuItem, OutlinedInput, Paper, Stack, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import { article, close, comment, copyLink, deleteIcon, downArrowFilled, dummyPhoto, earth, editBlue, like, photo, pin, postPicture, repost, three_vertical_dots, user, video, world } from '../../../assets'
-import { generateThumbnail } from '../../../utils'
-import { DynamicModal, EventModal, PhotoModal, PollModal, PostChoiceModal, PostModal, ScheduleModal, VideoModal, ViewEventModal } from '../../../components'
-import { useNavigate } from 'react-router-dom'
+import {
+  Box,
+  Divider,
+  Menu,
+  MenuItem,
+  OutlinedInput,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  article,
+  close,
+  comment,
+  copyLink,
+  deleteIcon,
+  downArrowFilled,
+  dummyPhoto,
+  earth,
+  editBlue,
+  like,
+  noPosts,
+  photo,
+  pin,
+  postPicture,
+  repost,
+  three_vertical_dots,
+  user,
+  video,
+  world,
+} from "../../../assets";
+import { generateThumbnail } from "../../../utils";
+import {
+  DynamicModal,
+  EventModal,
+  PhotoModal,
+  PollModal,
+  PostCard,
+  PostChoiceModal,
+  PostModal,
+  ScheduleModal,
+  SuggestionPost,
+  VideoModal,
+  ViewEventModal,
+} from "../../../components";
+import { useNavigate } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const PagePosts = () => {
-    const [activeItem, setActiveItem] = useState("Published")
-    const userData = JSON.parse(localStorage.getItem("user"));
-    const [showPostModal, setShowPostModal] = useState(false)
-    const fileInputRef = useRef(null);
-    const videoInputRef = useRef(null);
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
-    const [videoModal, setVideoModal] = useState(false)
-    const [showModal, setShowModal] = useState(false)
-    const [showScheduleModal, setShowScheduleModal] = useState(false)
-    const [pollModal, setPollModal] = useState(false)
-    const [eventModal, setEventModal] = useState(false)
-    const [eventFormValues, setEventFormValues] = useState({});
-    const [viewEventModal, setViewEventModal] = useState(false)
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const [postChoiceModal, setPostChoiceModal] = useState(false)
-    const navigate = useNavigate()
+const PagePosts = ({ page, posts, fetchMoreData, hasMore, isLoading, isFetching }) => {
+  const [activeItem, setActiveItem] = useState("Published");
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const [showPostModal, setShowPostModal] = useState(false);
+  const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
+  const [videoModal, setVideoModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [pollModal, setPollModal] = useState(false);
+  const [eventModal, setEventModal] = useState(false);
+  const [eventFormValues, setEventFormValues] = useState({});
+  const [viewEventModal, setViewEventModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [postChoiceModal, setPostChoiceModal] = useState(false);
+  const navigate = useNavigate();
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
+  };
 
-    const handleClose = (event) => {
-        event.stopPropagation();
-        setAnchorEl(null);
-    };
-
-    const HandlePostTypeClick = (item) => {
-        if (item === "Photo") {
-            fileInputRef.current.click();
-        }
-        else if (item === "Video") {
-            videoInputRef.current.click();
-        }
-        else if (item === "Event") {
-            setEventModal(true)
-            setShowPostModal(false)
-        }
-        else if (item === "Poll") {
-            setPollModal(true)
-            setShowPostModal(false)
-        }
-        else if (item === "Article") {
-            navigate("/article")
-        }
+  const HandlePostTypeClick = (item) => {
+    if (item === "Photo") {
+      fileInputRef.current.click();
+    } else if (item === "Video") {
+      videoInputRef.current.click();
+    } else if (item === "Event") {
+      setEventModal(true);
+      setShowPostModal(false);
+    } else if (item === "Poll") {
+      setPollModal(true);
+      setShowPostModal(false);
+    } else if (item === "Article") {
+      navigate("/article");
     }
+  };
 
-    useEffect(() => {
-        if (selectedFiles?.length > 0) {
-            setShowPostModal(false)
-            setShowModal(true)
-        }
-    }, [selectedFiles])
-
-    useEffect(() => {
-        if (videoData?.video) {
-            setVideoModal(true)
-            setShowPostModal(false)
-        }
-    }, [videoData])
-
-    const handleFileChange = (e) => {
-        const files = Array.from(e.target.files);
-        setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-    };
-
-    const handleVideoChange = async (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            try {
-                const thumbnail = await generateThumbnail(file);
-                setVideoData({ video: file, thumbnail });
-            } catch (error) {
-                console.error("Error generating thumbnail:", error);
-            }
-        }
-    };
-
-    const HandleSelectedFile = (files) => {
-        setSelectedFiles(files)
+  useEffect(() => {
+    if (selectedFiles?.length > 0) {
+      setShowPostModal(false);
+      setShowModal(true);
     }
+  }, [selectedFiles]);
 
-    const HandleModalClose = () => {
-        setShowModal(false)
-        setShowPostModal(false)
-        setSelectedFiles([]);
+  useEffect(() => {
+    if (videoData?.video) {
+      setVideoModal(true);
+      setShowPostModal(false);
     }
+  }, [videoData]);
 
-    const HandleVideoModalClose = () => {
-        setVideoModal(false)
-        setVideoData({ video: null, thumbnail: null })
-        if (videoInputRef.current) {
-            videoInputRef.current.value = null;
-        }
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleVideoChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const thumbnail = await generateThumbnail(file);
+        setVideoData({ video: file, thumbnail });
+      } catch (error) {
+        console.error("Error generating thumbnail:", error);
+      }
     }
+  };
 
+  const HandleSelectedFile = (files) => {
+    setSelectedFiles(files);
+  };
 
-    const handleFormSubmit = (formData) => {
-        setEventFormValues(formData)
-        setEventModal(false)
-        setViewEventModal(true)
-    };
+  const HandleModalClose = () => {
+    setShowModal(false);
+    setShowPostModal(false);
+    setSelectedFiles([]);
+  };
 
-    const handleEditClick = () => {
-        setEventModal(true)
-        setViewEventModal(false)
+  const HandleVideoModalClose = () => {
+    setVideoModal(false);
+    setVideoData({ video: null, thumbnail: null });
+    if (videoInputRef.current) {
+      videoInputRef.current.value = null;
     }
+  };
 
-    const handleViewEventClose = () => {
-        setViewEventModal(false)
-        setEventFormValues({})
-    }
+  const handleFormSubmit = (formData) => {
+    setEventFormValues(formData);
+    setEventModal(false);
+    setViewEventModal(true);
+  };
 
-    return (
-        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-            <Paper>
+  const handleEditClick = () => {
+    setEventModal(true);
+    setViewEventModal(false);
+  };
+
+  const handleViewEventClose = () => {
+    setViewEventModal(false);
+    setEventFormValues({});
+  };
+
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
+      {/* <Paper>
                 <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}>Page posts</Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Manage your page's organic and paid content</Typography>
                 <Box sx={{ mt: "20px", display: "flex", columnGap: "15px" }}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", lineHeight: "normal" }} variant={activeItem === "Published" ? "gradientText" : "body1"} onClick={() => setActiveItem("Published")}>Published</Typography>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", lineHeight: "normal" }} variant={activeItem === "Page ads" ? "gradientText" : "body1"} onClick={() => setActiveItem("Page ads")}>Page ads</Typography>
                 </Box>
-            </Paper>
-            <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", columnGap: "30px", flexDirection: { xs: "column", md: "row" }, rowGap: "5px" }}>
-                    <img style={{ width: "73px", height: "73px", borderRadius: "50%" }} src={userData?.profileImage || user} alt="User" />
-                    <OutlinedInput placeholder='Start a post' sx={{ height: "73px", width: "100%", cursor: "pointer" }} readOnly onClick={() => setShowPostModal(true)} />
-                </Box >
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", rowGap: "10px" }}>
-                    {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }]
-                        .map((item, index) => (
-                            <Box key={index} sx={{ width: { xs: "100%", md: "180px" }, height: "50px", padding: "20px", backgroundColor: "#F8FCFF", borderRadius: "2px", display: "flex", columnGap: "15px", alignItems: "center", cursor: "pointer" }} onClick={() => HandlePostTypeClick(item.label)}>
-                                <img style={{ width: "24px", height: "24px" }} src={item.img} alt={item.label} />
-                                <Typography sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}>{item.label}</Typography>
-                            </Box>
-                        ))}
-                </Box>
-            </Paper>
+            </Paper> */}
+      <Paper>
+        <PostCard page={page} adminPage={true} />
+      </Paper>
 
-            <Box>
-                <Box sx={{ backgroundColor: "#fff", borderTopRightRadius: "4px", borderTopLeftRadius: "4px", p: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid #E4E4E4" }}>
-                    <Typography>Get up to 27,000 more video views by boosting this post.</Typography>
-                    <Box sx={{
-                        width: "90px", height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
-                        background: "white",
-                        position: "relative",
-                        "&::before": {
-                            content: '""',
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            borderRadius: "8px",
-                            padding: "1px",
-                            background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                            mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                            WebkitMask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                            WebkitMaskComposite: "destination-out",
-                            maskComposite: "exclude",
-                        },
-                        cursor: "pointer"
-                    }}>
-                        <Typography variant='gradientText'>Boost</Typography>
-                    </Box>
-                </Box>
-                <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: "#fff",
+            borderTopRightRadius: "4px",
+            borderTopLeftRadius: "4px",
+            p: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            border: "1px solid #E4E4E4",
+          }}
+        >
+          <Typography>
+            Get up to 27,000 more video views by boosting this post.
+          </Typography>
+          <Box
+            sx={{
+              width: "90px",
+              height: "36px",
+              borderRadius: "2px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
+              position: "relative",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                borderRadius: "8px",
+                padding: "1px",
+                background:
+                  "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                WebkitMask:
+                  "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                WebkitMaskComposite: "destination-out",
+                maskComposite: "exclude",
+              },
+              cursor: "pointer",
+            }}
+          >
+            <Typography variant="gradientText">Boost</Typography>
+          </Box>
+        </Box>
+        {/* <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>By rotten ria . 3/5/2025</Typography>
                         <img src={three_vertical_dots} alt="Icon" onClick={handleClick} style={{ cursor: "pointer" }} />
@@ -244,92 +290,295 @@ const PagePosts = () => {
                         </Stack>
                         <img src={close} alt="Icon" />
                     </Box>
-                </Paper>
-            </Box>
-
-            <input
-                type="file"
-                ref={fileInputRef}
-                accept=".jpeg, .jpg, .tiff, .png, .webp"
-                style={{ display: "none" }}
-                multiple
-                onChange={handleFileChange}
-            />
-
-            <input
-                type="file"
-                ref={videoInputRef}
-                accept="video/*"
-                style={{ display: "none" }}
-                onChange={handleVideoChange}
-            />
-
-
-            <DynamicModal open={showModal} handleClose={HandleModalClose} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} footerDirection={"flex-end"} handleGroupClick={() => setGroupShareModal(true)}>
-                <PhotoModal files={selectedFiles} placeholder={"Say something about this photo"} handleClose={HandleModalClose} />
-            </DynamicModal>
-
-            <DynamicModal open={videoModal} handleClose={() => setVideoModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} handleGroupClick={() => setGroupShareModal(true)} footerDirection={"flex-end"}>
-                <VideoModal file={videoData} placeholder={"Say something about this video"} handleClose={HandleVideoModalClose} />
-            </DynamicModal>
-
-            <DynamicModal open={showPostModal} handleClose={() => setShowPostModal(false)} title={"Hello"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} dropdownHeader={true} handleGroupClick={() => setGroupShareModal(true)} footerDirection={"flex-end"}>
-                <PostModal fileChange={HandleSelectedFile} placeholder={"What do you want to talk about?"} videoChange={handleVideoChange} openModal={HandlePostTypeClick} />
-            </DynamicModal>
-
-            <DynamicModal open={showScheduleModal} handleClose={() => setShowScheduleModal(false)} title={"Schedule post"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} smallModal={true} styledHeader={true} footerDirection={"space-between"}>
-                <ScheduleModal />
-            </DynamicModal>
-
-            <DynamicModal open={pollModal} handleClose={() => setPollModal(false)} title={"Create a poll"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => { }} styledHeader={true} hideFooter={true}>
-                <PollModal handleSuccess={() => setPollModal(false)} handleBack={() => setPollModal(false)} />
-            </DynamicModal>
-
-            <DynamicModal open={eventModal} handleClose={() => setEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} handleScheduleClick={() => setShowScheduleModal(true)} footerDirection={"flex-end"} hideFooter={true}>
-                <EventModal onFormSubmit={handleFormSubmit} receivedValues={eventFormValues} handleClose={() => setEventModal(false)} />
-            </DynamicModal>
-
-            <DynamicModal open={viewEventModal} handleClose={() => setViewEventModal(false)} title={"Create an event"} buttonText={"Post"} postModal={true} userName={"Areeba Shakeel"} dropdownHeader={true} footerDirection={"flex-end"} hideFooter={true} handleGroupClick={() => setGroupShareModal(true)}>
-                <ViewEventModal values={eventFormValues} handleScheduleClick={() => setShowScheduleModal(true)} handleEditClick={handleEditClick} handleDelete={handleViewEventClose} />
-            </DynamicModal>
-
-            <DynamicModal open={postChoiceModal} handleClose={() => setPostChoiceModal(false)} title={"Comment, react, and repost as"} buttonText={"Save"} postModal={true} userName={"Areeba Shakeel"} hideFooter={true} smallModal={true} styledHeader={true} >
-                <PostChoiceModal />
-            </DynamicModal>
-
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                }}
+                </Paper> */}
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={(isLoading || isFetching) && <LinearProgress />}
+          endMessage={
+            <Paper
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+                rowGap: "20px",
+              }}
             >
+              {posts.length === 0 && <img src={noPosts} alt="Image" />}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "2px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "24px",
+                    fontWeight: "500",
+                    color: "#171717",
+                    textAlign: "center",
+                  }}
+                >
+                  {posts.length === 0 ? "No posts available" : "No more posts"}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "17px",
+                    fontWeight: "400",
+                    color: "#505050",
+                    textAlign: "center",
+                  }}
+                >
+                  Check back later for posts!
+                </Typography>
+              </Box>
+            </Paper>
+          }
+        >
+          <Box
+            sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+          >
+            {posts.map((item) => (
+              <SuggestionPost key={item.id} {...item} />
+            ))}
+          </Box>
+        </InfiniteScroll>
+      </Box>
 
-                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
-                    <img src={editBlue} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Edit post</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
-                    <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
-                    <img src={pin} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Pin to top</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ width: "245px", display: "flex", columnGap: "10px" }}>
-                    <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
-                </MenuItem>
-            </Menu>
-        </Box>
-    )
-}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept=".jpeg, .jpg, .tiff, .png, .webp"
+        style={{ display: "none" }}
+        multiple
+        onChange={handleFileChange}
+      />
 
-export default PagePosts
+      <input
+        type="file"
+        ref={videoInputRef}
+        accept="video/*"
+        style={{ display: "none" }}
+        onChange={handleVideoChange}
+      />
+
+      <DynamicModal
+        open={showModal}
+        handleClose={HandleModalClose}
+        title={"Hello"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => setShowScheduleModal(true)}
+        dropdownHeader={true}
+        footerDirection={"flex-end"}
+        handleGroupClick={() => setGroupShareModal(true)}
+      >
+        <PhotoModal
+          files={selectedFiles}
+          placeholder={"Say something about this photo"}
+          handleClose={HandleModalClose}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={videoModal}
+        handleClose={() => setVideoModal(false)}
+        title={"Hello"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => setShowScheduleModal(true)}
+        dropdownHeader={true}
+        handleGroupClick={() => setGroupShareModal(true)}
+        footerDirection={"flex-end"}
+      >
+        <VideoModal
+          file={videoData}
+          placeholder={"Say something about this video"}
+          handleClose={HandleVideoModalClose}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={showPostModal}
+        handleClose={() => setShowPostModal(false)}
+        title={"Hello"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => setShowScheduleModal(true)}
+        dropdownHeader={true}
+        handleGroupClick={() => setGroupShareModal(true)}
+        footerDirection={"flex-end"}
+      >
+        <PostModal
+          fileChange={HandleSelectedFile}
+          placeholder={"What do you want to talk about?"}
+          videoChange={handleVideoChange}
+          openModal={HandlePostTypeClick}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={showScheduleModal}
+        handleClose={() => setShowScheduleModal(false)}
+        title={"Schedule post"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => {}}
+        smallModal={true}
+        styledHeader={true}
+        footerDirection={"space-between"}
+      >
+        <ScheduleModal />
+      </DynamicModal>
+
+      <DynamicModal
+        open={pollModal}
+        handleClose={() => setPollModal(false)}
+        title={"Create a poll"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => {}}
+        styledHeader={true}
+        hideFooter={true}
+      >
+        <PollModal
+          handleSuccess={() => setPollModal(false)}
+          handleBack={() => setPollModal(false)}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={eventModal}
+        handleClose={() => setEventModal(false)}
+        title={"Create an event"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        handleScheduleClick={() => setShowScheduleModal(true)}
+        footerDirection={"flex-end"}
+        hideFooter={true}
+      >
+        <EventModal
+          onFormSubmit={handleFormSubmit}
+          receivedValues={eventFormValues}
+          handleClose={() => setEventModal(false)}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={viewEventModal}
+        handleClose={() => setViewEventModal(false)}
+        title={"Create an event"}
+        buttonText={"Post"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        dropdownHeader={true}
+        footerDirection={"flex-end"}
+        hideFooter={true}
+        handleGroupClick={() => setGroupShareModal(true)}
+      >
+        <ViewEventModal
+          values={eventFormValues}
+          handleScheduleClick={() => setShowScheduleModal(true)}
+          handleEditClick={handleEditClick}
+          handleDelete={handleViewEventClose}
+        />
+      </DynamicModal>
+
+      <DynamicModal
+        open={postChoiceModal}
+        handleClose={() => setPostChoiceModal(false)}
+        title={"Comment, react, and repost as"}
+        buttonText={"Save"}
+        postModal={true}
+        userName={"Areeba Shakeel"}
+        hideFooter={true}
+        smallModal={true}
+        styledHeader={true}
+      >
+        <PostChoiceModal />
+      </DynamicModal>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem
+          onClick={handleClose}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+        >
+          <img
+            src={editBlue}
+            alt="Icon"
+            style={{ width: "24px", height: "24px" }}
+          />
+          <Typography
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+          >
+            Edit post
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+        >
+          <img
+            src={deleteIcon}
+            alt="Icon"
+            style={{ width: "24px", height: "24px" }}
+          />
+          <Typography
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+          >
+            Delete post
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+        >
+          <img src={pin} alt="Icon" style={{ width: "24px", height: "24px" }} />
+          <Typography
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+          >
+            Pin to top
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+        >
+          <img
+            src={copyLink}
+            alt="Icon"
+            style={{ width: "24px", height: "24px" }}
+          />
+          <Typography
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+          >
+            Copy link to post
+          </Typography>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+export default PagePosts;
