@@ -289,7 +289,8 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
           <Avatar
             src={userData?.profileImage ? userData.profileImage : user}
             alt="User"
-            sx={{ width: 60, height: 60, objectFit: "fill" }}
+            sx={{ width: 60, height: 60, objectFit: "fill", cursor: "pointer" }}
+            onClick={() => navigate(`/profile/${userData?.id}`)}
           />
           <OutlinedInput
             placeholder="Start a post"

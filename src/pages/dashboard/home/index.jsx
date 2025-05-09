@@ -261,7 +261,9 @@ const Home = () => {
                   width: "100px",
                   height: "100px",
                   borderRadius: "50%",
+                  cursor: "pointer"
                 }}
+                onClick={() => navigate(`/profile/${userData?.id}`)}
               />
             </Box>
             <Box sx={{ pt: "25px" }}>
@@ -307,7 +309,9 @@ const Home = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  cursor: "pointer"
                 }}
+                onClick={() => navigate("/bonds")}
               >
                 <Typography
                   sx={{
@@ -329,12 +333,14 @@ const Home = () => {
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                  onClick={() => navigate("/bonds?sub=group")}
                 >
                   Groups
                 </Typography>
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                  onClick={() => navigate("/bonds?sub=events")}
                 >
                   Events
                 </Typography>
@@ -354,6 +360,7 @@ const Home = () => {
                     cursor: "pointer",
                     color: theme.palette.primary.dark,
                   }}
+                  onClick={() => navigate("/bonds")}
                 >
                   <Typography
                     variant="gradientText"
