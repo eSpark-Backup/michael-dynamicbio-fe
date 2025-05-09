@@ -146,7 +146,9 @@ const SavedPosts = () => {
                 postImage,
                 articleTitle: post?.type === "ARTICLE" && post?.content?.articleTitle,
                 id: post?.id,
-                eventName: post?.type === "EVENT" && post?.content?.name
+                eventName: post?.type === "EVENT" && post?.content?.name,
+                shareableLink: post?.shareableLink,
+                visibility: post?.visibility,
             };
         });
     };

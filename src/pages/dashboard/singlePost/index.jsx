@@ -239,7 +239,9 @@ const SinglePost = () => {
                                     display: "flex",
                                     justifyContent: "space-between",
                                     alignItems: "center",
+                                    cursor: "pointer"
                                 }}
+                                onClick={() => navigate("/bonds")}
                             >
                                 <Typography
                                     sx={{
@@ -261,12 +263,14 @@ const SinglePost = () => {
                                 }}
                             >
                                 <Typography
-                                    sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+                                    sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                                    onClick={() => navigate("/bonds?sub=group")}
                                 >
                                     Groups
                                 </Typography>
                                 <Typography
-                                    sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+                                    sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                                    onClick={() => navigate("/bonds?sub=events")}
                                 >
                                     Events
                                 </Typography>
@@ -286,6 +290,7 @@ const SinglePost = () => {
                                         cursor: "pointer",
                                         color: theme.palette.primary.dark,
                                     }}
+                                    onClick={() => navigate("/bonds")}
                                 >
                                     <Typography
                                         variant="gradientText"

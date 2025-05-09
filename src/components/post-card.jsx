@@ -316,6 +316,7 @@ const PostCard = ({
               }
               alt="User"
               sx={{ width: 60, height: 60, objectFit: "fill" }}
+              onClick={() => navigate(`/profile/${userData?.id}`)}
             />
             <OutlinedInput
               placeholder="Start a post"

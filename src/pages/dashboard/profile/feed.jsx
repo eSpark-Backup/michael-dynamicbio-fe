@@ -176,6 +176,10 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
     ];
   };
 
+  const handlePostDelete = (postId) => {
+    setPosts(prev => prev.filter(post => post.id !== postId));
+  };
+
   const fetchMoreData = useCallback(() => {
     if (!isFetching && hasMore) {
       setPage(prev => prev + 1);
@@ -269,7 +273,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
       >
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
           {posts.map((item) => (
-            <SuggestionPost key={item.id} {...item} />
+            <SuggestionPost key={item.id} {...item} handlePostDelete={handlePostDelete} />
           ))}
         </Box>
       </InfiniteScroll>
