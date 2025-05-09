@@ -51,15 +51,18 @@ import {
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
+import EditPage from "./EditPage";
 
 const AdminView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, error, isSuccess, isFetching } =
-    useGetPageByIdQuery(id, {
+  const { data, isLoading, error, isSuccess, refetch: refetchPage, isFetching } = useGetPageByIdQuery(
+    id,
+    {
       refetchOnMountOrArgChange: true,
-    });
+    }
+  );
 
   useEffect(() => {
     if (error) toast.error(error?.data?.message);
@@ -235,28 +238,28 @@ const AdminView = () => {
 
   useEffect(() => {
     // if (isPostSuccess) {
-      if (!postsData?.data) {
-        setPosts([]);
-        setHasMore(false);
-        return;
-      }
+    if (!postsData?.data) {
+      setPosts([]);
+      setHasMore(false);
+      return;
+    }
 
-      const newPosts = transformPosts(postsData.data.posts);
+    const newPosts = transformPosts(postsData.data.posts);
 
-      if (page === 1) {
-        setPosts(newPosts);
-      } else {
-        const existingIds = new Set(posts.map((p) => p.id));
-        const uniqueNewPosts = newPosts.filter(
-          (post) => !existingIds.has(post.id)
-        );
-        setPosts((prev) => [...prev, ...uniqueNewPosts]);
-      }
-
-      setHasMore(
-        postsData.data.pagination.currentPage <
-          postsData.data.pagination.totalPages
+    if (page === 1) {
+      setPosts(newPosts);
+    } else {
+      const existingIds = new Set(posts.map((p) => p.id));
+      const uniqueNewPosts = newPosts.filter(
+        (post) => !existingIds.has(post.id)
       );
+      setPosts((prev) => [...prev, ...uniqueNewPosts]);
+    }
+
+    setHasMore(
+      postsData.data.pagination.currentPage <
+        postsData.data.pagination.totalPages
+    );
     // }
   }, [data, isPostSuccess, page, isPostFetching]);
 
@@ -434,9 +437,7 @@ const AdminView = () => {
                 borderTopLeftRadius: "4px",
                 position: "relative",
                 backgroundImage:
-                  loading === "cover"
-                    ? ""
-                    : `url(${coverPhoto || dummyPhoto})`,
+                  loading === "cover" ? "" : `url(${coverPhoto || dummyPhoto})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -593,6 +594,8 @@ const AdminView = () => {
             />
           ) : activeItem === "Activity" ? (
             <ActivitySection page={data?.data} />
+          ) : activeItem === "Edit page" ? (
+            <EditPage page={data?.data} refetch={refetchPage} />
           ) : (
             <DashboardSection
               refetch={refetch}
