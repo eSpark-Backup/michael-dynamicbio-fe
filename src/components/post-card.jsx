@@ -17,7 +17,15 @@ import { article, event, photo, user, video } from "../assets";
 import { addDays } from "../utils";
 import ViewPollPost from "./ViewPollPost";
 
-const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) => {
+const PostCard = ({
+  childComp,
+  page,
+  refetch,
+  viewOnly,
+  groupAdmin,
+  adminPage,
+  handleDropDown,
+}) => {
   const [newPost, { isLoading }] = useNewPostMutation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -86,6 +94,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
 
   const handleTextPost = () => {
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -99,6 +108,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
 
   const handleImagePost = () => {
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -113,6 +123,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
 
   const handleVideoPost = () => {
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -141,6 +152,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
 
   const HandleFinalPollPost = () => {
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         ...(schedule.date && schedule.time ? { schedule } : {}),
         title
@@ -164,6 +176,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
   const handleEventPost = () => {
     const { selectedFile, ...rest } = eventFormValues;
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         ...rest,
         title,
@@ -189,7 +202,11 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
       setPollModal(true);
       setShowPostModal(false);
     } else if (item === "Article") {
-      navigate("/article");
+      if (page) {
+        navigate(`/article?page=${JSON.stringify(page)}`);
+      } else {
+        navigate("/article");
+      }
     }
   };
 
@@ -268,87 +285,97 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
 
   return (
     <Box>
-      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            columnGap: "30px",
-            flexDirection: { xs: "column", md: "row" },
-            rowGap: "5px",
-          }}
-        >
-          {/* <img
+      {childComp ? (
+        React.cloneElement(childComp, { onClick: () => setShowPostModal(true) })
+      ) : (
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              columnGap: "30px",
+              flexDirection: { xs: "column", md: "row" },
+              rowGap: "5px",
+            }}
+          >
+            {/* <img
             style={{ width: "73px", height: "73px", borderRadius: "50%" }}
             src={
               userData && userData?.profileImage ? userData?.profileImage : user
             }
             alt="User"
           /> */}
-          <Avatar
-            src={userData?.profileImage ? userData.profileImage : user}
-            alt="User"
-            sx={{ width: 60, height: 60, objectFit: "fill" }}
-          />
-          <OutlinedInput
-            placeholder="Start a post"
-            sx={{
-              height: "60px",
-              width: "100%",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-            }}
-            readOnly
-            onClick={() => setShowPostModal(true)}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            rowGap: "10px",
-            columnGap: "10px",
-          }}
-        >
-          {[
-            { img: photo, label: "Photo" },
-            { img: video, label: "Video" },
-            { img: article, label: "Article" },
-            { img: event, label: "Event" },
-          ].map((item, index) => (
-            <Box
-              key={index}
+            <Avatar
+              src={
+                page
+                  ? page?.logoUrl
+                  : userData?.profileImage
+                  ? userData.profileImage
+                  : user
+              }
+              alt="User"
+              sx={{ width: 60, height: 60, objectFit: "fill" }}
+            />
+            <OutlinedInput
+              placeholder="Start a post"
               sx={{
-                width: { xs: "100%", md: "180px" },
-                height: "50px",
-                padding: "20px",
-                backgroundColor: "#F8FCFF",
-                borderRadius: "2px",
-                display: "flex",
-                columnGap: "15px",
-                alignItems: "center",
+                height: "60px",
+                width: "100%",
                 cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
               }}
-              onClick={() => HandlePostTypeClick(item.label)}
-            >
-              <img
-                style={{ width: "24px", height: "24px" }}
-                src={item.img}
-                alt={item.label}
-              />
-              <Typography
-                sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}
+              readOnly
+              onClick={() => setShowPostModal(true)}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              rowGap: "10px",
+              columnGap: "10px",
+            }}
+          >
+            {[
+              { img: photo, label: "Photo" },
+              { img: video, label: "Video" },
+              { img: article, label: "Article" },
+              { img: event, label: "Event" },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  width: { xs: "100%", md: "180px" },
+                  height: "50px",
+                  padding: "20px",
+                  backgroundColor: "#F8FCFF",
+                  borderRadius: "2px",
+                  display: "flex",
+                  columnGap: "15px",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+                onClick={() => HandlePostTypeClick(item.label)}
               >
-                {item.label}
-              </Typography>
-            </Box>
-          ))}
+                <img
+                  style={{ width: "24px", height: "24px" }}
+                  src={item.img}
+                  alt={item.label}
+                />
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}
+                >
+                  {item.label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
-      </Box>
+      )}
 
       <input
         type="file"
@@ -385,6 +412,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         setVisibility={setVisibility}
         groupAdmin={groupAdmin}
         adminPage={adminPage}
+        page={page}
         handleDropdown={handleDropDown}
       >
         <PhotoModal
@@ -416,6 +444,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         groupAdmin={groupAdmin}
         adminPage={adminPage}
         handleDropdown={handleDropDown}
+        page={page}
       >
         <VideoModal
           videoData={videoData}
@@ -448,6 +477,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         groupAdmin={groupAdmin}
         adminPage={adminPage}
         handleDropdown={handleDropDown}
+        page={page}
       >
         <PostModal
           title={title}
@@ -471,6 +501,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         footerDirection={"flex-end"}
         hideFooter={true}
         groupAdmin={groupAdmin}
+        page={page}
       >
         <EventModal
           onFormSubmit={handleFormSubmit}
@@ -496,6 +527,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         groupAdmin={groupAdmin}
         adminPage={adminPage}
         handleDropdown={handleDropDown}
+        page={page}
       >
         <ViewEventModal
           isLoading={isLoading}
@@ -529,6 +561,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         styledHeader={true}
         footerDirection={"space-between"}
         groupAdmin={groupAdmin}
+        page={page}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}
@@ -549,6 +582,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         footerDirection={"space-between"}
         hideFooter={true}
         groupAdmin={groupAdmin}
+        page={page}
       >
         <GroupShareModal />
       </DynamicModal>
@@ -567,6 +601,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         groupAdmin={groupAdmin}
         adminPage={adminPage}
         handleDropdown={handleDropDown}
+        page={page}
       >
         <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
       </DynamicModal>
@@ -585,6 +620,7 @@ const PostCard = ({ refetch, viewOnly, groupAdmin, adminPage, handleDropDown }) 
         groupAdmin={groupAdmin}
         adminPage={adminPage}
         handleDropdown={handleDropDown}
+        page={page}
       >
         <ViewPollPost
           values={pollValues}

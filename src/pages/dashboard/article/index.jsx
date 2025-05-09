@@ -32,12 +32,16 @@ import ScheduleModal from "../../../components/ScheduleModal.jsx";
 import { useSelector } from "react-redux";
 import { useEditPostMutation, useGetPostByIdQuery, useNewPostMutation } from "../../../services/post.js";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "../../../utils/index.js";
 
 const modules = {
   toolbar: "#toolbar-container",
 };
 
 const Article = ({ userName = "Abdul Rehman" }) => {
+  const query = useQuery();
+  const stringifiedPage = query.get("page");
+  const page = JSON.parse(stringifiedPage);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -76,7 +80,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
   const [content, setContent] = useState("");
   const [articleTitle, setArticleTitle] = useState("");
   const [title, setTitle] = useState("");
-  const [visibility, setVisibility] = useState("");
+  const [visibility, setVisibility] = useState("PUBLIC");
   const [scheduleDate, setScheduleDate] = useState(new Date());
   const [scheduleTime, setScheduleTime] = useState(new Date());
   const [schedule, setSchedule] = useState({
@@ -145,6 +149,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
   const handleArticlePost = () => {
     const obj = {
+      pageId: page ? page?.id : null,
       content: {
         title,
         content,
@@ -228,19 +233,19 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           >
             <img
               style={{ width: "44px", height: "44px", borderRadius: "50%" }}
-              src={userData?.profileImage}
+              src={page ? page?.logoUrl : userData?.profileImage}
               alt="Avatar"
             />
             <Stack direction={"column"}>
               <Stack direction={"row"} gap={1}>
                 <Typography
                   sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-                >{`${userData?.firstName} ${userData?.lastName}`}</Typography>
+                >{page ? page?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
                 <img
                   src={downArrowFilled}
                   alt="Icon"
                   style={{ cursor: "pointer" }}
-                  onClick={handleClick}
+                  onClick={page ? () => {} : handleClick}
                 />
               </Stack>
               <Typography
@@ -587,6 +592,8 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
         setVisibility={setVisibility}
+        page={page}
+        adminPage={page}
       >
         <ViewArticle
           isLoading={isLoading || editPostLoading}
@@ -617,6 +624,8 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
+        page={page}
+        adminPage={page}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}
