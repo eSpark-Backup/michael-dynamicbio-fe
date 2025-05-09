@@ -1,12 +1,12 @@
 import { Avatar, Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react'
-import { earth, save, three_vertical_dots, user } from '../assets';
+import { copyLink, earth, save, three_vertical_dots, user } from '../assets';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSavePostMutation } from '../services/post';
 
-const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage, question, pollTimeLeft, totalVotes, articleTitle, eventName, id, handleRefetch }) => {
+const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage, question, pollTimeLeft, totalVotes, articleTitle, eventName, id, handleRefetch, visibility, shareableLink }) => {
     const [fullText, setFullText] = useState(text)
     const [expanded, setExpanded] = useState(false);
     const charLimit = 120;
@@ -47,6 +47,10 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
                 toast.success(res?.data?.message)
                 handleRefetch()
             }
+        }
+        else if (event === "copy") {
+            navigator.clipboard.writeText(shareableLink)
+            toast.success("Link copied successfully")
         }
         handleMenuClose()
     }
@@ -261,6 +265,10 @@ const SavedItemCard = ({ userImage, userName, role, time, type, text, postImage,
                     <img src={save} alt="Icon" />
                     <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Unsave</Typography>
                 </MenuItem>
+                {visibility === "PUBLIC" && <MenuItem onClick={() => HandleMenuItemClicked("copy")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
+                    <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
+                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Copy link to post</Typography>
+                </MenuItem>}
             </Menu>
         </>
     )
