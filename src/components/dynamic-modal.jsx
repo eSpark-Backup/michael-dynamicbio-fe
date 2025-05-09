@@ -40,7 +40,8 @@ const DynamicModal = ({
   noBtn,
   groupAdmin,
   isEditModal,
-  description
+  description,
+  page,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -121,7 +122,7 @@ const DynamicModal = ({
                 style={{ borderRadius: "50%" }}
                 width={44}
                 height={44}
-                src={userData?.profileImage ? userData?.profileImage : user}
+                src={page ? page?.logoUrl : userData?.profileImage ? userData?.profileImage : user}
                 alt="Avatar"
               />
               <Stack direction={"column"}>
@@ -133,7 +134,7 @@ const DynamicModal = ({
                       color: "#171717",
                     }}
                   >
-                    {userName}
+                    {page ? page?.name : userName}
                   </Typography>
                   <img
                     src={downArrowFilled}

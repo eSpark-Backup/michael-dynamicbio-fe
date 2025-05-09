@@ -190,6 +190,88 @@ export const createPageSchema = Yup.object({
   }),
 });
 
+export const editPageSchema = Yup.object({
+  organizationName: Yup.string()
+    .max(100, "Organization name must not exceed 100 digits.")
+    .required("Organization name is required"),
+  address: Yup.string().max(200, "Address must not exceed 200 digits.").required("Address is required"),
+  location: Yup.string().required("Location is required."),
+  size: Yup.string().required("Please select Organization size"),
+  type: Yup.string().required("Please select Organization type"),
+  website: Yup.string().max(200, "Website must not exceed 200 digits.").required("Website is required"),
+  tagline: Yup.string().max(200, "Tagline must not exceed 200 digits.").required("Tagline is required"),
+
+  // Conditional fields based on industry
+  sellingItem: Yup.string().when("industry", {
+    is: "PRODUCTION",
+    then: (schema) => schema.required("Selling item is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  megajooules: Yup.string().when("industry", {
+    is: "PRODUCTION",
+    then: (schema) => schema.required("Megajoules is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  energyDuration: Yup.string().when("industry", {
+    is: "PRODUCTION",
+    then: (schema) => schema.required("Energy duration is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  cost: Yup.string().when("industry", {
+    is: "PRODUCTION",
+    then: (schema) => schema.required("Cost is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  shippingItem: Yup.string().when("industry", {
+    is: "TRANSPORTATION",
+    then: (schema) => schema.required("Shipping item is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  fuelCells: Yup.string().when("industry", {
+    is: "TRANSPORTATION",
+    then: (schema) => schema.required("Fuel cells info is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  to: Yup.string().when("industry", {
+    is: "TRANSPORTATION",
+    then: (schema) => schema.required("Destination (to) is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  from: Yup.string().when("industry", {
+    is: "TRANSPORTATION",
+    then: (schema) => schema.required("Starting point (from) is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  transportCost: Yup.string().when("industry", {
+    is: "TRANSPORTATION",
+    then: (schema) => schema.required("Transport cost is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  storageDuration: Yup.string().when("industry", {
+    is: "STORAGE",
+    then: (schema) => schema.required("Storage duration is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  storageTemp: Yup.string().when("industry", {
+    is: "STORAGE",
+    then: (schema) => schema.required("Storage temperature is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+
+  sellingItemOthers: Yup.string().when("industry", {
+    is: "OTHER",
+    then: (schema) => schema.required("Selling item is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  itemCostOthers: Yup.string().when("industry", {
+    is: "OTHER",
+    then: (schema) => schema.required("Item cost is required."),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+});
+
 export const onlineEventSchema = Yup.object({
   format: Yup.string().required("Event format is required"),
   name: Yup.string()

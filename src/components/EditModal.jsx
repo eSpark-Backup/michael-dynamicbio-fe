@@ -10,7 +10,7 @@ import { formatEventTime } from '../utils';
 import { useEditPostMutation } from '../services/post';
 import { toast } from 'react-toastify';
 
-const EditModal = ({ type, normalPostData, title, isLoading, onSuccess, videoPostData, id, eventData, pollData, handleClose, visibility, commentSetting }) => {
+const EditModal = ({ refetch, type, normalPostData, title, isLoading, onSuccess, videoPostData, id, eventData, pollData, handleClose, visibility, commentSetting }) => {
     const [newTitle, setNewTitle] = useState(title);
     const [editPost, { isLoading: editPostLoading }] = useEditPostMutation();
 
@@ -37,6 +37,7 @@ const EditModal = ({ type, normalPostData, title, isLoading, onSuccess, videoPos
                 }
                 if (res?.data) {
                     toast.success("Your post is updated successfully");
+                    refetch && refetch();
                     setNewTitle("");
                     handleClose()
                 }
