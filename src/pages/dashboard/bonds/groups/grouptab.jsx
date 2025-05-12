@@ -10,7 +10,7 @@ const GroupsTab = ({ accounts, type }) => {
     <Box sx={{ width: "100%" }}>
       {accounts?.length > 0 ? (
         <Stack
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", maxHeight: "420px", overflow: "auto" }}
           mt={2}
           direction="column"
           alignItems="center"

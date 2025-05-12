@@ -10,7 +10,13 @@ export const groupApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getMyGroups: builder.query({
+      query: () => ({
+        url: "/group/user/my?page=1&pageSize=100",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateGroupMutation } = groupApi;
+export const { useCreateGroupMutation, useGetMyGroupsQuery } = groupApi;
