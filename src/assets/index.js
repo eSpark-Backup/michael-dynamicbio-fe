@@ -128,6 +128,16 @@ import question from "./icons/question.svg"
 import deleteBlack from "./icons/deleteBlack.svg"
 import starBlack from "./icons/starBlack.svg"
 import saveUnfilled from "./icons/saveUnfilled.svg"
+import accountBlack from "./icons/accountBlack.svg"
+import accountBlue from "./icons/accountBlue.svg"
+import lockBlack from "./icons/lockBlack.svg"
+import lockBlue from "./icons/lockBlue.svg"
+import fullEyeBlack from "./icons/fullEyeBlack.svg"
+import fullEyeBlue from "./icons/fullEyeBlue.svg"
+import shieldBlack from "./icons/shieldBlack.svg"
+import shieldBlue from "./icons/shieldBlue.svg"
+import adBlack from "./icons/adBlack.svg"
+import adBlue from "./icons/adBlack.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -273,4 +283,14 @@ export {
   deleteBlack,
   starBlack,
   saveUnfilled,
+  adBlue,
+  adBlack,
+  shieldBlue,
+  shieldBlack,
+  fullEyeBlue,
+  fullEyeBlack,
+  lockBlue,
+  lockBlack,
+  accountBlue,
+  accountBlack,
 };

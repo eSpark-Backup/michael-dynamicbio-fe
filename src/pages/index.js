@@ -30,6 +30,8 @@ import GeneralArticle from "./dashboard/general/GeneralArticle";
 import GeneralEvent from "./dashboard/general/GeneralEvent";
 import GeneralPost from "./dashboard/general/GeneralPost";
 
+import Settings from "./settings";
+
 export {
   Login,
   Signup,
@@ -61,5 +63,6 @@ export {
   GeneralPage,
   GeneralArticle,
   GeneralEvent,
-  GeneralPost
+  GeneralPost,
+  Settings
 };
