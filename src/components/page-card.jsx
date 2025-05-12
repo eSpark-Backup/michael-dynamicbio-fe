@@ -147,7 +147,6 @@ const PageCard = ({
                 : "Follow"}
             </MenuItem>
             <MenuItem onClick={handleClose}>Message</MenuItem>
-            <MenuItem onClick={handleClose}>Report</MenuItem>
           </>
         )}
       </Menu>
