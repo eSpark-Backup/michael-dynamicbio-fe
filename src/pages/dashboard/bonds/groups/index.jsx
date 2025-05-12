@@ -1,11 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import GroupsTab from "./grouptab";
 import { groupsData } from "../../../../constant";
-import { useGetMyGroupsQuery } from "../../../../services/group";
+import {
+  useGetAllGroupsQuery,
+  useGetMyGroupsQuery,
+} from "../../../../services/group";
 
 const Groups = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const {
     data: myGroupsData,
     isLoading: isMyGroupsLoading,
@@ -17,16 +23,32 @@ const Groups = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const {
+    data: allGroupsData,
+    isLoading: isAllGroupsLoading,
+    isError: isAllGroupsError,
+    error: allGroupsError,
+    refetch: allGroupsRefetch,
+    isFetching: isAllGroupsFetcing,
+  } = useGetAllGroupsQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
   useEffect(() => {
     if (isMyGroupsError) toast.error(myGroupsError?.data?.message);
-  }, [isMyGroupsError]);
+    if (isAllGroupsError) toast.error(allGroupsError?.data?.message);
+  }, [isMyGroupsError, isAllGroupsError]);
 
   const tabs = useMemo(() => {
     const myGroups = myGroupsData?.data?.groups || [];
+    const allGroups = allGroupsData?.data?.pages || [];
+    const filteredGroups = allGroups?.filter(
+      (item) => item?.creatorId !== user?.id
+    );
     return [
       {
         label: "Your Groups",
-        component: <GroupsTab accounts={myGroups} type="my-groups" />,
+        component: <GroupsTab allGroups={filteredGroups} accounts={myGroups} type="my-groups" />,
       },
       {
         label: "Joined",
@@ -34,11 +56,16 @@ const Groups = () => {
       },
     ];
   }, [myGroupsData]);
-    const [activeTabLabel, setActiveTabLabel] = useState("Your Groups");
+  const [activeTabLabel, setActiveTabLabel] = useState("Your Groups");
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 
-  if (isMyGroupsLoading || isMyGroupsFetcing) {
+  if (
+    isMyGroupsLoading ||
+    isMyGroupsFetcing ||
+    isAllGroupsLoading ||
+    isAllGroupsFetcing
+  ) {
     return (
       <Box
         sx={{

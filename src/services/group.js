@@ -16,7 +16,17 @@ export const groupApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllGroups: builder.query({
+      query: () => ({
+        url: `/group?page=1&pageSize=100`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateGroupMutation, useGetMyGroupsQuery } = groupApi;
+export const {
+  useCreateGroupMutation,
+  useGetMyGroupsQuery,
+  useGetAllGroupsQuery,
+} = groupApi;
