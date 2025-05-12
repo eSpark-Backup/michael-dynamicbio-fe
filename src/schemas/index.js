@@ -94,7 +94,7 @@ export const editProfileDetailsSchema = Yup.object({
 export const createGroupSchema = Yup.object({
   name: Yup.string()
     .min(3, "Group name must be at least 3 digits.")
-    .max(15, "Group name must not exceed 100 digits.")
+    .max(100, "Group name must not exceed 100 digits.")
     .required("Group name is required"),
   description: Yup.string()
     .min(3, "Description must be at least 3 digits.")

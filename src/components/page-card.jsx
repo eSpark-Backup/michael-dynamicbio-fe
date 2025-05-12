@@ -16,6 +16,7 @@ const PageCard = ({
   type,
   id,
   creatorId,
+  requestSent,
 }) => {
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers?.some((item) => item?.id === user?.id);
@@ -92,7 +93,7 @@ const PageCard = ({
           </Stack>
         </Box>
         {type === "joined-groups" ? (
-          <Typography>Withdraw</Typography>
+          <Typography>Unfollow</Typography>
         ) : (
           <img
             onClick={handleClick}
@@ -115,7 +116,18 @@ const PageCard = ({
           horizontal: "left",
         }}
       >
-        {owner ? (
+        {type === "my-groups" ? (
+          <>
+            <MenuItem onClick={handleClose}>Invite members</MenuItem>
+            <MenuItem onClick={handleClose}>Delete group</MenuItem>
+          </>
+        ) : type === "all-groups" ? (
+          <>
+            <MenuItem onClick={handleClose}>
+              {isFollowed ? "unFollow" : requestSent ? "Withdraw" : "Follow"}
+            </MenuItem>
+          </>
+        ) : owner ? (
           <>
             <MenuItem onClick={handleClose}>Invite members</MenuItem>
             <MenuItem
