@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Checkbox,
@@ -9,11 +11,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { DynamicModal, Input } from "../../../../components";
+import { Dropdown, DynamicModal, Input } from "../../../../components";
 import { createGroupSchema } from "../../../../schemas";
 import { edit, plus, uploadIcon, userAvatar } from "../../../../assets";
+import { useCreateGroupMutation } from "../../../../services/group";
+import { industryTypeOptions } from "../../../../constant";
+import { convertToFormData } from "../../../../utils";
 
 export default function CreateGroupModal({ open, handleClose }) {
+  const [createGroup, { isLoading }] = useCreateGroupMutation();
+  const navigate = useNavigate();
   const coverRef = useRef(null);
   const ProfileRef = useRef(null);
   const [cover, setCover] = useState(null);
@@ -25,13 +32,38 @@ export default function CreateGroupModal({ open, handleClose }) {
       description: "",
       location: "",
       rules: "",
+      industry: "",
       type: "",
       allowInvite: false,
       allowPost: false,
     },
     validationSchema: createGroupSchema,
-    onSubmit: (values) => {
-      console.log(values, "values");
+    onSubmit: (values, { resetForm }) => {
+      const bodyToSend = {
+        logo: profile,
+        cover,
+        name: values?.name,
+        description: values?.description,
+        address: values?.location,
+        rules: values?.rules,
+        industry: values?.industry,
+        status: values?.type,
+        allowMemberInvites: values?.allowInvite,
+        requirePostApproval: values?.allowPost,
+      };
+      const formdata = convertToFormData(bodyToSend);
+      createGroup(formdata).then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          return;
+        }
+        if (res?.data) {
+          navigate(`/group/${res?.data?.data?.id}`);
+          resetForm();
+          setCover(null);
+          setProfile(null);
+        }
+      });
     },
   });
 
@@ -43,6 +75,7 @@ export default function CreateGroupModal({ open, handleClose }) {
       title="Create Group"
       onSuccess={formik.handleSubmit}
       buttonText="Create"
+      isLoading={isLoading}
     >
       <Box
         sx={{
@@ -173,6 +206,7 @@ export default function CreateGroupModal({ open, handleClose }) {
           }}
         >
           <Input
+            required
             wordLimit={100}
             customLabel="Location"
             placeholder="Add a location"
@@ -208,24 +242,22 @@ export default function CreateGroupModal({ open, handleClose }) {
             helperText={formik.touched.rules && formik.errors.rules}
           />
         </Box>
-        <>
-          <Typography mt={2} mb={1}>
-            Add indutry
-          </Typography>
-          <Box
-            sx={{
-              padding: "7px 21px",
-              width: "100%",
-              border: "1px solid #000",
-              borderRadius: "4px",
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-            }}
-          >
-            <img style={{ width: "52px", height: "52px" }} src={plus} />
-          </Box>
-        </>
+        <Box sx={{ mt: 1 }}>
+          <Dropdown
+            required
+            variant="outlined"
+            options={industryTypeOptions}
+            handleChange={(event) =>
+              formik.setFieldValue("industry", event.target.value)
+            }
+            customLabel="Add industry"
+            noLabel
+            placeholder="Select Industry"
+            error={formik.touched.industry && !!formik.errors.industry}
+            helperText={formik.touched.industry && formik.errors.industry}
+            value={formik.values.industry}
+          />
+        </Box>
         <>
           <Stack
             mb={1}
@@ -234,8 +266,8 @@ export default function CreateGroupModal({ open, handleClose }) {
             alignItems="center"
             mt={2}
           >
-            <Typography>Group type</Typography>
-            {<Typography>Required</Typography>}
+            <Typography fontSize={12}>Group type</Typography>
+            {<Typography fontSize={12}>Required</Typography>}
           </Stack>
           <Box
             sx={{
@@ -253,7 +285,7 @@ export default function CreateGroupModal({ open, handleClose }) {
               onBlur={formik.handleBlur}
             >
               <Stack sx={{ label: { margin: 0 } }} direction="row">
-                <FormControlLabel value="public" control={<Radio />} />
+                <FormControlLabel value="PUBLIC" control={<Radio />} />
                 <Box>
                   <Typography sx={{ color: "#000" }}>Public</Typography>
                   <Typography variant="body2" sx={{ color: "gray" }}>
@@ -264,7 +296,7 @@ export default function CreateGroupModal({ open, handleClose }) {
               </Stack>
 
               <Stack sx={{ label: { margin: 0 } }} direction="row">
-                <FormControlLabel value="private" control={<Radio />} />
+                <FormControlLabel value="PRIVATE" control={<Radio />} />
                 <Box>
                   <Typography sx={{ color: "#000" }}>Private</Typography>
                   <Typography variant="body2" sx={{ color: "gray" }}>
@@ -287,7 +319,7 @@ export default function CreateGroupModal({ open, handleClose }) {
           )}
         </>
         <>
-          <Typography mt={2} mb={1}>
+          <Typography fontSize={12} mt={2} mb={1}>
             Permissions
           </Typography>
           <Box
@@ -332,18 +364,6 @@ export default function CreateGroupModal({ open, handleClose }) {
               </Box>
             </Stack>
           </Box>
-          {/* Show error message below the Box */}
-          {formik.touched.type && formik.errors.type && (
-            <Typography
-              sx={{
-                color: "#d32f2f ",
-                fontSize: "14px",
-                margin: "3px 14px 0 14px",
-              }}
-            >
-              {formik.errors.type}
-            </Typography>
-          )}
         </>
       </Box>
     </DynamicModal>
