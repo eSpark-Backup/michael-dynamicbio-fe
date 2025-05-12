@@ -97,11 +97,12 @@ export const createGroupSchema = Yup.object({
     .max(15, "Group name must not exceed 100 digits.")
     .required("Group name is required"),
   description: Yup.string()
-    .min(20, "Description must be at least 20 digits.")
+    .min(3, "Description must be at least 3 digits.")
     .max(2000, "Description must not exceed 2000 digits.")
     .required("Description is required"),
-  location: Yup.string().max(100, "Location must not exceed 100 digits."),
+  location: Yup.string().max(100, "Location must not exceed 100 digits.").required("Location is required"),
   rules: Yup.string().max(4000, "Rules must not exceed 4000 digits."),
+  industry: Yup.string().required("Industry is required"),
   type: Yup.string().required("Please select group type"),
 });
 
