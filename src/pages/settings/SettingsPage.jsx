@@ -2,44 +2,98 @@ import { Avatar, Box, FormControlLabel, List, ListItem, Radio, RadioGroup, Stack
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { user } from '../../assets';
+import { useUpdateUserProfileSettingsMutation } from '../../services/auth';
+import { toast } from 'react-toastify';
 
 const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     const { user: userData } = useSelector((state) => state.auth);
     const [options, setOptions] = useState(values)
+    const [updateSettings, { isLoading }] = useUpdateUserProfileSettingsMutation();
+
 
     const handleProfileViewChange = (event) => {
+        const newValue = event.target.value
         setOptions((prev) => ({
             ...prev,
             profileViewingOption: event.target.value
         }));
+        updateSettings({ ...options, profileViewingOption: newValue }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting successfully");
+            }
+        });
     };
 
     const handleConnectionChange = (event) => {
+        const newValue = event.target.checked
         setOptions((prev) => ({
             ...prev,
             showConnections: event.target.checked
         }));
+        updateSettings({ ...options, showConnections: newValue }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting updated successfully");
+            }
+        });
     };
 
     const handleOrganizationChange = (event) => {
+        const newValue = event.target.checked
         setOptions((prev) => ({
             ...prev,
             showOrganizationsAndInterests: event.target.checked
         }));
+        updateSettings({ ...options, showOrganizationsAndInterests: newValue }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting updated successfully");
+            }
+        });
     };
 
     const handleShowEmailChange = (event) => {
+        const newValue = event.target.checked
         setOptions((prev) => ({
             ...prev,
             showEmail: event.target.checked
         }));
+        updateSettings({ ...options, showEmail: newValue }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting updated successfully");
+            }
+        });
     };
 
     const handleViewProfilePhoto = (event) => {
+        const newValue = event.target.checked
         setOptions((prev) => ({
             ...prev,
             showProfilePhoto: event.target.checked
         }));
+        updateSettings({ ...options, showProfilePhoto: newValue }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting updated successfully");
+            }
+        });
     };
 
     const handleLastNameChange = (event) => {
@@ -48,6 +102,15 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
             ...prev,
             showLastName: value
         }));
+        updateSettings({ ...options, showLastName: value }).then((res) => {
+            if (res?.error) {
+                toast.error(res?.error?.data?.message);
+                return;
+            }
+            if (res) {
+                toast.success("Setting updated successfully");
+            }
+        });
     };
 
     if (selectedSetting === "profileViewingOption") {
@@ -62,7 +125,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                     name="profileViewingOption"
                     sx={{ mr: "0px" }}
                     value={options?.profileViewingOption}
-                    onChange={handleProfileViewChange}
+                    onChange={isLoading ? () => { } : handleProfileViewChange}
                 >
                     <Box sx={{ display: "flex", rowGap: "15px", flexDirection: "column" }}>
                         <Stack sx={{ label: { margin: 0 }, display: "flex", alignItems: "center" }} direction="row">
@@ -120,7 +183,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{options?.showConnections ? "On" : "Off"}</Typography>
                         <Switch
                             checked={options?.showConnections}
-                            onChange={handleConnectionChange}
+                            onChange={isLoading ? () => { } : handleConnectionChange}
                         />
                     </Box>
                 </Box>
@@ -141,7 +204,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                     name="showLastName"
                     sx={{ mr: "0px" }}
                     value={options?.showLastName}
-                    onChange={handleLastNameChange}
+                    onChange={isLoading ? () => { } : handleLastNameChange}
                 >
                     <Box sx={{ display: "flex", rowGap: "15px", flexDirection: "column" }}>
                         <Stack sx={{ label: { margin: 0 }, display: "flex", alignItems: "center" }} direction="row">
@@ -197,7 +260,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{options?.showOrganizationsAndInterests ? "On" : "Off"}</Typography>
                         <Switch
                             checked={options?.showOrganizationsAndInterests}
-                            onChange={handleOrganizationChange}
+                            onChange={isLoading ? () => { } : handleOrganizationChange}
                         />
                     </Box>
                 </Box>
@@ -220,7 +283,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{options?.showEmail ? "On" : "Off"}</Typography>
                         <Switch
                             checked={options?.showEmail}
-                            onChange={handleShowEmailChange}
+                            onChange={isLoading ? () => { } : handleShowEmailChange}
                         />
                     </Box>
                 </Box>
@@ -243,7 +306,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{options?.showProfilePhoto ? "On" : "Off"}</Typography>
                         <Switch
                             checked={options?.showProfilePhoto}
-                            onChange={handleViewProfilePhoto}
+                            onChange={isLoading ? () => { } : handleViewProfilePhoto}
                         />
                     </Box>
                 </Box>

@@ -1,20 +1,49 @@
 import { Box, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { gradientRightArrow } from '../../assets'
 import SettingsPage from './SettingsPage'
+import { useSelector } from 'react-redux'
 
 const AccountSettings = () => {
     const [showSettingsPage, setShowSettingsPage] = useState(false)
     const [selectedSettings, setSelectedSettings] = useState("")
+    const { user: userData } = useSelector((state) => state.auth);
 
     const [options, setOptions] = useState({
-        profileViewingOption: "Your name and headline",
-        showConnections: true,
-        showLastName: true,
-        showOrganizationsAndInterests: true,
-        showEmail: true,
-        showProfilePhoto: true
+        profileViewingOption: "",
+        showConnections: null,
+        showLastName: null,
+        showOrganizationsAndInterests: null,
+        showEmail: null,
+        showHeadline: null,
+        showSummary: null,
+        showArticlesAndActivity: true,
+        showCurrentExperience: null,
+        showCurrentExperienceDetails: null,
+        showPastExperience: null,
+        showPastExperienceDetails: null,
+        showEducation: null,
+        showEducationDetails: null,
+        showCertifications: null,
+        showProjects: true,
+        showLanguages: true,
+        showProfilePhoto: null
     })
+
+    useEffect(() => {
+        if (userData?.profileSettings) {
+            setOptions((prev) => {
+                const updated = { ...prev };
+                Object.keys(prev).forEach((key) => {
+                    if (key in userData.profileSettings) {
+                        updated[key] = userData.profileSettings[key];
+                    }
+                });
+                return updated;
+            });
+        }
+    }, [userData]);
+
 
     const HandleSettings = (setting) => {
         setSelectedSettings(setting)

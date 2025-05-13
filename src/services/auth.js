@@ -109,6 +109,14 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    updateUserProfileSettings: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/profile/settings",
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -127,4 +135,5 @@ export const {
   useFindEmailMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useUpdateUserProfileSettingsMutation
 } = authApi;

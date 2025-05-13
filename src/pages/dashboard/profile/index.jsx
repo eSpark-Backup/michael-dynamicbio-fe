@@ -19,8 +19,10 @@ const Profile = () => {
   const [userData, setUserData] = useState();
   const [modal, setModal] = useState("");
 
+
   useEffect(() => {
     if (userId === user?.id) {
+      console.log(user)
       setUserData(user);
       setIsPublicView(false);
       setIsPublic(false);
@@ -31,7 +33,17 @@ const Profile = () => {
         toast.error(res?.error?.data?.message);
         return;
       } else {
-        setUserData(res?.data?.data);
+        const updatedData = { ...res?.data?.data };
+
+        const current = updatedData?.about?.currentExperience || [];
+        const past = updatedData?.about?.pastExperience || [];
+
+        updatedData.about = {
+          ...updatedData.about,
+          experience: [...current, ...past],
+        };
+
+        setUserData(updatedData);
         setIsPublicView(true);
         setIsPublic(true);
       }

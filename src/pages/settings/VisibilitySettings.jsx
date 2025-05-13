@@ -1,19 +1,51 @@
 import { Box, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { gradientRightArrow } from '../../assets'
 import SettingsPage from './SettingsPage'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const VisibilitySettings = () => {
     const [showSettingsPage, setShowSettingsPage] = useState(false)
     const [selectedSettings, setSelectedSettings] = useState("")
+    const { user: userData } = useSelector((state) => state.auth);
+    const navigate = useNavigate()
 
     const [options, setOptions] = useState({
-        profileViewingOption: "Your name and headline",
-        showConnections: true,
-        showLastName: true,
-        showOrganizationsAndInterests: true,
-        showEmail: true
+        profileViewingOption: "",
+        showConnections: null,
+        showLastName: null,
+        showOrganizationsAndInterests: null,
+        showEmail: null,
+        showHeadline: null,
+        showSummary: null,
+        showArticlesAndActivity: true,
+        showCurrentExperience: null,
+        showCurrentExperienceDetails: null,
+        showPastExperience: null,
+        showPastExperienceDetails: null,
+        showEducation: null,
+        showEducationDetails: null,
+        showCertifications: null,
+        showProjects: true,
+        showLanguages: true,
+        showProfilePhoto: null
     })
+
+    useEffect(() => {
+        if (userData?.profileSettings) {
+            setOptions((prev) => {
+                const updated = { ...prev };
+                Object.keys(prev).forEach((key) => {
+                    if (key in userData.profileSettings) {
+                        updated[key] = userData.profileSettings[key];
+                    }
+                });
+                return updated;
+            });
+        }
+    }, [userData]);
+
 
     const HandleSettings = (setting) => {
         setSelectedSettings(setting)
@@ -42,7 +74,7 @@ const VisibilitySettings = () => {
                         <img src={gradientRightArrow} alt="" style={{ marginRight: "16px" }} />
                     </Box>
                 </Box>
-                <Box sx={{ borderBottom: "1px solid #E4E4E4", py: "15px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}>
+                <Box sx={{ borderBottom: "1px solid #E4E4E4", py: "15px", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer" }} onClick={() => navigate(`/profile/${userData?.id}`)}>
                     <Typography sx={{ fontSize: "16px", fontWeight: "100", color: "#505050", pl: "16px" }}>Edit your public profile</Typography>
                     <img src={gradientRightArrow} alt="" style={{ marginRight: "16px" }} />
                 </Box>
