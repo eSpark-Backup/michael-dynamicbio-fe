@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import GroupsTab from "./grouptab";
 import {
+  useDeleteGroupMutation,
   useGetAllGroupsQuery,
   useGetFollowedGroupsQuery,
   useGetMyGroupsQuery,
@@ -45,6 +46,22 @@ const Groups = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const [deleteGroup, { isLoading: isDeleteLoading }] =
+    useDeleteGroupMutation();
+
+  const handleDelete = (id) => {
+    deleteGroup(id).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        toast.success(res?.data?.message);
+        myGroupsRefetch();
+      }
+    });
+  };
+
   useEffect(() => {
     if (isMyGroupsError) toast.error(myGroupsError?.data?.message);
     if (isAllGroupsError) toast.error(allGroupsError?.data?.message);
@@ -64,6 +81,8 @@ const Groups = () => {
         label: "Your Groups",
         component: (
           <GroupsTab
+            handleDelete={handleDelete}
+            isDeleteLoading={isDeleteLoading}
             allGroups={filteredGroups}
             accounts={myGroups}
             type="my-groups"

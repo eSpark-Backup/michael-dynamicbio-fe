@@ -18,6 +18,7 @@ const PageCard = ({
   creatorId,
   requestSent,
 }) => {
+  const isGroup = type === "my-groups" || type === "joined-groups" || type === "all-groups";
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers?.some((item) => item?.id === user?.id);
   const owner = creatorId === user?.id;
@@ -47,7 +48,7 @@ const PageCard = ({
         }}
       >
         <Box
-          onClick={() => navigate(`/page/${id}`)}
+          onClick={() => navigate(`/${isGroup ? "group" : "page"}/${id}`)}
           sx={{
             width: "calc(100% - 20px)",
             cursor: "pointer",
@@ -74,9 +75,6 @@ const PageCard = ({
                 overflow: "hidden",
                 whiteSpace: "nowrap",
               }}
-              onClick={() =>
-                navigate(type === "my-groups" ? `/group/${id}` : `/page/${id}`)
-              }
             >
               {name}
             </Typography>
@@ -119,7 +117,16 @@ const PageCard = ({
         {type === "my-groups" ? (
           <>
             <MenuItem onClick={handleClose}>Invite members</MenuItem>
-            <MenuItem onClick={handleClose}>Delete group</MenuItem>
+            <MenuItem
+              onClick={(e) => {
+                if (!isDeleteLoading) {
+                  handleDelete(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isDeleteLoading ? "loading..." : "Delete group"}
+            </MenuItem>
           </>
         ) : type === "all-groups" ? (
           <>
