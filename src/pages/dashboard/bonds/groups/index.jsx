@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import GroupsTab from "./grouptab";
-import { groupsData } from "../../../../constant";
 import {
   useGetAllGroupsQuery,
+  useGetFollowedGroupsQuery,
   useGetMyGroupsQuery,
 } from "../../../../services/group";
 
@@ -34,10 +34,22 @@ const Groups = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const {
+    data: followedGroupsData,
+    isLoading: isFollowedGroupsLoading,
+    isError: isFollowedGroupsError,
+    error: followedGroupsError,
+    refetch: followedGroupsRefetch,
+    isFetching: isFollowedGroupsFetcing,
+  } = useGetFollowedGroupsQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
   useEffect(() => {
     if (isMyGroupsError) toast.error(myGroupsError?.data?.message);
     if (isAllGroupsError) toast.error(allGroupsError?.data?.message);
-  }, [isMyGroupsError, isAllGroupsError]);
+    if (isFollowedGroupsError) toast.error(followedGroupsError?.data?.message);
+  }, [isMyGroupsError, isAllGroupsError, isFollowedGroupsError]);
 
   const tabs = useMemo(() => {
     const myGroups = myGroupsData?.data?.groups || [];
@@ -45,17 +57,25 @@ const Groups = () => {
     const filteredGroups = allGroups?.filter(
       (item) => item?.creatorId !== user?.id
     );
+    const followedGroups = followedGroupsData?.data?.groups || [];
+
     return [
       {
         label: "Your Groups",
-        component: <GroupsTab allGroups={filteredGroups} accounts={myGroups} type="my-groups" />,
+        component: (
+          <GroupsTab
+            allGroups={filteredGroups}
+            accounts={myGroups}
+            type="my-groups"
+          />
+        ),
       },
       {
         label: "Joined",
-        component: <GroupsTab accounts={groupsData} type="joined-groups" />,
+        component: <GroupsTab accounts={followedGroups} type="joined-groups" />,
       },
     ];
-  }, [myGroupsData]);
+  }, [myGroupsData, allGroupsData, followedGroupsData]);
   const [activeTabLabel, setActiveTabLabel] = useState("Your Groups");
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
@@ -64,7 +84,9 @@ const Groups = () => {
     isMyGroupsLoading ||
     isMyGroupsFetcing ||
     isAllGroupsLoading ||
-    isAllGroupsFetcing
+    isAllGroupsFetcing ||
+    isFollowedGroupsLoading ||
+    isFollowedGroupsFetcing
   ) {
     return (
       <Box

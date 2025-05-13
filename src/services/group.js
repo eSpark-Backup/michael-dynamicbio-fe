@@ -22,6 +22,12 @@ export const groupApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getFollowedGroups: builder.query({
+      query: () => ({
+        url: `/group/user/followed?page=1&pageSize=100`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -29,4 +35,5 @@ export const {
   useCreateGroupMutation,
   useGetMyGroupsQuery,
   useGetAllGroupsQuery,
+  useGetFollowedGroupsQuery,
 } = groupApi;
