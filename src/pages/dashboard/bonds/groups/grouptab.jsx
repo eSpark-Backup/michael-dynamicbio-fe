@@ -4,7 +4,13 @@ import { PageCard } from "../../../../components";
 import CreateGroupModal from "./createGroup";
 import { plus } from "../../../../assets";
 
-const GroupsTab = ({ allGroups, accounts, type }) => {
+const GroupsTab = ({
+  isDeleteLoading,
+  handleDelete,
+  allGroups,
+  accounts,
+  type,
+}) => {
   const [open, setOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [suggestedGroups, setSuggestedGroups] = useState(
@@ -12,9 +18,7 @@ const GroupsTab = ({ allGroups, accounts, type }) => {
   );
 
   useEffect(() => {
-    setSuggestedGroups(
-      showAll ? allGroups : allGroups?.slice(0, 4)
-    );
+    setSuggestedGroups(showAll ? allGroups : allGroups?.slice(0, 4));
   }, [showAll, allGroups]);
   return (
     <Box sx={{ width: "100%" }}>
@@ -28,7 +32,13 @@ const GroupsTab = ({ allGroups, accounts, type }) => {
           gap={2}
         >
           {accounts.map((group) => (
-            <PageCard type={type} key={group.id} {...group} />
+            <PageCard
+              isDeleteLoading={isDeleteLoading}
+              handleDelete={handleDelete}
+              type={type}
+              key={group.id}
+              {...group}
+            />
           ))}
         </Stack>
       ) : (

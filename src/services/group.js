@@ -28,6 +28,12 @@ export const groupApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    deleteGroup: builder.mutation({
+      query: (id) => ({
+        url: `/group/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -36,4 +42,5 @@ export const {
   useGetMyGroupsQuery,
   useGetAllGroupsQuery,
   useGetFollowedGroupsQuery,
+  useDeleteGroupMutation,
 } = groupApi;
