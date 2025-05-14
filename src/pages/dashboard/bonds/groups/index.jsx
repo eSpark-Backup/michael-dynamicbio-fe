@@ -5,6 +5,7 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import GroupsTab from "./grouptab";
 import {
   useDeleteGroupMutation,
+  useFollowGroupMutation,
   useGetAllGroupsQuery,
   useGetFollowedGroupsQuery,
   useGetMyGroupsQuery,
@@ -62,6 +63,22 @@ const Groups = () => {
     });
   };
 
+  const [follow, { isLoading: isFollowLoading }] = useFollowGroupMutation();
+
+  const handleFollow = (id) => {
+    follow(id).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        toast.success(res?.data?.message);
+        allGroupsRefetch();
+        followedGroupsRefetch();
+      }
+    });
+  };
+
   useEffect(() => {
     if (isMyGroupsError) toast.error(myGroupsError?.data?.message);
     if (isAllGroupsError) toast.error(allGroupsError?.data?.message);
@@ -81,6 +98,8 @@ const Groups = () => {
         label: "Your Groups",
         component: (
           <GroupsTab
+            isFollowLoading={isFollowLoading}
+            handleFollow={handleFollow}
             handleDelete={handleDelete}
             isDeleteLoading={isDeleteLoading}
             allGroups={filteredGroups}
@@ -91,7 +110,14 @@ const Groups = () => {
       },
       {
         label: "Joined",
-        component: <GroupsTab accounts={followedGroups} type="joined-groups" />,
+        component: (
+          <GroupsTab
+            isFollowLoading={isFollowLoading}
+            handleFollow={handleFollow}
+            accounts={followedGroups}
+            type="joined-groups"
+          />
+        ),
       },
     ];
   }, [myGroupsData, allGroupsData, followedGroupsData]);

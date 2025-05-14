@@ -18,7 +18,8 @@ const PageCard = ({
   creatorId,
   requestSent,
 }) => {
-  const isGroup = type === "my-groups" || type === "joined-groups" || type === "all-groups";
+  const isGroup =
+    type === "my-groups" || type === "joined-groups" || type === "all-groups";
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers?.some((item) => item?.id === user?.id);
   const owner = creatorId === user?.id;
@@ -91,7 +92,14 @@ const PageCard = ({
           </Stack>
         </Box>
         {type === "joined-groups" ? (
-          <Typography>Unfollow</Typography>
+          <Typography
+            sx={{ width: "120px", cursor: "pointer" }}
+            onClick={() => {
+              if (!isFollowLoading) handleFollow(id);
+            }}
+          >
+            {isFollowLoading ? "loading..." : "Leave group"}
+          </Typography>
         ) : (
           <img
             onClick={handleClick}
@@ -116,7 +124,6 @@ const PageCard = ({
       >
         {type === "my-groups" ? (
           <>
-            <MenuItem onClick={handleClose}>Invite members</MenuItem>
             <MenuItem
               onClick={(e) => {
                 if (!isDeleteLoading) {
@@ -130,8 +137,21 @@ const PageCard = ({
           </>
         ) : type === "all-groups" ? (
           <>
-            <MenuItem onClick={handleClose}>
-              {isFollowed ? "unFollow" : requestSent ? "Withdraw" : "Follow"}
+            <MenuItem
+              onClick={(e) => {
+                if (!isFollowLoading) {
+                  handleFollow(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isFollowLoading
+                ? "loading..."
+                : isFollowed
+                ? "Leave group"
+                : requestSent
+                ? "Withdraw request"
+                : "Join group"}
             </MenuItem>
           </>
         ) : owner ? (

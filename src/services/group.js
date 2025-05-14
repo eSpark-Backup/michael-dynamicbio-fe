@@ -34,6 +34,12 @@ export const groupApi = api.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    followGroup: builder.mutation({
+      query: (id) => ({
+        url: `/group/follow/${id}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -43,4 +49,5 @@ export const {
   useGetAllGroupsQuery,
   useGetFollowedGroupsQuery,
   useDeleteGroupMutation,
+  useFollowGroupMutation,
 } = groupApi;

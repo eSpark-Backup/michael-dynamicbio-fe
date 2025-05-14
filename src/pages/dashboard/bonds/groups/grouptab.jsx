@@ -7,6 +7,8 @@ import { plus } from "../../../../assets";
 const GroupsTab = ({
   isDeleteLoading,
   handleDelete,
+  isFollowLoading,
+  handleFollow,
   allGroups,
   accounts,
   type,
@@ -33,6 +35,8 @@ const GroupsTab = ({
         >
           {accounts.map((group) => (
             <PageCard
+              isFollowLoading={isFollowLoading}
+              handleFollow={handleFollow}
               isDeleteLoading={isDeleteLoading}
               handleDelete={handleDelete}
               type={type}
@@ -102,7 +106,13 @@ const GroupsTab = ({
             gap={2}
           >
             {suggestedGroups.map((group) => (
-              <PageCard type={"all-groups"} key={group.id} {...group} />
+              <PageCard
+                isFollowLoading={isFollowLoading}
+                handleFollow={handleFollow}
+                type={"all-groups"}
+                key={group.id}
+                {...group}
+              />
             ))}
           </Stack>
         </>
