@@ -56,7 +56,7 @@ const RightBar = ({ isPublicView }) => {
   };
 
   const fields = [
-    { key: "showHeadline", label: "Bio" },
+    // { key: "showHeadline", label: "Headline" },
     { key: "showSummary", label: "Summary" },
     { key: "showCurrentExperience", label: "Current Experience" },
     { key: "showCurrentExperienceDetails", label: "Details", indent: true, parent: "showCurrentExperience" },
@@ -64,7 +64,7 @@ const RightBar = ({ isPublicView }) => {
     { key: "showPastExperienceDetails", label: "Details", indent: true, parent: "showPastExperience" },
     { key: "showEducation", label: "Education" },
     { key: "showEducationDetails", label: "Details", indent: true, parent: "showEducation" },
-    { key: "showCertifications", label: "Certifications" },
+    // { key: "showCertifications", label: "Certifications" },
   ];
 
   useEffect(() => {

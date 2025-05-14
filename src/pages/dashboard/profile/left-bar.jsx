@@ -85,7 +85,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       ) : (
         <Paper
           sx={{
-            display: ((!isPublic && !isPublicView) || (!isPublic && isPublicView && userData?.profileSettings?.showHeadline) ? "flex" : "none"),
+            display: ((!isPublic && !isPublicView) || (!isPublic && isPublicView && userData?.profileSettings?.showSummary) ? "flex" : "none"),
             flexDirection: "column",
             rowGap: "12px",
             px: "20px",
@@ -135,61 +135,34 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
         </Paper>
       )}
-      <Paper
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          rowGap: "12px",
-          px: "20px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
-          >
-            Contact details
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            border: "1px solid #E4E4E4",
-            p: "10px 5px 10px 5px",
-            borderRadius: "4px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography
+      {
+        (isPublic && isPublicView && !userData?.email && !userData?.phoneNumber)
+          ?
+          <></>
+          :
+          <Paper
             sx={{
-              fontSize: "10px",
-              fontWeight: 400,
-              color: "#171717",
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "12px",
+              px: "20px",
             }}
           >
-            {userData?.email}
-          </Typography>
-          {!isPublicView && (
-            <img
-              onClick={() => setModal("addemail")}
-              style={{ cursor: "pointer" }}
-              src={plus}
-              alt="add"
-            />
-          )}
-        </Box>
-        {userData?.about?.email &&
-          userData?.about?.email?.length > 0 &&
-          userData?.about?.email?.map((item) => {
-            return (
-              <Box
-                key={item?.email}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+              >
+                Contact details
+              </Typography>
+            </Box>
+            {
+              (isPublic && !userData?.email) ? <></> : <Box
                 sx={{
                   border: "1px solid #E4E4E4",
                   p: "10px 5px 10px 5px",
@@ -206,56 +179,58 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     color: "#171717",
                   }}
                 >
-                  {item?.email}
+                  {userData?.email}
                 </Typography>
                 {!isPublicView && (
                   <img
-                    onClick={() => {
-                      setModal("editemail");
-                      setItem(item);
-                    }}
+                    onClick={() => setModal("addemail")}
                     style={{ cursor: "pointer" }}
-                    src={primaryEdit}
-                    alt="edit"
+                    src={plus}
+                    alt="add"
                   />
                 )}
               </Box>
-            );
-          })}
-        <Box
-          sx={{
-            border: "1px solid #E4E4E4",
-            p: "10px 5px 10px 5px",
-            borderRadius: "4px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: "10px",
-              fontWeight: 400,
-              color: "#171717",
-            }}
-          >
-            {userData?.phoneNumber || "Phone number"}
-          </Typography>
-          {!isPublicView && (
-            <img
-              onClick={() => setModal("addphone")}
-              style={{ cursor: "pointer" }}
-              src={plus}
-              alt="add"
-            />
-          )}
-        </Box>
-        {userData?.about?.phone &&
-          userData?.about?.phone?.length > 0 &&
-          userData?.about?.phone?.map((item) => {
-            return (
-              <Box
-                key={item?.phone}
+            }
+            {userData?.about?.email &&
+              userData?.about?.email?.length > 0 &&
+              userData?.about?.email?.map((item) => {
+                return (
+                  <Box
+                    key={item?.email}
+                    sx={{
+                      border: "1px solid #E4E4E4",
+                      p: "10px 5px 10px 5px",
+                      borderRadius: "4px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "10px",
+                        fontWeight: 400,
+                        color: "#171717",
+                      }}
+                    >
+                      {item?.email}
+                    </Typography>
+                    {!isPublicView && (
+                      <img
+                        onClick={() => {
+                          setModal("editemail");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    )}
+                  </Box>
+                );
+              })}
+            {
+              (isPublic && !userData?.phoneNumber) || (isPublicView && !userData?.phoneNumber) ? <></> : <Box
                 sx={{
                   border: "1px solid #E4E4E4",
                   p: "10px 5px 10px 5px",
@@ -272,23 +247,58 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     color: "#171717",
                   }}
                 >
-                  {item?.phone}
+                  {userData?.phoneNumber || "Phone number"}
                 </Typography>
                 {!isPublicView && (
                   <img
-                    onClick={() => {
-                      setModal("editphone");
-                      setItem(item);
-                    }}
+                    onClick={() => setModal("addphone")}
                     style={{ cursor: "pointer" }}
-                    src={primaryEdit}
-                    alt="edit"
+                    src={plus}
+                    alt="add"
                   />
                 )}
               </Box>
-            );
-          })}
-      </Paper>
+            }
+            {userData?.about?.phone &&
+              userData?.about?.phone?.length > 0 &&
+              userData?.about?.phone?.map((item) => {
+                return (
+                  <Box
+                    key={item?.phone}
+                    sx={{
+                      border: "1px solid #E4E4E4",
+                      p: "10px 5px 10px 5px",
+                      borderRadius: "4px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "10px",
+                        fontWeight: 400,
+                        color: "#171717",
+                      }}
+                    >
+                      {item?.phone}
+                    </Typography>
+                    {!isPublicView && (
+                      <img
+                        onClick={() => {
+                          setModal("editphone");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    )}
+                  </Box>
+                );
+              })}
+          </Paper>
+      }
       {
         ((isPublic && userData?.about?.experience && userData?.about?.experience?.length > 0) || ((isPublicView && userData?.profileSettings?.showPastExperience) || (isPublicView && userData?.profileSettings?.showCurrentExperience)) || (!isPublic && !isPublicView)) &&
         <Paper
@@ -365,7 +375,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {
                     ((!isPublic && isPublicView && userData?.profileSettings?.showCurrentExperienceDetails && item?.currently)
                       ||
-                      (!isPublic && isPublicView && userData?.profileSettings?.showPastExperienceDetails && !item?.currently) || (!isPublic && !isPublicView) || (isPublic && isPublicView))
+                      (!isPublic && isPublicView && userData?.profileSettings?.showPastExperienceDetails && !item?.currently) || (!isPublic && !isPublicView) || (isPublic && isPublicView && item?.company))
                     &&
                     <Stack
                       direction="row"
@@ -399,12 +409,12 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                             }}
                           >
                             {item?.startingDate &&
-                              dayjs(item?.startingDate).format("YYYY")}{" "}
+                              dayjs(item?.startingDate).format("MM/YYYY")}{" "}
                             -{" "}
                             {item?.currently
                               ? "Present"
                               : item?.endingDate &&
-                              dayjs(item?.endingDate).format("YYYY")}
+                              dayjs(item?.endingDate).format("MM/YYYY")}
                           </Typography>
                         </Stack>
                         <Stack
@@ -545,7 +555,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       />
                     )}
                   </Stack>
-                  <Box sx={{ width: "100%", mt: 1 }}>
+                  {item?.degree && <Box sx={{ width: "100%", mt: 1 }}>
                     <Stack
                       direction="row"
                       justifyContent="space-between"
@@ -602,32 +612,12 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                         {item?.type}
                       </Typography>
                     </Stack>
-                  </Box>
+                  </Box>}
                 </Box>
               );
             })
-          ) : (
-            <Box
-              sx={{
-                border: "1px solid #E4E4E4",
-                p: "10px 5px 10px 5px",
-                borderRadius: "4px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                height: "40px",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "10px",
-                  fontWeight: 400,
-                  color: "#171717",
-                }}
-              >
-                Adding education allow people to know what your capability.
-              </Typography>
-            </Box>
+          ) : (!isPublic && !isPublicView) ? <></> : (
+            <></>
           )}
           {!isPublicView && (
             <Box
@@ -920,7 +910,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
             </Box>
           )}
         </Paper>
-      ) : (
+      ) : (isPublic && isPublicView) ? <></> : (
         <Paper
           sx={{
             display: "flex",

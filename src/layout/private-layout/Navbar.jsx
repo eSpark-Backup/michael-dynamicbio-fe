@@ -175,8 +175,8 @@ const Navbar = () => {
                     <MenuItem onClick={(e) => {
                       navigate("/settings");
                       handleClose(e);
-                    }} >Account</MenuItem>
-                    <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
+                    }} >Settings</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
                     {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
                     {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
                     <MenuItem onClick={(e) => {
@@ -364,8 +364,8 @@ const Navbar = () => {
                       <MenuItem onClick={(e) => {
                         navigate("/settings");
                         handleClose(e);
-                      }} sx={{ width: "245px" }}>Account</MenuItem>
-                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
+                      }} sx={{ width: "245px" }}>Settings</MenuItem>
+                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
                       {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
                       {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
                       <MenuItem

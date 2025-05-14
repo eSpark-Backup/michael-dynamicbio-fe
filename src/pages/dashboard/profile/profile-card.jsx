@@ -51,8 +51,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
         }
         if (res) {
           toast.success(
-            `Your ${
-              type === "image" ? "profile" : type
+            `Your ${type === "image" ? "profile" : type
             } image updated successfully`
           );
           dispatch(updateUser(res?.data?.data));
@@ -132,7 +131,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
             marginBottom: "20px",
             cursor: "pointer",
           }}
-          onClick={isPublicView ? () => {} : () => ProfileRef.current.click()}
+          onClick={isPublicView ? () => { } : () => ProfileRef.current.click()}
         >
           {loading === "image" ? (
             <Box
@@ -269,7 +268,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                   {userData?.designation}
                 </Typography>
               </Stack>
-              <Stack
+              {userData?.industry && <Stack
                 direction="row"
                 alignItems="center"
                 justifyContent="flex-start"
@@ -289,28 +288,30 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                 >
                   {userData?.industry}
                 </Typography>
-              </Stack>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-start"
-                gap="14px"
-              >
-                <Typography
-                  sx={{ color: "#505050", width: "60px"  }}
-                  fontSize="12px"
-                  fontWeight={400}
+              </Stack>}
+              {
+                userData?.company && <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap="14px"
                 >
-                  Company:
-                </Typography>
-                <Typography
-                  sx={{ color: "#505050"}}
-                  fontSize="12px"
-                  fontWeight={400}
-                >
-                  {userData?.company}
-                </Typography>
-              </Stack>
+                  <Typography
+                    sx={{ color: "#505050", width: "60px" }}
+                    fontSize="12px"
+                    fontWeight={400}
+                  >
+                    Company:
+                  </Typography>
+                  <Typography
+                    sx={{ color: "#505050" }}
+                    fontSize="12px"
+                    fontWeight={400}
+                  >
+                    {userData?.company}
+                  </Typography>
+                </Stack>
+              }
             </Box>
             {!isPublicView && (
               <img
