@@ -16,7 +16,10 @@ const PageCard = ({
   type,
   id,
   creatorId,
+  requestSent,
 }) => {
+  const isGroup =
+    type === "my-groups" || type === "joined-groups" || type === "all-groups";
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers?.some((item) => item?.id === user?.id);
   const owner = creatorId === user?.id;
@@ -46,7 +49,7 @@ const PageCard = ({
         }}
       >
         <Box
-          onClick={() => navigate(`/page/${id}`)}
+          onClick={() => navigate(`/${isGroup ? "group" : "page"}/${id}`)}
           sx={{
             width: "calc(100% - 20px)",
             cursor: "pointer",
@@ -73,9 +76,6 @@ const PageCard = ({
                 overflow: "hidden",
                 whiteSpace: "nowrap",
               }}
-              onClick={() =>
-                navigate(type === "my-groups" ? `/group/${id}` : `/page/${id}`)
-              }
             >
               {name}
             </Typography>
@@ -92,7 +92,14 @@ const PageCard = ({
           </Stack>
         </Box>
         {type === "joined-groups" ? (
-          <Typography>Withdraw</Typography>
+          <Typography
+            sx={{ width: "120px", cursor: "pointer" }}
+            onClick={() => {
+              if (!isFollowLoading) handleFollow(id);
+            }}
+          >
+            {isFollowLoading ? "loading..." : "Leave group"}
+          </Typography>
         ) : (
           <img
             onClick={handleClick}
@@ -115,7 +122,39 @@ const PageCard = ({
           horizontal: "left",
         }}
       >
-        {owner ? (
+        {type === "my-groups" ? (
+          <>
+            <MenuItem
+              onClick={(e) => {
+                if (!isDeleteLoading) {
+                  handleDelete(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isDeleteLoading ? "loading..." : "Delete group"}
+            </MenuItem>
+          </>
+        ) : type === "all-groups" ? (
+          <>
+            <MenuItem
+              onClick={(e) => {
+                if (!isFollowLoading) {
+                  handleFollow(id);
+                  handleClose(e);
+                }
+              }}
+            >
+              {isFollowLoading
+                ? "loading..."
+                : isFollowed
+                ? "Leave group"
+                : requestSent
+                ? "Withdraw request"
+                : "Join group"}
+            </MenuItem>
+          </>
+        ) : owner ? (
           <>
             <MenuItem onClick={handleClose}>Invite members</MenuItem>
             <MenuItem
@@ -147,7 +186,6 @@ const PageCard = ({
                 : "Follow"}
             </MenuItem>
             <MenuItem onClick={handleClose}>Message</MenuItem>
-            <MenuItem onClick={handleClose}>Report</MenuItem>
           </>
         )}
       </Menu>

@@ -159,7 +159,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                     src={userImage ? userImage : user}
                     alt="User"
                     sx={{ width: 60, height: 60, objectFit: "fill" }}
-                    onClick={isGeneralPost ? AlertHandler : () => navigate(isPagePost ? () => { } : `/profile/${id}`)}
+                    onClick={isGeneralPost ? AlertHandler : () => navigate(isPagePost ? `/page/${pageId}` : `/profile/${id}`)}
                 />
                 <Stack direction={"column"}>
                     {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={isGeneralPost ? AlertHandler : () => navigate(isPagePost ? () => { } : `/profile/${id}`)}>{userName}</Typography>}
