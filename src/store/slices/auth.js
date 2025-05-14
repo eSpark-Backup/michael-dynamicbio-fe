@@ -51,6 +51,14 @@ const slice = createSlice({
         localStorage.setItem("user", JSON.stringify(data));
       }
     );
+    builder.addMatcher(
+      authApi.endpoints.updateUserProfileSettings.matchFulfilled,
+      (state, { payload }) => {
+        const { data } = payload;
+        state.user = data;
+        localStorage.setItem("user", JSON.stringify(data));
+      }
+    );
   },
 });
 

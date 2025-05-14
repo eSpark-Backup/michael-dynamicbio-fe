@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress } from "@mui/material";
@@ -18,6 +18,8 @@ const PrivateLayout = () => {
   if (!token) {
     return <Navigate to="/login" replace />;
   }
+
+  const { pathname } = useLocation();
 
   const hasFetchedRef = useRef(false);
 
@@ -62,8 +64,14 @@ const PrivateLayout = () => {
 
   return (
     <>
-      <Header />
-      <Navbar />
+      {
+        pathname !== "/settings"
+        &&
+        <>
+          <Header />
+          <Navbar />
+        </>
+      }
       <Outlet />
     </>
   );

@@ -40,6 +40,7 @@ import {
   GeneralArticle,
   GeneralEvent,
   GeneralPost,
+  Settings,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -131,6 +132,7 @@ const App = () => {
           <Route path="/group/:id/manage" element={<ManageGroup />} />
           <Route path="/save-posts" element={<SavedPosts />} />
           <Route path="/post/:id" element={<SinglePost />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

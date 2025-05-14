@@ -67,11 +67,11 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
     return posts
       // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
       .map((item) => {
-        const isOwnPost = item?.author?.id === userData?.id;
+        const isOwnPost = item?.author?.id === user?.id;
         const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
           item?.likes?.some((item) =>
-            item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() &&
-            item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase()
+            item?.user?.firstName?.toLowerCase() === user?.firstName?.toLowerCase() &&
+            item?.user?.lastName?.toLowerCase() === user?.lastName?.toLowerCase()
           );
 
         let lastLike = "";
@@ -83,8 +83,8 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           lastLike = item?.lastLikedUser;
         } else if (Array.isArray(item?.likes)) {
           const newItem = item?.likes?.find((item2) =>
-            item2?.user?.firstName?.toLowerCase() !== userData?.firstName?.toLowerCase() &&
-            item2?.user?.lastName?.toLowerCase() !== userData?.lastName?.toLowerCase()
+            item2?.user?.firstName?.toLowerCase() !== user?.firstName?.toLowerCase() &&
+            item2?.user?.lastName?.toLowerCase() !== user?.lastName?.toLowerCase()
           );
           lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
         }

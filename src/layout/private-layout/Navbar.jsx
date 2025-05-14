@@ -172,10 +172,13 @@ const Navbar = () => {
                     >
                       Profile
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>Account</MenuItem>
-                    <MenuItem onClick={handleClose}>Privacy & Security</MenuItem>
-                    <MenuItem onClick={handleClose}>Language</MenuItem>
-                    <MenuItem onClick={handleClose}>Help</MenuItem>
+                    <MenuItem onClick={(e) => {
+                      navigate("/settings");
+                      handleClose(e);
+                    }} >Settings</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
+                    {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
+                    {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
                     <MenuItem onClick={(e) => {
                       dispatch(logout());
                       navigate("/login");
@@ -358,10 +361,13 @@ const Navbar = () => {
                       >
                         Profile
                       </MenuItem>
-                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Account</MenuItem>
-                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem>
-                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem>
-                      <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem>
+                      <MenuItem onClick={(e) => {
+                        navigate("/settings");
+                        handleClose(e);
+                      }} sx={{ width: "245px" }}>Settings</MenuItem>
+                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
+                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
+                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
                       <MenuItem
                         sx={{ width: "245px" }}
                         onClick={(e) => {

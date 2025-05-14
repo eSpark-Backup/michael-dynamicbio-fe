@@ -311,11 +311,13 @@ const PostCard = ({
                 page
                   ? page?.logoUrl
                   : userData?.profileImage
-                  ? userData.profileImage
-                  : user
+                    ? userData.profileImage
+                    : user
               }
               alt="User"
-              sx={{ width: 60, height: 60, objectFit: "fill" }}
+              sx={{
+                width: 60, height: 60, objectFit: "fill", cursor: "pointer"
+              }}
               onClick={() => navigate(`/profile/${userData?.id}`)}
             />
             <OutlinedInput
