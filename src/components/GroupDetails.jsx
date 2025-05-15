@@ -28,6 +28,7 @@ import NotificationSettingsModal from "./NotificationSettingsModal";
 import GroupPostSettingModal from "./GroupPostSettingModal";
 import { suggestionPostContent } from "../constant";
 import SuggestionPost from "./SuggestionPost";
+import EditGroupModal from "./EditGroupModal";
 import {
   useDeleteGroupMutation,
   useFollowGroupMutation,
@@ -70,6 +71,7 @@ const GroupDetails = () => {
   const [anchorEl4, setAnchorEl4] = useState(null);
   const open4 = Boolean(anchorEl4);
 
+  const [editModal, setEditModal] = useState(null);
   const [showSlider, setShowSlider] = useState(true);
   const [showTip, setShowTip] = useState(true);
   const [choice, setChoice] = useState("All");
@@ -348,6 +350,7 @@ const GroupDetails = () => {
                   </Typography>
                 </Box>
                 <Box
+                  onClick={() => setEditModal(data?.data)}
                   sx={{
                     height: "60px",
                     borderTop: "1px solid #E5E5E5",
@@ -640,6 +643,7 @@ const GroupDetails = () => {
                 )} */}
                 {data?.data?.isAdmin && (
                   <img
+                    onClick={() => setEditModal(data?.data)}
                     style={{ cursor: "pointer" }}
                     src={editBlue}
                     alt="Icon"
@@ -829,6 +833,13 @@ const GroupDetails = () => {
           <GroupSidebar data={data?.data} />
         </Grid2>
       </Grid2>
+
+      <EditGroupModal
+        data={editModal}
+        refetch={refetch}
+        open={editModal?.id}
+        handleClose={() => setEditModal(null)}
+      />
 
       <DynamicModal
         open={aboutModal}
