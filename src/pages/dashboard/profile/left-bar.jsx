@@ -13,6 +13,7 @@ import AddEmailModal from "./modals/add-email";
 import EditEmailModal from "./modals/edit-email";
 import AddPhoneModal from "./modals/add-phone";
 import EditPhoneModal from "./modals/edit-phone";
+import AddProject from "./modals/add-project";
 
 const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
   const [item, setItem] = useState(null);
@@ -1013,6 +1014,150 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
         </Paper>
       )}
+      {((!isPublic && !isPublicView) || (userData?.about?.projects?.length > 0)) && <Paper sx={{
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "12px",
+        px: "20px",
+      }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "40px",
+          }}
+        >
+          <Typography
+            sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+          >
+            Projects
+          </Typography>
+        </Box>
+        {
+          Array.isArray(userData?.about?.projects) && userData?.about?.projects?.length > 0
+            ?
+            userData?.about?.projects?.map((item) => (
+              <Box sx={{
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px"
+              }}>
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    color: "#171717",
+                  }}
+                >
+                  {item?.name}
+                </Typography>
+                <Box sx={{ display: "flex" }}>
+                  {item?.startMonth && <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {item?.startMonth}
+                  </Typography>}
+                  {item?.startYear && <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    / {item?.startYear}
+                  </Typography>}
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {` - `}
+                  </Typography>
+                  {item?.working && <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    present
+                  </Typography>}
+                  {item?.endMonth
+                    && <Typography
+                      sx={{
+                        fontSize: "10px",
+                        fontWeight: 400,
+                        color: "#171717",
+                      }}
+                    >
+                      {item?.endMonth
+                      }
+                    </Typography>}
+                  {item?.endYear && <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    / {item?.endYear}
+                  </Typography>}
+                </Box>
+
+                {item?.description && <Typography
+                  sx={{
+                    fontSize: "10px",
+                    fontWeight: 400,
+                    color: "#171717",
+                  }}
+                >
+                  {item?.description}
+                </Typography>}
+                {item?.links?.map((item, index) => (
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                    key={index}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+              </Box>
+            ))
+            :
+            <>Please add projects</>
+        }
+        {!isPublicView && (
+          <Box
+            onClick={() => setModal("addproject")}
+            sx={{
+              border: "1px solid #E4E4E4",
+              p: "10px 5px 10px 5px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "40px",
+              cursor: "pointer",
+            }}
+          >
+            <img src={plus} alt="add" />
+          </Box>
+        )}
+      </Paper>}
       <EditBioModal
         userData={userData}
         open={modal === "bio"}
@@ -1072,6 +1217,11 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
         skill={item}
         open={modal === "editskill"}
         handleClose={handleClose}
+      />
+      <AddProject
+        open={modal === "addproject"}
+        handleClose={handleClose}
+        userData={userData}
       />
     </>
   );
