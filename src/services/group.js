@@ -40,6 +40,20 @@ export const groupApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
+    getGroupDetail: builder.query({
+      query: (id) => ({
+        url: `/group/${id}`,
+        method: "GET",
+      }),
+    }),
+    editGroup: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/${id}`,
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -50,4 +64,6 @@ export const {
   useGetFollowedGroupsQuery,
   useDeleteGroupMutation,
   useFollowGroupMutation,
+  useGetGroupDetailQuery,
+  useEditGroupMutation,
 } = groupApi;

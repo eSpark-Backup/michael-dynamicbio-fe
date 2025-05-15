@@ -7,6 +7,7 @@ export const postApi = api.injectEndpoints({
         const formData = new FormData();
 
         if(credentials?.pageId) formData.append("pageId", credentials?.pageId);
+        if(credentials?.groupId) formData.append("groupId", credentials?.groupId);
         formData.append("content", JSON.stringify(credentials.content));
         formData.append("status", credentials.status);
         formData.append("visibility", credentials.visibility);
@@ -75,6 +76,8 @@ export const postApi = api.injectEndpoints({
         if (credentials?.edit) {
           formData.append("edit", credentials.edit);
         }
+        if(credentials?.pageId) formData.append("pageId", credentials?.pageId);
+        if(credentials?.groupId) formData.append("groupId", credentials?.groupId);
 
         if (credentials?.content) {
           formData.append("content", JSON.stringify(credentials.content));
