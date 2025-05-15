@@ -46,6 +46,14 @@ export const groupApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    editGroup: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/${id}`,
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -57,4 +65,5 @@ export const {
   useDeleteGroupMutation,
   useFollowGroupMutation,
   useGetGroupDetailQuery,
+  useEditGroupMutation,
 } = groupApi;
