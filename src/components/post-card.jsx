@@ -20,6 +20,7 @@ import ViewPollPost from "./ViewPollPost";
 const PostCard = ({
   childComp,
   page,
+  group,
   refetch,
   viewOnly,
   groupAdmin,
@@ -76,7 +77,7 @@ const PostCard = ({
           return;
         }
         if (res?.data) {
-          toast.success("Your post is uploaded successfully");
+          toast.success(res?.data?.message);
           refetch && refetch();
           setTitle("");
           setShowPostModal(false);
@@ -95,6 +96,7 @@ const PostCard = ({
   const handleTextPost = () => {
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -109,6 +111,7 @@ const PostCard = ({
   const handleImagePost = () => {
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -124,6 +127,7 @@ const PostCard = ({
   const handleVideoPost = () => {
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
@@ -153,6 +157,7 @@ const PostCard = ({
   const HandleFinalPollPost = () => {
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         ...(schedule.date && schedule.time ? { schedule } : {}),
         title
@@ -177,6 +182,7 @@ const PostCard = ({
     const { selectedFile, ...rest } = eventFormValues;
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         ...rest,
         title,
@@ -204,6 +210,8 @@ const PostCard = ({
     } else if (item === "Article") {
       if (page) {
         navigate(`/article?page=${JSON.stringify(page)}`);
+      } else if (group) {
+        navigate(`/article?group=${JSON.stringify(group)}`);
       } else {
         navigate("/article");
       }
