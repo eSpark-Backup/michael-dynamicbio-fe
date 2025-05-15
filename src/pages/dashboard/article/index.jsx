@@ -41,7 +41,9 @@ const modules = {
 const Article = ({ userName = "Abdul Rehman" }) => {
   const query = useQuery();
   const stringifiedPage = query.get("page");
+  const stringifiedGroup = query.get("group");
   const page = JSON.parse(stringifiedPage);
+  const group = JSON.parse(stringifiedGroup);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -150,6 +152,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
   const handleArticlePost = () => {
     const obj = {
       pageId: page ? page?.id : null,
+      groupId: group ? group?.id : null,
       content: {
         title,
         content,
