@@ -35,6 +35,7 @@ const GroupsTab = ({
         >
           {accounts.map((group) => (
             <PageCard
+              mainType={"group"}
               isFollowLoading={isFollowLoading}
               handleFollow={handleFollow}
               isDeleteLoading={isDeleteLoading}
@@ -107,6 +108,7 @@ const GroupsTab = ({
           >
             {suggestedGroups.map((group) => (
               <PageCard
+                mainType={"group"}
                 isFollowLoading={isFollowLoading}
                 handleFollow={handleFollow}
                 type={"all-groups"}

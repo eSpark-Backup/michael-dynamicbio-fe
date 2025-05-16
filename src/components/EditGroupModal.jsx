@@ -238,7 +238,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
           }}
         >
           <Input
-            wordLimit={2000}
+            wordLimit={500}
             required
             customLabel="Description"
             placeholder="What is the aim of this group?"
@@ -286,7 +286,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
           }}
         >
           <Input
-            wordLimit={4000}
+            wordLimit={500}
             customLabel="Rules"
             placeholder="Set the tone & expectations of your group"
             type="text"
