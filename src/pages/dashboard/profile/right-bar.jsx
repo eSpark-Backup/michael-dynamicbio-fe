@@ -65,7 +65,8 @@ const RightBar = ({ isPublicView }) => {
     { key: "showEducation", label: "Education" },
     { key: "showEducationDetails", label: "Details", indent: true, parent: "showEducation" },
     { key: "showProjects", label: "Projects" },
-    // { key: "showCertifications", label: "Certifications" },
+    { key: "showProjects", label: "Projects" },
+    { key: "showCertifications", label: "Certifications" },
   ];
 
   useEffect(() => {
