@@ -93,29 +93,29 @@ export const editProfileDetailsSchema = Yup.object({
 
 export const createGroupSchema = Yup.object({
   name: Yup.string()
-    .min(3, "Group name must be at least 3 digits.")
-    .max(100, "Group name must not exceed 100 digits.")
+    .min(3, "Group name must be at least 3 character.")
+    .max(100, "Group name must not exceed 100 character.")
     .required("Group name is required"),
   description: Yup.string()
-    .min(3, "Description must be at least 3 digits.")
-    .max(2000, "Description must not exceed 2000 digits.")
+    .min(3, "Description must be at least 3 character.")
+    .max(500, "Description must not exceed 500  character.")
     .required("Description is required"),
-  location: Yup.string().max(100, "Location must not exceed 100 digits.").required("Location is required"),
-  rules: Yup.string().max(4000, "Rules must not exceed 4000 digits."),
+  location: Yup.string().max(100, "Location must not exceed 100 character.").required("Location is required"),
+  rules: Yup.string().max(500, "Rules must not exceed 500 character."),
   industry: Yup.string().required("Industry is required"),
   type: Yup.string().required("Please select group type"),
 });
 
 export const createPageSchema = Yup.object({
   organizationName: Yup.string()
-    .max(100, "Organization name must not exceed 100 digits.")
+    .max(100, "Organization name must not exceed 100 character.")
     .required("Organization name is required"),
-  address: Yup.string().max(200, "Address must not exceed 200 digits.").required("Address is required"),
+  address: Yup.string().max(200, "Address must not exceed 200 character.").required("Address is required"),
   location: Yup.string().required("Location is required."),
   size: Yup.string().required("Please select Organization size"),
   type: Yup.string().required("Please select Organization type"),
-  website: Yup.string().max(200, "Website must not exceed 200 digits.").required("Website is required"),
-  tagline: Yup.string().max(200, "Tagline must not exceed 200 digits.").required("Tagline is required"),
+  website: Yup.string().max(200, "Website must not exceed 200 character.").required("Website is required"),
+  tagline: Yup.string().max(200, "Tagline must not exceed 200 character.").required("Tagline is required"),
   permissions: Yup.boolean()
     .oneOf([true], "You must accept the permission")
     .required("This field is required"),
@@ -193,14 +193,14 @@ export const createPageSchema = Yup.object({
 
 export const editPageSchema = Yup.object({
   organizationName: Yup.string()
-    .max(100, "Organization name must not exceed 100 digits.")
+    .max(100, "Organization name must not exceed 100 character.")
     .required("Organization name is required"),
-  address: Yup.string().max(200, "Address must not exceed 200 digits.").required("Address is required"),
+  address: Yup.string().max(200, "Address must not exceed 200 character.").required("Address is required"),
   location: Yup.string().required("Location is required."),
   size: Yup.string().required("Please select Organization size"),
   type: Yup.string().required("Please select Organization type"),
-  website: Yup.string().max(200, "Website must not exceed 200 digits.").required("Website is required"),
-  tagline: Yup.string().max(200, "Tagline must not exceed 200 digits.").required("Tagline is required"),
+  website: Yup.string().max(200, "Website must not exceed 200 character.").required("Website is required"),
+  tagline: Yup.string().max(200, "Tagline must not exceed 200 character.").required("Tagline is required"),
 
   // Conditional fields based on industry
   sellingItem: Yup.string().when("industry", {

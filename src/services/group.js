@@ -54,6 +54,50 @@ export const groupApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getGroupPendingPost: builder.query({
+      query: (id) => ({
+        url: `/group/${id}/posts/pending`,
+        method: "GET",
+      }),
+    }),
+    updateGroupPendingPost: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/posts/${id}/action`,
+        method: "PATCH",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    makeGroupAdmin: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/${id}/admin`,
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    deleteGroupAdmin: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/${id}/admin`,
+        method: "DELETE",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    getGroupJoinReq: builder.query({
+      query: (id) => ({
+        url: `/group/request/pending/${id}`,
+        method: "GET",
+      }),
+    }),
+    updateGroupJoinReq: builder.mutation({
+      query: ({ id, credentials }) => ({
+        url: `/group/request/approve/${id}`,
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -66,4 +110,10 @@ export const {
   useFollowGroupMutation,
   useGetGroupDetailQuery,
   useEditGroupMutation,
+  useGetGroupPendingPostQuery,
+  useUpdateGroupPendingPostMutation,
+  useMakeGroupAdminMutation,
+  useDeleteGroupAdminMutation,
+  useGetGroupJoinReqQuery,
+  useUpdateGroupJoinReqMutation,
 } = groupApi;

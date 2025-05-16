@@ -17,12 +17,14 @@ import {
   camera,
   comment,
   commentOff,
+  deleteBlack,
   emoji,
   like,
   pin,
   repost,
   send,
   three_vertical_dots,
+  tick,
   unlike,
   user,
 } from "../assets";
@@ -51,6 +53,10 @@ import ShowLikesModal from "./ShowLikesModal";
 import EditModal from "./EditModal";
 
 const PollPost = ({
+  isUpdateLoading,
+  handleResponse,
+  reqId,
+  isPending,
   userId,
   pollId,
   endDate,
@@ -89,7 +95,7 @@ const PollPost = ({
   isPageFollowing,
   pageId,
   isGeneralPost,
-  shareableLink
+  shareableLink,
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -114,13 +120,13 @@ const PollPost = ({
   const [postId, setPostId] = useState("");
   const [commentContent, setCommentContent] = useState("");
   const [postComments, setPostComments] = useState([]);
-  const [totalComments, setTotalComments] = useState(comments)
-  const [showLikesModal, setShowLikesModal] = useState(false)
-  const [showEditModal, setEditModal] = useState(false)
+  const [totalComments, setTotalComments] = useState(comments);
+  const [showLikesModal, setShowLikesModal] = useState(false);
+  const [showEditModal, setEditModal] = useState(false);
   const [visibility, setVisibility] = useState(postVisibility);
-  const [editTitle, setEditTitle] = useState(postContent)
+  const [editTitle, setEditTitle] = useState(postContent);
 
-  useEffect(() => setEditTitle(postContent), [postContent])
+  useEffect(() => setEditTitle(postContent), [postContent]);
 
   const [
     commentData,
@@ -147,7 +153,7 @@ const PollPost = ({
     refetchOnReconnect: true,
   });
 
-  useEffect(() => setTotalComments(comments), [comments])
+  useEffect(() => setTotalComments(comments), [comments]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -211,21 +217,21 @@ const PollPost = ({
         prevOptions.map((item) =>
           item.id - 3 === optionIndex
             ? {
-              ...item,
-              isChecked: true,
-              numbersVoted: item.numbersVoted + 1,
-              voteBy: [
-                ...item.voteBy,
-                {
-                  company: userData?.company,
-                  designation: userData?.designation,
-                  firstName: userData?.firstName,
-                  lastName: userData?.lastName,
-                  profileImage: userData?.profileImage,
-                  userId: userData?.id,
-                },
-              ],
-            }
+                ...item,
+                isChecked: true,
+                numbersVoted: item.numbersVoted + 1,
+                voteBy: [
+                  ...item.voteBy,
+                  {
+                    company: userData?.company,
+                    designation: userData?.designation,
+                    firstName: userData?.firstName,
+                    lastName: userData?.lastName,
+                    profileImage: userData?.profileImage,
+                    userId: userData?.id,
+                  },
+                ],
+              }
             : item
         )
       );
@@ -251,13 +257,13 @@ const PollPost = ({
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
             ? {
-              ...item,
-              isChecked: false,
-              numbersVoted: item.numbersVoted - 1,
-              voteBy: item.voteBy.filter(
-                (vote) => vote.userId !== userData.id
-              ),
-            }
+                ...item,
+                isChecked: false,
+                numbersVoted: item.numbersVoted - 1,
+                voteBy: item.voteBy.filter(
+                  (vote) => vote.userId !== userData.id
+                ),
+              }
             : item
         )
       );
@@ -277,7 +283,9 @@ const PollPost = ({
     const hasAlreadyVoted = votedOption?.length > 0;
     const votedOptionIndex = votedOption[0]?.id - 3;
     if (hasAlreadyVoted) {
-      votedOptionIndex !== null && optionIndex !== null && removePoll(votedOptionIndex, () => handlePoll(event, optionIndex));
+      votedOptionIndex !== null &&
+        optionIndex !== null &&
+        removePoll(votedOptionIndex, () => handlePoll(event, optionIndex));
       return;
     } else {
       optionIndex !== null && handlePoll(event, optionIndex);
@@ -304,7 +312,7 @@ const PollPost = ({
         toast.success("Comment added successfully");
         setCommentContent("");
         refetch();
-        setTotalComments(prev => prev + 1);
+        setTotalComments((prev) => prev + 1);
       }
     });
   };
@@ -312,7 +320,9 @@ const PollPost = ({
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {
       const comments = getCommentsData.data.map((item) => {
-        const hasLiked = item?.likes?.some((like) => like?.user?.id === userData?.id);
+        const hasLiked = item?.likes?.some(
+          (like) => like?.user?.id === userData?.id
+        );
 
         return {
           userImage: item?.user?.profileImage,
@@ -320,23 +330,23 @@ const PollPost = ({
           comment: item?.content,
           time: item?.createdAt,
           commentId: item?.id,
-          allLikes: item?.likes?.map((like) => ({
-            ...like.user,
-            isBond: like.isBond,
-          })) || [],
+          allLikes:
+            item?.likes?.map((like) => ({
+              ...like.user,
+              isBond: like.isBond,
+            })) || [],
           likesCount: item?.likesCount,
           hasLiked: hasLiked,
         };
       });
 
       setPostComments(comments);
-
     }
-  }, [getCommentsSuccess, getCommentsData])
+  }, [getCommentsSuccess, getCommentsData]);
 
   const AlertHandler = () => {
-    toast.warning("Please login for actions")
-  }
+    toast.warning("Please login for actions");
+  };
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -510,7 +520,7 @@ const PollPost = ({
             <RadioGroup
               name="groups"
               value={selectedValue}
-              onChange={isGeneralPost ? AlertHandler : handleChange}
+              onChange={isGeneralPost ? AlertHandler : isPending ? () => {} : handleChange}
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
               {options?.map((item, index) => (
@@ -539,7 +549,11 @@ const PollPost = ({
                       cursor: "pointer",
                       p: "4px",
                     }}
-                    onClick={isGeneralPost ? () => { } : () => handleChange({ target: { value: item } })}
+                    onClick={
+                      isGeneralPost || isPending
+                        ? () => {}
+                        : () => handleChange({ target: { value: item } })
+                    }
                   >
                     <FormControlLabel
                       value={item.value}
@@ -588,382 +602,509 @@ const PollPost = ({
             </RadioGroup>
           )}
 
-          <Box
-            sx={{
-              display: "flex",
-              columnGap: "4px",
-              alignItems: "center",
-              pl: "5px",
-            }}
-          >
-            {ownPost && (
-              <>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    cursor: "pointer",
-                  }}
-                  variant="gradientText"
-                  onClick={isGeneralPost ? AlertHandler : () => setViewVotes(true)}
-                >
-                  {voteCount} votes
-                </Typography>
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "400" }}
-                  variant="gradientText"
-                >
-                  •
-                </Typography>
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
-                >
-                  {endDate}
-                </Typography>
-              </>
-            )}
-            {/* {
+          {!isPending && (
+            <Box
+              sx={{
+                display: "flex",
+                columnGap: "4px",
+                alignItems: "center",
+                pl: "5px",
+              }}
+            >
+              {ownPost && (
+                <>
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      cursor: "pointer",
+                    }}
+                    variant="gradientText"
+                    onClick={
+                      isGeneralPost ? AlertHandler : () => setViewVotes(true)
+                    }
+                  >
+                    {voteCount} votes
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: "14px", fontWeight: "400" }}
+                    variant="gradientText"
+                  >
+                    •
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      color: "#505050",
+                    }}
+                  >
+                    {endDate}
+                  </Typography>
+                </>
+              )}
+              {/* {
               selectedValue !== "" &&
               <>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>•</Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "500" }} variant='gradientText'>Undo</Typography>
               </>
             } */}
-            {selectedValue && selectedValue !== "" && ownPost && (
-              <>
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "400" }}
-                  variant="gradientText"
-                >
-                  •
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                  }}
-                  variant="gradientText"
-                  onClick={isGeneralPost ? AlertHandler : handleUndo}
-                >
-                  Undo
-                </Typography>
-              </>
-            )}
-            {selectedValue && selectedValue !== "" && !ownPost && (
-              <>
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                  }}
-                  variant="gradientText"
-                  onClick={isGeneralPost ? AlertHandler : handleUndo}
-                >
-                  Undo
-                </Typography>
-              </>
-            )}
-          </Box>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            columnGap: "6px",
-          }}
-        >
-          {numberofLikes >= 1 && (
-            <img
-              src={like}
-              alt="Like"
-              style={{ width: "13.43px", height: "12px" }}
-            />
+              {selectedValue && selectedValue !== "" && ownPost && (
+                <>
+                  <Typography
+                    sx={{ fontSize: "14px", fontWeight: "400" }}
+                    variant="gradientText"
+                  >
+                    •
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                    }}
+                    variant="gradientText"
+                    onClick={isGeneralPost ? AlertHandler : handleUndo}
+                  >
+                    Undo
+                  </Typography>
+                </>
+              )}
+              {selectedValue && selectedValue !== "" && !ownPost && (
+                <>
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      cursor: "pointer",
+                    }}
+                    variant="gradientText"
+                    onClick={isGeneralPost ? AlertHandler : handleUndo}
+                  >
+                    Undo
+                  </Typography>
+                </>
+              )}
+            </Box>
           )}
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: numberofLikes > 0 ? "pointer" : "text" }}
-            onClick={isGeneralPost ? AlertHandler : (numberofLikes > 0 && !isLoading) ? () => setShowLikesModal(true) : () => { }}
-          >
-            {numberofLikes === 0
-              ? "Be first to like this"
-              : isLiked && numberofLikes === 1
-                ? "You liked this post"
-                : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                    ? `${lastUserLiked} likes this`
-                    : `${lastUserLiked} and ${numberofLikes - 1} like this`}
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", columnGap: "10px" }}>
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
-          >
-            {totalComments} comments
-          </Typography>
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
-          >
-            •
-          </Typography>
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
-          >
-            0 reposts
-          </Typography>
         </Box>
       </Box>
-      <Box
-        sx={{
-          borderTop: "1px solid #E4E4E4",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: "#F8FCFF",
-          height: "50px",
-          px: { xs: "10px", md: "0px" },
-        }}
-      >
+      {isPending ? (
         <Box
           sx={{
             display: "flex",
-            columnGap: "15px",
-            cursor: "pointer",
-            width: { md: "20%" },
-            height: "100%",
             justifyContent: "center",
             alignItems: "center",
-          }}
-          onClick={isGeneralPost ? AlertHandler : isLoading ? () => { } : () => handleLike(id)}
-        >
-          <img
-            src={isLiked ? like : unlike}
-            alt="Like"
-            style={{ width: "24px", height: "24px" }}
-          />
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: "500",
-              display: { xs: "none", md: "block" },
-              color: "#505050",
-            }}
-          >
-            {isLiked ? "Liked" : "Like"}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            columnGap: "15px",
-            cursor: "pointer",
-            backgroundColor: showComments ? "#FFFFFF" : "inherit",
-            width: { md: "20%" },
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}
-        >
-          <img src={comment} alt="Like" />
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: "500",
-              display: { xs: "none", md: "block" },
-              color: "#505050",
-            }}
-          >
-            Comment
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            columnGap: "15px",
-            cursor: "pointer",
-            width: { md: "20%" },
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onClick={isGeneralPost ? AlertHandler : handleClick}
-        >
-          <img src={repost} alt="Like" />
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: "500",
-              display: { xs: "none", md: "block" },
-              color: "#505050",
-            }}
-          >
-            Repost
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            columnGap: "15px",
-            cursor: "pointer",
-            width: { md: "20%" },
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onClick={isGeneralPost ? AlertHandler : () => setShowShareModal(true)}
-        >
-          <img src={send} alt="Like" />
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: "500",
-              display: { xs: "none", md: "block" },
-              color: "#505050",
-            }}
-          >
-            Share
-          </Typography>
-        </Box>
-      </Box>
-      {showComments && (
-        <Box
-          sx={{
-            px: { xs: "0px", md: "10px" },
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "10px",
           }}
         >
           <Box
             sx={{
+              width: { xs: "100%", sm: "85%", md: "80%", lg: "70%" },
               display: "flex",
-              columnGap: "5px",
-              flexDirection: { xs: "column", md: "row" },
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            {isGetCommentsLoading ? (
+            {isUpdateLoading?.id === reqId &&
+            isUpdateLoading.action === "reject" ? (
+              <CircularProgress sx={{ color: "#1877F2" }} />
+            ) : (
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "center",
+                  columnGap: "5px",
                   alignItems: "center",
-                  width: "100%",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleResponse(reqId, "reject")}
+              >
+                <img src={deleteBlack} alt="Icon" />
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    color: "#171717",
+                  }}
+                >
+                  Delete
+                </Typography>
+              </Box>
+            )}
+            {isUpdateLoading?.id === reqId &&
+            isUpdateLoading.action === "approve" ? (
+              <CircularProgress sx={{ color: "#1877F2" }} />
+            ) : (
+              <Box
+                onClick={() => handleResponse(reqId, "approve")}
+                sx={{
+                  display: "flex",
+                  columnGap: "5px",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
               >
-                <LinearProgress
-                  sx={{
-                    width: "100%",
-                    height: 6,
-                    bgcolor: "#F2F8FD",
-                    "& .MuiLinearProgress-bar": { backgroundColor: "white" },
-                  }}
-                />
+                <img src={tick} alt="Icon" />
+                <Typography
+                  sx={{ fontSize: "16px", fontWeight: "500" }}
+                  variant="gradientText"
+                >
+                  Approve
+                </Typography>
               </Box>
-            ) : (
-              <>
-                {canComment ? <>
-                  <Avatar
-                    src={userData?.profileImage ? userData.profileImage : user}
-                    alt="User"
-                    sx={{ width: 60, height: 60, objectFit: "fill" }}
-                  />
-
-                  <Box
-                    sx={{
-                      border: "1px solid #DDE2E4",
-                      width: "100%",
-                      display: "flex",
-                      pr: "10px",
-                      minHeight: "60px",
-                      flexDirection: commentContent ? "column" : "row",
-                      pb: commentContent ? "10px" : "0px",
-                      rowGap: "13px",
-                    }}
-                  >
-                    <OutlinedInput
-                      sx={{
-                        height: "100%",
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": {
-                          border: "none !important",
-                          height: "100%",
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          border: "none !important",
-                        },
-                        p: "10px",
-                      }}
-                      placeholder={"Add a comment"}
-                      onInputChange={(e) => setCommentContent(e.target.value)}
-                      value={commentContent}
-                      multiline={true}
-                      onKeyDown={HandleKeyDown}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        pl: "10px",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Box sx={{ display: "flex", columnGap: "10px" }}>
-                        <img
-                          src={emoji}
-                          alt="Emoji"
-                          style={{ width: "24px", height: "24px" }}
-                        />
-                        <img
-                          src={camera}
-                          alt="Camera"
-                          style={{ width: "24px", height: "24px" }}
-                        />
-                      </Box>
-                      {commentContent && (
-                        <Button
-                          loading={postCommentLoading}
-                          onClick={() => HandleComment(id)}
-                          sx={{ width: "150px", height: "36px", color: "white" }}
-                        >
-                          Comment
-                        </Button>
-                      )}
-                    </Box>
-                  </Box>
-                </> :
-                  <Box sx={{ backgroundColor: "#F2F8FD", p: "10px", display: "flex", columnGap: "5px", width: "100%" }}>
-                    <img src={commentOff} alt="Icon" />
-                    <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Comments are restricted on this post.</Typography>
-                  </Box>}
-              </>
             )}
           </Box>
-          {Array.isArray(postComments) &&
-            postComments?.length > 0 &&
-            postComments?.map((item, index) => (
-              <Comment
-                key={item?.commentId}
-                userImage={item?.userImage}
-                userName={item?.userName}
-                comment={item?.comment}
-                time={item?.time}
-                hasLiked={item?.hasLiked}
-                likesCount={item?.likesCount}
-                allLikes={item?.allLikes}
-                commentId={item?.commentId}
-              />
-            ))}
         </Box>
+      ) : (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                columnGap: "6px",
+              }}
+            >
+              {numberofLikes >= 1 && (
+                <img
+                  src={like}
+                  alt="Like"
+                  style={{ width: "13.43px", height: "12px" }}
+                />
+              )}
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  cursor: numberofLikes > 0 ? "pointer" : "text",
+                }}
+                onClick={
+                  isGeneralPost
+                    ? AlertHandler
+                    : numberofLikes > 0 && !isLoading
+                    ? () => setShowLikesModal(true)
+                    : () => {}
+                }
+              >
+                {numberofLikes === 0
+                  ? "Be first to like this"
+                  : isLiked && numberofLikes === 1
+                  ? "You liked this post"
+                  : isLiked && numberofLikes > 1
+                  ? `You and ${numberofLikes - 1} more like this`
+                  : numberofLikes === 1
+                  ? `${lastUserLiked} likes this`
+                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", columnGap: "10px" }}>
+              <Typography
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+              >
+                {totalComments} comments
+              </Typography>
+              <Typography
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+              >
+                •
+              </Typography>
+              <Typography
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+              >
+                0 reposts
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              borderTop: "1px solid #E4E4E4",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              backgroundColor: "#F8FCFF",
+              height: "50px",
+              px: { xs: "10px", md: "0px" },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={
+                isGeneralPost
+                  ? AlertHandler
+                  : isLoading
+                  ? () => {}
+                  : () => handleLike(id)
+              }
+            >
+              <img
+                src={isLiked ? like : unlike}
+                alt="Like"
+                style={{ width: "24px", height: "24px" }}
+              />
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
+                }}
+              >
+                {isLiked ? "Liked" : "Like"}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                backgroundColor: showComments ? "#FFFFFF" : "inherit",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}
+            >
+              <img src={comment} alt="Like" />
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
+                }}
+              >
+                Comment
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={isGeneralPost ? AlertHandler : handleClick}
+            >
+              <img src={repost} alt="Like" />
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
+                }}
+              >
+                Repost
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={
+                isGeneralPost ? AlertHandler : () => setShowShareModal(true)
+              }
+            >
+              <img src={send} alt="Like" />
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
+                }}
+              >
+                Share
+              </Typography>
+            </Box>
+          </Box>
+          {showComments && (
+            <Box
+              sx={{
+                px: { xs: "0px", md: "10px" },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  columnGap: "5px",
+                  flexDirection: { xs: "column", md: "row" },
+                }}
+              >
+                {isGetCommentsLoading ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <LinearProgress
+                      sx={{
+                        width: "100%",
+                        height: 6,
+                        bgcolor: "#F2F8FD",
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "white",
+                        },
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <>
+                    {canComment ? (
+                      <>
+                        <Avatar
+                          src={
+                            userData?.profileImage
+                              ? userData.profileImage
+                              : user
+                          }
+                          alt="User"
+                          sx={{ width: 60, height: 60, objectFit: "fill" }}
+                        />
+
+                        <Box
+                          sx={{
+                            border: "1px solid #DDE2E4",
+                            width: "100%",
+                            display: "flex",
+                            pr: "10px",
+                            minHeight: "60px",
+                            flexDirection: commentContent ? "column" : "row",
+                            pb: commentContent ? "10px" : "0px",
+                            rowGap: "13px",
+                          }}
+                        >
+                          <OutlinedInput
+                            sx={{
+                              height: "100%",
+                              width: "100%",
+                              "& .MuiOutlinedInput-root": {
+                                border: "none !important",
+                                height: "100%",
+                              },
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                border: "none !important",
+                              },
+                              p: "10px",
+                            }}
+                            placeholder={"Add a comment"}
+                            onInputChange={(e) =>
+                              setCommentContent(e.target.value)
+                            }
+                            value={commentContent}
+                            multiline={true}
+                            onKeyDown={HandleKeyDown}
+                          />
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              pl: "10px",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                              <img
+                                src={emoji}
+                                alt="Emoji"
+                                style={{ width: "24px", height: "24px" }}
+                              />
+                              <img
+                                src={camera}
+                                alt="Camera"
+                                style={{ width: "24px", height: "24px" }}
+                              />
+                            </Box>
+                            {commentContent && (
+                              <Button
+                                loading={postCommentLoading}
+                                onClick={() => HandleComment(id)}
+                                sx={{
+                                  width: "150px",
+                                  height: "36px",
+                                  color: "white",
+                                }}
+                              >
+                                Comment
+                              </Button>
+                            )}
+                          </Box>
+                        </Box>
+                      </>
+                    ) : (
+                      <Box
+                        sx={{
+                          backgroundColor: "#F2F8FD",
+                          p: "10px",
+                          display: "flex",
+                          columnGap: "5px",
+                          width: "100%",
+                        }}
+                      >
+                        <img src={commentOff} alt="Icon" />
+                        <Typography
+                          sx={{
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            color: "#171717",
+                          }}
+                        >
+                          Comments are restricted on this post.
+                        </Typography>
+                      </Box>
+                    )}
+                  </>
+                )}
+              </Box>
+              {Array.isArray(postComments) &&
+                postComments?.length > 0 &&
+                postComments?.map((item, index) => (
+                  <Comment
+                    key={item?.commentId}
+                    userImage={item?.userImage}
+                    userName={item?.userName}
+                    comment={item?.comment}
+                    time={item?.time}
+                    hasLiked={item?.hasLiked}
+                    likesCount={item?.likesCount}
+                    allLikes={item?.allLikes}
+                    commentId={item?.commentId}
+                  />
+                ))}
+            </Box>
+          )}
+        </>
       )}
       <Menu
         anchorEl={anchorEl}
@@ -1042,7 +1183,10 @@ const PollPost = ({
         dropdownHeader={false}
         hideFooter={true}
       >
-        <ShareModal shareableLink={shareableLink} handleClose={() => setShowShareModal(false)} />
+        <ShareModal
+          shareableLink={shareableLink}
+          handleClose={() => setShowShareModal(false)}
+        />
       </DynamicModal>
 
       <DynamicModal
@@ -1052,7 +1196,7 @@ const PollPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -1085,15 +1229,42 @@ const PollPost = ({
         <ViewPolls options={options} />
       </DynamicModal>
 
-
-      <DynamicModal open={showLikesModal} handleClose={() => setShowLikesModal(false)} title={"Likes"} hideFooter={true} smallModal={true} styledHeader={true}>
+      <DynamicModal
+        open={showLikesModal}
+        handleClose={() => setShowLikesModal(false)}
+        title={"Likes"}
+        hideFooter={true}
+        smallModal={true}
+        styledHeader={true}
+      >
         <ShowLikesModal allLikes={likesData} />
       </DynamicModal>
 
-      <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
-        userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={visibility}
-        setVisibility={setVisibility} isEditModal={true}>
-        <EditModal type={"poll"} title={editTitle} id={id} pollData={{ question, options, numberOfVotes: totalVoteCount, endDate }} handleClose={() => setEditModal(false)} visibility={visibility} commentSetting={commentSetting} />
+      <DynamicModal
+        open={showEditModal}
+        handleClose={() => setEditModal(false)}
+        dropdownHeader={true}
+        userData={userData}
+        userName={`${userData?.firstName} ${userData?.lastName}`}
+        hideFooter={true}
+        visibility={visibility}
+        setVisibility={setVisibility}
+        isEditModal={true}
+      >
+        <EditModal
+          type={"poll"}
+          title={editTitle}
+          id={id}
+          pollData={{
+            question,
+            options,
+            numberOfVotes: totalVoteCount,
+            endDate,
+          }}
+          handleClose={() => setEditModal(false)}
+          visibility={visibility}
+          commentSetting={commentSetting}
+        />
       </DynamicModal>
     </Paper>
   );

@@ -425,6 +425,7 @@ const PostCard = ({
         adminPage={adminPage}
         page={page}
         handleDropdown={handleDropDown}
+        group={group}
       >
         <PhotoModal
           title={title}
@@ -456,6 +457,7 @@ const PostCard = ({
         adminPage={adminPage}
         handleDropdown={handleDropDown}
         page={page}
+        group={group}
       >
         <VideoModal
           videoData={videoData}
@@ -489,6 +491,7 @@ const PostCard = ({
         adminPage={adminPage}
         handleDropdown={handleDropDown}
         page={page}
+        group={group}
       >
         <PostModal
           title={title}
@@ -513,6 +516,7 @@ const PostCard = ({
         hideFooter={true}
         groupAdmin={groupAdmin}
         page={page}
+        group={group}
       >
         <EventModal
           onFormSubmit={handleFormSubmit}
@@ -539,6 +543,7 @@ const PostCard = ({
         adminPage={adminPage}
         handleDropdown={handleDropDown}
         page={page}
+        group={group}
       >
         <ViewEventModal
           isLoading={isLoading}
@@ -573,6 +578,7 @@ const PostCard = ({
         footerDirection={"space-between"}
         groupAdmin={groupAdmin}
         page={page}
+        group={group}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}
@@ -594,6 +600,7 @@ const PostCard = ({
         hideFooter={true}
         groupAdmin={groupAdmin}
         page={page}
+        group={group}
       >
         <GroupShareModal />
       </DynamicModal>
@@ -613,6 +620,7 @@ const PostCard = ({
         adminPage={adminPage}
         handleDropdown={handleDropDown}
         page={page}
+        group={group}
       >
         <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
       </DynamicModal>
@@ -632,6 +640,7 @@ const PostCard = ({
         adminPage={adminPage}
         handleDropdown={handleDropDown}
         page={page}
+        group={group}
       >
         <ViewPollPost
           values={pollValues}

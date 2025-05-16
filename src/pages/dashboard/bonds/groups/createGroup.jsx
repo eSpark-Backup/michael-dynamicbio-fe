@@ -10,6 +10,8 @@ import {
   RadioGroup,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Dropdown, DynamicModal, Input } from "../../../../components";
 import { createGroupSchema } from "../../../../schemas";
@@ -19,6 +21,8 @@ import { industryTypeOptions } from "../../../../constant";
 import { convertToFormData } from "../../../../utils";
 
 export default function CreateGroupModal({ open, handleClose }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [createGroup, { isLoading }] = useCreateGroupMutation();
   const navigate = useNavigate();
   const coverRef = useRef(null);
@@ -119,7 +123,16 @@ export default function CreateGroupModal({ open, handleClose }) {
           ref={coverRef}
           type="file"
           style={{ display: "none" }}
-          onChange={(e) => setCover(e.target.files[0])}
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith("image/")) {
+              setCover(file);
+            } else {
+              toast.error("Please select a valid image file.");
+              e.target.value = "";
+            }
+          }}
         />
       </Box>
       <Box
@@ -132,7 +145,7 @@ export default function CreateGroupModal({ open, handleClose }) {
         onClick={() => ProfileRef.current.click()}
       >
         <img
-          style={{ width: "153px", height: "153px", borderRadius: "50%" }}
+          style={{ width: isMobile ? "80px" : "153px", height: isMobile ? "80px" : "153px", borderRadius: "50%" }}
           src={profile ? URL.createObjectURL(profile) : userAvatar}
           alt="profile"
         />
@@ -145,7 +158,16 @@ export default function CreateGroupModal({ open, handleClose }) {
           ref={ProfileRef}
           type="file"
           style={{ display: "none" }}
-          onChange={(e) => setProfile(e.target.files[0])}
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith("image/")) {
+              setProfile(file);
+            } else {
+              toast.error("Please select a valid image file.");
+              e.target.value = "";
+            }
+          }}
         />
       </Box>
       <Box component={"form"} onSubmit={formik.handleSubmit}>
@@ -181,7 +203,7 @@ export default function CreateGroupModal({ open, handleClose }) {
           }}
         >
           <Input
-            wordLimit={2000}
+            wordLimit={500}
             required
             customLabel="Description"
             placeholder="What is the aim of this group?"
@@ -229,7 +251,7 @@ export default function CreateGroupModal({ open, handleClose }) {
           }}
         >
           <Input
-            wordLimit={4000}
+            wordLimit={500}
             customLabel="Rules"
             placeholder="Set the tone & expectations of your group"
             type="text"

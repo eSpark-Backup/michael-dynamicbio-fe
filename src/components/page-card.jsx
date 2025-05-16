@@ -17,6 +17,7 @@ const PageCard = ({
   id,
   creatorId,
   requestSent,
+  mainType,
 }) => {
   const isGroup =
     type === "my-groups" || type === "joined-groups" || type === "all-groups";
@@ -87,7 +88,7 @@ const PageCard = ({
                 textAlign: { xs: "center", sm: "left" },
               }}
             >
-              {followerCount}
+              {followerCount} {mainType === "group" ? `memeber${followerCount === 1 ? "" : "s"}` : `follower${followerCount === 1 ? "" : "s"}`}
             </Typography>
           </Stack>
         </Box>
