@@ -154,10 +154,10 @@ const GroupSidebar = ({ data }) => {
           Admins
         </Typography>
         {data?.admins?.length > 0
-          ? data?.admins?.map((item) => (
+          ? data?.admins?.map(({admin: item}) => (
               <Box
                 key={item?.firstName}
-                sx={{ display: "flex", columnGap: "10px" }}
+                sx={{ display: "flex", columnGap: "10px", marginY: "10px" }}
               >
                 {/* <Badge
                   overlap="circular"

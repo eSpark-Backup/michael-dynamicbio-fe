@@ -349,7 +349,7 @@ const GroupDetails = () => {
                     Manage group
                   </Typography>
                 </Box>
-                <Box
+                {isMyGroup && <Box
                   onClick={() => setEditModal(data?.data)}
                   sx={{
                     height: "60px",
@@ -369,7 +369,7 @@ const GroupDetails = () => {
                   >
                     Edit group
                   </Typography>
-                </Box>{" "}
+                </Box>}
               </>
             )}
           </Paper>
@@ -641,7 +641,7 @@ const GroupDetails = () => {
                     </Popper>
                   </Box>
                 )} */}
-                {data?.data?.isAdmin && (
+                {isMyGroup && (
                   <img
                     onClick={() => setEditModal(data?.data)}
                     style={{ cursor: "pointer" }}
@@ -708,9 +708,10 @@ const GroupDetails = () => {
               <GroupSlider handleClose={() => setShowSlider(false)} />
             </Paper>
           )} */}
-          {data?.data?.isFollowing && (
+          {(isMyGroup || data?.data?.isAdmin || data?.data?.isFollowing) && (
             <Paper>
               <PostCard
+                refetch={refetch}
                 group={data?.data}
                 groupAdmin={true}
                 adminPage={true}

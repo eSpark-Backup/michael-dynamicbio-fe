@@ -14,6 +14,7 @@ import { close, downArrowFilled, dummyPhoto, profile2, rightArrow, timer, user }
 import { useState } from "react";
 
 const DynamicModal = ({
+  disabled,
   isLoading,
   open,
   handleClose,
@@ -42,6 +43,7 @@ const DynamicModal = ({
   isEditModal,
   description,
   page,
+  group,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -147,7 +149,7 @@ const DynamicModal = ({
                   sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
                   {groupAdmin
-                    ? "Post to free"
+                    ? `Post to ${group?.name}`
                     : visibility === "PUBLIC"
                       ? "Post to anyone"
                       : visibility === "CONNECTIONS"
@@ -158,7 +160,7 @@ const DynamicModal = ({
 
                 </Typography>
               </Stack>
-              {groupAdmin && <Box sx={{ position: "absolute", width: "30px", height: "30px", left: "25px", bottom: "-13px", backgroundImage: `url("${dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "100%" }}>
+              {groupAdmin && <Box sx={{ position: "absolute", width: "30px", height: "30px", left: "25px", bottom: "-13px", backgroundImage: `url("${group?.logoUrl || dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "100%" }}>
 
               </Box>}
             </Box>
@@ -253,7 +255,7 @@ const DynamicModal = ({
               </Box>
             )}
             {!noBtn && <Button
-              disabled={isLoading}
+              disabled={isLoading || disabled}
               loading={isLoading}
               type="submit"
               sx={{
