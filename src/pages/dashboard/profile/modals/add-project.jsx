@@ -10,6 +10,8 @@ import { checkDate, yearOptions } from '../../../../utils';
 import { useGetMyBondsQuery } from '../../../../services/bonds';
 import { useUpdateUserInfoMutation } from '../../../../services/auth';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../../../store/slices/auth';
 
 const AddProject = ({ open, handleClose, userData }) => {
     const { data, error, isLoading, isFetching, refetch, isSuccess } = useGetMyBondsQuery(
@@ -57,8 +59,11 @@ const AddProject = ({ open, handleClose, userData }) => {
 
         setRelatedOptions([...data, ...data2]);
     }, [userData])
-    
+
+    const dispatch = useDispatch()
+
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             name: "",
             description: "",
@@ -71,7 +76,7 @@ const AddProject = ({ open, handleClose, userData }) => {
             endMonth: "",
             endYear: "",
             contributors: [],
-            related: ""
+            related: "",
         },
         validationSchema: projectSchema,
         onSubmit: (values) => {
@@ -97,6 +102,8 @@ const AddProject = ({ open, handleClose, userData }) => {
                 if (res) {
                     toast.success("Your project added successfully");
                     dispatch(updateUser(res?.data?.data));
+                    // handleClose();
+                    // formik.resetForm();
                     onClose();
                 }
             });
@@ -157,11 +164,10 @@ const AddProject = ({ open, handleClose, userData }) => {
         formik.setFieldValue("files", updatedFiles);
     };
 
-
     return (
         <DynamicModal
             isLoading={updateLoading}
-            title="Add project"
+            title={"Add project"}
             buttonText="Save"
             open={open}
             onSuccess={formik.handleSubmit}
@@ -303,13 +309,13 @@ const AddProject = ({ open, handleClose, userData }) => {
                 }}
             >
                 <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>
-                    Media
+                    Link
                 </Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
-                    Add media like images, documents, sites or presentations.
+                    Add links related to your project.
                 </Typography>
                 <Box sx={{ width: "200px", mt: "10px" }}>
-                    <BoxWithTextIcon icon={plus} text={"Add media"} onClick={handleClick} />
+                    <BoxWithTextIcon icon={plus} text={"Add link"} onClick={handleClick} />
                 </Box>
             </Box>
 
@@ -439,11 +445,12 @@ const AddProject = ({ open, handleClose, userData }) => {
                     <Typography sx={{ fontSize: "12px", fontWeight: "400", mt: "2px", color: "#505050" }}>Add connections who contributed to the project.</Typography>
                     <Box sx={{ mt: "10px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
                         {formik.values.contributors.map((item, index) => (
-                            <Box sx={{ display: "flex", columnGap: "10px", alignItems: "flex-start" }}>
+                            <Box sx={{ display: "flex", columnGap: "10px", alignItems: "flex-start" }} key={index}>
                                 <Avatar
                                     src={item?.profileImg ? item?.profileImg : user}
                                     alt="User"
                                     sx={{ width: 40, height: 40, objectFit: "fill" }}
+
                                 />
                                 <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -567,13 +574,13 @@ const AddProject = ({ open, handleClose, userData }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>Use for videos, articles, and websites</Typography>
                     </Box>
                 </MenuItem>
-                <MenuItem onClick={() => HandleMenuItemClicked("media")} sx={{ width: { xs: "fit-content", sm: "350px" }, display: "flex", columnGap: "5px", alignItems: "flex-start" }}>
+                {/* <MenuItem onClick={() => HandleMenuItemClicked("media")} sx={{ width: { xs: "fit-content", sm: "350px" }, display: "flex", columnGap: "5px", alignItems: "flex-start" }}>
                     <img src={photo} alt="Icon" />
                     <Box>
                         <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Add media</Typography>
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>Upload pictures, presentations, or documents</Typography>
                     </Box>
-                </MenuItem>
+                </MenuItem> */}
             </Menu>
 
             <input

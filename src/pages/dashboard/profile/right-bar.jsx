@@ -31,7 +31,7 @@ const RightBar = ({ isPublicView }) => {
     showCertifications: null,
     showProjects: true,
     showLanguages: true,
-    showProfilePhoto: null
+    showProfilePhoto: null,
   })
 
   const handleToggle = (key) => {
@@ -64,6 +64,7 @@ const RightBar = ({ isPublicView }) => {
     { key: "showPastExperienceDetails", label: "Details", indent: true, parent: "showPastExperience" },
     { key: "showEducation", label: "Education" },
     { key: "showEducationDetails", label: "Details", indent: true, parent: "showEducation" },
+    { key: "showProjects", label: "Projects" },
     // { key: "showCertifications", label: "Certifications" },
   ];
 
