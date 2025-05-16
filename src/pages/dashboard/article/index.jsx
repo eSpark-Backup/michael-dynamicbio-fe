@@ -236,14 +236,14 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           >
             <img
               style={{ width: "44px", height: "44px", borderRadius: "50%" }}
-              src={page ? page?.logoUrl : userData?.profileImage}
+              src={group ? group?.logoUrl : page ? page?.logoUrl : userData?.profileImage}
               alt="Avatar"
             />
             <Stack direction={"column"}>
               <Stack direction={"row"} gap={1}>
                 <Typography
                   sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-                >{page ? page?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
+                >{group ? group?.name : page ? page?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
                 <img
                   src={downArrowFilled}
                   alt="Icon"
@@ -254,7 +254,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
-                Individual Article
+                {group ? `Group Article` : "Individual Article"}
               </Typography>
             </Stack>
           </Box>
@@ -552,11 +552,11 @@ const Article = ({ userName = "Abdul Rehman" }) => {
             >
               <Stack alignItems={"center"} direction={"row"} gap={1}>
                 <img
-                  src={userData?.profileImage}
+                  src={group ? group?.logoUrl : userData?.profileImage}
                   alt="Avatar"
                   style={{ width: "40px", height: "40px" }}
                 />
-                <Typography>{`${userData?.firstName} ${userData?.lastName}`}</Typography>
+                <Typography>{group ? group?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
               </Stack>
               <FormControlLabel
                 value="yourself"
@@ -597,6 +597,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         setVisibility={setVisibility}
         page={page}
         adminPage={page}
+        group={group}
       >
         <ViewArticle
           isLoading={isLoading || editPostLoading}
@@ -629,6 +630,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         footerDirection={"space-between"}
         page={page}
         adminPage={page}
+        group={group}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}

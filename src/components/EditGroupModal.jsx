@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import {
@@ -9,6 +9,8 @@ import {
   RadioGroup,
   Stack,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Dropdown, DynamicModal, Input } from "../components";
 import { createGroupSchema } from "../schemas";
@@ -18,11 +20,18 @@ import { industryTypeOptions } from "../constant";
 import { convertToFormData } from "../utils";
 
 export default function EditGroupModal({ data, refetch, open, handleClose }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [editGroup, { isLoading }] = useEditGroupMutation();
   const coverRef = useRef(null);
   const ProfileRef = useRef(null);
   const [cover, setCover] = useState(data?.coverImageUrl || null);
   const [profile, setProfile] = useState(data?.logoUrl || null);
+
+  useEffect(() => {
+    setProfile(data?.logoUrl || null);
+    setCover(data?.coverImageUrl || null);
+  }, [data]);
 
   const formik = useFormik({
     initialValues: {
@@ -67,6 +76,31 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
     },
   });
 
+  const isImageFile = (value) =>
+    typeof value === "object" && value instanceof File;
+
+  const isFormEdited = useMemo(() => {
+    const coverChanged =
+      isImageFile(cover) || (cover !== data?.coverImageUrl && cover !== null);
+
+    const profileChanged =
+      isImageFile(profile) || (profile !== data?.logoUrl && profile !== null);
+
+    return formik.dirty || coverChanged || profileChanged;
+  }, [formik.dirty, cover, profile, data]);
+
+  const coverPreview = useMemo(() => {
+    if (!cover) return null;
+    return typeof cover === "string" ? cover : URL.createObjectURL(cover);
+  }, [cover]);
+
+  const profilePreview = useMemo(() => {
+    if (!profile) return null;
+    return typeof profile === "string" ? profile : URL.createObjectURL(profile);
+  }, [profile]);
+
+  console.log(cover, "cover", profile, "profile");
+
   return (
     <DynamicModal
       sx={{ height: "907px", maxWidth: "965px" }}
@@ -76,6 +110,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
       onSuccess={formik.handleSubmit}
       buttonText="Edit"
       isLoading={isLoading}
+      disabled={!isFormEdited || !formik.isValid}
     >
       <Box
         sx={{
@@ -98,7 +133,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
               zIndex: -1,
               opacity: 0.5,
             }}
-            src={URL.createObjectURL(cover)}
+            src={coverPreview}
             alt="cover"
           />
         )}
@@ -118,8 +153,17 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
         <input
           ref={coverRef}
           type="file"
+          accept="image/*"
           style={{ display: "none" }}
-          onChange={(e) => setCover(e.target.files[0])}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith("image/")) {
+              setCover(file);
+            } else {
+              toast.error("Please select a valid image file.");
+              e.target.value = "";
+            }
+          }}
         />
       </Box>
       <Box
@@ -132,8 +176,12 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
         onClick={() => ProfileRef.current.click()}
       >
         <img
-          style={{ width: "153px", height: "153px", borderRadius: "50%" }}
-          src={profile ? URL.createObjectURL(profile) : userAvatar}
+          style={{
+            width: isMobile ? "80px" : "153px",
+            height: isMobile ? "80px" : "153px",
+            borderRadius: "50%",
+          }}
+          src={profilePreview || userAvatar}
           alt="profile"
         />
         <img
@@ -144,8 +192,17 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
         <input
           ref={ProfileRef}
           type="file"
+          accept="image/*"
           style={{ display: "none" }}
-          onChange={(e) => setProfile(e.target.files[0])}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith("image/")) {
+              setProfile(file);
+            } else {
+              toast.error("Please select a valid image file.");
+              e.target.value = "";
+            }
+          }}
         />
       </Box>
       <Box component={"form"} onSubmit={formik.handleSubmit}>

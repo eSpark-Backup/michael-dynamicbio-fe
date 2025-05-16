@@ -6,30 +6,30 @@ import GroupRequests from './GroupRequests';
 import GroupInvited from './GroupInvited';
 import GroupBlocked from './GroupBlocked';
 
-const GroupMembership = () => {
+const GroupMembership = ({ data, refetch }) => {
     const tabs = [
         {
             label: "Members",
             component: (
-                <GroupMembers />
+                <GroupMembers data={data} refetch={refetch} />
             ),
         },
         {
             label: "Admins",
-            component: <GroupAdmins />
+            component: <GroupAdmins data={data} refetch={refetch} />
         },
         {
             label: "Requests",
-            component: <GroupRequests />
+            component: <GroupRequests data={data} refetch={refetch} />
         },
-        {
-            label: "Invited",
-            component: <GroupInvited />
-        },
-        {
-            label: "Blocked",
-            component: <GroupBlocked />
-        },
+        // {
+        //     label: "Invited",
+        //     component: <GroupInvited />
+        // },
+        // {
+        //     label: "Blocked",
+        //     component: <GroupBlocked />
+        // },
     ];
     const [activeTab, setActiveTab] = useState(tabs[0]);
     return (
