@@ -114,6 +114,7 @@ const SuggestionPost = ({
   pageId,
   isGeneralPost,
   shareableLink,
+  page,
 }) => {
   const [likeData, { data, isSuccess, isError, error, isLoading }] =
     useLikeMutation();
@@ -332,6 +333,7 @@ const SuggestionPost = ({
     <>
       {type === "video" ? (
         <VideoPost
+          page={page}
           isUpdateLoading={isUpdateLoading}
           handleResponse={handleResponse}
           reqId={reqId}
@@ -373,6 +375,7 @@ const SuggestionPost = ({
         />
       ) : type === "poll" ? (
         <PollPost
+          page={page}
           isUpdateLoading={isUpdateLoading}
           handleResponse={handleResponse}
           reqId={reqId}
@@ -418,6 +421,7 @@ const SuggestionPost = ({
         />
       ) : type === "event" ? (
         <EventPost
+          page={page}
           isUpdateLoading={isUpdateLoading}
           handleResponse={handleResponse}
           reqId={reqId}
@@ -464,6 +468,7 @@ const SuggestionPost = ({
         />
       ) : type === "article" ? (
         <ArticlePost
+          page={page}
           isUpdateLoading={isUpdateLoading}
           handleResponse={handleResponse}
           reqId={reqId}
@@ -1330,6 +1335,7 @@ const SuggestionPost = ({
         visibility={visibility}
         setVisibility={setVisibility}
         isEditModal={true}
+        page={page}
       >
         <EditModal
           type={"normal"}

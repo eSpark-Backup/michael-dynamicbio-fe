@@ -86,7 +86,14 @@ const ManageGroup = () => {
             style={{ width: "45px", height: "45px" }}
           />
           <Typography
-            sx={{ fontSize: "16px", fontWeight: "500" }}
+            sx={{
+              fontSize: "16px",
+              fontWeight: "500",
+              textWrap: "wrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            }}
             variant="gradientText"
           >
             {data?.data?.name}

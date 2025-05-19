@@ -46,6 +46,7 @@ import ShowLikesModal from "./ShowLikesModal";
 import EditModal from "./EditModal";
 
 const EventPost = ({
+  page,
   isUpdateLoading,
   handleResponse,
   reqId,
@@ -975,6 +976,7 @@ const EventPost = ({
         visibility={visibility}
         setVisibility={setVisibility}
         isEditModal={true}
+        page={page}
       >
         <EditModal
           type={"event"}

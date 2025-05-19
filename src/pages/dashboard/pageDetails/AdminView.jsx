@@ -283,7 +283,7 @@ const AdminView = () => {
       if (isuserLiked && isOnlyUserLiked) {
         lastLike = "";
       } else if (!isuserLiked) {
-        lastLike = `${item?.lastLikedUser?.user?.firstName} ${item?.lastLikedUser?.user?.lastName}`;
+        lastLike = `${item?.lastLikedUser} ${item?.lastLikedUser}`;
       } else if (Array.isArray(item?.likes)) {
         const newItem = item?.likes?.find(
           (item2) =>
@@ -295,14 +295,16 @@ const AdminView = () => {
 
         lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
       }
-
       return {
+        isPagePost: true,
         canComment: true,
-        userId: item?.author?.id,
-        userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
-        userRole: item?.author?.company,
+        userId: item?.id,
+        page: item?.page,
+        pageId: item?.page?.id,
+        userName: item?.page?.name,
+        userRole: item?.pageFollowerCount,
         postTime: dayjs(item?.createdAt).fromNow(),
-        userImage: item?.author?.profileImage,
+        userImage: item?.page?.logoUrl,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
@@ -503,6 +505,7 @@ const AdminView = () => {
                 {data?.data?.followerCount} followers
               </Typography>
               <PostCard
+                refetch={refetch}
                 page={data?.data}
                 adminPage={true}
                 childComp={

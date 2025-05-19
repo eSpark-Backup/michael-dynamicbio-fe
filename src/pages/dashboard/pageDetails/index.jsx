@@ -30,18 +30,22 @@ import { toCapitalized } from "../../../utils";
 
 const PageDetailsPage = () => {
   const [selectedOption, setSelectedOption] = useState("relevant");
-  const [selectedMenu, setSelectedMenu] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event, type) => {
+  const open2 = Boolean(anchorEl2);
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    setSelectedMenu(type);
+  };
+
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
   };
 
   const handleClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-    setSelectedMenu(null);
+    setAnchorEl2(null);
   };
 
   const handleRadioChange = (event) => {
@@ -94,7 +98,7 @@ const PageDetailsPage = () => {
       // },
     ];
   }, [data?.data]);
-    const [activeTabLabel, setActiveTabLabel] = useState("Home");
+  const [activeTabLabel, setActiveTabLabel] = useState("Home");
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
   const [bar, setBar] = useState(true);
 
@@ -209,7 +213,7 @@ const PageDetailsPage = () => {
                   justifyContent="flex-end"
                 >
                   <img
-                    onClick={(e) => handleClick(e, "notifications")}
+                    onClick={(e) => handleClick(e)}
                     style={{ cursor: "pointer" }}
                     src={bellActive}
                     alt="bell"
@@ -298,7 +302,7 @@ const PageDetailsPage = () => {
                     <Typography variant="gradientText">Use AI</Typography>
                   </Box>
                   <Box
-                    onClick={(e) => handleClick(e, "menu")}
+                    onClick={(e) => handleClick2(e)}
                     sx={{
                       width: "36px",
                       height: "36px",
@@ -486,65 +490,75 @@ const PageDetailsPage = () => {
           horizontal: "left",
         }}
       >
-        {selectedMenu === "notifications" ? (
-          <>
-            <MenuItem disabled>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontWeight: 600,
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  width: "100%",
-                }}
-              >
-                {`Manage notifications about ${data?.data?.name}`}
-              </Typography>
-            </MenuItem>
-            <Divider />
-            <RadioGroup
-              value={selectedOption}
-              onChange={handleRadioChange}
-              sx={{ pl: 2, pr: 2, pt: 1, pb: 1 }}
-            >
-              <FormControlLabel value="all" control={<Radio />} label="All" />
-              <FormControlLabel
-                value="relevant"
-                control={<Radio />}
-                label="Most relevant"
-              />
-              <FormControlLabel value="off" control={<Radio />} label="Off" />
-            </RadioGroup>
-          </>
-        ) : (
-          <>
-            {isMyPage && (
-              <MenuItem
-                onClick={(e) => {
-                  handleClose(e);
-                }}
-              >
-                Invite connections
-              </MenuItem>
-            )}
+        <MenuItem disabled>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: 600,
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              width: "100%",
+            }}
+          >
+            {`Manage notifications about ${data?.data?.name}`}
+          </Typography>
+        </MenuItem>
+        <Divider />
+        <RadioGroup
+          value={selectedOption}
+          onChange={handleRadioChange}
+          sx={{ pl: 2, pr: 2, pt: 1, pb: 1 }}
+        >
+          <FormControlLabel value="all" control={<Radio />} label="All" />
+          <FormControlLabel
+            value="relevant"
+            control={<Radio />}
+            label="Most relevant"
+          />
+          <FormControlLabel value="off" control={<Radio />} label="Off" />
+        </RadioGroup>
+      </Menu>
+      <Menu
+        anchorEl={anchorEl2}
+        open={open2}
+        onClose={handleClose}
+        sx={{ maxWidth: { xs: "300px", md: "420px" } }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <>
+          {isMyPage && (
             <MenuItem
               onClick={(e) => {
                 handleClose(e);
               }}
             >
-              Send in a message
+              Invite connections
             </MenuItem>
-            <MenuItem
-              onClick={(e) => {
-                navigate("/bonds?sub=page&edit=true");
-                handleClose(e);
-              }}
-            >
-              Create a page
-            </MenuItem>
-          </>
-        )}
+          )}
+          <MenuItem
+            onClick={(e) => {
+              handleClose(e);
+            }}
+          >
+            Send in a message
+          </MenuItem>
+          <MenuItem
+            onClick={(e) => {
+              navigate("/bonds?sub=page&edit=true");
+              handleClose(e);
+            }}
+          >
+            Create a page
+          </MenuItem>
+        </>
       </Menu>
     </>
   );
