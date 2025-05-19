@@ -16,7 +16,7 @@ const GroupAdmins = ({ data, refetch }) => {
       const query = search.toLowerCase().trim();
 
       const filtered = data?.admins?.filter((item) => {
-        const fullName = `${item?.firstName ?? ""} ${item?.lastName ?? ""}`
+        const fullName = `${item?.admin?.firstName ?? ""} ${item?.admin?.lastName ?? ""}`
           .toLowerCase()
           .trim();
         return fullName.includes(query);

@@ -588,12 +588,14 @@ const AdminView = () => {
           {/* */}
           {activeItem === "Page posts" ? (
             <PagePosts
+              refetch={refetch}
               page={data?.data}
               posts={posts}
               fetchMoreData={fetchMoreData}
               hasMore={hasMore}
               isLoading={isPostLoading}
               isFetching={isPostFetching}
+              handleDropdown={() => setPostSettingModal(true)}
             />
           ) : activeItem === "Activity" ? (
             <ActivitySection page={data?.data} />

@@ -326,6 +326,7 @@ const GroupSidebar = ({ data }) => {
                         borderRadius: "12px",
                         width: "fit-content",
                         mt: "10px",
+                        cursor: "pointer",
                       }}
                     >
                       {followId === item?.id && isFollowLoading

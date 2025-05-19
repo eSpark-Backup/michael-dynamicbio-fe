@@ -48,7 +48,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const PagePosts = ({ page, posts, fetchMoreData, hasMore, isLoading, isFetching }) => {
+const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMore, isLoading, isFetching }) => {
   const [activeItem, setActiveItem] = useState("Published");
   const userData = JSON.parse(localStorage.getItem("user"));
   const [showPostModal, setShowPostModal] = useState(false);
@@ -169,7 +169,7 @@ const PagePosts = ({ page, posts, fetchMoreData, hasMore, isLoading, isFetching 
                 </Box>
             </Paper> */}
       <Paper>
-        <PostCard page={page} adminPage={true} />
+        <PostCard handleDropDown={handleDropdown} refetch={refetch} page={page} adminPage={true} />
       </Paper>
 
       <Box>
