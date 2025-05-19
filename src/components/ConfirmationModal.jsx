@@ -2,7 +2,7 @@ import { Box, Button, Modal, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { close2 } from "../assets/index.js"
 
-const ConfirmationModal = ({ isLoading, open, handleClose, title, children, acceptButtonText, cancelButtonText, handleCancel, handleAccept, sx }) => {
+const ConfirmationModal = ({ open, handleClose, title, children, acceptButtonText, cancelButtonText, handleCancel, handleAccept, sx, isLoading }) => {
     return (
         <Modal
             open={open}
@@ -81,7 +81,7 @@ const ConfirmationModal = ({ isLoading, open, handleClose, title, children, acce
                         }} onClick={handleCancel}>
                         <Typography variant='gradientText'>{cancelButtonText}</Typography>
                     </Box>
-                    <Button loading={isLoading} disabled={isLoading} type="submit" sx={{ width: "150px", height: "36px", fontSize: "16px" }} onClick={handleAccept}>
+                    <Button type="submit" sx={{ width: "150px", height: "36px", fontSize: "16px" }} loading={isLoading} disabled={isLoading} onClick={handleAccept}>
                         {acceptButtonText}
                     </Button>
                 </Stack>

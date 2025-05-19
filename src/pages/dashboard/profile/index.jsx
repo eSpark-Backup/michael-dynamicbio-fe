@@ -50,7 +50,7 @@ const Profile = () => {
     });
   }, [userId, user, data]);
 
-  if (isLoading) {
+  if (isLoading || !userData?.firstName) {
     return (
       <Box
         sx={{

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import EditBioModal from "./modals/edit-bio";
-import { plus, primaryEdit, user } from "../../../assets";
+import { deleteIcon, plus, primaryEdit, user } from "../../../assets";
 import AddExperienceModal from "./modals/add-experience";
 import dayjs from "dayjs";
 import EditExperienceModal from "./modals/edit-experience";
@@ -13,20 +13,58 @@ import AddEmailModal from "./modals/add-email";
 import EditEmailModal from "./modals/edit-email";
 import AddPhoneModal from "./modals/add-phone";
 import EditPhoneModal from "./modals/edit-phone";
+import AddProject from "./modals/add-project";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../../store/slices/auth";
+import { useUpdateUserInfoMutation } from "../../../services/auth";
+import { toast } from "react-toastify";
+import { ConfirmationModal } from "../../../components";
+import EditProject from "./modals/edit-project";
+import AddCertificate from "./modals/add-certificate";
+import EditCertificate from "./modals/edit-certificate";
 
 const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
   const [item, setItem] = useState(null);
+  const [deleteItem, setDeleteItem] = useState("")
+  const [deleteId, setDeleteId] = useState("")
+  const [showConfirmModal, setConfirmModal] = useState(false)
+  const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
+
 
   const handleClose = () => {
     setModal("");
     setItem(null);
   };
 
-  useEffect(() => {
-    console.log(isPublic, "IS Public")
-    console.log(isPublicView, "IS Public View")
-    console.log(userData, "IS Public View")
-  }, [isPublic, isPublicView, userData])
+  const dispatch = useDispatch()
+
+  const HandleDelete = (type, id) => {
+    setConfirmModal(true)
+    setDeleteItem(type)
+    setDeleteId(id)
+  }
+
+  const handleAccept = () => {
+    if (!["projects", "experience", "education", "skills", "phone", "certifications"].includes(deleteItem)) return;
+
+    const sectionKey = deleteItem;
+    const updatedSection = userData?.about?.[sectionKey]?.filter((_, index) => index !== deleteId);
+
+    updateProfile({
+      about: { ...userData?.about, [sectionKey]: updatedSection },
+    }).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      toast.success(`Your ${deleteItem} deleted successfully`);
+      dispatch(updateUser(res?.data?.data));
+      setDeleteId("");
+      setConfirmModal(false);
+      setDeleteItem("")
+    });
+  };
+
 
   return (
     <>
@@ -261,7 +299,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
             }
             {userData?.about?.phone &&
               userData?.about?.phone?.length > 0 &&
-              userData?.about?.phone?.map((item) => {
+              userData?.about?.phone?.map((item, index) => {
                 return (
                   <Box
                     key={item?.phone}
@@ -283,17 +321,24 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.phone}
                     </Typography>
-                    {!isPublicView && (
-                      <img
-                        onClick={() => {
-                          setModal("editphone");
-                          setItem(item);
-                        }}
-                        style={{ cursor: "pointer" }}
-                        src={primaryEdit}
-                        alt="edit"
-                      />
-                    )}
+                    {/* {!isPublicView && (
+                      
+                    )} */}
+                    {!isPublicView &&
+
+                      <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                        <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("phone", index)} />
+                        <img
+                          onClick={() => {
+                            setModal("editphone");
+                            setItem(item);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          src={primaryEdit}
+                          alt="edit"
+                        />
+                      </Box>
+                    }
                   </Box>
                 );
               })}
@@ -325,7 +370,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
           {userData?.about?.experience &&
             userData?.about?.experience?.length > 0 ? (
-            userData?.about?.experience?.map((item) => {
+            userData?.about?.experience?.map((item, index) => {
               return (
                 <Box
                   key={item?.title}
@@ -360,17 +405,21 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.title}
                     </Typography>
-                    {!isPublicView && (
-                      <img
-                        onClick={() => {
-                          setModal("editexp");
-                          setItem(item);
-                        }}
-                        style={{ cursor: "pointer" }}
-                        src={primaryEdit}
-                        alt="edit"
-                      />
-                    )}
+                    {!isPublicView &&
+
+                      <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                        <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("experience", index)} />
+                        <img
+                          onClick={() => {
+                            setModal("editexp");
+                            setItem(item);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          src={primaryEdit}
+                          alt="edit"
+                        />
+                      </Box>
+                    }
                   </Stack>
                   {
                     ((!isPublic && isPublicView && userData?.profileSettings?.showCurrentExperienceDetails && item?.currently)
@@ -518,7 +567,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
           {userData?.about?.education &&
             userData?.about?.education?.length > 0 ? (
-            userData?.about?.education?.map((item) => {
+            userData?.about?.education?.map((item, index) => {
               return (
                 <Box
                   key={item?.school}
@@ -543,7 +592,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.school}
                     </Typography>
-                    {!isPublicView && (
+                    {/* {!isPublicView && (
                       <img
                         onClick={() => {
                           setModal("editedu");
@@ -553,7 +602,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                         src={primaryEdit}
                         alt="edit"
                       />
-                    )}
+                    )} */}
+                    {!isPublicView &&
+
+                      <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                        <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("education", index)} />
+                        <img
+                          onClick={() => {
+                            setModal("editedu");
+                            setItem(item);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          src={primaryEdit}
+                          alt="edit"
+                        />
+                      </Box>
+                    }
                   </Stack>
                   {item?.degree && <Box sx={{ width: "100%", mt: 1 }}>
                     <Stack
@@ -640,7 +704,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       ) : (
         <Paper
           sx={{
-            display: (!isPublic && isPublicView && userData?.profileSettings?.showEducation) || (!isPublic && !isPublicView) ? "flex" : "none",
+            display: ((!isPublic && isPublicView && userData?.profileSettings?.showEducation) || (!isPublic && !isPublicView)) ? "flex" : "none",
             flexDirection: "column",
             rowGap: "12px",
             px: "20px",
@@ -662,7 +726,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
           {userData?.about?.education &&
             userData?.about?.education?.length > 0 ? (
-            userData?.about?.education?.map((item) => {
+            userData?.about?.education?.map((item, index) => {
               return (
                 <Box
                   key={item?.school}
@@ -687,17 +751,24 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.school}
                     </Typography>
-                    {!isPublicView && (
-                      <img
-                        onClick={() => {
-                          setModal("editedu");
-                          setItem(item);
-                        }}
-                        style={{ cursor: "pointer" }}
-                        src={primaryEdit}
-                        alt="edit"
-                      />
-                    )}
+                    {/* {!isPublicView && (
+                      
+                    )} */}
+                    {!isPublicView &&
+
+                      <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                        <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("education", index)} />
+                        <img
+                          onClick={() => {
+                            setModal("editedu");
+                            setItem(item);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          src={primaryEdit}
+                          alt="edit"
+                        />
+                      </Box>
+                    }
                   </Stack>
                   {
                     ((!isPublic && isPublicView && userData?.profileSettings?.showEducationDetails) || (!isPublic && !isPublicView))
@@ -832,7 +903,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
             </Typography>
           </Box>
           {userData?.about?.skills && userData?.about?.skills?.length > 0 ? (
-            userData?.about?.skills?.map((item) => {
+            userData?.about?.skills?.map((item, index) => {
               return (
                 <Box
                   key={item?.skill}
@@ -855,17 +926,24 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.skill}
                   </Typography>
-                  {!isPublicView && (
-                    <img
-                      onClick={() => {
-                        setModal("editskill");
-                        setItem(item);
-                      }}
-                      style={{ cursor: "pointer" }}
-                      src={primaryEdit}
-                      alt="edit"
-                    />
-                  )}
+                  {/* {!isPublicView && (
+                    
+                  )} */}
+                  {!isPublicView &&
+
+                    <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                      <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("skills", index)} />
+                      <img
+                        onClick={() => {
+                          setModal("editskill");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    </Box>
+                  }
                 </Box>
               );
             })
@@ -934,7 +1012,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
             </Typography>
           </Box>
           {userData?.about?.skills && userData?.about?.skills?.length > 0 ? (
-            userData?.about?.skills?.map((item) => {
+            userData?.about?.skills?.map((item, index) => {
               return (
                 <Box
                   key={item?.skill}
@@ -957,17 +1035,24 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.skill}
                   </Typography>
-                  {!isPublicView && (
-                    <img
-                      onClick={() => {
-                        setModal("editskill");
-                        setItem(item);
-                      }}
-                      style={{ cursor: "pointer" }}
-                      src={primaryEdit}
-                      alt="edit"
-                    />
-                  )}
+                  {/* {!isPublicView && (
+                    
+                  )} */}
+                  {!isPublicView &&
+
+                    <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                      <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("skills", index)} />
+                      <img
+                        onClick={() => {
+                          setModal("editskill");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    </Box>
+                  }
                 </Box>
               );
             })
@@ -1013,6 +1098,362 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
         </Paper>
       )}
+      {((!isPublic && !isPublicView) || (isPublicView && isPublic && userData?.about?.projects?.length > 0) || (isPublicView && !isPublic && userData?.profileSettings?.showProjects && userData?.about?.projects?.length > 0)) && <Paper sx={{
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "12px",
+        px: "20px",
+      }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "40px",
+          }}
+        >
+          <Typography
+            sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+          >
+            Projects
+          </Typography>
+        </Box>
+        {
+          Array.isArray(userData?.about?.projects) && userData?.about?.projects?.length > 0
+            ?
+            userData?.about?.projects?.map((item, index) => (
+              <Box sx={{
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px"
+              }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {item?.name}
+                  </Typography>
+                  {/* {!isPublicView && (
+                    <img
+                      onClick={() => {
+                        HandleProjectEdit(item)
+                      }}
+                      style={{ cursor: "pointer" }}
+                      src={primaryEdit}
+                      alt="edit"
+                    />
+                  )} */}
+                  {!isPublicView &&
+
+                    <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                      <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={() => HandleDelete("projects", index)} />
+                      <img
+                        onClick={() => {
+                          setModal("editproject");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer", width: "20px", height: "20px" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    </Box>
+                  }
+                </Box>
+                <Box sx={{ display: "flex" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {item?.startMonth && item?.startYear
+                      ? `${item.startMonth} / ${item.startYear}`
+                      : item?.startMonth
+                        ? item.startMonth
+                        : item?.startYear
+                          ? item.startYear
+                          : ""}
+
+                    {(item?.working || item?.endMonth || item?.endYear) && ` - `}
+
+                    {item?.working
+                      ? "Present"
+                      : item?.endMonth && item?.endYear
+                        ? `${item.endMonth} / ${item.endYear}`
+                        : item?.endMonth
+                          ? item.endMonth
+                          : item?.endYear
+                            ? item.endYear
+                            : ""}
+                  </Typography>
+                </Box>
+
+                {item?.description && <Typography
+                  sx={{
+                    fontSize: "10px",
+                    fontWeight: 400,
+                    color: "#171717",
+                  }}
+                >
+                  {item?.description}
+                </Typography>}
+                {item?.links?.map((item, index) => (
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                    key={index}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+                {(Array.isArray(item?.skills) && item?.skills && item?.skills?.length > 0) && <Box sx={{ display: 'flex', flexWrap: "wrap", gap: "10px" }}>
+                  {item?.skills?.map((skill) => (
+                    <Chip label={skill} />
+                  ))}
+                </Box>}
+                {item?.related && <Typography
+                  sx={{
+                    fontSize: "10px",
+                    fontWeight: 400,
+                    color: "#171717",
+                  }}
+                >
+                  This project is related to {item?.related}
+                </Typography>}
+                {(item?.contributors && item?.contributors?.length > 0) && <Box sx={{ display: "flex", flexDirection: "column", rowGap: "5px" }}>
+                  <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Other contributors</Typography>
+                  <Box sx={{ display: "flex", columnGap: "10px", flexWrap: "wrap", rowGap: "5px" }}>
+                    {item?.contributors?.map((contributor, index2) => (
+                      <Avatar
+                        key={index2}
+                        src={contributor?.profileImg ? contributor.profileImg : user}
+                        alt="User"
+                        sx={{ width: 40, height: 40, objectFit: "fill" }}
+                      />
+                    ))}
+                  </Box>
+                </Box>}
+
+              </Box>
+            ))
+            :
+            <Box
+              sx={{
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  color: "#171717",
+                }}
+              >
+                Adding project allow people to know what your capability.
+              </Typography>
+            </Box>
+        }
+        {!isPublicView && (
+          <Box
+            onClick={() => setModal("addproject")}
+            sx={{
+              border: "1px solid #E4E4E4",
+              p: "10px 5px 10px 5px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "40px",
+              cursor: "pointer",
+            }}
+          >
+            <img src={plus} alt="add" />
+          </Box>
+        )}
+      </Paper>}
+
+      {((!isPublic && !isPublicView) || (isPublicView && isPublic && userData?.about?.certifications?.length > 0) || (isPublicView && !isPublic && userData?.profileSettings?.showCertifications && userData?.about?.certifications?.length > 0)) && <Paper sx={{
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "12px",
+        px: "20px",
+      }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "40px",
+          }}
+        >
+          <Typography
+            sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
+          >
+            Certifications
+          </Typography>
+        </Box>
+        {
+          Array.isArray(userData?.about?.certifications) && userData?.about?.certifications?.length > 0
+            ?
+            userData?.about?.certifications?.map((item, index) => (
+              <Box sx={{
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "4px"
+              }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {item?.name}
+                  </Typography>
+                  {!isPublicView &&
+
+                    <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}>
+                      <img src={deleteIcon} alt="" style={{ cursor: "pointer", width: "20px", height: "20px" }}
+                        onClick={() => HandleDelete("certifications", index)}
+                      />
+                      <img
+                        onClick={() => {
+                          setModal("editcertificate");
+                          setItem(item);
+                        }}
+                        style={{ cursor: "pointer", width: "20px", height: "20px" }}
+                        src={primaryEdit}
+                        alt="edit"
+                      />
+                    </Box>
+                  }
+                </Box>
+                <Typography sx={{
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  color: "#505050",
+                }}>{item?.issuer}</Typography>
+                <Box sx={{ display: "flex" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                  >
+                    {(item?.issueMonth || item?.issueYear) && "Issued "}
+                    {item?.issueMonth && item?.issueYear
+                      ? `${item.issueMonth} ${item.issueYear}`
+                      : item?.issueMonth
+                        ? item.issueMonth
+                        : item?.issueYear
+                          ? item.issueYear
+                          : ""}
+
+                    {(item?.expireMonth || item?.expireYear) && ` - `}
+
+                    {(item?.expireMonth || item?.expireYear) && "Expires "}
+                    {item?.expireMonth && item?.expireYear
+                      ? `${item.expireMonth} ${item.expireYear}`
+                      : item?.expireMonth
+                        ? item.expireMonth
+                        : item?.expireYear
+                          ? item.expireYear
+                          : ""}
+                  </Typography>
+
+                </Box>
+                {item?.credId && <Typography sx={{
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  color: "#171717",
+                }}>Credential ID: {item?.credId}</Typography>}
+                {item?.credURL && <Typography sx={{
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  color: "#171717",
+                }}>Credential URL: {item?.credURL}</Typography>}
+                {item?.links?.map((item, index) => (
+                  <Typography
+                    sx={{
+                      fontSize: "10px",
+                      fontWeight: 400,
+                      color: "#171717",
+                    }}
+                    key={index}
+                  >
+                    {item}
+                  </Typography>
+                ))}
+                {(Array.isArray(item?.skills) && item?.skills && item?.skills?.length > 0) && <Box sx={{ display: 'flex', flexWrap: "wrap", gap: "10px" }}>
+                  {item?.skills?.map((skill) => (
+                    <Chip label={skill} />
+                  ))}
+                </Box>}
+              </Box>
+            ))
+            :
+            <Box
+              sx={{
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "10px",
+                  fontWeight: 400,
+                  color: "#171717",
+                }}
+              >
+                Adding certificates allow people to know what your capability.
+              </Typography>
+            </Box>
+        }
+        {!isPublicView && (
+          <Box
+            onClick={() => setModal("addcertificate")}
+            sx={{
+              border: "1px solid #E4E4E4",
+              p: "10px 5px 10px 5px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "40px",
+              cursor: "pointer",
+            }}
+          >
+            <img src={plus} alt="add" />
+          </Box>
+        )}
+      </Paper>}
       <EditBioModal
         userData={userData}
         open={modal === "bio"}
@@ -1073,6 +1514,39 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
         open={modal === "editskill"}
         handleClose={handleClose}
       />
+      <AddProject
+        open={modal === "addproject"}
+        handleClose={handleClose}
+        userData={userData}
+      />
+      <EditProject
+        open={modal === "editproject"}
+        handleClose={handleClose}
+        userData={userData}
+        project={item}
+      />
+
+      <AddCertificate
+        open={modal === "addcertificate"}
+        handleClose={handleClose}
+        userData={userData}
+      />
+
+      <EditCertificate
+        open={modal === "editcertificate"}
+        handleClose={handleClose}
+        userData={userData}
+        certificate={item}
+      />
+
+      <ConfirmationModal open={showConfirmModal} handleClose={() => setConfirmModal(false)} title={`Delete ${deleteItem}`}
+        cancelButtonText={"No thanks"} acceptButtonText={"Delete"}
+        handleAccept={handleAccept}
+        handleCancel={() => setConfirmModal(false)}
+        isLoading={isLoading}
+      >
+        <Typography sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}>Are you sure you want to delete?</Typography>
+      </ConfirmationModal>
     </>
   );
 };

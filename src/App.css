@@ -221,8 +221,20 @@ button.is-active {
     object-fit: fill !important;
 }
 
-.recharts-legend-wrapper{
+.recharts-legend-wrapper {
     display: none;
+}
+
+.MuiPickersYear-yearButton,
+.MuiPickersMonth-monthButton {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.MuiPickersMonth-monthButton.Mui-selected:focus,
+.MuiPickersMonth-monthButton.Mui-selected:hover {
+    color: white !important;
 }
 
 @media screen and (min-width:769px) {

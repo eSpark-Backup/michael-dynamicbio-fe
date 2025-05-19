@@ -372,3 +372,30 @@ export const phoneNoSchema = Yup.object({
 export const welcomeNoteSchema = Yup.object({
   note: Yup.string().required("Note is required").max(1000, "Characters must be less or equal to 1000.")
 })
+
+export const projectSchema = Yup.object({
+  name: Yup.string().required("Project name is required"),
+  description: Yup.string().max(2000, "Must be 2000 characters or less"),
+  skills: Yup.array().of(Yup.string()),
+  files: Yup.array()
+    .of(
+      Yup.mixed().test("fileType", "Unsupported file format", (file) => {
+        if (!file) return true;
+        const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/tiff", "image/webp", "application/pdf"];
+        return validTypes.includes(file.type);
+      })
+    )
+})
+
+export const certificateSchema = Yup.object({
+  name: Yup.string().required("Project name is required"),
+  issuer: Yup.string().required("Issuing organization name is required"),
+  skills: Yup.array().of(Yup.string()),
+  credId: Yup.string(),
+  credURL: Yup.string().url("Must be a valid URL"),
+})
+
+export const addLinkSchema = Yup.object({
+  link: Yup.string().url("Enter a valid URL").required("Link is required"),
+});
+
