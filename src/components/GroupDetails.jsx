@@ -349,27 +349,29 @@ const GroupDetails = () => {
                     Manage group
                   </Typography>
                 </Box>
-                {isMyGroup && <Box
-                  onClick={() => setEditModal(data?.data)}
-                  sx={{
-                    height: "60px",
-                    borderTop: "1px solid #E5E5E5",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <Typography
+                {isMyGroup && (
+                  <Box
+                    onClick={() => setEditModal(data?.data)}
                     sx={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      color: "#171717",
+                      height: "60px",
+                      borderTop: "1px solid #E5E5E5",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      cursor: "pointer",
                     }}
                   >
-                    Edit group
-                  </Typography>
-                </Box>}
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "400",
+                        color: "#171717",
+                      }}
+                    >
+                      Edit group
+                    </Typography>
+                  </Box>
+                )}
               </>
             )}
           </Paper>
@@ -666,7 +668,14 @@ const GroupDetails = () => {
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "500",
+                    color: "#171717",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                  }}
                 >
                   {data?.data?.name}
                 </Typography>

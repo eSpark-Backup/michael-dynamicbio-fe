@@ -42,7 +42,7 @@ const GroupSidebar = ({ data }) => {
   useEffect(() => {
     const allGroups = allGroupsData?.data?.pages || [];
     const filteredGroups = allGroups?.filter(
-      (item) => item?.creatorId !== userData?.id && !item?.requestSent
+      (item) => item?.creatorId !== userData?.id && !item?.requestSent && item?.id !== id
     );
     setGroups(filteredGroups || []);
   }, [allGroupsData]);
@@ -154,7 +154,7 @@ const GroupSidebar = ({ data }) => {
           Admins
         </Typography>
         {data?.admins?.length > 0
-          ? data?.admins?.map(({admin: item}) => (
+          ? data?.admins?.map(({ admin: item }) => (
               <Box
                 key={item?.firstName}
                 sx={{ display: "flex", columnGap: "10px", marginY: "10px" }}
@@ -285,14 +285,21 @@ const GroupSidebar = ({ data }) => {
                       display: "flex",
                       flexDirection: "column",
                       rowGap: "2px",
+                      width: "100%",
                     }}
                   >
                     <Typography
+                      onClick={() => navigate(`/group/${item?.id}`)}
                       sx={{
+                        cursor: "pointer",
                         fontSize: "16px",
                         fontWeight: "500",
                         color: "#171717",
                         textWrap: "wrap",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        width: "calc(100% - 50px)",
                       }}
                     >
                       {item?.name}
