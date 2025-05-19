@@ -46,6 +46,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ShowLikesModal from "./ShowLikesModal";
 
 const ArticlePost = ({
+  page,
   isUpdateLoading,
   handleResponse,
   reqId,
@@ -321,7 +322,7 @@ const ArticlePost = ({
         groupPost={isGroupPost}
         postId={id}
         isSaved={isSaved}
-        handleEdit={() => navigate(`/article/edit/${id}`)}
+        handleEdit={() => navigate(`/article/edit/${id}${page ? `?page=${JSON.stringify(page)}` : ""}`)}
         handleDelete={handleDelete}
         visibility={postVisibility}
         commentSetting={commentSetting}

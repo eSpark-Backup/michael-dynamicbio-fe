@@ -106,7 +106,7 @@ const PostSection = ({ data }) => {
       if (isuserLiked && isOnlyUserLiked) {
         lastLike = "";
       } else if (!isuserLiked) {
-        lastLike = `${item?.lastLikedUser?.user?.firstName} ${item?.lastLikedUser?.user?.lastName}`;
+        lastLike = `${item?.lastLikedUser} ${item?.lastLikedUser}`;
       } else if (Array.isArray(item?.likes)) {
         const newItem = item?.likes?.find(
           (item2) =>
@@ -120,12 +120,15 @@ const PostSection = ({ data }) => {
       }
 
       return {
+        isPagePost: true,
         canComment: true,
         userId: item?.author?.id,
-        userName: `${item?.author?.firstName} ${item?.author?.lastName}`,
-        userRole: item?.author?.company,
+        pageId: item?.page?.id,
+        page: item?.page,
+        userName: item?.page?.name,
+        userRole: item?.pageFollowerCount,
         postTime: dayjs(item?.createdAt).fromNow(),
-        userImage: item?.author?.profileImage,
+        userImage: item?.page?.logoUrl,
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
@@ -168,6 +171,8 @@ const PostSection = ({ data }) => {
             isBond: like.isBond,
           })) || [],
         isSaved: item?.isSaved,
+        postVisibility: item?.visibility,
+        commentVisibility: item?.commentVisibility,
       };
     });
   };

@@ -58,6 +58,7 @@ import ShowLikesModal from "./ShowLikesModal";
 import EditModal from "./EditModal";
 
 const VideoPost = ({
+  page,
   isUpdateLoading,
   isPending,
   handleResponse,
@@ -962,6 +963,7 @@ const VideoPost = ({
         visibility={visibility}
         setVisibility={setVisibility}
         isEditModal={true}
+        page={page}
       >
         <EditModal
           type={"video"}

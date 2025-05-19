@@ -96,6 +96,7 @@ const PollPost = ({
   pageId,
   isGeneralPost,
   shareableLink,
+  page,
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -1250,6 +1251,7 @@ const PollPost = ({
         visibility={visibility}
         setVisibility={setVisibility}
         isEditModal={true}
+        page={page}
       >
         <EditModal
           type={"poll"}
