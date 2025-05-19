@@ -88,7 +88,7 @@ const PageCard = ({
                 textAlign: { xs: "center", sm: "left" },
               }}
             >
-              {followerCount} {mainType === "group" ? `Memeber${followerCount === 1 ? "" : "s"}` : `Follower${followerCount === 1 ? "" : "s"}`}
+              {followerCount} {mainType === "group" ? `Member${followerCount === 1 ? "" : "s"}` : `Follower${followerCount === 1 ? "" : "s"}`}
             </Typography>
           </Stack>
         </Box>
