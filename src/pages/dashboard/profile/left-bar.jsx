@@ -1166,7 +1166,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     </Box>
                   }
                 </Box>
-                <Box sx={{ display: "flex" }}>
+                {(item?.startMonth || item?.startYear || item?.endMonth || item?.endYear) && <Box sx={{ display: "flex" }}>
                   <Typography
                     sx={{
                       fontSize: "10px",
@@ -1194,7 +1194,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                             ? item.endYear
                             : ""}
                   </Typography>
-                </Box>
+                </Box>}
 
                 {item?.description && <Typography
                   sx={{

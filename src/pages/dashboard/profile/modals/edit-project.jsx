@@ -236,7 +236,7 @@ const EditProject = ({ project, open, handleClose, userData }) => {
                     my: "15px"
                 }}
             >
-                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+                <Typography sx={{ fontSize: "22px", fontWeight: "500", color: "#171717" }}>
                     Skills
                 </Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
@@ -319,7 +319,7 @@ const EditProject = ({ project, open, handleClose, userData }) => {
                     my: "15px"
                 }}
             >
-                <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>
+                <Typography sx={{ fontSize: "22px", fontWeight: "500", color: "#171717" }}>
                     Link
                 </Typography>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>

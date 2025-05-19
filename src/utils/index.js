@@ -270,9 +270,10 @@ export const getMessage = (item) => {
 };
 
 export const yearOptions = Array.from({ length: 101 }, (_, i) => {
-  const year = new Date().getFullYear() - 100 + i;
+  const year = new Date().getFullYear() - i;
   return { label: year.toString(), value: year.toString() };
 });
+
 
 export const checkDate = (startMonth, startYear, endMonth, endYear) => {
   if (!startMonth || !startYear || !endMonth || !endYear) {
