@@ -66,6 +66,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
           return;
         }
         if (res?.data) {
+          toast.success(res?.data?.message);
           handleClose();
           refetch && refetch();
           resetForm();
