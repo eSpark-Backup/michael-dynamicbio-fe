@@ -99,6 +99,11 @@ const VideoPost = ({
   pageId,
   isGeneralPost,
   shareableLink,
+  isGroupfeed,
+  groupId,
+  groupName,
+  groupImage,
+  isUserAdmin
 }) => {
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -117,6 +122,9 @@ const VideoPost = ({
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [visibility, setVisibility] = useState(postVisibility);
+  const [title, setTitle] = useState(postContent)
+
+  useEffect(() => setTitle(postContent), [postContent])
 
   const [
     commentData,
@@ -244,7 +252,7 @@ const VideoPost = ({
         width: "100%",
       }}
     >
-      {isGroupPost && (
+      {/* {(isGroupPost && isGroupfeed) && (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             sx={{
@@ -257,11 +265,11 @@ const VideoPost = ({
             <Box
               sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}
             >
-              {pinned && <img src={pin} alt="" />}
+              {(pinned && isGroupfeed) && <img src={pin} alt="" />}
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
-                {pinned
+                {(pinned && isGroupfeed)
                   ? "Pinned by admin"
                   : "Highlight this post by pinning it at the top."}
               </Typography>
@@ -329,7 +337,7 @@ const VideoPost = ({
             </Box>
           )}
         </Box>
-      )}
+      )} */}
       {!isPending && !isFriendPost && !ownPost && (
         <Box
           sx={{
@@ -400,11 +408,16 @@ const VideoPost = ({
         pageId={pageId}
         isGeneralPost={isGeneralPost}
         shareableLink={shareableLink}
+        isGroupfeed={isGroupfeed}
+        groupId={groupId}
+        groupName={groupName}
+        groupImage={groupImage}
+        isUserAdmin={isUserAdmin}
       />
-      {postContent && (
+      {title && (
         <Typography
           sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
-          dangerouslySetInnerHTML={{ __html: postContent }}
+          dangerouslySetInnerHTML={{ __html: title }}
         ></Typography>
       )}
       <div
@@ -448,7 +461,7 @@ const VideoPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "reject" ? (
+              isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -473,7 +486,7 @@ const VideoPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "approve" ? (
+              isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -526,19 +539,19 @@ const VideoPost = ({
                   isGeneralPost
                     ? AlertHandler
                     : numberofLikes > 0 && !isLoading
-                    ? () => setShowLikesModal(true)
-                    : () => {}
+                      ? () => setShowLikesModal(true)
+                      : () => { }
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                  ? "You liked this post"
-                  : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                  ? `${lastUserLiked} likes this`
-                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                    ? "You liked this post"
+                    : isLiked && numberofLikes > 1
+                      ? `You and ${numberofLikes - 1} more like this`
+                      : numberofLikes === 1
+                        ? `${lastUserLiked} likes this`
+                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -584,8 +597,8 @@ const VideoPost = ({
                 isGeneralPost
                   ? AlertHandler
                   : isLoading
-                  ? () => {}
-                  : () => handleLike(id)
+                    ? () => { }
+                    : () => handleLike(id)
               }
             >
               <img
@@ -934,7 +947,7 @@ const VideoPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -964,15 +977,18 @@ const VideoPost = ({
         setVisibility={setVisibility}
         isEditModal={true}
         page={page}
+        groupAdmin={isGroupPost ? true : false}
+        group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
           type={"video"}
-          title={postContent}
+          title={title}
           id={id}
           videoPostData={{ thumbnail, videoUrl }}
           handleClose={() => setShowEditModal(false)}
           visibility={visibility}
           commentSetting={commentSetting}
+          setTitle={setTitle}
         />
       </DynamicModal>
     </Paper>

@@ -98,6 +98,17 @@ export const groupApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getGroupPosts: builder.query({
+      query: ({ page = 1, limit = 15, groupId }) => ({
+        url: `/post/group/${groupId}`,
+        method: "GET",
+        params: {
+          page,
+          pageSize: limit
+        },
+      }),
+      providesTags: ['post']
+    })
   }),
 });
 
@@ -116,4 +127,5 @@ export const {
   useDeleteGroupAdminMutation,
   useGetGroupJoinReqQuery,
   useUpdateGroupJoinReqMutation,
+  useGetGroupPostsQuery
 } = groupApi;

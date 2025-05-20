@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   Grid2,
   IconButton,
+  LinearProgress,
   Menu,
   MenuItem,
   Paper,
@@ -33,8 +34,9 @@ import {
   useDeleteGroupMutation,
   useFollowGroupMutation,
   useGetGroupDetailQuery,
+  useGetGroupPostsQuery,
 } from "../services/group";
-import { copyToClipboard } from "../utils";
+import { copyToClipboard, getDaysLeft } from "../utils";
 import {
   arrowUpRight,
   bell,
@@ -55,10 +57,15 @@ import {
   settings,
   three_vertical_dots,
 } from "../assets";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const GroupDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [page, setPage] = useState(1);
+  const [posts, setPosts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+
 
   const bellRef = useRef(null);
 
@@ -162,7 +169,180 @@ const GroupDetails = () => {
     type === "delete" ? handleDelete(id) : handleFollow(id);
   };
 
-  if (isLoading || isFetching) {
+  const skip = !id;
+  const { data: groupPostsData, error: groupPostsError, isLoading: groupPostsLoading, isSuccess: groupPostsSuccess, isFetching: groupPostsfetching, refetch: groupPostRefetch } = useGetGroupPostsQuery(
+    { page, limit: 15, groupId: id },
+    {
+      skip,
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: true,
+      refetchOnReconnect: true,
+    }
+  );
+
+  useEffect(() => {
+    setPosts([]);
+    setPage(1);
+    setHasMore(true);
+  }, [id]);
+
+  useEffect(() => {
+    if (groupPostsSuccess) {
+
+      if (!groupPostsData?.data) {
+        setPosts([]);
+        setHasMore(false);
+        return;
+      }
+
+      const newPosts = transformPosts(groupPostsData.data.posts);
+
+      if (page === 1) {
+        setPosts(newPosts);
+      } else {
+        const existingIds = new Set(posts.map(p => p.id));
+        const uniqueNewPosts = newPosts.filter(post => !existingIds.has(post.id));
+        setPosts(prev => [...prev, ...uniqueNewPosts]);
+      }
+
+      setHasMore(
+        groupPostsData.data.pagination.currentPage < groupPostsData.data.pagination.totalPages
+      );
+    }
+  }, [groupPostsData, groupPostsSuccess, page]);
+
+  const transformPosts = (posts) => {
+    return posts
+      .map((item) => {
+        const isOwnPost = item?.author?.id === user?.id;
+        const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
+          item?.likes?.some((item) =>
+            item?.user?.firstName?.toLowerCase() === user?.firstName?.toLowerCase() &&
+            item?.user?.lastName?.toLowerCase() === user?.lastName?.toLowerCase()
+          );
+
+        let lastLike = "";
+
+        const isOnlyUserLiked = item?.likes?.length === 1;
+        if (isuserLiked && isOnlyUserLiked) {
+          lastLike = "";
+        } else if (!isuserLiked) {
+          lastLike = item?.lastLikedUser;
+        } else if (Array.isArray(item?.likes)) {
+          const newItem = item?.likes?.find((item2) =>
+            item2?.user?.firstName?.toLowerCase() !== user?.firstName?.toLowerCase() &&
+            item2?.user?.lastName?.toLowerCase() !== user?.lastName?.toLowerCase()
+          );
+          lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
+        }
+
+        const isAdminPost = groupPostsData?.data?.group?.admins?.some((admin) => admin?.adminId === item?.author?.id)
+
+        return {
+          userId: item?.author?.id,
+          userName: item?.isPagePost ? item?.page?.name : `${item?.author?.firstName} ${item?.author?.lastName}`,
+          userRole: item?.isPagePost ? item?.pageFollowerCount : item?.author?.company,
+          postTime: dayjs(item?.createdAt).fromNow(),
+          userImage: item?.isPagePost ? item?.page?.logoUrl : item?.author?.profileImage,
+          numberofLikes: item?.likesCount,
+          isLiked: isuserLiked,
+          comments: item?.commentsCount,
+          activity: "",
+          postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
+          postContent: item?.content?.title,
+          commentsContent: [],
+          type: getPostType(item?.type),
+          videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
+          thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
+          question: item?.type === "POLL" ? item?.poll?.question : "",
+          options: getPollOptions(item),
+          voteCount: item?.poll?.votes?.length || 0,
+          endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+          pollId: item?.poll?.id || "",
+          isVoted: false,
+          eventName: item?.content?.name,
+          eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+          startTime: item?.content?.startTime,
+          endTime: item?.content?.showEndTime && item?.content?.endTime,
+          eventType: item?.content?.eventType,
+          eventLink: item?.content?.externalLink,
+          attendees: [{ image: user }],
+          eventPost: "bringback",
+          id: item?.id,
+          articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+          articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+          articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+          ownPost: isOwnPost,
+          isFriendPost: item?.isBond,
+          lastUserLiked: lastLike,
+          allLikesData: item?.likes?.map((like) => ({
+            id: like?.user?.id,
+            firstName: like?.user?.firstName,
+            lastName: like?.user?.lastName,
+            profileImage: like?.user?.profileImage,
+            designation: like?.user?.designation,
+            isBond: like.isBond,
+          })) || [],
+          isSaved: item?.isSaved,
+          postVisibility: item?.isGroupPost ? item?.group?.status : item?.visibility,
+          commentVisibility: item?.commentVisibility,
+          canComment: item?.canComment,
+          isPagePost: item?.isPagePost,
+          isUserPost: !isOwnPost && !item?.isPagePost && !item?.isGroupPost,
+          isPageFollowing: item?.isPageFollowing,
+          pageId: item?.isPagePost ? item?.page?.id : "",
+          shareableLink: item?.shareableLink,
+          pinned: false,
+          groupPost: true,
+          isAdminPost: isAdminPost,
+          groupName: item?.isGroupPost ? item?.group?.name : "",
+          groupId: item?.isGroupPost ? item?.group?.id : "",
+          groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+          isUserAdmin: groupPostsData?.data?.group?.isAdmin || groupPostsData?.data?.group?.isCreator,
+        };
+      });
+  };
+
+  const getPostType = (type) => {
+    const typeMap = {
+      IMAGE: "normal",
+      VIDEO: "video",
+      TEXT: "normal",
+      POLL: "poll",
+      EVENT: "event",
+      ARTICLE: "article"
+    };
+    return typeMap[type] || "";
+  };
+
+  const getPollOptions = (item) => {
+    if (item?.type !== "POLL") return [];
+    const isVote = item?.poll?.votes?.find(
+      (vote) => vote?.userId === user?.id
+    );
+    const myVoteIndex = isVote ? isVote?.optionIndex : null;
+    return [
+      ...(item?.pollResults?.map((option, index) => ({
+        id: index + 3,
+        value: option?.option,
+        isChecked: myVoteIndex === index,
+        numbersVoted: option?.count,
+        voteBy: option?.voters,
+      })) || []),
+    ];
+  };
+
+  const handlePostDelete = (postId) => {
+    setPosts(prev => prev.filter(post => post.id !== postId));
+  };
+
+  const fetchMoreData = () => {
+    if (!groupPostsLoading) {
+      setPage(prev => prev + 1);
+    }
+  };
+
+  if (isLoading || isFetching || groupPostsLoading) {
     return (
       <Box
         sx={{
@@ -506,9 +686,8 @@ const GroupDetails = () => {
                 borderTopRightRadius: "4px",
                 borderTopLeftRadius: "4px",
                 position: "relative",
-                backgroundImage: `url(${
-                  data?.data?.coverImageUrl || dummyPhoto
-                })`,
+                backgroundImage: `url(${data?.data?.coverImageUrl || dummyPhoto
+                  })`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -819,25 +998,45 @@ const GroupDetails = () => {
           {(isMyGroup ||
             data?.data?.status === "PUBLIC" ||
             data?.data?.isFollowing) && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                rowGap: "15px",
-                alignItems: "center",
-              }}
-            >
-              {/* <img src={conversation} alt="Image" />
+              <Box
+                sx={{
+                  display: "flex",
+                  // justifyContent: "center",
+                  flexDirection: "column",
+                  rowGap: "15px",
+                  // alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                {/* <img src={conversation} alt="Image" />
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>No posts to show</Typography>
                         <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
                             Join group to receive updates, add <br /> comments and create posts.
                         </Typography> */}
-              {suggestionPostContent.map((item) => (
-                <SuggestionPost key={item.id} {...item} isGroupPost={true} />
-              ))}
-            </Box>
-          )}
+                <InfiniteScroll
+                  dataLength={posts.length}
+                  next={fetchMoreData}
+                  hasMore={hasMore}
+                  loader={(groupPostsLoading || groupPostsfetching) && <LinearProgress />}
+                  endMessage={
+                    <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
+                      {posts.length === 0 ? 'No posts available' : 'No more posts'}
+                    </Typography>
+                  }
+                  style={{ width: "100%" }}
+                >
+                  <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: "100%" }}>
+                    {posts.map((item) => (
+                      <SuggestionPost key={item.id} {...item}
+                        handlePostDelete={handlePostDelete}
+                        isGroupPost={true}
+                        isGroupfeed={true}
+                      />
+                    ))}
+                  </Box>
+                </InfiniteScroll>
+              </Box>
+            )}
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }}>
           <GroupSidebar data={data?.data} />
@@ -1016,10 +1215,10 @@ const GroupDetails = () => {
               isMyGroup
                 ? deleteIcon
                 : data?.data?.isFollowing
-                ? leave
-                : data?.data?.requestSent
-                ? cancelIcon
-                : plus
+                  ? leave
+                  : data?.data?.requestSent
+                    ? cancelIcon
+                    : plus
             }
             alt=""
           />
@@ -1029,10 +1228,10 @@ const GroupDetails = () => {
             {isMyGroup
               ? "Delete this group"
               : data?.data?.isFollowing
-              ? "Leave this group"
-              : data?.data?.requestSent
-              ? "Withdraw join request"
-              : "Join this group"}
+                ? "Leave this group"
+                : data?.data?.requestSent
+                  ? "Withdraw join request"
+                  : "Join this group"}
           </Typography>
         </MenuItem>
       </Menu>

@@ -87,6 +87,11 @@ const ArticlePost = ({
   isPageFollowing,
   pageId,
   shareableLink,
+  isGroupfeed,
+  groupId,
+  groupName,
+  groupImage,
+  isUserAdmin
 }) => {
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -222,7 +227,7 @@ const ArticlePost = ({
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-      {isGroupPost && (
+      {/* {(isGroupPost && isGroupfeed) && (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             sx={{
@@ -307,7 +312,7 @@ const ArticlePost = ({
             </Box>
           )}
         </Box>
-      )}
+      )} */}
       <BondCard2
         id={userId}
         userImage={userImage}
@@ -332,6 +337,11 @@ const ArticlePost = ({
         isPageFollowing={isPageFollowing}
         pageId={pageId}
         shareableLink={shareableLink}
+        isGroupfeed={isGroupfeed}
+        groupId={groupId}
+        groupName={groupName}
+        groupImage={groupImage}
+        isUserAdmin={isUserAdmin}
       />
       {postContent && (
         <Typography
@@ -358,9 +368,8 @@ const ArticlePost = ({
           <Box
             sx={{
               height: "65%",
-              backgroundImage: `url("${
-                articleImage ? articleImage : dummyPhoto
-              }")`,
+              backgroundImage: `url("${articleImage ? articleImage : dummyPhoto
+                }")`,
               borderTopRightRadius: "8px",
               borderTopLeftRadius: "8px",
               backgroundSize: "cover",
@@ -416,7 +425,7 @@ const ArticlePost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "reject" ? (
+              isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -441,7 +450,7 @@ const ArticlePost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "approve" ? (
+              isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -493,18 +502,18 @@ const ArticlePost = ({
                 onClick={
                   numberofLikes > 0 && !isLoading
                     ? () => setShowLikesModal(true)
-                    : () => {}
+                    : () => { }
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                  ? "You liked this post"
-                  : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                  ? `${lastUserLiked} likes this`
-                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                    ? "You liked this post"
+                    : isLiked && numberofLikes > 1
+                      ? `You and ${numberofLikes - 1} more like this`
+                      : numberofLikes === 1
+                        ? `${lastUserLiked} likes this`
+                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -571,7 +580,7 @@ const ArticlePost = ({
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onClick={isLoading ? () => {} : () => handleLike(id)}
+              onClick={isLoading ? () => { } : () => handleLike(id)}
             >
               <img
                 src={isLiked ? like : unlike}
@@ -930,7 +939,7 @@ const ArticlePost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

@@ -13,7 +13,7 @@ import {
   useGetGroupJoinReqQuery,
   useUpdateGroupJoinReqMutation,
 } from "../services/group";
-import { noPosts } from "../assets";
+import { noPosts, userAvatar } from "../assets";
 
 const GroupRequests = ({ data, refetch }) => {
   const [isUpdateLoading, setIsUpdateLoading] = useState({

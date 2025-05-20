@@ -149,6 +149,9 @@ const SavedPosts = () => {
                 eventName: post?.type === "EVENT" && post?.content?.name,
                 shareableLink: post?.shareableLink,
                 visibility: post?.visibility,
+                isGroupPost: post?.isGroupPost,
+                groupImage: post?.group?.logoUrl,
+                groupName: post?.group?.name
             };
         });
     };
