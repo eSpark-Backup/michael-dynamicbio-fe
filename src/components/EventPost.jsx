@@ -92,6 +92,11 @@ const EventPost = ({
   isPageFollowing,
   pageId,
   shareableLink,
+  isGroupfeed,
+  groupId,
+  groupName,
+  groupImage,
+  isUserAdmin
 }) => {
   const navigate = useNavigate();
 
@@ -238,7 +243,7 @@ const EventPost = ({
         width: "100%",
       }}
     >
-      {isGroupPost && (
+      {/* {(isGroupPost && isGroupfeed) && (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             sx={{
@@ -251,11 +256,11 @@ const EventPost = ({
             <Box
               sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}
             >
-              {pinned && <img src={pin} alt="" />}
+              {(pinned && isGroupfeed) && <img src={pin} alt="" />}
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
-                {pinned
+                {(pinned && isGroupfeed)
                   ? "Pinned by admin"
                   : "Highlight this post by pinning it at the top."}
               </Typography>
@@ -323,7 +328,7 @@ const EventPost = ({
             </Box>
           )}
         </Box>
-      )}
+      )} */}
       <BondCard2
         id={userId}
         userImage={userImage}
@@ -347,11 +352,16 @@ const EventPost = ({
         isPageFollowing={isPageFollowing}
         pageId={pageId}
         shareableLink={shareableLink}
+        isGroupfeed={isGroupfeed}
+        groupId={groupId}
+        groupName={groupName}
+        groupImage={groupImage}
+        isUserAdmin={isUserAdmin}
       />
-      {postContent && (
+      {editTitle && (
         <Typography
           sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
-          dangerouslySetInnerHTML={{ __html: postContent }}
+          dangerouslySetInnerHTML={{ __html: editTitle }}
         ></Typography>
       )}
       <Box
@@ -470,7 +480,7 @@ const EventPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "reject" ? (
+              isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -495,7 +505,7 @@ const EventPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "approve" ? (
+              isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -547,18 +557,18 @@ const EventPost = ({
                 onClick={
                   numberofLikes > 0 && !isLoading
                     ? () => setShowLikesModal(true)
-                    : () => {}
+                    : () => { }
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                  ? "You liked this post"
-                  : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                  ? `${lastUserLiked} likes this`
-                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                    ? "You liked this post"
+                    : isLiked && numberofLikes > 1
+                      ? `You and ${numberofLikes - 1} more like this`
+                      : numberofLikes === 1
+                        ? `${lastUserLiked} likes this`
+                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -600,7 +610,7 @@ const EventPost = ({
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onClick={isLoading ? () => {} : () => handleLike(id)}
+              onClick={isLoading ? () => { } : () => handleLike(id)}
             >
               <img
                 src={isLiked ? like : unlike}
@@ -947,7 +957,7 @@ const EventPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -977,6 +987,8 @@ const EventPost = ({
         setVisibility={setVisibility}
         isEditModal={true}
         page={page}
+        groupAdmin={isGroupPost ? true : false}
+        group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
           type={"event"}
@@ -995,6 +1007,7 @@ const EventPost = ({
           handleClose={() => setEditModal(false)}
           visibility={visibility}
           commentSetting={commentSetting}
+          setTitle={setEditTitle}
         />
       </DynamicModal>
     </Paper>

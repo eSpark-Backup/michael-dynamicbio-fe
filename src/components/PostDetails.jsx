@@ -17,7 +17,7 @@ import { toast } from 'react-toastify'
 import ShowLikesModal from './ShowLikesModal'
 import EditModal from './EditModal'
 
-const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved, isUserPost, isPagePost, isPageFollowing, visibility, commentSetting, pageId, userId, isGeneralPost, shareableLink }) => {
+const PostDetails = ({ images, activity, userName, userRole, postTime, userImage, postContent, numberofLikes, isLiked, comments, commentsContent, friendLiked, friend, handleModalClose, handleLike, lastUserLiked, id, isLoading, handleCommentCounter, likesData, ownPost, friendPost, isSaved, isUserPost, isPagePost, isPageFollowing, visibility, commentSetting, pageId, userId, isGeneralPost, shareableLink, groupPost, isAdminPost, isGroupfeed, groupId, groupName, groupImage, isUserAdmin }) => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -196,7 +196,7 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <img src={close} alt="Icon" style={{ width: "24px", height: "44px", cursor: "pointer" }} onClick={handleModalClose} />
                         </Box>
                     </Box>
-                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isDetails={true} handleDetailsClose={handleModalClose} visibility={visibility} commentSetting={commentSetting} type={"IMAGE"} pageId={pageId} handleEdit={() => setEditModal(true)} id={userId} isGeneralPost={isGeneralPost} shareableLink={shareableLink} />
+                    <BondCard2 userImage={userImage} userName={userName} userRole={userRole} time={postTime} showWorldIcon postId={id} ownPost={ownPost} isFriendPost={friendPost} isSaved={isSaved} isUserPost={isUserPost} isPageFollowing={isPageFollowing} isPagePost={isPagePost} isDetails={true} handleDetailsClose={handleModalClose} visibility={visibility} commentSetting={commentSetting} type={"IMAGE"} pageId={pageId} handleEdit={() => setEditModal(true)} id={userId} isGeneralPost={isGeneralPost} shareableLink={shareableLink} isAdminPost={isAdminPost} groupPost={groupPost} isGroupfeed={isGroupfeed} groupId={groupId} groupName={groupName} groupImage={groupImage} isUserAdmin={isUserAdmin} />
                     {postContent &&
                         <Typography sx={{ fontSize: '20px', fontWeight: 400, color: "#171717" }} dangerouslySetInnerHTML={{ __html: postContent }}>
                         </Typography>
@@ -356,7 +356,8 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
 
                 <DynamicModal open={showEditModal} handleClose={() => setEditModal(false)} dropdownHeader={true} userData={userData}
                     userName={`${userData?.firstName} ${userData?.lastName}`} hideFooter={true} visibility={postVisibility}
-                    setVisibility={setPostVisibility} isEditModal={true}>
+                    setVisibility={setPostVisibility} isEditModal={true} groupAdmin={groupPost ? true : false}
+                    group={{ name: groupName, logoUrl: groupImage }}>
                     <EditModal type={"normal"} title={editTitle} id={id} normalPostData={{ images }} handleClose={() => setEditModal(false)} visibility={postVisibility} commentSetting={commentSettings} />
                 </DynamicModal>
             </Box>

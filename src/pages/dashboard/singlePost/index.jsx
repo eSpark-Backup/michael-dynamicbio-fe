@@ -108,7 +108,14 @@ const SinglePost = () => {
                     isUserPost: !isOwnPost && !item?.isPagePost,
                     isPageFollowing: item?.isPageFollowing,
                     pageId: item?.isPagePost ? item?.page?.id : "",
-                    shareableLink: item?.shareableLink
+                    shareableLink: item?.shareableLink,
+                    groupPost: item?.isGroupPost,
+                    pinned: false,
+                    isAdminPost: false,
+                    groupName: item?.isGroupPost ? item?.group?.name : "",
+                    groupId: item?.isGroupPost ? item?.group?.id : "",
+                    groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+                    isUserAdmin: item?.isAdmin || item?.isCreator,
                 };
             });
     };

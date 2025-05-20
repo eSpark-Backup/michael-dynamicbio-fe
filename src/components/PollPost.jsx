@@ -97,6 +97,11 @@ const PollPost = ({
   isGeneralPost,
   shareableLink,
   page,
+  isGroupfeed,
+  groupId,
+  groupName,
+  groupImage,
+  isUserAdmin
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -218,21 +223,21 @@ const PollPost = ({
         prevOptions.map((item) =>
           item.id - 3 === optionIndex
             ? {
-                ...item,
-                isChecked: true,
-                numbersVoted: item.numbersVoted + 1,
-                voteBy: [
-                  ...item.voteBy,
-                  {
-                    company: userData?.company,
-                    designation: userData?.designation,
-                    firstName: userData?.firstName,
-                    lastName: userData?.lastName,
-                    profileImage: userData?.profileImage,
-                    userId: userData?.id,
-                  },
-                ],
-              }
+              ...item,
+              isChecked: true,
+              numbersVoted: item.numbersVoted + 1,
+              voteBy: [
+                ...item.voteBy,
+                {
+                  company: userData?.company,
+                  designation: userData?.designation,
+                  firstName: userData?.firstName,
+                  lastName: userData?.lastName,
+                  profileImage: userData?.profileImage,
+                  userId: userData?.id,
+                },
+              ],
+            }
             : item
         )
       );
@@ -258,13 +263,13 @@ const PollPost = ({
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
             ? {
-                ...item,
-                isChecked: false,
-                numbersVoted: item.numbersVoted - 1,
-                voteBy: item.voteBy.filter(
-                  (vote) => vote.userId !== userData.id
-                ),
-              }
+              ...item,
+              isChecked: false,
+              numbersVoted: item.numbersVoted - 1,
+              voteBy: item.voteBy.filter(
+                (vote) => vote.userId !== userData.id
+              ),
+            }
             : item
         )
       );
@@ -351,7 +356,7 @@ const PollPost = ({
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
-      {isGroupPost && (
+      {/* {(isGroupPost && isGroupfeed) && (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             sx={{
@@ -364,11 +369,11 @@ const PollPost = ({
             <Box
               sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}
             >
-              {pinned && <img src={pin} alt="" />}
+              {(pinned && isGroupfeed) && <img src={pin} alt="" />}
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
-                {pinned
+                {(pinned && isGroupfeed)
                   ? "Pinned by admin"
                   : "Highlight this post by pinning it at the top."}
               </Typography>
@@ -436,7 +441,7 @@ const PollPost = ({
             </Box>
           )}
         </Box>
-      )}
+      )} */}
       <BondCard2
         id={userId}
         userName={userName}
@@ -463,11 +468,16 @@ const PollPost = ({
         pageId={pageId}
         isGeneralPost={isGeneralPost}
         shareableLink={shareableLink}
+        isGroupfeed={isGroupfeed}
+        groupId={groupId}
+        groupName={groupName}
+        groupImage={groupImage}
+        isUserAdmin={isUserAdmin}
       />
-      {postContent && (
+      {editTitle && (
         <Typography
           sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
-          dangerouslySetInnerHTML={{ __html: postContent }}
+          dangerouslySetInnerHTML={{ __html: editTitle }}
         ></Typography>
       )}
       <Box
@@ -521,7 +531,7 @@ const PollPost = ({
             <RadioGroup
               name="groups"
               value={selectedValue}
-              onChange={isGeneralPost ? AlertHandler : isPending ? () => {} : handleChange}
+              onChange={isGeneralPost ? AlertHandler : isPending ? () => { } : handleChange}
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
               {options?.map((item, index) => (
@@ -552,7 +562,7 @@ const PollPost = ({
                     }}
                     onClick={
                       isGeneralPost || isPending
-                        ? () => {}
+                        ? () => { }
                         : () => handleChange({ target: { value: item } })
                     }
                   >
@@ -708,7 +718,7 @@ const PollPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "reject" ? (
+              isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -733,7 +743,7 @@ const PollPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "approve" ? (
+              isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -790,19 +800,19 @@ const PollPost = ({
                   isGeneralPost
                     ? AlertHandler
                     : numberofLikes > 0 && !isLoading
-                    ? () => setShowLikesModal(true)
-                    : () => {}
+                      ? () => setShowLikesModal(true)
+                      : () => { }
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                  ? "You liked this post"
-                  : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                  ? `${lastUserLiked} likes this`
-                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                    ? "You liked this post"
+                    : isLiked && numberofLikes > 1
+                      ? `You and ${numberofLikes - 1} more like this`
+                      : numberofLikes === 1
+                        ? `${lastUserLiked} likes this`
+                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -848,8 +858,8 @@ const PollPost = ({
                 isGeneralPost
                   ? AlertHandler
                   : isLoading
-                  ? () => {}
-                  : () => handleLike(id)
+                    ? () => { }
+                    : () => handleLike(id)
               }
             >
               <img
@@ -1197,7 +1207,7 @@ const PollPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -1252,6 +1262,8 @@ const PollPost = ({
         setVisibility={setVisibility}
         isEditModal={true}
         page={page}
+        groupAdmin={isGroupPost ? true : false}
+        group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
           type={"poll"}
@@ -1266,6 +1278,7 @@ const PollPost = ({
           handleClose={() => setEditModal(false)}
           visibility={visibility}
           commentSetting={commentSetting}
+          setTitle={setEditTitle}
         />
       </DynamicModal>
     </Paper>

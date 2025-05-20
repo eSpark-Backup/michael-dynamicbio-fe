@@ -115,6 +115,11 @@ const SuggestionPost = ({
   isGeneralPost,
   shareableLink,
   page,
+  isGroupfeed,
+  groupId,
+  groupName,
+  groupImage,
+  isUserAdmin
 }) => {
   const [likeData, { data, isSuccess, isError, error, isLoading }] =
     useLikeMutation();
@@ -358,7 +363,7 @@ const SuggestionPost = ({
           handleLike={LikeHandler}
           lastUserLiked={lastUserLiked}
           isLoading={isLoading}
-          isGroupPost={isGroupPost}
+          isGroupPost={groupPost}
           pinned={pinned}
           isAdminPost={isAdminPost}
           likesData={likesUserData}
@@ -372,6 +377,11 @@ const SuggestionPost = ({
           isPagePost={isPagePost}
           isGeneralPost={isGeneralPost}
           shareableLink={shareableLink}
+          isGroupfeed={isGroupfeed}
+          groupId={groupId}
+          groupName={groupName}
+          groupImage={groupImage}
+          isUserAdmin={isUserAdmin}
         />
       ) : type === "poll" ? (
         <PollPost
@@ -404,7 +414,7 @@ const SuggestionPost = ({
           handleLike={LikeHandler}
           lastUserLiked={lastUserLiked}
           isLoading={isLoading}
-          isGroupPost={isGroupPost}
+          isGroupPost={groupPost}
           pinned={pinned}
           isAdminPost={isAdminPost}
           likesData={likesUserData}
@@ -418,6 +428,11 @@ const SuggestionPost = ({
           isPagePost={isPagePost}
           isGeneralPost={isGeneralPost}
           shareableLink={shareableLink}
+          isGroupfeed={isGroupfeed}
+          groupId={groupId}
+          groupName={groupName}
+          groupImage={groupImage}
+          isUserAdmin={isUserAdmin}
         />
       ) : type === "event" ? (
         <EventPost
@@ -452,7 +467,7 @@ const SuggestionPost = ({
           handleLike={LikeHandler}
           lastUserLiked={lastUserLiked}
           isLoading={isLoading}
-          isGroupPost={isGroupPost}
+          isGroupPost={groupPost}
           pinned={pinned}
           isAdminPost={isAdminPost}
           likesData={likesUserData}
@@ -465,6 +480,11 @@ const SuggestionPost = ({
           isPageFollowing={isPageFollowing}
           isPagePost={isPagePost}
           shareableLink={shareableLink}
+          isGroupfeed={isGroupfeed}
+          groupId={groupId}
+          groupName={groupName}
+          groupImage={groupImage}
+          isUserAdmin={isUserAdmin}
         />
       ) : type === "article" ? (
         <ArticlePost
@@ -494,7 +514,7 @@ const SuggestionPost = ({
           handleLike={LikeHandler}
           lastUserLiked={lastUserLiked}
           isLoading={isLoading}
-          isGroupPost={isGroupPost}
+          isGroupPost={groupPost}
           pinned={pinned}
           isAdminPost={isAdminPost}
           likesData={likesUserData}
@@ -507,12 +527,17 @@ const SuggestionPost = ({
           isPageFollowing={isPageFollowing}
           isPagePost={isPagePost}
           shareableLink={shareableLink}
+          isGroupfeed={isGroupfeed}
+          groupId={groupId}
+          groupName={groupName}
+          groupImage={groupImage}
+          isUserAdmin={isUserAdmin}
         />
       ) : (
         <Paper
           sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
         >
-          {isGroupPost && (
+          {/* {(groupPost && isGroupfeed) && (
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Box
                 sx={{
@@ -523,21 +548,13 @@ const SuggestionPost = ({
                 }}
               >
                 <Box
-                  sx={{
-                    display: "flex",
-                    columnGap: "3px",
-                    alignItems: "center",
-                  }}
+                  sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}
                 >
-                  {pinned && <img src={pin} alt="" />}
+                  {(pinned && isGroupfeed) && <img src={pin} alt="" />}
                   <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "400",
-                      color: "#505050",
-                    }}
+                    sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                   >
-                    {pinned
+                    {(pinned && isGroupfeed)
                       ? "Pinned by admin"
                       : "Highlight this post by pinning it at the top."}
                   </Typography>
@@ -613,7 +630,7 @@ const SuggestionPost = ({
                 </Box>
               )}
             </Box>
-          )}
+          )} */}
           {/* {
                                         (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                             <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>
@@ -646,11 +663,16 @@ const SuggestionPost = ({
             pageId={pageId}
             isGeneralPost={isGeneralPost}
             shareableLink={shareableLink}
+            isGroupfeed={isGroupfeed}
+            groupId={groupId}
+            groupName={groupName}
+            groupImage={groupImage}
+            isUserAdmin={isUserAdmin}
           />
-          {postContent && (
+          {editTitle && (
             <Typography
               sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
-              dangerouslySetInnerHTML={{ __html: postContent }}
+              dangerouslySetInnerHTML={{ __html: editTitle }}
             ></Typography>
           )}
           {postPic && Array.isArray(postPic) && postPic?.length === 1 && (
@@ -693,8 +715,8 @@ const SuggestionPost = ({
                           postPic.length === 2
                             ? "100%"
                             : postPic.length === 3
-                            ? "48%"
-                            : "30%",
+                              ? "48%"
+                              : "30%",
                         objectFit: "cover",
                         backgroundImage: `url("${item}")`,
                         backgroundSize: "cover",
@@ -760,7 +782,7 @@ const SuggestionPost = ({
                 }}
               >
                 {isUpdateLoading?.id === reqId &&
-                isUpdateLoading.action === "reject" ? (
+                  isUpdateLoading.action === "reject" ? (
                   <CircularProgress sx={{ color: "#1877F2" }} />
                 ) : (
                   <Box
@@ -785,7 +807,7 @@ const SuggestionPost = ({
                   </Box>
                 )}
                 {isUpdateLoading?.id === reqId &&
-                isUpdateLoading.action === "approve" ? (
+                  isUpdateLoading.action === "approve" ? (
                   <CircularProgress sx={{ color: "#1877F2" }} />
                 ) : (
                   <Box
@@ -842,19 +864,19 @@ const SuggestionPost = ({
                       isGeneralPost
                         ? AlertHandler
                         : totalLikes > 0 && !isLoading
-                        ? () => setShowLikesModal(true)
-                        : () => {}
+                          ? () => setShowLikesModal(true)
+                          : () => { }
                     }
                   >
                     {totalLikes === 0
                       ? "Be first to like this"
                       : isPostLiked && totalLikes === 1
-                      ? "You liked this post"
-                      : isPostLiked && totalLikes > 1
-                      ? `You and ${totalLikes - 1} more like this`
-                      : totalLikes === 1
-                      ? `${lastUserLiked} likes this`
-                      : `${lastUserLiked} and ${totalLikes - 1} like this`}
+                        ? "You liked this post"
+                        : isPostLiked && totalLikes > 1
+                          ? `You and ${totalLikes - 1} more like this`
+                          : totalLikes === 1
+                            ? `${lastUserLiked} likes this`
+                            : `${lastUserLiked} and ${totalLikes - 1} like this`}
                   </Typography>
                 </Box>
                 <Typography
@@ -888,8 +910,8 @@ const SuggestionPost = ({
                     isGeneralPost
                       ? AlertHandler
                       : isLoading
-                      ? () => {}
-                      : () => LikeHandler(id)
+                        ? () => { }
+                        : () => LikeHandler(id)
                   }
                 >
                   <img
@@ -1238,7 +1260,7 @@ const SuggestionPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -1311,6 +1333,13 @@ const SuggestionPost = ({
           userId={userId}
           isGeneralPost={isGeneralPost}
           shareableLink={shareableLink}
+          groupPost={groupPost}
+          isAdminPost={isAdminPost}
+          isGroupfeed={isGroupfeed}
+          groupId={groupId}
+          groupName={groupName}
+          groupImage={groupImage}
+          isUserAdmin={isUserAdmin}
         />
       </PhotoDetailsModal>
 
@@ -1336,6 +1365,8 @@ const SuggestionPost = ({
         setVisibility={setVisibility}
         isEditModal={true}
         page={page}
+        groupAdmin={groupPost ? true : false}
+        group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
           type={"normal"}
@@ -1345,6 +1376,7 @@ const SuggestionPost = ({
           handleClose={() => setEditModal(false)}
           visibility={visibility}
           commentSetting={commentSettings}
+          setTitle={setEditTitle}
         />
       </DynamicModal>
     </>

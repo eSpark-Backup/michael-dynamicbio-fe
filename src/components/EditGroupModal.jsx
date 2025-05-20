@@ -99,8 +99,6 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
     return typeof profile === "string" ? profile : URL.createObjectURL(profile);
   }, [profile]);
 
-  console.log(cover, "cover", profile, "profile");
-
   return (
     <DynamicModal
       sx={{ height: "907px", maxWidth: "965px" }}

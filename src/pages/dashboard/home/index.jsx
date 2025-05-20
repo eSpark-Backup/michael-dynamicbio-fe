@@ -159,14 +159,21 @@ const Home = () => {
             isBond: like.isBond,
           })) || [],
           isSaved: item?.isSaved,
-          postVisibility: item?.visibility,
+          postVisibility: item?.isGroupPost ? item?.group?.status : item?.visibility,
           commentVisibility: item?.commentVisibility,
           canComment: item?.canComment,
           isPagePost: item?.isPagePost,
           isUserPost: !isOwnPost && !item?.isPagePost,
           isPageFollowing: item?.isPageFollowing,
           pageId: item?.isPagePost ? item?.page?.id : "",
-          shareableLink: item?.shareableLink
+          shareableLink: item?.shareableLink,
+          groupPost: item?.isGroupPost,
+          pinned: false,
+          isAdminPost: true,
+          groupName: item?.isGroupPost ? item?.group?.name : "",
+          groupId: item?.isGroupPost ? item?.group?.id : "",
+          groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+          isUserAdmin: item?.isAdmin || item?.isCreator,
         };
       });
   };
