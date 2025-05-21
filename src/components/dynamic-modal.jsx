@@ -124,7 +124,15 @@ const DynamicModal = ({
                 style={{ borderRadius: "50%" }}
                 width={44}
                 height={44}
-                src={page ? page?.logoUrl : userData?.profileImage ? userData?.profileImage : user}
+                src={
+                  page
+                    ? page.logoUrl
+                      ? page.logoUrl
+                      : user
+                    : userData?.profileImage
+                      ? userData.profileImage
+                      : user
+                }
                 alt="Avatar"
               />
               <Stack direction={"column"}>

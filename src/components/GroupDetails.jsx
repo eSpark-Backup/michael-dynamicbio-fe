@@ -342,7 +342,7 @@ const GroupDetails = () => {
     }
   };
 
-  if (isLoading || isFetching || groupPostsLoading) {
+  if (isLoading || groupPostsLoading) {
     return (
       <Box
         sx={{

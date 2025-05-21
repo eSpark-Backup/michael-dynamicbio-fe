@@ -107,7 +107,7 @@ export const groupApi = api.injectEndpoints({
           pageSize: limit
         },
       }),
-      providesTags: ['post']
+      providesTags: ['group']
     })
   }),
 });

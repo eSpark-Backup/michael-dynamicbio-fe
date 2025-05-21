@@ -152,6 +152,7 @@ const AdminView = () => {
     setShowModal(false);
     setShowPostModal(false);
     setSelectedFiles([]);
+    fileInputRef.current.value = null
   };
 
   const handleVideoChange = async (e) => {
@@ -258,7 +259,7 @@ const AdminView = () => {
 
     setHasMore(
       postsData.data.pagination.currentPage <
-        postsData.data.pagination.totalPages
+      postsData.data.pagination.totalPages
     );
     // }
   }, [data, isPostSuccess, page, isPostFetching]);
@@ -272,9 +273,9 @@ const AdminView = () => {
         item?.likes?.some(
           (item) =>
             item?.user?.firstName?.toLowerCase() ===
-              userData?.firstName?.toLowerCase() &&
+            userData?.firstName?.toLowerCase() &&
             item?.user?.lastName?.toLowerCase() ===
-              userData?.lastName?.toLowerCase()
+            userData?.lastName?.toLowerCase()
         );
 
       let lastLike = "";
@@ -288,9 +289,9 @@ const AdminView = () => {
         const newItem = item?.likes?.find(
           (item2) =>
             item2?.user?.firstName?.toLowerCase() !==
-              userData?.firstName?.toLowerCase() &&
+            userData?.firstName?.toLowerCase() &&
             item2?.user?.lastName?.toLowerCase() !==
-              userData?.lastName?.toLowerCase()
+            userData?.lastName?.toLowerCase()
         );
 
         lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
@@ -740,7 +741,7 @@ const AdminView = () => {
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -792,7 +793,7 @@ const AdminView = () => {
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
       >
@@ -809,7 +810,7 @@ const AdminView = () => {
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
       >
@@ -823,7 +824,7 @@ const AdminView = () => {
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
       >
