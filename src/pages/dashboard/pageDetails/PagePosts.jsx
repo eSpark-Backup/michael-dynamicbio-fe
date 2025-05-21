@@ -132,6 +132,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
     setShowModal(false);
     setShowPostModal(false);
     setSelectedFiles([]);
+    fileInputRef.current.value = null
   };
 
   const HandleVideoModalClose = () => {
@@ -431,7 +432,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -446,7 +447,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => {}}
+        handleScheduleClick={() => { }}
         styledHeader={true}
         hideFooter={true}
       >

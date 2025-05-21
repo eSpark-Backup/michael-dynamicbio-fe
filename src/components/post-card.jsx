@@ -257,6 +257,7 @@ const PostCard = ({
     setShowModal(false);
     setShowPostModal(false);
     setSelectedFiles([]);
+    fileInputRef.current.value = null
   };
 
   const HandleVideoModalClose = () => {
