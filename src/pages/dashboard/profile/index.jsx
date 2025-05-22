@@ -28,7 +28,7 @@ const Profile = () => {
       setIsPublic(false);
       return;
     }
-    publicProfile(userId).then((res) => {
+    publicProfile({ id: userId }).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
         return;

@@ -152,6 +152,18 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
         handleMenuClose()
     }
 
+    const displayText = isPagePost
+        ? followerCount === 0
+            ? "No followers"
+            : followerCount === 1
+                ? "1 follower"
+                : `${followerCount} followers`
+        : groupPost && !isGroupfeed
+            ? userName
+            : userRole && userRole !== "0"
+                ? userRole
+                : "";
+
 
 
     const AlertHandler = () => {
@@ -185,9 +197,27 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                         />
                 }
                 <Stack direction={"column"} ml={(groupPost && !isGroupfeed) ? "5px" : "0px"}>
-                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={isGeneralPost ? AlertHandler : () => navigate(isPagePost ? () => { } : groupPost ? `/group/${groupId}` : `/profile/${id}`)}>{(groupPost && !isGroupfeed) ? groupName : userName}</Typography>}
+                    {userName && <Typography sx={{ fontSize: "18px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", sm: "left" } }} onClick={isGeneralPost ? AlertHandler : () => navigate(isPagePost ? `/page/${pageId}` : (groupPost && !isGroupfeed) ? `/group/${groupId}` : `/profile/${id}`)}>{(groupPost && !isGroupfeed) ? groupName : userName}</Typography>}
 
-                    {userRole && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }} onClick={isGeneralPost ? AlertHandler : groupPost ? () => navigate(`/profile/${id}`) : () => { }}>{isPagePost ? `${followerCount} ${followerCount > 1 ? "followers" : "follower"}` : (groupPost && !isGroupfeed) ? userName : userRole}</Typography>}
+                    {displayText && (
+                        <Typography
+                            sx={{
+                                fontSize: "12px",
+                                fontWeight: 400,
+                                color: "#505050",
+                                textAlign: { xs: "center", sm: "left" },
+                            }}
+                            onClick={
+                                isGeneralPost
+                                    ? AlertHandler
+                                    : groupPost
+                                        ? () => navigate(`/profile/${id}`)
+                                        : () => { }
+                            }
+                        >
+                            {displayText}
+                        </Typography>
+                    )}
 
                     {userAddress && <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#505050", textAlign: { xs: "center", sm: "left" } }}>{userAddress}</Typography>}
                     <Box

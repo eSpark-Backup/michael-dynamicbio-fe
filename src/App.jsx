@@ -41,6 +41,7 @@ import {
   GeneralEvent,
   GeneralPost,
   Settings,
+  UserBonds,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -133,6 +134,7 @@ const App = () => {
           <Route path="/save-posts" element={<SavedPosts />} />
           <Route path="/post/:id" element={<SinglePost />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/profile/bonds/:id" element={<UserBonds />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

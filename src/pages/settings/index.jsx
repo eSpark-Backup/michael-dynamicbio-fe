@@ -35,12 +35,12 @@ const Settings = () => {
   };
 
   const tabs = [
-    // {
-    //   label: "Account Preferences",
-    //   icon: accountBlack,
-    //   activeIcon: accountBlue,
-    //   component: <AccountSettings />,
-    // },
+    {
+      label: "Account Preferences",
+      icon: accountBlack,
+      activeIcon: accountBlue,
+      component: <AccountSettings />,
+    },
     // {
     //   label: "Sign in & security",
     //   icon: lockBlack,

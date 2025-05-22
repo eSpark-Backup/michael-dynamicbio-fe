@@ -106,7 +106,7 @@ const PostSection = ({ data }) => {
       if (isuserLiked && isOnlyUserLiked) {
         lastLike = "";
       } else if (!isuserLiked) {
-        lastLike = `${item?.lastLikedUser} ${item?.lastLikedUser}`;
+        lastLike = `${item?.lastLikedUser}`;
       } else if (Array.isArray(item?.likes)) {
         const newItem = item?.likes?.find(
           (item2) =>

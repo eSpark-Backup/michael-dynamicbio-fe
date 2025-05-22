@@ -175,7 +175,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                 <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Connection visibility</Typography>
-                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Allow your connections to see your connections list</Typography>
+                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Allow others to see your connections list</Typography>
                 </Box>
                 <Box sx={{ mt: "15px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Connection visibility</Typography>
@@ -187,7 +187,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                         />
                     </Box>
                 </Box>
-                <Typography sx={{ fontSize: "13px", fontWeight: "400", color: "#505050", mt: "20px" }}>If you turn off this setting, only you can see your connections list. Your connections can still see any mutual connections or connections who have endorsed you.</Typography>
+                <Typography sx={{ fontSize: "13px", fontWeight: "400", color: "#505050", mt: "20px" }}>If you turn off this setting, only you can see your connections list.</Typography>
             </Box>
         )
     }
@@ -298,10 +298,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                 <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Show profile photos</Typography>
-                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Would you like to see other Fusion member's profile picture?</Typography>
+                    <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Would you like other can see ypur profile picture?</Typography>
                 </Box>
                 <Box sx={{ mt: "15px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>See profile picture?</Typography>
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Show profile picture?</Typography>
                     <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>{options?.showProfilePhoto ? "On" : "Off"}</Typography>
                         <Switch

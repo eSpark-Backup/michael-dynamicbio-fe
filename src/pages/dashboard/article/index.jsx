@@ -190,7 +190,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           return;
         }
         if (res?.data) {
-          toast.success("Your post is uploaded successfully");
+          toast.success(res?.data?.message === "Post Created Successfully, waiting for admin approval" ? res?.data?.message : "Your post is uploaded successfully");
           setTitle("");
           setArticleTitle("");
           setContent("");
@@ -248,7 +248,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                   src={downArrowFilled}
                   alt="Icon"
                   style={{ cursor: "pointer" }}
-                  onClick={page ? () => {} : handleClick}
+                  onClick={page ? () => { } : handleClick}
                 />
               </Stack>
               <Typography
