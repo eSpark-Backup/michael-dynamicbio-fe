@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import React from 'react'
 
-const BoxWithTextIcon = ({ text, icon, onClick }) => {
+const BoxWithTextIcon = ({ text, icon, onClick, isLoading }) => {
     return (
         <Box sx={{
             position: "relative",
@@ -13,6 +13,7 @@ const BoxWithTextIcon = ({ text, icon, onClick }) => {
             padding: "12px 34px",
             columnGap: "15px",
             cursor: "pointer",
+            justifyContent: icon ? "flex-start" : "center",
             "&::before": {
                 content: '""',
                 position: "absolute",
@@ -29,8 +30,16 @@ const BoxWithTextIcon = ({ text, icon, onClick }) => {
                 maskComposite: "exclude",
             },
         }} onClick={onClick}>
-            <img src={icon} alt="Icon" />
-            <Typography variant="gradientText" sx={{ fontSize: "18px", fontWeight: 400 }}>{text}</Typography>
+            {icon && <img src={icon} alt="Icon" />}
+            <Typography variant="gradientText" sx={{ fontSize: "18px", fontWeight: 400 }}>
+                {
+                    isLoading
+                        ?
+                        <CircularProgress size={20} color='black' />
+                        :
+                        text
+                }
+            </Typography>
         </Box>
     )
 }

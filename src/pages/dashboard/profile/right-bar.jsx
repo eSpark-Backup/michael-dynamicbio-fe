@@ -188,7 +188,7 @@ const RightBar = ({ isPublicView }) => {
       </Paper>
       {!isPublicView &&
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "24px" }}>
-          <Paper
+          {/* <Paper
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -275,8 +275,8 @@ const RightBar = ({ isPublicView }) => {
             >
               Manage
             </Button>
-          </Paper>
-          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+          </Paper> */}
+          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px", mt: "24px" }}>
             {fields.map(({ key, label, indent, parent }) => (
               <Box key={key} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", pl: indent ? "20px" : 0 }}>

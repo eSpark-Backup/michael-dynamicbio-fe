@@ -193,6 +193,8 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
     }
   }, [hasMore, isFetching]);
 
+  console.log(userData)
+
   if (isLoading && posts.length === 0) {
     return <LinearProgress />;
   }
@@ -206,9 +208,9 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         gap={2}
       >
         {[
-          { title: "Bonds", count: userData?.bondCount, link: "/bonds?sub=bonded-synergy" },
-          { title: "Your Groups", count: 0 },
-          { title: "Joined Groups", count: 0 },
+          { title: "Bonds", count: userData?.bondCount, link: isPublic ? `/profile/bonds/${userId}` : "/bonds?sub=bonded-synergy" },
+          { title: "Your Groups", count: userData?.groupCount || userData?.yourGroupCount },
+          { title: "Joined Groups", count: userData?.followedGroupCount },
         ].map((item) => {
           return (
             <Stack
@@ -216,9 +218,9 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
               alignItems="center"
               justifyContent="center"
               key={item.title}
-              onClick={!isPublic && item?.link ? () => navigate(item?.link) : () => { }}
+              onClick={(isPublic && userData?.showConnections && Number(userData?.bondCount) > 0 && item?.link) ? () => navigate(item?.link) : !isPublic && item?.link ? () => navigate(item?.link) : () => { }}
               sx={{
-                cursor: !isPublic && item?.link ? "pointer" : "default",
+                cursor: (isPublic && userData?.showConnections && Number(userData?.bondCount) > 0 && item?.link) || (!isPublic && item?.link) ? "pointer" : "default",
                 width: "315px",
                 height: "61px",
                 borderRadius: "4px",
@@ -230,7 +232,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
                 fontSize="14px"
                 fontWeight={500}
               >
-                {item.count}
+                {item?.count}
               </Typography>
               <Typography
                 sx={{ color: "#505050" }}
@@ -250,18 +252,18 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           justifyContent="space-between"
           gap={2}
         >
-          <Typography fontSize="14px" fontWeight={400}>
+          {/* <Typography fontSize="14px" fontWeight={400}>
             Activity
-          </Typography>
-          {!isPublicView && (
+          </Typography> */}
+          {/* {!isPublicView && (
             <img
               style={{ cursor: "pointer", width: "24px", height: "24px" }}
               src={settings}
               alt={"settings"}
             />
-          )}
+          )} */}
         </Stack>
-        <CustomizeTabs tabs={tabOptions} />
+        {/* <CustomizeTabs tabs={tabOptions} /> */}
         {!isPublicView && <PostCard refetch={refetch} />}
 
       </Paper>

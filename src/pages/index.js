@@ -32,6 +32,8 @@ import GeneralPost from "./dashboard/general/GeneralPost";
 
 import Settings from "./settings";
 
+import UserBonds from "./dashboard/profile/user-bonds";
+
 export {
   Login,
   Signup,
@@ -64,5 +66,6 @@ export {
   GeneralArticle,
   GeneralEvent,
   GeneralPost,
-  Settings
+  Settings,
+  UserBonds
 };
