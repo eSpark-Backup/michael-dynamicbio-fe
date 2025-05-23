@@ -476,7 +476,10 @@ const PostCard = ({
         isLoading={isLoading}
         onSuccess={handleTextPost}
         open={showPostModal}
-        handleClose={() => setShowPostModal(false)}
+        handleClose={() => {
+          setShowPostModal(false)
+          setTitle("")
+        }}
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}

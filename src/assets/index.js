@@ -139,6 +139,7 @@ import shieldBlue from "./icons/shieldBlue.svg"
 import adBlack from "./icons/adBlack.svg"
 import adBlue from "./icons/adBlack.svg"
 import person from "./icons/person.svg"
+import eyeOff from "./icons/eyeOff.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -294,5 +295,6 @@ export {
   lockBlack,
   accountBlue,
   accountBlack,
-  person
+  person,
+  eyeOff
 };

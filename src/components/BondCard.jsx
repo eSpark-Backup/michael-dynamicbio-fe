@@ -1,6 +1,6 @@
 import { Avatar, Box, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye, deleteBond, tick, close2, commentOff, dummyPhoto, person } from '../assets'
+import { bondMain, earth, user, three_vertical_dots, close, starBlack, save, saveUnfilled, copyLink, editBlue, deleteIcon, comment, eye, primaryEye, deleteBond, tick, close2, commentOff, dummyPhoto, person, group, eyeClose, eyeOff } from '../assets'
 import { useNavigate } from 'react-router-dom'
 import { useDeletePostByIdMutation, useSavePostMutation } from '../services/post'
 import { toast } from 'react-toastify'
@@ -248,7 +248,7 @@ const BondCard2 = ({ userImage, userName, userAddress, userRole, time, showWorld
                             </Typography>
                         )}
                         {showWorldIcon && (
-                            <img src={earth} alt="Icon" style={{ width: "14px", height: "14px" }} />
+                            <img src={postVisibility === "PUBLIC" ? earth : postVisibility === "CONNECTIONS" ? group : (postVisibility === "PRIVATE" || postVisibility === "ONLY_ME") ? eyeOff : earth} alt="Icon" style={{ width: "14px", height: "14px" }} />
                         )}
                     </Box>
 
