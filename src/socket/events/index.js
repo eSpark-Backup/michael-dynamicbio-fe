@@ -1,3 +1,11 @@
 export const NEW_BOND_REQUEST = "NEW_BOND_REQUEST";
 export const BOND_REQUEST_UPDATED = "BOND_REQUEST_UPDATED";
+export const NEW_MESSAGE = "NEW_MESSAGE";
+export const GET_NEW_MESSAGE = "GET_NEW_MESSAGE";
+export const SEND_NEW_MESSAGE = "SEND_NEW_MESSAGE";
+export const ONLINE_USERS = "ONLINE_USERS";
+export const CHAT_JOINED = "CHAT_JOINED";
+export const CHAT_LEFT = "CHAT_LEFT";
+export const START_TYPING = "START_TYPING";
+export const STOP_TYPING = "STOP_TYPING";
 

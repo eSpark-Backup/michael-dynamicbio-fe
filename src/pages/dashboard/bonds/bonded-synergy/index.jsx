@@ -98,8 +98,8 @@ const BondedSynergy = () => {
     };
   }, []);
 
-  const handleMessage = (id) => {
-    console.log(id, "message");
+  const handleMessage = (bond) => {
+    navigate(`/cells?member=${bond?.friend?.userChatId}`)
   };
 
   return (
@@ -194,7 +194,7 @@ const BondedSynergy = () => {
                   sx={{ width: { xs: "100%", sm: "max-content" } }}
                 >
                   <Button
-                    onClick={() => handleMessage(bond?.bondId)}
+                    onClick={() => handleMessage(bond)}
                     sx={{ height: "45px", fontSize: "16px", width: "100px" }}
                   >
                     Message

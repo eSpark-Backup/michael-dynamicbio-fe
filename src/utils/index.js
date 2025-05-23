@@ -4,7 +4,17 @@ import { toast } from "react-toastify";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import mitt from "mitt";
+import relativeTime from "dayjs/plugin/relativeTime";
+import isToday from "dayjs/plugin/isToday";
+import isYesterday from "dayjs/plugin/isYesterday";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 
+dayjs.extend(relativeTime);
+dayjs.extend(isToday);
+dayjs.extend(isYesterday);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -309,5 +319,21 @@ export const checkDate = (startMonth, startYear, endMonth, endYear) => {
   }
   else {
     return true
+  }
+}
+
+export function formatChatTimestamp(isoDate) {
+  const now = dayjs();
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const date = dayjs(isoDate).tz(userTimeZone);
+
+  if (date.isToday()) {
+    return `Today ${date.format("h:mma")}`;
+  } else if (date.isYesterday()) {
+    return `Yesterday ${date.format("h:mma")}`;
+  } else if (now.diff(date, "day") < 7) {
+    return date.format("dddd h:mma");
+  } else {
+    return date.format("MMM D, h:mma");
   }
 }

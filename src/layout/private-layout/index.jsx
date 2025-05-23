@@ -7,6 +7,7 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import { useGetUserInfoMutation } from "../../services/auth";
 import { logout } from "../../store/slices/auth";
+import { api } from "../../services/rtk";
 
 
 const PrivateLayout = () => {
@@ -32,6 +33,7 @@ const PrivateLayout = () => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
           dispatch(logout());
+          dispatch(api.util.resetApiState());
           navigate("/login");
           setLoading(false);
           return;
