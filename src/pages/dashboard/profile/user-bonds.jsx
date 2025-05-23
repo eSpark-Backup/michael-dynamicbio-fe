@@ -105,7 +105,7 @@ const UserBonds = () => {
                     <Paper sx={{ width: "100%" }}>
                         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
                             {bondsData?.map((item, index) => (
-                                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "flex-start" }} key={index}>
+                                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "flex-start", flexDirection: { xs: "column", sm: "row" } }} key={index}>
                                     <Avatar
                                         src={item?.profileImg ? item?.profileImg : user}
                                         alt="User"
