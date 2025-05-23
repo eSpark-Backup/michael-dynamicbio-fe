@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { user } from '../../assets';
 import { useUpdateUserProfileSettingsMutation } from '../../services/auth';
 import { toast } from 'react-toastify';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     const { user: userData } = useSelector((state) => state.auth);
@@ -116,7 +117,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     if (selectedSetting === "profileViewingOption") {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Profile viewing</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Select what others see when you've viewed their profile</Typography>
@@ -172,7 +176,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     else if (selectedSetting === 'showConnections') {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Connection visibility</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Allow others to see your connections list</Typography>
@@ -195,7 +202,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     else if (selectedSetting === "showLastName") {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Last name visibility</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Select how your last name appears to others</Typography>
@@ -215,7 +225,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                                     alt="User"
                                     sx={{ width: 24, height: 24, objectFit: "fill" }}
                                 />
-                                <Typography>{userData?.firstName} {userData?.lastName}</Typography>
+                                <Typography>{userData?.firstName} {userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}</Typography>
                             </Box>
                         </Stack>
                         <Stack sx={{ label: { margin: 0 }, display: "flex", alignItems: "center" }} direction="row">
@@ -249,7 +259,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     else if (selectedSetting === "showOrganizationsAndInterests") {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Represent company</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Show your name and/or profile information with other content shown on LinkedIn?</Typography>
@@ -272,7 +285,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     else if (selectedSetting === "showEmail") {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Discover by email</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Can other discover your profile or connect with you if they have your email address?</Typography>
@@ -295,7 +311,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
     else if (selectedSetting === "showProfilePhoto") {
         return (
             <Box sx={{ px: "25px", pb: "16px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                <Typography onClick={handleClose} sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", cursor: "pointer" }}>Back</Typography>
+                <Box sx={{ display: "flex", columnGap: "3px", alignItems: "center", cursor: "pointer", width: "fit-content" }} onClick={handleClose} >
+                    <ArrowBackIosIcon sx={{ fontSize: "16px", color: "#37A1F7" }} />
+                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Back</Typography>
+                </Box>
                 <Box>
                     <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Show profile photos</Typography>
                     <Typography sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}>Would you like other can see ypur profile picture?</Typography>

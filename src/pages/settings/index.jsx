@@ -98,7 +98,8 @@ const Settings = () => {
           <Avatar
             src={userData?.profileImage || user}
             alt="User"
-            sx={{ width: 32, height: 32 }}
+            sx={{ width: 32, height: 32, cursor: "pointer" }}
+            onClick={() => navigate(`/profile/${userData?.id}`)}
           />
         </Box>
       </Paper>
