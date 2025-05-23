@@ -1,6 +1,6 @@
 import { Box, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { commentOff, earth, group } from '../assets'
+import { commentOff, earth, eyeOff, group } from '../assets'
 import Button from './button';
 import { useEditPostMutation } from '../services/post';
 import { toast } from 'react-toastify';
@@ -67,7 +67,7 @@ const ViewAndCommentModal = ({ permission, visibility, commentSettings, onChange
 
         <Box sx={{ borderTop: "1px solid #E4E4E4", py: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #E4E4E4" }}>
           <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-            <img src={commentOff} alt="Icon" style={{ width: "20px", height: "20px" }} />
+            <img src={permission === "view" ? eyeOff : commentOff} alt="Icon" style={{ width: "20px", height: "20px" }} />
             <Box>
               <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>No one</Typography>
               {permission !== "view" && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>No one can comment</Typography>}

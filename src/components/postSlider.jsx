@@ -20,6 +20,7 @@ import {
   earth,
   editBlue,
   like,
+  user,
   verticleDots,
 } from "../assets";
 import { toast } from "react-toastify";
@@ -162,7 +163,7 @@ const PostSlider = ({ page, posts, refetch }) => {
                           style={{ borderRadius: "5px" }}
                           width={60}
                           height={60}
-                          src={page?.logoUrl}
+                          src={page?.logoUrl ? page?.logoUrl : user}
                           alt="profile"
                         />
                         <Box>
