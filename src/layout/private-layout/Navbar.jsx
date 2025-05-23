@@ -20,6 +20,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { handleChange } from "../../store/slices/search";
 import { logout } from "../../store/slices/auth";
+import { api } from "../../services/rtk";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -181,6 +182,7 @@ const Navbar = () => {
                     {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
                     <MenuItem onClick={(e) => {
                       dispatch(logout());
+                      dispatch(api.util.resetApiState());
                       navigate("/login");
                       handleClose(e);
                     }}>Logout</MenuItem>
@@ -372,6 +374,7 @@ const Navbar = () => {
                         sx={{ width: "245px" }}
                         onClick={(e) => {
                           dispatch(logout());
+                          dispatch(api.util.resetApiState());
                           navigate("/login");
                           handleClose(e);
                         }}

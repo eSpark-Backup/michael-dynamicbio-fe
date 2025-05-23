@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../../services/auth";
+import { eventBus } from "../../utils";
+import { CHAT_LEFT } from "../../socket/events";
+import { createSocket, disconnectSocket } from "../../socket";
 
 const initialState = {
   user: null,
@@ -13,6 +16,9 @@ const slice = createSlice({
       state.user = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("onlineUsers");
+      eventBus.emit(CHAT_LEFT);
+      disconnectSocket();
     },
     updateUser: (state, action) => {
       state.user = action.payload;
@@ -33,6 +39,7 @@ const slice = createSlice({
         const { data } = payload;
         state.user = data;
         localStorage.setItem("user", JSON.stringify(data));
+        createSocket();
       }
     );
     builder.addMatcher(
