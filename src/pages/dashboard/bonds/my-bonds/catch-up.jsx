@@ -17,7 +17,8 @@ import {
 } from "../../../../components";
 import { cellBlack, userAvatar, verticleDots } from "../../../../assets";
 import { useGetCatchupQuery } from "../../../../services/bonds";
-import { getDesc, getMessage } from "../../../../utils";
+import { eventBus, getDesc, getMessage } from "../../../../utils";
+import { SEND_NEW_MESSAGE } from "../../../../socket/events";
 
 const CatchUp = ({ onGrow }) => {
   const { data, isLoading, isError, error } = useGetCatchupQuery("", {
@@ -89,6 +90,16 @@ const CatchUp = ({ onGrow }) => {
       return;
     }
   }, [isError]);
+
+  const handleSendMsg = () => {
+    const messageBody = {
+      message: wishInput,
+      chatId: msgModal?.chatId,
+      members: [msgModal?.userChatId],
+    };
+    eventBus.emit(SEND_NEW_MESSAGE, messageBody);
+    setMsgModal(false)
+  };
 
   return (
     <Box>
@@ -271,6 +282,7 @@ const CatchUp = ({ onGrow }) => {
         buttonText="Send"
         title="Send Message"
         open={msgModal}
+        onSuccess={handleSendMsg}
         handleClose={() => setMsgModal(false)}
       >
         <Stack
