@@ -6,6 +6,10 @@ import { getSocket } from "./index";
 import {
   NEW_BOND_REQUEST,
   BOND_REQUEST_UPDATED,
+  NEW_GROUP_REQUEST,
+  GROUP_REQUEST_UPDATED,
+  NEW_GROUP_POST_REQUEST,
+  GROUP_POST_REQUEST_UPDATED,
   NEW_MESSAGE,
   ONLINE_USERS,
   CHAT_JOINED,
@@ -43,11 +47,33 @@ const SocketListener = () => {
       socket.on(NEW_BOND_REQUEST, (data) => {
         toast.success(data?.message);
         eventBus.emit("refetchBondData");
+        eventBus.emit("refetchnotifications");
       });
 
       socket.on(BOND_REQUEST_UPDATED, (data) => {
         eventBus.emit("refetchBondData");
+        eventBus.emit("refetchnotifications");
         toast.success(data?.message);
+      });
+
+      socket.on(NEW_GROUP_REQUEST, (data) => {
+        toast.success(data?.message);
+        eventBus.emit("refetchnotifications");
+      });
+
+      socket.on(GROUP_REQUEST_UPDATED, (data) => {
+        toast.success(data?.message);
+        eventBus.emit("refetchnotifications");
+      });
+
+      socket.on(NEW_GROUP_POST_REQUEST, (data) => {
+        toast.success(data?.message);
+        eventBus.emit("refetchnotifications");
+      });
+
+      socket.on(GROUP_POST_REQUEST_UPDATED, (data) => {
+        toast.success(data?.message);
+        eventBus.emit("refetchnotifications");
       });
 
       socket.on(NEW_MESSAGE, (data) => {
@@ -88,6 +114,10 @@ const SocketListener = () => {
       return () => {
         socket.off(NEW_BOND_REQUEST);
         socket.off(BOND_REQUEST_UPDATED);
+        socket.off(NEW_GROUP_REQUEST);
+        socket.off(GROUP_REQUEST_UPDATED);
+        socket.off(NEW_GROUP_POST_REQUEST);
+        socket.off(GROUP_POST_REQUEST_UPDATED);
         socket.off(NEW_MESSAGE);
         eventBus.off(SEND_NEW_MESSAGE);
         socket.off(ONLINE_USERS);

@@ -1,8 +1,8 @@
 import { Avatar, Card, CardContent, Typography, useTheme, useMediaQuery, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
-import { bell, deleteIcon, dislike, profilePicture, three_vertical_dots, three_vertical_dots_white } from '../assets';
+import { bell, deleteIcon, dislike, profilePicture, three_vertical_dots, three_vertical_dots_white, userAvatar } from '../assets';
 
-const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, id, HandleClick }) => {
+const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, id, HandleClick, metadata }) => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [anchorEl, setAnchorEl] = useState(null);
@@ -18,6 +18,7 @@ const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, 
     return (
         <Card
             sx={{
+                minHeight: "90px",
                 display: "flex",
                 flexDirection: isSmallScreen ? "column" : "row",
                 alignItems: isSmallScreen ? "center" : "flex-start",
@@ -27,10 +28,10 @@ const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, 
                 cursor: "pointer",
                 textAlign: isSmallScreen ? "center" : "left",
             }}
-            onClick={() => HandleClick(id)}
+            onClick={() => HandleClick(id, metadata)}
         >
             <Avatar
-                src={userImage}
+                src={userImage || userAvatar}
                 alt="User Avatar"
                 sx={{ width: 60, height: 60, marginBottom: isSmallScreen ? "12px" : 0, marginRight: isSmallScreen ? 0 : "16px" }}
             />
@@ -48,12 +49,12 @@ const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, 
                 <Typography sx={{ marginRight: isSmallScreen ? "8px" : "0px", fontSize: "12px", fontWeight: 400, color: activeItem === id ? theme.palette.primary.light : "#505050" }}>
                     {time}
                 </Typography>
-                <img
+                {/* <img
                     src={activeItem === id ? three_vertical_dots_white : three_vertical_dots}
                     alt="Icon"
                     style={{ marginTop: isSmallScreen ? '0px' : '6px', width: "20px", height: "20px" }}
                     onClick={handleClick}
-                />
+                /> */}
             </div>
             <Menu
                 anchorEl={anchorEl}
