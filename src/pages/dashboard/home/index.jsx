@@ -285,7 +285,7 @@ const Home = () => {
                   cursor: "pointer",
                 }}
               >
-                {userData?.firstName} {userData?.lastName}
+                {`${userData?.firstName?.slice(0, 1).toUpperCase() + userData?.firstName?.slice(1)} ${userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}`}
               </Typography>
               <Typography
                 sx={{

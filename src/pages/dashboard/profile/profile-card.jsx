@@ -177,7 +177,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
           />
         </Box>
         <Typography fontSize="29px" fontWeight={500}>
-          {`${userData?.firstName} ${userData?.lastName}`}
+          {`${userData?.firstName?.slice(0, 1).toUpperCase() + userData?.firstName?.slice(1)} ${userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}`}
         </Typography>
       </Grid2>
       <Grid2 size={{ xs: 12, lg: 8.5 }}>

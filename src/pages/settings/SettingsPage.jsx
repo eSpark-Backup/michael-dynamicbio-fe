@@ -225,7 +225,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                                     alt="User"
                                     sx={{ width: 24, height: 24, objectFit: "fill" }}
                                 />
-                                <Typography>{userData?.firstName} {userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}</Typography>
+                                <Typography sx={{ textTransform: "capitalize" }}>{userData?.firstName} {userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}</Typography>
                             </Box>
                         </Stack>
                         <Stack sx={{ label: { margin: 0 }, display: "flex", alignItems: "center" }} direction="row">
@@ -236,7 +236,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                                     alt="User"
                                     sx={{ width: 24, height: 24, objectFit: "fill" }}
                                 />
-                                <Typography>{userData?.firstName} {userData?.lastName?.slice(0, 1) + "."}</Typography>
+                                <Typography sx={{ textTransform: "capitalize" }}>{userData?.firstName} {userData?.lastName?.slice(0, 1).toUpperCase() + "."}</Typography>
                             </Box>
                         </Stack>
                     </Box>

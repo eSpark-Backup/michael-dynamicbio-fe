@@ -120,7 +120,7 @@ const UserBonds = () => {
                                             >
                                                 {item?.name}
                                             </Typography>
-                                            {!item?.isUser && <Box sx={{ width: "180px" }}>
+                                            {!item?.isUser && <Box sx={{ width: "180px", display: { xs: "none", sm: "block" } }}>
                                                 <BoxWithTextIcon
                                                     onClick={
                                                         item?.isPending ? () => { }
@@ -138,6 +138,19 @@ const UserBonds = () => {
                                         <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>
                                             {item?.city ? item?.city : ""}{(item?.city && item?.country) && ", "} {item?.country ? item?.country : ""}
                                         </Typography>
+                                        {!item?.isUser && <Box sx={{ width: "100%", display: { xs: "block", sm: "none" } }}>
+                                            <BoxWithTextIcon
+                                                onClick={
+                                                    item?.isPending ? () => { }
+                                                        :
+                                                        !item?.isMutual ? () => handleSendBondReq(item?.id)
+                                                            :
+                                                            () => handleBondReq(item?.bondId)
+                                                }
+                                                text={item?.isMutual ? "Unbond" : item?.isPending ? "Pending" : "Bond"}
+                                                isLoading={(isReqLoading && selectedId === item?.id) || (isUpdateReqLoading && selectedId === item?.bondId)}
+                                            />
+                                        </Box>}
                                     </Box>
                                 </Box>
                             ))}
