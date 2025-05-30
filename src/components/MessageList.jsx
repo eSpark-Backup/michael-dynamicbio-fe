@@ -4,6 +4,7 @@ import MessageBubble from "./MessageBubble";
 import dayjs from "dayjs";
 import { formatChatTimestamp } from "../utils";
 import TypingDots from "./TypingDots";
+import { useSelector } from "react-redux";
 
 const SCROLL_THRESHOLD = 100;
 
@@ -16,6 +17,23 @@ const MessageList = ({
   hasMore,
   chatId,
 }) => {
+  const { user: userData } = useSelector((state) => state.auth);
+  const fullMembers = [...sender.members];
+  const fullAvatars = [...sender.avatar];
+  const memberName = [...sender.memberName];
+  const memberIds = [...sender.accountId];
+  const ind = memberIds.findIndex((id) => id === userData?.id);
+  if (ind !== -1) {
+    fullMembers.splice(ind, 0, userData?.userChatId);
+  }
+  const typingUsers = fullMembers?.map((item, ind) => {
+    return {
+      name: memberName[ind],
+      img: fullAvatars[ind],
+      isTyping: isTyping.includes(item),
+    };
+  });
+
   const containerRef = useRef(null);
   const bottomRef = useRef(null);
   const prevMessagesRef = useRef([]);
@@ -55,7 +73,9 @@ const MessageList = ({
       });
     } else if (isInitialMount.current || isAtBottom) {
       // Scroll to bottom for first load or if already at bottom
-      bottomRef.current?.scrollIntoView({ behavior: isInitialMount.current ? "auto" : "smooth" });
+      bottomRef.current?.scrollIntoView({
+        behavior: isInitialMount.current ? "auto" : "smooth",
+      });
     }
 
     prevMessagesRef.current = newMessages;
@@ -96,7 +116,14 @@ const MessageList = ({
       }}
     >
       {loading && (
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: 2 }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            py: 2,
+          }}
+        >
           <CircularProgress sx={{ color: "#1877F2" }} />
         </Box>
       )}
@@ -116,7 +143,9 @@ const MessageList = ({
           <React.Fragment key={msg.id}>
             {showTimestamp && (
               <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
-                <Typography sx={{ color: "#505050", fontSize: "12px", fontWeight: "400" }}>
+                <Typography
+                  sx={{ color: "#505050", fontSize: "12px", fontWeight: "400" }}
+                >
                   {formatChatTimestamp(msg.timestamp)}
                 </Typography>
               </Box>
@@ -126,29 +155,42 @@ const MessageList = ({
         );
       })}
 
-      {isTyping && (
-        <Box sx={{ display: "flex", maxWidth: { xs: "90%", lg: "50%" }, columnGap: "10px" }}>
-          <img
-            src={sender?.avatar}
-            alt=""
-            style={{ width: "40px", height: "40px", borderRadius: "50%" }}
-          />
-          <Stack direction={"column"}>
-            <Typography>{sender?.name}</Typography>
+      {typingUsers.map(
+        (user) =>
+          user?.isTyping && (
             <Box
+              key={user._id}
               sx={{
-                background: "#F2F8FD",
-                p: "10px 14px",
-                borderRadius: "0px 8px 8px 8px",
-                fontSize: "14px",
-                fontWeight: 400,
-                color: "#171717",
+                display: "flex",
+                maxWidth: { xs: "90%", lg: "50%" },
+                columnGap: "10px",
+                my: 1,
               }}
             >
-              <TypingDots />
+              <img
+                src={user?.img}
+                alt={user?.name}
+                style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+              />
+              <Stack direction={"column"}>
+                <Typography sx={{ fontSize: "13px", fontWeight: 500 }}>
+                  {user?.name}
+                </Typography>
+                <Box
+                  sx={{
+                    background: "#F2F8FD",
+                    p: "10px 14px",
+                    borderRadius: "0px 8px 8px 8px",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    color: "#171717",
+                  }}
+                >
+                  <TypingDots />
+                </Box>
+              </Stack>
             </Box>
-          </Stack>
-        </Box>
+          )
       )}
 
       <div ref={bottomRef} />
