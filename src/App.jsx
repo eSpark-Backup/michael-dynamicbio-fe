@@ -42,6 +42,7 @@ import {
   GeneralPost,
   Settings,
   UserBonds,
+  DDT,
 } from "./pages";
 import "./App.css";
 import { ToastContainer } from 'react-toastify';
@@ -135,6 +136,7 @@ const App = () => {
           <Route path="/post/:id" element={<SinglePost />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile/bonds/:id" element={<UserBonds />} />
+          <Route path="/ddt" element={<DDT />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

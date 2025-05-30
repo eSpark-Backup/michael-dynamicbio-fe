@@ -140,6 +140,19 @@ import adBlack from "./icons/adBlack.svg"
 import adBlue from "./icons/adBlack.svg"
 import person from "./icons/person.svg"
 import eyeOff from "./icons/eyeOff.svg"
+import ddtBg from "./icons/ddt_bg.svg"
+import logout from "./icons/logout.svg"
+import hydrogen from "./icons/hydrogen.svg"
+import history from "./icons/history.svg"
+import notTyping from "./icons/notTyping.svg"
+import happy from "./icons/Happy.svg"
+import sad from "./icons/sad.svg"
+import copyResponse from "./icons/copyResponse.svg"
+import positive from "./icons/positive.svg"
+import negative from "./icons/negative.svg"
+import hamburger from "./icons/hamburger.svg"
+import newChat from "./icons/newChat.svg"
+import horizontalDots from "./icons/horizontal_dots.svg"
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -296,5 +309,18 @@ export {
   accountBlue,
   accountBlack,
   person,
-  eyeOff
+  eyeOff,
+  ddtBg,
+  logout,
+  hydrogen,
+  history,
+  notTyping,
+  happy,
+  sad,
+  copyResponse,
+  positive,
+  negative,
+  newChat,
+  hamburger,
+  horizontalDots
 };

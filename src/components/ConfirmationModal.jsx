@@ -56,8 +56,8 @@ const ConfirmationModal = ({ open, handleClose, title, children, acceptButtonTex
                 >
                     {children}
                 </Box>
-                <Stack direction={"row"} display={"flex"} justifyContent={"space-between"} alignItems={"center"} sx={{ borderTop: "1px solid #E4E4E4", boxShadow: "0px 0px 10px 0px #00000040", height: "55px", px: "15px" }}>
-                    <Box
+                <Stack direction={"row"} display={"flex"} justifyContent={cancelButtonText ? "space-between" : "center"} alignItems={"center"} sx={{ borderTop: "1px solid #E4E4E4", boxShadow: "0px 0px 10px 0px #00000040", height: "55px", px: "15px" }}>
+                    {cancelButtonText && <Box
                         sx={{
                             width: "150px", height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
                             background: "white",
@@ -80,7 +80,7 @@ const ConfirmationModal = ({ open, handleClose, title, children, acceptButtonTex
                             cursor: "pointer"
                         }} onClick={handleCancel}>
                         <Typography variant='gradientText'>{cancelButtonText}</Typography>
-                    </Box>
+                    </Box>}
                     <Button type="submit" sx={{ width: "150px", height: "36px", fontSize: "16px" }} loading={isLoading} disabled={isLoading} onClick={handleAccept}>
                         {acceptButtonText}
                     </Button>

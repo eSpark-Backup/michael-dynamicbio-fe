@@ -3,11 +3,14 @@ import { Box, Button, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/m
 import MenuIcon from "@mui/icons-material/Menu";
 import { ai, logo2, marketplace, world } from "../../assets";
 import { BoxWithTextIcon } from "../../components";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width:1280px)");
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate()
 
   return (
     <Box
@@ -56,7 +59,7 @@ const Header = () => {
                 <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
               </Box>
               <Box sx={{ width: "204px" }}>
-                <BoxWithTextIcon text={"DDT"} icon={ai} />
+                <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
               </Box>
             </Box>
           </Drawer>
@@ -88,7 +91,7 @@ const Header = () => {
             <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
           </Box>
           <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
-            <BoxWithTextIcon text={"DDT"} icon={ai} />
+            <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
           </Box>
         </Box>
       )}
