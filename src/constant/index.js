@@ -1004,3 +1004,28 @@ export const monthOptions = [
   { label: "November", value: "November" },
   { label: "December", value: "December" },
 ];
+
+
+export const ddtContent = [
+  {
+    id: 1,
+    content: "What is the charge of hydrogen atom?"
+  },
+  {
+    id: 2,
+    content: `A hydrogen ion, typically represented as H+ \\text{H}^+, has a charge of +1. This positive charge comes from the ion having lost its single electron, leaving only the proton. So, it's essentially just a proton floating around. <br/> Anything else you're curious about? Maybe something related to chemistry or another topic entirely? 😄 hydrogen atom?`,
+    response: true
+  },
+]
+
+export const historyChats = [
+  {
+    chat: "Chat1"
+  },
+  {
+    chat: "Hydrogen indangering"
+  },
+  {
+    chat: "Reply to govt email is new"
+  }
+]

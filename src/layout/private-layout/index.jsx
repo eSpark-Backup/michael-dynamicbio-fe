@@ -67,7 +67,7 @@ const PrivateLayout = () => {
   return (
     <>
       {
-        pathname !== "/settings"
+        (pathname !== "/settings" && pathname !== "/ddt")
         &&
         <>
           <Header />
