@@ -1,6 +1,6 @@
 import { Box, Drawer, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { copyResponse, ddtBg, hamburger, happy, history, horizontalDots, hydrogen, icon, logout, negative, newChat, notTyping, positive, sad, three_vertical_dots_white } from '../../assets'
+import { copyResponse, hamburger, happy, history, horizontalDots, hydrogen, icon, logout, negative, newChat, notTyping, positive, sad } from '../../assets'
 import Input from '../../components/Input'
 import { ddtContent, historyChats } from '../../constant'
 import ConfirmationModal from '../../components/ConfirmationModal'
@@ -23,11 +23,8 @@ const DDT = () => {
         <Box
             sx={{
                 height: "100vh",
-                backgroundImage: `url(${ddtBg})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                // position: "relative"
+                background: "radial-gradient(109.07% 109.03% at 50% 2.5%, #37A1F7 2.4%, #37A1F7 14.4%, #288DF5 48.45%, #519EEF 55.82%, #1358A5 68.4%, #002A60 100%)"
+
             }}
         >
             <Box
@@ -122,7 +119,7 @@ const DDT = () => {
             }}>
                 {/*  */}
                 <Box sx={{ width: { md: "10%", lg: "5%" }, display: { xs: "none", md: "block" }, height: "137px" }}>
-                    {message?.length === 0 
+                    {message?.length === 0
                         ?
                         <Box sx={{ width: "100%" }}></Box>
                         :
