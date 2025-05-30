@@ -18,6 +18,7 @@ import {
   STOP_TYPING,
   GET_NEW_MESSAGE,
   SEND_NEW_MESSAGE,
+  REFETCH_CHATS,
 } from "./events";
 import { eventBus } from "../utils";
 import { updateOnlineUser } from "../store/slices/chat";
@@ -106,9 +107,13 @@ const SocketListener = () => {
       socket.on(STOP_TYPING, (data) => {
         eventBus.emit(STOP_TYPING, data);
       });
-
+      
       eventBus.on(STOP_TYPING, (data) => {
         socket.emit(STOP_TYPING, data);
+      });
+
+      socket.on(REFETCH_CHATS, (data) => {
+        eventBus.emit(REFETCH_CHATS, data);
       });
 
       return () => {
@@ -127,6 +132,7 @@ const SocketListener = () => {
         eventBus.off(START_TYPING);
         socket.off(STOP_TYPING);
         eventBus.off(STOP_TYPING);
+        socket.off(REFETCH_CHATS);
       };
     }
   }, [user, pathname]);

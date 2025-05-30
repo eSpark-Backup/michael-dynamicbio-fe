@@ -14,7 +14,37 @@ export const chatApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    createGroupChat: builder.mutation({
+      query: (credentials) => ({
+        url: `/chat/group/create`,
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    removeMember: builder.mutation({
+      query: (credentials) => ({
+        url: `/chat/group/member/remove`,
+        method: "DELETE",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
+    addMember: builder.mutation({
+      query: (credentials) => ({
+        url: `/chat/group/member/add`,
+        method: "PUT",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetMyChatQuery, useGetAllChatQuery } = chatApi;
+export const {
+  useGetMyChatQuery,
+  useGetAllChatQuery,
+  useCreateGroupChatMutation,
+  useRemoveMemberMutation,
+  useAddMemberMutation,
+} = chatApi;

@@ -1,6 +1,8 @@
 import {
   Autocomplete,
+  Avatar,
   Box,
+  Button,
   Chip,
   CircularProgress,
   Divider,
@@ -40,7 +42,11 @@ import {
   RightSideBar,
 } from "../../../components";
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
-import { useGetAllChatQuery, useGetMyChatQuery } from "../../../services/chat";
+import {
+  useCreateGroupChatMutation,
+  useGetAllChatQuery,
+  useGetMyChatQuery,
+} from "../../../services/chat";
 import { eventBus, useQuery } from "../../../utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -48,37 +54,72 @@ import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import {
   GET_NEW_MESSAGE,
+  REFETCH_CHATS,
   SEND_NEW_MESSAGE,
   START_TYPING,
   STOP_TYPING,
 } from "../../../socket/events";
+import { useGetMyBondsQuery } from "../../../services/bonds";
+import AvatarGroupPreview from "../../../components/Avatar";
 
 const Cells = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const [chatList, setChatList] = useState([]);
+  const [mainChat, setMainChat] = useState([]);
   const [showChatScreen, setShowChatScreen] = useState(
     chatList?.length > 0 ? true : false
   );
   const [showContacts, setShowContacts] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
-  const [chatType, setChatType] = useState(
-    chatList?.length ? (chatList[0]?.groupChat ? "group" : "personal") : ""
-  );
   const [groupModal, setGroupModal] = useState(false);
+  const [options, setOptions] = useState([]);
 
-  const options = [
-    { label: "John Doe", id: 1 },
-    { label: "Jane Smith", id: 2 },
-    { label: "Alice Johnson", id: 3 },
-    { label: "Bob Brown", id: 4 },
-  ];
+  const {
+    data: bondData,
+    isError: isBondsError,
+    error: bondsError,
+    isSuccess: isBondsSuccess,
+  } = useGetMyBondsQuery(
+    {
+      page: 1,
+      pageSize: 100,
+      search: "",
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+
+  const [bondsData, setBondsData] = useState([]);
+
+  useEffect(() => {
+    if (isBondsSuccess) {
+      setBondsData(bondData?.data);
+      const mainOptions = bondData?.data?.map((bond) => {
+        return {
+          label: `${bond?.friend?.firstName} ${bond?.friend?.lastName}`,
+          id: bond.bondId,
+          chatId: bond?.friend?.userChatId,
+        };
+      });
+      setOptions(mainOptions);
+    }
+  }, [isBondsSuccess]);
+
   const [selectedNames, setSelectedNames] = useState([]);
+  const [selectedUser, setSelectedUser] = useState([]);
+
+  useEffect(() => {
+    setSelectedUser(
+      bondsData?.find((item) => item?.bondId === selectedNames[0]?.id)
+    );
+  }, [selectedNames]);
+
   const HandleActiveClick = (id, type) => {
     navigate(`/cells?id=${id}`);
     setShowChatScreen(true);
-    setChatType(type);
     setSelectedNames([]);
     if (isSmallScreen) {
       setShowContacts(false);
@@ -127,14 +168,15 @@ const Cells = () => {
   };
 
   const handleClick2 = (event) => {
-    if (chatType == "group") {
+    if (mainChat?.find((item) => item?._id === id)?.groupChat) {
       setAnchorEl2(event.currentTarget);
     }
   };
 
-  const { data, isLoading, isSuccess, isError, error } = useGetMyChatQuery("", {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading, isSuccess, isError, error, refetch } =
+    useGetMyChatQuery("", {
+      refetchOnMountOrArgChange: true,
+    });
   const navigate = useNavigate();
   const query = useQuery();
   const id = query.get("id");
@@ -142,18 +184,12 @@ const Cells = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     if (isSuccess) {
       const chatListArr = data?.chats?.length > 0 ? data?.chats : [];
       setChatList(chatListArr);
+      setMainChat(chatListArr);
       setShowChatScreen(true);
-      setChatType(
-        chatListArr?.length
-          ? chatListArr[0]?.groupChat
-            ? "group"
-            : "personal"
-          : ""
-      );
       const memberId = chatListArr?.find((item) =>
         item?.members?.some((memberId) => memberId === member)
       )?._id;
@@ -164,7 +200,7 @@ const Cells = () => {
             : chatListArr[0]?._id
           : null;
       firstId && navigate(`/cells?id=${id || firstId}`);
-      setLoading(false)
+      setLoading(false);
     }
   }, [data, isSuccess, member]);
 
@@ -180,13 +216,14 @@ const Cells = () => {
     const chatListArr =
       data?.chats?.map((chat) => ({
         ...chat,
-        isOnline: chat.members?.some((memberId) =>
-          activeUsers.includes(memberId)
-        ),
+        isOnline: chat?.groupChat
+          ? chat.members?.filter((memberId) => activeUsers.includes(memberId))
+          : chat.members?.some((memberId) => activeUsers.includes(memberId)),
       })) || [];
 
     if (search === "") {
       setChatList(chatListArr);
+      setMainChat(chatListArr);
     } else {
       const query = search.toLowerCase().trim();
       const filtered = chatListArr.filter((item) => {
@@ -261,7 +298,8 @@ const Cells = () => {
   useEffect(() => {
     if (isError) toast.error(error?.data?.response?.message);
     if (isMsgError) toast.error(msgError?.data?.response?.message);
-  }, [isError, isMsgError]);
+    if (isBondsError) toast.error(bondsError?.data?.response?.message);
+  }, [isError, isMsgError, isBondsError]);
 
   const handleChat = () => {
     const chat = chatList?.find((item) => item?._id === id);
@@ -354,6 +392,7 @@ const Cells = () => {
     };
   }, [id]);
 
+  const { user: userData } = useSelector((state) => state.auth);
   const { onlineUsers } = useSelector((state) => state.chat);
   useEffect(() => {
     setActiveUsers(onlineUsers || []);
@@ -390,21 +429,35 @@ const Cells = () => {
 
   useEffect(() => {
     const handleGetStartTyping = (data) => {
-      if (!data?.userId) return;
+      if (!data?.userId || !data.chatId) return;
 
       setChatList((prevList) =>
         prevList.map((chat) =>
-          chat._id === data.chatId ? { ...chat, isTyping: true } : chat
+          chat._id === data.chatId
+            ? {
+                ...chat,
+                typingUsers: Array.from(
+                  new Set([...(chat.typingUsers || []), data.userId])
+                ),
+              }
+            : chat
         )
       );
     };
 
     const handleGetStopTyping = (data) => {
-      if (!data?.userId) return;
+      if (!data?.userId || !data.chatId) return;
 
       setChatList((prevList) =>
         prevList.map((chat) =>
-          chat._id === data.chatId ? { ...chat, isTyping: false } : chat
+          chat._id === data.chatId
+            ? {
+                ...chat,
+                typingUsers: (chat.typingUsers || []).filter(
+                  (id) => id !== data.userId
+                ),
+              }
+            : chat
         )
       );
     };
@@ -417,6 +470,50 @@ const Cells = () => {
       eventBus.off(STOP_TYPING, handleGetStopTyping);
     };
   }, []);
+
+  useEffect(() => {
+    const handleRefetch = () => {
+      refetch();
+    };
+
+    eventBus.on(REFETCH_CHATS, handleRefetch);
+    return () => {
+      eventBus.off(REFETCH_CHATS, handleRefetch);
+    };
+  }, []);
+
+  const [groupName, setGroupName] = useState("");
+  const [createGroup, { isLoading: isCreateGroupLoading }] =
+    useCreateGroupChatMutation();
+
+  const handleCreateGroup = () => {
+    const selectedIds = selectedNames?.map((item) => item?.id);
+    const filteredBonds = bondsData?.filter((item2) =>
+      selectedIds?.includes(item2?.bondId)
+    );
+    const filteredBondIds = filteredBonds?.map(
+      (item) => item?.friend?.userChatId
+    );
+    const finalGroupName =
+      groupName ||
+      `${selectedNames?.map((member) => member?.label).join(", ")}, and You`;
+    const body = {
+      name: finalGroupName,
+      members: filteredBondIds,
+    };
+
+    createGroup(body).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res) {
+        setSelectedNames([]);
+        setGroupName("");
+        refetch();
+      }
+    });
+  };
 
   if (isLoading || loading) {
     return (
@@ -498,10 +595,10 @@ const Cells = () => {
                     >
                       {chatList?.map((item, index) => (
                         <ContactBox
-                          isTyping={item?.isTyping}
+                          isTyping={item?.typingUsers}
                           isOnline={item?.isOnline}
                           lastMessage={item?.lastMessage?.content}
-                          image={item?.avatar[0] || userAvatar}
+                          image={item?.avatar || userAvatar}
                           time={
                             item?.lastMessage?.createdAt
                               ? dayjs(item?.lastMessage?.createdAt).format(
@@ -547,7 +644,7 @@ const Cells = () => {
                       >
                         {search === ""
                           ? "No message yet"
-                          : "No bond found with this name"}
+                          : "No bonds or groups found with this name"}
                       </Typography>
                       <Typography
                         sx={{
@@ -559,7 +656,7 @@ const Cells = () => {
                         Reach out & start a conversation to advance your career
                       </Typography>
                     </Box>
-                    {/* <Box
+                    <Box
                       sx={{
                         border: "1px solid #E4E4E4",
                         borderBottomLeftRadius: "4px",
@@ -578,11 +675,11 @@ const Cells = () => {
                       >
                         Start conversation
                       </Typography>
-                    </Box> */}
+                    </Box>
                   </Box>
                 )}
               </Box>
-              {/* {chatList?.length > 0 && (
+              {chatList?.length > 0 && (
                 <Box
                   sx={{
                     borderTop: "1px solid #E4E4E4",
@@ -601,7 +698,7 @@ const Cells = () => {
                     Start conversation
                   </Typography>
                 </Box>
-              )} */}
+              )}
             </Paper>
           </Grid2>
         )}
@@ -638,57 +735,71 @@ const Cells = () => {
                   flexWrap: "wrap",
                 }}
               >
-                <Stack gap={2} direction={"row"} width={"80%"}>
+                <Stack
+                  gap={2}
+                  direction={"row"}
+                  alignItems="center"
+                  width={"80%"}
+                >
                   {showChatScreen && (
                     <Box
                       sx={{
-                        width: "40px",
-                        height: "40px",
                         position: "relative",
                       }}
                     >
-                      <img
-                        src={
-                          chatList?.find((item) => item?._id === id)
-                            ?.avatar[0] || userAvatar
+                      <AvatarGroupPreview
+                        members={
+                          mainChat?.find((item) => item?._id === id)?.avatar
                         }
-                        alt="user"
-                        style={{
-                          width: "45px",
-                          height: "45px",
-                          borderRadius: "50%",
-                        }}
                       />
-                      <Box
-                        sx={{
-                          width: "10px",
-                          height: "10px",
-                          backgroundColor: chatList?.find(
-                            (item) => item?._id === id
-                          )?.isOnline
-                            ? "#12B76A"
-                            : "#7a7676",
-                          border: "1.5px solid #FFFFFF",
-                          borderRadius: "50%",
-                          position: "absolute",
-                          right: 0,
-                          bottom: 0,
-                        }}
-                      ></Box>
+                      {!mainChat?.find((item) => item?._id === id)
+                        ?.groupChat && (
+                        <Box
+                          sx={{
+                            width: "10px",
+                            height: "10px",
+                            backgroundColor: mainChat?.find(
+                              (item) => item?._id === id
+                            )?.isOnline
+                              ? "#12B76A"
+                              : "#7a7676",
+                            border: "1.5px solid #FFFFFF",
+                            borderRadius: "50%",
+                            position: "absolute",
+                            right: 0,
+                            bottom: 0,
+                          }}
+                        ></Box>
+                      )}
                     </Box>
                   )}
                   <Stack direction={"column"} width={"80%"}>
                     <Typography
+                      onClick={
+                        mainChat?.find((item) => item?._id === id)?._id &&
+                        !mainChat?.find((item) => item?._id === id)?.groupChat
+                          ? () =>
+                              navigate(
+                                `/profile/${
+                                  mainChat?.find((item) => item?._id === id)
+                                    ?.accountId
+                                }`
+                              )
+                          : () => {}
+                      }
                       sx={{
+                        cursor: "pointer",
                         fontSize: showChatScreen ? "18px" : "14px",
                         fontWeight: showChatScreen ? 500 : 400,
                         color: "#171717",
                       }}
                     >
-                      {showChatScreen && chatType === "personal"
-                        ? chatList?.find((item) => item?._id === id)?.name
-                        : showChatScreen && chatType === "group"
-                        ? "Jon Smith, Bob Brown, and you"
+                      {showChatScreen &&
+                      !mainChat?.find((item) => item?._id === id)?.groupChat
+                        ? mainChat?.find((item) => item?._id === id)?.name
+                        : showChatScreen &&
+                          mainChat?.find((item) => item?._id === id)?.groupChat
+                        ? mainChat?.find((item) => item?._id === id)?.name
                         : "New Message"}
                     </Typography>
                     {showChatScreen ? (
@@ -699,11 +810,14 @@ const Cells = () => {
                           color: "#505050",
                         }}
                       >
-                        {chatType === "personal"
-                          ? chatList?.find((item) => item?._id === id)?.isOnline
+                        {!mainChat?.find((item) => item?._id === id)?.groupChat
+                          ? mainChat?.find((item) => item?._id === id)?.isOnline
                             ? "Active Now"
                             : ""
-                          : "3 people in this conversation"}
+                          : `${
+                              mainChat?.find((item) => item?._id === id)?.avatar
+                                ?.length
+                            } people in this conversation`}
                       </Typography>
                     ) : (
                       <>
@@ -837,7 +951,19 @@ const Cells = () => {
                   }}
                 >
                   {selectedNames?.length === 1 && (
-                    <>
+                    <Stack
+                      onClick={() => {
+                        navigate(
+                          `/cells?member=${selectedUser?.friend?.userChatId}`
+                        );
+                        setSelectedNames([]);
+                      }}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      gap={1}
+                      sx={{ cursor: "pointer" }}
+                    >
                       <Box
                         sx={{
                           width: "40px",
@@ -846,7 +972,7 @@ const Cells = () => {
                         }}
                       >
                         <img
-                          src={friend}
+                          src={selectedUser?.friend?.profileImage}
                           alt="user"
                           style={{
                             width: "100%",
@@ -854,7 +980,7 @@ const Cells = () => {
                             borderRadius: "50%",
                           }}
                         />
-                        <Box
+                        {/* <Box
                           sx={{
                             width: "10px",
                             height: "10px",
@@ -865,7 +991,7 @@ const Cells = () => {
                             right: 0,
                             bottom: 0,
                           }}
-                        ></Box>
+                        ></Box> */}
                       </Box>
                       <Stack direction={"column"}>
                         <Typography
@@ -875,7 +1001,7 @@ const Cells = () => {
                             color: "#171717",
                           }}
                         >
-                          Areeba Shakeel
+                          {`${selectedUser?.friend?.firstName} ${selectedUser?.friend?.lastName}`}
                         </Typography>
                         <Typography
                           sx={{
@@ -884,120 +1010,163 @@ const Cells = () => {
                             color: "#505050",
                           }}
                         >
-                          UI/Ux Designer @ eSpark Consulting Group
+                          {selectedUser?.friend?.designation} @{" "}
+                          {selectedUser?.friend?.company}
                         </Typography>
                       </Stack>
-                    </>
+                    </Stack>
                   )}
                   {selectedNames?.length > 1 && (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: "3px",
-                      }}
+                    <Stack
+                      direction="row"
+                      alignItems="flex-end"
+                      justifyContent="center"
+                      gap={1}
                     >
-                      <Box display={"flex"} alignItems={"center"} gap={1}>
-                        <Typography
-                          sx={{
-                            fontSize: "18px",
-                            fontWeight: "500",
-                            color: "#171717",
-                          }}
-                        >
-                          Group Name
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: "400",
-                            color: "#505050",
-                          }}
-                        >
-                          {" "}
-                          (optional)
-                        </Typography>
-                      </Box>
-                      <OutlinedInput
+                      <Box
                         sx={{
-                          height: "40px",
-                          width: "100%",
-                          backgroundColor: "#FCFCFC",
-                          borderRadius: "4px",
-                          "& .MuiOutlinedInput-root": {
-                            border: "1px solid #E4E4E4",
-                            height: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          rowGap: "3px",
+                        }}
+                      >
+                        <Box display={"flex"} alignItems={"center"} gap={1}>
+                          <Typography
+                            sx={{
+                              fontSize: "18px",
+                              fontWeight: "500",
+                              color: "#171717",
+                            }}
+                          >
+                            Group Name
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              fontWeight: "400",
+                              color: "#505050",
+                            }}
+                          >
+                            {" "}
+                            (optional)
+                          </Typography>
+                        </Box>
+                        <OutlinedInput
+                          value={groupName}
+                          onInputChange={(e) => setGroupName(e?.target?.value)}
+                          sx={{
+                            height: "40px",
+                            width: "100%",
                             backgroundColor: "#FCFCFC",
                             borderRadius: "4px",
-                          },
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            border: "1px solid #E4E4E4",
-                          },
-                        }}
-                      />
-                    </Box>
+                            "& .MuiOutlinedInput-root": {
+                              border: "1px solid #E4E4E4",
+                              height: "100%",
+                              backgroundColor: "#FCFCFC",
+                              borderRadius: "4px",
+                            },
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              border: "1px solid #E4E4E4",
+                            },
+                          }}
+                        />
+                      </Box>
+                      <Button
+                        loading={isCreateGroupLoading}
+                        disabled={isCreateGroupLoading}
+                        onClick={handleCreateGroup}
+                        sx={{ width: "max-content", height: "40px" }}
+                      >
+                        Create group
+                      </Button>
+                    </Stack>
                   )}
                 </Box>
               )}
 
-              {showChatScreen && chatType === "group" && (
-                <>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      rowGap: "5px",
-                      py: "10px",
-                    }}
-                  >
-                    <Stack gap={1} direction={"row"}>
-                      {[friend, user, profilePicture]?.map((item, index) => (
-                        <Box
-                          sx={{
-                            width: "48px",
-                            height: "48px",
-                            position: "relative",
-                          }}
-                          key={index}
-                          onClick={() => setGroupModal(true)}
-                        >
-                          <img
-                            src={item}
-                            alt="user"
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              borderRadius: "50%",
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              width: "10px",
-                              height: "10px",
-                              backgroundColor: "#12B76A",
-                              border: "1.5px solid #FFFFFF",
-                              borderRadius: "50%",
-                              position: "absolute",
-                              right: 0,
-                              bottom: 0,
-                            }}
-                          ></Box>
-                        </Box>
-                      ))}
-                    </Stack>
-                    <Typography
+              {showChatScreen &&
+                mainChat?.find((item) => item?._id === id)?.groupChat && (
+                  <>
+                    <Box
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        color: "#171717",
+                        display: "flex",
+                        flexDirection: "column",
+                        rowGap: "5px",
+                        py: "10px",
                       }}
                     >
-                      John Doe, Bob Brown, Jan Smith
-                    </Typography>
-                  </Box>
-                  <Divider />
-                </>
-              )}
+                      <Stack gap={1} direction={"row"}>
+                        {(() => {
+                          const chat = mainChat.find(
+                            (item) => item?._id === id
+                          );
+                          const fullMembers = [...chat.members];
+                          const fullAvatars = [...chat.avatar];
+                          const memberIds = [...chat.accountId];
+                          const ind = memberIds.findIndex(
+                            (id) => id === userData?.id
+                          );
+                          if (ind !== -1) {
+                            fullMembers.splice(ind, 0, userData?.userChatId);
+                          }
+                          return fullMembers.map((memberId, index) => {
+                            const isOnline = activeUsers.includes(memberId);
+                            const avatarUrl = fullAvatars[index];
+
+                            return (
+                              <Box
+                                sx={{
+                                  width: "48px",
+                                  height: "48px",
+                                  position: "relative",
+                                }}
+                                key={index}
+                                onClick={() => setGroupModal(true)}
+                              >
+                                <Avatar
+                                  src={avatarUrl}
+                                  alt="user"
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    borderRadius: "50%",
+                                  }}
+                                />
+                                <Box
+                                  sx={{
+                                    width: "10px",
+                                    height: "10px",
+                                    backgroundColor: isOnline
+                                      ? "#12B76A"
+                                      : "#7a7676",
+                                    border: "1.5px solid #FFFFFF",
+                                    borderRadius: "50%",
+                                    position: "absolute",
+                                    right: 0,
+                                    bottom: 0,
+                                  }}
+                                />
+                              </Box>
+                            );
+                          });
+                        })()}
+                      </Stack>
+
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: "400",
+                          color: "#171717",
+                        }}
+                      >
+                        {mainChat
+                          ?.find((item) => item?._id === id)
+                          ?.memberName?.join(", ") || ""}
+                      </Typography>
+                    </Box>
+                    <Divider />
+                  </>
+                )}
 
               <Box
                 sx={{
@@ -1014,9 +1183,10 @@ const Cells = () => {
                     hasMore={hasMore}
                     chatId={id}
                     isTyping={
-                      chatList?.find((item) => item?._id === id)?.isTyping
+                      chatList?.find((item) => item?._id === id)?.typingUsers ||
+                      []
                     }
-                    sender={chatList?.find((item) => item?._id === id)}
+                    sender={mainChat?.find((item) => item?._id === id)}
                   />
                 )}
               </Box>
@@ -1033,11 +1203,14 @@ const Cells = () => {
                     width: "100%",
                     display: "flex",
                     pr: "10px",
-                    height: "60px",
+                    minHeight: "60px",
                     backgroundColor: "#F2F8FD",
                   }}
                 >
                   <OutlinedInput
+                    multiline
+                    minRows={1}
+                    maxRows={5}
                     value={msg}
                     onInputChange={(e) => {
                       const value = e.target.value;
@@ -1060,6 +1233,7 @@ const Cells = () => {
                     sx={{
                       height: "100%",
                       width: "100%",
+                      padding: "10px",
                       "& .MuiOutlinedInput-root": {
                         border: "none !important",
                         height: "100%",
@@ -1198,7 +1372,13 @@ const Cells = () => {
         styledHeader={true}
         hideFooter={true}
       >
-        <GroupChatModal />
+        <GroupChatModal
+          chatId={id}
+          options={options}
+          groupMembers={chatList?.find((item) => item?._id === id)}
+          activeUsers={activeUsers}
+          refetch={refetch}
+        />
       </DynamicModal>
     </Box>
   );
