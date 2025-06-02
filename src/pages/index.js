@@ -34,6 +34,8 @@ import Settings from "./settings";
 
 import UserBonds from "./dashboard/profile/user-bonds";
 
+import DDT from "./DDT";
+
 export {
   Login,
   Signup,
@@ -67,5 +69,6 @@ export {
   GeneralEvent,
   GeneralPost,
   Settings,
-  UserBonds
+  UserBonds,
+  DDT
 };
