@@ -5,6 +5,7 @@ import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { userAvatar, verticleDots } from "../assets";
 
 const PageCard = ({
+  bgNotWhite,
   isFollowLoading,
   handleFollow,
   isDeleteLoading,
@@ -41,7 +42,7 @@ const PageCard = ({
         sx={{
           border: "1px solid #E4E4E4",
           borderRadius: "2px",
-          backgroundColor: "#FFF",
+          backgroundColor: bgNotWhite ? "#F2F8FD" : "#FFF",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

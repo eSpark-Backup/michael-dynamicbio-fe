@@ -8,7 +8,13 @@ export const generalPageApi = api.injectEndpoints({
                 method: "GET",
             }),
         }),
+        getUniversalSearch: builder.query({
+            query: ({ page, pageSize, keyword, type }) => ({
+                url: `/user/search?page=${page}&pageSize=${pageSize}&keyword=${keyword}&type=${type}`,
+                method: "GET",
+            }),
+        }),
     })
 })
 
-export const { useGetGeneralPageQuery } = generalPageApi
+export const { useGetGeneralPageQuery, useGetUniversalSearchQuery } = generalPageApi
