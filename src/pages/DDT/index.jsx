@@ -86,7 +86,7 @@ const DDT = () => {
                                 p: "10px 14px",
                                 borderBottomLeftRadius: "8px",
                                 borderBottomRightRadius: "8px",
-                                borderTopLeftRadius: item?.response ? "0px" : "0px",
+                                borderTopLeftRadius: item?.response ? "0px" : "8px",
                                 borderTopRightRadius: item?.response ? "8px" : "0px",
                                 width: "fit-content",
                                 mt: index == 0 ? "0px" : "25px"
@@ -157,7 +157,7 @@ const DDT = () => {
                                 },
                             },
                         }}
-                        placeholder="Write here"
+                        placeholder="Write here..."
                         handleChange={(e) => setMessage(e.target.value)}
                     />
                     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", pr: { xs: "5px", md: "10px" } }}>
@@ -196,7 +196,9 @@ const DDT = () => {
                             background: "linear-gradient(180deg, #18375B 0%, #19395D 100%)",
                             border: "none",
                             boxShadow: "none",
-                            width: "242px"
+                            width: "242px",
+                            borderTopLeftRadius: "16px",
+                            borderBottomLeftRadius: "16px"
                         },
                     }}
                 >
