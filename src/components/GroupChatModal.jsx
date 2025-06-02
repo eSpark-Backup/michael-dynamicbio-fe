@@ -19,6 +19,7 @@ import {
   useRemoveMemberMutation,
 } from "../services/chat";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const GroupChatModal = ({
   chatId,
@@ -26,14 +27,16 @@ const GroupChatModal = ({
   groupMembers: sender,
   activeUsers,
   refetch,
+  messageData,
+  handleCloseModal,
 }) => {
   const [remove, { isLoading }] = useRemoveMemberMutation();
   const [add, { isLoading: isAddLoading }] = useAddMemberMutation();
   const { user: userData } = useSelector((state) => state.auth);
-  const fullMembers = [...sender.members];
-  const fullAvatars = [...sender.avatar];
-  const memberName = [...sender.memberName];
-  const memberIds = [...sender.accountId];
+  const fullMembers = [...sender?.members];
+  const fullAvatars = [...sender?.avatar];
+  const memberName = [...sender?.memberName];
+  const memberIds = [...sender?.accountId];
 
   const ind = memberIds.findIndex((id) => id === userData?.id);
   if (ind !== -1) {
@@ -101,7 +104,7 @@ const GroupChatModal = ({
   const handleAddMember = () => {
     const bodyToSend = {
       chatId: chatId,
-      members: selectedNames.map(item => item?.chatId),
+      members: selectedNames.map((item) => item?.chatId),
     };
     add(bodyToSend).then((res) => {
       if (res?.error) {
@@ -109,7 +112,7 @@ const GroupChatModal = ({
         return;
       }
       if (res) {
-        setSelectedNames([])
+        setSelectedNames([]);
         refetch();
       }
     });
@@ -124,15 +127,31 @@ const GroupChatModal = ({
         pt: "20px",
       }}
     >
-      <Typography
-        sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-      >
-        Sample
-      </Typography>
+      {messageData?.length > 0 && (
+        <Typography
+          sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
+        >
+          {messageData?.length > 0
+            ? messageData[messageData?.length - 1]?.text
+                ?.split("\n")
+                .map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
+            : ""}
+        </Typography>
+      )}
       <Typography
         sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
       >
-        {groupMembers?.length} members . Last activity 1m ago
+        {groupMembers?.length} members .{" "}
+        {messageData?.length > 0
+          ? `Last activity ${dayjs(
+              messageData[messageData?.length - 1]?.timestamp
+            ).fromNow()}`
+          : ""}
       </Typography>
       <Box
         sx={{
@@ -388,12 +407,12 @@ const GroupChatModal = ({
                   </Box>
                 </Stack>
               ) : (
-                <img
+                sender?.admin === userData?.userChatId && sender?.admin !== item?.id ? <img
                   src={three_vertical_dots}
                   alt="Icon"
                   style={{ cursor: "pointer" }}
                   onClick={(e) => handleClick(e, item.id)}
-                />
+                /> : null
               )}
             </Box>
           );
@@ -430,11 +449,11 @@ const GroupChatModal = ({
           <Typography
             sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
-            Anyone sho joins this chat will see previous messages.{" "}
+            Anyone who joins this chat will see previous messages.{" "}
           </Typography>
           {/* <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>Learn more</Typography> */}
         </Box>
-        <Button sx={{ height: "36px", maxWidth: "150px" }}>Done</Button>
+        <Button onClick={handleCloseModal} sx={{ height: "36px", maxWidth: "150px" }}>Done</Button>
       </Stack>
       <Menu
         anchorEl={menuAnchor?.anchor}

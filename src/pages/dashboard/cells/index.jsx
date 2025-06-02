@@ -213,6 +213,10 @@ const Cells = () => {
   const PAGE_SIZE = 10;
 
   useEffect(() => {
+    setMsg("");
+  }, [id])
+
+  useEffect(() => {
     const chatListArr =
       data?.chats?.map((chat) => ({
         ...chat,
@@ -240,6 +244,7 @@ const Cells = () => {
     isLoading: isMsgLoading,
     isError: isMsgError,
     error: msgError,
+    refetch: refetchChat,
     isFetching,
   } = useGetAllChatQuery(
     { id, page, pageSize: PAGE_SIZE },
@@ -474,6 +479,7 @@ const Cells = () => {
   useEffect(() => {
     const handleRefetch = () => {
       refetch();
+      refetchChat();
     };
 
     eventBus.on(REFETCH_CHATS, handleRefetch);
@@ -1100,9 +1106,9 @@ const Cells = () => {
                           const chat = mainChat.find(
                             (item) => item?._id === id
                           );
-                          const fullMembers = [...chat.members];
-                          const fullAvatars = [...chat.avatar];
-                          const memberIds = [...chat.accountId];
+                          const fullMembers = [...chat?.members];
+                          const fullAvatars = [...chat?.avatar];
+                          const memberIds = [...chat?.accountId];
                           const ind = memberIds.findIndex(
                             (id) => id === userData?.id
                           );
@@ -1378,6 +1384,8 @@ const Cells = () => {
           groupMembers={chatList?.find((item) => item?._id === id)}
           activeUsers={activeUsers}
           refetch={refetch}
+          messageData={messageData}
+          handleCloseModal={() => setGroupModal(false)}
         />
       </DynamicModal>
     </Box>

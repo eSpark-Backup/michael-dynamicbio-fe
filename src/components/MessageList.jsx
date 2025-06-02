@@ -18,10 +18,14 @@ const MessageList = ({
   chatId,
 }) => {
   const { user: userData } = useSelector((state) => state.auth);
-  const fullMembers = [...sender.members];
-  const fullAvatars = [...sender.avatar];
-  const memberName = [...sender.memberName];
-  const memberIds = [...sender.accountId];
+  const fullMembers = [...sender?.members];
+  const fullAvatars = [...sender?.avatar];
+  const memberName = sender?.groupChat
+    ? [...sender?.memberName]
+    : [sender?.memberName];
+  const memberIds = sender?.groupChat
+    ? [...sender?.accountId]
+    : [sender?.accountId];
   const ind = memberIds.findIndex((id) => id === userData?.id);
   if (ind !== -1) {
     fullMembers.splice(ind, 0, userData?.userChatId);
