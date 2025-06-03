@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
@@ -48,8 +48,19 @@ const ManageGroup = () => {
       //   },
     ];
   }, [data]);
-  const [activeTabLabel, setActiveTabLabel] = useState("Membership");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTabLabel, setActiveTabLabel] = useState(
+    tabParam || "Membership"
+  );
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
+
+  useEffect(() => {
+    if (tabParam && tabParam !== activeTabLabel) {
+      setActiveTabLabel(tabParam);
+    }
+  }, [tabParam]);
 
   if (isLoading || isFetching) {
     return (
@@ -142,7 +153,10 @@ const ManageGroup = () => {
               }}
               fontSize={{ xs: "12px", md: "14px" }}
               fontWeight={500}
-              onClick={() => setActiveTabLabel(tab?.label)}
+              onClick={() => {
+                setActiveTabLabel(tab.label);
+                setSearchParams({ tab: tab.label });
+              }}
               key={tab.label}
             >
               {tab.label}

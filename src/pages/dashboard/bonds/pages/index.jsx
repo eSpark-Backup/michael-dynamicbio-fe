@@ -94,8 +94,10 @@ const Pages = () => {
     const myPages = myPagesData?.data?.pages || [];
     const allPages = allPagesData?.data?.pages || [];
     const followedPages = followedPagesData?.data?.pages || [];
-    const filteredPages = allPages?.filter(
-      (item) => item?.creatorId !== user?.id
+    const filteredPages = allPages.filter(
+    (item) =>
+      item?.creatorId !== user?.id &&
+      !item?.followers?.some((follower) => follower?.id === user?.id)
     );
     return [
       {

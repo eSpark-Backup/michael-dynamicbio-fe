@@ -3,7 +3,8 @@ import { notificationsApi } from "../../services/notification";
 
 const initialState = {
   notifications: [],
-  totalItems: 0,
+  totalPage: 0,
+  currentPage: 1,
 };
 
 const slice = createSlice({
@@ -12,10 +13,22 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       notificationsApi.endpoints.getAllNotifications.matchFulfilled,
-      (state, { payload }) => {
+      (state, { payload, meta }) => {
         const { data } = payload;
-        state.notifications = [...state.notifications, ...data?.notifications];
-        state.totalItems = data?.pagination?.totalItems;
+        const requestedPage = meta.arg.originalArgs?.page || 1;
+
+        if (requestedPage > state.currentPage) {
+          state.notifications = [
+            ...state.notifications,
+            ...data?.notifications,
+          ];
+          state.currentPage = requestedPage;
+        } else if (requestedPage === 1) {
+          state.notifications = data?.notifications;
+          state.currentPage = 1;
+        }
+
+        state.totalPage = data?.pagination?.totalPages;
       }
     );
   },
