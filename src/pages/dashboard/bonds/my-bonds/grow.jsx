@@ -257,12 +257,12 @@ const Grow = () => {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           Choose who can connect with you
         </MenuItem>
         <MenuItem onClick={handleClose}>
           Choose what invitations to receive
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem
           onClick={(e) => {
             setSent(!sent);

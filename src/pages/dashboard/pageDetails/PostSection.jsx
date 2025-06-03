@@ -280,7 +280,7 @@ const PostSection = ({ data }) => {
           rowGap: "10px",
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             columnGap: "10px",
@@ -317,8 +317,8 @@ const PostSection = ({ data }) => {
               </Box>
             )
           )}
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -348,7 +348,7 @@ const PostSection = ({ data }) => {
               onClick={handleClick}
             />
           </Box>
-        </Box>
+        </Box> */}
         <InfiniteScroll
           dataLength={posts.length}
           next={fetchMoreData}

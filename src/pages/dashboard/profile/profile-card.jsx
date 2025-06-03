@@ -200,14 +200,14 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                 src={primaryEye}
                 alt="eye"
               />}
-              {isPublicView && (
+              {/* {isPublicView && (
                 <img
                   onClick={handleShareProfile}
                   style={{ cursor: "pointer" }}
                   src={share}
                   alt="share"
                 />
-              )}
+              )} */}
             </Stack>
           </Stack>
           <Stack

@@ -284,10 +284,10 @@ const ArticleDetails = () => {
                         <img src={editBlue} alt="Icon" style={{ width: "16px" }} />
                         <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>Edit article</Typography>
                     </Box>
-                    <Box sx={{ display: "flex", columnGap: "3px" }}>
+                    {/* <Box sx={{ display: "flex", columnGap: "3px" }}>
                         <img src={primaryEye} alt="Icon" style={{ width: "16px" }} />
                         <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>View post</Typography>
-                    </Box>
+                    </Box> */}
                 </Box>
             }
 
@@ -311,9 +311,9 @@ const ArticleDetails = () => {
                                             </Box>
                                         </Box>
                                         <Box sx={{ display: "flex", columnGap: "15px" }}>
-                                            <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            {/* <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <img src={reading} alt="Icon" style={{ width: "20px", height: "20px" }} />
-                                            </Box>
+                                            </Box> */}
                                             <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={SavePostHandler}>
                                                 <img src={articleContent?.isSaved ? save : saveUnfilled} alt="Icon" style={{ width: "20px", height: "20px" }} />
                                             </Box>
@@ -356,10 +356,10 @@ const ArticleDetails = () => {
                     <Paper>
                         <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>Comments</Typography>
                         <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" }, mt: "25px" }}>
-                            <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
+                            {/* <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                                 <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                                 <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                            </Box>
+                            </Box> */}
                             <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "25%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={!isLikeloading ? LikeHandler : () => { }}>
                                 <img src={hasLiked ? like : unlike} alt="Like" style={{ width: "24px", height: "24px" }} />
                                 <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none" }, color: "#505050", "@media (min-width:1750px)": { display: "block" } }}>{hasLiked ? "Liked" : "Like"}</Typography>
@@ -418,10 +418,10 @@ const ArticleDetails = () => {
 
                                                     }} placeholder={"Add a comment"} onInputChange={(e) => setCommentContent(e.target.value)} value={commentContent} multiline={true} onKeyDown={handleKeyDown} />
                                                     <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
-                                                        <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                                        {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                                                             <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
                                                             <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                                                        </Box>
+                                                        </Box> */}
                                                         {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
                                                     </Box>
                                                 </Box>

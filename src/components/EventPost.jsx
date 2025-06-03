@@ -653,7 +653,7 @@ const EventPost = ({
                 Comment
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 columnGap: "15px",
@@ -676,7 +676,7 @@ const EventPost = ({
               >
                 Repost
               </Typography>
-            </Box>
+            </Box> */}
             {visibility === "PUBLIC" && (
               <Box
                 sx={{
@@ -795,7 +795,7 @@ const EventPost = ({
                               justifyContent: "space-between",
                             }}
                           >
-                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                            {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                               <img
                                 src={emoji}
                                 alt="Emoji"
@@ -806,7 +806,7 @@ const EventPost = ({
                                 alt="Camera"
                                 style={{ width: "24px", height: "24px" }}
                               />
-                            </Box>
+                            </Box> */}
                             {commentContent && (
                               <Button
                                 loading={postCommentLoading}

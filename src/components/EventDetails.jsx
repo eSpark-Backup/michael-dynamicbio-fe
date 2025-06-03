@@ -205,12 +205,12 @@ const EventDetails = () => {
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center", flexWrap: "wrap", rowGap: "4px" }}>
                   <img src={calendar} alt="" />
                   <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>{formatEventTimeLocal(postData?.startTime, !postData?.endTime ? postData?.startTime : postData?.endTime)}</Typography>
-                  {
+                  {/* {
                     postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "4px", backgroundColor: "#E4E4E4", p: "4px", borderRadius: "4px", cursor: "pointer" }} onClick={handleClick2}>
                       <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Add to calendar</Typography>
                       <img src={downArrowFilled} alt="Icon" />
                     </Box>
-                  }
+                  } */}
                 </Box>
                 <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <img src={postData?.eventType === "online" ? videoIcon : location} alt="" />
@@ -227,7 +227,7 @@ const EventDetails = () => {
                     {postData?.authorId === userData?.id ? "1 attendee" : "rotten ria is an attendee"}
                   </Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
+                {/* <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
                   <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px" }} onClick={postData?.authorId === userData?.id ? handleClick3 : () => { }}>
                     <Typography sx={{ color: "white" }}>{postData?.authorId === userData?.id ? "Share" : "Attend"}</Typography>
                     {postData?.authorId === userData?.id && <KeyboardArrowDownIcon sx={{ color: "white" }} />}
@@ -236,14 +236,14 @@ const EventDetails = () => {
                     <Typography sx={{ color: "black" }}>{postData?.authorId === userData?.id ? "Manage" : "Share"}</Typography>
                     <KeyboardArrowDownIcon sx={{ color: "black" }} />
                   </Button>
-                  {/* {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
+                  {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
                     <img src={three_vertical_dots} alt="" />
-                  </Box>} */}
-                </Box>
+                  </Box>}
+                </Box> */}
 
               </Box>
             </Box>
-            {postData?.authorId === userData?.id && <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
+            {/* {postData?.authorId === userData?.id && <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography sx={{ fontSize: '20px', fontWeight: "400", color: "#171717" }}>Set up your event for success</Typography>
                 <Box sx={{ border: "1px solid #E4E4E4", width: "35px", height: "35px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setShowSuccessCards(!showSuccessCards)}>
@@ -277,8 +277,8 @@ const EventDetails = () => {
 
                 </Box>
               </Box>}
-            </Box>}
-            {postData?.authorId === userData?.id && <Stack
+            </Box>} */}
+            {/* {postData?.authorId === userData?.id && <Stack
               direction="row"
               alignItems="center"
               justifyContent="flex-start"
@@ -325,7 +325,7 @@ const EventDetails = () => {
 
 
               ))}
-            </Stack>}
+            </Stack>} */}
           </Paper>
           <Box sx={{ marginTop: "10px" }}>
             {(activeTab?.label === "Comments" || postData?.authorId !== userData?.id) && <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
@@ -345,10 +345,10 @@ const EventDetails = () => {
               </Box>
               <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>bringback</Typography>
               <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                {postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
+                {/* {postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
                   <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
                   <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                </Box>}
+                </Box>} */}
                 <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
                   <img src={like} alt="Like" />
                   <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
@@ -357,10 +357,10 @@ const EventDetails = () => {
                   <img src={comment} alt="Like" />
                   <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Comment</Typography>
                 </Box>
-                <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
+                {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
                   <img src={repost} alt="Repost" />
                   <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
-                </Box>
+                </Box> */}
                 <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setShowShareModal(true)}>
                   <img src={send} alt="Repost" />
                   <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Send</Typography>
@@ -386,10 +386,10 @@ const EventDetails = () => {
                         },
 
                       }} placeholder={"Add a comment"} />
-                      <Box sx={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
+                      {/* <Box sx={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
                         <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
                         <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                      </Box>
+                      </Box> */}
                     </Box>
                   </Box>
                   {/* {Array.isArray(commentsContent) && commentsContent?.length > 0 &&

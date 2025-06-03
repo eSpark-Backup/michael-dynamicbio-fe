@@ -132,7 +132,11 @@ const Cells = () => {
     )?._id;
     const firstId =
       chatList?.length > 0 ? (member ? memberId : chatList[0]?._id) : null;
-    firstId && navigate(`/cells?id=${id || firstId}`);
+    id && chatList?.some((item) => item?._id === id)
+      ? navigate(`/cells?id=${id}`)
+      : firstId
+      ? navigate(`/cells?id=${firstId}`)
+      : navigate(`/cells`);
   }, [isSmallScreen]);
 
   const HandleNewConversation = () => {
@@ -199,7 +203,11 @@ const Cells = () => {
             ? memberId
             : chatListArr[0]?._id
           : null;
-      firstId && navigate(`/cells?id=${id || firstId}`);
+      id && chatListArr?.some((item) => item?._id === id)
+        ? navigate(`/cells?id=${id}`)
+        : firstId
+        ? navigate(`/cells?id=${firstId}`)
+        : navigate(`/cells`);
       setLoading(false);
     }
   }, [data, isSuccess, member]);
@@ -214,7 +222,7 @@ const Cells = () => {
 
   useEffect(() => {
     setMsg("");
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     const chatListArr =

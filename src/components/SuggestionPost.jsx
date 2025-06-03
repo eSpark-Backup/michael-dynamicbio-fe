@@ -957,7 +957,7 @@ const SuggestionPost = ({
                     Comment
                   </Typography>
                 </Box>
-                <Box
+                {/* <Box
                   sx={{
                     display: "flex",
                     columnGap: "15px",
@@ -980,7 +980,7 @@ const SuggestionPost = ({
                   >
                     Repost
                   </Typography>
-                </Box>
+                </Box> */}
                 {visibility === "PUBLIC" && (
                   <Box
                     sx={{
@@ -1105,7 +1105,7 @@ const SuggestionPost = ({
                                   justifyContent: "space-between",
                                 }}
                               >
-                                <Box
+                                {/* <Box
                                   sx={{ display: "flex", columnGap: "10px" }}
                                 >
                                   <img
@@ -1118,7 +1118,7 @@ const SuggestionPost = ({
                                     alt="Camera"
                                     style={{ width: "24px", height: "24px" }}
                                   />
-                                </Box>
+                                </Box> */}
                                 {commentContent && (
                                   <Button
                                     loading={postCommentLoading}

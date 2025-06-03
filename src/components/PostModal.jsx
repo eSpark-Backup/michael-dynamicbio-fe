@@ -46,7 +46,7 @@ const PostModal = ({ title, setTitle, fileChange, placeholder, videoChange, open
                 }}
             />
             <Box sx={{ height: "440px" }}></Box>
-            <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} />
+            {/* <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} /> */}
             <Box sx={{ height: "50px" }}>
                 <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "20px" }}>
                     {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: poll, label: "Poll" }, { img: event, label: "Event" }]

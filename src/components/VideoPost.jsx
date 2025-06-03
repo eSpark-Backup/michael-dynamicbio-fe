@@ -642,7 +642,7 @@ const VideoPost = ({
                 Comment
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 columnGap: "15px",
@@ -665,7 +665,7 @@ const VideoPost = ({
               >
                 Repost
               </Typography>
-            </Box>
+            </Box> */}
             {visibility === "PUBLIC" && (
               <Box
                 sx={{
@@ -785,7 +785,7 @@ const VideoPost = ({
                               justifyContent: "space-between",
                             }}
                           >
-                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                            {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                               <img
                                 src={emoji}
                                 alt="Emoji"
@@ -796,7 +796,7 @@ const VideoPost = ({
                                 alt="Camera"
                                 style={{ width: "24px", height: "24px" }}
                               />
-                            </Box>
+                            </Box> */}
                             {commentContent && (
                               <Button
                                 loading={postCommentLoading}
