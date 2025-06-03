@@ -517,7 +517,7 @@ const GroupDetails = () => {
                     alignItems: "center",
                     cursor: "pointer",
                   }}
-                  onClick={() => navigate(`/group/${id}/manage`)}
+                  onClick={() => navigate(`/group/${id}/manage?tab=Membership&sub-tab=Members`)}
                 >
                   <Typography
                     sx={{

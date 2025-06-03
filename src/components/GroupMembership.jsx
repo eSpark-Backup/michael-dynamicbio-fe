@@ -1,10 +1,11 @@
 import { Box, Grid2, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GroupMembers from './GroupMembers';
 import GroupAdmins from './GroupAdmins';
 import GroupRequests from './GroupRequests';
 import GroupInvited from './GroupInvited';
 import GroupBlocked from './GroupBlocked';
+import { useSearchParams } from 'react-router-dom';
 
 const GroupMembership = ({ data, refetch }) => {
     const tabs = [
@@ -31,7 +32,19 @@ const GroupMembership = ({ data, refetch }) => {
         //     component: <GroupBlocked />
         // },
     ];
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+    
+      const [searchParams, setSearchParams] = useSearchParams();
+      const tabParam = searchParams.get("sub-tab");
+      const [activeTabLabel, setActiveTabLabel] = useState(
+        tabParam || "Members"
+      );
+      const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
+    
+      useEffect(() => {
+        if (tabParam && tabParam !== activeTabLabel) {
+          setActiveTabLabel(tabParam);
+        }
+      }, [tabParam]);
     return (
         <Box sx={{ margin: "20px 25px" }}>
             <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "20px" }}>
@@ -41,7 +54,10 @@ const GroupMembership = ({ data, refetch }) => {
                             const isActive = item.label === activeTab.label;
                             return (
                                 <Box
-                                    onClick={() => setActiveTab(item)}
+                                    onClick={() => {
+                                        setActiveTabLabel(item.label);
+                                        setSearchParams({ tab: "Membership", "sub-tab": item.label });
+                                    }}
                                     sx={{
                                         p: "15px 30px",
                                         cursor: "pointer",

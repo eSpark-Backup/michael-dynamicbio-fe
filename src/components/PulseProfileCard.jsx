@@ -18,7 +18,8 @@ const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, 
     return (
         <Card
             sx={{
-                minHeight: "90px",
+                width: "100%",
+                minHeight: "max-content",
                 display: "flex",
                 flexDirection: isSmallScreen ? "column" : "row",
                 alignItems: isSmallScreen ? "center" : "flex-start",
