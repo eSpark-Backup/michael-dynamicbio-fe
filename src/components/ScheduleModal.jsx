@@ -85,7 +85,7 @@ const ScheduleModal = ({
         </LocalizationProvider>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
           paddingTop: "20px",
           display: "flex",
@@ -105,7 +105,7 @@ const ScheduleModal = ({
           alt="Icon"
           style={{ width: "24px", height: "24px" }}
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

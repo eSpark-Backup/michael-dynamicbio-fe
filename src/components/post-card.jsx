@@ -52,6 +52,7 @@ const PostCard = ({
   });
   const [viewPollModal, setViewPollModal] = useState(false)
   const [pollValues, setPollValues] = useState({})
+  const [isSchedulePost, setIsSchedulePost] = useState(false)
 
   const handleThumbnailUpload = (file) => {
     setVideoData((prev) => ({
@@ -88,6 +89,11 @@ const PostCard = ({
           setEventFormValues({});
           setViewPollModal(false)
           setPollValues({})
+          setIsSchedulePost(false)
+          setSchedule({
+            date: null,
+            time: null,
+          })
         }
       });
     }
@@ -95,17 +101,31 @@ const PostCard = ({
 
   const handleTextPost = () => {
     const obj = {
-      pageId: page ? page?.id : null,
-      groupId: group ? group?.id : null,
+      pageId: page ? page.id : null,
+      groupId: group ? group.id : null,
       content: {
         title,
-        ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
       type: "TEXT",
+      isSchedulePost,
+      ...(isSchedulePost && schedule?.date && schedule?.time
+        ? {
+          scheduledDate: new Date(
+            schedule.date.getFullYear(),
+            schedule.date.getMonth(),
+            schedule.date.getDate(),
+            schedule.time.getHours(),
+            schedule.time.getMinutes(),
+            0
+          ).toISOString(),
+        }
+        : {})
     };
+
     handlePost(obj);
+    // console.log(obj)
   };
 
   const handleImagePost = () => {
@@ -114,12 +134,25 @@ const PostCard = ({
       groupId: group ? group?.id : null,
       content: {
         title,
-        ...(schedule.date && schedule.time ? { schedule } : {}),
+        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
       type: "IMAGE",
       images: selectedFiles,
+      isSchedulePost,
+      ...(isSchedulePost && schedule?.date && schedule?.time
+        ? {
+          scheduledDate: new Date(
+            schedule.date.getFullYear(),
+            schedule.date.getMonth(),
+            schedule.date.getDate(),
+            schedule.time.getHours(),
+            schedule.time.getMinutes(),
+            0
+          ).toISOString(),
+        }
+        : {})
     };
     handlePost(obj);
   };
@@ -130,13 +163,26 @@ const PostCard = ({
       groupId: group ? group?.id : null,
       content: {
         title,
-        ...(schedule.date && schedule.time ? { schedule } : {}),
+        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
       type: "VIDEO",
       videos: [videoData?.video],
       thumbnails: videoData?.thumbnail ? [videoData?.thumbnail] : null,
+      isSchedulePost,
+      ...(isSchedulePost && schedule?.date && schedule?.time
+        ? {
+          scheduledDate: new Date(
+            schedule.date.getFullYear(),
+            schedule.date.getMonth(),
+            schedule.date.getDate(),
+            schedule.time.getHours(),
+            schedule.time.getMinutes(),
+            0
+          ).toISOString(),
+        }
+        : {})
     };
     handlePost(obj);
   };
@@ -159,7 +205,7 @@ const PostCard = ({
       pageId: page ? page?.id : null,
       groupId: group ? group?.id : null,
       content: {
-        ...(schedule.date && schedule.time ? { schedule } : {}),
+        // ...(schedule.date && schedule.time ? { schedule } : {}),
         title
       },
       poll: {
@@ -171,9 +217,22 @@ const PostCard = ({
         isAnonymous: false,
         allowAddOptions: false,
       },
-      status: "PUBLISH",
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
       type: "POLL",
+      isSchedulePost,
+      ...(isSchedulePost && schedule?.date && schedule?.time
+        ? {
+          scheduledDate: new Date(
+            schedule.date.getFullYear(),
+            schedule.date.getMonth(),
+            schedule.date.getDate(),
+            schedule.time.getHours(),
+            schedule.time.getMinutes(),
+            0
+          ).toISOString(),
+        }
+        : {})
     };
     handlePost(obj);
   }
@@ -186,12 +245,25 @@ const PostCard = ({
       content: {
         ...rest,
         title,
-        ...(schedule.date && schedule.time ? { schedule } : {}),
+        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
       type: "EVENT",
       cover: selectedFile,
+      isSchedulePost,
+      ...(isSchedulePost && schedule?.date && schedule?.time
+        ? {
+          scheduledDate: new Date(
+            schedule.date.getFullYear(),
+            schedule.date.getMonth(),
+            schedule.date.getDate(),
+            schedule.time.getHours(),
+            schedule.time.getMinutes(),
+            0
+          ).toISOString(),
+        }
+        : {})
     };
     handlePost(obj);
   };
@@ -258,6 +330,11 @@ const PostCard = ({
     setShowPostModal(false);
     setSelectedFiles([]);
     fileInputRef.current.value = null
+    setIsSchedulePost(false)
+    setSchedule({
+      date: null,
+      time: null,
+    })
   };
 
   const HandleVideoModalClose = () => {
@@ -266,6 +343,11 @@ const PostCard = ({
     if (videoInputRef.current) {
       videoInputRef.current.value = null;
     }
+    setIsSchedulePost(false)
+    setSchedule({
+      date: null,
+      time: null,
+    })
   };
 
   const handleFormSubmit = (formData) => {
@@ -282,12 +364,22 @@ const PostCard = ({
   const HandleViewEventClose = () => {
     setViewEventModal(false);
     setEventFormValues({});
+    setIsSchedulePost(false)
+    setSchedule({
+      date: null,
+      time: null,
+    })
   };
 
   const HandleViewPollClose = () => {
     setViewPollModal(false)
     setPollModal(false)
     setPollValues({})
+    setIsSchedulePost(false)
+    setSchedule({
+      date: null,
+      time: null,
+    })
   }
 
   const { user: userData } = useSelector((state) => state.auth);
@@ -479,6 +571,11 @@ const PostCard = ({
         handleClose={() => {
           setShowPostModal(false)
           setTitle("")
+          setIsSchedulePost(false)
+          setSchedule({
+            date: null,
+            time: null,
+          })
         }}
         title={"Hello"}
         buttonText={"Post"}
@@ -569,6 +666,7 @@ const PostCard = ({
             time: scheduleTime,
           });
           setShowScheduleModal(false);
+          setIsSchedulePost(true)
         }}
         handleClose={() => setShowScheduleModal(false)}
         title={"Schedule post"}

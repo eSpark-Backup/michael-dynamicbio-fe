@@ -45,6 +45,10 @@ export const postApi = api.injectEndpoints({
             formData.append("thumbnails", file);
           });
         }
+
+        if (credentials?.isSchedulePost) {
+          formData.append("scheduledDate", credentials?.scheduledDate)
+        }
         return {
           url: "/post",
           method: "POST",
