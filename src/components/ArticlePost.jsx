@@ -545,7 +545,7 @@ const ArticlePost = ({
               px: { xs: "10px", md: "0px" },
             }}
           >
-            {ownPost && (
+            {/* {ownPost && (
               <Box
                 sx={{
                   display: "flex",
@@ -569,7 +569,7 @@ const ArticlePost = ({
                   style={{ width: "27px", height: "24px" }}
                 />
               </Box>
-            )}
+            )} */}
             <Box
               sx={{
                 display: "flex",
@@ -623,7 +623,7 @@ const ArticlePost = ({
                 Comment
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 columnGap: "15px",
@@ -646,7 +646,7 @@ const ArticlePost = ({
               >
                 Repost
               </Typography>
-            </Box>
+            </Box> */}
             <Box
               sx={{
                 display: "flex",
@@ -668,7 +668,7 @@ const ArticlePost = ({
                   color: "#505050",
                 }}
               >
-                Send
+                Share
               </Typography>
             </Box>
           </Box>
@@ -764,7 +764,7 @@ const ArticlePost = ({
                               justifyContent: "space-between",
                             }}
                           >
-                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                            {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                               <img
                                 src={emoji}
                                 alt="Emoji"
@@ -775,7 +775,7 @@ const ArticlePost = ({
                                 alt="Camera"
                                 style={{ width: "24px", height: "24px" }}
                               />
-                            </Box>
+                            </Box> */}
                             {commentContent && (
                               <Button
                                 loading={postCommentLoading}

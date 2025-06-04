@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { userAvatar, verticleDots } from "../assets";
+import { plus, userAvatar, verticleDots } from "../assets";
 
 const PageCard = ({
+  rightBar,
   bgNotWhite,
   isFollowLoading,
   handleFollow,
@@ -89,7 +90,10 @@ const PageCard = ({
                 textAlign: { xs: "center", sm: "left" },
               }}
             >
-              {followerCount} {mainType === "group" ? `Member${followerCount === 1 ? "" : "s"}` : `Follower${followerCount === 1 ? "" : "s"}`}
+              {followerCount}{" "}
+              {mainType === "group"
+                ? `Member${followerCount === 1 ? "" : "s"}`
+                : `Follower${followerCount === 1 ? "" : "s"}`}
             </Typography>
           </Stack>
         </Box>
@@ -102,6 +106,17 @@ const PageCard = ({
           >
             {isFollowLoading ? "loading..." : "Leave group"}
           </Typography>
+        ) : rightBar ? (
+          <img
+            onClick={(e) => {
+              if (!isFollowLoading) {
+                handleFollow(id);
+              }
+            }}
+            style={{ cursor: "pointer" }}
+            src={plus}
+            alt="add"
+          />
         ) : (
           <img
             onClick={handleClick}
@@ -158,7 +173,7 @@ const PageCard = ({
           </>
         ) : owner ? (
           <>
-            <MenuItem onClick={handleClose}>Invite members</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Invite members</MenuItem> */}
             <MenuItem
               onClick={(e) => {
                 if (!isDeleteLoading) {
@@ -169,7 +184,7 @@ const PageCard = ({
             >
               {isDeleteLoading ? "loading..." : "Delete page"}
             </MenuItem>
-            <MenuItem onClick={handleClose}>Leave page</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Leave page</MenuItem> */}
           </>
         ) : (
           <>
@@ -187,7 +202,7 @@ const PageCard = ({
                 ? "Unfollow"
                 : "Follow"}
             </MenuItem>
-            <MenuItem onClick={handleClose}>Message</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Message</MenuItem> */}
           </>
         )}
       </Menu>

@@ -1,49 +1,123 @@
-import { Box, Button, Paper, Stack, Typography, useTheme } from '@mui/material'
-import React from 'react'
-import { plus } from '../assets'
-import { interestSuggestions } from '../constant'
+import {
+  Box,
+  Button,
+  LinearProgress,
+  Paper,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useEffect } from "react";
+import { plus } from "../assets";
+import { interestSuggestions } from "../constant";
+import PageCard from "./page-card";
+import { useFollowPageMutation, useGetAllPagesQuery } from "../services/page";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const RightSideBar = ({ hideResearch }) => {
-    const theme = useTheme()
-    return (
-        <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pt: "15px", gap: 2 }}>
-                <Typography sx={{
-                    fontSize: "14px",
-                    fontWeight: 400, color: "#171717"
-                }}>
-                    You might be interested in following
-                </Typography>
-                <Typography sx={{
-                    minWidth: "60px",
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    cursor: "pointer"
-                }} variant='gradientText'>
-                    View all
-                </Typography>
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
-                {interestSuggestions?.map((item, index) => (
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#FFFFFF", border: "1px solid #E4E4E4", borderRadius: "4px", p: "5px 20px" }} key={index}>
-                        <Box sx={{ display: "flex", columnGap: "15px", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-                            <img src={item?.img} alt="User" style={{ width: "60px", height: "60px" }} />
-                            <Stack direction={"column"}>
-                                <Typography sx={{
-                                    fontSize: "16px", fontWeight: 500, color: "#171717", textAlign: { xs: "center", md: "left" }
-                                }}>{item?.name}</Typography>
-                                <Typography sx={{
-                                    fontSize: "14px",
-                                    fontWeight: 400, color: "#505050", textAlign: { xs: "center", md: "left" }
-                                }}>{item?.description}</Typography>
-                            </Stack>
-                        </Box>
-                        <img src={plus} alt="Add" />
-                    </Box>
-                ))}
-            </Box>
-        </Box>
-    )
-}
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
-export default RightSideBar
+  const {
+    data: allPagesData,
+    isLoading: isAllPagesLoading,
+    isError: isAllPagesError,
+    error: allPagesError,
+    refetch: allPagesRefetch,
+    isFetching: isAllPagesFetcing,
+  } = useGetAllPagesQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+
+  useEffect(() => {
+    if (isAllPagesError) toast.error(allPagesError?.data?.message);
+  }, [isAllPagesError]);
+
+  const allPages = allPagesData?.data?.pages || [];
+  const filteredPages = allPages.filter(
+    (item) =>
+      item?.creatorId !== user?.id &&
+      !item?.followers?.some((follower) => follower?.id === user?.id)
+  );
+
+  const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
+
+  const handleFollow = (id) => {
+    follow(id).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        toast.success(res?.data?.message);
+        allPagesRefetch();
+      }
+    });
+  };
+
+  if (isAllPagesLoading || isAllPagesFetcing) {
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LinearProgress sx={{ width: "100%" }} />
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          pt: "15px",
+          gap: 2,
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "14px",
+            fontWeight: 400,
+            color: "#171717",
+          }}
+        >
+          You might be interested in following
+        </Typography>
+        <Typography
+          sx={{
+            minWidth: "60px",
+            fontSize: "14px",
+            fontWeight: 400,
+            cursor: "pointer",
+          }}
+          variant="gradientText"
+          onClick={() => navigate(`/bonds?sub=page`)}
+        >
+          View all
+        </Typography>
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+        {filteredPages?.slice(0, 4)?.map((group) => (
+          <PageCard
+            rightBar
+            isFollowLoading={isFollowLoading}
+            handleFollow={handleFollow}
+            key={group.id}
+            {...group}
+          />
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+export default RightSideBar;

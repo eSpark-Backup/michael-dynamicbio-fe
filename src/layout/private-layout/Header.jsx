@@ -23,7 +23,7 @@ const Header = () => {
         padding: "0 20px",
       }}
     >
-      <img src={logo2} alt="Logo" />
+      <img style={{ cursor: "pointer" }} onClick={() => navigate("/")} src={logo2} alt="Logo" />
 
       {isMobile ? (
         // Mobile: Show Menu Icon
@@ -55,9 +55,9 @@ const Header = () => {
                 <img src={world} alt="World" />
                 Network
               </Button>
-              <Box sx={{ width: "204px" }}>
+              {/* <Box sx={{ width: "204px" }}>
                 <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
-              </Box>
+              </Box> */}
               <Box sx={{ width: "204px" }}>
                 <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
               </Box>
@@ -87,9 +87,9 @@ const Header = () => {
             <img src={world} alt="World" />
             Network
           </Button>
-          <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
+          {/* <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
             <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
-          </Box>
+          </Box> */}
           <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
             <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
           </Box>

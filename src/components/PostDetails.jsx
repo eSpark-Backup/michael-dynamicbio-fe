@@ -235,10 +235,10 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                             <img src={comment} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Comment</Typography>
                         </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : handleClick}>
+                        {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : handleClick}>
                             <img src={repost} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Repost</Typography>
-                        </Box>
+                        </Box> */}
                         {visibility === "PUBLIC" && <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : () => setShowShareModal(true)}>
                             <img src={send} alt="Like" />
                             <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Share</Typography>
@@ -287,10 +287,10 @@ const PostDetails = ({ images, activity, userName, userRole, postTime, userImage
                                                 onKeyDown={HandleKeyDown}
                                             />
                                             <Box sx={{ display: "flex", alignItems: "center", pl: "10px", justifyContent: "space-between" }}>
-                                                <Box sx={{ display: "flex", columnGap: "10px" }}>
+                                                {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                                                     <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
                                                     <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                                                </Box>
+                                                </Box> */}
                                                 {commentContent && <Button loading={postCommentLoading} onClick={() => HandleComment(id)} sx={{ width: "150px", height: "36px", color: "white" }}>Comment</Button>}
                                             </Box>
                                         </Box>

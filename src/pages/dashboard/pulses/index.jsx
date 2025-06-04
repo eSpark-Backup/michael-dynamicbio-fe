@@ -27,10 +27,13 @@ const Pulses = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const { isLoading, isError, error, refetch, isFetching } =
-    useGetAllNotificationsQuery({
-      page,
-      pageSize,
-    });
+    useGetAllNotificationsQuery(
+      {
+        page,
+        pageSize,
+      },
+      { refetchOnMountOrArgChange: true }
+    );
 
   useEffect(() => {
     if (isError) toast.error(error?.response?.data?.message);
@@ -50,21 +53,26 @@ const Pulses = () => {
 
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { notifications, totalItems } = useSelector(
+  const { notifications, totalPage } = useSelector(
     (state) => state.notifications
   );
 
   const tabOptions = ["All", "Mention/Research", "Group", "Company", "Pages"];
   const [activeIndex, setActiveIndex] = useState(1);
   const HandleClick = (id, metadata) => {
-    if(metadata?.event === "NEW_GROUP_REQUEST" || metadata?.event === "NEW_GROUP_POST_REQUEST") {
-      navigate(`/group/${metadata?.groupId}/manage`)
-    } else if (metadata?.event === "GROUP_REQUEST_UPDATED" || metadata?.event === "GROUP_POST_REQUEST_UPDATED") {
-      navigate(`/group/${metadata?.groupId}`)
+    if (metadata?.event === "NEW_GROUP_REQUEST") {
+      navigate(`/group/${metadata?.groupId}/manage?tab=Membership&sub-tab=Requests`);
+    } else if (metadata?.event === "NEW_GROUP_POST_REQUEST") {
+      navigate(`/group/${metadata?.groupId}/manage?tab=Content`);
+    } else if (
+      metadata?.event === "GROUP_REQUEST_UPDATED" ||
+      metadata?.event === "GROUP_POST_REQUEST_UPDATED"
+    ) {
+      navigate(`/group/${metadata?.groupId}`);
     } else if (metadata?.event === "NEW_BOND_REQUEST") {
-      navigate(`/bonds?sub=bond`)
+      navigate(`/bonds?sub=bond`);
     } else if (metadata?.event === "BOND_REQUEST_UPDATED") {
-      navigate(`/bonds?sub=bonded-synergy`)
+      navigate(`/bonds?sub=bonded-synergy`);
     }
   };
 
@@ -176,6 +184,7 @@ const Pulses = () => {
               display: "flex",
               flexDirection: "column",
               rowGap: "15px",
+              alignItems: "center",
             }}
           >
             {/* <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -214,8 +223,8 @@ const Pulses = () => {
                     <CircularProgress sx={{ color: "#1877F2" }} />
                   </Box>
                 ) : (
-                  notification?.length > 5 &&
-                  notifications?.length !== totalItems && (
+                  ((notifications?.length > 5 && !showAll) ||
+                    page < totalPage) && (
                     <Typography
                       onClick={
                         !showAll
@@ -228,6 +237,8 @@ const Pulses = () => {
                         fontWeight: "400",
                         textAlign: "center",
                         pt: "10px",
+                        cursor: "pointer",
+                        width: "max-content",
                       }}
                     >
                       {showAll ? "View More" : "View all"}

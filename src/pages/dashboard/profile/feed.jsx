@@ -209,8 +209,8 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
       >
         {[
           { title: "Bonds", count: userData?.bondCount, link: isPublic ? `/profile/bonds/${userId}` : "/bonds?sub=bonded-synergy" },
-          { title: "Your Groups", count: userData?.groupCount || userData?.yourGroupCount },
-          { title: "Joined Groups", count: userData?.followedGroupCount },
+          { title: "Your Groups", count: userData?.groupCount || userData?.yourGroupCount, link: `/bonds?sub=group` },
+          { title: "Joined Groups", count: userData?.followedGroupCount, link: `/bonds?sub=group&joined=true` },
         ].map((item) => {
           return (
             <Stack
@@ -232,7 +232,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
                 fontSize="14px"
                 fontWeight={500}
               >
-                {item?.count}
+                {item?.count || 0}
               </Typography>
               <Typography
                 sx={{ color: "#505050" }}
@@ -252,9 +252,9 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           justifyContent="space-between"
           gap={2}
         >
-          {/* <Typography fontSize="14px" fontWeight={400}>
+          <Typography fontSize="14px" fontWeight={400}>
             Activity
-          </Typography> */}
+          </Typography>
           {/* {!isPublicView && (
             <img
               style={{ cursor: "pointer", width: "24px", height: "24px" }}

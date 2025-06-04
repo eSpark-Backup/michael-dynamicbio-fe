@@ -10,6 +10,7 @@ import {
   useGetFollowedGroupsQuery,
   useGetMyGroupsQuery,
 } from "../../../../services/group";
+import { useQuery } from "../../../../utils";
 
 const Groups = () => {
   const { user } = useSelector((state) => state.auth);
@@ -121,7 +122,9 @@ const Groups = () => {
       },
     ];
   }, [myGroupsData, allGroupsData, followedGroupsData]);
-  const [activeTabLabel, setActiveTabLabel] = useState("Your Groups");
+  const query = useQuery();
+  const isJoined = query.get("joined")
+  const [activeTabLabel, setActiveTabLabel] = useState(isJoined ? "Joined" : "Your Groups");
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 

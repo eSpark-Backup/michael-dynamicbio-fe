@@ -152,11 +152,11 @@ const ViewEventModal = ({
           </Typography>
         </Box>
       </Box>
-      <img
+      {/* <img
         src={emoji}
         alt="Icon"
         style={{ width: "24px", height: "24px", marginBottom: "15px" }}
-      />
+      /> */}
       <Stack
         justifyContent={"space-between"}
         alignItems={"center"}

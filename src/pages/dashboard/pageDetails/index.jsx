@@ -205,7 +205,7 @@ const PageDetailsPage = () => {
                   }}
                 ></Box>
               </Box>
-              {data?.data?.isFollowing && (
+              {/* {data?.data?.isFollowing && (
                 <Stack
                   sx={{ width: "100%", padding: "20px" }}
                   direction="row"
@@ -219,7 +219,7 @@ const PageDetailsPage = () => {
                     alt="bell"
                   />
                 </Stack>
-              )}
+              )} */}
               <Box
                 sx={{
                   mt: data?.data?.isFollowing ? "22px" : "90px",
@@ -534,7 +534,7 @@ const PageDetailsPage = () => {
         }}
       >
         <>
-          {isMyPage && (
+          {/* {isMyPage && (
             <MenuItem
               onClick={(e) => {
                 handleClose(e);
@@ -549,7 +549,7 @@ const PageDetailsPage = () => {
             }}
           >
             Send in a message
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={(e) => {
               navigate("/bonds?sub=page&edit=true");

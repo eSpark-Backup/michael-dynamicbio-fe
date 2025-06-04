@@ -39,7 +39,8 @@ const ScheduleModal = ({
           hour: "2-digit",
           minute: "2-digit",
         })}
-        , {Intl.DateTimeFormat().resolvedOptions().timeZone}, {"based on your location"}
+        , {Intl.DateTimeFormat().resolvedOptions().timeZone},{" "}
+        {"based on your location"}
       </Typography>
       <Box
         sx={{
@@ -69,6 +70,14 @@ const ScheduleModal = ({
               Time
             </Typography>
             <TimePicker
+              slotProps={{
+                desktopPaper: {
+                  sx: {
+                    p: 0,
+                    button: { height: "40px" },
+                  },
+                },
+              }}
               value={scheduleTime}
               onChange={(time) => setScheduleTime(time)}
             />
@@ -76,7 +85,7 @@ const ScheduleModal = ({
         </LocalizationProvider>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
           paddingTop: "20px",
           display: "flex",
@@ -96,7 +105,7 @@ const ScheduleModal = ({
           alt="Icon"
           style={{ width: "24px", height: "24px" }}
         />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

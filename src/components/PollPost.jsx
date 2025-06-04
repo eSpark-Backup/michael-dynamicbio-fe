@@ -903,7 +903,7 @@ const PollPost = ({
                 Comment
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 columnGap: "15px",
@@ -926,7 +926,7 @@ const PollPost = ({
               >
                 Repost
               </Typography>
-            </Box>
+            </Box> */}
             <Box
               sx={{
                 display: "flex",
@@ -1045,7 +1045,7 @@ const PollPost = ({
                               justifyContent: "space-between",
                             }}
                           >
-                            <Box sx={{ display: "flex", columnGap: "10px" }}>
+                            {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
                               <img
                                 src={emoji}
                                 alt="Emoji"
@@ -1056,7 +1056,7 @@ const PollPost = ({
                                 alt="Camera"
                                 style={{ width: "24px", height: "24px" }}
                               />
-                            </Box>
+                            </Box> */}
                             {commentContent && (
                               <Button
                                 loading={postCommentLoading}

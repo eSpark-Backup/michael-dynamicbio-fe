@@ -88,7 +88,7 @@ const Comment = ({ userImage, userName, comment, time, hasLiked, likesCount, all
                         <Typography sx={{ fontSize: "12px", fontWeight: 400, color: "#71717A" }}>
                             {dayjs(time).isAfter(dayjs()) ? dayjs().fromNow() : dayjs(time).fromNow()}
                         </Typography>
-                        <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} />
+                        {/* <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} /> */}
                     </Box>
                 </Box>
                 <Typography sx={{ fontSize: "14px", fontWeight: 400, color: "#18181B", pr: '4px', whiteSpace: 'pre-line', }}>

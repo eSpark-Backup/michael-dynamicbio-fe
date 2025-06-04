@@ -531,13 +531,13 @@ export const pageTypes = [
     alt: "company",
     link: "/bonds?sub=page&edit=true&pageType=company",
   },
-  {
-    title: "Educational Institute",
-    desc: "School and universities",
-    icon: school,
-    alt: "school",
-    link: null,
-  },
+  // {
+  //   title: "Educational Institute",
+  //   desc: "School and universities",
+  //   icon: school,
+  //   alt: "school",
+  //   link: null,
+  // },
 ];
 
 
