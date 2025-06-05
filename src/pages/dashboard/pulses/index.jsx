@@ -23,7 +23,6 @@ import { useNavigate } from "react-router-dom";
 
 const Pulses = () => {
   const theme = useTheme();
-  const [showAll, setShowAll] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const { isLoading, isError, error, refetch, isFetching } =
@@ -61,7 +60,9 @@ const Pulses = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const HandleClick = (id, metadata) => {
     if (metadata?.event === "NEW_GROUP_REQUEST") {
-      navigate(`/group/${metadata?.groupId}/manage?tab=Membership&sub-tab=Requests`);
+      navigate(
+        `/group/${metadata?.groupId}/manage?tab=Membership&sub-tab=Requests`
+      );
     } else if (metadata?.event === "NEW_GROUP_POST_REQUEST") {
       navigate(`/group/${metadata?.groupId}/manage?tab=Content`);
     } else if (
@@ -193,11 +194,7 @@ const Pulses = () => {
             </Box> */}
             {notifications?.length > 0 ? (
               <>
-                {(() => {
-                  const NotToShow = showAll
-                    ? notifications
-                    : notifications?.slice(0, 5);
-                  return NotToShow?.map((item) => (
+                {notifications?.map((item) => (
                     <PulseProfileCard
                       key={item?._id}
                       userRole={item?.title}
@@ -209,8 +206,8 @@ const Pulses = () => {
                       HandleClick={HandleClick}
                       activeItem={activeIndex}
                     />
-                  ));
-                })()}
+                  ))
+                }
                 {isFetching ? (
                   <Box
                     sx={{
@@ -223,14 +220,9 @@ const Pulses = () => {
                     <CircularProgress sx={{ color: "#1877F2" }} />
                   </Box>
                 ) : (
-                  ((notifications?.length > 5 && !showAll) ||
-                    page < totalPage) && (
+                  page < totalPage && (
                     <Typography
-                      onClick={
-                        !showAll
-                          ? () => setShowAll(true)
-                          : () => setPage((prev) => prev + 1)
-                      }
+                      onClick={() => setPage((prev) => prev + 1)}
                       variant="gradientText"
                       sx={{
                         fontSize: "14px",
@@ -241,7 +233,7 @@ const Pulses = () => {
                         width: "max-content",
                       }}
                     >
-                      {showAll ? "View More" : "View all"}
+                      View More
                     </Typography>
                   )
                 )}

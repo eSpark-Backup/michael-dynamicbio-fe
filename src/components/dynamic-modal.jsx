@@ -146,12 +146,12 @@ const DynamicModal = ({
                   >
                     {page ? page?.name : userName}
                   </Typography>
-                  <img
+                  {!adminPage && !isEditModal && <img
                     src={downArrowFilled}
                     alt="Icon"
                     style={{ cursor: "pointer" }}
                     onClick={adminPage ? handleDropdown : isEditModal ? () => { } : handleClick}
-                  />
+                  />}
                 </Stack>
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
