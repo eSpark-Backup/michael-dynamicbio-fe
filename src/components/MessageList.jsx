@@ -18,8 +18,8 @@ const MessageList = ({
   chatId,
 }) => {
   const { user: userData } = useSelector((state) => state.auth);
-  const fullMembers = [...sender?.members];
-  const fullAvatars = [...sender?.avatar];
+  const fullMembers = sender?.members ? [...sender?.members] : [];
+  const fullAvatars = sender?.avatar ? [...sender?.avatar] : [];
   const memberName = sender?.groupChat
     ? [...sender?.memberName]
     : [sender?.memberName];

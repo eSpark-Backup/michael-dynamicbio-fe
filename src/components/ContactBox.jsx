@@ -55,7 +55,7 @@ const ContactBox = ({
           ></Box>
         )}
       </Box>
-      <Box flex={1}>
+      <Box pr="3px" flex={1}>
         <Box
           sx={{
             display: "flex",
@@ -72,7 +72,7 @@ const ContactBox = ({
               textOverflow: "ellipsis",
               overflow: "hidden",
               whiteSpace: "nowrap",
-              width: "140px",
+              width: { xs: "max-content", lg: "80px", xl1: "max-content" },
             }}
           >
             {name}

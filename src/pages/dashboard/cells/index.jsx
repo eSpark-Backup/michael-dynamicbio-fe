@@ -123,6 +123,7 @@ const Cells = () => {
     setSelectedNames([]);
     if (isSmallScreen) {
       setShowContacts(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -137,6 +138,7 @@ const Cells = () => {
       : firstId
       ? navigate(`/cells?id=${firstId}`)
       : navigate(`/cells`);
+      !id && !chatList?.some((item) => item?._id === id) && !firstId && setShowChatScreen(false);
   }, [isSmallScreen]);
 
   const HandleNewConversation = () => {
@@ -208,6 +210,7 @@ const Cells = () => {
         : firstId
         ? navigate(`/cells?id=${firstId}`)
         : navigate(`/cells`);
+      !id && !chatListArr?.some((item) => item?._id === id) && !firstId && setShowChatScreen(false);
       setLoading(false);
     }
   }, [data, isSuccess, member]);
@@ -734,6 +737,7 @@ const Cells = () => {
                     background: `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)`,
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
+                    cursor: "pointer",
                   }}
                   onClick={HandleBack}
                 />
@@ -1114,12 +1118,12 @@ const Cells = () => {
                           const chat = mainChat.find(
                             (item) => item?._id === id
                           );
-                          const fullMembers = [...chat?.members];
-                          const fullAvatars = [...chat?.avatar];
-                          const memberIds = [...chat?.accountId];
+                          const fullMembers = chat?.members ? [...chat?.members] : [];
+                          const fullAvatars = chat?.members ? [...chat?.avatar] : [];
+                          const memberIds = chat?.members ? [...chat?.accountId] : [];
                           const ind = memberIds.findIndex(
                             (id) => id === userData?.id
-                          );
+                          ) || -1;
                           if (ind !== -1) {
                             fullMembers.splice(ind, 0, userData?.userChatId);
                           }
@@ -1133,6 +1137,7 @@ const Cells = () => {
                                   width: "48px",
                                   height: "48px",
                                   position: "relative",
+                                  cursor: "pointer",
                                 }}
                                 key={index}
                                 onClick={() => setGroupModal(true)}
@@ -1275,7 +1280,7 @@ const Cells = () => {
                       onClick={handleChat}
                       src={send}
                       alt="Camera"
-                      style={{ width: "24px", height: "24px" }}
+                      style={{ cursor: "pointer", width: "24px", height: "24px" }}
                     />
                   </Box>
                 </Box>
@@ -1295,7 +1300,7 @@ const Cells = () => {
             </Paper>
           </Grid2>
         )}
-        <Grid2 size={{ xs: 12, lg: 3 }} pb={"10px"}>
+        <Grid2 sx={{ display: { xs: "none", lg: "block" }}} size={{ xs: 12, lg: 3 }} pb={"10px"}>
           <RightSideBar hideResearch={true} />
         </Grid2>
       </Grid2>
