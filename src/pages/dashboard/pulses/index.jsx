@@ -43,13 +43,18 @@ const Pulses = () => {
     const handleRefetch = () => {
       refetch();
     };
-
     eventBus.on("refetchnotifications", handleRefetch);
 
+    const interval = setInterval(() => {
+      refetch();
+    }, 60000);
+    
     return () => {
       eventBus.off("refetchnotifications", handleRefetch);
+      clearInterval(interval);
     };
   }, []);
+
 
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -241,7 +246,8 @@ const Pulses = () => {
                         width: "max-content",
                       }}
                     >
-                      {showAll ? "View More" : "View all"}
+                      {/* {showAll ? "View More" : "View all"} */}
+                      View more
                     </Typography>
                   )
                 )}
