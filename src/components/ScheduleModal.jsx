@@ -70,14 +70,6 @@ const ScheduleModal = ({
               Time
             </Typography>
             <TimePicker
-              slotProps={{
-                desktopPaper: {
-                  sx: {
-                    p: 0,
-                    button: { height: "40px" },
-                  },
-                },
-              }}
               value={scheduleTime}
               onChange={(time) => setScheduleTime(time)}
             />

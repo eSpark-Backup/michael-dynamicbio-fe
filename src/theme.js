@@ -174,6 +174,20 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiPickersPopper: {
+          styleOverrides: {
+            paper: {
+              padding: 0,
+            },
+          },
+        },
+        MuiPickersDesktopPaper: {
+          styleOverrides: {
+            root: {
+              padding: 0,
+            },
+          },
+        },
         MuiMenu: {
             styleOverrides: {
                 paper: {
