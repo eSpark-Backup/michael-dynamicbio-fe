@@ -1,8 +1,8 @@
 import React from 'react'
 
-const TypingDots = () => {
+const TypingDots = ({ className }) => {
     return (
-        <div className="typing-indicator">
+        <div className={`${className} typing-indicator`}>
             <span className="dot"></span>
             <span className="dot"></span>
             <span className="dot"></span>
