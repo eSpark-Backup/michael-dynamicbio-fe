@@ -9,10 +9,14 @@ export const chatApi = api.injectEndpoints({
       }),
     }),
     getAllChat: builder.query({
-      query: ({ id, page, pageSize }) => ({
-        url: `/chat/message/${id}?page=${page}&pageSize=${pageSize}`,
-        method: "GET",
-      }),
+      query: ({ id, page, pageSize }) => {
+        return id
+          ? {
+              url: `/chat/message/${id}?page=${page}&pageSize=${pageSize}`,
+              method: "GET",
+            }
+          : {};
+      },
     }),
     createGroupChat: builder.mutation({
       query: (credentials) => ({

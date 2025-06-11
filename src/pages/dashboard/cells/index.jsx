@@ -1123,7 +1123,7 @@ const Cells = () => {
                           const memberIds = chat?.members ? [...chat?.accountId] : [];
                           const ind = memberIds.findIndex(
                             (id) => id === userData?.id
-                          ) || -1;
+                          );
                           if (ind !== -1) {
                             fullMembers.splice(ind, 0, userData?.userChatId);
                           }
