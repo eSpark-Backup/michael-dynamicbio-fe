@@ -23,7 +23,17 @@ export const chatApi = api.injectEndpoints({
         },
       }),
     }),
+    deleteChat: builder.mutation({
+      query: ({ chatId }) => ({
+        url: `/user/chat-history/${chatId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useChatBotHistoryQuery, useChatBotMessageByIdQuery } = chatApi;
+export const {
+  useChatBotHistoryQuery,
+  useChatBotMessageByIdQuery,
+  useDeleteChatMutation,
+} = chatApi;

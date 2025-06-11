@@ -3,6 +3,8 @@ import {
   Box,
   Drawer,
   LinearProgress,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import {
@@ -29,7 +31,9 @@ import { TypingDots } from "../../components";
 import {
   useChatBotHistoryQuery,
   useChatBotMessageByIdQuery,
+  useDeleteChatMutation,
 } from "../../services/chat-bot";
+import { toast } from "react-toastify";
 
 const DDT = () => {
   const query = useQuery();
@@ -168,6 +172,39 @@ const DDT = () => {
       }
     };
   }, [isLoading, hasMore]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event, id) => {
+    setAnchorEl(event.currentTarget);
+    setSelected(id);
+  };
+
+  const handleClose = (event) => {
+    event.stopPropagation();
+    setAnchorEl(null);
+    setSelected(null);
+  };
+
+  const [deleteChat] = useDeleteChatMutation();
+
+  const handleRemove = (e) => {
+    handleClose(e);
+    const bodyToSend = {
+      chatId: selected,
+    };
+    deleteChat(bodyToSend).then((res) => {
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+        return;
+      }
+      if (res?.data) {
+        refetch();
+      }
+    });
+  };
 
   return (
     <Box
@@ -508,12 +545,34 @@ const DDT = () => {
                     ? item?.heading?.slice(0, 18) + "..."
                     : item?.heading}
                 </Typography>
-                <img src={horizontalDots} alt="Icon" />
+                <img
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick(e, item?.chatId);
+                  }}
+                  src={horizontalDots}
+                  alt="Icon"
+                />
               </Box>
             ))}
           </Box>
         </Drawer>
       </Box>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuItem onClick={handleRemove}>Remove chat</MenuItem>
+      </Menu>
     </Box>
   );
 };
