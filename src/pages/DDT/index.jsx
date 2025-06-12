@@ -96,7 +96,12 @@ const DDT = () => {
         { content: item.question, response: false },
         { content: item.answer, response: true },
       ]);
-      setDdtContent((prev) => [...separated, ...prev]);
+      if (page === 1) {
+        setDdtContent([]);
+        setDdtContent(separated);
+      } else {
+        setDdtContent((prev) => [...separated, ...prev]);
+      }
     }
   }, [data2]);
 
@@ -104,10 +109,20 @@ const DDT = () => {
     if (!id) {
       setDdtContent([]);
     }
+    setPage(1);
+    setHasMore(true);
+    setFetchingMore(false);
   }, [id]);
 
+  const typeWriter = async (text, delay = 30, onUpdate) => {
+    for (let i = 0; i <= text.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      onUpdate(text.slice(0, i));
+    }
+  };
+
   const askQuestion = async () => {
-    if (loading) {
+    if (loading || !message.trim()) {
       return;
     }
     setMessage("");
@@ -128,11 +143,19 @@ const DDT = () => {
     );
 
     const data = await response.json();
-    setDdtContent((prev) => [
-      ...prev,
-      { content: data?.answer, response: true },
-    ]);
+    const fullAnswer = data?.answer || "";
+
+    let currentIndex = ddtContent.length + 1;
+    setDdtContent((prev) => [...prev, { content: "", response: true }]);
+
     setLoading(false);
+    await typeWriter(fullAnswer, 20, (partial) => {
+      setDdtContent((prev) =>
+        prev.map((item, index) =>
+          index === currentIndex ? { ...item, content: partial } : item
+        )
+      );
+    });
     !id && refetch();
     !id && navigate(`/ddt?id=${data?.chatId}`);
   };
@@ -202,6 +225,7 @@ const DDT = () => {
       }
       if (res?.data) {
         refetch();
+        selected === id && navigate("/ddt");
       }
     });
   };
@@ -330,8 +354,8 @@ const DDT = () => {
                   alt="Icon"
                   style={{ cursor: "pointer" }}
                 />
-                <img src={positive} alt="Icon" style={{ cursor: "pointer" }} />
-                <img src={negative} alt="Icon" style={{ cursor: "pointer" }} />
+                {/* <img src={positive} alt="Icon" style={{ cursor: "pointer" }} />
+                <img src={negative} alt="Icon" style={{ cursor: "pointer" }} /> */}
               </Box>
             )}
           </Box>

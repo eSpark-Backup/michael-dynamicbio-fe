@@ -129,7 +129,7 @@ const Cells = () => {
 
   useEffect(() => {
     const memberId = chatList?.find((item) =>
-      item?.members?.some((memberId) => memberId === member)
+      !item?.groupChat && item?.members?.some((memberId) => memberId === member)
     )?._id;
     const firstId =
       chatList?.length > 0 ? (member ? memberId : chatList[0]?._id) : null;
@@ -197,7 +197,7 @@ const Cells = () => {
       setMainChat(chatListArr);
       setShowChatScreen(true);
       const memberId = chatListArr?.find((item) =>
-        item?.members?.some((memberId) => memberId === member)
+        !item?.groupChat && item?.members?.some((memberId) => memberId === member)
       )?._id;
       const firstId =
         chatListArr?.length > 0
