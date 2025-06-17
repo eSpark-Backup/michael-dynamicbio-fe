@@ -39,16 +39,16 @@ const Home = () => {
 
   const skip = !userData?.id;
 
-  const { data, error, isLoading, isSuccess, isFetching, refetch } = useGetFeedPostsQuery(
-    { page, limit: 15, userId: userData?.id },
-    {
-      skip,
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
-
+  const { data, error, isLoading, isSuccess, isFetching, refetch } =
+    useGetFeedPostsQuery(
+      { page, limit: 15, userId: userData?.id },
+      {
+        skip,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+        refetchOnReconnect: true,
+      }
+    );
 
   useEffect(() => {
     setPosts([]);
@@ -64,7 +64,6 @@ const Home = () => {
 
   useEffect(() => {
     if (isSuccess) {
-
       if (!data?.data) {
         setPosts([]);
         setHasMore(false);
@@ -76,9 +75,11 @@ const Home = () => {
       if (page === 1) {
         setPosts(newPosts);
       } else {
-        const existingIds = new Set(posts.map(p => p.id));
-        const uniqueNewPosts = newPosts.filter(post => !existingIds.has(post.id));
-        setPosts(prev => [...prev, ...uniqueNewPosts]);
+        const existingIds = new Set(posts.map((p) => p.id));
+        const uniqueNewPosts = newPosts.filter(
+          (post) => !existingIds.has(post.id)
+        );
+        setPosts((prev) => [...prev, ...uniqueNewPosts]);
       }
 
       setHasMore(
@@ -88,94 +89,121 @@ const Home = () => {
   }, [data, isSuccess, page]);
 
   const transformPosts = (posts) => {
-    return posts
-      // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
-      .map((item) => {
-        const isOwnPost = item?.author?.id === userData?.id;
-        const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
-          item?.likes?.some((item) =>
-            item?.user?.firstName?.toLowerCase() === userData?.firstName?.toLowerCase() &&
-            item?.user?.lastName?.toLowerCase() === userData?.lastName?.toLowerCase()
-          );
+    return (
+      posts
+        // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
+        .map((item) => {
+          const isOwnPost = item?.author?.id === userData?.id;
+          const isuserLiked =
+            item?.likes &&
+            Array.isArray(item?.likes) &&
+            item?.likes?.some(
+              (item) =>
+                item?.user?.firstName?.toLowerCase() ===
+                  userData?.firstName?.toLowerCase() &&
+                item?.user?.lastName?.toLowerCase() ===
+                  userData?.lastName?.toLowerCase()
+            );
 
-        let lastLike = "";
+          let lastLike = "";
 
-        const isOnlyUserLiked = item?.likes?.length === 1;
-        if (isuserLiked && isOnlyUserLiked) {
-          lastLike = "";
-        } else if (!isuserLiked) {
-          lastLike = item?.lastLikedUser;
-        } else if (Array.isArray(item?.likes)) {
-          const newItem = item?.likes?.find((item2) =>
-            item2?.user?.firstName?.toLowerCase() !== userData?.firstName?.toLowerCase() &&
-            item2?.user?.lastName?.toLowerCase() !== userData?.lastName?.toLowerCase()
-          );
-          lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
-        }
+          const isOnlyUserLiked = item?.likes?.length === 1;
+          if (isuserLiked && isOnlyUserLiked) {
+            lastLike = "";
+          } else if (!isuserLiked) {
+            lastLike = item?.lastLikedUser;
+          } else if (Array.isArray(item?.likes)) {
+            const newItem = item?.likes?.find(
+              (item2) =>
+                item2?.user?.firstName?.toLowerCase() !==
+                  userData?.firstName?.toLowerCase() &&
+                item2?.user?.lastName?.toLowerCase() !==
+                  userData?.lastName?.toLowerCase()
+            );
+            lastLike = `${newItem?.user?.firstName} ${newItem?.user?.lastName}`;
+          }
 
-        return {
-          userId: item?.author?.id,
-          userName: item?.isPagePost ? item?.page?.name : `${item?.author?.firstName} ${item?.author?.lastName}`,
-          userRole: item?.isPagePost ? item?.pageFollowerCount : item?.author?.company,
-          postTime: dayjs(item?.createdAt).fromNow(),
-          userImage: item?.isPagePost ? item?.page?.logoUrl : item?.author?.profileImage,
-          numberofLikes: item?.likesCount,
-          isLiked: isuserLiked,
-          comments: item?.commentsCount,
-          activity: "",
-          postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
-          postContent: item?.content?.title,
-          commentsContent: [],
-          type: getPostType(item?.type),
-          videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : '',
-          thumbnail: item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : '',
-          question: item?.type === "POLL" ? item?.poll?.question : "",
-          options: getPollOptions(item),
-          voteCount: item?.poll?.votes?.length || 0,
-          endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-          pollId: item?.poll?.id || "",
-          isVoted: false,
-          eventName: item?.content?.name,
-          eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
-          startTime: item?.content?.startTime,
-          endTime: item?.content?.showEndTime && item?.content?.endTime,
-          eventType: item?.content?.eventType,
-          eventLink: item?.content?.externalLink,
-          attendees: [{ image: user }],
-          eventPost: "bringback",
-          id: item?.id,
-          articleImage: item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-          articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-          articleDescription: item?.type === "ARTICLE" && item?.content?.content,
-          ownPost: isOwnPost,
-          isFriendPost: item?.isBond,
-          lastUserLiked: lastLike,
-          allLikesData: item?.likes?.map((like) => ({
-            id: like?.user?.id,
-            firstName: like?.user?.firstName,
-            lastName: like?.user?.lastName,
-            profileImage: like?.user?.profileImage,
-            designation: like?.user?.designation,
-            isBond: like.isBond,
-          })) || [],
-          isSaved: item?.isSaved,
-          postVisibility: item?.isGroupPost ? item?.group?.status : item?.visibility,
-          commentVisibility: item?.commentVisibility,
-          canComment: item?.canComment,
-          isPagePost: item?.isPagePost,
-          isUserPost: !isOwnPost && !item?.isPagePost,
-          isPageFollowing: item?.isPageFollowing,
-          pageId: item?.isPagePost ? item?.page?.id : "",
-          shareableLink: item?.shareableLink,
-          groupPost: item?.isGroupPost,
-          pinned: false,
-          isAdminPost: true,
-          groupName: item?.isGroupPost ? item?.group?.name : "",
-          groupId: item?.isGroupPost ? item?.group?.id : "",
-          groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
-          isUserAdmin: item?.isAdmin || item?.isCreator,
-        };
-      });
+          return {
+            userId: item?.author?.id,
+            userName: item?.isPagePost
+              ? item?.page?.name
+              : `${item?.author?.firstName} ${item?.author?.lastName}`,
+            userRole: item?.isPagePost
+              ? item?.pageFollowerCount
+              : item?.author?.company,
+            postTime: dayjs(item?.createdAt).fromNow(),
+            userImage: item?.isPagePost
+              ? item?.page?.logoUrl
+              : item?.author?.profileImage,
+            numberofLikes: item?.likesCount,
+            isLiked: isuserLiked,
+            comments: item?.commentsCount,
+            activity: "",
+            postPic:
+              item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
+            postContent: item?.content?.title,
+            commentsContent: [],
+            type: getPostType(item?.type),
+            videoUrl:
+              item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
+            thumbnail:
+              item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
+            question: item?.type === "POLL" ? item?.poll?.question : "",
+            options: getPollOptions(item),
+            voteCount: item?.poll?.votes?.length || 0,
+            endDate: item?.poll?.endDate
+              ? getDaysLeft(item?.poll?.endDate)
+              : "",
+            pollId: item?.poll?.id || "",
+            isVoted: false,
+            eventName: item?.content?.name,
+            eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+            startTime: item?.content?.startTime,
+            endTime: item?.content?.showEndTime && item?.content?.endTime,
+            eventType: item?.content?.eventType,
+            eventLink: item?.content?.externalLink,
+            attendees: [{ image: user }],
+            eventPost: "bringback",
+            id: item?.id,
+            articleImage:
+              item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+            articleTitle:
+              item?.type === "ARTICLE" && item?.content?.articleTitle,
+            articleDescription:
+              item?.type === "ARTICLE" && item?.content?.content,
+            ownPost: isOwnPost,
+            isFriendPost: item?.isBond,
+            lastUserLiked: lastLike,
+            allLikesData:
+              item?.likes?.map((like) => ({
+                id: like?.user?.id,
+                firstName: like?.user?.firstName,
+                lastName: like?.user?.lastName,
+                profileImage: like?.user?.profileImage,
+                designation: like?.user?.designation,
+                isBond: like.isBond,
+              })) || [],
+            isSaved: item?.isSaved,
+            postVisibility: item?.isGroupPost
+              ? item?.group?.status
+              : item?.visibility,
+            commentVisibility: item?.commentVisibility,
+            canComment: item?.canComment,
+            isPagePost: item?.isPagePost,
+            isUserPost: !isOwnPost && !item?.isPagePost,
+            isPageFollowing: item?.isPageFollowing,
+            pageId: item?.isPagePost ? item?.page?.id : "",
+            shareableLink: item?.shareableLink,
+            groupPost: item?.isGroupPost,
+            pinned: false,
+            isAdminPost: true,
+            groupName: item?.isGroupPost ? item?.group?.name : "",
+            groupId: item?.isGroupPost ? item?.group?.id : "",
+            groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+            isUserAdmin: item?.isAdmin || item?.isCreator,
+          };
+        })
+    );
   };
 
   const getPostType = (type) => {
@@ -185,7 +213,7 @@ const Home = () => {
       TEXT: "normal",
       POLL: "poll",
       EVENT: "event",
-      ARTICLE: "article"
+      ARTICLE: "article",
     };
     return typeMap[type] || "";
   };
@@ -209,19 +237,16 @@ const Home = () => {
 
   const fetchMoreData = () => {
     if (!isLoading) {
-      setPage(prev => prev + 1);
+      setPage((prev) => prev + 1);
     }
   };
 
   const handlePostDelete = (postId) => {
-    setPosts(prev => prev.filter(post => post.id !== postId));
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
   };
 
-
   if (isLoading) {
-    return (
-      <LinearProgress />
-    )
+    return <LinearProgress />;
   }
 
   return (
@@ -269,7 +294,7 @@ const Home = () => {
                   width: "100px",
                   height: "100px",
                   borderRadius: "50%",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => navigate(`/profile/${userData?.id}`)}
               />
@@ -285,7 +310,13 @@ const Home = () => {
                   cursor: "pointer",
                 }}
               >
-                {`${userData?.firstName?.slice(0, 1).toUpperCase() + userData?.firstName?.slice(1)} ${userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}`}
+                {`${
+                  userData?.firstName?.slice(0, 1).toUpperCase() +
+                  userData?.firstName?.slice(1)
+                } ${
+                  userData?.lastName?.slice(0, 1).toUpperCase() +
+                  userData?.lastName?.slice(1)
+                }`}
               </Typography>
               <Typography
                 sx={{
@@ -317,7 +348,7 @@ const Home = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => navigate("/bonds")}
               >
@@ -341,19 +372,29 @@ const Home = () => {
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    color: "#171717",
+                    cursor: "pointer",
+                  }}
                   onClick={() => navigate("/bonds?sub=group")}
                 >
                   Groups
                 </Typography>
-                <Typography
+                {/* <Typography
                   sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
                   onClick={() => navigate("/bonds?sub=events")}
                 >
                   Events
-                </Typography>
+                </Typography> */}
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    color: "#171717",
+                    cursor: "pointer",
+                  }}
                   onClick={() => navigate("/save-posts")}
                 >
                   Saved Items
@@ -441,14 +482,25 @@ const Home = () => {
             hasMore={hasMore}
             loader={(isLoading || isFetching) && <LinearProgress />}
             endMessage={
-              <Typography my={2} textAlign="center" fontSize="18px" fontWeight={700}>
-                {posts.length === 0 ? 'No posts available' : 'No more posts'}
+              <Typography
+                my={2}
+                textAlign="center"
+                fontSize="18px"
+                fontWeight={700}
+              >
+                {posts.length === 0 ? "No posts available" : "No more posts"}
               </Typography>
             }
           >
-            <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+            >
               {posts.map((item) => (
-                <SuggestionPost key={item.id} {...item} handlePostDelete={handlePostDelete} />
+                <SuggestionPost
+                  key={item.id}
+                  {...item}
+                  handlePostDelete={handlePostDelete}
+                />
               ))}
             </Box>
           </InfiniteScroll>

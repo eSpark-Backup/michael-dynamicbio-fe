@@ -10,7 +10,15 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Button from "./button";
-import { close, downArrowFilled, dummyPhoto, profile2, rightArrow, timer, user } from "../assets";
+import {
+  close,
+  downArrowFilled,
+  dummyPhoto,
+  profile2,
+  rightArrow,
+  timer,
+  user,
+} from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
@@ -112,13 +120,26 @@ const DynamicModal = ({
             }),
           }}
         >
-          {!dropdownHeader && <Box>
-            <Typography>{title}</Typography>
-            {description && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>{description}</Typography>}
-          </Box>}
+          {!dropdownHeader && (
+            <Box>
+              <Typography>{title}</Typography>
+              {description && (
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                >
+                  {description}
+                </Typography>
+              )}
+            </Box>
+          )}
           {dropdownHeader && (
             <Box
-              sx={{ display: "flex", columnGap: "15px", alignItems: "center", position: "relative" }}
+              sx={{
+                display: "flex",
+                columnGap: "15px",
+                alignItems: "center",
+                position: "relative",
+              }}
             >
               <img
                 style={{ borderRadius: "50%" }}
@@ -130,8 +151,8 @@ const DynamicModal = ({
                       ? page.logoUrl
                       : user
                     : userData?.profileImage
-                      ? userData.profileImage
-                      : user
+                    ? userData.profileImage
+                    : user
                 }
                 alt="Avatar"
               />
@@ -146,12 +167,20 @@ const DynamicModal = ({
                   >
                     {page ? page?.name : userName}
                   </Typography>
-                  {!adminPage && !isEditModal && <img
-                    src={downArrowFilled}
-                    alt="Icon"
-                    style={{ cursor: "pointer" }}
-                    onClick={adminPage ? handleDropdown : isEditModal ? () => { } : handleClick}
-                  />}
+                  {!adminPage && !isEditModal && (
+                    <img
+                      src={downArrowFilled}
+                      alt="Icon"
+                      style={{ cursor: "pointer" }}
+                      onClick={
+                        adminPage
+                          ? handleDropdown
+                          : isEditModal
+                          ? () => {}
+                          : handleClick
+                      }
+                    />
+                  )}
                 </Stack>
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
@@ -159,26 +188,46 @@ const DynamicModal = ({
                   {groupAdmin
                     ? `Post to ${group?.name}`
                     : visibility === "PUBLIC"
-                      ? "Post to anyone"
-                      : visibility === "CONNECTIONS"
-                        ? "Post to my connections"
-                        : visibility === "ONLY_ME"
-                          ? "Post only for me"
-                          : "Post for group"}
-
+                    ? "Post to anyone"
+                    : visibility === "CONNECTIONS"
+                    ? "Post to my connections"
+                    : visibility === "ONLY_ME"
+                    ? "Post only for me"
+                    : "Post for group"}
                 </Typography>
               </Stack>
-              {groupAdmin && <Box sx={{ position: "absolute", width: "30px", height: "30px", left: "25px", bottom: "-13px", backgroundImage: `url("${group?.logoUrl || dummyPhoto}")`, backgroundPosition: "center", backgroundSize: "100%" }}>
-
-              </Box>}
+              {groupAdmin && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    width: "30px",
+                    height: "30px",
+                    left: "25px",
+                    bottom: "-13px",
+                    backgroundImage: `url("${group?.logoUrl || dummyPhoto}")`,
+                    backgroundPosition: "center",
+                    backgroundSize: "100%",
+                  }}
+                ></Box>
+              )}
             </Box>
           )}
-          {showUndoText ? <Typography variant="gradientText" onClick={handleClose} sx={{ cursor: "pointer" }}>Undo</Typography> : <img
-            onClick={handleClose}
-            src={close}
-            alt="close"
-            style={{ cursor: "pointer" }}
-          />}
+          {showUndoText ? (
+            <Typography
+              variant="gradientText"
+              onClick={handleClose}
+              sx={{ cursor: "pointer" }}
+            >
+              Undo
+            </Typography>
+          ) : (
+            <img
+              onClick={handleClose}
+              src={close}
+              alt="close"
+              style={{ cursor: "pointer" }}
+            />
+          )}
         </Stack>
         <Box
           sx={{
@@ -262,19 +311,21 @@ const DynamicModal = ({
                 </Typography>
               </Box>
             )}
-            {!noBtn && <Button
-              disabled={isLoading || disabled}
-              loading={isLoading}
-              type="submit"
-              sx={{
-                maxWidth: postModal ? "150px" : "250px",
-                height: postModal ? "36px" : "65px",
-                fontSize: postModal ? "16px" : "20px",
-              }}
-              onClick={onSuccess}
-            >
-              {buttonText}
-            </Button>}
+            {!noBtn && (
+              <Button
+                disabled={isLoading || disabled}
+                loading={isLoading}
+                type="submit"
+                sx={{
+                  maxWidth: postModal ? "150px" : "250px",
+                  height: postModal ? "36px" : "65px",
+                  fontSize: postModal ? "16px" : "20px",
+                }}
+                onClick={onSuccess}
+              >
+                {buttonText}
+              </Button>
+            )}
           </Stack>
         )}
         <Menu
@@ -338,7 +389,7 @@ const DynamicModal = ({
               </MenuItem>
             ))}
 
-            <MenuItem
+            {/* <MenuItem
               onClick={HandlegroupItemClicked}
               sx={{
                 width: "245px",
@@ -365,7 +416,7 @@ const DynamicModal = ({
                   left: "15px",
                 }}
               />
-            </MenuItem>
+            </MenuItem> */}
           </RadioGroup>
         </Menu>
       </Box>
