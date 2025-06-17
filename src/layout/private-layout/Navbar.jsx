@@ -1,6 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { OutlinedInput } from "../../components";
 import {
   bellActive,
@@ -30,7 +44,7 @@ const Navbar = () => {
   const [activeItem, setActiveItem] = useState("Home");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const token = window.localStorage.getItem("token")
+  const token = window.localStorage.getItem("token");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,13 +101,13 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const { search } = useSelector(state => state.search);
+  const { search } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const onInputChange = (e) => {
     dispatch(handleChange(e.target.value));
-  }
+  };
 
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <Box
@@ -106,8 +120,14 @@ const Navbar = () => {
         px: { xs: "10px", lg: "30px" },
       }}
     >
-      <Box sx={{ width: { xs: "0px", lg: "204px" }, visibility: "hidden", border: "1px solid red" }}></Box>
-      {isMobile ?
+      <Box
+        sx={{
+          width: { xs: "0px", lg: "204px" },
+          visibility: "hidden",
+          border: "1px solid red",
+        }}
+      ></Box>
+      {isMobile ? (
         <Box sx={{ display: "flex", pr: "5px" }}>
           <Box
             sx={{
@@ -161,48 +181,61 @@ const Navbar = () => {
                 horizontal: "left",
               }}
             >
-              {
-                token
-                  ?
-                  <>
-                    <MenuItem
-                      onClick={(e) => {
-                        navigate(`/profile/${user?.id}`);
-                        handleClose(e);
-                      }}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={(e) => {
+              {token ? (
+                <>
+                  <MenuItem
+                    onClick={(e) => {
+                      navigate(`/profile/${user?.id}`);
+                      handleClose(e);
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => {
                       navigate("/settings");
                       handleClose(e);
-                    }} >Settings</MenuItem>
-                    {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
-                    <MenuItem onClick={(e) => {
+                    }}
+                  >
+                    Settings
+                  </MenuItem>
+                  {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
+                  {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
+                  {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
+                  <MenuItem
+                    onClick={(e) => {
                       dispatch(logout());
                       dispatch(api.util.resetApiState());
                       navigate("/login");
                       handleClose(e);
-                    }}>Logout</MenuItem>
-                  </>
-                  :
-                  <MenuItem onClick={(e) => {
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem
+                  onClick={(e) => {
                     navigate("/login");
                     handleClose(e);
-                  }} sx={{ width: "245px" }}>Login</MenuItem>
-              }
+                  }}
+                  sx={{ width: "245px" }}
+                >
+                  Login
+                </MenuItem>
+              )}
             </Menu>
           </Box>
           <IconButton
             onClick={() => setDrawerOpen(true)}
             sx={{ color: theme.palette.primary.main }}
           >
-            <MenuIcon sx={{ fontSize: 30, color: theme.palette.primary.dark }} />
+            <MenuIcon
+              sx={{ fontSize: 30, color: theme.palette.primary.dark }}
+            />
           </IconButton>
         </Box>
-        :
+      ) : (
         <>
           <Box
             sx={{
@@ -242,7 +275,8 @@ const Navbar = () => {
                     />
                     <Typography
                       sx={{
-                        backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        backgroundImage:
+                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
                         color: "inherit",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
@@ -350,54 +384,67 @@ const Navbar = () => {
                   horizontal: "left",
                 }}
               >
-                {
-                  token
-                    ?
-                    <>
-                      <MenuItem
-                        sx={{ width: "245px" }}
-                        onClick={(e) => {
-                          navigate(`/profile/${user?.id}`);
-                          handleClose(e);
-                        }}
-                      >
-                        Profile
-                      </MenuItem>
-                      <MenuItem onClick={(e) => {
+                {token ? (
+                  <>
+                    <MenuItem
+                      sx={{ width: "245px" }}
+                      onClick={(e) => {
+                        navigate(`/profile/${user?.id}`);
+                        handleClose(e);
+                      }}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={(e) => {
                         navigate("/settings");
                         handleClose(e);
-                      }} sx={{ width: "245px" }}>Settings</MenuItem>
-                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
-                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
-                      {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
-                      <MenuItem
-                        sx={{ width: "245px" }}
-                        onClick={(e) => {
-                          dispatch(logout());
-                          dispatch(api.util.resetApiState());
-                          navigate("/login");
-                          handleClose(e);
-                        }}
-                      >
-                        Logout
-                      </MenuItem>
-                    </>
-                    :
-                    <MenuItem onClick={(e) => {
+                      }}
+                      sx={{ width: "245px" }}
+                    >
+                      Settings
+                    </MenuItem>
+                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
+                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
+                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
+                    <MenuItem
+                      sx={{ width: "245px" }}
+                      onClick={(e) => {
+                        dispatch(logout());
+                        dispatch(api.util.resetApiState());
+                        navigate("/login");
+                        handleClose(e);
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </>
+                ) : (
+                  <MenuItem
+                    onClick={(e) => {
                       navigate("/login");
                       handleClose(e);
-                    }} sx={{ width: "245px" }}>Login</MenuItem>
-                }
+                    }}
+                    sx={{ width: "245px" }}
+                  >
+                    Login
+                  </MenuItem>
+                )}
               </Menu>
             </Box>
           </Box>
-        </>}
-      <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        </>
+      )}
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
         <Box
           sx={{
             display: "flex",
             gap: "40px",
-            flexDirection: "column"
+            flexDirection: "column",
           }}
         >
           {menuItems.map((item) => {
@@ -424,7 +471,8 @@ const Navbar = () => {
                 />
                 <Typography
                   sx={{
-                    backgroundImage: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                    backgroundImage:
+                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
                     color: "inherit",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -463,11 +511,22 @@ const Navbar = () => {
               </ListItemButton>
             </ListItem>
           ))} */}
-          <Box sx={{ width: "100%", height: "42px", display: "flex", alignItems: "center", mt: 2 }}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "42px",
+              display: "flex",
+              alignItems: "center",
+              mt: 2,
+            }}
+          >
             <OutlinedInput
               sx={{ width: "100%" }}
               placeholder="Search"
               startAdornment={searchIcon}
+              value={search ? search : ""}
+              onInputChange={onInputChange}
+              disabled={!token}
             />
           </Box>
         </List>
