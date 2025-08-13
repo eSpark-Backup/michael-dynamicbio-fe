@@ -5,7 +5,7 @@ services:
     container_name: dydnamicbio
     restart: unless-stopped
     ports:
-      - "80:3000" # Internal 80 → external 3001
+      - "5000:3000" 
     environment:
       - NODE_ENV=production
       - VITE_BASE_URL=http://localhost:3000/api/
