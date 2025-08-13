@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  frontend:
+    build: .
+    container_name: dydnamicbio
+    restart: unless-stopped
+    ports:
+      - "80:8080" # Internal 80 → external 3001
+    environment:
+      - NODE_ENV=production
+      - VITE_BASE_URL=http://localhost:3000/
+      - VITE_BASE_URL_FE=http://72.60.29.127
