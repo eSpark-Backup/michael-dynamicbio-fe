@@ -10,4 +10,4 @@ export const prepareHeaders = (headers) => {
 };
 
 console.log(import.meta.env.VITE_BASE_URL, "import.meta.env.VITE_BASE_URL")
-export const baseUrl = import.meta.env.VITE_BASE_URL
+export const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:3000/api/"
