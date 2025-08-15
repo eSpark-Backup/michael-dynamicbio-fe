@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "https://fusion-stg-api.esparkconsultants.com/socket";
+const SOCKET_URL = "http://72.60.29.127/socket";
 
 let socket = null;
 
