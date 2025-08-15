@@ -8,4 +8,6 @@ RUN npm install && mv node_modules ../
 COPY . .
 RUN npm run build
 
-CMD ["npm", "run", "preview"]
+EXPOSE 3000
+
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]

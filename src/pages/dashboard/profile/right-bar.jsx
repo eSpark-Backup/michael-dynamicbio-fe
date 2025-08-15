@@ -10,8 +10,8 @@ import { toast } from "react-toastify";
 const RightBar = ({ isPublicView }) => {
   const url = "www.fnkdfhudfhidjfvhdfkvgjdhfkbhkfddsfd/jdsfiods.com";
   const { user: userData } = useSelector((state) => state.auth);
-  const [updateSettings, { isLoading }] = useUpdateUserProfileSettingsMutation();
-
+  const [updateSettings, { isLoading }] =
+    useUpdateUserProfileSettingsMutation();
 
   const [options, setOptions] = useState({
     profileViewingOption: "",
@@ -32,12 +32,16 @@ const RightBar = ({ isPublicView }) => {
     showProjects: true,
     showLanguages: true,
     showProfilePhoto: null,
-  })
+  });
 
   const handleToggle = (key) => {
     const updatedOptions = { ...options, [key]: !options[key] };
 
-    if (["showCurrentExperience", "showPastExperience", "showEducation"].includes(key)) {
+    if (
+      ["showCurrentExperience", "showPastExperience", "showEducation"].includes(
+        key
+      )
+    ) {
       const detailKey = key + "Details";
       updatedOptions[detailKey] = updatedOptions[key];
     }
@@ -59,11 +63,26 @@ const RightBar = ({ isPublicView }) => {
     // { key: "showHeadline", label: "Headline" },
     { key: "showSummary", label: "Summary" },
     { key: "showCurrentExperience", label: "Current Experience" },
-    { key: "showCurrentExperienceDetails", label: "Details", indent: true, parent: "showCurrentExperience" },
+    {
+      key: "showCurrentExperienceDetails",
+      label: "Details",
+      indent: true,
+      parent: "showCurrentExperience",
+    },
     { key: "showPastExperience", label: "Past Experience" },
-    { key: "showPastExperienceDetails", label: "Details", indent: true, parent: "showPastExperience" },
+    {
+      key: "showPastExperienceDetails",
+      label: "Details",
+      indent: true,
+      parent: "showPastExperience",
+    },
     { key: "showEducation", label: "Education" },
-    { key: "showEducationDetails", label: "Details", indent: true, parent: "showEducation" },
+    {
+      key: "showEducationDetails",
+      label: "Details",
+      indent: true,
+      parent: "showEducation",
+    },
     { key: "showProjects", label: "Projects" },
     { key: "showCertifications", label: "Certifications" },
   ];
@@ -130,7 +149,7 @@ const RightBar = ({ isPublicView }) => {
           </Typography>
         </Box>
       </Paper>
-      <Paper
+      {/* <Paper
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -185,8 +204,8 @@ const RightBar = ({ isPublicView }) => {
             {url}
           </Typography>
         </Box>
-      </Paper>
-      {!isPublicView &&
+      </Paper> */}
+      {!isPublicView && (
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "24px" }}>
           {/* <Paper
             sx={{
@@ -276,19 +295,52 @@ const RightBar = ({ isPublicView }) => {
               Manage
             </Button>
           </Paper> */}
-          <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px", mt: "24px" }}>
+          <Paper
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "15px",
+              mt: "24px",
+            }}
+          >
             {fields.map(({ key, label, indent, parent }) => (
-              <Box key={key} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050", pl: indent ? "20px" : 0 }}>
+              <Box
+                key={key}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "400",
+                    color: "#505050",
+                    pl: indent ? "20px" : 0,
+                  }}
+                >
                   {label}
                 </Typography>
-                <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                  <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    columnGap: "10px",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      color: "#505050",
+                    }}
+                  >
                     {options[key] ? "Show" : "Hide"}
                   </Typography>
                   <Switch
                     checked={options[key]}
-                    onChange={isLoading ? () => { } : () => handleToggle(key)}
+                    onChange={isLoading ? () => {} : () => handleToggle(key)}
                     disabled={parent ? !options[parent] : false}
                   />
                 </Box>
@@ -296,7 +348,7 @@ const RightBar = ({ isPublicView }) => {
             ))}
           </Paper>
         </Box>
-      }
+      )}
     </>
   );
 };

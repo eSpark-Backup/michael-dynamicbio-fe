@@ -10,7 +10,9 @@ const OutlinedInput = ({
   startAdornment,
   multiline,
   onKeyDown,
-  disabled
+  disabled,
+  inputRef,
+  autoFocus,
 }) => {
   return (
     <Box
@@ -18,10 +20,17 @@ const OutlinedInput = ({
         display: "flex",
         flexDirection: "column",
         rowGap: "8px",
-        width: "100%"
+        width: "100%",
       }}
     >
-      {label && <Typography component="label" sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>{label}</Typography>}
+      {label && (
+        <Typography
+          component="label"
+          sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
+        >
+          {label}
+        </Typography>
+      )}
       <TextField
         name={name}
         placeholder={placeholder}
@@ -30,6 +39,8 @@ const OutlinedInput = ({
         sx={sx}
         onKeyDown={onKeyDown}
         disabled={disabled}
+        autoFocus={autoFocus}
+        inputRef={inputRef}
         InputProps={{
           startAdornment: startAdornment && (
             <InputAdornment position="start">
