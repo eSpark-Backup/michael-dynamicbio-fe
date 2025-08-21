@@ -50,7 +50,7 @@ const Grow = () => {
 
   useEffect(() => {
     if (reqError) {
-      toast.error(error?.data?.message);
+toast.error(reqError?.data?.message || "Something went wrong");
       return;
     }
   }, [reqError]);
@@ -62,7 +62,7 @@ const Grow = () => {
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
-        toast.error(res?.error?.data?.message);
+toast.error(reqError?.data?.message || "Something went wrong");
         return;
       }
       if (res) {
