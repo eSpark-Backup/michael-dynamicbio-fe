@@ -31,9 +31,12 @@ const Grow = () => {
     isFetching,
     error: reqError,
     refetch,
-  } = useAllBondsReqQuery({type: sent ? "sent" : "received"}, {
-    refetchOnMountOrArgChange: true,
-  });
+  } = useAllBondsReqQuery(
+    { type: sent ? "sent" : "received" },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const requests = reqData?.data?.bonds;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -50,7 +53,7 @@ const Grow = () => {
 
   useEffect(() => {
     if (reqError) {
-toast.error(reqError?.data?.message || "Something went wrong");
+      toast.error(reqError?.data?.message || "Something went wrong");
       return;
     }
   }, [reqError]);
@@ -62,7 +65,7 @@ toast.error(reqError?.data?.message || "Something went wrong");
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
-toast.error(reqError?.data?.message || "Something went wrong");
+        toast.error(res?.error?.data?.message);
         return;
       }
       if (res) {
