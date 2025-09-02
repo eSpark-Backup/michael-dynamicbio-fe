@@ -5,9 +5,9 @@ export const prepareHeaders = (headers) => {
     headers.set("Authorization", `Bearer ${tempToken}`);
   } else if (token) {
     headers.set("Authorization", `Bearer ${token}`);
-  } 
+  }
   return headers;
 };
 
 console.log(import.meta.env.VITE_BASE_URL, "import.meta.env.VITE_BASE_URL")
-export const baseUrl = import.meta.env.VITE_BASE_URL || "http://72.60.29.127/api/"
+export const baseUrl = import.meta.env.VITE_BASE_URL || "https://app.h2fusion.org/api/"

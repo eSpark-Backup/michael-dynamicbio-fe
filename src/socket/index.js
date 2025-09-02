@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "http://72.60.29.127/socket";
+const SOCKET_URL = "https://app.h2fusion.org/socket";
 
 let socket = null;
 
