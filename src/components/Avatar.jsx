@@ -1,6 +1,6 @@
 import { Avatar, Box } from "@mui/material";
 
-const AvatarGroupPreview = ({ members = [] }) => {
+const AvatarGroupPreview = ({ members = [], memberName }) => {
   const maxVisible = 3;
   const visibleMembers = members.slice(0, maxVisible);
   const extraCount = members.length - maxVisible;
@@ -22,7 +22,7 @@ const AvatarGroupPreview = ({ members = [] }) => {
         >
           <Avatar
             src={member}
-            alt={"profile"}
+            alt={memberName || "profile"}
             sx={{ width: "100%", height: "100%" }}
           />
         </Box>

@@ -123,13 +123,15 @@ const Cells = () => {
     setSelectedNames([]);
     if (isSmallScreen) {
       setShowContacts(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   useEffect(() => {
-    const memberId = chatList?.find((item) =>
-      !item?.groupChat && item?.members?.some((memberId) => memberId === member)
+    const memberId = chatList?.find(
+      (item) =>
+        !item?.groupChat &&
+        item?.members?.some((memberId) => memberId === member)
     )?._id;
     const firstId =
       chatList?.length > 0 ? (member ? memberId : chatList[0]?._id) : null;
@@ -138,7 +140,10 @@ const Cells = () => {
       : firstId
       ? navigate(`/cells?id=${firstId}`)
       : navigate(`/cells`);
-      !id && !chatList?.some((item) => item?._id === id) && !firstId && setShowChatScreen(false);
+    !id &&
+      !chatList?.some((item) => item?._id === id) &&
+      !firstId &&
+      setShowChatScreen(false);
   }, [isSmallScreen]);
 
   const HandleNewConversation = () => {
@@ -196,8 +201,10 @@ const Cells = () => {
       setChatList(chatListArr);
       setMainChat(chatListArr);
       setShowChatScreen(true);
-      const memberId = chatListArr?.find((item) =>
-        !item?.groupChat && item?.members?.some((memberId) => memberId === member)
+      const memberId = chatListArr?.find(
+        (item) =>
+          !item?.groupChat &&
+          item?.members?.some((memberId) => memberId === member)
       )?._id;
       const firstId =
         chatListArr?.length > 0
@@ -210,7 +217,10 @@ const Cells = () => {
         : firstId
         ? navigate(`/cells?id=${firstId}`)
         : navigate(`/cells`);
-      !id && !chatListArr?.some((item) => item?._id === id) && !firstId && setShowChatScreen(false);
+      !id &&
+        !chatListArr?.some((item) => item?._id === id) &&
+        !firstId &&
+        setShowChatScreen(false);
       setLoading(false);
     }
   }, [data, isSuccess, member]);
@@ -769,6 +779,9 @@ const Cells = () => {
                         members={
                           mainChat?.find((item) => item?._id === id)?.avatar
                         }
+                        memberName={
+                          mainChat?.find((item) => item?._id === id)?.memberName
+                        }
                       />
                       {!mainChat?.find((item) => item?._id === id)
                         ?.groupChat && (
@@ -786,6 +799,7 @@ const Cells = () => {
                             position: "absolute",
                             right: 0,
                             bottom: 0,
+                            zIndex: 1,
                           }}
                         ></Box>
                       )}
@@ -958,7 +972,7 @@ const Cells = () => {
                   onClick={handleClick2}
                 /> */}
               </Box>
-
+              {(console.log(selectedUser), "selectedNames")}
               {!showChatScreen && selectedNames?.length >= 1 && (
                 <Box
                   sx={{
@@ -990,7 +1004,7 @@ const Cells = () => {
                         }}
                       >
                         <img
-                          src={selectedUser?.friend?.profileImage}
+                          src={selectedUser?.friend?.profileImage || userAvatar}
                           alt="user"
                           style={{
                             width: "100%",
@@ -1118,9 +1132,15 @@ const Cells = () => {
                           const chat = mainChat.find(
                             (item) => item?._id === id
                           );
-                          const fullMembers = chat?.members ? [...chat?.members] : [];
-                          const fullAvatars = chat?.members ? [...chat?.avatar] : [];
-                          const memberIds = chat?.members ? [...chat?.accountId] : [];
+                          const fullMembers = chat?.members
+                            ? [...chat?.members]
+                            : [];
+                          const fullAvatars = chat?.members
+                            ? [...chat?.avatar]
+                            : [];
+                          const memberIds = chat?.members
+                            ? [...chat?.accountId]
+                            : [];
                           const ind = memberIds.findIndex(
                             (id) => id === userData?.id
                           );
@@ -1280,7 +1300,11 @@ const Cells = () => {
                       onClick={handleChat}
                       src={send}
                       alt="Camera"
-                      style={{ cursor: "pointer", width: "24px", height: "24px" }}
+                      style={{
+                        cursor: "pointer",
+                        width: "24px",
+                        height: "24px",
+                      }}
                     />
                   </Box>
                 </Box>
@@ -1300,7 +1324,11 @@ const Cells = () => {
             </Paper>
           </Grid2>
         )}
-        <Grid2 sx={{ display: { xs: "none", lg: "block" }}} size={{ xs: 12, lg: 3 }} pb={"10px"}>
+        <Grid2
+          sx={{ display: { xs: "none", lg: "block" } }}
+          size={{ xs: 12, lg: 3 }}
+          pb={"10px"}
+        >
           <RightSideBar hideResearch={true} />
         </Grid2>
       </Grid2>
