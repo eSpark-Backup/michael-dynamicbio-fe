@@ -4,10 +4,10 @@ import OutlinedInput from "./outline-input";
 import { gradientRightArrow } from "../assets";
 import {
   DatePicker,
-  LocalizationProvider,
+  // LocalizationProvider,
   TimePicker,
 } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const ScheduleModal = ({
   scheduleDate,
@@ -50,7 +50,7 @@ const ScheduleModal = ({
           rowGap: "3px",
         }}
       >
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
           <Box>
             <Typography
               sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
@@ -74,7 +74,7 @@ const ScheduleModal = ({
               onChange={(time) => setScheduleTime(time)}
             />
           </Box>
-        </LocalizationProvider>
+        {/* </LocalizationProvider> */}
       </Box>
 
       {/* <Box
