@@ -40,23 +40,24 @@ const MyBond = () => {
         }}
       >
         {tabs.map((tab) => (
-          <Typography
-            sx={{
-              cursor: "pointer",
-              position: "relative",
-              background:
-                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-              "-webkit-background-clip": "text",
-              "-webkit-text-fill-color":
-                tab?.label === activeTab?.label ? "transparent" : "#000",
-            }}
-            fontSize="14px"
-            fontWeight={500}
-            onClick={() => setActiveTab(tab)}
-            key={tab.label}
-          >
-            {tab.label}
-          </Typography>
+         <Typography
+  sx={{
+    cursor: "pointer",
+    position: "relative",
+    background:
+      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor:
+      tab?.label === activeTab?.label ? "transparent" : "#000",
+  }}
+  fontSize="14px"
+  fontWeight={500}
+  onClick={() => setActiveTab(tab)}
+  key={tab.label}
+>
+  {tab.label}
+</Typography>
+
         ))}
       </Stack>
       {activeTab?.component}
