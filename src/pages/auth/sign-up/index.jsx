@@ -17,7 +17,7 @@ const Signup = () => {
       firstName: "",
       lastName: "",
       email: "",
-      dob: null,
+      // dob: null,
       password: "",
       conPassword: "",
     },
@@ -27,7 +27,7 @@ const Signup = () => {
         firstName: values?.firstName,
         lastName: values?.lastName,
         email: values?.email,
-        about: { dob: values?.dob },
+        // about: { dob: values?.dob },
         password: values?.password,
         loginType: "local",
         role: "user",
@@ -92,7 +92,7 @@ const Signup = () => {
             error={formik.touched.lastName && !!formik.errors.lastName}
             helperText={formik.touched.lastName && formik.errors.lastName}
           />
-          <DatePicker
+          {/* <DatePicker
             label="Birth Date"
             variant="filled"
             value={formik.values.dob}
@@ -116,7 +116,7 @@ const Signup = () => {
                 fontSize: "18px",
               },
             }}
-          />
+          /> */}
           <Input
             label="Email"
             type="email"

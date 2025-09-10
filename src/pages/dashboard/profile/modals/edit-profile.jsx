@@ -7,6 +7,8 @@ import { useUpdateUserInfoMutation } from "../../../../services/auth";
 import { updateUser } from "../../../../store/slices/auth";
 import { editProfileDetailsSchema } from "../../../../schemas";
 import { plus } from "../../../../assets";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const EditProfileModal = ({
   userData,
@@ -15,11 +17,13 @@ const EditProfileModal = ({
   handleOpenExpModal,
 }) => {
   const options = userData?.about?.experience
-  ?.filter((item) => item?.currently)
-  ?.map((item) => ({
-    value: item.title,
-    label: item.title,
-  }));
+    ?.filter((item) => item?.currently)
+    ?.map((item) => ({
+      value: item.title,
+      label: item.title,
+    }));
+
+  console.log(userData);
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
@@ -30,11 +34,14 @@ const EditProfileModal = ({
       city: userData?.city,
       current: userData?.designation,
       industry: userData?.industry,
+      dob: userData?.about?.dob,
     },
     enableReinitialize: true,
     validationSchema: editProfileDetailsSchema,
     onSubmit: (values) => {
-      const currentJob = userData?.about?.experience?.find(item => item.title === values?.current);
+      const currentJob = userData?.about?.experience?.find(
+        (item) => item.title === values?.current
+      );
       const bodyToSend = {
         firstName: values?.firstName,
         lastName: values?.lastName,
@@ -43,7 +50,8 @@ const EditProfileModal = ({
         designation: currentJob?.title,
         company: currentJob?.company,
         industry: userData?.industry,
-      }
+        about: { experience: userData?.about?.experience, dob: values?.dob },
+      };
       updateProfile(bodyToSend).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
@@ -127,6 +135,7 @@ const EditProfileModal = ({
         <Box
           sx={{
             width: "100%",
+            mb: "10px",
           }}
         >
           <Input
@@ -139,14 +148,43 @@ const EditProfileModal = ({
             helperText={formik.touched.city && formik.errors.city}
           />
         </Box>
+        <DatePicker
+          label="Birth Date"
+          variant="filled"
+          value={formik.values.dob ? dayjs(formik.values.dob) : null}
+          onChange={(value) =>
+            formik.setFieldValue("dob", value ? value.toISOString() : null)
+          }
+          onBlur={() => formik.setFieldTouched("dob", true)}
+          slotProps={{
+            textField: {
+              fullWidth: true,
+              error: formik.touched.dob && Boolean(formik.errors.dob),
+              helperText: formik.touched.dob && formik.errors.dob,
+            },
+          }}
+          sx={{
+            ".MuiOutlinedInput-root": {
+              width: "100%",
+              backgroundColor: "#FCFCFC",
+              height: "45px",
+              border: "none",
+              borderBottom: "1px solid #000000 !important",
+              borderRadius: "0px",
+              fontSize: "18px",
+              mt: "10px",
+            },
+          }}
+        />
         <Box
           sx={{
             width: "100%",
+            mt: "10px",
           }}
         >
           <Dropdown
             noLabel
-            options={options}
+            options={options || []}
             placeholder="Current position"
             customLabel="Current position *"
             variant="outlined"

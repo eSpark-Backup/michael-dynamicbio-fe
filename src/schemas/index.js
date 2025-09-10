@@ -46,8 +46,9 @@ export const signupSchema = Yup.object({
     )
     .required("Email is required"),
   dob: Yup.date()
-    .max(new Date(), "Birthdate cannot be in the future")
-    .required("Birthdate is required"),
+    .nullable()
+    .notRequired()
+    .max(new Date(), "Birthdate cannot be in the future"),
   password: Yup.string()
     .required("Password is required")
     .min(12, "Password must be at least 12 characters long.")
@@ -100,7 +101,9 @@ export const createGroupSchema = Yup.object({
     .min(3, "Description must be at least 3 character.")
     .max(500, "Description must not exceed 500  character.")
     .required("Description is required"),
-  location: Yup.string().max(100, "Location must not exceed 100 character.").required("Location is required"),
+  location: Yup.string()
+    .max(100, "Location must not exceed 100 character.")
+    .required("Location is required"),
   rules: Yup.string().max(500, "Rules must not exceed 500 character."),
   industry: Yup.string().required("Industry is required"),
   type: Yup.string().required("Please select group type"),
@@ -110,12 +113,18 @@ export const createPageSchema = Yup.object({
   organizationName: Yup.string()
     .max(100, "Organization name must not exceed 100 character.")
     .required("Organization name is required"),
-  address: Yup.string().max(200, "Address must not exceed 200 character.").required("Address is required"),
+  address: Yup.string()
+    .max(200, "Address must not exceed 200 character.")
+    .required("Address is required"),
   location: Yup.string().required("Location is required."),
   size: Yup.string().required("Please select Organization size"),
   type: Yup.string().required("Please select Organization type"),
-  website: Yup.string().max(200, "Website must not exceed 200 character.").required("Website is required"),
-  tagline: Yup.string().max(200, "Tagline must not exceed 200 character.").required("Tagline is required"),
+  website: Yup.string()
+    .max(200, "Website must not exceed 200 character.")
+    .required("Website is required"),
+  tagline: Yup.string()
+    .max(200, "Tagline must not exceed 200 character.")
+    .required("Tagline is required"),
   permissions: Yup.boolean()
     .oneOf([true], "You must accept the permission")
     .required("This field is required"),
@@ -195,12 +204,18 @@ export const editPageSchema = Yup.object({
   organizationName: Yup.string()
     .max(100, "Organization name must not exceed 100 character.")
     .required("Organization name is required"),
-  address: Yup.string().max(200, "Address must not exceed 200 character.").required("Address is required"),
+  address: Yup.string()
+    .max(200, "Address must not exceed 200 character.")
+    .required("Address is required"),
   location: Yup.string().required("Location is required."),
   size: Yup.string().required("Please select Organization size"),
   type: Yup.string().required("Please select Organization type"),
-  website: Yup.string().max(200, "Website must not exceed 200 character.").required("Website is required"),
-  tagline: Yup.string().max(200, "Tagline must not exceed 200 character.").required("Tagline is required"),
+  website: Yup.string()
+    .max(200, "Website must not exceed 200 character.")
+    .required("Website is required"),
+  tagline: Yup.string()
+    .max(200, "Tagline must not exceed 200 character.")
+    .required("Tagline is required"),
 
   // Conditional fields based on industry
   sellingItem: Yup.string().when("industry", {
@@ -280,7 +295,9 @@ export const onlineEventSchema = Yup.object({
     .max(75, "Must be 75 characters or less"),
   timezone: Yup.string().required("Timezone is required"),
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
-  externalLink: Yup.string().max(1024, "Must be 1024 characters or less").url("Must be a valid URL"),
+  externalLink: Yup.string()
+    .max(1024, "Must be 1024 characters or less")
+    .url("Must be a valid URL"),
 });
 
 export const inpersonEventSchema = Yup.object({
@@ -290,7 +307,9 @@ export const inpersonEventSchema = Yup.object({
   timezone: Yup.string().required("Timezone is required"),
   address: Yup.string().required("Address is required"),
   description: Yup.string().max(5000, "Must be 5000 characters or less"),
-  externalLink: Yup.string().max(1024, "Must be 1024 characters or less").url("Must be a valid URL"),
+  externalLink: Yup.string()
+    .max(1024, "Must be 1024 characters or less")
+    .url("Must be a valid URL"),
 });
 
 export const pollSchema = Yup.object({
@@ -368,24 +387,31 @@ export const phoneNoSchema = Yup.object({
   phone: Yup.string().required("Please enter a phone number."),
 });
 
-
 export const welcomeNoteSchema = Yup.object({
-  note: Yup.string().required("Note is required").max(1000, "Characters must be less or equal to 1000.")
-})
+  note: Yup.string()
+    .required("Note is required")
+    .max(1000, "Characters must be less or equal to 1000."),
+});
 
 export const projectSchema = Yup.object({
   name: Yup.string().required("Project name is required"),
   description: Yup.string().max(2000, "Must be 2000 characters or less"),
   skills: Yup.array().of(Yup.string()),
-  files: Yup.array()
-    .of(
-      Yup.mixed().test("fileType", "Unsupported file format", (file) => {
-        if (!file) return true;
-        const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/tiff", "image/webp", "application/pdf"];
-        return validTypes.includes(file.type);
-      })
-    )
-})
+  files: Yup.array().of(
+    Yup.mixed().test("fileType", "Unsupported file format", (file) => {
+      if (!file) return true;
+      const validTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/tiff",
+        "image/webp",
+        "application/pdf",
+      ];
+      return validTypes.includes(file.type);
+    })
+  ),
+});
 
 export const certificateSchema = Yup.object({
   name: Yup.string().required("Project name is required"),
@@ -393,9 +419,8 @@ export const certificateSchema = Yup.object({
   skills: Yup.array().of(Yup.string()),
   credId: Yup.string(),
   credURL: Yup.string().url("Must be a valid URL"),
-})
+});
 
 export const addLinkSchema = Yup.object({
   link: Yup.string().url("Enter a valid URL").required("Link is required"),
 });
-
