@@ -1,13 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
-import OutlinedInput from "./outline-input";
-import { gradientRightArrow } from "../assets";
 import {
   DatePicker,
-  // LocalizationProvider,
   TimePicker,
+  LocalizationProvider,
 } from "@mui/x-date-pickers";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const ScheduleModal = ({
   scheduleDate,
@@ -27,7 +24,6 @@ const ScheduleModal = ({
       <Typography
         sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
       >
-        {/* Tue, Feb 25, 6:25 PM Pakuistan Standard Time, based on your location */}
         {new Date().toLocaleDateString("en-US", {
           weekday: "short",
           month: "short",
@@ -42,6 +38,7 @@ const ScheduleModal = ({
         , {Intl.DateTimeFormat().resolvedOptions().timeZone},{" "}
         {"based on your location"}
       </Typography>
+
       <Box
         sx={{
           width: { xs: "100%" },
@@ -50,7 +47,7 @@ const ScheduleModal = ({
           rowGap: "3px",
         }}
       >
-        {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Box>
             <Typography
               sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
@@ -74,30 +71,8 @@ const ScheduleModal = ({
               onChange={(time) => setScheduleTime(time)}
             />
           </Box>
-        {/* </LocalizationProvider> */}
+        </LocalizationProvider>
       </Box>
-
-      {/* <Box
-        sx={{
-          paddingTop: "20px",
-          display: "flex",
-          columnGap: "10px",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-      >
-        <Typography
-          variant="gradientText"
-          sx={{ fontSize: "14px", fontWeight: "400" }}
-        >
-          View all scheduled post
-        </Typography>
-        <img
-          src={gradientRightArrow}
-          alt="Icon"
-          style={{ width: "24px", height: "24px" }}
-        />
-      </Box> */}
     </Box>
   );
 };
