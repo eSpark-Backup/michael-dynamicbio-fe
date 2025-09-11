@@ -155,7 +155,7 @@ const Grow = () => {
                       style={{ borderRadius: "50%" }}
                       src={
                         sent
-                          ? item?.recipient?.profileImage
+                          ? item?.recipient?.profileImage || userAvatar
                           : item?.requester?.profileImage || userAvatar
                       }
                       alt="profile"
