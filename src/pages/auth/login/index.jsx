@@ -32,18 +32,21 @@ const Login = () => {
           return;
         }
         if (res) {
-          const response = res?.data?.data
+          const response = res?.data?.data;
           if (response?.user?.profileStatus === "completed") {
             if (response?.user?.is2FAEnabled) {
-              localStorage.setItem("temp-token", response?.token)
+              localStorage.setItem("temp-token", response?.token);
             } else {
-              localStorage.setItem("token", response?.token)
+              localStorage.setItem("token", response?.token);
             }
             navigate("/google-auth");
           } else if (response?.user?.profileStatus === "both_verified") {
-            localStorage.setItem("token", response?.token)
+            localStorage.setItem("token", response?.token);
             navigate("/complete-profile");
-            localStorage.setItem("temp_user_data", JSON.stringify(response?.user));
+            localStorage.setItem(
+              "temp_user_data",
+              JSON.stringify(response?.user)
+            );
           }
         }
       });
@@ -59,7 +62,9 @@ const Login = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Login</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
+        Login
+      </Typography>
       <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
           label={"Email"}
@@ -107,7 +112,9 @@ const Login = () => {
         label="Remember me"
       />
       <Box sx={{ width: "250px" }}>
-        <Button loading={isLoading} type="submit">login</Button>
+        <Button loading={isLoading} type="submit">
+          login
+        </Button>
       </Box>
       <Typography sx={{ marginTop: "24px" }}>
         Don’t have an account?
@@ -129,7 +136,7 @@ const Login = () => {
           </Typography>
         </Link>
       </Typography>
-      <Stack
+      {/* <Stack
         direction="row"
         justifyContent="center"
         alignItems="center"
@@ -140,7 +147,7 @@ const Login = () => {
         <img style={{ cursor: "pointer" }} src={google} alt="google" />
         <img style={{ cursor: "pointer" }} src={facebook} alt="facebook" />
         <img style={{ cursor: "pointer" }} src={linkedin} alt="linkedin" />
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 };
