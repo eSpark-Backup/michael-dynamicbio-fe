@@ -155,6 +155,7 @@ const EditProfileModal = ({
           onChange={(value) =>
             formik.setFieldValue("dob", value ? value.toISOString() : null)
           }
+          max={new Date().toISOString().split("T")[0]} // today’s date
           onBlur={() => formik.setFieldTouched("dob", true)}
           slotProps={{
             textField: {

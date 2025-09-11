@@ -90,6 +90,9 @@ export const editProfileDetailsSchema = Yup.object({
   current: Yup.string().required("Current position is required."),
   city: Yup.string().required("City is required."),
   industry: Yup.string().required("Industry is required."),
+  dob:Yup.date()
+    .nullable()
+    .max(new Date(), "Date of birth cannot be in the future"),
 });
 
 export const createGroupSchema = Yup.object({
@@ -424,3 +427,4 @@ export const certificateSchema = Yup.object({
 export const addLinkSchema = Yup.object({
   link: Yup.string().url("Enter a valid URL").required("Link is required"),
 });
+
