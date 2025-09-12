@@ -43,7 +43,7 @@ const CompleteProfile = () => {
         }}
       >
         <Input
-          placeholder="Country/Region *"
+          label="Country/Region *"
           name="country"
           value={formik.values.country}
           handleChange={formik.handleChange}
@@ -51,7 +51,7 @@ const CompleteProfile = () => {
           helperText={formik.touched.country && formik.errors.country}
         />
         <Input
-          placeholder="City *"
+          label="City *"
           name="city"
           value={formik.values.city}
           handleChange={formik.handleChange}
@@ -59,7 +59,7 @@ const CompleteProfile = () => {
           helperText={formik.touched.city && formik.errors.city}
         />
         <Input
-          placeholder="Company*"
+          label="Company*"
           name="company"
           value={formik.values.company}
           handleChange={formik.handleChange}
@@ -67,7 +67,7 @@ const CompleteProfile = () => {
           helperText={formik.touched.company && formik.errors.company}
         />
         <Input
-          placeholder="Industry*"
+          label="Industry*"
           name="industry"
           value={formik.values.industry}
           handleChange={formik.handleChange}
@@ -75,7 +75,7 @@ const CompleteProfile = () => {
           helperText={formik.touched.industry && formik.errors.industry}
         />
         <Input
-          placeholder="Role*"
+          label="Role*"
           name="designation"
           value={formik.values.designation}
           handleChange={formik.handleChange}
