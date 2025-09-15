@@ -139,137 +139,142 @@ const PostSlider = ({ page, posts, refetch }) => {
                     padding: "0 !important",
                   }}
                 >
+                  {/* Top Section */}
                   <Stack
-                    direction="column"
-                    alignItems="flex-start"
-                    justifyContent="flex-start"
-                    gap={1}
-                    sx={{ width: "100%", height: "calc(100% - 60px)" }}
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    sx={{ p: 1 }}
                   >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      gap={2}
-                      sx={{ width: "100%" }}
-                    >
-                      <Stack
-                        direction="row"
+                    <Stack direction="row" gap={1} 
                         alignItems="flex-start"
-                        justifyContent="center"
-                        gap={1}
-                      >
-                        <img
-                          style={{ borderRadius: "5px" }}
-                          width={60}
-                          height={60}
-                          src={page?.logoUrl ? page?.logoUrl : user}
-                          alt="profile"
-                        />
-                        <Box>
-                          <Typography
-                            sx={{ color: "#171717", lineHeight: "20px" }}
-                          >
-                            {page?.name}
-                          </Typography>
+                        justifyContent="center">
+                      <img
+                        style={{ borderRadius: "5px" }}
+                        width={60}
+                        height={60}
+                        src={page?.logoUrl ? page?.logoUrl : user}
+                        alt="profile"
+                      />
+                      <Box>
+                        <Typography
+                          sx={{ color: "#171717", lineHeight: "20px" }}
+                        >
+                          {page?.name}
+                        </Typography>
                           <Typography
                             variant="body2"
                             sx={{ color: "#505050", lineHeight: "20px" }}
                           >
-                            {page?.followerCount} followers
-                          </Typography>
-                          <Stack direction="row" gap={1} alignItems="center">
+                          {page?.followerCount} followers
+                        </Typography>
+                        <Stack direction="row" gap={1} alignItems="center">
                             <Typography
                               sx={{ color: "#505050", lineHeight: "15px" }}
                               variant="body2"
                             >
-                              {post?.postTime}
-                            </Typography>
-                            <img
+                            {post?.postTime}
+                          </Typography>
+                          <img
                               src={earth}
                               alt="Icon"
                               style={{ width: "14px", height: "14px" }}
                             />
-                          </Stack>
-                        </Box>
-                      </Stack>
-                      <img
-                        onClick={(e) => handleClick(e, post?.id)}
-                        style={{ cursor: "pointer" }}
-                        src={verticleDots}
-                        alt="menu"
-                      />
+                        </Stack>
+                      </Box>
                     </Stack>
-
-                    <Stack
-                      direction="column"
-                      alignItems="flex-start"
-                      justifyContent="space-between"
-                      gap={1}
-                      sx={{
-                        width: "100%",
-                        height: "calc(100% - 140px)",
-                        ".video-react .video-react-big-play-button": {
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-                        },
-                      }}
-                    >
-                      <Typography mt={2} fontSize="20px" fontWeight="bold">
-                        {post?.postContent}
-                      </Typography>
-                      {post?.type === "normal" && post?.postPic?.length > 0 && (
-                        <img
-                          style={{ width: "100%", height: "100%" }}
-                          src={post?.postPic[0]}
-                        />
-                      )}
-                      {post?.type === "article" && post?.articleImage && (
-                        <img
-                          style={{ width: "100%", height: "100%" }}
-                          src={post?.articleImage}
-                        />
-                      )}
-                      {post?.type === "event" && post?.eventImage && (
-                        <img
-                          style={{ width: "100%", height: "100%" }}
-                          src={post?.eventImage}
-                        />
-                      )}
-                      {post?.type === "video" && post?.videoUrl && (
-                        <Player
-                          playsInline
-                          poster={post?.thumbnail}
-                          src={post?.videoUrl}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        >
-                          <ControlBar autoHide={false}>
-                            <PlayToggle order={1} />
-                            <ProgressControl order={2} />
-                            <CurrentTimeDisplay order={3} />
-                            <PlaybackRateMenuButton
-                              rates={[0.5, 1, 1.5, 2]}
-                              order={4}
-                            />
-                            <VolumeMenuButton order={5} />
-                            <FullscreenToggle order={6} />
-                          </ControlBar>
-                        </Player>
-                      )}
-                    </Stack>
+                    <img
+                      onClick={(e) => handleClick(e, post?.id)}
+                      style={{ cursor: "pointer" }}
+                      src={verticleDots}
+                      alt="menu"
+                    />
                   </Stack>
-                  <Box>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="flex-start"
-                      gap={1}
-                    >
+
+                  {/* Middle flexible content */}
+                  <Box
+                    sx={{
+                      flex: 1, // makes this area expand/shrink
+                      overflow: "hidden",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+                      p: 1,
+                    }}
+                  >
+                    <Typography fontSize="20px" fontWeight="bold">
+                      {post?.postContent}
+                    </Typography>
+
+                    {post?.type === "normal" && post?.postPic?.length > 0 && (
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "auto", // auto for responsiveness
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                        src={post?.postPic[0]}
+                      />
+                    )}
+
+                    {post?.type === "article" && post?.articleImage && (
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                        src={post?.articleImage}
+                      />
+                    )}
+
+                    {post?.type === "event" && post?.eventImage && (
+                      <img
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                        src={post?.eventImage}
+                      />
+                    )}
+
+                    {post?.type === "video" && post?.videoUrl && (
+                      <Player
+                        playsInline
+                        poster={post?.thumbnail}
+                        src={post?.videoUrl}
+                        style={{
+                          width: "100%",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <ControlBar autoHide={false}>
+                          <PlayToggle order={1} />
+                          <ProgressControl order={2} />
+                          <CurrentTimeDisplay order={3} />
+                          <PlaybackRateMenuButton
+                            rates={[0.5, 1, 1.5, 2]}
+                            order={4}
+                          />
+                          <VolumeMenuButton order={5} />
+                          <FullscreenToggle order={6} />
+                        </ControlBar>
+                      </Player>
+                    )}
+                  </Box>
+
+                  {/* Bottom Section */}
+                  <Box sx={{ p: 1 }}>
+                    <Stack direction="row" alignItems="center" gap={1}>
                       {post?.numberofLikes > 0 && (
                         <>
                           <Typography>{post?.numberofLikes}</Typography>
@@ -278,12 +283,9 @@ const PostSlider = ({ page, posts, refetch }) => {
                       )}
                     </Stack>
 
-                    <Divider sx={{ my: 2 }} />
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
+                    <Divider sx={{ my: 1 }} />
+
+                    <Stack direction="row" justifyContent="center">
                       <img
                         onClick={() => navigate(`/post/${post?.id}`)}
                         style={{ cursor: "pointer" }}

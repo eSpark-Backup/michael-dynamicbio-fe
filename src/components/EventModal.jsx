@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Divider, FormControlLabel, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, Divider, FormControlLabel, Radio, RadioGroup, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { uploadIcon } from "../assets";
@@ -6,9 +6,8 @@ import Dropdown from "./Dropdown";
 import Input from "./Input";
 import { timezoneOptions } from "../constant";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { TimePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { inpersonEventSchema, onlineEventSchema } from "../schemas";
 import { toast } from "react-toastify";
 
@@ -200,7 +199,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                     />
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
-                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Start date*</Typography>
                             <DatePicker
@@ -226,8 +225,8 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                                 }}
                             />
                         </Box>
-                    {/* </LocalizationProvider>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                   </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}> 
                         <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Start time*</Typography>
                             <TimePicker
@@ -257,7 +256,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                                 }}
                             />
                         </Box>
-                    {/* </LocalizationProvider> */}
+                    </LocalizationProvider>
                 </Box>
                 <Box
                     sx={{
@@ -285,7 +284,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                 </Box>
                 {formik.values?.showEndTime &&
                     <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
-                        {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End date*</Typography>
                                 <DatePicker
@@ -311,8 +310,8 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                                     }}
                                 />
                             </Box>
-                        {/* </LocalizationProvider> */}
-                        {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
+                         </LocalizationProvider> 
+                        <LocalizationProvider dateAdapter={AdapterDateFns}> 
                             <Box sx={{ width: { xs: "100%", md: "45%" }, display: "flex", flexDirection: "column", rowGap: "3px" }}>
                                 <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>End time*</Typography>
                                 <TimePicker
@@ -342,7 +341,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                                     }}
                                 />
                             </Box>
-                        {/* </LocalizationProvider> */}
+                        </LocalizationProvider>
                     </Box>
                 }
                 {

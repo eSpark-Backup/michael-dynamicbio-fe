@@ -13,6 +13,8 @@ import { pageStats } from "../../../constant";
 import PostSlider from "../../../components/postSlider";
 
 const DashboardSection = ({ page, posts, refetch }) => {
+  console.log(posts,'posts');
+  
   return (
     <>
       {/* <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
@@ -44,7 +46,7 @@ const DashboardSection = ({ page, posts, refetch }) => {
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", columnGap: "3px" }}>
                             <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>
-                                Add a quick description to get you Page discovered in search results.
+                                Add a quick description to get your page discovered in search results.
                             </Typography>
                             <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "500" }}>
                                 Add
@@ -64,7 +66,7 @@ const DashboardSection = ({ page, posts, refetch }) => {
             <Typography
               sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}
             >
-              Manage you page's content and amplify your reach with boosting.
+              Manage your page's content and amplify your reach with boosting.
             </Typography>
             {/* <Typography variant='gradientText' sx={{ fontSize: "14px", fontWeight: "500" }}>
                             Learn more
@@ -122,7 +124,7 @@ const DashboardSection = ({ page, posts, refetch }) => {
       {/* <Paper>
                 <Box>
                     <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>Track performance</Typography>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Grow you page 3x faster by leveraging insights and analytics</Typography>
+                    <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}>Grow your page 3x faster by leveraging insights and analytics</Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10px", flexWrap: "wrap", rowGap: "10px" }}>
                     {pageStats?.map((item, index) => (
