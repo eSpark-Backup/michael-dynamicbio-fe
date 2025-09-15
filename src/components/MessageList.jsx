@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { formatChatTimestamp } from "../utils";
 import TypingDots from "./TypingDots";
 import { useSelector } from "react-redux";
+import { userAvatar } from "../assets";
 
 const SCROLL_THRESHOLD = 100;
 
@@ -172,7 +173,7 @@ const MessageList = ({
               }}
             >
               <img
-                src={user?.img}
+                src={user?.img || userAvatar}
                 alt={user?.name}
                 style={{ width: "40px", height: "40px", borderRadius: "50%" }}
               />
