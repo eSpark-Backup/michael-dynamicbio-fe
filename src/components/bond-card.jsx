@@ -72,7 +72,12 @@ const BondCard = ({
     handleClose(e);
     const bodyToSend = {
       bondId: selected,
-      action: type === "pending" ? requestSentByMe ? "canceled" : "rejected" : "unfriend",
+      action:
+        type === "pending"
+          ? requestSentByMe
+            ? "canceled"
+            : "rejected"
+          : "unfriend",
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
@@ -141,7 +146,12 @@ const BondCard = ({
           alt="profile"
         />
       </Box>
-      <Typography textAlign="center" mt={1} fontWeight={500}>
+      <Typography
+        textAlign="center"
+        mt={1}
+        fontWeight={500}
+        textTransform={"capitalize"}
+      >
         {`${firstName} ${lastName}`}
       </Typography>
       {designation && (
@@ -183,7 +193,7 @@ const BondCard = ({
         onMouseLeave={() => setHovered(false)}
         onClick={(e) => {
           e.stopPropagation();
-          handleBond(!isPending && !isFriend? id : bondId, e);
+          handleBond(!isPending && !isFriend ? id : bondId, e);
         }}
       >
         <img
@@ -227,7 +237,11 @@ const BondCard = ({
         }}
       >
         <MenuItem onClick={(e) => handleBondReq(e, type)}>
-          {type === "pending" ? requestSentByMe ? "Withdraw request" : "Reject request" : "Remove bond"}
+          {type === "pending"
+            ? requestSentByMe
+              ? "Withdraw request"
+              : "Reject request"
+            : "Remove bond"}
         </MenuItem>
       </Menu>
     </Box>

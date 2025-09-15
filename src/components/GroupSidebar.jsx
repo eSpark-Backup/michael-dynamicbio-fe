@@ -42,7 +42,10 @@ const GroupSidebar = ({ data }) => {
   useEffect(() => {
     const allGroups = allGroupsData?.data?.pages || [];
     const filteredGroups = allGroups?.filter(
-      (item) => item?.creatorId !== userData?.id && !item?.requestSent && item?.id !== id
+      (item) =>
+        item?.creatorId !== userData?.id &&
+        !item?.requestSent &&
+        item?.id !== id
     );
     setGroups(filteredGroups || []);
   }, [allGroupsData]);
@@ -300,6 +303,7 @@ const GroupSidebar = ({ data }) => {
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         width: "calc(100% - 50px)",
+                        textTransform: "capitalize",
                       }}
                     >
                       {item?.name}

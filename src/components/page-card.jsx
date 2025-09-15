@@ -78,6 +78,7 @@ const PageCard = ({
                 textOverflow: "ellipsis",
                 overflow: "hidden",
                 whiteSpace: "nowrap",
+                textTransform: "capitalize",
               }}
             >
               {name}

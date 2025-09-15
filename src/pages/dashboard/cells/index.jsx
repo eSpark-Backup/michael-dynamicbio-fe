@@ -972,7 +972,6 @@ const Cells = () => {
                   onClick={handleClick2}
                 /> */}
               </Box>
-              {(console.log(selectedUser), "selectedNames")}
               {!showChatScreen && selectedNames?.length >= 1 && (
                 <Box
                   sx={{

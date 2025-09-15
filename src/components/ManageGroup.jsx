@@ -104,6 +104,7 @@ const ManageGroup = () => {
               textOverflow: "ellipsis",
               overflow: "hidden",
               whiteSpace: "nowrap",
+              textTransform: "capitalize",
             }}
             variant="gradientText"
           >

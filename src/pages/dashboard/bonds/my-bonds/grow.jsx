@@ -20,6 +20,7 @@ import {
   verticleDots,
 } from "../../../../assets";
 import { eventBus } from "../../../../utils";
+import { Link } from "react-router-dom";
 
 const Grow = () => {
   const [sent, setSent] = useState(null);
@@ -85,7 +86,6 @@ const Grow = () => {
       eventBus.off("refetchBondData", handleRefetch);
     };
   }, []);
-
   return (
     <Box>
       <Box
@@ -161,21 +161,31 @@ const Grow = () => {
                       alt="profile"
                     />
                     <Box>
-                      <Typography
-                        sx={{ cursor: "pointer" }}
-                        fontSize="17px"
-                        fontWeight={300}
-                      >
-                        {`${
-                          sent
-                            ? item?.recipient?.firstName
-                            : item?.requester?.firstName
-                        } ${
-                          sent
-                            ? item?.recipient?.lastName
-                            : item?.requester?.lastName
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to={`/profile/${
+                          sent ? item?.recipient?.id : item?.requester?.if
                         }`}
-                      </Typography>
+                      >
+                        <Typography
+                          sx={{
+                            cursor: "pointer",
+                            textTransform: "capitalize",
+                          }}
+                          fontSize="17px"
+                          fontWeight={300}
+                        >
+                          {`${
+                            sent
+                              ? item?.recipient?.firstName
+                              : item?.requester?.firstName
+                          } ${
+                            sent
+                              ? item?.recipient?.lastName
+                              : item?.requester?.lastName
+                          }`}
+                        </Typography>
+                      </Link>
                       <Typography
                         sx={{ color: "#505050" }}
                         fontSize="14px"

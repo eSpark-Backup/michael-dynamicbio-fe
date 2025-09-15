@@ -239,6 +239,7 @@ const PageDetailsPage = () => {
                       textOverflow: "ellipsis",
                       overflow: "hidden",
                       whiteSpace: "nowrap",
+                      textTransform: "capitalize",
                     }}
                   >
                     {data?.data?.name}
@@ -367,6 +368,7 @@ const PageDetailsPage = () => {
                           overflow: "hidden",
                           whiteSpace: "nowrap",
                           width: "100%",
+                          textTransform: "capitalize",
                         }}
                       >
                         {data?.data?.name}
@@ -499,6 +501,7 @@ const PageDetailsPage = () => {
               overflow: "hidden",
               whiteSpace: "nowrap",
               width: "100%",
+              textTransform: "capitalize",
             }}
           >
             {`Manage notifications about ${data?.data?.name}`}
