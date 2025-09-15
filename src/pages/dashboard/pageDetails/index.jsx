@@ -222,7 +222,7 @@ const PageDetailsPage = () => {
               )} */}
               <Box
                 sx={{
-                  mt: data?.data?.isFollowing ? "22px" : "90px",
+                  mt: "90px",
                   px: "25px",
                   display: "flex",
                   flexDirection: "column",
@@ -258,7 +258,7 @@ const PageDetailsPage = () => {
                 <Box sx={{ display: "flex", columnGap: "10px" }}>
                   <Button
                     disabled={isFollowLoading}
-                    loading={isFollowLoading}
+                    // loading={isFollowLoading}
                     onClick={handleFollow}
                     type="submit"
                     sx={{
