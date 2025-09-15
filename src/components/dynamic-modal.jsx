@@ -163,6 +163,7 @@ const DynamicModal = ({
                       fontSize: "18px",
                       fontWeight: "500",
                       color: "#171717",
+                      textTransform: "capitalize",
                     }}
                   >
                     {page ? page?.name : userName}
@@ -183,7 +184,12 @@ const DynamicModal = ({
                   )}
                 </Stack>
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "400",
+                    color: "#505050",
+                    textTransform: "capitalize",
+                  }}
                 >
                   {groupAdmin
                     ? `Post to ${group?.name}`

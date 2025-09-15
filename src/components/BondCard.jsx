@@ -313,6 +313,7 @@ const BondCard2 = ({
                 fontWeight: 500,
                 color: "#171717",
                 textAlign: { xs: "center", sm: "left" },
+                textTransform: "capitalize",
               }}
               onClick={
                 isGeneralPost
@@ -489,7 +490,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -521,7 +526,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717"
+                }}
               >
                 Edit post
               </Typography>
@@ -536,7 +545,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717"
+                }}
               >
                 Delete post
               </Typography>
@@ -562,7 +575,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -602,7 +619,12 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
+                }}
               >{`View ${userName}`}</Typography>
             </MenuItem>
             <MenuItem
@@ -617,7 +639,12 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
+                }}
               >
                 {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
               </Typography>
@@ -639,7 +666,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -678,7 +709,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -710,7 +745,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 Edit post
               </Typography>
@@ -725,7 +764,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 Delete post
               </Typography>
@@ -797,7 +840,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -833,7 +880,12 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
+                }}
               >{`${
                 isFollowing ? "Unfollow" : "Follow"
               } ${userName}`}</Typography>
@@ -855,7 +907,11 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                }}
               >
                 {saved ? "Unsave" : "Save"}
               </Typography>
@@ -889,7 +945,12 @@ const BondCard2 = ({
                 style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
+                sx={{
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
+                }}
               >
                 {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
               </Typography>

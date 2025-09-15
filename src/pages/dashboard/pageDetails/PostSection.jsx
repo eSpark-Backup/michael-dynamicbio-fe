@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SuggestionPost } from "../../../components";
 import { useSelector } from "react-redux";
+import { getDaysLeft } from "../../../utils";
 
 const PostSection = ({ data }) => {
   const [page, setPage] = useState(1);

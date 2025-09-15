@@ -267,9 +267,7 @@ const SearchBonds = () => {
 
   const getPollOptions = (item) => {
     if (item?.type !== "POLL") return [];
-    const isVote = item?.poll?.votes?.find(
-      (vote) => vote?.userId === user?.id
-    );
+    const isVote = item?.poll?.votes?.find((vote) => vote?.userId === user?.id);
     const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
       ...(item?.pollResults?.map((option, index) => ({
@@ -449,8 +447,8 @@ const SearchBonds = () => {
         data?.data?.group?.groups?.length > 0 && (
           <Paper>
             <Typography>Groups</Typography>
-            {data?.data?.group?.groups.map((group) => (
-              <Box mt={2}>
+            {data?.data?.group?.groups.map((group, index) => (
+              <Box mt={2} key={index}>
                 <PageCard
                   bgNotWhite
                   mainType={"group"}
@@ -476,8 +474,8 @@ const SearchBonds = () => {
         data?.data?.page?.pages?.length > 0 && (
           <Paper>
             <Typography>Pages</Typography>
-            {data?.data?.page?.pages.map((page) => (
-              <Box mt={2}>
+            {data?.data?.page?.pages.map((page, index) => (
+              <Box mt={2} key={index}>
                 <PageCard
                   isFollowLoading={isPageFollowLoading}
                   handleFollow={handleFollowPage}

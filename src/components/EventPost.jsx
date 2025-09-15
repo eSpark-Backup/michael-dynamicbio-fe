@@ -96,7 +96,7 @@ const EventPost = ({
   groupId,
   groupName,
   groupImage,
-  isUserAdmin
+  isUserAdmin,
 }) => {
   const navigate = useNavigate();
 
@@ -446,7 +446,12 @@ const EventPost = ({
           </Link>
           <Box>
             <Typography
-              sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+              sx={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#171717",
+                textTransform: "capitalize",
+              }}
             >
               {eventName}
             </Typography>
@@ -480,7 +485,7 @@ const EventPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "reject" ? (
+            isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -505,7 +510,7 @@ const EventPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "approve" ? (
+            isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -557,18 +562,18 @@ const EventPost = ({
                 onClick={
                   numberofLikes > 0 && !isLoading
                     ? () => setShowLikesModal(true)
-                    : () => { }
+                    : () => {}
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                    ? "You liked this post"
-                    : isLiked && numberofLikes > 1
-                      ? `You and ${numberofLikes - 1} more like this`
-                      : numberofLikes === 1
-                        ? `${lastUserLiked} likes this`
-                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                  ? "You liked this post"
+                  : isLiked && numberofLikes > 1
+                  ? `You and ${numberofLikes - 1} more like this`
+                  : numberofLikes === 1
+                  ? `${lastUserLiked} likes this`
+                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -610,7 +615,7 @@ const EventPost = ({
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onClick={isLoading ? () => { } : () => handleLike(id)}
+              onClick={isLoading ? () => {} : () => handleLike(id)}
             >
               <img
                 src={isLiked ? like : unlike}
@@ -957,7 +962,7 @@ const EventPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

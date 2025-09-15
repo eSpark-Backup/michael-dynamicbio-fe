@@ -24,7 +24,6 @@ const ViewArticle = ({
       }
     }
   }, [values]);
-  
 
   return (
     <Box sx={{ mb: "30px" }}>
@@ -78,7 +77,7 @@ const ViewArticle = ({
             backgroundSize: "contain",
             borderTopRightRadius: "0.8rem",
             borderTopLeftRadius: "0.8rem",
-            backgroundRepeat:"no-repeat"
+            backgroundRepeat: "no-repeat",
           }}
         ></Box>
         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "0px" }}>
@@ -98,6 +97,7 @@ const ViewArticle = ({
               fontWeight: "400",
               color: "#505050",
               px: "15px",
+              textTransform: "capitalize",
             }}
           >
             {values?.userName}
