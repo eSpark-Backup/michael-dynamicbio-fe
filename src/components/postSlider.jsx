@@ -11,6 +11,9 @@ import {
   Divider,
   Menu,
   MenuItem,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import {
@@ -146,9 +149,12 @@ const PostSlider = ({ page, posts, refetch }) => {
                     justifyContent="space-between"
                     sx={{ p: 1 }}
                   >
-                    <Stack direction="row" gap={1} 
-                        alignItems="flex-start"
-                        justifyContent="center">
+                    <Stack
+                      direction="row"
+                      gap={1}
+                      alignItems="flex-start"
+                      justifyContent="center"
+                    >
                       <img
                         style={{ borderRadius: "5px" }}
                         width={60}
@@ -162,24 +168,24 @@ const PostSlider = ({ page, posts, refetch }) => {
                         >
                           {page?.name}
                         </Typography>
-                          <Typography
-                            variant="body2"
-                            sx={{ color: "#505050", lineHeight: "20px" }}
-                          >
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "#505050", lineHeight: "20px" }}
+                        >
                           {page?.followerCount} followers
                         </Typography>
                         <Stack direction="row" gap={1} alignItems="center">
-                            <Typography
-                              sx={{ color: "#505050", lineHeight: "15px" }}
-                              variant="body2"
-                            >
+                          <Typography
+                            sx={{ color: "#505050", lineHeight: "15px" }}
+                            variant="body2"
+                          >
                             {post?.postTime}
                           </Typography>
                           <img
-                              src={earth}
-                              alt="Icon"
-                              style={{ width: "14px", height: "14px" }}
-                            />
+                            src={earth}
+                            alt="Icon"
+                            style={{ width: "14px", height: "14px" }}
+                          />
                         </Stack>
                       </Box>
                     </Stack>
@@ -269,6 +275,49 @@ const PostSlider = ({ page, posts, refetch }) => {
                           <FullscreenToggle order={6} />
                         </ControlBar>
                       </Player>
+                    )}
+                    {post?.type === "poll" && (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 1,
+                          mt: 1,
+                        }}
+                      >
+                        {/* Poll Question */}
+                        <Typography
+                          fontSize="16px"
+                          fontWeight="600"
+                          color="text.primary"
+                        >
+                          {post?.question}
+                        </Typography>
+
+                        {/* Poll Options (Radio Group) */}
+                        <RadioGroup
+                          name={`poll-${post?.id}`} // unique name per poll
+                          onChange={(e) =>
+                            console.log("Selected option:", e.target.value)
+                          }
+                        >
+                          {post?.options?.map((option, index) => (
+                            <FormControlLabel
+                              key={index}
+                              value={option}
+                              control={<Radio />}
+                              label={option}
+                              sx={{
+                                border: "1px solid #e0e0e0",
+                                borderRadius: "8px",
+                                px: 1,
+                                py: 0.5,
+                                "&:hover": { backgroundColor: "#f9f9f9" },
+                              }}
+                            />
+                          ))}
+                        </RadioGroup>
+                      </Box>
                     )}
                   </Box>
 

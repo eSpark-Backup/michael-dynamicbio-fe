@@ -13,7 +13,6 @@ import { pageStats } from "../../../constant";
 import PostSlider from "../../../components/postSlider";
 
 const DashboardSection = ({ page, posts, refetch }) => {
-  console.log(posts,'posts');
   
   return (
     <>
