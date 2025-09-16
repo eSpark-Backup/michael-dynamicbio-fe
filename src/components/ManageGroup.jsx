@@ -42,10 +42,6 @@ const ManageGroup = () => {
         label: "Content",
         component: <GroupContentSection />,
       },
-      //   {
-      //     label: "Analytics",
-      //     component: <GroupAnalytics />,
-      //   },
     ];
   }, [data]);
 

@@ -112,18 +112,11 @@ const GroupMemberCard = ({
       }}
     >
       <Stack direction={"row"} alignItems={"center"} gap={1.5}>
-        {/* <Badge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    variant="dot"
-                    color="success"
-                > */}
         <Avatar
           alt="Travis Howard"
           src={profile || user}
           sx={{ width: 43, height: 43 }}
         />
-        {/* </Badge> */}
         <Stack direction={"column"}>
           <Box sx={{ display: "flex", columnGap: "10px" }}>
             <Typography
@@ -233,9 +226,6 @@ const GroupMemberCard = ({
             <MenuItem onClick={() => HandlePermission("add-admin")}>
               Make Admin
             </MenuItem>
-            {/* <MenuItem onClick={() => HandlePermission("owner")}>Make owner</MenuItem>
-                        <MenuItem onClick={handleClose}>Remove from group</MenuItem>
-                        <MenuItem onClick={handleClose}>Block from group</MenuItem> */}
           </>
         )}
         {mainType === "members" && groupRole === "admin" && (
@@ -243,32 +233,15 @@ const GroupMemberCard = ({
             <MenuItem onClick={() => HandlePermission("remove-admin")}>
               Remove admin permissions
             </MenuItem>
-            {/* <MenuItem onClick={() => HandlePermission("owner")}>Make owner</MenuItem>
-                        <MenuItem onClick={handleClose}>Remove from group</MenuItem>
-                        <MenuItem onClick={handleClose}>Block from group</MenuItem> */}
           </>
         )}
         {mainType === "admins" && groupRole === "admin" && (
           <>
-            {/* <MenuItem onClick={() => HandlePermission("owner")}>Make owner</MenuItem> */}
             <MenuItem onClick={() => HandlePermission("remove-admin")}>
               Remove admin permissions
             </MenuItem>
-            {/* <MenuItem onClick={handleClose}>Remove from group</MenuItem>
-                        <MenuItem onClick={handleClose}>Block from group</MenuItem> */}
           </>
         )}
-        {/* {mainType === "blocked" &&
-                    <>
-                        <MenuItem onClick={() => HandlePermission("unblock")}>Unblock from group</MenuItem>
-                        <MenuItem onClick={handleClose}>Delete all posts and comments</MenuItem>
-                    </>
-                } */}
-        {/* {(mainType === "members" || mainType === "admins") && groupRole === "owner" &&
-                    <>
-                        <MenuItem onClick={handleClose}>Remove admin permissions</MenuItem>
-                    </>
-                } */}
       </Menu>
 
       <ConfirmationModal
@@ -298,13 +271,6 @@ const GroupMemberCard = ({
             : selectedChoice === "owner"
             ? "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
             : "Areeba Shakeel will become a member of the group and be able to interact with the group again. "}
-          {/* <Typography
-                        sx={{ fontSize: 17, fontWeight: 300, cursor: "pointer" }}
-                        variant="gradientText"
-                        component={"span"}
-                    >
-                        Learn More
-                    </Typography> */}
         </Typography>
       </ConfirmationModal>
     </Box>

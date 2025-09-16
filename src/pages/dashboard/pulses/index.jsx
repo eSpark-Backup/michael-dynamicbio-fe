@@ -166,18 +166,11 @@ const Pulses = () => {
               </Typography>
             </Box>
           </Paper>
-          {/* <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Typography sx={{ fontSize: "14px", fontWeight: 400, color: theme.palette.primary.dark }}>Manage pulses</Typography>
-            <img src={notification} alt="Notification" />
-          </Paper> */}
         </Grid2>
         <Grid2
           size={{ xs: 12, lg: 6.5 }}
           sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
         >
-          {/* <Paper>
-            <CustomizeTabs tabs={tabOptions} />
-          </Paper> */}
           <Paper
             sx={{
               maxHeight: "700px",
@@ -188,10 +181,6 @@ const Pulses = () => {
               alignItems: "center",
             }}
           >
-            {/* <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}>You can change your pulse setting</Typography>
-              <img src={notification} alt="notification" />
-            </Box> */}
             {notifications?.length > 0 ? (
               <>
                 {notifications?.map((item) => (
@@ -253,9 +242,7 @@ const Pulses = () => {
           </Paper>
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }}>
-          {/* <Paper> */}
           <RightSideBar hideResearch={true} />
-          {/* </Paper> */}
         </Grid2>
       </Grid2>
     </Box>

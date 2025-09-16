@@ -92,10 +92,6 @@ const PageDetailsPage = () => {
         label: "About",
         component: <AboutSection data={data?.data} />,
       },
-      // {
-      //   label: "People",
-      //   component: <PeopleSection />,
-      // },
     ];
   }, [data?.data]);
   const [activeTabLabel, setActiveTabLabel] = useState("Home");
@@ -205,21 +201,6 @@ const PageDetailsPage = () => {
                   }}
                 ></Box>
               </Box>
-              {/* {data?.data?.isFollowing && (
-                <Stack
-                  sx={{ width: "100%", padding: "20px" }}
-                  direction="row"
-                  alignItems="flex-start"
-                  justifyContent="flex-end"
-                >
-                  <img
-                    onClick={(e) => handleClick(e)}
-                    style={{ cursor: "pointer" }}
-                    src={bellActive}
-                    alt="bell"
-                  />
-                </Stack>
-              )} */}
               <Box
                 sx={{
                   mt: "90px",
@@ -258,7 +239,6 @@ const PageDetailsPage = () => {
                 <Box sx={{ display: "flex", columnGap: "10px" }}>
                   <Button
                     disabled={isFollowLoading}
-                    // loading={isFollowLoading}
                     onClick={handleFollow}
                     type="submit"
                     sx={{
@@ -537,22 +517,6 @@ const PageDetailsPage = () => {
         }}
       >
         <>
-          {/* {isMyPage && (
-            <MenuItem
-              onClick={(e) => {
-                handleClose(e);
-              }}
-            >
-              Invite connections
-            </MenuItem>
-          )}
-          <MenuItem
-            onClick={(e) => {
-              handleClose(e);
-            }}
-          >
-            Send in a message
-          </MenuItem> */}
           <MenuItem
             onClick={(e) => {
               navigate("/bonds?sub=page&edit=true");

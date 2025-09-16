@@ -26,8 +26,6 @@ const NotificationSettingsModal = ({ onSuccess }) => {
                 }}
             >
                 <Button
-                    // loading={isLoading}
-                    // disabled={isLoading}
                     onClick={onSuccess}
                     type="submit"
                     sx={{

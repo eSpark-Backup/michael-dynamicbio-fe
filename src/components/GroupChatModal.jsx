@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { chipClose, three_vertical_dots } from "../assets";
-// import { groupMembers } from '../constant';
 import { useSelector } from "react-redux";
 import {
   useAddMemberMutation,
@@ -55,16 +54,6 @@ const GroupChatModal = ({
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [removedIndex, setRemovedIndex] = useState(0);
   const [id, setId] = useState(null);
-  // const options = [
-  //     { label: "John Doe", id: 1 },
-  //     { label: "Jane Smith", id: 2 },
-  //     { label: "Alice Johnson", id: 3 },
-  //     { label: "Bob Brown", id: 4 },
-  //     { label: "Bob Brown2", id: 5 },
-  //     { label: "Bob Brown3", id: 6 },
-  //     { label: "Bob Brown4", id: 7 },
-  //     { label: "Bob Brown5", id: 8 },
-  // ];
   const open = Boolean(menuAnchor);
 
   const handleClick = (event, id) => {
@@ -450,9 +439,7 @@ const GroupChatModal = ({
             sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Anyone who joins this chat will see previous messages.{" "}
-          </Typography>
-          {/* <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>Learn more</Typography> */}
-        </Box>
+          </Typography></Box>
         <Button onClick={handleCloseModal} sx={{ height: "36px", maxWidth: "150px" }}>Done</Button>
       </Stack>
       <Menu
@@ -471,7 +458,6 @@ const GroupChatModal = ({
         <MenuItem onClick={handleRemove}>
           {menuAnchor?.id === userData?.userChatId ? "Leave" : "Remove"}
         </MenuItem>
-        {/* <MenuItem onClick={handleClose}>Report / Block</MenuItem> */}
       </Menu>
     </Box>
   );

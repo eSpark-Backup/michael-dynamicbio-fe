@@ -136,7 +136,7 @@ const Events = () => {
           gap={2}
         >
           {Array.from({ length: 2 }).map((_, ind) => (
-            <Stack
+            <Stack key={ind}
               direction="row"
               justifyContent="center"
               alignItems="flex-start"
@@ -178,13 +178,12 @@ const Events = () => {
           gap={2}
         >
           {Array.from({ length: 9 }).map((_, ind) => (
-            <Stack
+            <Stack key={ind}
               mt={2}
               justifyContent="center"
               alignItems="flex-start"
               gap={1}
               sx={{
-                // width: { xs: "100%", lg: "48%" },
                 border: "1px solid #aba8a8",
                 borderRadius: "15px",
                 overflow: "hidden",

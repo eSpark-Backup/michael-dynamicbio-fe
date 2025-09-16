@@ -101,15 +101,7 @@ const AdminView = () => {
   const items = [
     "Dashboard",
     "Page posts",
-    // "Analytics",
-    // "Feed",
-    // "Activity",
-    // "Inbox",
     "Edit page",
-    // "Breaker",
-    // "Try Premium Page",
-    // "Advertise today",
-    // "Settings",
   ];
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [showPostModal, setShowPostModal] = useState(false);
@@ -243,7 +235,6 @@ console.log(posts);
   }, [postError]);
 
   useEffect(() => {
-    // if (isPostSuccess) {
     if (!postsData?.data) {
       setPosts([]);
       setHasMore(false);
@@ -266,7 +257,6 @@ console.log(posts);
       postsData.data.pagination.currentPage <
         postsData.data.pagination.totalPages
     );
-    // }
   }, [data, isPostSuccess, page, isPostFetching]);
 
   const transformPosts = (posts) => {
@@ -552,7 +542,6 @@ console.log(posts);
                 mt: "10px",
               }}
             >
-              {/*  */}
               {items?.map((item, index) => {
                 return (
                   <Box
@@ -596,7 +585,6 @@ console.log(posts);
           }}
           sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
         >
-          {/* */}
           {activeItem === "Page posts" ? (
             <PagePosts
               refetch={refetch}

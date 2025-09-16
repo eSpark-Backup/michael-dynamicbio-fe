@@ -136,18 +136,6 @@ const Login = () => {
           </Typography>
         </Link>
       </Typography>
-      {/* <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        gap={2}
-        sx={{ marginY: "38px" }}
-      >
-        <Typography fontWeight={300}>Or Sign up via</Typography>
-        <img style={{ cursor: "pointer" }} src={google} alt="google" />
-        <img style={{ cursor: "pointer" }} src={facebook} alt="facebook" />
-        <img style={{ cursor: "pointer" }} src={linkedin} alt="linkedin" />
-      </Stack> */}
     </Stack>
   );
 };

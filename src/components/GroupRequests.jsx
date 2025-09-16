@@ -78,35 +78,6 @@ const GroupRequests = ({ data, refetch }) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
-      {/* <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Stack direction={"column"}>
-                    <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Automatic member approval</Typography>
-                        <Box sx={{ background: "#d3d3d3", p: "5px 10px", borderRadius: "4px" }}>
-                            <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}>Off</Typography>
-                        </Box>
-                    </Box>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Select members who can join this group without admin approval. <span style={{ fontSize: "14px", fontWeight: "600", color: "#505050" }}>Learn more</span></Typography>
-                </Stack>
-                <Box sx={{ p: "6px 15px", border: "1px solid black", borderRadius: "21px", position: "relative" }}>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Set up</Typography>
-                    <Box
-                        sx={{
-                            width: "12px",
-                            height: "12px",
-                            backgroundColor: "purple",
-                            borderRadius: "4px",
-                            transform: "rotate(45deg)",
-                            position: "absolute",
-                            right: "-5px",
-                            top: "-3px"
-                        }}
-                    />
-
-
-                </Box>
-            </Paper> */}
-
       {reqData?.data?.pendingRequests?.length > 0 ? (
         <Paper>
           <Box

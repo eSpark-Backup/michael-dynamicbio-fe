@@ -134,7 +134,6 @@ const PostCard = ({
       groupId: group ? group?.id : null,
       content: {
         title,
-        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
       status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
@@ -163,7 +162,6 @@ const PostCard = ({
       groupId: group ? group?.id : null,
       content: {
         title,
-        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
       status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
@@ -205,7 +203,6 @@ const PostCard = ({
       pageId: page ? page?.id : null,
       groupId: group ? group?.id : null,
       content: {
-        // ...(schedule.date && schedule.time ? { schedule } : {}),
         title
       },
       poll: {
@@ -245,7 +242,6 @@ const PostCard = ({
       content: {
         ...rest,
         title,
-        // ...(schedule.date && schedule.time ? { schedule } : {}),
       },
       status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
@@ -313,7 +309,6 @@ const PostCard = ({
     const file = e.target.files[0];
     if (file) {
       try {
-        // const thumbnail = await generateThumbnail(file);
         setVideoData({ video: file, thumbnail: null });
       } catch (error) {
         console.error("Error generating thumbnail:", error);
@@ -400,13 +395,6 @@ const PostCard = ({
               rowGap: "5px",
             }}
           >
-            {/* <img
-            style={{ width: "73px", height: "73px", borderRadius: "50%" }}
-            src={
-              userData && userData?.profileImage ? userData?.profileImage : user
-            }
-            alt="User"
-          /> */}
             <Avatar
               src={
                 page

@@ -7,7 +7,6 @@ const TargetAudienceModal = ({ handleClose }) => {
     return (
         <Box sx={{ mt: "35px" }}>
             <Box sx={{ width: { xs: "100%", md: "90%" }, display: "flex", justifyContent: "space-between", flexWrap: "wrap", rowGap: "35px", mb: "30px" }}>
-                {/*  */}
                 {items?.map((item) => {
                     return (
                         <Stack width={{ xs: "100%", md: "50%" }} direction={"column"} gap={1}>

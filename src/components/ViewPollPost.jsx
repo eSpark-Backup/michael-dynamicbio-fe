@@ -75,11 +75,6 @@ const ViewPollPost = ({ values, title, setTitle, numberOfVotes, handleScheduleCl
                     <Typography sx={{ fontSize: "14px", fontWeight: "400" }} variant='gradientText'>view results</Typography>
                 </Box>
             </Box>
-            {/* <img
-                src={emoji}
-                alt="Icon"
-                style={{ width: "24px", height: "24px", marginBottom: "15px" }}
-            /> */}
             <Stack
                 justifyContent={"space-between"}
                 alignItems={"center"}

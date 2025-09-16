@@ -104,11 +104,6 @@ const ViewArticle = ({
           </Typography>
         </Box>
       </Box>
-      {/* <img
-        src={emoji}
-        alt="Icon"
-        style={{ width: "24px", height: "24px", marginBottom: "15px" }}
-      /> */}
       <Stack
         justifyContent={"flex-end"}
         alignItems={"center"}

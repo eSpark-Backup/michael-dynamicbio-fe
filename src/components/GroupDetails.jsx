@@ -587,125 +587,6 @@ const GroupDetails = () => {
               </>
             )}
           </Paper>
-          {/* <Paper
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              rowGap: "0px",
-              p: "0px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "15px",
-                p: "20px",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-              >
-                Recent
-              </Typography>
-              <Box
-                sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}
-              >
-                <img src={calendarEvent} alt="" />
-                <Typography
-                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
-                >
-                  mocking
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "20px",
-                p: "20px",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "17px", fontWeight: "500" }}
-                variant="gradientText"
-              >
-                Groups
-              </Typography>
-              <Box
-                sx={{
-                  width: { xs: "100%", sm: "85%" },
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontSize: "17px", fontWeight: "500" }}
-                  variant="gradientText"
-                >
-                  Events
-                </Typography>
-                <img src={plus} alt="Icon" />
-              </Box>
-              <Box
-                sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "10px",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      columnGap: "5px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img src={calendarEvent} alt="" />
-                    <Typography
-                      sx={{
-                        fontSize: "14px",
-                        fontWeight: "400",
-                        color: "#505050",
-                      }}
-                    >
-                      mocking
-                    </Typography>
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "400",
-                      color: "#505050",
-                    }}
-                  >
-                    See all
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                height: "60px",
-                borderTop: "1px solid #E5E5E5",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "16px", fontWeight: "400", color: "#171717" }}
-              >
-                Discover more
-              </Typography>
-            </Box>
-          </Paper> */}
         </Grid2>
         <Grid2
           size={{ xs: 12, lg: 6 }}
@@ -764,97 +645,6 @@ const GroupDetails = () => {
                   style={{ cursor: "pointer" }}
                   onClick={handleClick}
                 />
-                {/* {(data?.data?.isAdmin || data?.data?.isFollowing) && (
-                  <Box
-                    sx={{
-                      position: "relative",
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      columnGap: "15px",
-                    }}
-                  >
-                    <img
-                      src={bell}
-                      alt="Bell Icon"
-                      style={{ cursor: "pointer" }}
-                      ref={bellRef}
-                      onClick={
-                        data?.data?.isAdmin
-                          ? handleNotiSetting
-                          : () => setNotificationModal(true)
-                      }
-                    />
-
-                    <Popper
-                      open={open3}
-                      anchorEl={anchorEl3}
-                      placement="bottom-end"
-                      sx={{
-                        zIndex: 1300,
-                        display: { xs: "none", sm: "block" },
-                      }}
-                    >
-                      <Paper
-                        sx={{
-                          backgroundColor: "#2f2f2f",
-                          color: "#fff",
-                          padding: "8px 16px",
-                          borderRadius: 1,
-                          position: "relative",
-                          maxWidth: 400,
-                          marginTop: "15px",
-                          left: "10px",
-                          width: "100%",
-                          boxSizing: "border-box",
-                          "@media (max-width:600px)": {
-                            maxWidth: "calc(100vw - 32px)",
-                            left: "0px",
-                            marginLeft: "16px",
-                            marginRight: "16px",
-                          },
-                        }}
-                        elevation={3}
-                      >
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            top: "-8px",
-                            right: "12px",
-                            width: 0,
-                            height: 0,
-                            borderLeft: "8px solid transparent",
-                            borderRight: "8px solid transparent",
-                            borderBottom: "8px solid #2f2f2f",
-                            "@media (max-width:600px)": {
-                              right: "24px", // adjust for center or edge alignment on mobile
-                            },
-                          }}
-                        />
-
-                        <Typography
-                          variant="body2"
-                          sx={{ fontWeight: "400", color: "white" }}
-                        >
-                          Never miss a post. Turn on notifications for all posts
-                          from this group.
-                        </Typography>
-
-                        <IconButton
-                          onClick={handleClose3}
-                          size="small"
-                          sx={{
-                            position: "absolute",
-                            top: 4,
-                            right: 4,
-                            color: "#fff",
-                          }}
-                        >
-                          <CloseIcon fontSize="small" />
-                        </IconButton>
-                      </Paper>
-                    </Popper>
-                  </Box>
-                )} */}
                 {isMyGroup && (
                   <img
                     onClick={() => setEditModal(data?.data)}
@@ -916,20 +706,9 @@ const GroupDetails = () => {
                       : "Private group"}
                   </Typography>
                 </Box>
-                {/* <Typography
-                  sx={{ fontSize: "17px", fontWeight: "400" }}
-                  variant="gradientText"
-                >
-                  Earn an Active Group badge
-                </Typography> */}
               </Box>
             </Box>
           </Paper>
-          {/* {showSlider && (
-            <Paper>
-              <GroupSlider handleClose={() => setShowSlider(false)} />
-            </Paper>
-          )} */}
           {(isMyGroup || data?.data?.isAdmin || data?.data?.isFollowing) && (
             <Paper>
               <PostCard
@@ -995,58 +774,17 @@ const GroupDetails = () => {
                 </Box>
               </Paper>
             )}
-          {/* <Box sx={{ display: "flex", columnGap: "15px" }}>
-            <Box
-              sx={{
-                background:
-                  choice === "All"
-                    ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-                    : "transparent",
-                p: "10px 15px",
-                borderRadius: "12px",
-                border: choice === "All" ? "none" : "1px solid #E4E4E4",
-                cursor: "pointer",
-                color: choice === "All" ? "white" : "#505050",
-              }}
-              onClick={() => setChoice("All")}
-            >
-              All
-            </Box>
-            <Box
-              sx={{
-                background:
-                  choice !== "All"
-                    ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-                    : "transparent",
-                p: "10px 15px",
-                borderRadius: "12px",
-                border: choice !== "All" ? "none" : "1px solid #E4E4E4",
-                cursor: "pointer",
-                color: choice !== "All" ? "white" : "#505050",
-              }}
-              onClick={() => setChoice("Recommended")}
-            >
-              Recommended
-            </Box>
-          </Box> */}
           {(isMyGroup ||
             data?.data?.status === "PUBLIC" ||
             data?.data?.isFollowing) && (
             <Box
               sx={{
                 display: "flex",
-                // justifyContent: "center",
                 flexDirection: "column",
                 rowGap: "15px",
-                // alignItems: "center",
                 width: "100%",
               }}
             >
-              {/* <img src={conversation} alt="Image" />
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}>No posts to show</Typography>
-                        <Typography sx={{ fontSize: "16px", fontWeight: "400", color: "#505050", textAlign: "center" }}>
-                            Join group to receive updates, add <br /> comments and create posts.
-                        </Typography> */}
               <InfiniteScroll
                 dataLength={posts.length}
                 next={fetchMoreData}
@@ -1160,51 +898,6 @@ const GroupDetails = () => {
           horizontal: "bottom",
         }}
       >
-        {/* <MenuItem
-          onClick={handleClose}
-          sx={{
-            width: "195px",
-            fontSize: "16px",
-            fontWeight: "500",
-            color: "#171717",
-          }}
-        >
-          Share on Fusion
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
-        >
-          <img src={editBlue} alt="" />
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-          >
-            Repost to Feed
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
-        >
-          <img src={send2} alt="" />
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-          >
-            Send in a message
-          </Typography>
-        </MenuItem>
-        <Divider />
-        <MenuItem
-          onClick={handleClose}
-          sx={{
-            width: "195px",
-            fontSize: "16px",
-            fontWeight: "500",
-            color: "#171717",
-          }}
-        >
-          Other options
-        </MenuItem> */}
         <MenuItem
           onClick={(e) => {
             copyToClipboard(data?.data?.shareableLink);
@@ -1233,28 +926,6 @@ const GroupDetails = () => {
           horizontal: "bottom",
         }}
       >
-        {/* <MenuItem
-          onClick={handleClose2}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
-        >
-          <img src={bell} alt="" />
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-          >
-            Manage notifications
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose2}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
-        >
-          <img src={settings} alt="" />
-          <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-          >
-            Update your settings
-          </Typography>
-        </MenuItem> */}
         <MenuItem
           onClick={(e) => {
             if (!isFollowLoading || !isDeleteLoading) {

@@ -201,13 +201,6 @@ const CatchUp = ({ onGrow }) => {
                   </Button>
                 </Box>
               </Stack>
-
-              {/* <img
-                style={{ cursor: "pointer" }}
-                onClick={() => setOpenMenu(true)}
-                src={verticleDots}
-                alt="menu"
-              /> */}
             </Stack>
           ))
         ) : (

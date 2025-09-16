@@ -78,7 +78,6 @@ const ReportArticle = ({ handleSubmit }) => {
                     step === 1
                         ?
                         <Button
-                            // loading={isLoading}
                             onClick={() => setStep(2)}
                             disabled={selectedChoice?.title === ""}
                             type="submit"
@@ -127,10 +126,7 @@ const ReportArticle = ({ handleSubmit }) => {
                                 <Typography variant="gradientText">Back</Typography>
                             </Box>
                             <Button
-                                // loading={isLoading}
                                 onClick={handleSubmit}
-                                // disabled={selectedChoice?.title === ""}
-                                // type="submit"
                                 sx={{
                                     maxWidth: "200px",
                                     height: "36px",

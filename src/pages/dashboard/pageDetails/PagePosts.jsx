@@ -161,14 +161,6 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-      {/* <Paper>
-                <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}>Page posts</Typography>
-                <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Manage your page's organic and paid content</Typography>
-                <Box sx={{ mt: "20px", display: "flex", columnGap: "15px" }}>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", lineHeight: "normal" }} variant={activeItem === "Published" ? "gradientText" : "body1"} onClick={() => setActiveItem("Published")}>Published</Typography>
-                    <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717", cursor: "pointer", lineHeight: "normal" }} variant={activeItem === "Page ads" ? "gradientText" : "body1"} onClick={() => setActiveItem("Page ads")}>Page ads</Typography>
-                </Box>
-            </Paper> */}
       <Paper>
         <PostCard handleDropDown={handleDropdown} refetch={refetch} page={page} adminPage={true} />
       </Paper>
@@ -222,77 +214,6 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
             <Typography variant="gradientText">Boost</Typography>
           </Box>
         </Box>
-        {/* <Paper sx={{ borderTopRightRadius: "0px", borderTopLeftRadius: "0px", display: "flex", flexDirection: "column", rowGap: "15px" }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>By rotten ria . 3/5/2025</Typography>
-                        <img src={three_vertical_dots} alt="Icon" onClick={handleClick} style={{ cursor: "pointer" }} />
-                    </Box>
-                    <Divider />
-                    <Box sx={{ display: "flex", columnGap: "20px" }}>
-                        <img src={user} alt="Image" style={{ width: "73px", height: "73px" }} />
-                        <Stack>
-                            <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>RottenRia</Typography>
-                            <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>0 followers</Typography>
-                            <Box sx={{ display: "flex", columnGap: "4px" }}>
-                                <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}>now . </Typography>
-                                <img src={earth} alt="Icon" />
-                            </Box>
-                        </Stack>
-                    </Box>
-                    <img src={postPicture} alt="Post" />
-                    <Box sx={{ borderTop: "1px solid #E4E4E4", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#F8FCFF", height: '50px', px: { xs: "10px", md: "0px" } }}>
-                        <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
-                            <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
-                            <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                        </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
-                            <img src={like} alt="Like" />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Like</Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", backgroundColor: "inherit", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
-                            <img src={comment} alt="Comment" />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Comment</Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }}>
-                            <img src={repost} alt="Repost" />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
-                        </Box>
-                    </Box>
-                    <Box sx={{ backgroundColor: "#F2F8FD", p: "15px", border: "1px solid #E4E4E4", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                        <Stack gap={"5px"}>
-                            <Typography sx={{ fontSize: "17px", fontWeight: "600", color: "#171717" }}>
-                                Tag followers in a comment to spark conversations
-                            </Typography>
-                            <Typography sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}>
-                                Tagging relevant followers helps the post get seen and start meaningful conversations.
-                            </Typography>
-                            <Box sx={{
-                                width: "120px", height: "36px", borderRadius: "2px", display: "flex", justifyContent: "center", alignItems: "center",
-                                background: "white",
-                                position: "relative",
-                                "&::before": {
-                                    content: '""',
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    borderRadius: "8px",
-                                    padding: "1px",
-                                    background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                                    mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                                    WebkitMask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                                    WebkitMaskComposite: "destination-out",
-                                    maskComposite: "exclude",
-                                },
-                                cursor: "pointer"
-                            }}>
-                                <Typography variant='gradientText'>Tag followers</Typography>
-                            </Box>
-                        </Stack>
-                        <img src={close} alt="Icon" />
-                    </Box>
-                </Paper> */}
         <InfiniteScroll
           dataLength={posts.length}
           next={fetchMoreData}

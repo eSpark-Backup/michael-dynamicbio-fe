@@ -289,7 +289,6 @@ const DDT = () => {
         ref={scrollContainerRef}
         sx={{
           mx: { xs: "10px", md: "35px", lg: "150px" },
-          // border: "1px solid red",
           height: { xs: "72vh", md: "65vh" },
           overflowY: "auto",
           "::-webkit-scrollbar": {
@@ -305,7 +304,6 @@ const DDT = () => {
             sx={{
               display: "flex",
               justifyContent: item?.response ? "flex-start" : "flex-end",
-              // rowGap: '100px',
               flexDirection: "column",
               alignItems: item?.response ? "flex-start" : "flex-end",
             }}
@@ -327,10 +325,6 @@ const DDT = () => {
                 mt: index == 0 ? "0px" : "25px",
               }}
             >
-              {/* <Typography
-                sx={{ fontSize: "16px", fontWeight: "400", color: "#000000" }}
-                dangerouslySetInnerHTML={{ __html: item?.content }}
-              /> */}
               {item?.content?.split("\n").map((line, idx) => (
                 <React.Fragment key={idx}>
                   {line}
@@ -354,8 +348,6 @@ const DDT = () => {
                   alt="Icon"
                   style={{ cursor: "pointer" }}
                 />
-                {/* <img src={positive} alt="Icon" style={{ cursor: "pointer" }} />
-                <img src={negative} alt="Icon" style={{ cursor: "pointer" }} /> */}
               </Box>
             )}
           </Box>
@@ -373,27 +365,8 @@ const DDT = () => {
           justifyContent: "space-between",
         }}
       >
-        {/*  */}
-        {/* <Box
-          sx={{
-            width: { md: "10%", lg: "5%" },
-            display: { xs: "none", md: "block" },
-            height: "137px",
-          }}
-        >
-          {message?.length === 0 ? (
-            <Box sx={{ width: "100%" }}></Box>
-          ) : (
-            <img
-              src={hasHydrogen ? happy : sad}
-              alt="Icon"
-              style={{ width: "100%" }}
-            />
-          )}
-        </Box> */}
         <Box
           sx={{
-            // height: "100%",
             width: { xs: "100%", md: "90%", lg: "95%" },
             backgroundColor: "#25252580",
             backdropFilter: "blur(80px)",
@@ -414,7 +387,6 @@ const DDT = () => {
                 backgroundColor: "transparent",
                 minHeight: "65px",
                 height: "100%",
-                // width: "95%"
               },
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",

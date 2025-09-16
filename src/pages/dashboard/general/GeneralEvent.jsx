@@ -357,7 +357,6 @@ const GeneralEvent = () => {
                         >
                           RottenRia
                         </Typography>
-                        {/* <img src={three_vertical_dots} alt="" onClick={handleClick6} style={{ cursor: "pointer" }} /> */}
                       </Box>
                       <Typography
                         sx={{
@@ -451,10 +450,6 @@ const GeneralEvent = () => {
                         Comment
                       </Typography>
                     </Box>
-                    {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={HandleClick}>
-                                        <img src={repost} alt="Repost" />
-                                        <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
-                                    </Box> */}
                     <Box
                       sx={{
                         display: "flex",

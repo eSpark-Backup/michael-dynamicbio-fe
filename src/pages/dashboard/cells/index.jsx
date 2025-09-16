@@ -587,12 +587,6 @@ const Cells = () => {
                 >
                   Chats
                 </Typography>
-                {/* <img
-                  src={filter}
-                  alt="Filter"
-                  onClick={handleClick}
-                  style={{ cursor: "pointer" }}
-                /> */}
               </Box>
               <Box
                 sx={{
@@ -965,12 +959,6 @@ const Cells = () => {
                     )}
                   </Stack>
                 </Stack>
-                {/* <img
-                  src={three_vertical_dots}
-                  alt="Info"
-                  style={{ width: "20px", height: "20px", cursor: "pointer" }}
-                  onClick={handleClick2}
-                /> */}
               </Box>
               {!showChatScreen && selectedNames?.length >= 1 && (
                 <Box
@@ -1011,18 +999,6 @@ const Cells = () => {
                             borderRadius: "50%",
                           }}
                         />
-                        {/* <Box
-                          sx={{
-                            width: "10px",
-                            height: "10px",
-                            backgroundColor: "#12B76A",
-                            border: "1.5px solid #FFFFFF",
-                            borderRadius: "50%",
-                            position: "absolute",
-                            right: 0,
-                            bottom: 0,
-                          }}
-                        ></Box> */}
                       </Box>
                       <Stack direction={"column"}>
                         <Typography
@@ -1290,11 +1266,6 @@ const Cells = () => {
                       columnGap: "10px",
                     }}
                   >
-                    {/* <img
-                      src={emoji}
-                      alt="Emoji"
-                      style={{ width: "24px", height: "24px" }}
-                    /> */}
                     <img
                       onClick={handleChat}
                       src={send}
@@ -1307,18 +1278,6 @@ const Cells = () => {
                     />
                   </Box>
                 </Box>
-                {/* <Box
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    columnGap: "10px",
-                  }}
-                >
-                  <img src={camera} alt="Camera" />
-                  <img src={link} alt="Link" />
-                  <img src={photo} alt="Album" />
-                </Box> */}
               </Box>
             </Paper>
           </Grid2>

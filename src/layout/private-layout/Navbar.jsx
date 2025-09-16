@@ -199,9 +199,6 @@ const Navbar = () => {
                   >
                     Settings
                   </MenuItem>
-                  {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
-                  {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
-                  {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
                   <MenuItem
                     onClick={(e) => {
                       dispatch(logout());
@@ -404,9 +401,6 @@ const Navbar = () => {
                     >
                       Settings
                     </MenuItem>
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
                     <MenuItem
                       sx={{ width: "245px" }}
                       onClick={(e) => {
@@ -459,7 +453,6 @@ const Navbar = () => {
                   justifyContent: "center",
                   cursor: "pointer",
                   width: "100%",
-                  // minWidth: "137px",
                   textAlign: "center",
                 }}
                 onClick={() => handleNavigation(item)}
@@ -501,16 +494,6 @@ const Navbar = () => {
           })}
         </Box>
         <List sx={{ width: 250 }}>
-          {/* {menuItems.map((item) => (
-            <ListItem key={item.name} disablePadding>
-              <ListItemButton onClick={() => handleNavigation(item)}>
-                <ListItemIcon>
-                  <img src={activeItem === item.name ? item.activeIcon : item.inactiveIcon} alt={item.name} width="24px" />
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
           <Box
             sx={{
               width: "100%",

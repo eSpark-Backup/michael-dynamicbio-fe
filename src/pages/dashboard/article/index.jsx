@@ -564,21 +564,6 @@ const Article = ({ userName = "Abdul Rehman" }) => {
               />
             </Box>
           </Box>
-          {/* <Divider sx={{ my: "25px" }} />
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px", width: { xs: "270px", sm: "320px" } }}>
-                        <Typography>Publish to</Typography>
-                        <Box sx={{
-                            display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px", cursor: "pointer", "&:hover": {
-                                backgroundColor: "rgba(0, 0, 0, 0.08)",
-                            },
-                        }}>
-                            <Stack alignItems={"center"} direction={"row"} gap={1}>
-                                <img src={profilePicture} alt="Avatar" style={{ width: "40px", height: "40px" }} />
-                                <Typography>Indiviual Article</Typography>
-                            </Stack>
-                            <FormControlLabel value="individual" control={<Radio sx={{ marginRight: "0px !important" }} />} />
-                        </Box>
-                    </Box> */}
         </RadioGroup>
       </Menu>
 

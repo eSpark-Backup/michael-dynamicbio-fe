@@ -174,7 +174,6 @@ const PageCard = ({
           </>
         ) : owner ? (
           <>
-            {/* <MenuItem onClick={handleClose}>Invite members</MenuItem> */}
             <MenuItem
               onClick={(e) => {
                 if (!isDeleteLoading) {
@@ -185,7 +184,6 @@ const PageCard = ({
             >
               {isDeleteLoading ? "loading..." : "Delete page"}
             </MenuItem>
-            {/* <MenuItem onClick={handleClose}>Leave page</MenuItem> */}
           </>
         ) : (
           <>
@@ -203,7 +201,6 @@ const PageCard = ({
                 ? "Unfollow"
                 : "Follow"}
             </MenuItem>
-            {/* <MenuItem onClick={handleClose}>Message</MenuItem> */}
           </>
         )}
       </Menu>

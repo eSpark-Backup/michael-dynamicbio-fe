@@ -55,9 +55,6 @@ const Header = () => {
                 <img src={world} alt="World" />
                 Network
               </Button>
-              {/* <Box sx={{ width: "204px" }}>
-                <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
-              </Box> */}
               <Box sx={{ width: "204px" }}>
                 <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
               </Box>
@@ -87,9 +84,6 @@ const Header = () => {
             <img src={world} alt="World" />
             Network
           </Button>
-          {/* <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
-            <BoxWithTextIcon text={"Marketplace"} icon={marketplace} />
-          </Box> */}
           <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
             <BoxWithTextIcon text={"DDT"} icon={ai} onClick={() => navigate("/ddt")} />
           </Box>

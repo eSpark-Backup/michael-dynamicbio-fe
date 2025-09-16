@@ -485,17 +485,6 @@ const EditProject = ({ project, open, handleClose, userData }) => {
                             getOptionLabel={(option) => typeof option === "string" ? option : option.name}
                             value={formik.values.contributors}
                             disableClearable={true}
-                            // PaperComponent={(props) => (
-                            //     <Paper
-                            //         {...props}
-                            //         elevation={0}
-                            //         sx={{
-                            //             border: "none",
-                            //             boxShadow: "none",
-                            //             backgroundColor: "transparent",
-                            //         }}
-                            //     />
-                            // )}
                             onChange={(event, newValue) => {
                                 // Normalize strings into objects with just 'name'
                                 const formatted = newValue.map((item) =>
@@ -585,13 +574,6 @@ const EditProject = ({ project, open, handleClose, userData }) => {
                         <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>Use for videos, articles, and websites</Typography>
                     </Box>
                 </MenuItem>
-                {/* <MenuItem onClick={() => HandleMenuItemClicked("media")} sx={{ width: { xs: "fit-content", sm: "350px" }, display: "flex", columnGap: "5px", alignItems: "flex-start" }}>
-                    <img src={photo} alt="Icon" />
-                    <Box>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Add media</Typography>
-                        <Typography sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}>Upload pictures, presentations, or documents</Typography>
-                    </Box>
-                </MenuItem> */}
             </Menu>
 
             <input

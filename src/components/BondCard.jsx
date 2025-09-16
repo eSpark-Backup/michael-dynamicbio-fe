@@ -447,20 +447,6 @@ const BondCard2 = ({
           onClick={isGeneralPost ? AlertHandler : handleClick}
         />
       )}
-      {/* {(!isFriendPost && !ownPost) && <img src={bondMain} alt="Bond" />}
-            {
-                (isFriendPost && !ownPost) && <Box>
-                    <img src={three_vertical_dots} alt="Icon" />
-                    <img src={close} alt="Icon" onClick={handleClose} style={{ cursor: "pointer" }} />
-                </Box>
-            }
-            {
-                (!isFriendPost && ownPost) &&
-                <>
-                    <img src={three_vertical_dots} alt="Icon" />
-                </>
-            } */}
-
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -554,10 +540,6 @@ const BondCard2 = ({
                 Delete post
               </Typography>
             </MenuItem>
-            {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                                <img src={commentOff} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                                <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Disable comment on this post</Typography>
-                            </MenuItem> */}
           </>
         ) : groupPost && !ownPost && isUserAdmin ? (
           <>
@@ -601,14 +583,6 @@ const BondCard2 = ({
                 </Typography>
               </MenuItem>
             )}
-            {/* <MenuItem onClick={() => HandleMenuItemClicked("")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                                    <img src={copyLink} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>{`Block ${userName} from group`}</Typography>
-                                </MenuItem> */}
-            {/* <MenuItem onClick={() => HandleMenuItemClicked("delete")} sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}>
-                                    <img src={deleteIcon} alt="Icon" style={{ width: "24px", height: "24px" }} />
-                                    <Typography sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}>Delete post</Typography>
-                                </MenuItem> */}
             <MenuItem
               onClick={() => HandleMenuItemClicked("profile")}
               sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}

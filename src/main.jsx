@@ -13,7 +13,6 @@ import "./index.css";
 
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
@@ -35,5 +34,4 @@ createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </Provider>
     </ThemeProvider>
-  // </StrictMode>
 );

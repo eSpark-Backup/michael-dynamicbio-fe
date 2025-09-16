@@ -113,13 +113,6 @@ const AboutGroupModal = ({ data, onSuccess }) => {
             </Typography>
           </Box>
           <Divider />
-          {/* <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-            <Typography sx={{ fontSize: "22px", fontWeight: "400", color: "#171717" }}>Activity</Typography>
-            <Box sx={{ display: 'flex', columnGap: "5px", alignItems: "center" }}>
-              <img src={group} alt="Icon" style={{ width: "14px", height: "14px" }} />
-              <Typography>+1 member in the last week</Typography>
-            </Box>
-          </Box> */}
         </Box>
       </Box>
       <Stack
@@ -142,8 +135,6 @@ const AboutGroupModal = ({ data, onSuccess }) => {
         }}
       >
         <Button
-          // loading={isLoading}
-          // disabled={isLoading}
           onClick={onSuccess}
           type="submit"
           sx={{

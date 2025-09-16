@@ -343,9 +343,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.phone}
                   </Typography>
-                  {/* {!isPublicView && (
-                      
-                    )} */}
                   {!isPublicView && (
                     <Box
                       sx={{
@@ -494,15 +491,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       gap={1}
                       mt={1}
                     >
-                      {/* <img
-                        width={24}
-                        height={24}
-                        src={
-                          userData?.profileImage ? userData?.profileImage : user
-                        }
-                        alt="profile-image"
-                        style={{ borderRadius: "50%" }}
-                      /> */}
                       <Avatar
                         src={
                           userData?.profileImage ? userData.profileImage : user
@@ -667,17 +655,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.school}
                     </Typography>
-                    {/* {!isPublicView && (
-                      <img
-                        onClick={() => {
-                          setModal("editedu");
-                          setItem(item);
-                        }}
-                        style={{ cursor: "pointer" }}
-                        src={primaryEdit}
-                        alt="edit"
-                      />
-                    )} */}
                     {!isPublicView && (
                       <Box
                         sx={{
@@ -850,9 +827,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     >
                       {item?.school}
                     </Typography>
-                    {/* {!isPublicView && (
-                      
-                    )} */}
                     {!isPublicView && (
                       <Box
                         sx={{
@@ -1040,9 +1014,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.skill}
                   </Typography>
-                  {/* {!isPublicView && (
-                    
-                  )} */}
                   {!isPublicView && (
                     <Box
                       sx={{
@@ -1165,9 +1136,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.skill}
                   </Typography>
-                  {/* {!isPublicView && (
-                    
-                  )} */}
                   {!isPublicView && (
                     <Box
                       sx={{
@@ -1293,16 +1261,6 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     {item?.name}
                   </Typography>
-                  {/* {!isPublicView && (
-                    <img
-                      onClick={() => {
-                        HandleProjectEdit(item)
-                      }}
-                      style={{ cursor: "pointer" }}
-                      src={primaryEdit}
-                      alt="edit"
-                    />
-                  )} */}
                   {!isPublicView && (
                     <Box
                       sx={{

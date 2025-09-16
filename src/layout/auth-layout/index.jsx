@@ -34,11 +34,6 @@ const AuthLayout = () => {
         alignItems="center"
         justifyItems="flex-start"
       >
-        {/* <img
-          style={{ width: "109px", height: "89px", marginTop: "43px" }}
-          src={icon}
-          alt="app-logo"
-        /> */}
         <img
           style={{ width: "207px", height: "65px", marginTop: "200px" }}
           src={logo}

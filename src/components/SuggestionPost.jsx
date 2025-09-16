@@ -537,108 +537,6 @@ const SuggestionPost = ({
         <Paper
           sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
         >
-          {/* {(groupPost && isGroupfeed) && (
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  pb: "8px",
-                  borderBottom: "1px solid #E4E4E4",
-                }}
-              >
-                <Box
-                  sx={{ display: "flex", columnGap: "3px", alignItems: "center" }}
-                >
-                  {(pinned && isGroupfeed) && <img src={pin} alt="" />}
-                  <Typography
-                    sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
-                  >
-                    {(pinned && isGroupfeed)
-                      ? "Pinned by admin"
-                      : "Highlight this post by pinning it at the top."}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "150px",
-                    height: "36px",
-                    borderRadius: "2px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background: "white",
-                    position: "relative",
-                    "&::before": {
-                      content: '""',
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      borderRadius: "8px",
-                      padding: "1px",
-                      background:
-                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                      mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                      WebkitMask:
-                        "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                      WebkitMaskComposite: "destination-out",
-                      maskComposite: "exclude",
-                    },
-                    cursor: "pointer",
-                  }}
-                >
-                  <Typography variant="gradientText">
-                    {pinned ? "Unpin" : "Pin this post"}
-                  </Typography>
-                </Box>
-              </Box>
-              {pinned && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    py: "8px",
-                    borderBottom: "1px solid #E4E4E4",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      columnGap: "3px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        color: "#505050",
-                      }}
-                    >
-                      <Box
-                        component="span"
-                        sx={{ fontWeight: 500, color: "#171717" }}
-                      >
-                        rotten ria
-                      </Box>{" "}
-                      posted in free
-                    </Typography>
-                  </Box>
-                  <img src={three_vertical_dots} alt="" />
-                </Box>
-              )}
-            </Box>
-          )} */}
-          {/* {
-                                        (!isFriendPost && !ownPost) && <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                            <Typography sx={{ color: "#171717", fontSize: "14px", fontWeight: "400" }}>
-                                                {activity}
-                                            </Typography>
-                                            <img src={three_vertical_dots} alt="Info" style={{ cursor: "pointer" }} />
-                                        </Box>
-                                    } */}
           <BondCard2
             showWorldIcon
             id={userId}
@@ -957,30 +855,6 @@ const SuggestionPost = ({
                     Comment
                   </Typography>
                 </Box>
-                {/* <Box
-                  sx={{
-                    display: "flex",
-                    columnGap: "15px",
-                    cursor: "pointer",
-                    width: { md: "20%" },
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onClick={isGeneralPost ? AlertHandler : handleClick}
-                >
-                  <img src={repost} alt="Like" />
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      display: { xs: "none", md: "block" },
-                      color: "#505050",
-                    }}
-                  >
-                    Repost
-                  </Typography>
-                </Box> */}
                 {visibility === "PUBLIC" && (
                   <Box
                     sx={{
@@ -1105,20 +979,6 @@ const SuggestionPost = ({
                                   justifyContent: "space-between",
                                 }}
                               >
-                                {/* <Box
-                                  sx={{ display: "flex", columnGap: "10px" }}
-                                >
-                                  <img
-                                    src={emoji}
-                                    alt="Emoji"
-                                    style={{ width: "24px", height: "24px" }}
-                                  />
-                                  <img
-                                    src={camera}
-                                    alt="Camera"
-                                    style={{ width: "24px", height: "24px" }}
-                                  />
-                                </Box> */}
                                 {commentContent && (
                                   <Button
                                     loading={postCommentLoading}

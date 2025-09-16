@@ -31,7 +31,6 @@ const SinglePost = () => {
 
     const transformPosts = (posts) => {
         return posts
-            // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
             .map((item) => {
                 const isOwnPost = item?.author?.id === userData?.id;
                 const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
@@ -319,13 +318,11 @@ const SinglePost = () => {
 
                 <Grid2 size={{ xs: 12, lg: 6.5 }}
                     sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
-                    {/* <Paper> */}
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                         {posts.map((item) => (
                             <SuggestionPost key={item.id} {...item} />
                         ))}
                     </Box>
-                    {/* </Paper> */}
                 </Grid2>
 
                 <Grid2 size={{ xs: 12, lg: 3 }}>

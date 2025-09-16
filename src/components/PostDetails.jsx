@@ -246,26 +246,7 @@ const PostDetails = ({
           alignItems: "center",
         }}
       >
-        {/* <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-          <img
-            src={profile2}
-            alt="Avatar"
-            style={{ width: "44px", height: "44px" }}
-          />
-          <Typography
-            sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-          >
-            Albert Einstein{" "}
-            <span
-              style={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
-            >
-              {" "}
-              reposted this
-            </span>
-          </Typography>
-        </Box> */}
         <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
-          {/* <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} /> */}
           <img
             src={close}
             alt="Icon"
@@ -335,30 +316,6 @@ const PostDetails = ({
               alignItems: "center",
             }}
           >
-            {/* <Box
-              sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
-            >
-              <img
-                src={profile2}
-                alt="Avatar"
-                style={{ width: "44px", height: "44px" }}
-              />
-              <Typography
-                sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-              >
-                Albert Einstein{" "}
-                <span
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    color: "#171717",
-                  }}
-                >
-                  {" "}
-                  reposted this
-                </span>
-              </Typography>
-            </Box> */}
             <Box
               sx={{
                 display: "flex",
@@ -367,7 +324,6 @@ const PostDetails = ({
                 justifyContent: "flex-end",
               }}
             >
-              {/* <img src={three_vertical_dots} alt="Icon" style={{ width: "20px", height: "20px" }} /> */}
               <img
                 src={close}
                 alt="Icon"
@@ -544,10 +500,6 @@ const PostDetails = ({
                 Comment
               </Typography>
             </Box>
-            {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={isGeneralPost ? ALertHandler : handleClick}>
-                            <img src={repost} alt="Like" />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", lg: "block" }, color: "#505050" }}>Repost</Typography>
-                        </Box> */}
             {visibility === "PUBLIC" && (
               <Box
                 sx={{
@@ -663,10 +615,6 @@ const PostDetails = ({
                           justifyContent: "space-between",
                         }}
                       >
-                        {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
-                                                    <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                                    <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                                                </Box> */}
                         {commentContent && (
                           <Button
                             loading={postCommentLoading}

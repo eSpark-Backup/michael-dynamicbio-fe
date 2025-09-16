@@ -64,16 +64,6 @@ const Bonds = () => {
       label: "Pages",
       component: <SearchBonds />,
     },
-    // {
-    //   filter: "events",
-    //   label: "Events",
-    //   component: <SearchBonds />,
-    // },
-    // {
-    //   filter: "school",
-    //   label: "School",
-    //   component: <SearchBonds />,
-    // },
     {
       filter: "post",
       label: "Posts",

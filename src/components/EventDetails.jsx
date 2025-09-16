@@ -328,12 +328,6 @@ const EventDetails = () => {
                         : postData?.endTime
                     )}
                   </Typography>
-                  {/* {
-                    postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "4px", backgroundColor: "#E4E4E4", p: "4px", borderRadius: "4px", cursor: "pointer" }} onClick={handleClick2}>
-                      <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}>Add to calendar</Typography>
-                      <img src={downArrowFilled} alt="Icon" />
-                    </Box>
-                  } */}
                 </Box>
                 <Box
                   sx={{
@@ -433,104 +427,8 @@ const EventDetails = () => {
                       : "rotten ria is an attendee"}
                   </Typography>
                 </Box>
-                {/* <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                  <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px" }} onClick={postData?.authorId === userData?.id ? handleClick3 : () => { }}>
-                    <Typography sx={{ color: "white" }}>{postData?.authorId === userData?.id ? "Share" : "Attend"}</Typography>
-                    {postData?.authorId === userData?.id && <KeyboardArrowDownIcon sx={{ color: "white" }} />}
-                  </Button>
-                  <Button sx={{ display: "flex", columnGap: "3px", width: '150px', height: "50px", background: "white !important", border: "1px solid black" }} onClick={handleClick4}>
-                    <Typography sx={{ color: "black" }}>{postData?.authorId === userData?.id ? "Manage" : "Share"}</Typography>
-                    <KeyboardArrowDownIcon sx={{ color: "black" }} />
-                  </Button>
-                  {postData?.authorId !== userData?.id && <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleClick5}>
-                    <img src={three_vertical_dots} alt="" />
-                  </Box>}
-                </Box> */}
               </Box>
             </Box>
-            {/* {postData?.authorId === userData?.id && <Box sx={{ backgroundColor: "#F2F8FD", p: "20px", mt: "20px", display: "flex", flexDirection: "column", rowGap: "10px" }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Typography sx={{ fontSize: '20px', fontWeight: "400", color: "#171717" }}>Set up your event for success</Typography>
-                <Box sx={{ border: "1px solid #E4E4E4", width: "35px", height: "35px", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={() => setShowSuccessCards(!showSuccessCards)}>
-                  {showSuccessCards ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </Box>
-              </Box>
-              {showSuccessCards && <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, rowGap: "15px" }}>
-                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
-                  <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>About</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" }, alignItems: "flex-start" }}>
-                    <img src={aboutEvent} alt="Image" style={{ width: "48px", height: "48px" }} />
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-                      <Typography>Add a description to attract the right audience.</Typography>
-                      <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
-                        <Typography sx={{ color: "black" }}>Add Description</Typography>
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box sx={{ backgroundColor: "white", border: "1px solid #E4E4E4", p: "25px", width: { xs: "100%", md: "48%" }, borderRadius: "8px", display: "flex", flexDirection: "column", rowGap: '10px' }}>
-                  <Typography sx={{ fontSize: "18px", fontWeight: "400", color: "505050" }}>Speakers</Typography>
-                  <Box sx={{ display: "flex", gap: "10px", flexWrap: { xs: "wrap", lg: "nowrap" }, alignItems: "flex-start" }}>
-                    <img src={eventSpeakers} alt="Image" style={{ width: "48px", height: "48px" }} />
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-                      <Typography>Add speakers to generate more interest in your event.</Typography>
-                      <Button sx={{ display: "flex", columnGap: "3px", width: { xs: "100%", md: '180px' }, height: "30px", background: "white !important", border: "1px solid black" }}>
-                        <Typography sx={{ color: "black" }}>Add Speakers</Typography>
-                      </Button>
-                    </Box>
-                  </Box>
-
-                </Box>
-              </Box>}
-            </Box>} */}
-            {/* {postData?.authorId === userData?.id && <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="flex-start"
-              gap={5}
-              sx={{
-                background: "#FFF",
-                border: "1px solid #E4E4E4",
-                borderRadius: "4px",
-                padding: "18px 30px",
-              }}
-            >
-              {tabs.map((tab) => (
-                <Typography
-                  sx={{
-                    cursor: "pointer",
-                    position: "relative",
-                    background:
-                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                    "-webkit-background-clip": "text",
-                    "-webkit-text-fill-color":
-                      tab?.label === activeTab?.label ? "transparent" : "#000",
-                    textAlign: "center",
-                    "&::after": {
-                      content: '""',
-                      display: tab?.label === activeTab?.label ? "block" : "none",
-                      width: { xs: "45px", md: "90px" },
-                      height: "4px",
-                      background:
-                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                      position: "absolute",
-                      bottom: "-20px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      borderRadius: "2px",
-                    },
-                  }}
-                  fontSize={{ xs: "12px", md: "14px" }}
-                  fontWeight={500}
-                  onClick={() => setActiveTab(tab)}
-                  key={tab.label}
-                >
-                  {tab.label}
-                </Typography>
-
-
-              ))}
-            </Stack>} */}
           </Paper>
           <Box sx={{ marginTop: "10px" }}>
             {(activeTab?.label === "Comments" ||
@@ -568,8 +466,7 @@ const EventDetails = () => {
                       >
                         RottenRia
                       </Typography>
-                      {/* <img src={three_vertical_dots} alt="" onClick={handleClick6} style={{ cursor: "pointer" }} /> */}
-                    </Box>
+                      </Box>
                     <Typography
                       sx={{
                         fontSize: "14px",
@@ -609,10 +506,6 @@ const EventDetails = () => {
                     px: { xs: "10px", md: "0px" },
                   }}
                 >
-                  {/* {postData?.authorId === userData?.id && <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "15%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
-                  <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
-                  <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                </Box>} */}
                   <Box
                     sx={{
                       display: "flex",
@@ -661,10 +554,6 @@ const EventDetails = () => {
                       Comment
                     </Typography>
                   </Box>
-                  {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
-                  <img src={repost} alt="Repost" />
-                  <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
-                </Box> */}
                   <Box
                     sx={{
                       display: "flex",
@@ -733,17 +622,8 @@ const EventDetails = () => {
                           }}
                           placeholder={"Add a comment"}
                         />
-                        {/* <Box sx={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
-                        <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                        <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                      </Box> */}
                       </Box>
                     </Box>
-                    {/* {Array.isArray(commentsContent) && commentsContent?.length > 0 &&
-                commentsContent?.map((item, index) => (
-                  <Comment key={index} userImage={item?.userImage} userName={item?.userName} comment={item?.comment} time={item?.time} />
-                ))
-              } */}
                   </Box>
                 )}
               </Paper>

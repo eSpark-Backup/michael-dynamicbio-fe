@@ -123,7 +123,6 @@ const Comment = ({
                 ? dayjs().fromNow()
                 : dayjs(time).fromNow()}
             </Typography>
-            {/* <img src={three_vertical_dots} alt="three_vertical_dots" style={{ width: "20px", height: "20px", cursor: "pointer" }} /> */}
           </Box>
         </Box>
         <Typography

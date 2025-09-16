@@ -23,7 +23,7 @@ const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose
         const files = Array.from(e.target.files);
         setSelectedFiles((prevFiles) => {
             const updatedFiles = [...prevFiles, ...files];
-            setCurrentActiveIndex(updatedFiles.length - 1); // Ensure the last uploaded file is visible
+            setCurrentActiveIndex(updatedFiles.length - 1); 
             return updatedFiles;
         });
         setFiles((prevFiles) => {
@@ -140,7 +140,6 @@ const PhotoModal = ({ title, setTitle, files, setFiles, placeholder, handleClose
                 </Box>
 
             </Box>), [selectedFiles])}
-            {/* <img src={emoji} alt="Icon" style={{ width: "24px", height: "24px" }} /> */}
             <Box sx={{ height: "50px" }}>
                 {selectedFiles?.length === 0 && <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap", rowGap: "10px", columnGap: "20px" }}>
                     {[{ img: photo, label: "Photo" }, { img: video, label: "Video" }, { img: article, label: "Article" }, { img: event, label: "Event" }]

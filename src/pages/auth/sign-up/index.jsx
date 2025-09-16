@@ -17,7 +17,6 @@ const Signup = () => {
       firstName: "",
       lastName: "",
       email: "",
-      // dob: null,
       password: "",
       conPassword: "",
     },
@@ -27,7 +26,6 @@ const Signup = () => {
         firstName: values?.firstName,
         lastName: values?.lastName,
         email: values?.email,
-        // about: { dob: values?.dob },
         password: values?.password,
         loginType: "local",
         role: "user",
@@ -92,31 +90,6 @@ const Signup = () => {
             error={formik.touched.lastName && !!formik.errors.lastName}
             helperText={formik.touched.lastName && formik.errors.lastName}
           />
-          {/* <DatePicker
-            label="Birth Date"
-            variant="filled"
-            value={formik.values.dob}
-            onChange={(value) => formik.setFieldValue("dob", value)}
-            onBlur={() => formik.setFieldTouched("dob", true)}
-            slotProps={{
-              textField: {
-                fullWidth: true,
-                error: formik.touched.dob && Boolean(formik.errors.dob),
-                helperText: formik.touched.dob && formik.errors.dob,
-              },
-            }}
-            sx={{
-              ".MuiOutlinedInput-root": {
-                width: "100%",
-                backgroundColor: "#FCFCFC",
-                height: "65px",
-                border: "none",
-                borderBottom: "1px solid #000000 !important",
-                borderRadius: "0px",
-                fontSize: "18px",
-              },
-            }}
-          /> */}
           <Input
             label="Email"
             type="email"

@@ -393,10 +393,6 @@ const ArticleDetails = () => {
               Edit article
             </Typography>
           </Box>
-          {/* <Box sx={{ display: "flex", columnGap: "3px" }}>
-                        <img src={primaryEye} alt="Icon" style={{ width: "16px" }} />
-                        <Typography sx={{ fontSize: "16px", fontWeight: "400" }} variant='gradientText'>View post</Typography>
-                    </Box> */}
         </Box>
       )}
 
@@ -504,9 +500,6 @@ const ArticleDetails = () => {
                       </Box>
                     </Box>
                     <Box sx={{ display: "flex", columnGap: "15px" }}>
-                      {/* <Box sx={{ width: "40px", height: "40px", border: "1px solid #E4E4E4", borderRadius: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                <img src={reading} alt="Icon" style={{ width: "20px", height: "20px" }} />
-                                            </Box> */}
                       <Box
                         sx={{
                           width: "40px",
@@ -716,10 +709,6 @@ const ArticleDetails = () => {
                 mt: "25px",
               }}
             >
-              {/* <Box sx={{ display: "flex", columnGap: "5px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={() => setPostChoiceModal(true)}>
-                                <img src={user} alt="Image" style={{ width: "27px", height: "24px" }} />
-                                <img src={downArrowFilled} alt="Image" style={{ width: "27px", height: "24px" }} />
-                            </Box> */}
               <Box
                 sx={{
                   display: "flex",
@@ -775,10 +764,6 @@ const ArticleDetails = () => {
                   Comment
                 </Typography>
               </Box>
-              {/* <Box sx={{ display: "flex", columnGap: "15px", cursor: "pointer", width: { md: "20%" }, height: "100%", justifyContent: "center", alignItems: "center" }} onClick={handleClick}>
-                                <img src={repost} alt="Repost" />
-                                <Typography sx={{ fontSize: '14px', fontWeight: '500', display: { xs: "none", md: "block" }, color: "#505050" }}>Repost</Typography>
-                            </Box> */}
               {articleContent?.visibility === "PUBLIC" && (
                 <Box
                   sx={{
@@ -913,10 +898,6 @@ const ArticleDetails = () => {
                               justifyContent: "space-between",
                             }}
                           >
-                            {/* <Box sx={{ display: "flex", columnGap: "10px" }}>
-                                                            <img src={emoji} alt="Emoji" style={{ width: "24px", height: "24px" }} />
-                                                            <img src={camera} alt="Camera" style={{ width: "24px", height: "24px" }} />
-                                                        </Box> */}
                             {commentContent && (
                               <Button
                                 loading={postCommentLoading}

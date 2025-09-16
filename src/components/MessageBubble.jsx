@@ -55,7 +55,6 @@ const MessageBubble = ({ message }) => {
             position: "relative",
           }}
         >
-          {/* {message?.isUser && <img src={three_vertical_dots} alt="" style={{ height: "16.25px", cursor: "pointer", marginBottom: "40px" }} onClick={handleClick} />} */}
           {message?.isUser && (
             <Box sx={{ maxWidth: { xs: "90%", lg: "50%" } }}>
               <Stack direction={"column"}>
@@ -99,7 +98,6 @@ const MessageBubble = ({ message }) => {
                         }}
                         key={index}
                       >
-                        {/* {data?.count > 1 ? data?.item + " " + data?.count : data?.item} */}
                         <img
                           src={data?.item}
                           alt="Emoji"
@@ -185,7 +183,6 @@ const MessageBubble = ({ message }) => {
                           }}
                           key={index}
                         >
-                          {/* {data?.count > 1 ? data?.item + " " + data?.count : data?.item} */}
                           <img
                             src={data?.item}
                             alt="Emoji"
@@ -210,16 +207,7 @@ const MessageBubble = ({ message }) => {
               </Stack>
             </Box>
           )}
-          {/* {!message?.isUser && !message?.isTyping && <img src={emojiBlackWhite} alt="" style={{ width: "24px", cursor: "pointer" }} onClick={() => setShowReactions(!showReaction)} />}
-                    {!message?.isUser && !message?.isTyping && showReaction && <Box sx={{ width: "200px", boxShadow: "0px 0px 10px 0px #00000040", backgroundColor: theme.palette.primary.light, height: "38px", display: "flex", justifyContent: "space-between", alignItems: "center", px: "5px", borderRadius: "2px", position: { xs: "absolute", md: "relative" }, left: { xs: "5px", md: "0px" } }}>
-                        <img src={reaction1} alt="Reaction" style={{ width: "24px", height: "24px" }} />
-                        <img src={reaction2} alt="Reaction" style={{ width: "24px", height: "24px" }} />
-                        <img src={reaction3} alt="Reaction" style={{ width: "24px", height: "24px" }} />
-                        <img src={reaction4} alt="Reaction" style={{ width: "24px", height: "24px" }} />
-                        <img src={reaction5} alt="Reaction" style={{ width: "24px", height: "24px" }} />
-                    </Box>} */}
         </Box>
-        {/* {!message?.isUser && !message?.isTyping && <img src={three_vertical_dots} alt="" style={{ width: "24px", cursor: "pointer", height: "16.25px", marginTop: "25px" }} onClick={handleClick} />} */}
       </Box>
       <Menu
         anchorEl={anchorEl}

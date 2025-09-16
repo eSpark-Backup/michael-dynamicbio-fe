@@ -8,7 +8,6 @@ const BoxWithTextIcon = ({ text, icon, onClick, isLoading }) => {
             display: "flex",
             borderRadius: "4px",
             background: "white",
-            // height: "65px",
             width: "100%",
             padding: "12px 34px",
             columnGap: "15px",

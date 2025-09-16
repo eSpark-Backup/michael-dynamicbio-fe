@@ -41,36 +41,12 @@ const Settings = () => {
       activeIcon: accountBlue,
       component: <AccountSettings />,
     },
-    // {
-    //   label: "Sign in & security",
-    //   icon: lockBlack,
-    //   activeIcon: lockBlue,
-    //   component: <></>,
-    // },
     {
       label: "Visibility",
       icon: fullEyeBlack,
       activeIcon: fullEyeBlue,
       component: <VisibilitySettings />,
     },
-    // {
-    //   label: "Data Privacy",
-    //   icon: shieldBlack,
-    //   activeIcon: shieldBlue,
-    //   component: <></>,
-    // },
-    // {
-    //   label: "Advertising data",
-    //   icon: adBlack,
-    //   activeIcon: adBlue,
-    //   component: <></>,
-    // },
-    // {
-    //   label: "Notifications",
-    //   icon: bellBlack,
-    //   activeIcon: bellActive,
-    //   component: <></>,
-    // },
   ];
 
   const [activeTab, setActiveTab] = useState(tabs[0]);

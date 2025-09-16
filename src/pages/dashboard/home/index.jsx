@@ -91,7 +91,6 @@ const Home = () => {
   const transformPosts = (posts) => {
     return (
       posts
-        // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
         .map((item) => {
           const isOwnPost = item?.author?.id === userData?.id;
           const isuserLiked =
@@ -382,12 +381,6 @@ const Home = () => {
                 >
                   Groups
                 </Typography>
-                {/* <Typography
-                  sx={{ fontSize: "14px", fontWeight: 400, color: "#171717", cursor: "pointer" }}
-                  onClick={() => navigate("/bonds?sub=events")}
-                >
-                  Events
-                </Typography> */}
                 <Typography
                   sx={{
                     fontSize: "14px",
@@ -438,43 +431,6 @@ const Home = () => {
           >
             <PostCard refetch={refetch} />
           </Paper>
-
-          {/* <Paper
-            sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
-              >
-                Suggestion for you to create bonds
-              </Typography>
-              <Typography
-                sx={{ fontSize: "14px", fontWeight: 400, cursor: "pointer" }}
-                variant="gradientText"
-              >
-                View all
-              </Typography>
-            </Box>
-            <Box
-              sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
-            >
-              {bondSuggestions?.map((item, index) => (
-                <BondCard2
-                  key={index}
-                  userImage={item?.img}
-                  userName={item?.name}
-                  userAddress={item?.address}
-                  userRole={item?.role}
-                />
-              ))}
-            </Box>
-          </Paper> */}
           <SuggestedBonds feedPage={true} />
           <InfiniteScroll
             dataLength={posts.length}

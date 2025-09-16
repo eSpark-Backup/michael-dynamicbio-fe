@@ -23,14 +23,6 @@ const GroupMembership = ({ data, refetch }) => {
             label: "Requests",
             component: <GroupRequests data={data} refetch={refetch} />
         },
-        // {
-        //     label: "Invited",
-        //     component: <GroupInvited />
-        // },
-        // {
-        //     label: "Blocked",
-        //     component: <GroupBlocked />
-        // },
     ];
     
       const [searchParams, setSearchParams] = useSearchParams();

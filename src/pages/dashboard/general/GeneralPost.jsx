@@ -40,7 +40,6 @@ const GeneralPost = () => {
 
     const transformPosts = (posts) => {
         return posts
-            // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
             .map((item) => {
 
                 return {
@@ -154,13 +153,11 @@ const GeneralPost = () => {
 
                     <Grid2 size={{ xs: 12, lg: 6.5 }}
                         sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}>
-                        {/* <Paper> */}
                         <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
                             {posts.map((item) => (
                                 <SuggestionPost key={item.id} {...item} isGeneralPost={true} />
                             ))}
                         </Box>
-                        {/* </Paper> */}
                     </Grid2>
 
                     <Grid2 size={{ xs: 12, lg: 3 }}>

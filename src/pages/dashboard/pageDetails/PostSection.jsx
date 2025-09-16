@@ -250,28 +250,6 @@ const PostSection = ({ data }) => {
             {data?.name}
           </Typography>
         </Paper>
-        {/* <Paper>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "#171717",
-              display: "-webkit-box",
-              overflow: "hidden",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 3,
-              textOverflow: "ellipsis",
-            }}
-          >
-            See a collection of active or past ads by {data?.name}.
-          </Typography>
-          <Typography
-            variant="gradientText"
-            sx={{ fontSize: "14px", fontWeight: "500" }}
-          >
-            View ad library
-          </Typography>
-        </Paper> */}
       </Box>
       <Box
         sx={{
@@ -281,75 +259,6 @@ const PostSection = ({ data }) => {
           rowGap: "10px",
         }}
       >
-        {/* <Box
-          sx={{
-            display: "flex",
-            columnGap: "10px",
-            flexWrap: "wrap",
-            rowGap: "15px",
-          }}
-        >
-          {["All", "Images", "Videos", "Articles", "Documents"]?.map(
-            (item, index) => (
-              <Box
-                sx={{
-                  p: ".8rem 1.2rem",
-                  width: "fit-content",
-                  background:
-                    activeItem === item
-                      ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%), linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04))"
-                      : "transparent",
-                  border: activeItem === item ? "none" : "1px solid #E4E4E4",
-                  borderRadius: "1.9rem",
-                  cursor: "pointer",
-                }}
-                key={index}
-                onClick={() => setActiveItem(item)}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    color: activeItem === item ? "#fff" : "#505050",
-                  }}
-                >
-                  {item}
-                </Typography>
-              </Box>
-            )
-          )}
-        </Box> */}
-        {/* <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            rowGap: "15px",
-          }}
-        >
-          <Box sx={{ width: { xs: "100%", md: "85%" } }}>
-            <Divider />
-          </Box>
-          <Box sx={{ display: "flex", columnGap: "1px", alignItems: "center" }}>
-            <Typography
-              sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}
-            >
-              Sort by:{" "}
-            </Typography>
-            <Typography
-              sx={{ fontSize: "12px", fontWeight: "500", color: "#171717" }}
-            >
-              Top{" "}
-            </Typography>
-            <img
-              src={downArrowFilled}
-              alt="Icon"
-              style={{ cursor: "pointer" }}
-              onClick={handleClick}
-            />
-          </Box>
-        </Box> */}
         <InfiniteScroll
           dataLength={posts.length}
           next={fetchMoreData}
@@ -405,65 +314,6 @@ const PostSection = ({ data }) => {
             ))}
           </Box>
         </InfiniteScroll>
-        {/* <Paper
-          sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
-        >
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              sx={{
-                fontSize: "24px",
-                fontWeight: "500",
-                color: "#171717",
-                textAlign: "center",
-              }}
-            >
-              Featured
-            </Typography>
-            <Box sx={{ display: "flex", columnGap: "10px", pr: "15px" }}>
-              <img src={plus} alt="Icon" />
-              <img src={edit} alt="Icon" />
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              border: "1px solid #E4E4E4",
-              borderRadius: "4px",
-              p: "15px",
-              display: "flex",
-              flexDirection: "column",
-              rowGap: "15px",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "17px", fontWeight: "500", color: "#505050" }}
-            >
-              Post
-            </Typography>
-            <Typography
-              sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}
-            >
-              Hi
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontWeight: "500",
-                color: "#505050",
-                display: "flex",
-                alignItems: "center",
-                columnGap: "4px",
-                pl: "5px",
-              }}
-            >
-              <img
-                src={like}
-                alt="Icon"
-                style={{ width: "14px", height: "14px" }}
-              />
-              1
-            </Typography>
-          </Box>
-        </Paper> */}
       </Box>
       <Menu
         anchorEl={anchorEl}

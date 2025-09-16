@@ -523,18 +523,6 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                         Add connections to speak at the event. Speakers can join the event early and will be shown in the event’s Details section and presenter area. They cannot allow attendees to speak or end the event.
                     </Typography>
                 </Box>
-                {/* <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", flexWrap: "wrap" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
-                        By continuing, you agree with
-                    </Typography>
-                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}> Fusion’s event policy</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", columnGap: "5px", paddingBottom: "20px", flexWrap: "wrap" }}>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>
-                        Make the most of LinkedIn Events.
-                    </Typography>
-                    <Typography variant="gradientText" sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Learn more</Typography>
-                </Box> */}
                 <input
                     type="file"
                     ref={eventImgRef}

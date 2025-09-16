@@ -394,35 +394,6 @@ const DynamicModal = ({
                 />
               </MenuItem>
             ))}
-
-            {/* <MenuItem
-              onClick={HandlegroupItemClicked}
-              sx={{
-                width: "245px",
-                backgroundColor: "#F8FCFF !important",
-                marginTop: "10px",
-                display: "flex",
-                borderRadius: "4px",
-                justifyContent: "space-between",
-                pr: "30px",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
-              >
-                Group
-              </Typography>
-              <img
-                src={rightArrow}
-                alt="Icon"
-                style={{
-                  width: "12px",
-                  height: "6px",
-                  position: "relative",
-                  left: "15px",
-                }}
-              />
-            </MenuItem> */}
           </RadioGroup>
         </Menu>
       </Box>

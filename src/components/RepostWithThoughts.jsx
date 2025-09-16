@@ -28,7 +28,6 @@ const RepostWithThoughts = ({ onChange }) => {
                 <BondCard2 userImage={user} userName={"James Bond"} userRole={"UI/UX Designer at “eSpark Consulting Group”"} time={"2h ago"} />
                 <img src={postPicture} alt="Post" />
             </Box>
-            {/* <img src={emoji} alt='Icon' style={{ width: "24px", height: "24px", marginBottom: "15px" }} /> */}
         </Box>
     )
 }

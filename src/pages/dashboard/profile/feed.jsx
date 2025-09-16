@@ -65,7 +65,6 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
 
   const transformPosts = (posts) => {
     return posts
-      // ?.filter(item => !item?.isPagePost)   // Remove this line to show page posts
       .map((item) => {
         const isOwnPost = item?.author?.id === user?.id;
         const isuserLiked = item?.likes && Array.isArray(item?.likes) &&
@@ -255,15 +254,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           <Typography fontSize="14px" fontWeight={400}>
             Activity
           </Typography>
-          {/* {!isPublicView && (
-            <img
-              style={{ cursor: "pointer", width: "24px", height: "24px" }}
-              src={settings}
-              alt={"settings"}
-            />
-          )} */}
         </Stack>
-        {/* <CustomizeTabs tabs={tabOptions} /> */}
         {!isPublicView && <PostCard refetch={refetch} />}
 
       </Paper>

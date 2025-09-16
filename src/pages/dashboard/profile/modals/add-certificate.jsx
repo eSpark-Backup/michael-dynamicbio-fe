@@ -55,8 +55,6 @@ const AddCertificate = ({ open, handleClose, userData }) => {
                 if (res) {
                     toast.success("Your certificate added successfully");
                     dispatch(updateUser(res?.data?.data));
-                    // handleClose();
-                    // formik.resetForm();
                     onClose();
                 }
             });

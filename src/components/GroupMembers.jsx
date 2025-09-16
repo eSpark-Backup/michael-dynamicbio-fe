@@ -44,18 +44,6 @@ const GroupMembers = ({ data, refetch }) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
-      {/* <Paper sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Stack direction={"column"}>
-                    <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-                        <Typography sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}>Automatic welcome note</Typography>
-                        <Box sx={{ background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)", p: "2px 10px", borderRadius: "4px" }}>
-                            <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#fff" }}>On</Typography>
-                        </Box>
-                    </Box>
-                    <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>New members will see the note when they visit the group. <span style={{ fontSize: "14px", fontWeight: "600", color: "#505050" }}>Learn more</span></Typography>
-                </Stack>
-                <Button sx={{ background: "transparent", border: "1px solid black", width: "fit-content", height: "36px", borderRadius: "16px", fontSize: '16px', ":hover": { background: "transparent", color: "black" } }}>Edit</Button>
-            </Paper> */}
       <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
         <Box
           sx={{

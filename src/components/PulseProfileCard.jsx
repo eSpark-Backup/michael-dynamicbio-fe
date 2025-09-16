@@ -50,12 +50,6 @@ const PulseProfileCard = ({ userImage, userRole, description, time, activeItem, 
                 <Typography sx={{ marginRight: isSmallScreen ? "8px" : "0px", fontSize: "12px", fontWeight: 400, color: activeItem === id ? theme.palette.primary.light : "#505050" }}>
                     {time}
                 </Typography>
-                {/* <img
-                    src={activeItem === id ? three_vertical_dots_white : three_vertical_dots}
-                    alt="Icon"
-                    style={{ marginTop: isSmallScreen ? '0px' : '6px', width: "20px", height: "20px" }}
-                    onClick={handleClick}
-                /> */}
             </div>
             <Menu
                 anchorEl={anchorEl}
