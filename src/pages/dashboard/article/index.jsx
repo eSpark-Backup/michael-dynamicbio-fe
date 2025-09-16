@@ -30,7 +30,11 @@ import DynamicModal from "../../../components/dynamic-modal.jsx";
 import ViewArticle from "../../../components/ViewArticle.jsx";
 import ScheduleModal from "../../../components/ScheduleModal.jsx";
 import { useSelector } from "react-redux";
-import { useEditPostMutation, useGetPostByIdQuery, useNewPostMutation } from "../../../services/post.js";
+import {
+  useEditPostMutation,
+  useGetPostByIdQuery,
+  useNewPostMutation,
+} from "../../../services/post.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "../../../utils/index.js";
 
@@ -89,28 +93,34 @@ const Article = ({ userName = "Abdul Rehman" }) => {
     date: null,
     time: null,
   });
-  const [commentVisibility, setCommentvisibility] = useState("")
+  const [commentVisibility, setCommentvisibility] = useState("");
   const { id } = useParams();
-  const { data, isSuccess, isLoading: articleDetailsLoading, isError, error } = useGetPostByIdQuery(id, { skip: !id })
+  const {
+    data,
+    isSuccess,
+    isLoading: articleDetailsLoading,
+    isError,
+    error,
+  } = useGetPostByIdQuery(id, { skip: !id });
 
   useEffect(() => {
     if (isSuccess && data?.data) {
-      setContent(data?.data?.content?.content)
-      setArticleTitle(data?.data?.content?.articleTitle)
-      setTitle(data?.data?.content?.title)
-      setSelectedFile(data?.data?.media["ARTICLES"][0]?.url)
-      setPreveiwImage(data?.data?.media["ARTICLES"][0]?.url)
-      setCommentvisibility(data?.data?.commentVisibility)
-      setVisibility(data?.data?.visibility)
+      setContent(data?.data?.content?.content);
+      setArticleTitle(data?.data?.content?.articleTitle);
+      setTitle(data?.data?.content?.title);
+      setSelectedFile(data?.data?.media["ARTICLES"][0]?.url);
+      setPreveiwImage(data?.data?.media["ARTICLES"][0]?.url);
+      setCommentvisibility(data?.data?.commentVisibility);
+      setVisibility(data?.data?.visibility);
     }
-  }, [data, isSuccess])
+  }, [data, isSuccess]);
 
   const HandleImageDelete = () => {
     setSelectedFile(null);
     setPreveiwImage(null);
 
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""
+      fileInputRef.current.value = "";
     }
   };
 
@@ -164,9 +174,9 @@ const Article = ({ userName = "Abdul Rehman" }) => {
       type: "ARTICLE",
       cover: selectedFile,
       commentVisibility,
-      id: id
+      id: id,
     };
-    console.log(obj)
+    console.log(obj);
     if (id) {
       editPost(obj).then((res) => {
         if (res?.error) {
@@ -182,15 +192,19 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           navigate(-1);
         }
       });
-    }
-    else {
+    } else {
       newPost(obj).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
           return;
         }
         if (res?.data) {
-          toast.success(res?.data?.message === "Post Created Successfully, waiting for admin approval" ? res?.data?.message : "Your post is uploaded successfully");
+          toast.success(
+            res?.data?.message ===
+              "Post Created Successfully, waiting for admin approval"
+              ? res?.data?.message
+              : "Your post is uploaded successfully"
+          );
           setTitle("");
           setArticleTitle("");
           setContent("");
@@ -203,10 +217,18 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
   if (articleDetailsLoading) {
     return (
-      <Box sx={{ width: "100%", height: "calc(100vh - 150px)", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "calc(100vh - 150px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <CircularProgress sx={{ color: "#1877F2" }} />
       </Box>
-    )
+    );
   }
 
   return (
@@ -236,19 +258,31 @@ const Article = ({ userName = "Abdul Rehman" }) => {
           >
             <img
               style={{ width: "44px", height: "44px", borderRadius: "50%" }}
-              src={group ? group?.logoUrl : page ? page?.logoUrl : userData?.profileImage}
+              src={
+                group
+                  ? group?.logoUrl
+                  : page
+                    ? page?.logoUrl
+                    : userData?.profileImage
+              }
               alt="Avatar"
             />
             <Stack direction={"column"}>
               <Stack direction={"row"} gap={1}>
                 <Typography
                   sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
-                >{group ? group?.name : page ? page?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
+                >
+                  {group
+                    ? group?.name
+                    : page
+                      ? page?.name
+                      : `${userData?.firstName} ${userData?.lastName}`}
+                </Typography>
                 <img
                   src={downArrowFilled}
                   alt="Icon"
                   style={{ cursor: "pointer" }}
-                  onClick={page ? () => { } : handleClick}
+                  onClick={page ? () => {} : handleClick}
                 />
               </Stack>
               <Typography
@@ -360,14 +394,14 @@ const Article = ({ userName = "Abdul Rehman" }) => {
 
           "&:hover::after": previewImage
             ? {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgb(0 0 0 / 0.6)",
-            }
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgb(0 0 0 / 0.6)",
+              }
             : {},
 
           "&:hover .cover-text": {
@@ -556,7 +590,11 @@ const Article = ({ userName = "Abdul Rehman" }) => {
                   alt="Avatar"
                   style={{ width: "40px", height: "40px" }}
                 />
-                <Typography>{group ? group?.name : `${userData?.firstName} ${userData?.lastName}`}</Typography>
+                <Typography>
+                  {group
+                    ? group?.name
+                    : `${userData?.firstName} ${userData?.lastName}`}
+                </Typography>
               </Stack>
               <FormControlLabel
                 value="yourself"
@@ -609,7 +647,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

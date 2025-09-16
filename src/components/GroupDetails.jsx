@@ -940,10 +940,10 @@ const GroupDetails = () => {
               isMyGroup
                 ? deleteIcon
                 : data?.data?.isFollowing
-                ? leave
-                : data?.data?.requestSent
-                ? cancelIcon
-                : plus
+                  ? leave
+                  : data?.data?.requestSent
+                    ? cancelIcon
+                    : plus
             }
             alt=""
           />
@@ -953,10 +953,10 @@ const GroupDetails = () => {
             {isMyGroup
               ? "Delete this group"
               : data?.data?.isFollowing
-              ? "Leave this group"
-              : data?.data?.requestSent
-              ? "Withdraw join request"
-              : "Join this group"}
+                ? "Leave this group"
+                : data?.data?.requestSent
+                  ? "Withdraw join request"
+                  : "Join this group"}
           </Typography>
         </MenuItem>
       </Menu>

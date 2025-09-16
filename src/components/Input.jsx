@@ -32,8 +32,14 @@ const Input = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize="12px" mb={1}>{customLabel}</Typography>
-          {required && <Typography fontSize="12px" mb={1}>Required</Typography>}
+          <Typography fontSize="12px" mb={1}>
+            {customLabel}
+          </Typography>
+          {required && (
+            <Typography fontSize="12px" mb={1}>
+              Required
+            </Typography>
+          )}
         </Stack>
       )}
       <TextField
@@ -64,9 +70,14 @@ const Input = ({
         }}
         {...rest}
       />
-      {wordLimit && <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Typography fontSize="12px" sx={{ mt: "5px", color: "#505050" }}>{`${value.length}/${wordLimit} words`}</Typography>
-      </Box>}
+      {wordLimit && (
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Typography
+            fontSize="12px"
+            sx={{ mt: "5px", color: "#505050" }}
+          >{`${value.length}/${wordLimit} words`}</Typography>
+        </Box>
+      )}
     </>
   );
 };

@@ -422,11 +422,11 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       item?.currently
                         ? "none"
                         : isPublicView &&
-                          !isPublic &&
-                          !userData?.profileSettings?.showPastExperience &&
-                          !item?.currently
-                        ? "none"
-                        : "block",
+                            !isPublic &&
+                            !userData?.profileSettings?.showPastExperience &&
+                            !item?.currently
+                          ? "none"
+                          : "block",
                   }}
                 >
                   <Stack
@@ -1310,10 +1310,10 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       {item?.startMonth && item?.startYear
                         ? `${item.startMonth} / ${item.startYear}`
                         : item?.startMonth
-                        ? item.startMonth
-                        : item?.startYear
-                        ? item.startYear
-                        : ""}
+                          ? item.startMonth
+                          : item?.startYear
+                            ? item.startYear
+                            : ""}
 
                       {(item?.working || item?.endMonth || item?.endYear) &&
                         ` - `}
@@ -1321,12 +1321,12 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       {item?.working
                         ? "Present"
                         : item?.endMonth && item?.endYear
-                        ? `${item.endMonth} / ${item.endYear}`
-                        : item?.endMonth
-                        ? item.endMonth
-                        : item?.endYear
-                        ? item.endYear
-                        : ""}
+                          ? `${item.endMonth} / ${item.endYear}`
+                          : item?.endMonth
+                            ? item.endMonth
+                            : item?.endYear
+                              ? item.endYear
+                              : ""}
                     </Typography>
                   </Box>
                 )}
@@ -1569,10 +1569,10 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     {item?.issueMonth && item?.issueYear
                       ? `${item.issueMonth} ${item.issueYear}`
                       : item?.issueMonth
-                      ? item.issueMonth
-                      : item?.issueYear
-                      ? item.issueYear
-                      : ""}
+                        ? item.issueMonth
+                        : item?.issueYear
+                          ? item.issueYear
+                          : ""}
 
                     {(item?.expireMonth || item?.expireYear) && ` - `}
 
@@ -1580,10 +1580,10 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     {item?.expireMonth && item?.expireYear
                       ? `${item.expireMonth} ${item.expireYear}`
                       : item?.expireMonth
-                      ? item.expireMonth
-                      : item?.expireYear
-                      ? item.expireYear
-                      : ""}
+                        ? item.expireMonth
+                        : item?.expireYear
+                          ? item.expireYear
+                          : ""}
                   </Typography>
                 </Box>
                 {item?.credId && (

@@ -119,7 +119,7 @@ const SuggestionPost = ({
   groupId,
   groupName,
   groupImage,
-  isUserAdmin
+  isUserAdmin,
 }) => {
   const [likeData, { data, isSuccess, isError, error, isLoading }] =
     useLikeMutation();
@@ -680,7 +680,7 @@ const SuggestionPost = ({
                 }}
               >
                 {isUpdateLoading?.id === reqId &&
-                  isUpdateLoading.action === "reject" ? (
+                isUpdateLoading.action === "reject" ? (
                   <CircularProgress sx={{ color: "#1877F2" }} />
                 ) : (
                   <Box
@@ -705,7 +705,7 @@ const SuggestionPost = ({
                   </Box>
                 )}
                 {isUpdateLoading?.id === reqId &&
-                  isUpdateLoading.action === "approve" ? (
+                isUpdateLoading.action === "approve" ? (
                   <CircularProgress sx={{ color: "#1877F2" }} />
                 ) : (
                   <Box
@@ -763,7 +763,7 @@ const SuggestionPost = ({
                         ? AlertHandler
                         : totalLikes > 0 && !isLoading
                           ? () => setShowLikesModal(true)
-                          : () => { }
+                          : () => {}
                     }
                   >
                     {totalLikes === 0
@@ -808,7 +808,7 @@ const SuggestionPost = ({
                     isGeneralPost
                       ? AlertHandler
                       : isLoading
-                        ? () => { }
+                        ? () => {}
                         : () => LikeHandler(id)
                   }
                 >
@@ -1120,7 +1120,7 @@ const SuggestionPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

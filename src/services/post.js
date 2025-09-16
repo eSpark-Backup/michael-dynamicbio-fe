@@ -7,7 +7,8 @@ export const postApi = api.injectEndpoints({
         const formData = new FormData();
 
         if (credentials?.pageId) formData.append("pageId", credentials?.pageId);
-        if (credentials?.groupId) formData.append("groupId", credentials?.groupId);
+        if (credentials?.groupId)
+          formData.append("groupId", credentials?.groupId);
         formData.append("content", JSON.stringify(credentials.content));
         formData.append("status", credentials.status);
         formData.append("visibility", credentials.visibility);
@@ -47,7 +48,7 @@ export const postApi = api.injectEndpoints({
         }
 
         if (credentials?.isSchedulePost) {
-          formData.append("scheduledDate", credentials?.scheduledDate)
+          formData.append("scheduledDate", credentials?.scheduledDate);
         }
         return {
           url: "/post",
@@ -56,7 +57,7 @@ export const postApi = api.injectEndpoints({
           credentials: "include",
         };
       },
-      invalidatesTags: ['post', 'group']
+      invalidatesTags: ["post", "group"],
     }),
     getMyPost: builder.query({
       query: ({ page = 1, limit = 15, id }) => ({
@@ -66,7 +67,7 @@ export const postApi = api.injectEndpoints({
           page,
           pageSize: limit,
           status: "PUBLISH",
-        }
+        },
       }),
     }),
     getPostById: builder.query({
@@ -82,7 +83,8 @@ export const postApi = api.injectEndpoints({
           formData.append("edit", credentials.edit);
         }
         if (credentials?.pageId) formData.append("pageId", credentials?.pageId);
-        if (credentials?.groupId) formData.append("groupId", credentials?.groupId);
+        if (credentials?.groupId)
+          formData.append("groupId", credentials?.groupId);
 
         if (credentials?.content) {
           formData.append("content", JSON.stringify(credentials.content));
@@ -97,10 +99,13 @@ export const postApi = api.injectEndpoints({
         if (credentials?.type) {
           formData.append("type", credentials.type);
         }
-        if (!credentials?.edit && typeof credentials.cover !== "string" && credentials.cover) {
+        if (
+          !credentials?.edit &&
+          typeof credentials.cover !== "string" &&
+          credentials.cover
+        ) {
           formData.append("cover", credentials.cover);
         }
-
 
         return {
           url: `/post/${credentials?.id}`,
@@ -109,7 +114,7 @@ export const postApi = api.injectEndpoints({
           credentials: "include",
         };
       },
-      invalidatesTags: ['post', 'group'],
+      invalidatesTags: ["post", "group"],
     }),
     interactPoll: builder.mutation({
       query: ({ id, credentials }) => ({
@@ -132,8 +137,8 @@ export const postApi = api.injectEndpoints({
         url: `/user/save/${postId}`,
         method: "POST",
         credentials: "include",
-        body: { type }
-      })
+        body: { type },
+      }),
     }),
     getSavedPosts: builder.query({
       query: ({ page = 1, limit = 15 }) => ({
@@ -141,9 +146,9 @@ export const postApi = api.injectEndpoints({
         method: "GET",
         params: {
           page,
-          pageSize: limit
-        }
-      })
+          pageSize: limit,
+        },
+      }),
     }),
     deletePostById: builder.mutation({
       query: (id) => ({
@@ -151,7 +156,7 @@ export const postApi = api.injectEndpoints({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ['post'],
+      invalidatesTags: ["post"],
     }),
   }),
 });
@@ -165,5 +170,5 @@ export const {
   useRemovePollMutation,
   useSavePostMutation,
   useGetSavedPostsQuery,
-  useDeletePostByIdMutation
+  useDeletePostByIdMutation,
 } = postApi;

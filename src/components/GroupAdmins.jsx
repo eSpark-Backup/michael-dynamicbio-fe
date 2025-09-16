@@ -16,9 +16,10 @@ const GroupAdmins = ({ data, refetch }) => {
       const query = search.toLowerCase().trim();
 
       const filtered = data?.admins?.filter((item) => {
-        const fullName = `${item?.admin?.firstName ?? ""} ${item?.admin?.lastName ?? ""}`
-          .toLowerCase()
-          .trim();
+        const fullName =
+          `${item?.admin?.firstName ?? ""} ${item?.admin?.lastName ?? ""}`
+            .toLowerCase()
+            .trim();
         return fullName.includes(query);
       });
 

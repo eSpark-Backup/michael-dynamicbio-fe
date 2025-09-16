@@ -136,7 +136,8 @@ const Events = () => {
           gap={2}
         >
           {Array.from({ length: 2 }).map((_, ind) => (
-            <Stack key={ind}
+            <Stack
+              key={ind}
               direction="row"
               justifyContent="center"
               alignItems="flex-start"
@@ -178,7 +179,8 @@ const Events = () => {
           gap={2}
         >
           {Array.from({ length: 9 }).map((_, ind) => (
-            <Stack key={ind}
+            <Stack
+              key={ind}
               mt={2}
               justifyContent="center"
               alignItems="flex-start"

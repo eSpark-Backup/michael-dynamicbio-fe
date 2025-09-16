@@ -4,7 +4,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
 import { maskEmail, useQuery } from "../../../utils";
 import { successTick } from "../../../assets";
-import { useForgotPasswordMutation, useRegisterMutation } from "../../../services/auth";
+import {
+  useForgotPasswordMutation,
+  useRegisterMutation,
+} from "../../../services/auth";
 
 const VerifyEmail = () => {
   const [register, { isLoading }] = useRegisterMutation();

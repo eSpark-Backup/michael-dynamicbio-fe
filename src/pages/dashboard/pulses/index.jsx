@@ -184,19 +184,18 @@ const Pulses = () => {
             {notifications?.length > 0 ? (
               <>
                 {notifications?.map((item) => (
-                    <PulseProfileCard
-                      key={item?._id}
-                      userRole={item?.title}
-                      userImage={item?.metadata?.image}
-                      description={item?.message}
-                      time={dayjs(item?.createdAt).fromNow()}
-                      id={item?._id}
-                      metadata={item?.metadata}
-                      HandleClick={HandleClick}
-                      activeItem={activeIndex}
-                    />
-                  ))
-                }
+                  <PulseProfileCard
+                    key={item?._id}
+                    userRole={item?.title}
+                    userImage={item?.metadata?.image}
+                    description={item?.message}
+                    time={dayjs(item?.createdAt).fromNow()}
+                    id={item?._id}
+                    metadata={item?.metadata}
+                    HandleClick={HandleClick}
+                    activeItem={activeIndex}
+                  />
+                ))}
                 {isFetching ? (
                   <Box
                     sx={{

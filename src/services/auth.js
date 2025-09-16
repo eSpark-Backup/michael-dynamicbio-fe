@@ -135,5 +135,5 @@ export const {
   useFindEmailMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
-  useUpdateUserProfileSettingsMutation
+  useUpdateUserProfileSettingsMutation,
 } = authApi;

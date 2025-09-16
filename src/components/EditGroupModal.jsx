@@ -115,8 +115,8 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
         sx={{
           flex: 1,
           overflowY: "auto",
-          transform: "translateZ(0)", 
-          willChange: "scroll-position", 
+          transform: "translateZ(0)",
+          willChange: "scroll-position",
           backfaceVisibility: "hidden",
           WebkitFontSmoothing: "antialiased",
           textRendering: "optimizeLegibility",

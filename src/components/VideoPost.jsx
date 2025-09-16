@@ -103,7 +103,7 @@ const VideoPost = ({
   groupId,
   groupName,
   groupImage,
-  isUserAdmin
+  isUserAdmin,
 }) => {
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -122,9 +122,9 @@ const VideoPost = ({
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [visibility, setVisibility] = useState(postVisibility);
-  const [title, setTitle] = useState(postContent)
+  const [title, setTitle] = useState(postContent);
 
-  useEffect(() => setTitle(postContent), [postContent])
+  useEffect(() => setTitle(postContent), [postContent]);
 
   const [
     commentData,
@@ -375,7 +375,7 @@ const VideoPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "reject" ? (
+            isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -400,7 +400,7 @@ const VideoPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "approve" ? (
+            isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -454,7 +454,7 @@ const VideoPost = ({
                     ? AlertHandler
                     : numberofLikes > 0 && !isLoading
                       ? () => setShowLikesModal(true)
-                      : () => { }
+                      : () => {}
                 }
               >
                 {numberofLikes === 0
@@ -511,7 +511,7 @@ const VideoPost = ({
                 isGeneralPost
                   ? AlertHandler
                   : isLoading
-                    ? () => { }
+                    ? () => {}
                     : () => handleLike(id)
               }
             >
@@ -825,7 +825,7 @@ const VideoPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

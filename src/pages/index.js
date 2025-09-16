@@ -70,5 +70,5 @@ export {
   GeneralPost,
   Settings,
   UserBonds,
-  DDT
+  DDT,
 };

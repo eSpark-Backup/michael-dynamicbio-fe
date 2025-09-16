@@ -98,8 +98,8 @@ const CatchUp = ({ onGrow }) => {
       members: [msgModal?.userChatId],
     };
     eventBus.emit(SEND_NEW_MESSAGE, messageBody);
-    toast.success("Message sent successfully")
-    setMsgModal(false)
+    toast.success("Message sent successfully");
+    setMsgModal(false);
   };
 
   return (

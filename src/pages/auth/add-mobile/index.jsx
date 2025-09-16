@@ -37,7 +37,11 @@ const AddMobile = () => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "28px", md: "40px" }, fontWeight: "400", textAlign: "center" }}
+          sx={{
+            fontSize: { xs: "28px", md: "40px" },
+            fontWeight: "400",
+            textAlign: "center",
+          }}
         >
           Number verification
         </Typography>

@@ -95,9 +95,9 @@ const Pages = () => {
     const allPages = allPagesData?.data?.pages || [];
     const followedPages = followedPagesData?.data?.pages || [];
     const filteredPages = allPages.filter(
-    (item) =>
-      item?.creatorId !== user?.id &&
-      !item?.followers?.some((follower) => follower?.id === user?.id)
+      (item) =>
+        item?.creatorId !== user?.id &&
+        !item?.followers?.some((follower) => follower?.id === user?.id)
     );
     return [
       {
@@ -128,7 +128,13 @@ const Pages = () => {
         ),
       },
     ];
-  }, [myPagesData, allPagesData, followedPagesData, isFollowLoading, isDeleteLoading]);
+  }, [
+    myPagesData,
+    allPagesData,
+    followedPagesData,
+    isFollowLoading,
+    isDeleteLoading,
+  ]);
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 

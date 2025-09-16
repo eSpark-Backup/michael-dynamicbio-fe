@@ -104,11 +104,11 @@ export const groupApi = api.injectEndpoints({
         method: "GET",
         params: {
           page,
-          pageSize: limit
+          pageSize: limit,
         },
       }),
-      providesTags: ['group']
-    })
+      providesTags: ["group"],
+    }),
   }),
 });
 
@@ -127,5 +127,5 @@ export const {
   useDeleteGroupAdminMutation,
   useGetGroupJoinReqQuery,
   useUpdateGroupJoinReqMutation,
-  useGetGroupPostsQuery
+  useGetGroupPostsQuery,
 } = groupApi;

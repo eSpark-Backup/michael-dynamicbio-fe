@@ -29,8 +29,12 @@ const EditPageForm = ({ page, refetch }) => {
       address: page?.address || "",
       location: page?.locationCountry || null,
       branches: page?.branchesCountries || [],
-      size: sizeOptions?.find(item => item.label === page?.organizationSize)?.value || "",
-      type: typeOptions?.find(item => item.label === page?.organizationType)?.value || "",
+      size:
+        sizeOptions?.find((item) => item.label === page?.organizationSize)
+          ?.value || "",
+      type:
+        typeOptions?.find((item) => item.label === page?.organizationType)
+          ?.value || "",
       industry: page?.industry || "",
       website: page?.website || "",
       tagline: page?.tagline || "",

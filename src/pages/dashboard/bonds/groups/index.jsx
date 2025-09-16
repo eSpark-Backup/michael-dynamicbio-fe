@@ -123,8 +123,10 @@ const Groups = () => {
     ];
   }, [myGroupsData, allGroupsData, followedGroupsData]);
   const query = useQuery();
-  const isJoined = query.get("joined")
-  const [activeTabLabel, setActiveTabLabel] = useState(isJoined ? "Joined" : "Your Groups");
+  const isJoined = query.get("joined");
+  const [activeTabLabel, setActiveTabLabel] = useState(
+    isJoined ? "Joined" : "Your Groups"
+  );
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 

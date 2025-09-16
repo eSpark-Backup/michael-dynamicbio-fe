@@ -28,7 +28,10 @@ const EmailMfa = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }} textAlign="center">
+      <Typography
+        sx={{ fontSize: { xs: "28px", md: "40px" } }}
+        textAlign="center"
+      >
         Email Address Verification
       </Typography>
       <Typography

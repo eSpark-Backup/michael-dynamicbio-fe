@@ -14,7 +14,6 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
-
   }),
 });
 

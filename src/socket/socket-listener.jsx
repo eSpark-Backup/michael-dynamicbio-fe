@@ -107,7 +107,7 @@ const SocketListener = () => {
       socket.on(STOP_TYPING, (data) => {
         eventBus.emit(STOP_TYPING, data);
       });
-      
+
       eventBus.on(STOP_TYPING, (data) => {
         socket.emit(STOP_TYPING, data);
       });

@@ -45,9 +45,14 @@ import {
   DDT,
 } from "./pages";
 import "./App.css";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { ArticleDetails, EventDetails, GroupDetails, ManageGroup } from "./components";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  ArticleDetails,
+  EventDetails,
+  GroupDetails,
+  ManageGroup,
+} from "./components";
 import SocketListener from "./socket/socket-listener";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

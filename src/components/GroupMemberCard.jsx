@@ -92,8 +92,8 @@ const GroupMemberCard = ({
     selectedChoice === "add-admin"
       ? handleMakeAdmin(body)
       : selectedChoice === "remove-admin"
-      ? handleDeleteAdmin(body)
-      : null;
+        ? handleDeleteAdmin(body)
+        : null;
   };
 
   const handleCloseModal = () => {
@@ -252,10 +252,10 @@ const GroupMemberCard = ({
           selectedChoice === "add-admin"
             ? "Make group admin"
             : selectedChoice === "remove-admin"
-            ? "Remove admin permissions"
-            : selectedChoice === "owner"
-            ? "Make group owner"
-            : "Unblock from group"
+              ? "Remove admin permissions"
+              : selectedChoice === "owner"
+                ? "Make group owner"
+                : "Unblock from group"
         }
         cancelButtonText={"Cancel"}
         acceptButtonText={"Confirm"}
@@ -267,10 +267,10 @@ const GroupMemberCard = ({
           {selectedChoice === "add-admin"
             ? `As a group admin, ${name} will be able to manage members and conversations.`
             : selectedChoice === "remove-admin"
-            ? `As a group member, ${name} will not be able to manage members and conversations.`
-            : selectedChoice === "owner"
-            ? "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
-            : "Areeba Shakeel will become a member of the group and be able to interact with the group again. "}
+              ? `As a group member, ${name} will not be able to manage members and conversations.`
+              : selectedChoice === "owner"
+                ? "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
+                : "Areeba Shakeel will become a member of the group and be able to interact with the group again. "}
         </Typography>
       </ConfirmationModal>
     </Box>

@@ -48,7 +48,16 @@ import {
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMore, isLoading, isFetching }) => {
+const PagePosts = ({
+  handleDropdown,
+  refetch,
+  page,
+  posts,
+  fetchMoreData,
+  hasMore,
+  isLoading,
+  isFetching,
+}) => {
   const [activeItem, setActiveItem] = useState("Published");
   const userData = JSON.parse(localStorage.getItem("user"));
   const [showPostModal, setShowPostModal] = useState(false);
@@ -132,7 +141,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
     setShowModal(false);
     setShowPostModal(false);
     setSelectedFiles([]);
-    fileInputRef.current.value = null
+    fileInputRef.current.value = null;
   };
 
   const HandleVideoModalClose = () => {
@@ -162,7 +171,12 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
       <Paper>
-        <PostCard handleDropDown={handleDropdown} refetch={refetch} page={page} adminPage={true} />
+        <PostCard
+          handleDropDown={handleDropdown}
+          refetch={refetch}
+          page={page}
+          adminPage={true}
+        />
       </Paper>
 
       <Box>
@@ -353,7 +367,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -368,7 +382,7 @@ const PagePosts = ({ handleDropdown, refetch, page, posts, fetchMoreData, hasMor
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}
       >

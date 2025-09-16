@@ -28,9 +28,9 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
 
   useEffect(() => {
     if (formik.values.options.length > prevOptionsLength.current) {
-
       if (scrollContainerRef.current) {
-        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        scrollContainerRef.current.scrollTop =
+          scrollContainerRef.current.scrollHeight;
       }
     }
     prevOptionsLength.current = formik.values.options.length;
@@ -174,7 +174,6 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
                     formik.errors.options?.[index]
                   }
                   onBlur={formik.handleBlur}
-
                 />
               </Box>
             ))}

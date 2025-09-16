@@ -1,12 +1,29 @@
-import { Box, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { commentOff, earth, eyeOff, group } from '../assets'
-import Button from './button';
-import { useEditPostMutation } from '../services/post';
-import { toast } from 'react-toastify';
+import {
+  Box,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { commentOff, earth, eyeOff, group } from "../assets";
+import Button from "./button";
+import { useEditPostMutation } from "../services/post";
+import { toast } from "react-toastify";
 
-const ViewAndCommentModal = ({ permission, visibility, commentSettings, onChange, handleClose, id, type }) => {
-  const [selectedValue, setSelectedValue] = useState(permission === "view" ? visibility : commentSettings);
+const ViewAndCommentModal = ({
+  permission,
+  visibility,
+  commentSettings,
+  onChange,
+  handleClose,
+  id,
+  type,
+}) => {
+  const [selectedValue, setSelectedValue] = useState(
+    permission === "view" ? visibility : commentSettings
+  );
   const [editPost, { isLoading: editPostLoading }] = useEditPostMutation();
 
   const handleChange = (event) => {
@@ -22,9 +39,10 @@ const ViewAndCommentModal = ({ permission, visibility, commentSettings, onChange
       visibility: permission === "view" ? selectedValue : visibility,
       id: id,
       edit: true,
-      commentVisibility: permission === "comment" ? selectedValue : commentSettings,
+      commentVisibility:
+        permission === "comment" ? selectedValue : commentSettings,
       status: "PUBLISH",
-      type
+      type,
     };
     if (id) {
       editPost(obj).then((res) => {
@@ -34,46 +52,130 @@ const ViewAndCommentModal = ({ permission, visibility, commentSettings, onChange
         }
         if (res?.data) {
           toast.success("Your post setting is updated successfully");
-          handleClose()
+          handleClose();
         }
       });
     }
-  }
+  };
 
   return (
     <RadioGroup value={selectedValue} onChange={handleChange}>
-      <Box sx={{ mt: "5px", display: "flex", flexDirection: "column", mb: "10px" }}>
-        <Box sx={{ borderTop: "1px solid #E4E4E4", py: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-            <img src={earth} alt="Icon" style={{ width: "20px", height: "20px" }} />
+      <Box
+        sx={{ mt: "5px", display: "flex", flexDirection: "column", mb: "10px" }}
+      >
+        <Box
+          sx={{
+            borderTop: "1px solid #E4E4E4",
+            py: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
+          >
+            <img
+              src={earth}
+              alt="Icon"
+              style={{ width: "20px", height: "20px" }}
+            />
             <Box>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Anyone</Typography>
-              {permission !== "view" && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Anyone who can view can also comment</Typography>}
+              <Typography
+                sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+              >
+                Anyone
+              </Typography>
+              {permission !== "view" && (
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                >
+                  Anyone who can view can also comment
+                </Typography>
+              )}
             </Box>
           </Box>
-          <FormControlLabel value="PUBLIC" control={<Radio sx={{ marginRight: "0px !important" }} />} />
+          <FormControlLabel
+            value="PUBLIC"
+            control={<Radio sx={{ marginRight: "0px !important" }} />}
+          />
         </Box>
 
-        <Box sx={{ borderTop: "1px solid #E4E4E4", py: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-            <img src={group} alt="Icon" style={{ width: "20px", height: "20px" }} />
+        <Box
+          sx={{
+            borderTop: "1px solid #E4E4E4",
+            py: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
+          >
+            <img
+              src={group}
+              alt="Icon"
+              style={{ width: "20px", height: "20px" }}
+            />
             <Box>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>Connections only</Typography>
-              {permission !== "view" && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>Only connections can comment</Typography>}
+              <Typography
+                sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+              >
+                Connections only
+              </Typography>
+              {permission !== "view" && (
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                >
+                  Only connections can comment
+                </Typography>
+              )}
             </Box>
           </Box>
-          <FormControlLabel value="CONNECTIONS" control={<Radio sx={{ marginRight: "0px !important" }} />} />
+          <FormControlLabel
+            value="CONNECTIONS"
+            control={<Radio sx={{ marginRight: "0px !important" }} />}
+          />
         </Box>
 
-        <Box sx={{ borderTop: "1px solid #E4E4E4", py: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #E4E4E4" }}>
-          <Box sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}>
-            <img src={permission === "view" ? eyeOff : commentOff} alt="Icon" style={{ width: "20px", height: "20px" }} />
+        <Box
+          sx={{
+            borderTop: "1px solid #E4E4E4",
+            py: "10px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: "1px solid #E4E4E4",
+          }}
+        >
+          <Box
+            sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
+          >
+            <img
+              src={permission === "view" ? eyeOff : commentOff}
+              alt="Icon"
+              style={{ width: "20px", height: "20px" }}
+            />
             <Box>
-              <Typography sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}>No one</Typography>
-              {permission !== "view" && <Typography sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}>No one can comment</Typography>}
+              <Typography
+                sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+              >
+                No one
+              </Typography>
+              {permission !== "view" && (
+                <Typography
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                >
+                  No one can comment
+                </Typography>
+              )}
             </Box>
           </Box>
-          <FormControlLabel value="ONLY_ME" control={<Radio sx={{ marginRight: "0px !important" }} />} />
+          <FormControlLabel
+            value="ONLY_ME"
+            control={<Radio sx={{ marginRight: "0px !important" }} />}
+          />
         </Box>
       </Box>
       <Stack
@@ -144,7 +246,7 @@ const ViewAndCommentModal = ({ permission, visibility, commentSettings, onChange
         </Button>
       </Stack>
     </RadioGroup>
-  )
-}
+  );
+};
 
 export default ViewAndCommentModal;

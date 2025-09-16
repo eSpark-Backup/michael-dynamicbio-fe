@@ -145,7 +145,11 @@ export default function CreateGroupModal({ open, handleClose }) {
         onClick={() => ProfileRef.current.click()}
       >
         <img
-          style={{ width: isMobile ? "80px" : "153px", height: isMobile ? "80px" : "153px", borderRadius: "50%" }}
+          style={{
+            width: isMobile ? "80px" : "153px",
+            height: isMobile ? "80px" : "153px",
+            borderRadius: "50%",
+          }}
           src={profile ? URL.createObjectURL(profile) : userAvatar}
           alt="profile"
         />

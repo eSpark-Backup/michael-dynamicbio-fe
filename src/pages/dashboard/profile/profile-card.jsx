@@ -13,7 +13,13 @@ import {
   share,
 } from "../../../assets";
 
-const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handleOpenExpModal }) => {
+const ProfileCard = ({
+  userData,
+  isPublicView,
+  setIsPublicView,
+  isPublic,
+  handleOpenExpModal,
+}) => {
   const dispatch = useDispatch();
   const [updateProfile] = useUpdateUserInfoMutation();
   const coverRef = useRef(null);
@@ -51,7 +57,8 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
         }
         if (res) {
           toast.success(
-            `Your ${type === "image" ? "profile" : type
+            `Your ${
+              type === "image" ? "profile" : type
             } image updated successfully`
           );
           dispatch(updateUser(res?.data?.data));
@@ -131,7 +138,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
             marginBottom: "20px",
             cursor: "pointer",
           }}
-          onClick={isPublicView ? () => { } : () => ProfileRef.current.click()}
+          onClick={isPublicView ? () => {} : () => ProfileRef.current.click()}
         >
           {loading === "image" ? (
             <Box
@@ -158,7 +165,11 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                 position: "relative",
                 zIndex: 2,
               }}
-              src={userData && userData?.profileImage ? userData?.profileImage : userAvatar}
+              src={
+                userData && userData?.profileImage
+                  ? userData?.profileImage
+                  : userAvatar
+              }
               alt="profile"
             />
           )}
@@ -194,12 +205,14 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
               justifyContent="center"
               gap="12px"
             >
-              {!isPublic && <img
-                onClick={handleViewProfile}
-                style={{ cursor: "pointer" }}
-                src={primaryEye}
-                alt="eye"
-              />}
+              {!isPublic && (
+                <img
+                  onClick={handleViewProfile}
+                  style={{ cursor: "pointer" }}
+                  src={primaryEye}
+                  alt="eye"
+                />
+              )}
             </Stack>
           </Stack>
           <Stack
@@ -260,29 +273,31 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                   {userData?.designation}
                 </Typography>
               </Stack>
-              {userData?.industry && <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-start"
-                gap="14px"
-              >
-                <Typography
-                  sx={{ color: "#505050", width: "60px" }}
-                  fontSize="12px"
-                  fontWeight={400}
+              {userData?.industry && (
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  gap="14px"
                 >
-                  Industry:
-                </Typography>
-                <Typography
-                  sx={{ color: "#505050" }}
-                  fontSize="12px"
-                  fontWeight={400}
-                >
-                  {userData?.industry}
-                </Typography>
-              </Stack>}
-              {
-                userData?.company && <Stack
+                  <Typography
+                    sx={{ color: "#505050", width: "60px" }}
+                    fontSize="12px"
+                    fontWeight={400}
+                  >
+                    Industry:
+                  </Typography>
+                  <Typography
+                    sx={{ color: "#505050" }}
+                    fontSize="12px"
+                    fontWeight={400}
+                  >
+                    {userData?.industry}
+                  </Typography>
+                </Stack>
+              )}
+              {userData?.company && (
+                <Stack
                   direction="row"
                   alignItems="center"
                   justifyContent="flex-start"
@@ -303,7 +318,7 @@ const ProfileCard = ({ userData, isPublicView, setIsPublicView, isPublic, handle
                     {userData?.company}
                   </Typography>
                 </Stack>
-              }
+              )}
             </Box>
             {!isPublicView && (
               <img

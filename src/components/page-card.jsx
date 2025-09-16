@@ -166,10 +166,10 @@ const PageCard = ({
               {isFollowLoading
                 ? "loading..."
                 : isFollowed
-                ? "Leave group"
-                : requestSent
-                ? "Withdraw request"
-                : "Join group"}
+                  ? "Leave group"
+                  : requestSent
+                    ? "Withdraw request"
+                    : "Join group"}
             </MenuItem>
           </>
         ) : owner ? (
@@ -198,8 +198,8 @@ const PageCard = ({
               {isFollowLoading
                 ? "loading..."
                 : isFollowed
-                ? "Unfollow"
-                : "Follow"}
+                  ? "Unfollow"
+                  : "Follow"}
             </MenuItem>
           </>
         )}

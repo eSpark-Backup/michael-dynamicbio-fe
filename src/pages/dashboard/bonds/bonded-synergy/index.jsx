@@ -99,7 +99,7 @@ const BondedSynergy = () => {
   }, []);
 
   const handleMessage = (bond) => {
-    navigate(`/cells?member=${bond?.friend?.userChatId}`)
+    navigate(`/cells?member=${bond?.friend?.userChatId}`);
   };
 
   return (
@@ -166,7 +166,10 @@ const BondedSynergy = () => {
                   alignItems="center"
                   justifyContent={{ xs: "flex-start", sm: "center" }}
                   gap={2}
-                  sx={{ width: { xs: "100%", sm: "max-content" }, cursor: "pointer" }}
+                  sx={{
+                    width: { xs: "100%", sm: "max-content" },
+                    cursor: "pointer",
+                  }}
                 >
                   <img
                     width={73}

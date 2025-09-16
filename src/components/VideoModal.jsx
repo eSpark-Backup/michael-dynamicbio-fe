@@ -10,7 +10,7 @@ const VideoModal = ({
   placeholder,
   file,
   handleClose,
-  handleThumbnailUpload
+  handleThumbnailUpload,
 }) => {
   const fileInputRef = useRef(null);
   const [newThumbnail, setNewThumbnail] = useState(null);
@@ -42,7 +42,7 @@ const VideoModal = ({
       const file = e.target.files[0];
       setNewThumbnail(file);
       setIsFileUploaded(true);
-      handleThumbnailUpload(file)
+      handleThumbnailUpload(file);
 
       setTimeout(() => {
         fileInputRef.current.value = null;
@@ -68,19 +68,17 @@ const VideoModal = ({
     }
   }, [newThumbnail, videoData.thumbnail]);
 
-
   const HandleDeleteThumbnail = () => {
     setNewThumbnail(null);
     setThumbnailPreview(null); // Clear the preview
     setIsFileUploaded(false);
-    handleThumbnailUpload(null)
+    handleThumbnailUpload(null);
 
     // Reset file input field
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
-
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>

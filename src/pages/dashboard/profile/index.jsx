@@ -19,10 +19,9 @@ const Profile = () => {
   const [userData, setUserData] = useState();
   const [modal, setModal] = useState("");
 
-
   useEffect(() => {
     if (userId === user?.id) {
-      console.log(user)
+      console.log(user);
       setUserData(user);
       setIsPublicView(false);
       setIsPublic(false);
@@ -88,14 +87,25 @@ const Profile = () => {
             size={{ xs: 12, lg: 3.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <LeftBar modal={modal} setModal={setModal} userData={userData} isPublicView={isPublicView} isPublic={isPublic} />
+            <LeftBar
+              modal={modal}
+              setModal={setModal}
+              userData={userData}
+              isPublicView={isPublicView}
+              isPublic={isPublic}
+            />
           </Grid2>
 
           <Grid2
             size={{ xs: 12, lg: 8.5 }}
             sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
           >
-            <Feed userData={userData} isPublicView={isPublicView} isPublic={isPublic} userId={userId} />
+            <Feed
+              userData={userData}
+              isPublicView={isPublicView}
+              isPublic={isPublic}
+              userId={userId}
+            />
           </Grid2>
         </Grid2>
         <Grid2 size={{ xs: 12, lg: 3 }}>

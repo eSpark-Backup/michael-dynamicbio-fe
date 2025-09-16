@@ -91,7 +91,7 @@ const ArticlePost = ({
   groupId,
   groupName,
   groupImage,
-  isUserAdmin
+  isUserAdmin,
 }) => {
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -241,7 +241,11 @@ const ArticlePost = ({
         groupPost={isGroupPost}
         postId={id}
         isSaved={isSaved}
-        handleEdit={() => navigate(`/article/edit/${id}${page ? `?page=${JSON.stringify(page)}` : ""}`)}
+        handleEdit={() =>
+          navigate(
+            `/article/edit/${id}${page ? `?page=${JSON.stringify(page)}` : ""}`
+          )
+        }
         handleDelete={handleDelete}
         visibility={postVisibility}
         commentSetting={commentSetting}
@@ -282,8 +286,9 @@ const ArticlePost = ({
           <Box
             sx={{
               height: "65%",
-              backgroundImage: `url("${articleImage ? articleImage : dummyPhoto
-                }")`,
+              backgroundImage: `url("${
+                articleImage ? articleImage : dummyPhoto
+              }")`,
               borderTopRightRadius: "8px",
               borderTopLeftRadius: "8px",
               backgroundSize: "cover",
@@ -339,7 +344,7 @@ const ArticlePost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "reject" ? (
+            isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -364,7 +369,7 @@ const ArticlePost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "approve" ? (
+            isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -416,7 +421,7 @@ const ArticlePost = ({
                 onClick={
                   numberofLikes > 0 && !isLoading
                     ? () => setShowLikesModal(true)
-                    : () => { }
+                    : () => {}
                 }
               >
                 {numberofLikes === 0
@@ -469,7 +474,7 @@ const ArticlePost = ({
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onClick={isLoading ? () => { } : () => handleLike(id)}
+              onClick={isLoading ? () => {} : () => handleLike(id)}
             >
               <img
                 src={isLiked ? like : unlike}
@@ -792,7 +797,7 @@ const ArticlePost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

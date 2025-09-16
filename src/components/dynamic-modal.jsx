@@ -151,8 +151,8 @@ const DynamicModal = ({
                       ? page.logoUrl
                       : user
                     : userData?.profileImage
-                    ? userData.profileImage
-                    : user
+                      ? userData.profileImage
+                      : user
                 }
                 alt="Avatar"
               />
@@ -177,8 +177,8 @@ const DynamicModal = ({
                         adminPage
                           ? handleDropdown
                           : isEditModal
-                          ? () => {}
-                          : handleClick
+                            ? () => {}
+                            : handleClick
                       }
                     />
                   )}
@@ -194,12 +194,12 @@ const DynamicModal = ({
                   {groupAdmin
                     ? `Post to ${group?.name}`
                     : visibility === "PUBLIC"
-                    ? "Post to anyone"
-                    : visibility === "CONNECTIONS"
-                    ? "Post to my connections"
-                    : visibility === "ONLY_ME"
-                    ? "Post only for me"
-                    : "Post for group"}
+                      ? "Post to anyone"
+                      : visibility === "CONNECTIONS"
+                        ? "Post to my connections"
+                        : visibility === "ONLY_ME"
+                          ? "Post only for me"
+                          : "Post for group"}
                 </Typography>
               </Stack>
               {groupAdmin && (

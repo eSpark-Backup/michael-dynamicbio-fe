@@ -51,10 +51,11 @@ const ViewPolls = ({ options }) => {
           flexDirection: "column",
           rowGap: "20px",
           maxHeight: "320px",
-          overflowY: "auto",  
+          overflowY: "auto",
         }}
       >
-        {options[selectedTab].voteBy?.length > 0 && options[selectedTab].voteBy[0] &&
+        {options[selectedTab].voteBy?.length > 0 &&
+          options[selectedTab].voteBy[0] &&
           options[selectedTab]?.voteBy?.map((item) => {
             return (
               <Box
@@ -67,7 +68,13 @@ const ViewPolls = ({ options }) => {
                 <img
                   src={item?.profileImage || userAvatar}
                   alt="Icon"
-                  style={{ minWidth: "64px", minHeight: "64px", width: "64px", height: "64px", borderRadius: "50%" }}
+                  style={{
+                    minWidth: "64px",
+                    minHeight: "64px",
+                    width: "64px",
+                    height: "64px",
+                    borderRadius: "50%",
+                  }}
                 />
                 <Box
                   sx={{
@@ -91,7 +98,7 @@ const ViewPolls = ({ options }) => {
                     </Typography>
                   </Stack>
                   <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-                      {item?.designation} at {item?.company}
+                    {item?.designation} at {item?.company}
                   </Typography>
                 </Box>
               </Box>

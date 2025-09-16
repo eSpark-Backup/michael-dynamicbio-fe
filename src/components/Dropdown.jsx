@@ -36,10 +36,11 @@ const Dropdown = ({
   helperText,
   value,
 }) => {
-  const [options] = useState(noLabel ? [
-    { label: placeholder, value: placeholder },
-    ...dropdownOptions,
-  ] : dropdownOptions);
+  const [options] = useState(
+    noLabel
+      ? [{ label: placeholder, value: placeholder }, ...dropdownOptions]
+      : dropdownOptions
+  );
   return (
     <>
       {customLabel && (
@@ -48,14 +49,22 @@ const Dropdown = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize="12px" mb={1}>{customLabel}</Typography>
-          {required && <Typography fontSize="12px" mb={1}>Required</Typography>}
+          <Typography fontSize="12px" mb={1}>
+            {customLabel}
+          </Typography>
+          {required && (
+            <Typography fontSize="12px" mb={1}>
+              Required
+            </Typography>
+          )}
         </Stack>
       )}
       <FormControl sx={{ width: "100%" }} variant="filled" error={error}>
-        {!noLabel && <InputLabel id="demo-simple-select-filled-label">
-          {placeholder}
-        </InputLabel>}
+        {!noLabel && (
+          <InputLabel id="demo-simple-select-filled-label">
+            {placeholder}
+          </InputLabel>
+        )}
         <Select
           name={name}
           variant={variant}
@@ -76,17 +85,23 @@ const Dropdown = ({
           }}
         >
           {!isCountries &&
-            options?.map((item, index) => (
-              index !== 0 && <MenuItem value={item?.value} key={index}>
-                {item?.label}
-              </MenuItem>
-            ))}
+            options?.map(
+              (item, index) =>
+                index !== 0 && (
+                  <MenuItem value={item?.value} key={index}>
+                    {item?.label}
+                  </MenuItem>
+                )
+            )}
           {isCountries &&
-            options?.map((item, index) => (
-              index !== 0 && <MenuItem value={item.dialCode} key={index}>
-                {item.name} ({item.dialCode})
-              </MenuItem>
-            ))}
+            options?.map(
+              (item, index) =>
+                index !== 0 && (
+                  <MenuItem value={item.dialCode} key={index}>
+                    {item.name} ({item.dialCode})
+                  </MenuItem>
+                )
+            )}
         </Select>
         {error && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>

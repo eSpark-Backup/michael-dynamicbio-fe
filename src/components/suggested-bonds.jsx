@@ -50,8 +50,8 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
           ? data?.data?.users
           : filteredUsers
         : search
-        ? data?.data?.users?.slice(0, 4)
-        : filteredUsers?.slice(0, 4)
+          ? data?.data?.users?.slice(0, 4)
+          : filteredUsers?.slice(0, 4)
     );
     setUsers(search ? data?.data?.users : filteredUsers);
   }, [search, showAll, data]);

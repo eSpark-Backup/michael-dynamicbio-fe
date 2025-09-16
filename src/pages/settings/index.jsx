@@ -7,28 +7,39 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import React, { useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
+} from "@mui/material";
+import React, { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
-  accountBlack, accountBlue, adBlack, adBlue, bellActive,
-  bellBlack, fullEyeBlack, fullEyeBlue, lockBlack, lockBlue,
-  logo2, shieldBlack, shieldBlue, user
-} from '../../assets';
-import { useSelector } from 'react-redux';
-import VisibilitySettings from './VisibilitySettings';
-import AccountSettings from './AccountSettings';
-import { useNavigate } from 'react-router-dom';
+  accountBlack,
+  accountBlue,
+  adBlack,
+  adBlue,
+  bellActive,
+  bellBlack,
+  fullEyeBlack,
+  fullEyeBlue,
+  lockBlack,
+  lockBlue,
+  logo2,
+  shieldBlack,
+  shieldBlue,
+  user,
+} from "../../assets";
+import { useSelector } from "react-redux";
+import VisibilitySettings from "./VisibilitySettings";
+import AccountSettings from "./AccountSettings";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 300;
 
 const Settings = () => {
   const { user: userData } = useSelector((state) => state.auth);
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const toggleDrawer = (open) => () => {
     setMobileOpen(open);
@@ -53,19 +64,26 @@ const Settings = () => {
 
   return (
     <>
-      <Paper sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        py: '6px',
-        px: '12px',
-        position: 'fixed',
-        top: 0,
-        width: '100%',
-        zIndex: 1201,
-      }}>
-        <img src={logo2} alt="Logo" onClick={() => navigate("/")} style={{ cursor: "pointer" }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Paper
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          py: "6px",
+          px: "12px",
+          position: "fixed",
+          top: 0,
+          width: "100%",
+          zIndex: 1201,
+        }}
+      >
+        <img
+          src={logo2}
+          alt="Logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           {!isLargeScreen && (
             <IconButton onClick={toggleDrawer(true)}>
               <MenuIcon />
@@ -80,24 +98,24 @@ const Settings = () => {
         </Box>
       </Paper>
 
-      <Box sx={{ display: 'flex', pt: '68px' }}>
+      <Box sx={{ display: "flex", pt: "68px" }}>
         <Drawer
-          variant={isLargeScreen ? 'persistent' : 'temporary'}
+          variant={isLargeScreen ? "persistent" : "temporary"}
           open={isLargeScreen ? true : mobileOpen}
           onClose={toggleDrawer(false)}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            '& .MuiDrawer-paper': {
+            "& .MuiDrawer-paper": {
               width: drawerWidth,
-              boxSizing: 'border-box',
+              boxSizing: "border-box",
               mt: "68px",
-              px: "0px"
+              px: "0px",
             },
           }}
         >
           <Box sx={{ py: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', px: 2, mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", px: 2, mb: 2 }}>
               <Avatar
                 src={userData?.profileImage || user}
                 sx={{ width: 40, height: 40 }}
@@ -133,7 +151,8 @@ const Settings = () => {
                         display: isActive ? "block" : "none",
                         width: "3px",
                         height: "100%",
-                        background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        background:
+                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
                         position: "absolute",
                         left: 0,
                         top: 0,
@@ -156,7 +175,6 @@ const Settings = () => {
           </Box>
         </Drawer>
 
-
         <Box
           component="main"
           sx={{
@@ -165,10 +183,16 @@ const Settings = () => {
             p: 2,
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
-          <Paper sx={{ width: { xs: "100%", sm: "95%", md: "90%", lg: "60%", xl: "50%" }, px: "0px", pb: "0px" }}>
+          <Paper
+            sx={{
+              width: { xs: "100%", sm: "95%", md: "90%", lg: "60%", xl: "50%" },
+              px: "0px",
+              pb: "0px",
+            }}
+          >
             {activeTab.component}
           </Paper>
         </Box>

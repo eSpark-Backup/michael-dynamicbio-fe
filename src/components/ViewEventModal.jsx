@@ -12,7 +12,7 @@ const ViewEventModal = ({
   values,
   handleScheduleClick,
   handleEditClick,
-  handleDelete
+  handleDelete,
 }) => {
   const [imgPreview, setImgPreview] = useState(null);
 

@@ -15,7 +15,7 @@ const TroubleshootMfa = () => {
         return;
       }
       if (res) {
-        navigate(`/email-mfa?email=${res?.data?.data?.email}`)
+        navigate(`/email-mfa?email=${res?.data?.data?.email}`);
       }
     });
   };
@@ -26,7 +26,10 @@ const TroubleshootMfa = () => {
       alignItems="center"
       justifyItems="flex-start"
     >
-      <Typography textAlign="center" sx={{ fontSize: { xs: "28px", md: "40px" } }}>
+      <Typography
+        textAlign="center"
+        sx={{ fontSize: { xs: "28px", md: "40px" } }}
+      >
         Multi Factor Authentication
       </Typography>
       <Typography

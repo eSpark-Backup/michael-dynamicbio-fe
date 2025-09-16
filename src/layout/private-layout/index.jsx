@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress } from "@mui/material";
@@ -8,7 +14,6 @@ import Navbar from "./Navbar";
 import { useGetUserInfoMutation } from "../../services/auth";
 import { logout } from "../../store/slices/auth";
 import { api } from "../../services/rtk";
-
 
 const PrivateLayout = () => {
   const token = localStorage.getItem("token");
@@ -66,14 +71,12 @@ const PrivateLayout = () => {
 
   return (
     <>
-      {
-        (pathname !== "/settings" && pathname !== "/ddt")
-        &&
+      {pathname !== "/settings" && pathname !== "/ddt" && (
         <>
           <Header />
           <Navbar />
         </>
-      }
+      )}
       <Outlet />
     </>
   );

@@ -466,7 +466,7 @@ const EventDetails = () => {
                       >
                         RottenRia
                       </Typography>
-                      </Box>
+                    </Box>
                     <Typography
                       sx={{
                         fontSize: "14px",

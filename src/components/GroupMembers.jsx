@@ -19,7 +19,7 @@ const GroupMembers = ({ data, refetch }) => {
   useEffect(() => {
     if (!data?.followers || !data?.admins) return;
 
-    const adminIds = new Set(data.admins.map(({admin}) => admin.id));
+    const adminIds = new Set(data.admins.map(({ admin }) => admin.id));
 
     const enrichedFollowers = data.followers.map((follower) => ({
       ...follower,

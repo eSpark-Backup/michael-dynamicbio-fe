@@ -395,14 +395,15 @@ const GroupChatModal = ({
                     </Button>
                   </Box>
                 </Stack>
-              ) : (
-                sender?.admin === userData?.userChatId && sender?.admin !== item?.id ? <img
+              ) : sender?.admin === userData?.userChatId &&
+                sender?.admin !== item?.id ? (
+                <img
                   src={three_vertical_dots}
                   alt="Icon"
                   style={{ cursor: "pointer" }}
                   onClick={(e) => handleClick(e, item.id)}
-                /> : null
-              )}
+                />
+              ) : null}
             </Box>
           );
         })}
@@ -439,8 +440,14 @@ const GroupChatModal = ({
             sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Anyone who joins this chat will see previous messages.{" "}
-          </Typography></Box>
-        <Button onClick={handleCloseModal} sx={{ height: "36px", maxWidth: "150px" }}>Done</Button>
+          </Typography>
+        </Box>
+        <Button
+          onClick={handleCloseModal}
+          sx={{ height: "36px", maxWidth: "150px" }}
+        >
+          Done
+        </Button>
       </Stack>
       <Menu
         anchorEl={menuAnchor?.anchor}

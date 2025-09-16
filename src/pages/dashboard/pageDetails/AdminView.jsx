@@ -98,11 +98,7 @@ const AdminView = () => {
     }
   };
 
-  const items = [
-    "Dashboard",
-    "Page posts",
-    "Edit page",
-  ];
+  const items = ["Dashboard", "Page posts", "Edit page"];
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [showPostModal, setShowPostModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -209,7 +205,7 @@ const AdminView = () => {
   const [hasMore, setHasMore] = useState(true);
   const { user: userData } = useSelector((state) => state.auth);
   const skip = !id;
-console.log(posts);
+  console.log(posts);
 
   const {
     data: postsData,

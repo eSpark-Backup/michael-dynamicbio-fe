@@ -151,8 +151,8 @@ const SavedItemCard = ({
                 {isGroupPost
                   ? userName
                   : role?.length > 100
-                  ? role?.slice(0, 98) + "..."
-                  : role}
+                    ? role?.slice(0, 98) + "..."
+                    : role}
               </Typography>
             ) : (
               <Typography

@@ -29,7 +29,7 @@ const EmailVerified = () => {
             firstName: res?.data?.data?.user?.firstName,
             lastName: res?.data?.data?.user?.lastName,
             about: res?.data?.data?.user?.about,
-          }
+          };
           setLoading(false);
           localStorage.setItem("temp_user_data", JSON.stringify(data));
           localStorage.setItem("token", res?.data?.data?.token);

@@ -115,10 +115,10 @@ const Grow = () => {
                     ? `Your sent request${requests?.length > 1 ? "s" : ""}`
                     : "You didn't send any request"
                   : requests?.length > 0
-                  ? `You have new bonding request${
-                      requests?.length > 1 ? "s" : ""
-                    }`
-                  : "You  don’t have any bonding request"}
+                    ? `You have new bonding request${
+                        requests?.length > 1 ? "s" : ""
+                      }`
+                    : "You  don’t have any bonding request"}
               </Typography>
               <img
                 style={{ cursor: "pointer" }}

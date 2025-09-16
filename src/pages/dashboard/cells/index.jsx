@@ -138,8 +138,8 @@ const Cells = () => {
     id && chatList?.some((item) => item?._id === id)
       ? navigate(`/cells?id=${id}`)
       : firstId
-      ? navigate(`/cells?id=${firstId}`)
-      : navigate(`/cells`);
+        ? navigate(`/cells?id=${firstId}`)
+        : navigate(`/cells`);
     !id &&
       !chatList?.some((item) => item?._id === id) &&
       !firstId &&
@@ -215,8 +215,8 @@ const Cells = () => {
       id && chatListArr?.some((item) => item?._id === id)
         ? navigate(`/cells?id=${id}`)
         : firstId
-        ? navigate(`/cells?id=${firstId}`)
-        : navigate(`/cells`);
+          ? navigate(`/cells?id=${firstId}`)
+          : navigate(`/cells`);
       !id &&
         !chatListArr?.some((item) => item?._id === id) &&
         !firstId &&
@@ -824,9 +824,10 @@ const Cells = () => {
                       !mainChat?.find((item) => item?._id === id)?.groupChat
                         ? mainChat?.find((item) => item?._id === id)?.name
                         : showChatScreen &&
-                          mainChat?.find((item) => item?._id === id)?.groupChat
-                        ? mainChat?.find((item) => item?._id === id)?.name
-                        : "New Message"}
+                            mainChat?.find((item) => item?._id === id)
+                              ?.groupChat
+                          ? mainChat?.find((item) => item?._id === id)?.name
+                          : "New Message"}
                     </Typography>
                     {showChatScreen ? (
                       <Typography

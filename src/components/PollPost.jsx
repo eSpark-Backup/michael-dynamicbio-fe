@@ -101,7 +101,7 @@ const PollPost = ({
   groupId,
   groupName,
   groupImage,
-  isUserAdmin
+  isUserAdmin,
 }) => {
   const [interact, { isLoading: pollLoading }] = useInteractPollMutation();
   const [remove, { isLoading: removePollLoading }] = useRemovePollMutation();
@@ -223,21 +223,21 @@ const PollPost = ({
         prevOptions.map((item) =>
           item.id - 3 === optionIndex
             ? {
-              ...item,
-              isChecked: true,
-              numbersVoted: item.numbersVoted + 1,
-              voteBy: [
-                ...item.voteBy,
-                {
-                  company: userData?.company,
-                  designation: userData?.designation,
-                  firstName: userData?.firstName,
-                  lastName: userData?.lastName,
-                  profileImage: userData?.profileImage,
-                  userId: userData?.id,
-                },
-              ],
-            }
+                ...item,
+                isChecked: true,
+                numbersVoted: item.numbersVoted + 1,
+                voteBy: [
+                  ...item.voteBy,
+                  {
+                    company: userData?.company,
+                    designation: userData?.designation,
+                    firstName: userData?.firstName,
+                    lastName: userData?.lastName,
+                    profileImage: userData?.profileImage,
+                    userId: userData?.id,
+                  },
+                ],
+              }
             : item
         )
       );
@@ -263,13 +263,13 @@ const PollPost = ({
         prevOptions.map((item) =>
           item?.id - 3 === votedOptionIndex
             ? {
-              ...item,
-              isChecked: false,
-              numbersVoted: item.numbersVoted - 1,
-              voteBy: item.voteBy.filter(
-                (vote) => vote.userId !== userData.id
-              ),
-            }
+                ...item,
+                isChecked: false,
+                numbersVoted: item.numbersVoted - 1,
+                voteBy: item.voteBy.filter(
+                  (vote) => vote.userId !== userData.id
+                ),
+              }
             : item
         )
       );
@@ -445,7 +445,13 @@ const PollPost = ({
             <RadioGroup
               name="groups"
               value={selectedValue}
-              onChange={isGeneralPost ? AlertHandler : isPending ? () => { } : handleChange}
+              onChange={
+                isGeneralPost
+                  ? AlertHandler
+                  : isPending
+                    ? () => {}
+                    : handleChange
+              }
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
               {options?.map((item, index) => (
@@ -476,7 +482,7 @@ const PollPost = ({
                     }}
                     onClick={
                       isGeneralPost || isPending
-                        ? () => { }
+                        ? () => {}
                         : () => handleChange({ target: { value: item } })
                     }
                   >
@@ -625,7 +631,7 @@ const PollPost = ({
             }}
           >
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "reject" ? (
+            isUpdateLoading.action === "reject" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -650,7 +656,7 @@ const PollPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-              isUpdateLoading.action === "approve" ? (
+            isUpdateLoading.action === "approve" ? (
               <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
@@ -708,7 +714,7 @@ const PollPost = ({
                     ? AlertHandler
                     : numberofLikes > 0 && !isLoading
                       ? () => setShowLikesModal(true)
-                      : () => { }
+                      : () => {}
                 }
               >
                 {numberofLikes === 0
@@ -765,7 +771,7 @@ const PollPost = ({
                 isGeneralPost
                   ? AlertHandler
                   : isLoading
-                    ? () => { }
+                    ? () => {}
                     : () => handleLike(id)
               }
             >
@@ -1078,7 +1084,7 @@ const PollPost = ({
         buttonText={"Post"}
         postModal={true}
         userName={"Areeba Shakeel"}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}

@@ -95,7 +95,11 @@ const ContactBox = ({
             color: activeItem === id ? theme.palette.primary.light : "#505050",
           }}
         >
-          {isTyping?.length > 0 && id !== pathId ? <TypingDots /> : lastMessage?.split('\n')[0]}
+          {isTyping?.length > 0 && id !== pathId ? (
+            <TypingDots />
+          ) : (
+            lastMessage?.split("\n")[0]
+          )}
         </Typography>
       </Box>
     </Box>

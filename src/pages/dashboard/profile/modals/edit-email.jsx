@@ -14,7 +14,7 @@ const EditEmailModal = ({ email, userData, open, handleClose }) => {
 
   const initialValues = useMemo(
     () => ({
-        email: email?.email || "",
+      email: email?.email || "",
     }),
     [email]
   );

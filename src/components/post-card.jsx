@@ -50,16 +50,16 @@ const PostCard = ({
     date: null,
     time: null,
   });
-  const [viewPollModal, setViewPollModal] = useState(false)
-  const [pollValues, setPollValues] = useState({})
-  const [isSchedulePost, setIsSchedulePost] = useState(false)
+  const [viewPollModal, setViewPollModal] = useState(false);
+  const [pollValues, setPollValues] = useState({});
+  const [isSchedulePost, setIsSchedulePost] = useState(false);
 
   const handleThumbnailUpload = (file) => {
     setVideoData((prev) => ({
       ...prev,
-      thumbnail: file
-    }))
-  }
+      thumbnail: file,
+    }));
+  };
 
   const handlePost = (obj) => {
     if (viewOnly) {
@@ -69,9 +69,8 @@ const PostCard = ({
       setPollModal(false);
       setViewEventModal(false);
       setEventFormValues({});
-      return
-    }
-    else {
+      return;
+    } else {
       newPost(obj).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
@@ -87,13 +86,13 @@ const PostCard = ({
           setPollModal(false);
           setViewEventModal(false);
           setEventFormValues({});
-          setViewPollModal(false)
-          setPollValues({})
-          setIsSchedulePost(false)
+          setViewPollModal(false);
+          setPollValues({});
+          setIsSchedulePost(false);
           setSchedule({
             date: null,
             time: null,
-          })
+          });
         }
       });
     }
@@ -112,16 +111,16 @@ const PostCard = ({
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
-          scheduledDate: new Date(
-            schedule.date.getFullYear(),
-            schedule.date.getMonth(),
-            schedule.date.getDate(),
-            schedule.time.getHours(),
-            schedule.time.getMinutes(),
-            0
-          ).toISOString(),
-        }
-        : {})
+            scheduledDate: new Date(
+              schedule.date.getFullYear(),
+              schedule.date.getMonth(),
+              schedule.date.getDate(),
+              schedule.time.getHours(),
+              schedule.time.getMinutes(),
+              0
+            ).toISOString(),
+          }
+        : {}),
     };
 
     handlePost(obj);
@@ -142,16 +141,16 @@ const PostCard = ({
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
-          scheduledDate: new Date(
-            schedule.date.getFullYear(),
-            schedule.date.getMonth(),
-            schedule.date.getDate(),
-            schedule.time.getHours(),
-            schedule.time.getMinutes(),
-            0
-          ).toISOString(),
-        }
-        : {})
+            scheduledDate: new Date(
+              schedule.date.getFullYear(),
+              schedule.date.getMonth(),
+              schedule.date.getDate(),
+              schedule.time.getHours(),
+              schedule.time.getMinutes(),
+              0
+            ).toISOString(),
+          }
+        : {}),
     };
     handlePost(obj);
   };
@@ -171,16 +170,16 @@ const PostCard = ({
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
-          scheduledDate: new Date(
-            schedule.date.getFullYear(),
-            schedule.date.getMonth(),
-            schedule.date.getDate(),
-            schedule.time.getHours(),
-            schedule.time.getMinutes(),
-            0
-          ).toISOString(),
-        }
-        : {})
+            scheduledDate: new Date(
+              schedule.date.getFullYear(),
+              schedule.date.getMonth(),
+              schedule.date.getDate(),
+              schedule.time.getHours(),
+              schedule.time.getMinutes(),
+              0
+            ).toISOString(),
+          }
+        : {}),
     };
     handlePost(obj);
   };
@@ -191,10 +190,13 @@ const PostCard = ({
     if (hasDuplicate(options)) {
       toast.error("Duplicate options are not allowed");
       return;
-    }
-    else {
-      setViewPollModal(true)
-      setPollValues({ question: values.question, options, endDate: values?.duration })
+    } else {
+      setViewPollModal(true);
+      setPollValues({
+        question: values.question,
+        options,
+        endDate: values?.duration,
+      });
     }
   };
 
@@ -203,7 +205,7 @@ const PostCard = ({
       pageId: page ? page?.id : null,
       groupId: group ? group?.id : null,
       content: {
-        title
+        title,
       },
       poll: {
         question: pollValues?.question,
@@ -220,19 +222,19 @@ const PostCard = ({
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
-          scheduledDate: new Date(
-            schedule.date.getFullYear(),
-            schedule.date.getMonth(),
-            schedule.date.getDate(),
-            schedule.time.getHours(),
-            schedule.time.getMinutes(),
-            0
-          ).toISOString(),
-        }
-        : {})
+            scheduledDate: new Date(
+              schedule.date.getFullYear(),
+              schedule.date.getMonth(),
+              schedule.date.getDate(),
+              schedule.time.getHours(),
+              schedule.time.getMinutes(),
+              0
+            ).toISOString(),
+          }
+        : {}),
     };
     handlePost(obj);
-  }
+  };
 
   const handleEventPost = () => {
     const { selectedFile, ...rest } = eventFormValues;
@@ -250,16 +252,16 @@ const PostCard = ({
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
-          scheduledDate: new Date(
-            schedule.date.getFullYear(),
-            schedule.date.getMonth(),
-            schedule.date.getDate(),
-            schedule.time.getHours(),
-            schedule.time.getMinutes(),
-            0
-          ).toISOString(),
-        }
-        : {})
+            scheduledDate: new Date(
+              schedule.date.getFullYear(),
+              schedule.date.getMonth(),
+              schedule.date.getDate(),
+              schedule.time.getHours(),
+              schedule.time.getMinutes(),
+              0
+            ).toISOString(),
+          }
+        : {}),
     };
     handlePost(obj);
   };
@@ -324,12 +326,12 @@ const PostCard = ({
     setShowModal(false);
     setShowPostModal(false);
     setSelectedFiles([]);
-    fileInputRef.current.value = null
-    setIsSchedulePost(false)
+    fileInputRef.current.value = null;
+    setIsSchedulePost(false);
     setSchedule({
       date: null,
       time: null,
-    })
+    });
   };
 
   const HandleVideoModalClose = () => {
@@ -338,11 +340,11 @@ const PostCard = ({
     if (videoInputRef.current) {
       videoInputRef.current.value = null;
     }
-    setIsSchedulePost(false)
+    setIsSchedulePost(false);
     setSchedule({
       date: null,
       time: null,
-    })
+    });
   };
 
   const handleFormSubmit = (formData) => {
@@ -359,23 +361,23 @@ const PostCard = ({
   const HandleViewEventClose = () => {
     setViewEventModal(false);
     setEventFormValues({});
-    setIsSchedulePost(false)
+    setIsSchedulePost(false);
     setSchedule({
       date: null,
       time: null,
-    })
+    });
   };
 
   const HandleViewPollClose = () => {
-    setViewPollModal(false)
-    setPollModal(false)
-    setPollValues({})
-    setIsSchedulePost(false)
+    setViewPollModal(false);
+    setPollModal(false);
+    setPollValues({});
+    setIsSchedulePost(false);
     setSchedule({
       date: null,
       time: null,
-    })
-  }
+    });
+  };
 
   const { user: userData } = useSelector((state) => state.auth);
 
@@ -405,7 +407,10 @@ const PostCard = ({
               }
               alt="User"
               sx={{
-                width: 60, height: 60, objectFit: "fill", cursor: "pointer"
+                width: 60,
+                height: 60,
+                objectFit: "fill",
+                cursor: "pointer",
               }}
               onClick={() => navigate(`/profile/${userData?.id}`)}
             />
@@ -557,13 +562,13 @@ const PostCard = ({
         onSuccess={handleTextPost}
         open={showPostModal}
         handleClose={() => {
-          setShowPostModal(false)
-          setTitle("")
-          setIsSchedulePost(false)
+          setShowPostModal(false);
+          setTitle("");
+          setIsSchedulePost(false);
           setSchedule({
             date: null,
             time: null,
-          })
+          });
         }}
         title={"Hello"}
         buttonText={"Post"}
@@ -654,7 +659,7 @@ const PostCard = ({
             time: scheduleTime,
           });
           setShowScheduleModal(false);
-          setIsSchedulePost(true)
+          setIsSchedulePost(true);
         }}
         handleClose={() => setShowScheduleModal(false)}
         title={"Schedule post"}
@@ -662,7 +667,7 @@ const PostCard = ({
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
         footerDirection={"space-between"}
@@ -703,7 +708,7 @@ const PostCard = ({
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        handleScheduleClick={() => { }}
+        handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}
         groupAdmin={groupAdmin}
@@ -712,7 +717,11 @@ const PostCard = ({
         page={page}
         group={group}
       >
-        <PollModal isLoading={isLoading} handleSuccess={handlePollPost} handleBack={() => setPollModal(false)} />
+        <PollModal
+          isLoading={isLoading}
+          handleSuccess={handlePollPost}
+          handleBack={() => setPollModal(false)}
+        />
       </DynamicModal>
 
       <DynamicModal

@@ -397,19 +397,19 @@ const PostDetails = ({
                   isGeneralPost
                     ? ALertHandler
                     : numberofLikes > 0 && !isLoading
-                    ? () => setShowLikesModal(true)
-                    : () => {}
+                      ? () => setShowLikesModal(true)
+                      : () => {}
                 }
               >
                 {numberofLikes === 0
                   ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                  ? "You liked this post"
-                  : isLiked && numberofLikes > 1
-                  ? `You and ${numberofLikes - 1} more like this`
-                  : numberofLikes === 1
-                  ? `${lastUserLiked} likes this`
-                  : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                    ? "You liked this post"
+                    : isLiked && numberofLikes > 1
+                      ? `You and ${numberofLikes - 1} more like this`
+                      : numberofLikes === 1
+                        ? `${lastUserLiked} likes this`
+                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -455,8 +455,8 @@ const PostDetails = ({
                 isGeneralPost
                   ? ALertHandler
                   : isLoading
-                  ? () => {}
-                  : () => handleLike(id)
+                    ? () => {}
+                    : () => handleLike(id)
               }
             >
               <img

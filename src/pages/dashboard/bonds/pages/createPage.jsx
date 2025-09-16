@@ -8,7 +8,7 @@ const CreatePage = () => {
   const navigate = useNavigate();
   const query = useQuery();
   const pageType = query.get("pageType");
-  
+
   return (
     <>
       <Stack

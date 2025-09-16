@@ -13,4 +13,3 @@ export const CHAT_LEFT = "CHAT_LEFT";
 export const START_TYPING = "START_TYPING";
 export const STOP_TYPING = "STOP_TYPING";
 export const REFETCH_CHATS = "REFETCH_CHATS";
-

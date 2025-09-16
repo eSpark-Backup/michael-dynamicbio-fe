@@ -224,13 +224,13 @@ const BondCard2 = ({
     ? followerCount === 0
       ? "No followers"
       : followerCount === 1
-      ? "1 follower"
-      : `${followerCount} followers`
+        ? "1 follower"
+        : `${followerCount} followers`
     : groupPost && !isGroupfeed
-    ? userName
-    : userRole && userRole !== "0"
-    ? userRole
-    : "";
+      ? userName
+      : userRole && userRole !== "0"
+        ? userRole
+        : "";
 
   const AlertHandler = () => {
     toast.warning("Please login for actions");
@@ -323,8 +323,8 @@ const BondCard2 = ({
                         isPagePost
                           ? `/page/${pageId}`
                           : groupPost && !isGroupfeed
-                          ? `/group/${groupId}`
-                          : `/profile/${id}`
+                            ? `/group/${groupId}`
+                            : `/profile/${id}`
                       )
               }
             >
@@ -344,8 +344,8 @@ const BondCard2 = ({
                 isGeneralPost
                   ? AlertHandler
                   : groupPost
-                  ? () => navigate(`/profile/${id}`)
-                  : () => {}
+                    ? () => navigate(`/profile/${id}`)
+                    : () => {}
               }
             >
               {displayText}
@@ -415,11 +415,11 @@ const BondCard2 = ({
                   postVisibility === "PUBLIC"
                     ? earth
                     : postVisibility === "CONNECTIONS"
-                    ? group
-                    : postVisibility === "PRIVATE" ||
-                      postVisibility === "ONLY_ME"
-                    ? eyeOff
-                    : earth
+                      ? group
+                      : postVisibility === "PRIVATE" ||
+                          postVisibility === "ONLY_ME"
+                        ? eyeOff
+                        : earth
                 }
                 alt="Icon"
                 style={{ width: "14px", height: "14px" }}
@@ -515,7 +515,7 @@ const BondCard2 = ({
                 sx={{
                   fontSize: "15px",
                   fontWeight: "500",
-                  color: "#171717"
+                  color: "#171717",
                 }}
               >
                 Edit post
@@ -534,7 +534,7 @@ const BondCard2 = ({
                 sx={{
                   fontSize: "15px",
                   fontWeight: "500",
-                  color: "#171717"
+                  color: "#171717",
                 }}
               >
                 Delete post

@@ -47,7 +47,9 @@ const ForgetPassword = () => {
       component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>Set New Password</Typography>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
+        Set New Password
+      </Typography>
       <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
           label={"Enter Password"}

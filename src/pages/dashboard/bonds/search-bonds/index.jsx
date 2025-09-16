@@ -460,8 +460,8 @@ const SearchBonds = () => {
                     group?.creatorId === user?.id
                       ? "my-groups"
                       : group?.isFollowing
-                      ? "joined-groups"
-                      : "all-groups"
+                        ? "joined-groups"
+                        : "all-groups"
                   }
                   key={group.id}
                   {...group}
