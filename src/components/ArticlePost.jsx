@@ -100,12 +100,7 @@ const ArticlePost = ({
   const [totalComments, setTotalComments] = useState(comments);
   const [showLikesModal, setShowLikesModal] = useState(false);
 
-  const [
-    commentData,
-    {
-      isLoading: postCommentLoading,
-    },
-  ] = useCommentMutation();
+  const [commentData, { isLoading: postCommentLoading }] = useCommentMutation();
 
   const {
     data: getCommentsData,

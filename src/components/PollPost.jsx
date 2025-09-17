@@ -124,12 +124,7 @@ const PollPost = ({
 
   useEffect(() => setEditTitle(postContent), [postContent]);
 
-  const [
-    commentData,
-    {
-      isLoading: postCommentLoading,
-    },
-  ] = useCommentMutation();
+  const [commentData, { isLoading: postCommentLoading }] = useCommentMutation();
 
   const {
     data: getCommentsData,

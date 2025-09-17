@@ -150,13 +150,7 @@ const SuggestionPost = ({
     refetchOnReconnect: true,
   });
 
-  const [
-    commentData,
-    {
-      isLoading: postCommentLoading,
-    },
-  ] = useCommentMutation();
-
+  const [commentData, { isLoading: postCommentLoading }] = useCommentMutation();
 
   useEffect(() => {
     setTotalLikes(numberofLikes);

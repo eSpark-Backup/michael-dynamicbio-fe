@@ -59,10 +59,7 @@ const ArticleDetails = () => {
   const [hasLiked, setHasLiked] = useState(null);
   const [commentContent, setCommentContent] = useState("");
 
-  const [
-    likeData,
-    {isLoading: isLikeloading},
-  ] = useLikeMutation();
+  const [likeData, { isLoading: isLikeloading }] = useLikeMutation();
 
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
@@ -114,16 +111,9 @@ const ArticleDetails = () => {
     refetchOnReconnect: true,
   });
 
-  const [savePostData, { isLoading: isSavingPostLoading }] =
-    useSavePostMutation();
+  const [savePostData] = useSavePostMutation();
 
-  const [
-    commentData,
-    {
-      isLoading: postCommentLoading,
-    },
-  ] = useCommentMutation();
-
+  const [commentData, { isLoading: postCommentLoading }] = useCommentMutation();
 
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {

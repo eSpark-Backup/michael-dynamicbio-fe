@@ -100,15 +100,12 @@ const BondCard2 = ({
 
   const [savePostData, { isLoading: isSavingPostLoading }] =
     useSavePostMutation();
-  const [deletePost] =
-    useDeletePostByIdMutation();
+  const [deletePost] = useDeletePostByIdMutation();
 
-  const [updateReq] =
-    useUpdateBondReqMutation();
+  const [updateReq] = useUpdateBondReqMutation();
   const [sendReq] = useSendBondReqMutation();
 
   const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
-
 
   const HandleChoiceChange = (value, type) => {
     if (type === "comment") {

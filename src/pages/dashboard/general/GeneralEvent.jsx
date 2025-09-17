@@ -25,15 +25,13 @@ const GeneralEvent = () => {
     return match ? match[1] : null;
   }, []);
 
-  const {
-    data: getGeneralData,
-    isSuccess: getGeneralSuccess,
-  } = useGetGeneralPageQuery(encodedData, {
-    skip: !encodedData,
-    refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
-    refetchOnReconnect: true,
-  });
+  const { data: getGeneralData, isSuccess: getGeneralSuccess } =
+    useGetGeneralPageQuery(encodedData, {
+      skip: !encodedData,
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    });
 
   const [postData, setPostData] = useState({
     eventImage: null,

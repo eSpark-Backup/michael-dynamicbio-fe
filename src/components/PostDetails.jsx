@@ -107,13 +107,7 @@ const PostDetails = ({
     refetchOnReconnect: true,
   });
 
-  const [
-    commentData,
-    {
-      isLoading: postCommentLoading,
-    },
-  ] = useCommentMutation();
-
+  const [commentData, { isLoading: postCommentLoading }] = useCommentMutation();
 
   useEffect(() => setTotalComments(comments), [comments]);
 
