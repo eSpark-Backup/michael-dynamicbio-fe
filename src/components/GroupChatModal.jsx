@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { chipClose, three_vertical_dots } from "../assets";
 import { useSelector } from "react-redux";
 import {
@@ -32,10 +32,10 @@ const GroupChatModal = ({
   const [remove, { isLoading }] = useRemoveMemberMutation();
   const [add, { isLoading: isAddLoading }] = useAddMemberMutation();
   const { user: userData } = useSelector((state) => state.auth);
-  const fullMembers = [...sender?.members];
-  const fullAvatars = [...sender?.avatar];
-  const memberName = [...sender?.memberName];
-  const memberIds = [...sender?.accountId];
+  const fullMembers = [...sender.members];
+  const fullAvatars = [...sender.avatar];
+  const memberName = [...sender.memberName];
+  const memberIds = [...sender.accountId];
 
   const ind = memberIds.findIndex((id) => id === userData?.id);
   if (ind !== -1) {

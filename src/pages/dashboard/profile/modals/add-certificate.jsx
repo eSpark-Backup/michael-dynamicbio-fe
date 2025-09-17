@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   BoxWithTextIcon,
   Dropdown,
@@ -58,7 +58,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         return;
       }
       const arrToSend = userData?.about?.certifications
-        ? [...userData?.about?.certifications, { ...values }]
+        ? [...userData.about.certifications, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({
@@ -101,7 +101,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
     if (event === "link") {
       setShowLinkModal(true);
     } else if (event === "media") {
-      fileInputRef.current.click();
+      event.current.click();
     }
     handleMenuItemClose();
   };
@@ -457,6 +457,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
         {formik?.values?.links?.map((item, index) => (
           <Box
+            key={index}
             sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
           >
             <Typography

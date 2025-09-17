@@ -16,23 +16,8 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  camera,
-  chipClose,
-  emoji,
-  filter,
-  friend,
-  link,
-  photo,
-  plus,
-  profilePicture,
-  searchIcon,
-  send,
-  three_vertical_dots,
-  user,
-  userAvatar,
-} from "../../../assets";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { chipClose, plus, searchIcon, send, userAvatar } from "../../../assets";
 import {
   ContactBox,
   DynamicModal,
@@ -117,7 +102,7 @@ const Cells = () => {
     );
   }, [selectedNames]);
 
-  const HandleActiveClick = (id, type) => {
+  const HandleActiveClick = (id) => {
     navigate(`/cells?id=${id}`);
     setShowChatScreen(true);
     setSelectedNames([]);
@@ -169,19 +154,9 @@ const Cells = () => {
     setAnchorEl(null);
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleClose2 = (event) => {
     event.stopPropagation();
     setAnchorEl2(null);
-  };
-
-  const handleClick2 = (event) => {
-    if (mainChat?.find((item) => item?._id === id)?.groupChat) {
-      setAnchorEl2(event.currentTarget);
-    }
   };
 
   const { data, isLoading, isSuccess, isError, error, refetch } =
@@ -1109,13 +1084,13 @@ const Cells = () => {
                             (item) => item?._id === id
                           );
                           const fullMembers = chat?.members
-                            ? [...chat?.members]
+                            ? [...chat.members]
                             : [];
                           const fullAvatars = chat?.members
-                            ? [...chat?.avatar]
+                            ? [...chat.avatar]
                             : [];
                           const memberIds = chat?.members
-                            ? [...chat?.accountId]
+                            ? [...chat.accountId]
                             : [];
                           const ind = memberIds.findIndex(
                             (id) => id === userData?.id
@@ -1228,7 +1203,6 @@ const Cells = () => {
                     maxRows={5}
                     value={msg}
                     onInputChange={(e) => {
-                      const value = e.target.value;
                       handleStartTyping();
 
                       if (typingTimeoutRef.current)

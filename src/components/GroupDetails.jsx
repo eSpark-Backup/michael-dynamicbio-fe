@@ -9,25 +9,20 @@ import {
   Divider,
   FormControlLabel,
   Grid2,
-  IconButton,
   LinearProgress,
   Menu,
   MenuItem,
   Paper,
-  Popper,
   Radio,
   RadioGroup,
   Typography,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import GroupSlider from "./GroupSlider";
 import PostCard from "./post-card";
 import GroupSidebar from "./GroupSidebar";
 import DynamicModal from "./dynamic-modal";
 import AboutGroupModal from "./AboutGroupModal";
 import NotificationSettingsModal from "./NotificationSettingsModal";
 import GroupPostSettingModal from "./GroupPostSettingModal";
-import { suggestionPostContent } from "../constant";
 import SuggestionPost from "./SuggestionPost";
 import EditGroupModal from "./EditGroupModal";
 import {
@@ -39,12 +34,9 @@ import {
 import { copyToClipboard, getDaysLeft } from "../utils";
 import {
   arrowUpRight,
-  bell,
   bulb,
-  calendarEvent,
   cancelIcon,
   close,
-  conversation,
   deleteIcon,
   dummyPhoto,
   editBlue,
@@ -53,8 +45,6 @@ import {
   leave,
   link2,
   plus,
-  send2,
-  settings,
   three_vertical_dots,
 } from "../assets";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -73,18 +63,16 @@ const GroupDetails = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const open2 = Boolean(anchorEl2);
   const [anchorEl3, setAnchorEl3] = useState(null);
-  const open3 = Boolean(anchorEl3);
   const [anchorEl4, setAnchorEl4] = useState(null);
   const open4 = Boolean(anchorEl4);
 
   const [editModal, setEditModal] = useState(null);
-  const [showSlider, setShowSlider] = useState(true);
   const [showTip, setShowTip] = useState(true);
-  const [choice, setChoice] = useState("All");
   const [aboutModal, setAboutModal] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
   const [postSettingsModal, setPostSettingsModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("relevant");
+  console.log(anchorEl3, "anchorEl3");
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -95,10 +83,6 @@ const GroupDetails = () => {
       setAnchorEl3(bellRef.current);
     }
   }, []);
-
-  const handleClose3 = () => {
-    setAnchorEl3(null);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -119,14 +103,12 @@ const GroupDetails = () => {
     setAnchorEl2(event.currentTarget);
   };
 
-  const handleNotiSetting = (event) => {
-    setAnchorEl4(event.currentTarget);
-  };
-
-  const { data, isLoading, isError, error, refetch, isFetching } =
-    useGetGroupDetailQuery(id, {
+  const { data, isLoading, isError, error, refetch } = useGetGroupDetailQuery(
+    id,
+    {
       refetchOnMountOrArgChange: true,
-    });
+    }
+  );
 
   const { user } = useSelector((state) => state.auth);
   const isMyGroup = data?.data?.creatorId === user?.id;
@@ -171,11 +153,9 @@ const GroupDetails = () => {
   const skip = !id;
   const {
     data: groupPostsData,
-    error: groupPostsError,
     isLoading: groupPostsLoading,
     isSuccess: groupPostsSuccess,
     isFetching: groupPostsfetching,
-    refetch: groupPostRefetch,
   } = useGetGroupPostsQuery(
     { page, limit: 15, groupId: id },
     {

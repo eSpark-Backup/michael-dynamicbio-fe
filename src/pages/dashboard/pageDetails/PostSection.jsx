@@ -1,14 +1,13 @@
 import {
   Box,
-  Divider,
   LinearProgress,
   Menu,
   MenuItem,
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { downArrowFilled, edit, like, noPosts, plus } from "../../../assets";
+import { useEffect, useState } from "react";
+import { noPosts } from "../../../assets";
 import { useGetPostsByPageQuery } from "../../../services/page";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -26,16 +25,11 @@ const PostSection = ({ data }) => {
   const { id } = useParams();
   const { user: userData } = useSelector((state) => state.auth);
   const skip = !id;
-
-  const [activeItem, setActiveItem] = useState("All");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-  };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   const {

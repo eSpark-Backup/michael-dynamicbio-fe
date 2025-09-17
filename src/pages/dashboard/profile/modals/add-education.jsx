@@ -25,7 +25,7 @@ const AddEducationModal = ({ userData, open, handleClose }) => {
     validationSchema: educationSchema,
     onSubmit: (values) => {
       const arrToSend = userData?.about?.education
-        ? [...userData?.about?.education, { ...values }]
+        ? [...userData.about.education, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({

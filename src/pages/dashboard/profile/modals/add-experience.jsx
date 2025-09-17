@@ -32,7 +32,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
     validationSchema: experienceSchema,
     onSubmit: (values) => {
       const arrToSend = userData?.about?.experience
-        ? [...userData?.about?.experience, { ...values }]
+        ? [...userData.about.experience, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({

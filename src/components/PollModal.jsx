@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Input from "./Input";
 import { pollSchema } from "../schemas";
 import { plus } from "../assets";

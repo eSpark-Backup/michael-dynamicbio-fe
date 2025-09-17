@@ -1,9 +1,8 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import OutlinedInput from "./outline-input";
 import { searchIcon } from "../assets";
 import GroupMemberCard from "./GroupMemberCard";
-import { groupAdminsData, groupMembersData } from "../constant";
 
 const GroupAdmins = ({ data, refetch }) => {
   const [admins, setAdmins] = useState(data?.admins || []);

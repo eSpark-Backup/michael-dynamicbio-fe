@@ -1,5 +1,4 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import React from "react";
 import { plus } from "../assets";
 
 const TargetAudienceModal = ({ handleClose }) => {
@@ -25,9 +24,10 @@ const TargetAudienceModal = ({ handleClose }) => {
           mb: "30px",
         }}
       >
-        {items?.map((item) => {
+        {items?.map((item, index) => {
           return (
             <Stack
+              key={index}
               width={{ xs: "100%", md: "50%" }}
               direction={"column"}
               gap={1}

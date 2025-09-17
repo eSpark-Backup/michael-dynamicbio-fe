@@ -13,13 +13,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { close, dummyPhoto, bellActive, verticleDots } from "../../../assets";
+import { close, dummyPhoto, verticleDots } from "../../../assets";
 import AboutSection from "./AboutSection";
 import PostSection from "./PostSection";
-import PeopleSection from "./PeopleSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { RightSideBar } from "../../../components";
 import {
@@ -34,9 +33,6 @@ const PageDetailsPage = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -55,10 +51,9 @@ const PageDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error, refetch, isFetching } =
-    useGetPageByIdQuery(id, {
-      refetchOnMountOrArgChange: true,
-    });
+  const { data, isLoading, isError, error, refetch } = useGetPageByIdQuery(id, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const { user } = useSelector((state) => state.auth);
   const isMyPage = data?.data?.creatorId === user?.id;

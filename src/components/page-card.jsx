@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
@@ -109,7 +109,7 @@ const PageCard = ({
           </Typography>
         ) : rightBar ? (
           <img
-            onClick={(e) => {
+            onClick={() => {
               if (!isFollowLoading) {
                 handleFollow(id);
               }

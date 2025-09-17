@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
-import { CustomizeTabs, PostCard, SuggestionPost } from "../../../components";
-import { email, settings, user } from "../../../assets";
+import { PostCard, SuggestionPost } from "../../../components";
 import { useGetMyPostQuery } from "../../../services/post";
-import { suggestionPostContent } from "../../../constant";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -16,7 +14,6 @@ dayjs.extend(relativeTime);
 
 const Feed = ({ userData, isPublicView, isPublic, userId }) => {
   const navigate = useNavigate();
-  const tabOptions = ["Posts", "Collaborations", "Events"];
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);

@@ -7,7 +7,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
 import OutlinedInput from "./outline-input";
 import { earth, searchIcon } from "../assets";
 import { groupsCOntent } from "../constant";

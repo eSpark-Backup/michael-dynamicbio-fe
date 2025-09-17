@@ -1,48 +1,36 @@
 import {
   Box,
-  Button,
   CircularProgress,
   Divider,
   Grid2,
-  LinearProgress,
   Menu,
   MenuItem,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  aboutEvent,
   calendar,
-  camera,
   cancelIcon,
   comment,
-  conversation,
   deleteIcon,
-  downArrowFilled,
   dummyPhoto,
   earth,
   editBlue,
-  emoji,
-  eventSpeakers,
   facebook2,
   flag,
   invite,
   like,
   link2,
   location,
-  repost,
   save,
   send,
   send2,
-  three_vertical_dots,
   twitter,
   user,
   videoIcon,
 } from "../assets";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DynamicModal from "./dynamic-modal";
 import PostChoiceModal from "./PostChoiceModal";
 import OutlinedInput from "./outline-input";
@@ -93,39 +81,13 @@ const EventDetails = () => {
     address: "",
     authorId: "",
   });
-  const [showSuccessCards, setShowSuccessCards] = useState(true);
   const { user: userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { data, isSuccess, isLoading, isError, error } =
-    useGetPostByIdQuery(id);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClick2 = (event) => {
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handleClick3 = (event) => {
-    setAnchorEl3(event.currentTarget);
-  };
-
-  const handleClick4 = (event) => {
-    setAnchorEl4(event.currentTarget);
-  };
-
-  const handleClick5 = (event) => {
-    setAnchorEl5(event.currentTarget);
-  };
-
-  const handleClick6 = (event) => {
-    setAnchorEl6(event.currentTarget);
-  };
+  const { data, isSuccess, isLoading } = useGetPostByIdQuery(id);
 
   const CommentHandler = () => {
     setShowComments(!showComments);
@@ -146,6 +108,7 @@ const EventDetails = () => {
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  console.log(setActiveTab, "setActiveTab");
 
   const handleClose = (event) => {
     event.stopPropagation();

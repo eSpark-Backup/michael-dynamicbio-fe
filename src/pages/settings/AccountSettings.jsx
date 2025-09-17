@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { gradientRightArrow } from "../../assets";
 import SettingsPage from "./SettingsPage";
 import { useSelector } from "react-redux";

@@ -118,7 +118,7 @@ export const copyToClipboard = async (text) => {
     toast.success("Copied to clipboard!");
     return true;
   } catch (error) {
-    toast.error("Failed to copy to clipboard");
+    toast.error("Failed to copy to clipboard", error);
     return false;
   }
 };

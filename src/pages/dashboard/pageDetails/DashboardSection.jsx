@@ -1,15 +1,7 @@
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
-import {
-  close2,
-  conversation,
-  growPage,
-  noPosts,
-  plus,
-  three_vertical_dots,
-} from "../../../assets";
+import { noPosts, plus } from "../../../assets";
 import { BoxWithTextIcon, PostCard } from "../../../components";
-import { pageStats } from "../../../constant";
 import PostSlider from "../../../components/postSlider";
 
 const DashboardSection = ({ page, posts, refetch }) => {
@@ -26,7 +18,9 @@ const DashboardSection = ({ page, posts, refetch }) => {
             <Typography
               sx={{ fontSize: "14px", fontWeight: "500", color: "#505050" }}
             >
-              Manage your page's content and amplify your reach with boosting.
+              {
+                "Manage your page's content and amplify your reach with boosting."
+              }
             </Typography>
           </Box>
         </Box>
@@ -46,7 +40,7 @@ const DashboardSection = ({ page, posts, refetch }) => {
             <Typography
               sx={{ fontSize: "24px", fontWeight: "500", color: "#171717" }}
             >
-              Your page doesn't have any posts
+              {"Your page doesn't have any posts"}
             </Typography>
             <Typography
               sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}

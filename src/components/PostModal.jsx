@@ -1,6 +1,6 @@
 import { Box, OutlinedInput, Typography } from "@mui/material";
-import React, { useRef } from "react";
-import { emoji, event, photo, poll, video } from "../assets";
+import { useRef } from "react";
+import { event, photo, poll, video } from "../assets";
 
 const PostModal = ({
   title,

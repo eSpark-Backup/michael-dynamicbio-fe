@@ -1,8 +1,7 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import React from "react";
 import OutlinedInput from "./outline-input";
 import { searchIcon } from "../assets";
-import { groupAdminsData, groupBlockedData } from "../constant";
+import { groupBlockedData } from "../constant";
 import GroupMemberCard from "./GroupMemberCard";
 
 const GroupBlocked = () => {

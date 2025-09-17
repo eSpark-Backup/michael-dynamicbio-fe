@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import GroupMembership from "./GroupMembership";
 import GroupContentSection from "./GroupContentSection";
-import GroupAnalytics from "./GroupAnalytics";
 import { useGetGroupDetailQuery } from "../services/group";
 import { dummyPhoto } from "../assets";
 

@@ -1,5 +1,4 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
-import React from "react";
 import { like, user } from "../assets";
 
 const ShowLikesModal = ({ allLikes }) => {

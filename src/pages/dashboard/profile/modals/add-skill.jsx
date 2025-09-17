@@ -17,7 +17,7 @@ const AddSkillModal = ({ userData, open, handleClose }) => {
     validationSchema: skillSchema,
     onSubmit: (values) => {
       const arrToSend = userData?.about?.skills
-        ? [...userData?.about?.skills, { ...values }]
+        ? [...userData.about.skills, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({

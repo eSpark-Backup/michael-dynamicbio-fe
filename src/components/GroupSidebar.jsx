@@ -4,14 +4,12 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   Avatar,
-  Badge,
   Box,
   CircularProgress,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import Button from "./button";
 import { relatedGroups } from "../constant";
 import InviteMembersModal from "./InviteMembersModal";
 import DynamicModal from "./dynamic-modal";
@@ -19,7 +17,7 @@ import {
   useFollowGroupMutation,
   useGetAllGroupsQuery,
 } from "../services/group";
-import { dummyPhoto, nextArrow, rightArrow, user } from "../assets";
+import { dummyPhoto, rightArrow, user } from "../assets";
 
 const GroupSidebar = ({ data }) => {
   const [showConnectionsModal, setShowConnectionsModal] = useState(false);

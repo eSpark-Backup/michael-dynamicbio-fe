@@ -1,5 +1,4 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
 import { toCapitalized } from "../../../utils";
 
 const AboutSection = ({ data }) => {

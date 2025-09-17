@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ai, logo2, marketplace, world } from "../../assets";
+import { ai, logo2, world } from "../../assets";
 import { BoxWithTextIcon } from "../../components";
 import { useNavigate } from "react-router-dom";
 

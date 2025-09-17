@@ -1,5 +1,4 @@
 import { Box, Button, Modal, Stack, Typography } from "@mui/material";
-import React from "react";
 import { close2 } from "../assets/index.js";
 
 const ConfirmationModal = ({

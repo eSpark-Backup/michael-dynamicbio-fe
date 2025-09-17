@@ -44,10 +44,10 @@ const EditExperienceModal = ({ exp, userData, open, handleClose }) => {
       );
       let updatedExperience;
       if (ind !== -1) {
-        updatedExperience = [...userData?.about?.experience];
+        updatedExperience = [...userData.about.experience];
         updatedExperience[ind] = values;
       } else {
-        updatedExperience = [...userData?.about?.experience, values];
+        updatedExperience = [...userData.about.experience, values];
       }
       updateProfile({
         about: {

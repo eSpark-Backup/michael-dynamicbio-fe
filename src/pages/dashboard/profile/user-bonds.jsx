@@ -6,7 +6,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { user } from "../../../assets";
 import BoxWithTextIcon from "../../../components/BoxWithTextIcon";
 import { usePublicProfileMutation } from "../../../services/user";
@@ -53,7 +53,7 @@ const UserBonds = () => {
 
       setBondsData(transformData);
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error("Something went wrong", error);
     }
   };
 

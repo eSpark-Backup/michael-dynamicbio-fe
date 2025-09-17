@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,7 +12,6 @@ import {
 import { Input, Button } from "../../../components";
 import { useLoginMutation } from "../../../services/auth";
 import { loginSchema } from "../../../schemas";
-import { facebook, google, linkedin } from "../../../assets";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();

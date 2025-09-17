@@ -10,17 +10,13 @@ import {
 import {
   copyResponse,
   hamburger,
-  happy,
   history,
   horizontalDots,
   hydrogen,
   icon,
   logout,
-  negative,
   newChat,
   notTyping,
-  positive,
-  sad,
 } from "../../assets";
 import Input from "../../components/Input";
 import ConfirmationModal from "../../components/ConfirmationModal";
@@ -55,6 +51,7 @@ const DDT = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const { user: userData } = useSelector((state) => state.auth);
+  console.log(hasHydrogen, "hasHydrogen"); // tmep
 
   useEffect(() => {
     setHasHydrogen(

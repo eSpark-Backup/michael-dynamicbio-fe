@@ -29,10 +29,10 @@ const EditSkillModal = ({ skill, userData, open, handleClose }) => {
       );
       let updatedSkill;
       if (ind !== -1) {
-        updatedSkill = [...userData?.about?.skills];
+        updatedSkill = [...userData.about.skills];
         updatedSkill[ind] = values;
       } else {
-        updatedSkill = [...userData?.about?.skills, values];
+        updatedSkill = [...userData.about.skills, values];
       }
       updateProfile({
         about: {

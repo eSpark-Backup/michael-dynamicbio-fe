@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetGeneralPageQuery } from "../../../services/general";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -19,13 +19,13 @@ const GeneralPage = () => {
     isError: isGetGeneralError,
     error: getGeneralError,
     isLoading: isGetGeneralLoading,
-    refetch,
   } = useGetGeneralPageQuery(encodedData, {
     skip: !encodedData,
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetGeneralError, getGeneralError);
 
   useEffect(() => {
     if (getGeneralData && getGeneralSuccess) {

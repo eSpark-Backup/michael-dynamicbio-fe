@@ -8,22 +8,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   accountBlack,
   accountBlue,
-  adBlack,
-  adBlue,
-  bellActive,
-  bellBlack,
   fullEyeBlack,
   fullEyeBlue,
-  lockBlack,
-  lockBlue,
   logo2,
-  shieldBlack,
-  shieldBlue,
   user,
 } from "../../assets";
 import { useSelector } from "react-redux";

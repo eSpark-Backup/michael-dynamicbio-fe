@@ -1,10 +1,8 @@
-import { Box, Grid2, Paper, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import GroupMembers from "./GroupMembers";
 import GroupAdmins from "./GroupAdmins";
 import GroupRequests from "./GroupRequests";
-import GroupInvited from "./GroupInvited";
-import GroupBlocked from "./GroupBlocked";
 import { useSearchParams } from "react-router-dom";
 
 const GroupMembership = ({ data, refetch }) => {
@@ -45,10 +43,11 @@ const GroupMembership = ({ data, refetch }) => {
       >
         <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
           <Paper sx={{ p: "0px" }}>
-            {tabs?.map((item) => {
+            {tabs?.map((item, index) => {
               const isActive = item.label === activeTab.label;
               return (
                 <Box
+                  key={index}
                   onClick={() => {
                     setActiveTabLabel(item.label);
                     setSearchParams({

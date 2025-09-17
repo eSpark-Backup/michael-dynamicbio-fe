@@ -2,15 +2,13 @@ import {
   Avatar,
   Box,
   FormControlLabel,
-  List,
-  ListItem,
   Radio,
   RadioGroup,
   Stack,
   Switch,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../assets";
 import { useUpdateUserProfileSettingsMutation } from "../../services/auth";
@@ -167,7 +165,7 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
           <Typography
             sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}
           >
-            Select what others see when you've viewed their profile
+            {"Select what others see when you've viewed their profile"}
           </Typography>
         </Box>
         <RadioGroup
@@ -663,8 +661,9 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
             mt: "20px",
           }}
         >
-          Your bonds can always discover you, since you're already connected
-          with them.
+          {
+            "Your bonds can always discover you, since you're already connected with them."
+          }
         </Typography>
       </Box>
     );

@@ -1,5 +1,5 @@
 import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { userAvatar } from "../assets";
 
 const ViewPolls = ({ options }) => {
@@ -56,9 +56,10 @@ const ViewPolls = ({ options }) => {
       >
         {options[selectedTab].voteBy?.length > 0 &&
           options[selectedTab].voteBy[0] &&
-          options[selectedTab]?.voteBy?.map((item) => {
+          options[selectedTab]?.voteBy?.map((item, index) => {
             return (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   alignItems: "center",

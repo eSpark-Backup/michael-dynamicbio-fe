@@ -2,29 +2,21 @@ import {
   Avatar,
   Box,
   CircularProgress,
-  colors,
   LinearProgress,
   Menu,
   MenuItem,
   Paper,
   Typography,
-  useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  camera,
   comment,
   commentOff,
   deleteBlack,
-  emoji,
   like,
-  pin,
   plus,
-  postPicture,
   refresh,
-  repost,
   send,
-  three_vertical_dots,
   tick,
   unlike,
   user,
@@ -68,10 +60,8 @@ const SuggestionPost = ({
   numberofLikes,
   isLiked,
   comments,
-  activity,
   postPic,
   postContent,
-  commentsContent,
   length,
   index,
   type,
@@ -98,7 +88,6 @@ const SuggestionPost = ({
   voteCount,
   endDate,
   pollId,
-  isGroupPost,
   pinned,
   isAdminPost,
   groupPost,
@@ -121,9 +110,7 @@ const SuggestionPost = ({
   groupImage,
   isUserAdmin,
 }) => {
-  const [likeData, { data, isSuccess, isError, error, isLoading }] =
-    useLikeMutation();
-  const theme = useTheme();
+  const [likeData, { isError, error, isLoading }] = useLikeMutation();
   const [showComments, setShowComments] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -147,6 +134,7 @@ const SuggestionPost = ({
   const [visibility, setVisibility] = useState(postVisibility);
   const [commentSettings, setCommentSettings] = useState(commentVisibility);
   const [editTitle, setEditTitle] = useState(postContent);
+  console.log(setCommentSettings, "setCommentSettings");
 
   useEffect(() => setEditTitle(postContent), [postContent]);
 
@@ -163,6 +151,7 @@ const SuggestionPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetCommentsError, getCommentsError);
 
   const [
     commentData,
@@ -174,6 +163,12 @@ const SuggestionPost = ({
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError
+  );
 
   useEffect(() => {
     setTotalLikes(numberofLikes);
@@ -292,10 +287,6 @@ const SuggestionPost = ({
       });
     }
   }, [isError, error]);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -1022,7 +1013,7 @@ const SuggestionPost = ({
                   </Box>
                   {Array.isArray(postComments) &&
                     postComments?.length > 0 &&
-                    postComments?.map((item, index) => (
+                    postComments?.map((item) => (
                       <Comment
                         key={item?.commentId}
                         userImage={item?.userImage}

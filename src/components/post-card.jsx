@@ -124,7 +124,6 @@ const PostCard = ({
     };
 
     handlePost(obj);
-    // console.log(obj)
   };
 
   const handleImagePost = () => {
@@ -185,7 +184,7 @@ const PostCard = ({
   };
 
   const handlePollPost = (values) => {
-    const options = [values?.opt1, values?.opt2, ...values?.options];
+    const options = [values?.opt1, values?.opt2, ...values.options];
     const hasDuplicate = (arr) => new Set(arr).size !== arr.length;
     if (hasDuplicate(options)) {
       toast.error("Duplicate options are not allowed");

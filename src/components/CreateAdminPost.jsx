@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 import { article, bulb, editBlue, event } from "../assets";
 
 const CreateAdminPost = () => {
@@ -56,7 +55,7 @@ const CreateAdminPost = () => {
         <Typography
           sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}
         >
-          Host an event to grow your Page's community
+          {"Host an event to grow your Page's community"}
         </Typography>
       </Box>
       <Box

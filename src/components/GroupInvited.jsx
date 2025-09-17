@@ -1,5 +1,4 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
 import { noUser } from "../assets";
 
 const GroupInvited = () => {

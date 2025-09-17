@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
 const RemovePostModal = () => {
   return (
@@ -39,7 +38,7 @@ const RemovePostModal = () => {
           <Typography
             sx={{ fontSize: "16px", fontWeight: "600", color: "#505050" }}
           >
-            Not interested in Areeba's posts
+            {"Not interested in Areeba's posts"}
           </Typography>
         </Box>
         <Box

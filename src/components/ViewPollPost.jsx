@@ -1,8 +1,6 @@
 import { Box, FormControlLabel, Radio, Stack, Typography } from "@mui/material";
-import React from "react";
 import OutlinedInput from "./outline-input";
-import { addDays } from "../utils";
-import { emoji, timer } from "../assets";
+import { timer } from "../assets";
 import Button from "./button";
 
 const ViewPollPost = ({

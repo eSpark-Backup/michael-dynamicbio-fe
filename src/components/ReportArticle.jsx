@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { reportArticleChoices } from "../constant";
 
 const ReportArticle = ({ handleSubmit }) => {

@@ -1,28 +1,13 @@
 import {
-  Avatar,
   Box,
   Typography,
-  IconButton,
   Stack,
   useTheme,
   Menu,
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
-import {
-  emoji,
-  emojiBlackWhite,
-  friend,
-  reaction1,
-  reaction2,
-  reaction3,
-  reaction4,
-  reaction5,
-  three_vertical_dots,
-  userAvatar,
-} from "../assets";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { userAvatar } from "../assets";
 import TypingDots from "./TypingDots";
 
 const MessageBubble = ({ message }) => {
@@ -32,12 +17,6 @@ const MessageBubble = ({ message }) => {
   const handleClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-  };
-
-  const [showReaction, setShowReactions] = useState(false);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   return (

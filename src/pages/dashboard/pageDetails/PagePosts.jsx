@@ -1,36 +1,13 @@
 import {
   Box,
-  Divider,
   LinearProgress,
   Menu,
   MenuItem,
-  OutlinedInput,
   Paper,
-  Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  article,
-  close,
-  comment,
-  copyLink,
-  deleteIcon,
-  downArrowFilled,
-  dummyPhoto,
-  earth,
-  editBlue,
-  like,
-  noPosts,
-  photo,
-  pin,
-  postPicture,
-  repost,
-  three_vertical_dots,
-  user,
-  video,
-  world,
-} from "../../../assets";
+import { useEffect, useRef, useState } from "react";
+import { copyLink, deleteIcon, editBlue, noPosts, pin } from "../../../assets";
 import { generateThumbnail } from "../../../utils";
 import {
   DynamicModal,
@@ -58,8 +35,6 @@ const PagePosts = ({
   isLoading,
   isFetching,
 }) => {
-  const [activeItem, setActiveItem] = useState("Published");
-  const userData = JSON.parse(localStorage.getItem("user"));
   const [showPostModal, setShowPostModal] = useState(false);
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -76,10 +51,6 @@ const PagePosts = ({
   const open = Boolean(anchorEl);
   const [postChoiceModal, setPostChoiceModal] = useState(false);
   const navigate = useNavigate();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -312,7 +283,7 @@ const PagePosts = ({
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
       >
         <PhotoModal
           files={selectedFiles}
@@ -330,7 +301,7 @@ const PagePosts = ({
         userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
         footerDirection={"flex-end"}
       >
         <VideoModal
@@ -349,7 +320,7 @@ const PagePosts = ({
         userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
         footerDirection={"flex-end"}
       >
         <PostModal
@@ -420,7 +391,7 @@ const PagePosts = ({
         dropdownHeader={true}
         footerDirection={"flex-end"}
         hideFooter={true}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
       >
         <ViewEventModal
           values={eventFormValues}

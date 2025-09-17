@@ -28,6 +28,7 @@ const Events = () => {
     date: null,
     time: null,
   });
+  console.log(groupShareModal, "groupShareModal");
 
   const handleEventPost = () => {
     const { selectedFile, ...rest } = eventFormValues;

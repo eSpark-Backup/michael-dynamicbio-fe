@@ -10,15 +10,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import Button from "./button";
-import {
-  close,
-  downArrowFilled,
-  dummyPhoto,
-  profile2,
-  rightArrow,
-  timer,
-  user,
-} from "../assets";
+import { close, downArrowFilled, dummyPhoto, timer, user } from "../assets";
 import { useState } from "react";
 
 const DynamicModal = ({
@@ -39,7 +31,6 @@ const DynamicModal = ({
   styledHeader,
   footerDirection,
   hideFooter,
-  handleGroupClick,
   userData,
   visibility,
   setVisibility,
@@ -63,15 +54,6 @@ const DynamicModal = ({
   const handleMenuClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-
-  const HandlegroupItemClicked = () => {
-    handleCloseMenu();
-    handleGroupClick();
   };
 
   return (

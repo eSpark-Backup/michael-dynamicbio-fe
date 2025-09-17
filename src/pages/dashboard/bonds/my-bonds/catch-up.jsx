@@ -15,7 +15,7 @@ import {
   Input,
   SuggestedBonds,
 } from "../../../../components";
-import { cellBlack, userAvatar, verticleDots } from "../../../../assets";
+import { cellBlack, userAvatar } from "../../../../assets";
 import { useGetCatchupQuery } from "../../../../services/bonds";
 import { eventBus, getDesc, getMessage } from "../../../../utils";
 import { SEND_NEW_MESSAGE } from "../../../../socket/events";
@@ -46,16 +46,16 @@ const CatchUp = ({ onGrow }) => {
     if (myData) {
       if (!activeTab || activeTab === 0) {
         const all = [
-          ...myData?.anniversaries.map((item) => ({
+          ...myData.anniversaries.map((item) => ({
             ...item,
             type: "anniversary",
           })),
-          ...myData?.birthdays.map((item) => ({ ...item, type: "birthday" })),
-          ...myData?.educationChanges.map((item) => ({
+          ...myData.birthdays.map((item) => ({ ...item, type: "birthday" })),
+          ...myData.educationChanges.map((item) => ({
             ...item,
             type: "educationChange",
           })),
-          ...myData?.jobChanges.map((item) => ({ ...item, type: "jobChange" })),
+          ...myData.jobChanges.map((item) => ({ ...item, type: "jobChange" })),
         ];
         setCatchupData(all);
       } else if (activeTab === 1) {

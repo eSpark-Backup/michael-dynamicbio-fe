@@ -7,26 +7,19 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  camera,
   comment,
-  downArrowFilled,
   dummyPhoto,
   editBlue,
-  emoji,
   like,
   noComments,
-  primaryEye,
-  reading,
-  repost,
   save,
   saveUnfilled,
   send,
   unlike,
   user,
 } from "../assets";
-import { articleDummyContent } from "../constant";
 import OutlinedInput from "./outline-input";
 import DynamicModal from "./dynamic-modal";
 import ShareModal from "./ShareModal";
@@ -52,25 +45,19 @@ import { useFollowPageMutation } from "../services/page";
 
 const ArticleDetails = () => {
   const [showComments, setShowComments] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const [showShareModal, setShowShareModal] = useState(false);
   const [postChoiceModal, setPostChoiceModal] = useState(false);
   const { id } = useParams();
-  const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(
-    id,
-    {
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const { data, isSuccess, isLoading } = useGetPostByIdQuery(id, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
   const navigate = useNavigate();
   const { user: userData } = useSelector((state) => state.auth);
   const [showReportArticle1, setReportArticle1] = useState(false);
   const [hasLiked, setHasLiked] = useState(null);
   const [commentContent, setCommentContent] = useState("");
-  const [focus, setFocus] = useState(false);
 
   const [
     likeData,
@@ -82,6 +69,8 @@ const ArticleDetails = () => {
       isLoading: isLikeloading,
     },
   ] = useLikeMutation();
+
+  console.log(likeDataReceived, isLikeSucess, likeError, isLikeError);
 
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
@@ -135,6 +124,7 @@ const ArticleDetails = () => {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetCommentsError, getCommentsError);
 
   const [savePostData, { isLoading: isSavingPostLoading }] =
     useSavePostMutation();
@@ -149,6 +139,13 @@ const ArticleDetails = () => {
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError,
+    isSavingPostLoading
+  );
 
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {
@@ -180,10 +177,6 @@ const ArticleDetails = () => {
   const CommentHandler = () => {
     setCommentId(articleContent?.postId);
     setShowComments(true);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   useEffect(() => {
@@ -229,13 +222,6 @@ const ArticleDetails = () => {
     setHasLiked(newLike);
     likeData({ entityId: articleContent?.postId, type: "POST" });
   };
-
-  useEffect(() => {
-    if (isLikeError && likeError?.data?.status === false) {
-      const newLike = !hasLiked;
-      setIsPostLiked(newLike);
-    }
-  }, [likeError, isLikeError]);
 
   const HandleComment = (id) => {
     const data = {
@@ -928,7 +914,7 @@ const ArticleDetails = () => {
                 >
                   {Array.isArray(postComments) &&
                     postComments?.length > 0 &&
-                    postComments?.map((item, index) => (
+                    postComments?.map((item) => (
                       <Comment
                         key={item?.commentId}
                         userImage={item?.userImage}

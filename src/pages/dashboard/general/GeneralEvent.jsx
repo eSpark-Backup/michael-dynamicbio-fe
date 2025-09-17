@@ -1,29 +1,21 @@
 import { Box, Grid2, Paper, Stack, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  aboutEvent,
   calendar,
-  camera,
   comment,
-  downArrowFilled,
   dummyPhoto,
   earth,
-  emoji,
-  eventSpeakers,
   like,
   location,
-  repost,
   send,
   user,
   videoIcon,
 } from "../../../assets";
 import { formatEventPostTime, formatEventTimeLocal } from "../../../utils";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Button from "../../../components/button";
 import { useGetGeneralPageQuery } from "../../../services/general";
 import { toast } from "react-toastify";
-import { OutlinedInput } from "../../../components";
 import Header from "../../../layout/private-layout/Header";
 import Navbar from "../../../layout/private-layout/Navbar";
 
@@ -39,13 +31,14 @@ const GeneralEvent = () => {
     isError: isGetGeneralError,
     error: getGeneralError,
     isLoading: isGetGeneralLoading,
-    refetch,
   } = useGetGeneralPageQuery(encodedData, {
     skip: !encodedData,
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetGeneralError, getGeneralError, isGetGeneralLoading);
+
   const [postData, setPostData] = useState({
     eventImage: null,
     startTime: "",

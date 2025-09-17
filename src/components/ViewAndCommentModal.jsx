@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { commentOff, earth, eyeOff, group } from "../assets";
 import Button from "./button";
 import { useEditPostMutation } from "../services/post";

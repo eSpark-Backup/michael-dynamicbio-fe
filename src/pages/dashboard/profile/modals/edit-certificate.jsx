@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   BoxWithTextIcon,
   Dropdown,
@@ -68,10 +68,10 @@ const EditCertificate = ({ certificate, open, handleClose, userData }) => {
       );
       let updatedCertificates;
       if (ind !== -1) {
-        updatedCertificates = [...userData?.about?.certifications];
+        updatedCertificates = [...userData.about.certifications];
         updatedCertificates[ind] = values;
       } else {
-        updatedCertificates = [...userData?.about?.certifications, values];
+        updatedCertificates = [...userData.about.certifications, values];
       }
       updateProfile({
         about: {
@@ -113,7 +113,7 @@ const EditCertificate = ({ certificate, open, handleClose, userData }) => {
     if (event === "link") {
       setShowLinkModal(true);
     } else if (event === "media") {
-      fileInputRef.current.click();
+      event.current.click();
     }
     handleMenuItemClose();
   };
@@ -468,6 +468,7 @@ const EditCertificate = ({ certificate, open, handleClose, userData }) => {
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
         {formik?.values?.links?.map((item, index) => (
           <Box
+            key={index}
             sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
           >
             <Typography

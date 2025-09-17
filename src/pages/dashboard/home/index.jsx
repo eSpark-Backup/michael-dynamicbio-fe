@@ -12,13 +12,11 @@ import {
   LinearProgress,
 } from "@mui/material";
 import {
-  BondCard2,
   RightSideBar,
   SuggestionPost,
   PostCard,
   SuggestedBonds,
 } from "../../../components";
-import { bondSuggestions, suggestionPostContent } from "../../../constant";
 import { bondMain, user } from "../../../assets";
 import { useGetFeedPostsQuery } from "../../../services/feed";
 import { toast } from "react-toastify";

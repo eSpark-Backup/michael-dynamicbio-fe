@@ -37,10 +37,10 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
       );
       let updatedEducation;
       if (ind !== -1) {
-        updatedEducation = [...userData?.about?.education];
+        updatedEducation = [...userData.about.education];
         updatedEducation[ind] = values;
       } else {
-        updatedEducation = [...userData?.about?.education, values];
+        updatedEducation = [...userData.about.education, values];
       }
       updateProfile({
         about: {

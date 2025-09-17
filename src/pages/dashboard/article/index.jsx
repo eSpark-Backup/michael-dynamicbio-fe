@@ -12,14 +12,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   deleteIcon,
   downArrowFilled,
   edit,
   photo,
-  profile2,
-  profilePicture,
   uploadIcon,
 } from "../../../assets/index.js";
 import BoxWithTextIcon from "../../../components/BoxWithTextIcon.jsx";
@@ -42,7 +40,7 @@ const modules = {
   toolbar: "#toolbar-container",
 };
 
-const Article = ({ userName = "Abdul Rehman" }) => {
+const Article = () => {
   const query = useQuery();
   const stringifiedPage = query.get("page");
   const stringifiedGroup = query.get("group");
@@ -99,8 +97,6 @@ const Article = ({ userName = "Abdul Rehman" }) => {
     data,
     isSuccess,
     isLoading: articleDetailsLoading,
-    isError,
-    error,
   } = useGetPostByIdQuery(id, { skip: !id });
 
   useEffect(() => {
@@ -615,7 +611,7 @@ const Article = ({ userName = "Abdul Rehman" }) => {
         dropdownHeader={true}
         footerDirection={"flex-end"}
         hideFooter={true}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
         visibility={visibility}
         setVisibility={setVisibility}
         page={page}

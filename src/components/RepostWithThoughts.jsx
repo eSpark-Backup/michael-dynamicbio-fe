@@ -1,8 +1,7 @@
 import { Box } from "@mui/material";
-import React from "react";
 import OutlinedInput from "./outline-input";
 import BondCard2 from "./BondCard";
-import { emoji, postPicture, user } from "../assets";
+import { postPicture, user } from "../assets";
 
 const RepostWithThoughts = ({ onChange }) => {
   return (

@@ -1,7 +1,7 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { formatEventTime } from "../utils";
-import { deleteIcon, dummyPhoto, edit, emoji, timer } from "../assets";
+import { deleteIcon, dummyPhoto, edit, timer } from "../assets";
 import Button from "./button";
 
 const ViewEventModal = ({

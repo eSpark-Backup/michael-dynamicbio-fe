@@ -1,14 +1,10 @@
 import { Box, Paper, Switch, Typography } from "@mui/material";
-import { Button } from "../../../components";
-import { copyToClipboard } from "../../../utils";
-import { copy } from "../../../assets";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUpdateUserProfileSettingsMutation } from "../../../services/auth";
 import { toast } from "react-toastify";
 
 const RightBar = ({ isPublicView }) => {
-  const url = "www.fnkdfhudfhidjfvhdfkvgjdhfkbhkfddsfd/jdsfiods.com";
   const { user: userData } = useSelector((state) => state.auth);
   const [updateSettings, { isLoading }] =
     useUpdateUserProfileSettingsMutation();

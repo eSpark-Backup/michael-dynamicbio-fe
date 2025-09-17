@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { Dropdown, DynamicModal, Input } from "../../../../components";
 import { createGroupSchema } from "../../../../schemas";
-import { edit, plus, uploadIcon, userAvatar } from "../../../../assets";
+import { edit, uploadIcon, userAvatar } from "../../../../assets";
 import { useCreateGroupMutation } from "../../../../services/group";
 import { industryTypeOptions } from "../../../../constant";
 import { convertToFormData } from "../../../../utils";

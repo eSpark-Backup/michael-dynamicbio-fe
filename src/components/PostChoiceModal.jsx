@@ -7,7 +7,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { dummyPhoto, user } from "../assets";
 
 const PostChoiceModal = () => {

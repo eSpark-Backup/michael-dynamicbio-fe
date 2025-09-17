@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import OutlinedInput from "./outline-input";
 import { close, searchIcon, user } from "../assets";
 import { inviteMembers } from "../constant";

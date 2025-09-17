@@ -6,9 +6,8 @@ import {
   MenuItem,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   bondMain,
   earth,
@@ -22,16 +21,13 @@ import {
   editBlue,
   deleteIcon,
   comment,
-  eye,
   primaryEye,
   deleteBond,
   tick,
-  close2,
   commentOff,
   dummyPhoto,
   person,
   group,
-  eyeClose,
   eyeOff,
 } from "../assets";
 import { useNavigate } from "react-router-dom";
@@ -55,8 +51,6 @@ const BondCard2 = ({
   userRole,
   time,
   showWorldIcon,
-  showActionIcon,
-  handleClose,
   isFriendPost,
   ownPost,
   id,
@@ -86,7 +80,6 @@ const BondCard2 = ({
   groupImage,
   isUserAdmin,
 }) => {
-  const theme = useTheme();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -115,6 +108,8 @@ const BondCard2 = ({
   const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
 
   const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
+
+  console.log(deletePostLoading, isUpdateReqLoading, isReqLoading);
 
   const HandleChoiceChange = (value, type) => {
     if (type === "comment") {

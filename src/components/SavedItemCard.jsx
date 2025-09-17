@@ -1,5 +1,5 @@
 import { Avatar, Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   copyLink,
   dummyPhoto,
@@ -37,6 +37,7 @@ const SavedItemCard = ({
   const [fullText, setFullText] = useState(text);
   const [expanded, setExpanded] = useState(false);
   const charLimit = 120;
+  console.log(setFullText, "setFullText");
 
   const navigate = useNavigate();
 

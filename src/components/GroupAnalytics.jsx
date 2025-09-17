@@ -1,5 +1,5 @@
-import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import { close, downArrow, eventSpeakers, question } from "../assets";
 import GroupAnalyticsChart from "./GroupAnalyticsChart";
 import Dropdown from "./Dropdown";
@@ -80,10 +80,11 @@ const GroupAnalytics = () => {
           }}
         >
           <Paper sx={{ p: "0px" }}>
-            {tabs?.map((item) => {
+            {tabs?.map((item, index) => {
               const isActive = item.label === activeTab.label;
               return (
                 <Box
+                  key={index}
                   onClick={() => setActiveTab(item)}
                   sx={{
                     p: "15px 30px",

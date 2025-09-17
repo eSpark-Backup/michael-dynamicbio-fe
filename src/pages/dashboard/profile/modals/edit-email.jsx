@@ -29,10 +29,10 @@ const EditEmailModal = ({ email, userData, open, handleClose }) => {
       );
       let updatedEmail;
       if (ind !== -1) {
-        updatedEmail = [...userData?.about?.email];
+        updatedEmail = [...userData.about.email];
         updatedEmail[ind] = values;
       } else {
-        updatedEmail = [...userData?.about?.email, values];
+        updatedEmail = [...userData.about.email, values];
       }
       updateProfile({
         about: {

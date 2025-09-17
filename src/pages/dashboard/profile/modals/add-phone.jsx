@@ -17,7 +17,7 @@ const AddPhoneModal = ({ userData, open, handleClose }) => {
     validationSchema: phoneNoSchema,
     onSubmit: (values) => {
       const arrToSend = userData?.about?.phone
-        ? [...userData?.about?.phone, { ...values }]
+        ? [...userData.about.phone, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({

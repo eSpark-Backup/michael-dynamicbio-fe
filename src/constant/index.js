@@ -11,7 +11,6 @@ import {
   userAvatar,
   profilePicture,
   company,
-  school,
   dummyPhoto,
 } from "../assets";
 

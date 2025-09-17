@@ -32,11 +32,12 @@ const SelectEmail = () => {
       justifyItems="flex-start"
     >
       <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
-        Recognize Your profile
+        {"Recognize Your profile"}
       </Typography>
       <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
-        By continuing, you'll receive an email containing a link to reset your
-        password.
+        {
+          "By continuing, you'll receive an email containing a link to reset your password."
+        }
       </Typography>
       <Stack sx={{ width: "100%", marginTop: "20px" }} gap={2}>
         <Stack

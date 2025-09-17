@@ -11,19 +11,14 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BondCard2 from "./BondCard";
 import {
-  camera,
   comment,
   commentOff,
   deleteBlack,
-  emoji,
   like,
-  pin,
-  repost,
   send,
-  three_vertical_dots,
   tick,
   unlike,
   user,
@@ -68,13 +63,9 @@ const PollPost = ({
   postContent,
   question,
   options: pollOptions,
-  isVoted,
   numberofLikes,
-  friendLiked,
-  friend,
   isLiked,
   comments,
-  commentsContent,
   isFriendPost,
   ownPost,
   id,
@@ -82,7 +73,6 @@ const PollPost = ({
   lastUserLiked,
   isLoading,
   isGroupPost,
-  pinned,
   isAdminPost,
   likesData,
   isSaved,
@@ -144,7 +134,12 @@ const PollPost = ({
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError
+  );
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
@@ -158,12 +153,9 @@ const PollPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetCommentsError, getCommentsError);
 
   useEffect(() => setTotalComments(comments), [comments]);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -977,7 +969,7 @@ const PollPost = ({
               </Box>
               {Array.isArray(postComments) &&
                 postComments?.length > 0 &&
-                postComments?.map((item, index) => (
+                postComments?.map((item) => (
                   <Comment
                     key={item?.commentId}
                     userImage={item?.userImage}

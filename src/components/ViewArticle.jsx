@@ -1,6 +1,6 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { dummyPhoto, emoji, timer } from "../assets";
+import { dummyPhoto, timer } from "../assets";
 import Button from "./button";
 
 const ViewArticle = ({

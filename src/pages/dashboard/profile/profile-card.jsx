@@ -10,7 +10,6 @@ import {
   primaryEye,
   uploadIcon,
   userAvatar,
-  share,
 } from "../../../assets";
 
 const ProfileCard = ({
@@ -37,10 +36,6 @@ const ProfileCard = ({
 
   const handleClose = () => {
     setEditProfileModal(false);
-  };
-
-  const handleShareProfile = () => {
-    console.log("share profile");
   };
 
   const handleImageUpload = (e, type) => {

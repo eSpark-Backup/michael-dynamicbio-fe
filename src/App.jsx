@@ -45,7 +45,6 @@ import {
   DDT,
 } from "./pages";
 import "./App.css";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   ArticleDetails,

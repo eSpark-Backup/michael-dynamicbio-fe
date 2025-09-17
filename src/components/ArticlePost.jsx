@@ -8,19 +8,14 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BondCard2 from "./BondCard";
 import {
-  camera,
   comment,
   commentOff,
   deleteBlack,
-  downArrowFilled,
   dummyPhoto,
-  emoji,
   like,
-  pin,
-  repost,
   send,
   tick,
   unlike,
@@ -59,9 +54,6 @@ const ArticlePost = ({
   numberofLikes,
   isLiked,
   comments,
-  commentsContent,
-  friend,
-  friendLiked,
   postContent,
   id,
   articleImage,
@@ -73,9 +65,7 @@ const ArticlePost = ({
   handleLike,
   isLoading,
   isGroupPost,
-  pinned,
   isAdminPost,
-  groupPost,
   likesData,
   isSaved,
   handleDelete,
@@ -120,7 +110,12 @@ const ArticlePost = ({
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError
+  );
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
@@ -134,14 +129,11 @@ const ArticlePost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(getCommentsError, isGetCommentsError);
 
   useEffect(() => setTotalComments(comments), [comments]);
 
   const navigate = useNavigate();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -677,7 +669,7 @@ const ArticlePost = ({
               </Box>
               {Array.isArray(postComments) &&
                 postComments?.length > 0 &&
-                postComments?.map((item, index) => (
+                postComments?.map((item) => (
                   <Comment
                     key={item?.commentId}
                     userImage={item?.userImage}

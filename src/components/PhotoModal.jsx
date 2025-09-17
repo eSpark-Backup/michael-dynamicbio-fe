@@ -1,15 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import OutlinedInput from "./outline-input";
-import {
-  article,
-  deleteIcon,
-  emoji,
-  event,
-  photo,
-  plus,
-  video,
-} from "../assets";
+import { article, deleteIcon, event, photo, plus, video } from "../assets";
 
 const PhotoModal = ({
   title,

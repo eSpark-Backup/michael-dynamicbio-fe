@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { dummyPhoto, friend, noPosts } from "../../../assets";
 
 const ActivitySection = () => {
@@ -127,7 +127,7 @@ const ActivitySection = () => {
                       color: "#171717",
                     }}
                   >
-                    reacted to your company's update
+                    {"reacted to your company's update"}
                   </span>
                 </Typography>
                 <Typography

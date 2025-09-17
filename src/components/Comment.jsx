@@ -1,6 +1,6 @@
-import { Avatar, Box, Typography, useTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { einstein, like, three_vertical_dots, unlike, user } from "../assets";
+import { Avatar, Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { like, unlike, user } from "../assets";
 import dayjs from "dayjs";
 import { useLikeMutation } from "../services/interaction";
 import { useSelector } from "react-redux";
@@ -17,7 +17,6 @@ const Comment = ({
   allLikes,
   commentId,
 }) => {
-  const theme = useTheme();
   const [isUserLiked, setIsUserLiked] = useState(hasLiked);
   const [totalLikes, setTotalLikes] = useState(likesCount);
   const [likesData, setLikesData] = useState(allLikes);
@@ -31,8 +30,7 @@ const Comment = ({
     setLikesData(allLikes);
   }, [hasLiked, likesCount, allLikes]);
 
-  const [likeData, { data, isSuccess, isError, error, isLoading }] =
-    useLikeMutation();
+  const [likeData, { isError, error, isLoading }] = useLikeMutation();
 
   const LikeHandler = (id) => {
     likeData({ entityId: id, type: "COMMENT" });

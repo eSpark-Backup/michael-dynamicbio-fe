@@ -1,5 +1,4 @@
 import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
 import { OutlinedInput } from "../../../components/index.js";
 import { noUser } from "../../../assets/index.js";
 

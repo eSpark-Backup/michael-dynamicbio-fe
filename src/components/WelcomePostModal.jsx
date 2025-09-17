@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import Input from "./Input";
 import Button from "./button";
 import WelcomePreviewModal from "./WelcomePreviewModal";
@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import { welcomeNoteSchema } from "../schemas";
 
 const WelcomePostModal = ({ handleClose }) => {
-  const [note, setNote] = useState("");
   const [previewModal, setPreviewModal] = useState(false);
   const handleSave = () => {
     setPreviewModal(false);

@@ -6,20 +6,15 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   nextArrow,
   prevArrow,
-  profile2,
-  three_vertical_dots,
   close,
   like,
   comment,
-  repost,
   send,
   user,
-  emoji,
-  camera,
   unlike,
 } from "../assets";
 import BondCard2 from "./BondCard";
@@ -43,7 +38,6 @@ import EditModal from "./EditModal";
 
 const PostDetails = ({
   images,
-  activity,
   userName,
   userRole,
   postTime,
@@ -52,9 +46,6 @@ const PostDetails = ({
   numberofLikes,
   isLiked,
   comments,
-  commentsContent,
-  friendLiked,
-  friend,
   handleModalClose,
   handleLike,
   lastUserLiked,
@@ -102,6 +93,7 @@ const PostDetails = ({
   const [postVisibility, setPostVisibility] = useState(visibility);
   const [commentSettings, setCommentSettings] = useState(commentSetting);
   const [editTitle, setEditTitle] = useState(postContent);
+  console.log(setEditTitle, setCommentSettings);
 
   const {
     data: getCommentsData,
@@ -116,6 +108,7 @@ const PostDetails = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(getCommentsError, isGetCommentsError);
 
   const [
     commentData,
@@ -127,6 +120,12 @@ const PostDetails = ({
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError
+  );
 
   useEffect(() => setTotalComments(comments), [comments]);
 
@@ -171,10 +170,6 @@ const PostDetails = ({
     } else {
       setActiveIndex(activeIndex + 1);
     }
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   const HandleComment = (id) => {
@@ -644,7 +639,7 @@ const PostDetails = ({
               >
                 {Array.isArray(postComments) &&
                   postComments?.length > 0 &&
-                  postComments?.map((item, index) => (
+                  postComments?.map((item) => (
                     <Comment
                       key={item?.commentId}
                       userImage={item?.userImage}

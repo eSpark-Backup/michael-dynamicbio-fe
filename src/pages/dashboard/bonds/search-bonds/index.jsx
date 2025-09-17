@@ -40,6 +40,7 @@ const SearchBonds = () => {
     { page: 1, pageSize: 50, keyword: q, type: "all" },
     { refetchOnMountOrArgChange: true }
   );
+  console.log(isSearchFetching, "isSearchFetching");
 
   const [followPage, { isLoading: isPageFollowLoading }] =
     useFollowPageMutation();
@@ -124,7 +125,7 @@ const SearchBonds = () => {
 
   useEffect(() => {
     if (reqError) {
-      toast.error(error?.data?.message);
+      toast.error(reqError?.data?.message);
       return;
     }
   }, [reqError]);

@@ -1,14 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Grid2,
-  LinearProgress,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { earth, save, three_vertical_dots, user } from "../../../assets";
+import { Box, Grid2, LinearProgress, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { save } from "../../../assets";
 import { SavedItemCard } from "../../../components/index.js";
 import { useGetSavedPostsQuery } from "../../../services/post.js";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -28,6 +20,7 @@ const SavedPosts = () => {
   const [hasMore, setHasMore] = useState(true);
   const [hasFetchedFirstTime, setHasFetchedFirstTime] = useState(false);
   const { user: userData } = useSelector((state) => state.auth);
+  console.log(hasFetchedFirstTime, "hasFetchedFirstTime");
 
   const { data, error, isLoading, isSuccess, isFetching, refetch } =
     useGetSavedPostsQuery(

@@ -1,5 +1,4 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React from "react";
 import { conversation, send2, user } from "../assets";
 import Button from "./button";
 

@@ -1,22 +1,12 @@
-import {
-  Box,
-  Button,
-  LinearProgress,
-  Paper,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import React, { useEffect } from "react";
-import { plus } from "../assets";
-import { interestSuggestions } from "../constant";
+import { Box, LinearProgress, Typography } from "@mui/material";
+import { useEffect } from "react";
 import PageCard from "./page-card";
 import { useFollowPageMutation, useGetAllPagesQuery } from "../services/page";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const RightSideBar = ({ hideResearch }) => {
+const RightSideBar = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 

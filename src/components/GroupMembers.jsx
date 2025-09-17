@@ -1,15 +1,7 @@
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import OutlinedInput from "./outline-input";
-import { searchIcon, three_vertical_dots, user } from "../assets";
+import { searchIcon } from "../assets";
 import GroupMemberCard from "./GroupMemberCard";
 
 const GroupMembers = ({ data, refetch }) => {

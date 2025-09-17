@@ -1,9 +1,7 @@
-import React from "react";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import Button from "./button";
 import dayjs from "dayjs";
 import { toCapitalized } from "../utils";
-import { group } from "../assets";
 
 const AboutGroupModal = ({ data, onSuccess }) => {
   return (

@@ -8,7 +8,7 @@ import {
   Switch,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { dummyPhoto, rightArrow } from "../assets";
 import DynamicModal from "./dynamic-modal";
 import CommentsControlModal from "./CommentsControlModal";

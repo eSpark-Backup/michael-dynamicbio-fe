@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Tabs, Tab } from "@mui/material";
 
 const CustomizeTabs = ({ tabs, onChange }) => {

@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
-import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import BondCard2 from "./BondCard";
+import { Box, CircularProgress, Paper, Typography } from "@mui/material";
 import SuggestionPost from "./SuggestionPost";
 import {
   useGetGroupPendingPostQuery,
   useUpdateGroupPendingPostMutation,
 } from "../services/group";
 import { getDaysLeft } from "../utils";
-import { deleteBlack, deleteIcon, tick, user } from "../assets";
 
 const GroupContentSection = () => {
   const { id } = useParams();
-  const { user: userData } = useSelector((state) => state.auth);
 
   const tabs = [
     {
@@ -171,10 +167,11 @@ const GroupContentSection = () => {
       >
         <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
           <Paper sx={{ p: "0px" }}>
-            {tabs?.map((item) => {
+            {tabs?.map((item, index) => {
               const isActive = item.label === activeTab.label;
               return (
                 <Box
+                  key={index}
                   onClick={() => setActiveTab(item)}
                   sx={{
                     p: "15px 30px",

@@ -5,22 +5,11 @@ import {
   Divider,
   Grid2,
   Paper,
-  Stack,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { dummyPhoto, edit, noPosts } from "../../../assets";
 import {
-  close2,
-  conversation,
-  dummyPhoto,
-  edit,
-  growPage,
-  noPosts,
-  plus,
-  three_vertical_dots,
-} from "../../../assets";
-import {
-  BoxWithTextIcon,
   CreateAdminPost,
   DynamicModal,
   EventModal,
@@ -33,7 +22,6 @@ import {
   VideoModal,
   ViewEventModal,
 } from "../../../components";
-import { pageStats } from "../../../constant";
 import {
   convertToFormData,
   generateThumbnail,

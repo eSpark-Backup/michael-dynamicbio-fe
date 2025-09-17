@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./button";
 import {
   ControlBar,
@@ -28,8 +28,6 @@ const EditModal = ({
   type,
   normalPostData,
   title,
-  isLoading,
-  onSuccess,
   videoPostData,
   id,
   eventData,

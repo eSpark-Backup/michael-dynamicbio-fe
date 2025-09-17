@@ -5,7 +5,6 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { Button, Input } from "../../../components";
 import { signupSchema } from "../../../schemas";
 import { useRegisterMutation } from "../../../services/auth";
-import { DatePicker } from "@mui/x-date-pickers";
 
 const Signup = () => {
   const [register, { isLoading }] = useRegisterMutation();

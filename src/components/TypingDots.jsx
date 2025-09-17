@@ -1,5 +1,3 @@
-import React from "react";
-
 const TypingDots = ({ className }) => {
   return (
     <div className={`${className} typing-indicator`}>

@@ -8,16 +8,8 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import React, { useState } from "react";
-import {
-  bell,
-  deleteIcon,
-  dislike,
-  profilePicture,
-  three_vertical_dots,
-  three_vertical_dots_white,
-  userAvatar,
-} from "../assets";
+import { useState } from "react";
+import { bell, deleteIcon, dislike, userAvatar } from "../assets";
 
 const PulseProfileCard = ({
   userImage,
@@ -36,9 +28,6 @@ const PulseProfileCard = ({
   const handleClose = (event) => {
     event.stopPropagation();
     setAnchorEl(null);
-  };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
   };
 
   return (

@@ -1,18 +1,12 @@
 import { Box, Grid2, Paper, Typography } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGetGeneralPageQuery } from "../../../services/general";
 import {
-  camera,
   comment,
   downArrowFilled,
   dummyPhoto,
-  editBlue,
-  emoji,
   like,
-  noComments,
-  primaryEye,
   reading,
-  repost,
   save,
   saveUnfilled,
   send,
@@ -31,19 +25,13 @@ const GeneralArticle = () => {
     return match ? match[1] : null;
   }, []);
 
-  const {
-    data: getGeneralData,
-    isSuccess: getGeneralSuccess,
-    isError: isGetGeneralError,
-    error: getGeneralError,
-    isLoading: isGetGeneralLoading,
-    refetch,
-  } = useGetGeneralPageQuery(encodedData, {
-    skip: !encodedData,
-    refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
-    refetchOnReconnect: true,
-  });
+  const { data: getGeneralData, isSuccess: getGeneralSuccess } =
+    useGetGeneralPageQuery(encodedData, {
+      skip: !encodedData,
+      refetchOnMountOrArgChange: true,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    });
 
   const [articleContent, setArticleContent] = useState({
     articleImage: null,
@@ -62,6 +50,7 @@ const GeneralArticle = () => {
     pageId: null,
   });
   const [hasLiked, setHasLiked] = useState(false);
+  console.log(setHasLiked, "setHasLiked");
 
   useEffect(() => {
     if (getGeneralData && getGeneralSuccess) {

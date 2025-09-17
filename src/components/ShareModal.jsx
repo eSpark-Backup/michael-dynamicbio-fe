@@ -1,27 +1,12 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Stack,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import OutlinedInput from "./outline-input";
-import { link2, profilePicture, searchIcon, timer } from "../assets";
-import { shareModalContent } from "../constant";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { link2 } from "../assets";
 import { toast } from "react-toastify";
 
 const ShareModal = ({ shareableLink, handleClose }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [checkedCount, setCheckedCount] = useState(0);
-
-  const handleCheck = (id) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
+  console.log(setCheckedItems, "setCheckedItems");
 
   useEffect(() => {
     setCheckedCount(Object.values(checkedItems).filter(Boolean).length);

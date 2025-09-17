@@ -7,8 +7,8 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { RightSideBar, SuggestionPost } from "../../../components";
+import { useEffect, useState } from "react";
+import { Button, RightSideBar, SuggestionPost } from "../../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetPostByIdQuery } from "../../../services/post";
 import dayjs from "dayjs";
@@ -18,14 +18,11 @@ import { getDaysLeft } from "../../../utils";
 
 const SinglePost = () => {
   const { id } = useParams();
-  const { data, isSuccess, isLoading, isError, error } = useGetPostByIdQuery(
-    id,
-    {
-      refetchOnFocus: true,
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const { data, isSuccess, isLoading } = useGetPostByIdQuery(id, {
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
   const [posts, setPosts] = useState([]);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));

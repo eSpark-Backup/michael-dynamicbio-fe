@@ -6,14 +6,9 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { notification, profilePicture, userAvatar } from "../../../assets";
-import {
-  CustomizeTabs,
-  PulseProfileCard,
-  RightSideBar,
-} from "../../../components";
-import { pulseCardContent } from "../../../constant";
+import { useEffect, useState } from "react";
+import { userAvatar } from "../../../assets";
+import { PulseProfileCard, RightSideBar } from "../../../components";
 import { useGetAllNotificationsQuery } from "../../../services/notification";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -55,9 +50,8 @@ const Pulses = () => {
   const { notifications, totalPage } = useSelector(
     (state) => state.notifications
   );
-
-  const tabOptions = ["All", "Mention/Research", "Group", "Company", "Pages"];
   const [activeIndex, setActiveIndex] = useState(1);
+  console.log(setActiveIndex());
   const HandleClick = (id, metadata) => {
     if (metadata?.event === "NEW_GROUP_REQUEST") {
       navigate(

@@ -1,7 +1,6 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { conversation, dummyPhoto } from "../assets";
-import { otherEvents } from "../constant";
+import { useState } from "react";
+import { conversation } from "../assets";
 import { useNewPostMutation } from "../services/post";
 import { toast } from "react-toastify";
 import DynamicModal from "./dynamic-modal";
@@ -131,7 +130,7 @@ const EventsSidebar = () => {
         dropdownHeader={true}
         footerDirection={"flex-end"}
         hideFooter={true}
-        handleGroupClick={() => setGroupShareModal(true)}
+        handleGroupClick={() => {}}
         visibility={visibility}
         setVisibility={setVisibility}
       >

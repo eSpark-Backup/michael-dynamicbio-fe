@@ -7,7 +7,6 @@ import MyBond from "./my-bonds";
 import BondedSynergy from "./bonded-synergy";
 import Groups from "./groups";
 import Pages from "./pages";
-import Events from "./events";
 import SearchBonds from "./search-bonds";
 import { useQuery } from "../../../utils";
 import { pageTypes } from "../../../constant";

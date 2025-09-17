@@ -8,18 +8,14 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  camera,
   close,
   comment,
   commentOff,
   deleteBlack,
-  emoji,
   like,
-  pin,
   profile2,
-  repost,
   send,
   three_vertical_dots,
   tick,
@@ -34,7 +30,6 @@ import {
   VolumeMenuButton,
   PlaybackRateMenuButton,
   CurrentTimeDisplay,
-  TimeDivider,
   ProgressControl,
   FullscreenToggle,
 } from "video-react";
@@ -71,10 +66,7 @@ const VideoPost = ({
   postContent,
   numberofLikes,
   isLiked,
-  friendLiked,
-  friend,
   comments,
-  commentsContent,
   videoUrl,
   thumbnail,
   isFriendPost,
@@ -84,9 +76,7 @@ const VideoPost = ({
   lastUserLiked,
   isLoading,
   isGroupPost,
-  pinned,
   isAdminPost,
-  groupPost,
   likesData,
   isSaved,
   postVisibility,
@@ -151,11 +141,16 @@ const VideoPost = ({
     refetchOnReconnect: true,
   });
 
-  useEffect(() => setTotalComments(comments), [comments]);
+  console.log(
+    getCommentsError,
+    isGetCommentsError,
+    postCommentError,
+    isPostCommentError,
+    postCommentData,
+    postCommentSucces
+  );
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  useEffect(() => setTotalComments(comments), [comments]);
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -718,7 +713,7 @@ const VideoPost = ({
               </Box>
               {Array.isArray(postComments) &&
                 postComments?.length > 0 &&
-                postComments?.map((item, index) => (
+                postComments?.map((item) => (
                   <Comment
                     key={item?.commentId}
                     userImage={item?.userImage}

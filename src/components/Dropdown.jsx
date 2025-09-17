@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DropDownIcon } from "../assets";
 
 const CustomIcon = (props) => (

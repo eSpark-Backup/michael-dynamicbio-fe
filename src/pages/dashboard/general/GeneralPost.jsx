@@ -1,5 +1,5 @@
 import { Box, Grid2, LinearProgress } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SuggestionPost } from "../../../components";
 import { useGetGeneralPageQuery } from "../../../services/general";
 import dayjs from "dayjs";
@@ -22,13 +22,13 @@ const GeneralPost = () => {
     isError: isGetGeneralError,
     error: getGeneralError,
     isLoading: isGetGeneralLoading,
-    refetch,
   } = useGetGeneralPageQuery(encodedData, {
     skip: !encodedData,
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(getGeneralError, isGetGeneralError);
 
   useEffect(() => {
     if (getGeneralSuccess && getGeneralData) {

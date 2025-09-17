@@ -17,7 +17,7 @@ const AddEmailModal = ({ userData, open, handleClose }) => {
     validationSchema: findEmailSchema,
     onSubmit: (values) => {
       const arrToSend = userData?.about?.email
-        ? [...userData?.about?.email, { ...values }]
+        ? [...userData.about.email, { ...values }]
         : [{ ...values }];
       const filteredArr = arrToSend.filter((item) => item !== undefined);
       updateProfile({

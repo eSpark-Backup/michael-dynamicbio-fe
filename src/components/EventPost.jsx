@@ -8,20 +8,16 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BondCard2 from "./BondCard";
 import { formatEventPostTime } from "../utils";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  camera,
   comment,
   commentOff,
   deleteBlack,
   dummyPhoto,
-  emoji,
   like,
-  pin,
-  repost,
   send,
   tick,
   unlike,
@@ -59,17 +55,11 @@ const EventPost = ({
   numberofLikes,
   isLiked,
   comments,
-  commentsContent,
-  friend,
-  friendLiked,
   eventName,
   eventImage,
   startTime,
   endTime,
   eventType,
-  eventLink,
-  attendees,
-  eventPosts,
   postContent,
   id,
   isFriendPost,
@@ -78,9 +68,7 @@ const EventPost = ({
   lastUserLiked,
   isLoading,
   isGroupPost,
-  pinned,
   isAdminPost,
-  groupPost,
   likesData,
   isSaved,
   postVisibility,
@@ -98,8 +86,6 @@ const EventPost = ({
   groupImage,
   isUserAdmin,
 }) => {
-  const navigate = useNavigate();
-
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -131,7 +117,12 @@ const EventPost = ({
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-
+  console.log(
+    postCommentData,
+    postCommentSucces,
+    isPostCommentError,
+    postCommentError
+  );
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
@@ -145,12 +136,9 @@ const EventPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+  console.log(isGetCommentsError, getCommentsError);
 
   useEffect(() => setTotalComments(comments), [comments]);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = (event) => {
     event.stopPropagation();
@@ -733,7 +721,7 @@ const EventPost = ({
               </Box>
               {Array.isArray(postComments) &&
                 postComments?.length > 0 &&
-                postComments?.map((item, index) => (
+                postComments?.map((item) => (
                   <Comment
                     key={item?.commentId}
                     userImage={item?.userImage}

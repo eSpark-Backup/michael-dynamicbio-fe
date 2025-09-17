@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BoxWithTextIcon,
   Dropdown,
@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { projectSchema } from "../../../../schemas";
-import { close, deleteIcon, link, photo, plus, user } from "../../../../assets";
+import { close, deleteIcon, link, plus, user } from "../../../../assets";
 import AddLink from "./add-link";
 import { monthOptions } from "../../../../constant";
 import { checkDate, yearOptions } from "../../../../utils";
@@ -31,17 +31,16 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../../../store/slices/auth";
 
 const EditProject = ({ project, open, handleClose, userData }) => {
-  const { data, error, isLoading, isFetching, refetch, isSuccess } =
-    useGetMyBondsQuery(
-      {
-        page: 0,
-        pageSize: 10000,
-        search: "",
-      },
-      {
-        refetchOnMountOrArgChange: true,
-      }
-    );
+  const { data, isSuccess } = useGetMyBondsQuery(
+    {
+      page: 0,
+      pageSize: 10000,
+      search: "",
+    },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   const [bondOptions, setBondOptions] = useState([]);
   const [relatedOptions, setRelatedOptions] = useState([]);
@@ -121,10 +120,10 @@ const EditProject = ({ project, open, handleClose, userData }) => {
       );
       let updatedProjects;
       if (ind !== -1) {
-        updatedProjects = [...userData?.about?.projects];
+        updatedProjects = [...userData.about.projects];
         updatedProjects[ind] = values;
       } else {
-        updatedProjects = [...userData?.about?.projects, values];
+        updatedProjects = [...userData.about.projects, values];
       }
       updateProfile({
         about: {
@@ -274,8 +273,9 @@ const EditProject = ({ project, open, handleClose, userData }) => {
         <Typography
           sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
         >
-          We recommend adding your top 5 skills used in this project. They'll
-          also appear in your Skills section.
+          {
+            "We recommend adding your top 5 skills used in this project. They'll also appear in your Skills section."
+          }
         </Typography>
 
         {/* Always show selected skills as chips */}
@@ -381,6 +381,7 @@ const EditProject = ({ project, open, handleClose, userData }) => {
       <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
         {formik?.values?.links?.map((item, index) => (
           <Box
+            key={index}
             sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
           >
             <Typography

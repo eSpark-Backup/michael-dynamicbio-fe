@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Avatar, Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import EditBioModal from "./modals/edit-bio";
 import { deleteIcon, plus, primaryEdit, user } from "../../../assets";
@@ -1242,6 +1242,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           userData?.about?.projects?.length > 0 ? (
             userData?.about?.projects?.map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   border: "1px solid #E4E4E4",
                   p: "10px 5px 10px 5px",
@@ -1360,8 +1361,8 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     <Box
                       sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
                     >
-                      {item?.skills?.map((skill) => (
-                        <Chip label={skill} />
+                      {item?.skills?.map((skill, index) => (
+                        <Chip label={skill} key={index} />
                       ))}
                     </Box>
                   )}
@@ -1495,6 +1496,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           userData?.about?.certifications?.length > 0 ? (
             userData?.about?.certifications?.map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   border: "1px solid #E4E4E4",
                   p: "10px 5px 10px 5px",
@@ -1626,8 +1628,8 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     <Box
                       sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
                     >
-                      {item?.skills?.map((skill) => (
-                        <Chip label={skill} />
+                      {item?.skills?.map((skill, index) => (
+                        <Chip label={skill} key={index} />
                       ))}
                     </Box>
                   )}

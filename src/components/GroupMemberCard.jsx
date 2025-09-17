@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import {
-  Avatar,
-  Badge,
-  Box,
-  Menu,
-  MenuItem,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import ConfirmationModal from "./ConfirmationModal";
 import {
   useDeleteGroupAdminMutation,

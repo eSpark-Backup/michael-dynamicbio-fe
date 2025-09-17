@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";

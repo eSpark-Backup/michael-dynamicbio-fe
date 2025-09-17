@@ -1,4 +1,3 @@
-import React from "react";
 import { DynamicModal, Input } from "../../../../components";
 import { useFormik } from "formik";
 import { addLinkSchema } from "../../../../schemas";

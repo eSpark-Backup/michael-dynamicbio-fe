@@ -1,5 +1,5 @@
 import { Box, OutlinedInput } from "@mui/material";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { deleteIcon, plus } from "../assets";
 
 const VideoModal = ({

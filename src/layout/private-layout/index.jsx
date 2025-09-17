@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Navigate,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress } from "@mui/material";
@@ -20,14 +14,10 @@ const PrivateLayout = () => {
   const [getInfo] = useGetUserInfoMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
   const { pathname } = useLocation();
-
   const hasFetchedRef = useRef(false);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (token && !hasFetchedRef.current) {
@@ -47,8 +37,15 @@ const PrivateLayout = () => {
           setLoading(false);
         }
       });
+    } else if (!token) {
+      setLoading(false);
     }
   }, [token]);
+
+  // ✅ now safe to conditionally render
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
   if (loading) {
     return (

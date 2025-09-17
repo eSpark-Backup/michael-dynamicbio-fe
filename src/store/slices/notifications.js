@@ -18,10 +18,7 @@ const slice = createSlice({
         const requestedPage = meta.arg.originalArgs?.page || 1;
 
         if (requestedPage > state.currentPage) {
-          state.notifications = [
-            ...state.notifications,
-            ...data?.notifications,
-          ];
+          state.notifications = [...state.notifications, ...data.notifications];
           state.currentPage = requestedPage;
         } else if (requestedPage === 1) {
           state.notifications = data?.notifications;
