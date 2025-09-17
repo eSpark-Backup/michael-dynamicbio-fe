@@ -698,7 +698,6 @@ const ArticlePost = ({
         title={"Comment, react, and repost as"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}
@@ -711,7 +710,6 @@ const ArticlePost = ({
         handleClose={() => setShowThoughtsModal(false)}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -727,7 +725,6 @@ const ArticlePost = ({
         title={"Repost to group"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         footerDirection={"space-between"}
         hideFooter={true}
       >
@@ -771,7 +768,6 @@ const ArticlePost = ({
         title={"Schedule post"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}

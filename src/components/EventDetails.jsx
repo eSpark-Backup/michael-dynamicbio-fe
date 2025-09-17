@@ -387,7 +387,7 @@ const EventDetails = () => {
                   >
                     {postData?.authorId === userData?.id
                       ? "1 attendee"
-                      : "rotten ria is an attendee"}
+                      : "Default User is an attendee"}
                   </Typography>
                 </Box>
               </Box>
@@ -427,7 +427,7 @@ const EventDetails = () => {
                           color: "#171717",
                         }}
                       >
-                        RottenRia
+                        Default User
                       </Typography>
                     </Box>
                     <Typography
@@ -957,7 +957,6 @@ const EventDetails = () => {
         title={"Comment, react, and repost as"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}
@@ -970,7 +969,6 @@ const EventDetails = () => {
         handleClose={() => setShowThoughtsModal(false)}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -986,7 +984,6 @@ const EventDetails = () => {
         title={"Repost to group"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         footerDirection={"space-between"}
         hideFooter={true}
       >
@@ -1013,7 +1010,7 @@ const EventDetails = () => {
       <DynamicModal
         open={showShareModal}
         handleClose={() => setShowShareModal(false)}
-        title={"Share Areeba Shakeel’s Post"}
+        title={"Share Default User’s Post"}
         postModal={true}
         dropdownHeader={false}
         hideFooter={true}
@@ -1027,7 +1024,6 @@ const EventDetails = () => {
         title={"Schedule post"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}

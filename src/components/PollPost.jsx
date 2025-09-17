@@ -998,7 +998,6 @@ const PollPost = ({
         handleClose={() => setShowThoughtsModal(false)}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -1014,7 +1013,6 @@ const PollPost = ({
         title={"Repost to group"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         footerDirection={"space-between"}
         hideFooter={true}
       >
@@ -1058,7 +1056,6 @@ const PollPost = ({
         title={"Schedule post"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}

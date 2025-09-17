@@ -261,8 +261,8 @@ const GroupMemberCard = ({
             : selectedChoice === "remove-admin"
               ? `As a group member, ${name} will not be able to manage members and conversations.`
               : selectedChoice === "owner"
-                ? "As a group owner, Areeba Shakeel will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
-                : "Areeba Shakeel will become a member of the group and be able to interact with the group again. "}
+                ? "As a group owner, Default User will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
+                : "Default User will become a member of the group and be able to interact with the group again. "}
         </Typography>
       </ConfirmationModal>
     </Box>

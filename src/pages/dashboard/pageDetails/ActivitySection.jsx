@@ -236,7 +236,7 @@ const ActivitySection = () => {
                 <Typography
                   sx={{ fontSize: "17px", fontWeight: "500", color: "#505050" }}
                 >
-                  RottenRia has{" "}
+                  Default User has{" "}
                   <span
                     style={{
                       fontSize: "17px",

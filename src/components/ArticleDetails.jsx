@@ -635,7 +635,7 @@ const ArticleDetails = () => {
                         color: "#505050",
                       }}
                     >
-                      rotten ria
+                      Default User
                     </Typography>
                   </Box>
                 </Box>
@@ -980,7 +980,6 @@ const ArticleDetails = () => {
         title={"Comment, react, and repost as"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}
@@ -994,7 +993,6 @@ const ArticleDetails = () => {
         title={"Report this article"}
         buttonText={"Next"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}

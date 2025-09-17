@@ -268,7 +268,7 @@ const GeneralEvent = () => {
                         color: "#505050",
                       }}
                     >
-                      {"rotten ria is an attendee"}
+                      {"Default User is an attendee"}
                     </Typography>
                   </Box>
                   <Box
@@ -342,7 +342,7 @@ const GeneralEvent = () => {
                             color: "#171717",
                           }}
                         >
-                          RottenRia
+                          Default User
                         </Typography>
                       </Box>
                       <Typography

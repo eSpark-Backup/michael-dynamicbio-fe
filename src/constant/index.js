@@ -85,7 +85,7 @@ export const suggestionPostContent = [
     numberofLikes: 4,
     isLiked: true,
     comments: 2,
-    activity: "Areeba Shakeel likes this post",
+    activity: "Default User likes this post",
     postPic: null,
     postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
     commentsContent: [
@@ -164,7 +164,7 @@ export const suggestionPostContent = [
     isAdminPost: true,
   },
   {
-    userName: "rotten ria",
+    userName: "Default User",
     userRole: "--",
     postTime: "34m ago",
     userImage: user,
@@ -190,7 +190,7 @@ export const suggestionPostContent = [
     isAdminPost: true,
   },
   {
-    userName: "rotten ria",
+    userName: "Default User",
     userRole: "--",
     postTime: "34m ago",
     userImage: user,
@@ -567,49 +567,49 @@ export const shareModalContent = [
   {
     id: 1,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 2,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 3,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 4,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 5,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 6,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
   {
     id: 7,
     image: profilePicture,
-    name: "Areeba Shakeel",
+    name: "Default User",
     designation: "UI | UX Designer at eSpark Consulting Group",
     education: "University of Karachi",
   },
@@ -929,19 +929,19 @@ export const inviteMembers = [
   },
   {
     id: 4,
-    name: "Areeba Shakeel",
+    name: "Default User",
     role: "UI | UX Designer",
   },
 ];
 
 export const groupMembersData = [
   {
-    name: "Areeba Shakeel",
+    name: "Default User",
     role: "UI/UX Designer | Product Designer | Figma",
     groupRole: "member",
   },
   {
-    name: "rotten ria",
+    name: "Default User",
     role: "--",
     groupRole: "owner",
   },
@@ -949,13 +949,13 @@ export const groupMembersData = [
 
 export const groupAdminsData = [
   {
-    name: "Areeba Shakeel",
+    name: "Default User",
     role: "UI/UX Designer | Product Designer | Figma",
     groupRole: "admin",
-    madeBy: "rotten ria",
+    madeBy: "Default User",
   },
   {
-    name: "rotten ria",
+    name: "Default User",
     role: "--",
     groupRole: "owner",
   },
@@ -963,10 +963,10 @@ export const groupAdminsData = [
 
 export const groupBlockedData = [
   {
-    name: "Areeba Shakeel",
+    name: "Default User",
     role: "UI/UX Designer | Product Designer | Figma",
     groupRole: "admin",
-    madeBy: "rotten ria",
+    madeBy: "Default User",
   },
 ];
 

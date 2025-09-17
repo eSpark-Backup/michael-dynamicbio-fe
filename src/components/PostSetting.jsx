@@ -201,7 +201,6 @@ const PostSetting = ({ handleClose }) => {
         title={"Target audience settings"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}

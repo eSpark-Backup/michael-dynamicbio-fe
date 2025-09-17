@@ -148,7 +148,7 @@ const DynamicModal = ({
                       textTransform: "capitalize",
                     }}
                   >
-                    {page ? page?.name : userName}
+                    {page ? page?.name : "Default User"}
                   </Typography>
                   {!adminPage && !isEditModal && (
                     <img

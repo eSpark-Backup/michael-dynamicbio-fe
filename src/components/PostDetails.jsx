@@ -667,7 +667,7 @@ const PostDetails = ({
           handleClose={() => setShowThoughtsModal(false)}
           buttonText={"Post"}
           postModal={true}
-          userName={"Areeba Shakeel"}
+          userName={"Default User"}
           handleScheduleClick={() => setShowScheduleModal(true)}
           dropdownHeader={true}
           footerDirection={"flex-end"}
@@ -683,7 +683,7 @@ const PostDetails = ({
           title={"Repost to group"}
           buttonText={"Save"}
           postModal={true}
-          userName={"Areeba Shakeel"}
+          userName={"Default User"}
           footerDirection={"space-between"}
           hideFooter={true}
         >
@@ -727,7 +727,7 @@ const PostDetails = ({
           title={"Schedule post"}
           buttonText={"Post"}
           postModal={true}
-          userName={"Areeba Shakeel"}
+          userName={"Default User"}
           handleScheduleClick={() => {}}
           smallModal={true}
           styledHeader={true}

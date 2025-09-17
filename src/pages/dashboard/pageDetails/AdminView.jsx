@@ -665,7 +665,6 @@ const AdminView = () => {
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         dropdownHeader={true}
         footerDirection={"flex-end"}
         adminPage={true}
@@ -685,7 +684,6 @@ const AdminView = () => {
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -703,7 +701,6 @@ const AdminView = () => {
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -721,7 +718,6 @@ const AdminView = () => {
         title={"Schedule post"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
@@ -736,7 +732,6 @@ const AdminView = () => {
         title={"Create an event"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         footerDirection={"flex-end"}
         hideFooter={true}
@@ -754,7 +749,6 @@ const AdminView = () => {
         title={"Create an event"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         dropdownHeader={true}
         footerDirection={"flex-end"}
         hideFooter={true}
@@ -773,7 +767,6 @@ const AdminView = () => {
         title={"Create a poll"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}
@@ -790,7 +783,6 @@ const AdminView = () => {
         title={"Post settings"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}
@@ -804,7 +796,6 @@ const AdminView = () => {
         title={"Create"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}

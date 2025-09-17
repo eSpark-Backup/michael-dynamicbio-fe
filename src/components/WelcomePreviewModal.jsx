@@ -54,7 +54,7 @@ const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}
               >
-                rotten ria
+                Default User
               </Typography>
               <Box sx={{ p: "5px 15px", backgroundColor: "#d3d3d3" }}>
                 <Typography

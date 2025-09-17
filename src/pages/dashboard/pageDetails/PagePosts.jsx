@@ -279,7 +279,6 @@ const PagePosts = ({
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         footerDirection={"flex-end"}
@@ -298,7 +297,6 @@ const PagePosts = ({
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => {}}
@@ -317,7 +315,6 @@ const PagePosts = ({
         title={"Hello"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => {}}
@@ -337,7 +334,6 @@ const PagePosts = ({
         title={"Schedule post"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
@@ -352,7 +348,6 @@ const PagePosts = ({
         title={"Create a poll"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => {}}
         styledHeader={true}
         hideFooter={true}
@@ -369,7 +364,6 @@ const PagePosts = ({
         title={"Create an event"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         handleScheduleClick={() => setShowScheduleModal(true)}
         footerDirection={"flex-end"}
         hideFooter={true}
@@ -387,7 +381,6 @@ const PagePosts = ({
         title={"Create an event"}
         buttonText={"Post"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         dropdownHeader={true}
         footerDirection={"flex-end"}
         hideFooter={true}
@@ -407,7 +400,6 @@ const PagePosts = ({
         title={"Comment, react, and repost as"}
         buttonText={"Save"}
         postModal={true}
-        userName={"Areeba Shakeel"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}

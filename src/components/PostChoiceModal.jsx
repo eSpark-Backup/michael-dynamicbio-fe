@@ -39,7 +39,7 @@ const PostChoiceModal = () => {
             <Typography
               sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
             >
-              rotten ria
+              Default User
             </Typography>
           </Box>
           <FormControlLabel
@@ -66,7 +66,7 @@ const PostChoiceModal = () => {
             <Typography
               sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
             >
-              RottenRia
+              Default User
             </Typography>
           </Box>
           <FormControlLabel
