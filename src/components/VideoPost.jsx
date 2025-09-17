@@ -119,10 +119,6 @@ const VideoPost = ({
   const [
     commentData,
     {
-      data: postCommentData,
-      isSuccess: postCommentSucces,
-      isError: isPostCommentError,
-      error: postCommentError,
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
@@ -130,8 +126,6 @@ const VideoPost = ({
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
-    isError: isGetCommentsError,
-    error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
   } = useGetPostCommentsQuery(postId, {
@@ -140,15 +134,6 @@ const VideoPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-
-  console.log(
-    getCommentsError,
-    isGetCommentsError,
-    postCommentError,
-    isPostCommentError,
-    postCommentData,
-    postCommentSucces
-  );
 
   useEffect(() => setTotalComments(comments), [comments]);
 

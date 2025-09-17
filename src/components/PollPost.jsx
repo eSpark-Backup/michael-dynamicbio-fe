@@ -127,24 +127,13 @@ const PollPost = ({
   const [
     commentData,
     {
-      data: postCommentData,
-      isSuccess: postCommentSucces,
-      isError: isPostCommentError,
-      error: postCommentError,
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-  console.log(
-    postCommentData,
-    postCommentSucces,
-    isPostCommentError,
-    postCommentError
-  );
+
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
-    isError: isGetCommentsError,
-    error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
   } = useGetPostCommentsQuery(postId, {
@@ -153,7 +142,6 @@ const PollPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(isGetCommentsError, getCommentsError);
 
   useEffect(() => setTotalComments(comments), [comments]);
 

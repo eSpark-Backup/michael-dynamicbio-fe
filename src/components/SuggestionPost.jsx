@@ -141,8 +141,6 @@ const SuggestionPost = ({
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
-    isError: isGetCommentsError,
-    error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
   } = useGetPostCommentsQuery(postId, {
@@ -151,24 +149,14 @@ const SuggestionPost = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(isGetCommentsError, getCommentsError);
 
   const [
     commentData,
     {
-      data: postCommentData,
-      isSuccess: postCommentSucces,
-      isError: isPostCommentError,
-      error: postCommentError,
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-  console.log(
-    postCommentData,
-    postCommentSucces,
-    isPostCommentError,
-    postCommentError
-  );
+
 
   useEffect(() => {
     setTotalLikes(numberofLikes);

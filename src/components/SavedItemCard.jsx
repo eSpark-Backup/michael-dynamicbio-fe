@@ -41,8 +41,6 @@ const SavedItemCard = ({
 
   const navigate = useNavigate();
 
-  console.log(typeof role);
-
   const displayedText = expanded ? fullText : fullText?.slice(0, charLimit);
   const shouldShowSeeMore = fullText?.length > charLimit && !expanded;
 
@@ -70,7 +68,6 @@ const SavedItemCard = ({
         toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
-        console.log(res?.data);
         toast.success(res?.data?.message);
         handleRefetch();
       }

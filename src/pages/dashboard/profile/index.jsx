@@ -21,7 +21,6 @@ const Profile = () => {
 
   useEffect(() => {
     if (userId === user?.id) {
-      console.log(user);
       setUserData(user);
       setIsPublicView(false);
       setIsPublic(false);

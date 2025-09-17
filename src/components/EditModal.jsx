@@ -41,7 +41,6 @@ const EditModal = ({
   const [editPost, { isLoading: editPostLoading }] = useEditPostMutation();
 
   useEffect(() => setNewTitle(title), [title]);
-  console.log(eventData, id);
 
   const HandleSubmit = () => {
     const obj = {

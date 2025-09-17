@@ -61,16 +61,8 @@ const ArticleDetails = () => {
 
   const [
     likeData,
-    {
-      data: likeDataReceived,
-      isSuccess: isLikeSucess,
-      isError: isLikeError,
-      error: likeError,
-      isLoading: isLikeloading,
-    },
+    {isLoading: isLikeloading},
   ] = useLikeMutation();
-
-  console.log(likeDataReceived, isLikeSucess, likeError, isLikeError);
 
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
@@ -83,7 +75,6 @@ const ArticleDetails = () => {
   }, []);
 
   const HandleFocus = () => {
-    console.log("Ref on click:", inputRef.current);
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -114,8 +105,6 @@ const ArticleDetails = () => {
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
-    isError: isGetCommentsError,
-    error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
   } = useGetPostCommentsQuery(commentId, {
@@ -124,7 +113,6 @@ const ArticleDetails = () => {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(isGetCommentsError, getCommentsError);
 
   const [savePostData, { isLoading: isSavingPostLoading }] =
     useSavePostMutation();
@@ -132,20 +120,10 @@ const ArticleDetails = () => {
   const [
     commentData,
     {
-      data: postCommentData,
-      isSuccess: postCommentSucces,
-      isError: isPostCommentError,
-      error: postCommentError,
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-  console.log(
-    postCommentData,
-    postCommentSucces,
-    isPostCommentError,
-    postCommentError,
-    isSavingPostLoading
-  );
+
 
   useEffect(() => {
     if (getCommentsSuccess && getCommentsData?.data) {
@@ -233,7 +211,6 @@ const ArticleDetails = () => {
         toast.error(res?.error?.data?.message);
         return;
       }
-      console.log(res);
       if (res?.data) {
         toast.success("Comment added successfully");
         setCommentContent("");

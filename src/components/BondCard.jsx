@@ -100,16 +100,15 @@ const BondCard2 = ({
 
   const [savePostData, { isLoading: isSavingPostLoading }] =
     useSavePostMutation();
-  const [deletePost, { isLoading: deletePostLoading }] =
+  const [deletePost] =
     useDeletePostByIdMutation();
 
-  const [updateReq, { isLoading: isUpdateReqLoading }] =
+  const [updateReq] =
     useUpdateBondReqMutation();
-  const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
+  const [sendReq] = useSendBondReqMutation();
 
   const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
 
-  console.log(deletePostLoading, isUpdateReqLoading, isReqLoading);
 
   const HandleChoiceChange = (value, type) => {
     if (type === "comment") {
@@ -137,7 +136,6 @@ const BondCard2 = ({
         toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
-        console.log(res?.data);
         toast.success(res?.data?.message);
         setSaved(!saved);
       }

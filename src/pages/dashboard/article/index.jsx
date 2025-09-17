@@ -172,7 +172,6 @@ const Article = () => {
       commentVisibility,
       id: id,
     };
-    console.log(obj);
     if (id) {
       editPost(obj).then((res) => {
         if (res?.error) {

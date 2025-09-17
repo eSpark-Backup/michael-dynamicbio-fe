@@ -213,8 +213,6 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
     }
   }, [hasMore, isFetching]);
 
-  console.log(userData);
-
   if (isLoading && posts.length === 0) {
     return <LinearProgress />;
   }

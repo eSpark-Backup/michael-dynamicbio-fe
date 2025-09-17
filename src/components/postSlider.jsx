@@ -85,7 +85,7 @@ const PostSlider = ({ page, posts, refetch }) => {
       }
     } else if (event === "edit") {
       const currentPost = posts?.find((item) => item?.id === postId);
-      console.log(currentPost, "currentPost");
+      
       if (currentPost?.type === "article") {
         navigate(`/article/edit/${postId}`);
       } else {

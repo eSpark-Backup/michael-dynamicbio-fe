@@ -35,12 +35,10 @@ const SearchBonds = () => {
     data,
     refetch: refetchSearch,
     isLoading: isSearchLoading,
-    isFetching: isSearchFetching,
   } = useGetUniversalSearchQuery(
     { page: 1, pageSize: 50, keyword: q, type: "all" },
     { refetchOnMountOrArgChange: true }
   );
-  console.log(isSearchFetching, "isSearchFetching");
 
   const [followPage, { isLoading: isPageFollowLoading }] =
     useFollowPageMutation();
@@ -105,8 +103,6 @@ const SearchBonds = () => {
       }
     });
   };
-
-  console.log(data, "data");
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
   const {

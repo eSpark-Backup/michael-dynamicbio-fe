@@ -193,7 +193,6 @@ const AdminView = () => {
   const [hasMore, setHasMore] = useState(true);
   const { user: userData } = useSelector((state) => state.auth);
   const skip = !id;
-  console.log(posts);
 
   const {
     data: postsData,

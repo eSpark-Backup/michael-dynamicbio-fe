@@ -64,10 +64,6 @@ const PhotoModal = ({
       return updatedFiles;
     });
   };
-
-  useEffect(() => {
-    console.log(currentActiveIndex);
-  }, [currentActiveIndex]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
       <OutlinedInput

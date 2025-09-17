@@ -21,7 +21,6 @@ const EditPageForm = ({ page, refetch }) => {
   const [editPage, { isLoading }] = useEditPageMutation();
   const imageRef = useRef(null);
   const [image, setImage] = useState(page?.logoUrl);
-  console.log(typeof image, "typeof image ");
   const formik = useFormik({
     initialValues: {
       pageType: page?.type?.toUpperCase(),

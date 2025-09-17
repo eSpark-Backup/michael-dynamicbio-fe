@@ -98,8 +98,6 @@ const PostDetails = ({
   const {
     data: getCommentsData,
     isSuccess: getCommentsSuccess,
-    isError: isGetCommentsError,
-    error: getCommentsError,
     isLoading: isGetCommentsLoading,
     refetch,
   } = useGetPostCommentsQuery(postId, {
@@ -108,24 +106,14 @@ const PostDetails = ({
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(getCommentsError, isGetCommentsError);
 
   const [
     commentData,
     {
-      data: postCommentData,
-      isSuccess: postCommentSucces,
-      isError: isPostCommentError,
-      error: postCommentError,
       isLoading: postCommentLoading,
     },
   ] = useCommentMutation();
-  console.log(
-    postCommentData,
-    postCommentSucces,
-    isPostCommentError,
-    postCommentError
-  );
+
 
   useEffect(() => setTotalComments(comments), [comments]);
 

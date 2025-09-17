@@ -22,8 +22,6 @@ const EditProfileModal = ({
       value: item.title,
       label: item.title,
     }));
-
-  console.log(userData);
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({

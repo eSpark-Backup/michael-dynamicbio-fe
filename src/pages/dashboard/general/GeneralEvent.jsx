@@ -28,16 +28,12 @@ const GeneralEvent = () => {
   const {
     data: getGeneralData,
     isSuccess: getGeneralSuccess,
-    isError: isGetGeneralError,
-    error: getGeneralError,
-    isLoading: isGetGeneralLoading,
   } = useGetGeneralPageQuery(encodedData, {
     skip: !encodedData,
     refetchOnMountOrArgChange: true,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(isGetGeneralError, getGeneralError, isGetGeneralLoading);
 
   const [postData, setPostData] = useState({
     eventImage: null,

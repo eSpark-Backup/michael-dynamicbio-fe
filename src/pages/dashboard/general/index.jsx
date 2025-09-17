@@ -16,8 +16,6 @@ const GeneralPage = () => {
   const {
     data: getGeneralData,
     isSuccess: getGeneralSuccess,
-    isError: isGetGeneralError,
-    error: getGeneralError,
     isLoading: isGetGeneralLoading,
   } = useGetGeneralPageQuery(encodedData, {
     skip: !encodedData,
@@ -25,7 +23,6 @@ const GeneralPage = () => {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  console.log(isGetGeneralError, getGeneralError);
 
   useEffect(() => {
     if (getGeneralData && getGeneralSuccess) {
