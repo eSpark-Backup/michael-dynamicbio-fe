@@ -336,3 +336,20 @@ export function formatChatTimestamp(isoDate) {
     return date.format("MMM D, h:mma");
   }
 }
+
+export function toTitleCase(name) {
+  if (!name || typeof name !== 'string') return name;
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')
+    .split(' ')
+    .map(word =>
+      word
+        .split(/([-'])/).map(part =>
+          part === '-' || part === "'" ? part :
+            part ? part[0].toUpperCase() + part.slice(1) : part
+        ).join('')
+    )
+    .join(' ');
+}
