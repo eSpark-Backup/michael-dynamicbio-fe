@@ -51,7 +51,7 @@ const Pulses = () => {
     (state) => state.notifications
   );
   const [activeIndex, setActiveIndex] = useState(1);
-  console.log(setActiveIndex());
+  console.log(setActiveIndex);
   const HandleClick = (id, metadata) => {
     if (metadata?.event === "NEW_GROUP_REQUEST") {
       navigate(
