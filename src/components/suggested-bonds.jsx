@@ -98,10 +98,6 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
     );
   }
 
-  if (displayedBonds?.length <= 0 && search) {
-    return null;
-  }
-
   return (
     <Box
       sx={{
@@ -153,8 +149,12 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
             mt: "30px",
           }}
         >
-          {feedBonds?.map((item, index) => {
-            return (
+          {feedBonds?.length <= 0 ? (
+            <Typography textAlign="center" sx={{ mt: 2 }}>
+              No bonds available
+            </Typography>
+          ) : (
+            feedBonds?.map((item, index) => (
               <BondCard2
                 key={index}
                 userImage={item?.img}
@@ -167,8 +167,8 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
                 handleBondClick={handleSendBondReq}
                 isLoading={isReqLoading && item?.id === id}
               />
-            );
-          })}
+            ))
+          )}
         </Box>
       ) : (
         <Box
@@ -181,8 +181,10 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
             <Stack justifyContent="center" alignItems="center">
               <CircularProgress sx={{ color: "#1877F2" }} />
             </Stack>
-          ) : users?.length <= 0 ? (
-            <Typography textAlign="center">No bonds available</Typography>
+          ) : displayedBonds?.length <= 0 ? (
+            <Typography textAlign="center" sx={{ mt: 2 }}>
+              No bonds available
+            </Typography>
           ) : (
             displayedBonds?.map((bond) => (
               <BondCard
