@@ -1,12 +1,12 @@
-import { Box, Button, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { link2 } from '../assets';
-import { toast } from 'react-toastify';
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { link2 } from "../assets";
+import { toast } from "react-toastify";
 
 const ShareModal = ({ shareableLink, handleClose }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [checkedCount, setCheckedCount] = useState(0);
-  console.log(setCheckedItems, 'setCheckedItems');
+  console.log(setCheckedItems, "setCheckedItems");
 
   useEffect(() => {
     setCheckedCount(Object.values(checkedItems).filter(Boolean).length);
@@ -14,68 +14,68 @@ const ShareModal = ({ shareableLink, handleClose }) => {
 
   const CopyLinkHandler = () => {
     navigator.clipboard.writeText(shareableLink);
-    toast.success('Link copied successfully');
+    toast.success("Link copied successfully");
     handleClose();
   };
 
   return (
     <Box>
       <Stack
-        justifyContent={checkedCount === 0 ? 'flex-start' : 'flex-end'}
-        alignItems={'center'}
+        justifyContent={checkedCount === 0 ? "flex-start" : "flex-end"}
+        alignItems={"center"}
         pl={4}
         pr={{ xs: 1, md: 6 }}
-        direction={'row'}
+        direction={"row"}
         gap={3}
         sx={{
-          height: '55px',
-          borderTop: '1px solid #E4E4E4',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'fixed',
-          bottom: '0px',
-          right: '0px',
+          height: "55px",
+          borderTop: "1px solid #E4E4E4",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "0px",
+          right: "0px",
           zIndex: 999,
-          backgroundColor: 'white',
+          backgroundColor: "white",
         }}
       >
         {checkedCount === 0 ? (
           <Box
-            sx={{ display: 'flex', columnGap: '5px', cursor: 'pointer' }}
+            sx={{ display: "flex", columnGap: "5px", cursor: "pointer" }}
             onClick={CopyLinkHandler}
           >
             <img
               src={link2}
               alt="Icon"
-              style={{ width: '24px', height: '24px' }}
+              style={{ width: "24px", height: "24px" }}
             />
             <Typography variant="gradientText">Copy link to post</Typography>
           </Box>
         ) : (
           <Box
-            sx={{ display: 'flex', flexDirection: 'column', columnGap: '15px' }}
+            sx={{ display: "flex", flexDirection: "column", columnGap: "15px" }}
           >
             {checkedCount === 1 ? (
-              <Button sx={{ height: '36px', width: '150px', fontSize: '16px' }}>
+              <Button sx={{ height: "36px", width: "150px", fontSize: "16px" }}>
                 Send
               </Button>
             ) : (
-              <Box sx={{ display: 'flex', columnGap: '5px' }}>
+              <Box sx={{ display: "flex", columnGap: "5px" }}>
                 <Button
                   sx={{
-                    height: '36px',
-                    width: { xs: '100px', md: '150px' },
-                    fontSize: { xs: '10px', md: '16px' },
+                    height: "36px",
+                    width: { xs: "100px", md: "150px" },
+                    fontSize: { xs: "10px", md: "16px" },
                   }}
                 >
                   Send as a group
                 </Button>
                 <Button
                   sx={{
-                    height: '36px',
-                    width: { xs: '100px', md: '150px' },
-                    fontSize: { xs: '10px', md: '16px' },
+                    height: "36px",
+                    width: { xs: "100px", md: "150px" },
+                    fontSize: { xs: "10px", md: "16px" },
                   }}
                 >
                   Send separately

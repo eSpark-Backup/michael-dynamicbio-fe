@@ -1,12 +1,12 @@
-import { DynamicModal, Input } from '../../../../components';
-import { useFormik } from 'formik';
-import { addLinkSchema } from '../../../../schemas';
-import { Box } from '@mui/material';
+import { DynamicModal, Input } from "../../../../components";
+import { useFormik } from "formik";
+import { addLinkSchema } from "../../../../schemas";
+import { Box } from "@mui/material";
 
 const AddLink = ({ open, handleClose, onAddLink }) => {
   const formik = useFormik({
     initialValues: {
-      link: '',
+      link: "",
     },
     validationSchema: addLinkSchema,
     onSubmit: (values) => {
@@ -30,12 +30,12 @@ const AddLink = ({ open, handleClose, onAddLink }) => {
     >
       <Box
         sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          '.MuiOutlinedInput-root': { height: 'auto !important' },
-          textarea: { paddingBottom: '20px' },
-          mt: '30px',
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          ".MuiOutlinedInput-root": { height: "auto !important" },
+          textarea: { paddingBottom: "20px" },
+          mt: "30px",
         }}
       >
         <Input

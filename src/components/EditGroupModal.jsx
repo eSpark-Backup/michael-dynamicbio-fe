@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import {
   Box,
   Checkbox,
@@ -11,17 +11,17 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import { Dropdown, DynamicModal, Input } from '../components';
-import { createGroupSchema } from '../schemas';
-import { edit, uploadIcon, userAvatar } from '../assets';
-import { useEditGroupMutation } from '../services/group';
-import { industryTypeOptions } from '../constant';
-import { convertToFormData } from '../utils';
+} from "@mui/material";
+import { Dropdown, DynamicModal, Input } from "../components";
+import { createGroupSchema } from "../schemas";
+import { edit, uploadIcon, userAvatar } from "../assets";
+import { useEditGroupMutation } from "../services/group";
+import { industryTypeOptions } from "../constant";
+import { convertToFormData } from "../utils";
 
 export default function EditGroupModal({ data, refetch, open, handleClose }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [editGroup, { isLoading }] = useEditGroupMutation();
   const coverRef = useRef(null);
   const ProfileRef = useRef(null);
@@ -35,12 +35,12 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
   const formik = useFormik({
     initialValues: {
-      name: data?.name || '',
-      description: data?.description || '',
-      location: data?.address || '',
-      rules: data?.rules || '',
-      industry: data?.industry || '',
-      type: data?.status || '',
+      name: data?.name || "",
+      description: data?.description || "",
+      location: data?.address || "",
+      rules: data?.rules || "",
+      industry: data?.industry || "",
+      type: data?.status || "",
       allowInvite: data?.allowMemberInvites || false,
       allowPost: data?.requirePostApproval || false,
     },
@@ -78,7 +78,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
   });
 
   const isImageFile = (value) =>
-    typeof value === 'object' && value instanceof File;
+    typeof value === "object" && value instanceof File;
 
   const isFormEdited = useMemo(() => {
     const coverChanged =
@@ -92,17 +92,17 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
   const coverPreview = useMemo(() => {
     if (!cover) return null;
-    return typeof cover === 'string' ? cover : URL.createObjectURL(cover);
+    return typeof cover === "string" ? cover : URL.createObjectURL(cover);
   }, [cover]);
 
   const profilePreview = useMemo(() => {
     if (!profile) return null;
-    return typeof profile === 'string' ? profile : URL.createObjectURL(profile);
+    return typeof profile === "string" ? profile : URL.createObjectURL(profile);
   }, [profile]);
 
   return (
     <DynamicModal
-      sx={{ height: '907px', maxWidth: '965px' }}
+      sx={{ height: "907px", maxWidth: "965px" }}
       open={open}
       handleClose={handleClose}
       title="Edit Group"
@@ -114,32 +114,32 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
       <Box
         sx={{
           flex: 1,
-          overflowY: 'auto',
-          transform: 'translateZ(0)',
-          willChange: 'scroll-position',
-          backfaceVisibility: 'hidden',
-          WebkitFontSmoothing: 'antialiased',
-          textRendering: 'optimizeLegibility',
+          overflowY: "auto",
+          transform: "translateZ(0)",
+          willChange: "scroll-position",
+          backfaceVisibility: "hidden",
+          WebkitFontSmoothing: "antialiased",
+          textRendering: "optimizeLegibility",
         }}
       >
         <Box
           sx={{
-            width: '100%',
-            height: '122px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            position: 'relative',
+            width: "100%",
+            height: "122px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            position: "relative",
           }}
         >
           {cover && (
             <img
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                position: 'absolute',
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                position: "absolute",
                 zIndex: -1,
                 opacity: 0.5,
               }}
@@ -150,12 +150,12 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
           <Box
             onClick={() => coverRef.current.click()}
             sx={{
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              position: 'relative',
+              cursor: "pointer",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              position: "relative",
             }}
           >
             <Typography>Cover Photo</Typography>
@@ -165,14 +165,14 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             ref={coverRef}
             type="file"
             accept="image/*"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={(e) => {
               const file = e.target.files[0];
-              if (file && file.type.startsWith('image/')) {
+              if (file && file.type.startsWith("image/")) {
                 setCover(file);
               } else {
-                toast.error('Please select a valid image file.');
-                e.target.value = '';
+                toast.error("Please select a valid image file.");
+                e.target.value = "";
               }
             }}
           />
@@ -180,24 +180,24 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
         <Box
           sx={{
-            marginTop: '-70px',
-            position: 'relative',
-            width: 'max-content',
-            marginBottom: '20px',
+            marginTop: "-70px",
+            position: "relative",
+            width: "max-content",
+            marginBottom: "20px",
           }}
           onClick={() => ProfileRef.current.click()}
         >
           <img
             style={{
-              width: isMobile ? '80px' : '153px',
-              height: isMobile ? '80px' : '153px',
-              borderRadius: '50%',
+              width: isMobile ? "80px" : "153px",
+              height: isMobile ? "80px" : "153px",
+              borderRadius: "50%",
             }}
             src={profilePreview || userAvatar}
             alt="profile"
           />
           <img
-            style={{ position: 'absolute', top: '0px', right: '0px' }}
+            style={{ position: "absolute", top: "0px", right: "0px" }}
             src={edit}
             alt="edit"
           />
@@ -205,27 +205,27 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             ref={ProfileRef}
             type="file"
             accept="image/*"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={(e) => {
               const file = e.target.files[0];
-              if (file && file.type.startsWith('image/')) {
+              if (file && file.type.startsWith("image/")) {
                 setProfile(file);
               } else {
-                toast.error('Please select a valid image file.');
-                e.target.value = '';
+                toast.error("Please select a valid image file.");
+                e.target.value = "";
               }
             }}
           />
         </Box>
 
-        <Box component={'form'} onSubmit={formik.handleSubmit}>
+        <Box component={"form"} onSubmit={formik.handleSubmit}>
           <Box
             sx={{
-              width: '100%',
-              marginTop: '16px',
-              position: 'relative',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              width: "100%",
+              marginTop: "16px",
+              position: "relative",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Input
@@ -246,11 +246,11 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
           <Box
             sx={{
-              width: '100%',
-              marginTop: '16px',
-              position: 'relative',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              width: "100%",
+              marginTop: "16px",
+              position: "relative",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Input
@@ -275,11 +275,11 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
           <Box
             sx={{
-              width: '100%',
-              marginTop: '16px',
-              position: 'relative',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              width: "100%",
+              marginTop: "16px",
+              position: "relative",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Input
@@ -300,11 +300,11 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
 
           <Box
             sx={{
-              width: '100%',
-              marginTop: '16px',
-              position: 'relative',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              width: "100%",
+              marginTop: "16px",
+              position: "relative",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Input
@@ -322,13 +322,13 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             />
           </Box>
 
-          <Box sx={{ mt: 1, position: 'relative' }}>
+          <Box sx={{ mt: 1, position: "relative" }}>
             <Dropdown
               required
               variant="outlined"
               options={industryTypeOptions}
               handleChange={(event) =>
-                formik.setFieldValue('industry', event.target.value)
+                formik.setFieldValue("industry", event.target.value)
               }
               customLabel="Add industry"
               noLabel
@@ -339,7 +339,7 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             />
           </Box>
 
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ position: "relative" }}>
             <Stack
               mb={1}
               direction="row"
@@ -352,15 +352,15 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             </Stack>
             <Box
               sx={{
-                padding: '7px 21px',
-                width: '100%',
-                border: '1px solid #000',
-                borderRadius: '4px',
-                position: 'relative',
+                padding: "7px 21px",
+                width: "100%",
+                border: "1px solid #000",
+                borderRadius: "4px",
+                position: "relative",
               }}
             >
               <RadioGroup
-                sx={{ width: '100%', gap: '10px' }}
+                sx={{ width: "100%", gap: "10px" }}
                 name="type"
                 value={formik.values.type}
                 onChange={formik.handleChange}
@@ -369,8 +369,8 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
                 <Stack sx={{ label: { margin: 0 } }} direction="row">
                   <FormControlLabel value="PUBLIC" control={<Radio />} />
                   <Box>
-                    <Typography sx={{ color: '#000' }}>Public</Typography>
-                    <Typography variant="body2" sx={{ color: 'gray' }}>
+                    <Typography sx={{ color: "#000" }}>Public</Typography>
+                    <Typography variant="body2" sx={{ color: "gray" }}>
                       Everyone can see group’s posts. The group will appear in
                       search results and be visible on members’ profiles.
                     </Typography>
@@ -380,8 +380,8 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
                 <Stack sx={{ label: { margin: 0 } }} direction="row">
                   <FormControlLabel value="PRIVATE" control={<Radio />} />
                   <Box>
-                    <Typography sx={{ color: '#000' }}>Private</Typography>
-                    <Typography variant="body2" sx={{ color: 'gray' }}>
+                    <Typography sx={{ color: "#000" }}>Private</Typography>
+                    <Typography variant="body2" sx={{ color: "gray" }}>
                       Only members can see posts.
                     </Typography>
                   </Box>
@@ -391,9 +391,9 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             {formik.touched.type && formik.errors.type && (
               <Typography
                 sx={{
-                  color: '#d32f2f ',
-                  fontSize: '14px',
-                  margin: '3px 14px 0 14px',
+                  color: "#d32f2f ",
+                  fontSize: "14px",
+                  margin: "3px 14px 0 14px",
                 }}
               >
                 {formik.errors.type}
@@ -401,17 +401,17 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
             )}
           </Box>
 
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ position: "relative" }}>
             <Typography fontSize={12} mt={2} mb={1}>
               Permissions
             </Typography>
             <Box
               sx={{
-                padding: '7px 21px',
-                width: '100%',
-                border: '1px solid #000',
-                borderRadius: '4px',
-                position: 'relative',
+                padding: "7px 21px",
+                width: "100%",
+                border: "1px solid #000",
+                borderRadius: "4px",
+                position: "relative",
               }}
             >
               <Stack sx={{ label: { margin: 0 } }} direction="row">
@@ -421,10 +421,10 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
                   name="allowInvite"
                 />
                 <Box>
-                  <Typography sx={{ color: '#000' }}>
+                  <Typography sx={{ color: "#000" }}>
                     Allow members to invite their knowns
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'gray' }}>
+                  <Typography variant="body2" sx={{ color: "gray" }}>
                     All requests to join will still require admin approval.
                   </Typography>
                 </Box>
@@ -437,10 +437,10 @@ export default function EditGroupModal({ data, refetch, open, handleClose }) {
                   name="allowPost"
                 />
                 <Box>
-                  <Typography sx={{ color: '#000' }}>
+                  <Typography sx={{ color: "#000" }}>
                     Require new posts to be reviewed by admins
                   </Typography>
-                  <Typography variant="body2" sx={{ color: 'gray' }}>
+                  <Typography variant="body2" sx={{ color: "gray" }}>
                     {
                       "Member's posts will require admin approval within 14 days before they become visible to others."
                     }

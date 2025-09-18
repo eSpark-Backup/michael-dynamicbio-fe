@@ -1,24 +1,24 @@
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Stack,
   Typography,
-} from '@mui/material';
-import countries from 'country-telephone-data';
-import MultiSelect from './AutoComplete';
-import Input from './Input';
-import Dropdown from './Dropdown';
-import Button from './button';
-import { createPageSchema } from '../schemas';
-import { useCreatePageMutation } from '../services/page';
-import { industryTypeOptions, sizeOptions, typeOptions } from '../constant';
-import { uploadIcon } from '../assets';
-import { convertToFormData } from '../utils';
+} from "@mui/material";
+import countries from "country-telephone-data";
+import MultiSelect from "./AutoComplete";
+import Input from "./Input";
+import Dropdown from "./Dropdown";
+import Button from "./button";
+import { createPageSchema } from "../schemas";
+import { useCreatePageMutation } from "../services/page";
+import { industryTypeOptions, sizeOptions, typeOptions } from "../constant";
+import { uploadIcon } from "../assets";
+import { convertToFormData } from "../utils";
 
 const CreatePageForm = ({ pageType }) => {
   const countriesOptions = countries?.allCountries?.map((item) => ({
@@ -32,33 +32,33 @@ const CreatePageForm = ({ pageType }) => {
   const formik = useFormik({
     initialValues: {
       pageType: pageType?.toUpperCase(),
-      organizationName: '',
-      address: '',
+      organizationName: "",
+      address: "",
       location: null,
       branches: [],
-      size: '',
-      type: '',
-      industry: '',
-      website: '',
-      tagline: '',
+      size: "",
+      type: "",
+      industry: "",
+      website: "",
+      tagline: "",
       permissions: false,
       //production
-      sellingItem: '',
-      megajooules: '',
-      energyDuration: '',
-      cost: '',
+      sellingItem: "",
+      megajooules: "",
+      energyDuration: "",
+      cost: "",
       //transportation
-      shippingItem: '',
-      fuelCells: '',
-      to: '',
-      from: '',
-      transportCost: '',
+      shippingItem: "",
+      fuelCells: "",
+      to: "",
+      from: "",
+      transportCost: "",
       //storage
-      storageDuration: '',
-      storageTemp: '',
+      storageDuration: "",
+      storageTemp: "",
       //miscellaneous
-      sellingItemOthers: '',
-      itemCostOthers: '',
+      sellingItemOthers: "",
+      itemCostOthers: "",
     },
     validationSchema: createPageSchema,
     onSubmit: (values) => {
@@ -102,15 +102,15 @@ const CreatePageForm = ({ pageType }) => {
   return (
     <Box
       sx={{
-        width: { xs: '100%', sm: '70%' },
-        display: 'flex',
-        flexDirection: 'column',
-        '.MuiOutlinedInput-root': {
-          minHeight: '65px !important',
-          height: 'auto',
+        width: { xs: "100%", sm: "70%" },
+        display: "flex",
+        flexDirection: "column",
+        ".MuiOutlinedInput-root": {
+          minHeight: "65px !important",
+          height: "auto",
         },
-        input: { paddingBottom: '20px' },
-        '.MuiStack-root': { marginTop: '24px' },
+        input: { paddingBottom: "20px" },
+        ".MuiStack-root": { marginTop: "24px" },
       }}
     >
       <Input
@@ -169,7 +169,7 @@ const CreatePageForm = ({ pageType }) => {
         variant="outlined"
         options={sizeOptions}
         handleChange={(event) =>
-          formik.setFieldValue('size', event.target.value)
+          formik.setFieldValue("size", event.target.value)
         }
         customLabel="Organization size"
         required
@@ -183,7 +183,7 @@ const CreatePageForm = ({ pageType }) => {
         variant="outlined"
         options={typeOptions}
         handleChange={(event) =>
-          formik.setFieldValue('type', event.target.value)
+          formik.setFieldValue("type", event.target.value)
         }
         customLabel="Organization type"
         required
@@ -197,7 +197,7 @@ const CreatePageForm = ({ pageType }) => {
         variant="outlined"
         options={industryTypeOptions}
         handleChange={(event) =>
-          formik.setFieldValue('industry', event.target.value)
+          formik.setFieldValue("industry", event.target.value)
         }
         customLabel="Add industry"
         noLabel
@@ -206,7 +206,7 @@ const CreatePageForm = ({ pageType }) => {
         helperText={formik.touched.industry && formik.errors.industry}
         value={formik.values.industry}
       />
-      {formik?.values?.industry === 'PRODUCTION' && (
+      {formik?.values?.industry === "PRODUCTION" && (
         <>
           <Input
             variant="outlined"
@@ -254,7 +254,7 @@ const CreatePageForm = ({ pageType }) => {
           />
         </>
       )}
-      {formik?.values?.industry === 'TRANSPORTATION' && (
+      {formik?.values?.industry === "TRANSPORTATION" && (
         <>
           <Input
             variant="outlined"
@@ -284,11 +284,11 @@ const CreatePageForm = ({ pageType }) => {
               Enter the places of shipping
             </Typography>
             <Stack
-              direction={{ xs: 'column', md: 'row' }}
+              direction={{ xs: "column", md: "row" }}
               alignItems="flex-end"
               justifyContent="center"
               gap={2}
-              sx={{ marginTop: '0px !important' }}
+              sx={{ marginTop: "0px !important" }}
             >
               <Input
                 variant="outlined"
@@ -326,7 +326,7 @@ const CreatePageForm = ({ pageType }) => {
           />
         </>
       )}
-      {formik?.values?.industry === 'STORAGE' && (
+      {formik?.values?.industry === "STORAGE" && (
         <>
           <Input
             variant="outlined"
@@ -354,7 +354,7 @@ const CreatePageForm = ({ pageType }) => {
           />
         </>
       )}
-      {formik?.values?.industry === 'OTHER' && (
+      {formik?.values?.industry === "OTHER" && (
         <>
           <Input
             variant="outlined"
@@ -407,25 +407,25 @@ const CreatePageForm = ({ pageType }) => {
         </Typography>
         <Box
           sx={{
-            padding: '7px 21px',
-            width: '100%',
-            borderRadius: '4px',
-            height: '80px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
+            padding: "7px 21px",
+            width: "100%",
+            borderRadius: "4px",
+            height: "80px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
           }}
         >
           {image && (
             <img
               style={{
-                position: 'absolute',
-                width: '100px',
-                height: '100px',
-                borderRadius: '50%',
-                border: '1px solid #000',
-                objectFit: 'cover',
+                position: "absolute",
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                border: "1px solid #000",
+                objectFit: "cover",
                 opacity: 0.5,
               }}
               src={URL.createObjectURL(image)}
@@ -434,7 +434,7 @@ const CreatePageForm = ({ pageType }) => {
           )}
           <img
             onClick={() => imageRef.current.click()}
-            style={{ cursor: 'pointer', zIndex: 2 }}
+            style={{ cursor: "pointer", zIndex: 2 }}
             width={52}
             height={52}
             src={uploadIcon}
@@ -444,14 +444,14 @@ const CreatePageForm = ({ pageType }) => {
             ref={imageRef}
             type="file"
             accept="image/*"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={(e) => {
               const file = e.target.files[0];
-              if (file && file.type.startsWith('image/')) {
+              if (file && file.type.startsWith("image/")) {
                 setImage(file);
               } else {
-                toast.error('Please select a valid image file.');
-                e.target.value = '';
+                toast.error("Please select a valid image file.");
+                e.target.value = "";
               }
             }}
           />
@@ -482,19 +482,19 @@ const CreatePageForm = ({ pageType }) => {
         </Stack>
         <Box
           sx={{
-            padding: '7px 21px',
-            width: '100%',
-            border: '1px solid #000',
-            borderRadius: '4px',
+            padding: "7px 21px",
+            width: "100%",
+            border: "1px solid #000",
+            borderRadius: "4px",
           }}
         >
           <FormControlLabel
             sx={{
-              width: '100%',
-              alignItems: 'flex-start',
+              width: "100%",
+              alignItems: "flex-start",
               padding: 0,
               margin: 0,
-              gap: '10px',
+              gap: "10px",
               span: { padding: 0 },
             }}
             control={
@@ -510,9 +510,9 @@ const CreatePageForm = ({ pageType }) => {
         {formik.touched.permissions && formik.errors.permissions && (
           <Typography
             sx={{
-              color: '#d32f2f ',
-              fontSize: '14px',
-              margin: '3px 14px 0 14px',
+              color: "#d32f2f ",
+              fontSize: "14px",
+              margin: "3px 14px 0 14px",
             }}
           >
             {formik.errors.permissions}
@@ -521,14 +521,14 @@ const CreatePageForm = ({ pageType }) => {
       </>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          marginTop: '50px',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          marginTop: "50px",
         }}
       >
-        <Box sx={{ width: '250px' }}>
+        <Box sx={{ width: "250px" }}>
           <Button
             loading={isLoading}
             disabled={isLoading}

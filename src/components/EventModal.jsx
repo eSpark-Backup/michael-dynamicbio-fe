@@ -8,22 +8,22 @@ import {
   RadioGroup,
   Stack,
   Typography,
-} from '@mui/material';
-import { useFormik } from 'formik';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { uploadIcon } from '../assets';
-import Dropdown from './Dropdown';
-import Input from './Input';
-import { timezoneOptions } from '../constant';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
-import { inpersonEventSchema, onlineEventSchema } from '../schemas';
-import { toast } from 'react-toastify';
+} from "@mui/material";
+import { useFormik } from "formik";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { uploadIcon } from "../assets";
+import Dropdown from "./Dropdown";
+import Input from "./Input";
+import { timezoneOptions } from "../constant";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { inpersonEventSchema, onlineEventSchema } from "../schemas";
+import { toast } from "react-toastify";
 
 const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
   const eventImgRef = useRef(null);
-  const [tempEventType, setEventType] = useState('online');
+  const [tempEventType, setEventType] = useState("online");
   const [imagePreview, setImagePreview] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -37,21 +37,21 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
     return Object.keys(receivedValues || {}).length > 0
       ? receivedValues
       : {
-          eventType: 'online',
-          format: '',
-          name: '',
+          eventType: "online",
+          format: "",
+          name: "",
           selectedFile: null,
-          timezone: timezoneOptions[0]?.value || '',
+          timezone: timezoneOptions[0]?.value || "",
           startDate: new Date(),
           startTime: startTime,
           endDate: new Date(),
           endTime: new Date(startTime.getTime() + 5 * 60 * 1000),
           showEndTime: true,
-          description: '',
-          speakers: '',
-          address: '',
-          venue: '',
-          externalLink: '',
+          description: "",
+          speakers: "",
+          address: "",
+          venue: "",
+          externalLink: "",
         };
   }, [receivedValues, timezoneOptions]);
 
@@ -59,10 +59,10 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
     initialValues: initialFormValues,
     enableReinitialize: true,
     validationSchema:
-      tempEventType === 'online' ? onlineEventSchema : inpersonEventSchema,
+      tempEventType === "online" ? onlineEventSchema : inpersonEventSchema,
     onSubmit: (values, { resetForm }) => {
       if (values.showEndTime && values.endTime <= values.startTime) {
-        toast.error('Please check end time');
+        toast.error("Please check end time");
         return;
       }
       onFormSubmit(values);
@@ -82,7 +82,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {
-      formik.setFieldValue('selectedFile', files[0]);
+      formik.setFieldValue("selectedFile", files[0]);
     }
   };
 
@@ -93,21 +93,21 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
+      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
         <Box
           sx={{
-            width: '100%',
-            backgroundColor: '#F4F2EE',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            rowGap: '10px',
-            flexDirection: 'column',
-            height: '350px',
-            cursor: 'pointer',
-            backgroundImage: imagePreview ? `url(${imagePreview})` : 'none',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
+            width: "100%",
+            backgroundColor: "#F4F2EE",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            rowGap: "10px",
+            flexDirection: "column",
+            height: "350px",
+            cursor: "pointer",
+            backgroundImage: imagePreview ? `url(${imagePreview})` : "none",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
           }}
           onClick={() => eventImgRef.current.click()}
         >
@@ -116,19 +116,19 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
               <img
                 src={uploadIcon}
                 alt="Icon"
-                style={{ width: '48px', height: '48px' }}
+                style={{ width: "48px", height: "48px" }}
               />
               <Typography
-                sx={{ fontSize: '17px', fontWeight: '500', color: '#171717' }}
+                sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
               >
                 Upload cover image
               </Typography>
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '400',
-                  color: '#505050',
-                  textAlign: 'center',
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  textAlign: "center",
                 }}
               >
                 Minimum width 480 pixels, 16:9 recommended
@@ -138,22 +138,22 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         </Box>
 
         <Typography
-          sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+          sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
         >
           Event type
         </Typography>
         <RadioGroup
           name="eventType"
-          sx={{ width: '100%', display: 'flex' }}
+          sx={{ width: "100%", display: "flex" }}
           value={formik.values.eventType}
           onChange={formik.handleChange}
         >
-          <Box sx={{ display: 'flex', columnGap: '25px' }}>
+          <Box sx={{ display: "flex", columnGap: "25px" }}>
             <Stack
               sx={{
                 label: { margin: 0 },
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
               }}
               direction="row"
             >
@@ -166,8 +166,8 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             <Stack
               sx={{
                 label: { margin: 0 },
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
               }}
               direction="row"
             >
@@ -180,21 +180,21 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
           </Box>
         </RadioGroup>
 
-        {formik.values.eventType !== 'Inperson' && (
-          <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '3px' }}>
+        {formik.values.eventType !== "Inperson" && (
+          <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
             <Typography
-              sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+              sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
             >
               Event format*
             </Typography>
             <Dropdown
               variant="outlined"
               options={[
-                { label: 'LinkedIn Live', value: 'LinkedInLive' },
-                { label: 'External Event Link', value: 'ExternalEventLink' },
+                { label: "LinkedIn Live", value: "LinkedInLive" },
+                { label: "External Event Link", value: "ExternalEventLink" },
               ]}
               handleChange={(event) =>
-                formik.setFieldValue('format', event.target.value)
+                formik.setFieldValue("format", event.target.value)
               }
               onBlur={formik.handleBlur}
               value={formik.values.format}
@@ -207,15 +207,15 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         )}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '3px',
-            '.MuiOutlinedInput-root': { height: '65px !important' },
-            input: { paddingBottom: '20px' },
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "3px",
+            ".MuiOutlinedInput-root": { height: "65px !important" },
+            input: { paddingBottom: "20px" },
           }}
         >
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Event name*
           </Typography>
@@ -234,10 +234,10 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             onBlur={formik.handleBlur}
           />
         </Box>
-        <Divider sx={{ my: '15px' }} />
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '3px' }}>
+        <Divider sx={{ my: "15px" }} />
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "3px" }}>
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Timezone*
           </Typography>
@@ -245,7 +245,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             variant="outlined"
             options={timezoneOptions}
             handleChange={(event) =>
-              formik.setFieldValue('timezone', event.target.value)
+              formik.setFieldValue("timezone", event.target.value)
             }
             onBlur={formik.handleBlur}
             value={formik.values.timezone}
@@ -257,33 +257,33 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: { xs: 'column', md: 'row' },
-            rowGap: '15px',
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: { xs: "column", md: "row" },
+            rowGap: "15px",
           }}
         >
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box
               sx={{
-                width: { xs: '100%', md: '45%' },
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
+                width: { xs: "100%", md: "45%" },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 Start date*
               </Typography>
               <DatePicker
                 value={formik.values.startDate}
-                onChange={(date) => formik.setFieldValue('startDate', date)}
+                onChange={(date) => formik.setFieldValue("startDate", date)}
                 minDate={new Date()}
                 slotProps={{
                   textField: {
-                    variant: 'outlined',
+                    variant: "outlined",
                     fullWidth: true,
                     error:
                       formik.touched.startDate && !!formik.errors.startDate,
@@ -291,12 +291,12 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                       formik.touched.startDate && formik.errors.startDate,
                     InputLabelProps: {
                       shrink: false,
-                      sx: { fontSize: '14px' },
+                      sx: { fontSize: "14px" },
                     },
                     inputProps: {
-                      sx: { fontSize: '14px' },
+                      sx: { fontSize: "14px" },
                       readOnly: true,
-                      userSelect: 'none',
+                      userSelect: "none",
                     },
                   },
                 }}
@@ -306,25 +306,25 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box
               sx={{
-                width: { xs: '100%', md: '45%' },
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
+                width: { xs: "100%", md: "45%" },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 Start time*
               </Typography>
               <TimePicker
                 value={formik.values.startTime}
-                onChange={(time) => formik.setFieldValue('startTime', time)}
+                onChange={(time) => formik.setFieldValue("startTime", time)}
                 disableCloseOnSelect={false}
                 showToolbar={false}
                 slotProps={{
                   textField: {
-                    variant: 'outlined',
+                    variant: "outlined",
                     fullWidth: true,
                     error:
                       formik.touched.startTime && !!formik.errors.startTime,
@@ -332,12 +332,12 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
                       formik.touched.startTime && formik.errors.startTime,
                     InputLabelProps: {
                       shrink: false,
-                      sx: { fontSize: '14px' },
+                      sx: { fontSize: "14px" },
                     },
                     inputProps: {
-                      sx: { fontSize: '14px' },
+                      sx: { fontSize: "14px" },
                       readOnly: true,
-                      userSelect: 'none',
+                      userSelect: "none",
                     },
                   },
                   actionBar: {
@@ -350,16 +350,16 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         </Box>
         <Box
           sx={{
-            width: '100%',
+            width: "100%",
           }}
         >
           <FormControlLabel
             sx={{
-              width: '100%',
-              alignItems: 'flex-start',
+              width: "100%",
+              alignItems: "flex-start",
               padding: 0,
               margin: 0,
-              gap: '10px',
+              gap: "10px",
               span: { padding: 0 },
             }}
             control={
@@ -375,45 +375,45 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         {formik.values?.showEndTime && (
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: { xs: 'column', md: 'row' },
-              rowGap: '15px',
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: { xs: "column", md: "row" },
+              rowGap: "15px",
             }}
           >
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Box
                 sx={{
-                  width: { xs: '100%', md: '45%' },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '3px',
+                  width: { xs: "100%", md: "45%" },
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "3px",
                 }}
               >
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
                   End date*
                 </Typography>
                 <DatePicker
                   value={formik.values.endDate}
-                  onChange={(date) => formik.setFieldValue('endDate', date)}
+                  onChange={(date) => formik.setFieldValue("endDate", date)}
                   minDate={new Date()}
                   slotProps={{
                     textField: {
-                      variant: 'outlined',
+                      variant: "outlined",
                       fullWidth: true,
                       error: formik.touched.endDate && !!formik.errors.endDate,
                       helperText:
                         formik.touched.endDate && formik.errors.endDate,
                       InputLabelProps: {
                         shrink: false,
-                        sx: { fontSize: '14px' },
+                        sx: { fontSize: "14px" },
                       },
                       inputProps: {
-                        sx: { fontSize: '14px' },
+                        sx: { fontSize: "14px" },
                         readOnly: true,
-                        userSelect: 'none',
+                        userSelect: "none",
                       },
                     },
                   }}
@@ -423,37 +423,37 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <Box
                 sx={{
-                  width: { xs: '100%', md: '45%' },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '3px',
+                  width: { xs: "100%", md: "45%" },
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "3px",
                 }}
               >
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
                   End time*
                 </Typography>
                 <TimePicker
                   value={formik.values.endTime}
-                  onChange={(time) => formik.setFieldValue('endTime', time)}
+                  onChange={(time) => formik.setFieldValue("endTime", time)}
                   disableCloseOnSelect={false}
                   showToolbar={false}
                   slotProps={{
                     textField: {
-                      variant: 'outlined',
+                      variant: "outlined",
                       fullWidth: true,
                       error: formik.touched.endTime && !!formik.errors.endTime,
                       helperText:
                         formik.touched.endTime && formik.errors.endTime,
                       InputLabelProps: {
                         shrink: false,
-                        sx: { fontSize: '14px' },
+                        sx: { fontSize: "14px" },
                       },
                       inputProps: {
-                        sx: { fontSize: '14px' },
+                        sx: { fontSize: "14px" },
                         readOnly: true,
-                        userSelect: 'none',
+                        userSelect: "none",
                       },
                     },
                     actionBar: {
@@ -465,19 +465,19 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             </LocalizationProvider>
           </Box>
         )}
-        {formik.values.eventType !== 'Inperson' &&
-          formik.values.format === 'ExternalEventLink' && (
+        {formik.values.eventType !== "Inperson" &&
+          formik.values.format === "ExternalEventLink" && (
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
-                '.MuiOutlinedInput-root': { height: '65px !important' },
-                input: { paddingBottom: '20px' },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
+                ".MuiOutlinedInput-root": { height: "65px !important" },
+                input: { paddingBottom: "20px" },
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 External event link
               </Typography>
@@ -500,19 +500,19 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
               />
             </Box>
           )}
-        {formik?.values?.eventType === 'Inperson' && (
+        {formik?.values?.eventType === "Inperson" && (
           <>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
-                '.MuiOutlinedInput-root': { height: '65px !important' },
-                input: { paddingBottom: '20px' },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
+                ".MuiOutlinedInput-root": { height: "65px !important" },
+                input: { paddingBottom: "20px" },
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 Address*
               </Typography>
@@ -532,15 +532,15 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
-                '.MuiOutlinedInput-root': { height: '65px !important' },
-                input: { paddingBottom: '20px' },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
+                ".MuiOutlinedInput-root": { height: "65px !important" },
+                input: { paddingBottom: "20px" },
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 Venue
               </Typography>
@@ -559,15 +559,15 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
-                '.MuiOutlinedInput-root': { height: '65px !important' },
-                input: { paddingBottom: '20px' },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
+                ".MuiOutlinedInput-root": { height: "65px !important" },
+                input: { paddingBottom: "20px" },
               }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 External event link
               </Typography>
@@ -593,15 +593,15 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         )}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '3px',
-            '.MuiOutlinedInput-root': { height: '65px !important' },
-            input: { paddingBottom: '20px' },
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "3px",
+            ".MuiOutlinedInput-root": { height: "65px !important" },
+            input: { paddingBottom: "20px" },
           }}
         >
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Description
           </Typography>
@@ -622,15 +622,15 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '3px',
-            '.MuiOutlinedInput-root': { height: '35px !important' },
-            input: { paddingBottom: '20px' },
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "3px",
+            ".MuiOutlinedInput-root": { height: "35px !important" },
+            input: { paddingBottom: "20px" },
           }}
         >
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Speakers
           </Typography>
@@ -648,7 +648,7 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
             onBlur={formik.handleBlur}
           />
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Add connections to speak at the event. Speakers can join the event
             early and will be shown in the event’s Details section and presenter
@@ -659,69 +659,69 @@ const EventModal = ({ onFormSubmit, receivedValues, handleClose }) => {
           type="file"
           ref={eventImgRef}
           accept=".jpeg, .jpg, .tiff, .png, .webp"
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           onChange={handleFileChange}
         />
         <Stack
-          justifyContent={'flex-end'}
-          alignItems={'flex-end'}
+          justifyContent={"flex-end"}
+          alignItems={"flex-end"}
           px={6}
-          direction={'row'}
+          direction={"row"}
           gap={3}
           sx={{
-            height: '55px',
-            borderTop: '1px solid #E4E4E4',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            position: 'fixed',
-            bottom: '0px',
-            right: '0px',
+            height: "55px",
+            borderTop: "1px solid #E4E4E4",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            position: "fixed",
+            bottom: "0px",
+            right: "0px",
             zIndex: 999,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           }}
         >
           <Box
             sx={{
-              width: '150px',
-              height: '36px',
-              borderRadius: '2px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background: 'white',
-              position: 'relative',
-              '&::before': {
+              width: "150px",
+              height: "36px",
+              borderRadius: "2px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
+              position: "relative",
+              "&::before": {
                 content: '""',
-                position: 'absolute',
+                position: "absolute",
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                borderRadius: '8px',
-                padding: '1px',
+                borderRadius: "8px",
+                padding: "1px",
                 background:
-                  'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                  "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
                 WebkitMask:
-                  'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                WebkitMaskComposite: 'destination-out',
-                maskComposite: 'exclude',
+                  "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                WebkitMaskComposite: "destination-out",
+                maskComposite: "exclude",
               },
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
             onClick={handleClose}
           >
             <Typography
               variant="gradientText"
-              sx={{ fontSize: '16px', fontWeight: '400' }}
+              sx={{ fontSize: "16px", fontWeight: "400" }}
             >
               Back
             </Typography>
           </Box>
           <Button
             type="submit"
-            sx={{ maxWidth: '150px', height: '36px', fontSize: '16px' }}
+            sx={{ maxWidth: "150px", height: "36px", fontSize: "16px" }}
             disabled={!(formik.isValid && (formik.dirty || isEditMode))}
           >
             Next

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -10,8 +10,8 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import { OutlinedInput } from '../../components';
+} from "@mui/material";
+import { OutlinedInput } from "../../components";
 import {
   bellActive,
   bondsActive,
@@ -24,22 +24,22 @@ import {
   cellBlack,
   bellBlack,
   searchIcon,
-} from '../../assets';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useDispatch, useSelector } from 'react-redux';
-import { handleChange } from '../../store/slices/search';
-import { logout } from '../../store/slices/auth';
-import { api } from '../../services/rtk';
+} from "../../assets";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { handleChange } from "../../store/slices/search";
+import { logout } from "../../store/slices/auth";
+import { api } from "../../services/rtk";
 
 const Navbar = () => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
-  const isMobile = useMediaQuery('(max-width:1280px)');
+  const isMobile = useMediaQuery("(max-width:1280px)");
   const open = Boolean(anchorEl);
-  const [activeItem, setActiveItem] = useState('Home');
+  const [activeItem, setActiveItem] = useState("Home");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem("token");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,28 +50,28 @@ const Navbar = () => {
   const menuItems = useMemo(
     () => [
       {
-        name: 'Home',
+        name: "Home",
         activeIcon: homeActive,
         inactiveIcon: HomeBlack,
-        url: '/',
+        url: "/",
       },
       {
-        name: 'Bonds',
+        name: "Bonds",
         activeIcon: bondsActive,
         inactiveIcon: bondBlack,
-        url: '/bonds',
+        url: "/bonds",
       },
       {
-        name: 'Cell',
+        name: "Cell",
         activeIcon: cellActive,
         inactiveIcon: cellBlack,
-        url: '/cells',
+        url: "/cells",
       },
       {
-        name: 'Pulses',
+        name: "Pulses",
         activeIcon: bellActive,
         inactiveIcon: bellBlack,
-        url: '/pulses',
+        url: "/pulses",
       },
     ],
     []
@@ -79,12 +79,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const pathToNameMap = {
-      '/': 'Home',
-      '/bonds': 'Bonds',
-      '/cells': 'Cell',
-      '/pulses': 'Pulses',
+      "/": "Home",
+      "/bonds": "Bonds",
+      "/cells": "Cell",
+      "/pulses": "Pulses",
     };
-    setActiveItem(pathToNameMap[location?.pathname] || 'Home');
+    setActiveItem(pathToNameMap[location?.pathname] || "Home");
   }, [location]);
 
   const handleNavigation = (item) => {
@@ -108,57 +108,57 @@ const Navbar = () => {
     <Box
       sx={{
         backgroundColor: theme.palette.primary.light,
-        height: '65px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        px: { xs: '10px', lg: '30px' },
+        height: "65px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        px: { xs: "10px", lg: "30px" },
       }}
     >
       <Box
         sx={{
-          width: { xs: '0px', lg: '204px' },
-          visibility: 'hidden',
-          border: '1px solid red',
+          width: { xs: "0px", lg: "204px" },
+          visibility: "hidden",
+          border: "1px solid red",
         }}
       ></Box>
       {isMobile ? (
-        <Box sx={{ display: 'flex', pr: '5px' }}>
+        <Box sx={{ display: "flex", pr: "5px" }}>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              cursor: 'pointer',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
             }}
             onClick={handleClick}
           >
             <img
-              style={{ width: '22px', height: '22px' }}
+              style={{ width: "22px", height: "22px" }}
               src={settings}
               alt=""
             />
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <Typography
                 sx={{
                   backgroundImage:
-                    'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  fontSize: '16px',
-                  fontWeight: '500',
+                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontSize: "16px",
+                  fontWeight: "500",
                 }}
               >
                 Settings
               </Typography>
               <img
-                style={{ width: '12px', height: '6px' }}
+                style={{ width: "12px", height: "6px" }}
                 src={downArrow}
                 alt=""
               />
@@ -168,12 +168,12 @@ const Navbar = () => {
               open={open}
               onClose={handleClose}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
             >
               {token ? (
@@ -188,7 +188,7 @@ const Navbar = () => {
                   </MenuItem>
                   <MenuItem
                     onClick={(e) => {
-                      navigate('/settings');
+                      navigate("/settings");
                       handleClose(e);
                     }}
                   >
@@ -198,7 +198,7 @@ const Navbar = () => {
                     onClick={(e) => {
                       dispatch(logout());
                       dispatch(api.util.resetApiState());
-                      navigate('/login');
+                      navigate("/login");
                       handleClose(e);
                     }}
                   >
@@ -208,10 +208,10 @@ const Navbar = () => {
               ) : (
                 <MenuItem
                   onClick={(e) => {
-                    navigate('/login');
+                    navigate("/login");
                     handleClose(e);
                   }}
-                  sx={{ width: '245px' }}
+                  sx={{ width: "245px" }}
                 >
                   Login
                 </MenuItem>
@@ -231,16 +231,16 @@ const Navbar = () => {
         <>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
             }}
           >
             <Box
               sx={{
-                display: 'flex',
-                gap: '40px',
+                display: "flex",
+                gap: "40px",
               }}
             >
               {menuItems.map((item) => {
@@ -249,44 +249,44 @@ const Navbar = () => {
                   <Box
                     key={item.name}
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      width: '137px',
-                      minWidth: '137px',
-                      textAlign: 'center',
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      width: "137px",
+                      minWidth: "137px",
+                      textAlign: "center",
                     }}
                     onClick={() => handleNavigation(item)}
                   >
                     <img
-                      style={{ width: '28px', height: '28px' }}
+                      style={{ width: "28px", height: "28px" }}
                       src={item.activeIcon}
                       alt={item.name}
                     />
                     <Typography
                       sx={{
                         backgroundImage:
-                          'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                        color: 'inherit',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        fontSize: '16px',
-                        fontWeight: '500',
-                        position: 'relative',
-                        textAlign: 'center',
-                        '&::after': {
+                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        color: "inherit",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        position: "relative",
+                        textAlign: "center",
+                        "&::after": {
                           content: '""',
-                          display: isActive ? 'block' : 'none',
-                          width: '137px',
-                          height: '4px',
+                          display: isActive ? "block" : "none",
+                          width: "137px",
+                          height: "4px",
                           background:
-                            'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                          position: 'absolute',
-                          bottom: '-6px',
-                          left: '50%',
-                          transform: 'translateX(-50%)',
+                            "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                          position: "absolute",
+                          bottom: "-6px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
                         },
                       }}
                     >
@@ -300,25 +300,25 @@ const Navbar = () => {
 
           <Box
             sx={{
-              display: 'flex',
-              columnGap: '25px',
-              alignItems: 'center',
-              height: '100%',
+              display: "flex",
+              columnGap: "25px",
+              alignItems: "center",
+              height: "100%",
             }}
           >
             <Box
               sx={{
-                width: '280px',
-                height: '42px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                width: "280px",
+                height: "42px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <OutlinedInput
-                value={search ? search : ''}
+                value={search ? search : ""}
                 onInputChange={onInputChange}
-                sx={{ width: '280px' }}
+                sx={{ width: "280px" }}
                 placeholder="Search"
                 startAdornment={searchIcon}
                 disabled={!token}
@@ -326,39 +326,39 @@ const Navbar = () => {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
               }}
               onClick={handleClick}
             >
               <img
-                style={{ width: '22px', height: '22px' }}
+                style={{ width: "22px", height: "22px" }}
                 src={settings}
                 alt=""
               />
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 <Typography
                   sx={{
                     backgroundImage:
-                      'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    fontSize: '16px',
-                    fontWeight: '500',
+                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    fontSize: "16px",
+                    fontWeight: "500",
                   }}
                 >
                   Settings
                 </Typography>
                 <img
-                  style={{ width: '12px', height: '6px' }}
+                  style={{ width: "12px", height: "6px" }}
                   src={downArrow}
                   alt=""
                 />
@@ -368,18 +368,18 @@ const Navbar = () => {
                 open={open}
                 onClose={handleClose}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
               >
                 {token ? (
                   <>
                     <MenuItem
-                      sx={{ width: '245px' }}
+                      sx={{ width: "245px" }}
                       onClick={(e) => {
                         navigate(`/profile/${user?.id}`);
                         handleClose(e);
@@ -389,19 +389,19 @@ const Navbar = () => {
                     </MenuItem>
                     <MenuItem
                       onClick={(e) => {
-                        navigate('/settings');
+                        navigate("/settings");
                         handleClose(e);
                       }}
-                      sx={{ width: '245px' }}
+                      sx={{ width: "245px" }}
                     >
                       Settings
                     </MenuItem>
                     <MenuItem
-                      sx={{ width: '245px' }}
+                      sx={{ width: "245px" }}
                       onClick={(e) => {
                         dispatch(logout());
                         dispatch(api.util.resetApiState());
-                        navigate('/login');
+                        navigate("/login");
                         handleClose(e);
                       }}
                     >
@@ -411,10 +411,10 @@ const Navbar = () => {
                 ) : (
                   <MenuItem
                     onClick={(e) => {
-                      navigate('/login');
+                      navigate("/login");
                       handleClose(e);
                     }}
-                    sx={{ width: '245px' }}
+                    sx={{ width: "245px" }}
                   >
                     Login
                   </MenuItem>
@@ -431,9 +431,9 @@ const Navbar = () => {
       >
         <Box
           sx={{
-            display: 'flex',
-            gap: '40px',
-            flexDirection: 'column',
+            display: "flex",
+            gap: "40px",
+            flexDirection: "column",
           }}
         >
           {menuItems.map((item) => {
@@ -442,43 +442,43 @@ const Navbar = () => {
               <Box
                 key={item.name}
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  width: '100%',
-                  textAlign: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  width: "100%",
+                  textAlign: "center",
                 }}
                 onClick={() => handleNavigation(item)}
               >
                 <img
-                  style={{ width: '28px', height: '28px' }}
+                  style={{ width: "28px", height: "28px" }}
                   src={item.activeIcon}
                   alt={item.name}
                 />
                 <Typography
                   sx={{
                     backgroundImage:
-                      'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                    color: 'inherit',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    position: 'relative',
-                    textAlign: 'center',
-                    '&::after': {
+                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                    color: "inherit",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    position: "relative",
+                    textAlign: "center",
+                    "&::after": {
                       content: '""',
-                      display: isActive ? 'block' : 'none',
-                      width: '137px',
-                      height: '4px',
+                      display: isActive ? "block" : "none",
+                      width: "137px",
+                      height: "4px",
                       background:
-                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                      position: 'absolute',
-                      bottom: '-6px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
+                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                      position: "absolute",
+                      bottom: "-6px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
                     },
                   }}
                 >
@@ -491,18 +491,18 @@ const Navbar = () => {
         <List sx={{ width: 250 }}>
           <Box
             sx={{
-              width: '100%',
-              height: '42px',
-              display: 'flex',
-              alignItems: 'center',
+              width: "100%",
+              height: "42px",
+              display: "flex",
+              alignItems: "center",
               mt: 2,
             }}
           >
             <OutlinedInput
-              sx={{ width: '100%' }}
+              sx={{ width: "100%" }}
               placeholder="Search"
               startAdornment={searchIcon}
-              value={search ? search : ''}
+              value={search ? search : ""}
               onInputChange={onInputChange}
               disabled={!token}
             />

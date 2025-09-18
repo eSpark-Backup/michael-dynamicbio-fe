@@ -1,11 +1,11 @@
-import { Avatar, Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { like, unlike, user } from '../assets';
-import dayjs from 'dayjs';
-import { useLikeMutation } from '../services/interaction';
-import { useSelector } from 'react-redux';
-import DynamicModal from './dynamic-modal';
-import ShowLikesModal from './ShowLikesModal';
+import { Avatar, Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { like, unlike, user } from "../assets";
+import dayjs from "dayjs";
+import { useLikeMutation } from "../services/interaction";
+import { useSelector } from "react-redux";
+import DynamicModal from "./dynamic-modal";
+import ShowLikesModal from "./ShowLikesModal";
 
 const Comment = ({
   userImage,
@@ -33,7 +33,7 @@ const Comment = ({
   const [likeData, { isError, error, isLoading }] = useLikeMutation();
 
   const LikeHandler = (id) => {
-    likeData({ entityId: id, type: 'COMMENT' });
+    likeData({ entityId: id, type: "COMMENT" });
     const newLiked = !isUserLiked;
     setIsUserLiked(newLiked);
     setTotalLikes((prevLikes) => (newLiked ? prevLikes + 1 : prevLikes - 1));
@@ -80,42 +80,42 @@ const Comment = ({
   return (
     <Box
       sx={{
-        backgroundColor: '#F2F8FD',
-        py: '10px',
-        display: 'flex',
-        px: '4px',
-        justifyContent: 'flex-start',
-        columnGap: '5px',
-        flexDirection: { xs: 'column', sm: 'row' },
-        alignItems: 'flex-start',
+        backgroundColor: "#F2F8FD",
+        py: "10px",
+        display: "flex",
+        px: "4px",
+        justifyContent: "flex-start",
+        columnGap: "5px",
+        flexDirection: { xs: "column", sm: "row" },
+        alignItems: "flex-start",
       }}
     >
       <Avatar
         src={userImage ? userImage : user}
         alt="User"
-        sx={{ width: 44, height: 44, objectFit: 'fill !important' }}
+        sx={{ width: 44, height: 44, objectFit: "fill !important" }}
       />
-      <Box flex={1} sx={{ width: '100%' }}>
+      <Box flex={1} sx={{ width: "100%" }}>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
           <Typography
             sx={{
-              color: '#171717',
-              fontSize: '16px',
+              color: "#171717",
+              fontSize: "16px",
               fontWeight: 500,
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
             }}
           >
             {userName}
           </Typography>
-          <Box display={'flex'} alignContent={'center'} columnGap={2}>
+          <Box display={"flex"} alignContent={"center"} columnGap={2}>
             <Typography
-              sx={{ fontSize: '12px', fontWeight: 400, color: '#71717A' }}
+              sx={{ fontSize: "12px", fontWeight: 400, color: "#71717A" }}
             >
               {dayjs(time).isAfter(dayjs())
                 ? dayjs().fromNow()
@@ -125,40 +125,40 @@ const Comment = ({
         </Box>
         <Typography
           sx={{
-            fontSize: '14px',
+            fontSize: "14px",
             fontWeight: 400,
-            color: '#18181B',
-            pr: '4px',
-            whiteSpace: 'pre-line',
+            color: "#18181B",
+            pr: "4px",
+            whiteSpace: "pre-line",
           }}
         >
           {comment}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+        <Box sx={{ display: "flex", alignItems: "center", columnGap: "8px" }}>
           <Typography
             sx={{
-              fontSize: '12px',
+              fontSize: "12px",
               fontWeight: 400,
-              color: '#71717A',
-              cursor: 'pointer',
+              color: "#71717A",
+              cursor: "pointer",
             }}
             onClick={isLoading ? () => {} : () => LikeHandler(commentId)}
           >
-            {isUserLiked ? 'Liked' : 'Like'}
+            {isUserLiked ? "Liked" : "Like"}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '3px' }}>
+          <Box sx={{ display: "flex", alignItems: "center", columnGap: "3px" }}>
             <img
               src={isUserLiked ? like : unlike}
               alt="Like"
-              style={{ height: '12px', width: '13.5', cursor: 'pointer' }}
+              style={{ height: "12px", width: "13.5", cursor: "pointer" }}
               onClick={isLoading ? () => {} : () => LikeHandler(commentId)}
             />
             <Typography
               sx={{
-                fontSize: '14px',
+                fontSize: "14px",
                 fontWeight: 400,
-                color: '#71717A',
-                cursor: totalLikes > 0 ? 'pointer' : 'text',
+                color: "#71717A",
+                cursor: totalLikes > 0 ? "pointer" : "text",
               }}
               onClick={
                 totalLikes > 0 && !isLoading
@@ -175,7 +175,7 @@ const Comment = ({
       <DynamicModal
         open={showLikesModal}
         handleClose={() => setShowLikesModal(false)}
-        title={'Likes'}
+        title={"Likes"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}

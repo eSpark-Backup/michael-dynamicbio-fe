@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { notificationsApi } from '../../services/notification';
+import { createSlice } from "@reduxjs/toolkit";
+import { notificationsApi } from "../../services/notification";
 
 const initialState = {
   notifications: [],
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'notifications',
+  name: "notifications",
   initialState,
   extraReducers: (builder) => {
     builder.addMatcher(

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Box,
   Stack,
@@ -14,8 +14,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from '@mui/material';
-import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+} from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import {
   comment,
   copyLink,
@@ -25,12 +25,12 @@ import {
   like,
   user,
   verticleDots,
-} from '../assets';
-import { toast } from 'react-toastify';
-import { useDeletePostByIdMutation } from '../services/post';
-import { copyToClipboard } from '../utils';
-import EditModal from './EditModal';
-import DynamicModal from './dynamic-modal';
+} from "../assets";
+import { toast } from "react-toastify";
+import { useDeletePostByIdMutation } from "../services/post";
+import { copyToClipboard } from "../utils";
+import EditModal from "./EditModal";
+import DynamicModal from "./dynamic-modal";
 import {
   ControlBar,
   CurrentTimeDisplay,
@@ -40,7 +40,7 @@ import {
   PlayToggle,
   ProgressControl,
   VolumeMenuButton,
-} from 'video-react';
+} from "video-react";
 
 const PostSlider = ({ page, posts, refetch }) => {
   const { user: userData } = useSelector((state) => state.auth);
@@ -74,31 +74,31 @@ const PostSlider = ({ page, posts, refetch }) => {
     useDeletePostByIdMutation();
 
   const HandleMenuItemClicked = async (e, event) => {
-    if (event === 'delete') {
+    if (event === "delete") {
       const res = await deletePost(postId);
       if (res?.error) {
-        toast.error(res?.error?.data?.message || 'Something went wrong');
+        toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
         refetch();
         toast.success(res?.data?.message);
       }
-    } else if (event === 'edit') {
+    } else if (event === "edit") {
       const currentPost = posts?.find((item) => item?.id === postId);
 
-      if (currentPost?.type === 'article') {
+      if (currentPost?.type === "article") {
         navigate(`/article/edit/${postId}`);
       } else {
         setEditModal(currentPost);
       }
-    } else if (event === 'copy') {
+    } else if (event === "copy") {
       copyToClipboard(`${import.meta.env.VITE_BASE_URL_FE}/post/${postId}`);
     }
     handleClose(e);
   };
 
   return (
-    <Box sx={{ maxWidth: '900px', margin: 'auto', padding: 2 }}>
+    <Box sx={{ maxWidth: "900px", margin: "auto", padding: 2 }}>
       <Box display="flex" justifyContent="flex-end" alignItems="center" mb={2}>
         <Box>
           <IconButton onClick={handlePrev} disabled={start === 0}>
@@ -115,15 +115,15 @@ const PostSlider = ({ page, posts, refetch }) => {
 
       <Box
         sx={{
-          display: 'flex',
-          overflow: 'hidden',
+          display: "flex",
+          overflow: "hidden",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
+            display: "flex",
             transform: `translateX(-${start * 320}px)`,
-            transition: 'transform 0.3s ease',
+            transition: "transform 0.3s ease",
             gap: 2,
           }}
         >
@@ -135,11 +135,11 @@ const PostSlider = ({ page, posts, refetch }) => {
               >
                 <CardContent
                   sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    padding: '0 !important',
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    padding: "0 !important",
                   }}
                 >
                   {/* Top Section */}
@@ -156,7 +156,7 @@ const PostSlider = ({ page, posts, refetch }) => {
                       justifyContent="center"
                     >
                       <img
-                        style={{ borderRadius: '5px' }}
+                        style={{ borderRadius: "5px" }}
                         width={60}
                         height={60}
                         src={page?.logoUrl ? page?.logoUrl : user}
@@ -164,19 +164,19 @@ const PostSlider = ({ page, posts, refetch }) => {
                       />
                       <Box>
                         <Typography
-                          sx={{ color: '#171717', lineHeight: '20px' }}
+                          sx={{ color: "#171717", lineHeight: "20px" }}
                         >
                           {page?.name}
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ color: '#505050', lineHeight: '20px' }}
+                          sx={{ color: "#505050", lineHeight: "20px" }}
                         >
                           {page?.followerCount} followers
                         </Typography>
                         <Stack direction="row" gap={1} alignItems="center">
                           <Typography
-                            sx={{ color: '#505050', lineHeight: '15px' }}
+                            sx={{ color: "#505050", lineHeight: "15px" }}
                             variant="body2"
                           >
                             {post?.postTime}
@@ -184,14 +184,14 @@ const PostSlider = ({ page, posts, refetch }) => {
                           <img
                             src={earth}
                             alt="Icon"
-                            style={{ width: '14px', height: '14px' }}
+                            style={{ width: "14px", height: "14px" }}
                           />
                         </Stack>
                       </Box>
                     </Stack>
                     <img
                       onClick={(e) => handleClick(e, post?.id)}
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: "pointer" }}
                       src={verticleDots}
                       alt="menu"
                     />
@@ -201,9 +201,9 @@ const PostSlider = ({ page, posts, refetch }) => {
                   <Box
                     sx={{
                       flex: 1, // makes this area expand/shrink
-                      overflow: 'hidden',
-                      display: 'flex',
-                      flexDirection: 'column',
+                      overflow: "hidden",
+                      display: "flex",
+                      flexDirection: "column",
                       gap: 1,
                       p: 1,
                     }}
@@ -212,55 +212,55 @@ const PostSlider = ({ page, posts, refetch }) => {
                       {post?.postContent}
                     </Typography>
 
-                    {post?.type === 'normal' && post?.postPic?.length > 0 && (
+                    {post?.type === "normal" && post?.postPic?.length > 0 && (
                       <img
                         style={{
-                          width: '100%',
-                          height: 'auto', // auto for responsiveness
-                          maxHeight: '200px',
-                          objectFit: 'cover',
-                          borderRadius: '8px',
+                          width: "100%",
+                          height: "auto", // auto for responsiveness
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
                         }}
                         src={post?.postPic[0]}
                       />
                     )}
 
-                    {post?.type === 'article' && post?.articleImage && (
+                    {post?.type === "article" && post?.articleImage && (
                       <img
                         style={{
-                          width: '100%',
-                          height: 'auto',
-                          maxHeight: '200px',
-                          objectFit: 'cover',
-                          borderRadius: '8px',
+                          width: "100%",
+                          height: "auto",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
                         }}
                         src={post?.articleImage}
                       />
                     )}
 
-                    {post?.type === 'event' && post?.eventImage && (
+                    {post?.type === "event" && post?.eventImage && (
                       <img
                         style={{
-                          width: '100%',
-                          height: 'auto',
-                          maxHeight: '200px',
-                          objectFit: 'cover',
-                          borderRadius: '8px',
+                          width: "100%",
+                          height: "auto",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
                         }}
                         src={post?.eventImage}
                       />
                     )}
 
-                    {post?.type === 'video' && post?.videoUrl && (
+                    {post?.type === "video" && post?.videoUrl && (
                       <Player
                         playsInline
                         poster={post?.thumbnail}
                         src={post?.videoUrl}
                         style={{
-                          width: '100%',
-                          maxHeight: '200px',
-                          objectFit: 'cover',
-                          borderRadius: '8px',
+                          width: "100%",
+                          maxHeight: "200px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
                         }}
                       >
                         <ControlBar autoHide={false}>
@@ -276,11 +276,11 @@ const PostSlider = ({ page, posts, refetch }) => {
                         </ControlBar>
                       </Player>
                     )}
-                    {post?.type === 'poll' && (
+                    {post?.type === "poll" && (
                       <Box
                         sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
+                          display: "flex",
+                          flexDirection: "column",
                           gap: 1,
                           mt: 1,
                         }}
@@ -298,7 +298,7 @@ const PostSlider = ({ page, posts, refetch }) => {
                         <RadioGroup
                           name={`poll-${post?.id}`} // unique name per poll
                           onChange={(e) =>
-                            console.log('Selected option:', e.target.value)
+                            console.log("Selected option:", e.target.value)
                           }
                         >
                           {post?.options?.map((option, index) => (
@@ -308,11 +308,11 @@ const PostSlider = ({ page, posts, refetch }) => {
                               control={<Radio />}
                               label={option}
                               sx={{
-                                border: '1px solid #e0e0e0',
-                                borderRadius: '8px',
+                                border: "1px solid #e0e0e0",
+                                borderRadius: "8px",
                                 px: 1,
                                 py: 0.5,
-                                '&:hover': { backgroundColor: '#f9f9f9' },
+                                "&:hover": { backgroundColor: "#f9f9f9" },
                               }}
                             />
                           ))}
@@ -337,7 +337,7 @@ const PostSlider = ({ page, posts, refetch }) => {
                     <Stack direction="row" justifyContent="center">
                       <img
                         onClick={() => navigate(`/post/${post?.id}`)}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                         src={comment}
                         alt="comment"
                       />
@@ -354,40 +354,40 @@ const PostSlider = ({ page, posts, refetch }) => {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         <MenuItem
-          onClick={(e) => HandleMenuItemClicked(e, 'edit')}
-          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
+          onClick={(e) => HandleMenuItemClicked(e, "edit")}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
         >
           <img
             src={editBlue}
             alt="Icon"
-            style={{ width: '24px', height: '24px' }}
+            style={{ width: "24px", height: "24px" }}
           />
           <Typography
-            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
           >
             Edit post
           </Typography>
         </MenuItem>
         <MenuItem
-          onClick={(e) => HandleMenuItemClicked(e, 'copy')}
-          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
+          onClick={(e) => HandleMenuItemClicked(e, "copy")}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
         >
           <img
             src={copyLink}
             alt="Icon"
-            style={{ width: '24px', height: '24px' }}
+            style={{ width: "24px", height: "24px" }}
           />
           <Typography
-            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
           >
             Copy link to post
           </Typography>
@@ -396,21 +396,21 @@ const PostSlider = ({ page, posts, refetch }) => {
           onClick={
             deletePostLoading
               ? () => {}
-              : (e) => HandleMenuItemClicked(e, 'delete')
+              : (e) => HandleMenuItemClicked(e, "delete")
           }
-          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
+          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
         >
           {!deletePostLoading && (
             <img
               src={deleteIcon}
               alt="Icon"
-              style={{ width: '24px', height: '24px' }}
+              style={{ width: "24px", height: "24px" }}
             />
           )}
           <Typography
-            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
+            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
           >
-            {deletePostLoading ? 'loading' : 'Delete post'}
+            {deletePostLoading ? "loading" : "Delete post"}
           </Typography>
         </MenuItem>
       </Menu>
@@ -425,7 +425,7 @@ const PostSlider = ({ page, posts, refetch }) => {
         isEditModal={true}
       >
         <EditModal
-          type={'normal'}
+          type={"normal"}
           title={showEditModal?.postContent}
           id={showEditModal?.id}
           normalPostData={{ images: showEditModal?.postPic }}

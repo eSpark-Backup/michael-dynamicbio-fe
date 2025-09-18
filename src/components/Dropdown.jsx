@@ -6,9 +6,9 @@ import {
   FormHelperText,
   Stack,
   Typography,
-} from '@mui/material';
-import { useState } from 'react';
-import { DropDownIcon } from '../assets';
+} from "@mui/material";
+import { useState } from "react";
+import { DropDownIcon } from "../assets";
 
 const CustomIcon = (props) => (
   <img
@@ -17,7 +17,7 @@ const CustomIcon = (props) => (
     alt="Dropdown Icon"
     width="16"
     height="8"
-    style={{ pointerEvents: 'none', position: 'relative', top: '0px' }}
+    style={{ pointerEvents: "none", position: "relative", top: "0px" }}
   />
 );
 
@@ -59,7 +59,7 @@ const Dropdown = ({
           )}
         </Stack>
       )}
-      <FormControl sx={{ width: '100%' }} variant="filled" error={error}>
+      <FormControl sx={{ width: "100%" }} variant="filled" error={error}>
         {!noLabel && (
           <InputLabel id="demo-simple-select-filled-label">
             {placeholder}
@@ -76,7 +76,7 @@ const Dropdown = ({
           IconComponent={CustomIcon}
           renderValue={(selected) => {
             if (!selected) {
-              return <span style={{ color: '#aaa' }}>Place holder</span>;
+              return <span style={{ color: "#aaa" }}>Place holder</span>;
             }
             const selectedOption = options?.find(
               (opt) => (!isCountries ? opt.value : opt.dialCode) === selected

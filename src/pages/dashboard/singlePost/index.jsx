@@ -6,15 +6,15 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Button, RightSideBar, SuggestionPost } from '../../../components';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useGetPostByIdQuery } from '../../../services/post';
-import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
-import { bondMain, user } from '../../../assets';
-import { getDaysLeft } from '../../../utils';
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Button, RightSideBar, SuggestionPost } from "../../../components";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetPostByIdQuery } from "../../../services/post";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
+import { bondMain, user } from "../../../assets";
+import { getDaysLeft } from "../../../utils";
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -25,7 +25,7 @@ const SinglePost = () => {
   });
   const [posts, setPosts] = useState([]);
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const [showMore, setShowMore] = useState(false);
   const navigate = useNavigate();
 
@@ -52,11 +52,11 @@ const SinglePost = () => {
               userData?.lastName?.toLowerCase()
         );
 
-      let lastLike = '';
+      let lastLike = "";
 
       const isOnlyUserLiked = item?.likes?.length === 1;
       if (isuserLiked && isOnlyUserLiked) {
-        lastLike = '';
+        lastLike = "";
       } else if (!isuserLiked) {
         lastLike = item?.lastLikedUser;
       } else if (Array.isArray(item?.likes)) {
@@ -85,33 +85,33 @@ const SinglePost = () => {
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
-        activity: '',
+        activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
+        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
         thumbnail:
-          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
-        question: item?.type === 'POLL' ? item?.poll?.question : '',
+          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
+        question: item?.type === "POLL" ? item?.poll?.question : "",
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
-        pollId: item?.poll?.id || '',
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+        pollId: item?.poll?.id || "",
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
+        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: 'bringback',
+        eventPost: "bringback",
         id: item?.id,
         articleImage:
-          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
-        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
-        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
+          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: item?.isBond,
         lastUserLiked: lastLike,
@@ -131,14 +131,14 @@ const SinglePost = () => {
         isPagePost: item?.isPagePost,
         isUserPost: !isOwnPost && !item?.isPagePost,
         isPageFollowing: item?.isPageFollowing,
-        pageId: item?.isPagePost ? item?.page?.id : '',
+        pageId: item?.isPagePost ? item?.page?.id : "",
         shareableLink: item?.shareableLink,
         groupPost: item?.isGroupPost,
         pinned: false,
         isAdminPost: false,
-        groupName: item?.isGroupPost ? item?.group?.name : '',
-        groupId: item?.isGroupPost ? item?.group?.id : '',
-        groupImage: item?.isGroupPost ? item?.group?.logoUrl : '',
+        groupName: item?.isGroupPost ? item?.group?.name : "",
+        groupId: item?.isGroupPost ? item?.group?.id : "",
+        groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
         isUserAdmin: item?.isAdmin || item?.isCreator,
       };
     });
@@ -146,18 +146,18 @@ const SinglePost = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: 'normal',
-      VIDEO: 'video',
-      TEXT: 'normal',
-      POLL: 'poll',
-      EVENT: 'event',
-      ARTICLE: 'article',
+      IMAGE: "normal",
+      VIDEO: "video",
+      TEXT: "normal",
+      POLL: "poll",
+      EVENT: "event",
+      ARTICLE: "article",
     };
-    return typeMap[type] || '';
+    return typeMap[type] || "";
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== 'POLL') return [];
+    if (item?.type !== "POLL") return [];
     const isVote = item?.poll?.votes?.find(
       (vote) => vote?.userId === userData?.id
     );
@@ -178,32 +178,32 @@ const SinglePost = () => {
   }
 
   return (
-    <Box sx={{ p: '20px' }}>
+    <Box sx={{ p: "20px" }}>
       <Grid2 container spacing={5}>
         <Grid2
           size={{ xs: 12, lg: 2.5 }}
-          sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
+          sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
         >
           <Paper
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              rowGap: '10px',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              rowGap: "10px",
             }}
           >
             <Box
               sx={{
-                backgroundColor: '#D9D9D9',
-                height: '71px',
-                position: 'relative',
-                width: '100%',
+                backgroundColor: "#D9D9D9",
+                height: "71px",
+                position: "relative",
+                width: "100%",
               }}
             >
               {userData && userData?.coverImage && (
                 <img
-                  style={{ height: '71px', width: '100%', objectFit: 'cover' }}
+                  style={{ height: "71px", width: "100%", objectFit: "cover" }}
                   src={userData?.coverImage}
                 />
               )}
@@ -215,45 +215,45 @@ const SinglePost = () => {
                 }
                 alt="Profile"
                 style={{
-                  position: 'absolute',
-                  top: '75%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '50%',
+                  position: "absolute",
+                  top: "75%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
                 }}
               />
             </Box>
-            <Box sx={{ pt: '25px' }}>
+            <Box sx={{ pt: "25px" }}>
               <Typography
                 onClick={() => navigate(`/profile/${userData?.id}`)}
                 sx={{
-                  fontSize: '20px',
+                  fontSize: "20px",
                   fontWeight: 500,
                   color: theme.palette.primary.dark,
-                  textAlign: 'center',
-                  cursor: 'pointer',
+                  textAlign: "center",
+                  cursor: "pointer",
                 }}
               >
                 {userData?.firstName} {userData?.lastName}
               </Typography>
               <Typography
                 sx={{
-                  fontSize: '12px',
-                  fontWeight: '400',
-                  color: '#505050',
-                  textAlign: 'center',
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  textAlign: "center",
                 }}
               >
                 {userData?.designation} at {userData?.company}
               </Typography>
               <Typography
                 sx={{
-                  fontSize: '12px',
-                  fontWeight: '400',
-                  color: '#505050',
-                  textAlign: 'center',
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  textAlign: "center",
                 }}
               >
                 {userData?.country}
@@ -265,16 +265,16 @@ const SinglePost = () => {
             <>
               <Paper
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  cursor: 'pointer',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
-                onClick={() => navigate('/bonds')}
+                onClick={() => navigate("/bonds")}
               >
                 <Typography
                   sx={{
-                    fontSize: '14px',
+                    fontSize: "14px",
                     fontWeight: 400,
                     color: theme.palette.primary.dark,
                   }}
@@ -286,59 +286,59 @@ const SinglePost = () => {
 
               <Paper
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '20px',
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "20px",
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: '14px',
+                    fontSize: "14px",
                     fontWeight: 400,
-                    color: '#171717',
-                    cursor: 'pointer',
+                    color: "#171717",
+                    cursor: "pointer",
                   }}
-                  onClick={() => navigate('/bonds?sub=group')}
+                  onClick={() => navigate("/bonds?sub=group")}
                 >
                   Groups
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: '14px',
+                    fontSize: "14px",
                     fontWeight: 400,
-                    color: '#171717',
-                    cursor: 'pointer',
+                    color: "#171717",
+                    cursor: "pointer",
                   }}
-                  onClick={() => navigate('/bonds?sub=events')}
+                  onClick={() => navigate("/bonds?sub=events")}
                 >
                   Events
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: '14px',
+                    fontSize: "14px",
                     fontWeight: 400,
-                    color: '#171717',
-                    cursor: 'pointer',
+                    color: "#171717",
+                    cursor: "pointer",
                   }}
-                  onClick={() => navigate('/save-posts')}
+                  onClick={() => navigate("/save-posts")}
                 >
                   Saved Items
                 </Typography>
                 <Box
                   sx={{
-                    borderTop: '1px solid #E4E4E4',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '50px',
-                    cursor: 'pointer',
+                    borderTop: "1px solid #E4E4E4",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "50px",
+                    cursor: "pointer",
                     color: theme.palette.primary.dark,
                   }}
-                  onClick={() => navigate('/bonds')}
+                  onClick={() => navigate("/bonds")}
                 >
                   <Typography
                     variant="gradientText"
-                    sx={{ fontSize: '14px', fontWeight: 400 }}
+                    sx={{ fontSize: "14px", fontWeight: 400 }}
                   >
                     Discover more
                   </Typography>
@@ -349,17 +349,17 @@ const SinglePost = () => {
 
           {isSmallScreen && (
             <Button onClick={() => setShowMore(!showMore)}>
-              {showMore ? 'Show Less' : 'Show More'}
+              {showMore ? "Show Less" : "Show More"}
             </Button>
           )}
         </Grid2>
 
         <Grid2
           size={{ xs: 12, lg: 6.5 }}
-          sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
+          sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
         >
           <Box
-            sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
+            sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
           >
             {posts.map((item) => (
               <SuggestionPost key={item.id} {...item} />

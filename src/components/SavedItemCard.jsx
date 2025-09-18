@@ -1,5 +1,5 @@
-import { Avatar, Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Avatar, Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 import {
   copyLink,
   dummyPhoto,
@@ -7,11 +7,11 @@ import {
   save,
   three_vertical_dots,
   user,
-} from '../assets';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useSavePostMutation } from '../services/post';
+} from "../assets";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useSavePostMutation } from "../services/post";
 
 const SavedItemCard = ({
   userImage,
@@ -37,7 +37,7 @@ const SavedItemCard = ({
   const [fullText, setFullText] = useState(text);
   const [expanded, setExpanded] = useState(false);
   const charLimit = 120;
-  console.log(setFullText, 'setFullText');
+  console.log(setFullText, "setFullText");
 
   const navigate = useNavigate();
 
@@ -59,42 +59,42 @@ const SavedItemCard = ({
   };
 
   const HandleMenuItemClicked = async (event) => {
-    if (event === 'Unsave') {
+    if (event === "Unsave") {
       const res = await savePostData({
         postId: id,
-        type: 'POST',
+        type: "POST",
       });
       if (res?.error) {
-        toast.error(res?.error?.data?.message || 'Something went wrong');
+        toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
         toast.success(res?.data?.message);
         handleRefetch();
       }
-    } else if (event === 'copy') {
+    } else if (event === "copy") {
       navigator.clipboard.writeText(shareableLink);
-      toast.success('Link copied successfully');
+      toast.success("Link copied successfully");
     }
     handleMenuClose();
   };
 
   return (
     <>
-      <Box sx={{ borderTop: '1px solid #E4E4E4', p: '15px' }}>
-        <Stack direction={'row'} gap={'10px'}>
+      <Box sx={{ borderTop: "1px solid #E4E4E4", p: "15px" }}>
+        <Stack direction={"row"} gap={"10px"}>
           {isGroupPost ? (
             <Box
               sx={{
-                width: '50px',
-                height: '50px',
+                width: "50px",
+                height: "50px",
                 backgroundImage: `url("${
                   groupImage ? groupImage : dummyPhoto
                 }")`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                position: 'relative',
-                mr: '10px',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                position: "relative",
+                mr: "10px",
               }}
             >
               <Avatar
@@ -103,10 +103,10 @@ const SavedItemCard = ({
                 sx={{
                   width: 30,
                   height: 30,
-                  objectFit: 'fill',
-                  position: 'absolute',
-                  right: '-10px',
-                  bottom: '-6px',
+                  objectFit: "fill",
+                  position: "absolute",
+                  right: "-10px",
+                  bottom: "-6px",
                 }}
               />
             </Box>
@@ -114,23 +114,23 @@ const SavedItemCard = ({
             <Avatar
               src={userImage ? userImage : user}
               alt="User"
-              sx={{ width: 40, height: 40, objectFit: 'fill' }}
+              sx={{ width: 40, height: 40, objectFit: "fill" }}
             />
           )}
-          <Stack width={'100%'}>
+          <Stack width={"100%"}>
             <Box
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '16px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >
                 {isGroupPost ? groupName : userName}
@@ -139,34 +139,34 @@ const SavedItemCard = ({
                 src={three_vertical_dots}
                 alt="Icon"
                 onClick={handleClick}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               />
             </Box>
-            {typeof role === 'string' ? (
+            {typeof role === "string" ? (
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 {isGroupPost
                   ? userName
                   : role?.length > 100
-                    ? role?.slice(0, 98) + '...'
+                    ? role?.slice(0, 98) + "..."
                     : role}
               </Typography>
             ) : (
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
-              >{`${role} ${role > 1 ? 'followers' : 'follower'}`}</Typography>
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+              >{`${role} ${role > 1 ? "followers" : "follower"}`}</Typography>
             )}
             <Box
-              sx={{ display: 'flex', columnGap: '5px', alignItems: 'center' }}
+              sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}
             >
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 {time}
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 •
               </Typography>
@@ -174,34 +174,34 @@ const SavedItemCard = ({
             </Box>
           </Stack>
         </Stack>
-        {type === 'normal' || type === 'video' ? (
+        {type === "normal" || type === "video" ? (
           <Box
             sx={{
-              display: 'flex',
-              columnGap: '15px',
-              alignItems: 'flex-start',
-              mt: '15px',
-              background: type === 'article' ? '#F2F8FD' : 'transparent',
-              cursor: 'pointer',
+              display: "flex",
+              columnGap: "15px",
+              alignItems: "flex-start",
+              mt: "15px",
+              background: type === "article" ? "#F2F8FD" : "transparent",
+              cursor: "pointer",
             }}
             onClick={() => navigate(`/post/${id}`)}
           >
             {postImage && (
-              <Box sx={{ position: 'relative', width: 80, height: 80 }}>
+              <Box sx={{ position: "relative", width: 80, height: 80 }}>
                 <Avatar
                   variant="rounded"
-                  src={postImage || '/path-to-your-image.png'}
+                  src={postImage || "/path-to-your-image.png"}
                   alt="Post"
                   sx={{ width: 80, height: 80 }}
                 />
-                {type === 'video' && (
+                {type === "video" && (
                   <PlayCircleIcon
                     sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      color: 'white',
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      color: "white",
                       fontSize: 40,
                       opacity: 0.8,
                     }}
@@ -212,10 +212,10 @@ const SavedItemCard = ({
             <Typography
               sx={{
                 fontWeight: 500,
-                fontSize: '15px',
-                color: '#505050',
-                py: type === 'article' ? '5px' : '0px',
-                px: type === 'article' && !postImage ? '15px' : '0px',
+                fontSize: "15px",
+                color: "#505050",
+                py: type === "article" ? "5px" : "0px",
+                px: type === "article" && !postImage ? "15px" : "0px",
               }}
             >
               {displayedText}
@@ -223,12 +223,12 @@ const SavedItemCard = ({
                 <Typography
                   sx={{
                     fontWeight: 500,
-                    fontSize: '15px',
-                    color: '#505050',
-                    ml: '3px',
-                    cursor: 'pointer',
+                    fontSize: "15px",
+                    color: "#505050",
+                    ml: "3px",
+                    cursor: "pointer",
                   }}
-                  component={'span'}
+                  component={"span"}
                   onClick={() => setExpanded(true)}
                 >
                   ...see more
@@ -236,15 +236,15 @@ const SavedItemCard = ({
               )}
             </Typography>
           </Box>
-        ) : type === 'poll' ? (
+        ) : type === "poll" ? (
           <Box>
             <Typography
               sx={{
                 fontWeight: 500,
-                fontSize: '15px',
-                color: '#505050',
-                py: type === 'article' ? '5px' : '0px',
-                px: type === 'article' && !postImage ? '15px' : '0px',
+                fontSize: "15px",
+                color: "#505050",
+                py: type === "article" ? "5px" : "0px",
+                px: type === "article" && !postImage ? "15px" : "0px",
               }}
             >
               {displayedText}
@@ -252,12 +252,12 @@ const SavedItemCard = ({
                 <Typography
                   sx={{
                     fontWeight: 500,
-                    fontSize: '15px',
-                    color: '#505050',
-                    ml: '3px',
-                    cursor: 'pointer',
+                    fontSize: "15px",
+                    color: "#505050",
+                    ml: "3px",
+                    cursor: "pointer",
                   }}
-                  component={'span'}
+                  component={"span"}
                   onClick={() => setExpanded(true)}
                 >
                   ...see more
@@ -266,41 +266,41 @@ const SavedItemCard = ({
             </Typography>
             <Box
               sx={{
-                backgroundColor: '#F2F8FD',
-                p: '20px 15px',
-                mt: '10px',
-                cursor: 'pointer',
+                backgroundColor: "#F2F8FD",
+                p: "20px 15px",
+                mt: "10px",
+                cursor: "pointer",
               }}
               onClick={() => navigate(`/post/${id}`)}
             >
               <Typography
-                sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
               >
                 {question}
               </Typography>
-              <Box sx={{ display: 'flex', columnGap: '4px' }}>
+              <Box sx={{ display: "flex", columnGap: "4px" }}>
                 <Typography
-                  sx={{ color: '#505050', fontSize: '13px', fontWeight: '400' }}
+                  sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}
                 >
                   Poll
                 </Typography>
                 <Typography
-                  sx={{ color: '#505050', fontSize: '13px', fontWeight: '400' }}
+                  sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}
                 >
                   •
                 </Typography>
                 <Typography
-                  sx={{ color: '#505050', fontSize: '13px', fontWeight: '400' }}
+                  sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}
                 >
                   {totalVotes} votes
                 </Typography>
                 <Typography
-                  sx={{ color: '#505050', fontSize: '13px', fontWeight: '400' }}
+                  sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}
                 >
                   •
                 </Typography>
                 <Typography
-                  sx={{ color: '#505050', fontSize: '13px', fontWeight: '400' }}
+                  sx={{ color: "#505050", fontSize: "13px", fontWeight: "400" }}
                 >
                   {pollTimeLeft}
                 </Typography>
@@ -312,10 +312,10 @@ const SavedItemCard = ({
             <Typography
               sx={{
                 fontWeight: 500,
-                fontSize: '15px',
-                color: '#505050',
-                pt: '10px',
-                px: type === 'article' && !postImage ? '15px' : '0px',
+                fontSize: "15px",
+                color: "#505050",
+                pt: "10px",
+                px: type === "article" && !postImage ? "15px" : "0px",
               }}
             >
               {displayedText}
@@ -323,12 +323,12 @@ const SavedItemCard = ({
                 <Typography
                   sx={{
                     fontWeight: 500,
-                    fontSize: '15px',
-                    color: '#505050',
-                    ml: '3px',
-                    cursor: 'pointer',
+                    fontSize: "15px",
+                    color: "#505050",
+                    ml: "3px",
+                    cursor: "pointer",
                   }}
-                  component={'span'}
+                  component={"span"}
                   onClick={() => setExpanded(true)}
                 >
                   ...see more
@@ -336,45 +336,45 @@ const SavedItemCard = ({
               )}
             </Typography>
             <Link
-              to={`${type === 'article' ? `/article/${id}` : `/event/${id}`}`}
+              to={`${type === "article" ? `/article/${id}` : `/event/${id}`}`}
               style={{
-                textDecoration: 'none',
-                mt: text === '' ? '10px' : '0px',
+                textDecoration: "none",
+                mt: text === "" ? "10px" : "0px",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '15px',
-                  alignItems: 'center',
-                  mt: '15px',
-                  background: '#F2F8FD',
+                  display: "flex",
+                  columnGap: "15px",
+                  alignItems: "center",
+                  mt: "15px",
+                  background: "#F2F8FD",
                 }}
               >
                 {postImage && (
                   <Avatar
                     variant="rounded"
-                    src={postImage || '/path-to-your-image.png'}
+                    src={postImage || "/path-to-your-image.png"}
                     alt="Post"
                     sx={{ width: 80, height: 80 }}
                   />
                 )}
 
-                {type === 'article' ? (
+                {type === "article" ? (
                   <Box
                     sx={{
                       flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
                     }}
                   >
                     <Typography
                       sx={{
                         fontWeight: 500,
-                        fontSize: '15px',
-                        color: '#505050',
-                        px: type === 'article' && !postImage ? '15px' : '0px',
+                        fontSize: "15px",
+                        color: "#505050",
+                        px: type === "article" && !postImage ? "15px" : "0px",
                       }}
                     >
                       {articleTitle}
@@ -382,9 +382,9 @@ const SavedItemCard = ({
                     <Typography
                       sx={{
                         fontWeight: 500,
-                        fontSize: '15px',
-                        color: '#505050',
-                        px: type === 'article' && !postImage ? '15px' : '0px',
+                        fontSize: "15px",
+                        color: "#505050",
+                        px: type === "article" && !postImage ? "15px" : "0px",
                       }}
                     >
                       {userName} on Fusion
@@ -394,18 +394,18 @@ const SavedItemCard = ({
                   <Box
                     sx={{
                       flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
                     }}
                   >
                     <Typography
                       sx={{
                         fontWeight: 500,
-                        fontSize: '15px',
-                        color: '#505050',
-                        textTransform: 'capitalize',
-                        px: type === 'event' && !postImage ? '15px' : '0px',
+                        fontSize: "15px",
+                        color: "#505050",
+                        textTransform: "capitalize",
+                        px: type === "event" && !postImage ? "15px" : "0px",
                       }}
                     >
                       {eventName}
@@ -423,41 +423,41 @@ const SavedItemCard = ({
         open={open}
         onClose={handleMenuClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         <MenuItem
           onClick={
             isSavingPostLoading
               ? () => {}
-              : () => HandleMenuItemClicked('Unsave')
+              : () => HandleMenuItemClicked("Unsave")
           }
-          sx={{ width: '245px', display: 'flex', columnGap: '5px' }}
+          sx={{ width: "245px", display: "flex", columnGap: "5px" }}
         >
           <img src={save} alt="Icon" />
           <Typography
-            sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+            sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
           >
             Unsave
           </Typography>
         </MenuItem>
-        {visibility === 'PUBLIC' && (
+        {visibility === "PUBLIC" && (
           <MenuItem
-            onClick={() => HandleMenuItemClicked('copy')}
-            sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+            onClick={() => HandleMenuItemClicked("copy")}
+            sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
           >
             <img
               src={copyLink}
               alt="Icon"
-              style={{ width: '24px', height: '24px' }}
+              style={{ width: "24px", height: "24px" }}
             />
             <Typography
-              sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+              sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
             >
               Copy link to post
             </Typography>

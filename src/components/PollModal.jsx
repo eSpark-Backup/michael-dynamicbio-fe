@@ -1,21 +1,21 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { useFormik } from 'formik';
-import { useEffect, useRef } from 'react';
-import Input from './Input';
-import { pollSchema } from '../schemas';
-import { plus } from '../assets';
-import Dropdown from './Dropdown';
-import { eventDuration } from '../constant';
-import Button from './button';
+import { Box, Stack, Typography } from "@mui/material";
+import { useFormik } from "formik";
+import { useEffect, useRef } from "react";
+import Input from "./Input";
+import { pollSchema } from "../schemas";
+import { plus } from "../assets";
+import Dropdown from "./Dropdown";
+import { eventDuration } from "../constant";
+import Button from "./button";
 
 const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
   const formik = useFormik({
     initialValues: {
-      question: '',
+      question: "",
       options: [],
-      opt1: '',
-      opt2: '',
-      duration: eventDuration[0]?.value || '',
+      opt1: "",
+      opt2: "",
+      duration: eventDuration[0]?.value || "",
     },
     validationSchema: pollSchema,
     onSubmit: (values) => {
@@ -37,39 +37,39 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
   }, [formik.values.options]);
 
   const handleAddOption = () => {
-    formik.setFieldValue('options', [...formik.values.options, '']);
+    formik.setFieldValue("options", [...formik.values.options, ""]);
   };
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
+      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
         <Box
           ref={scrollContainerRef}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '15px',
-            mt: '20px',
-            height: '250px',
-            overflowY: 'auto',
-            scrollbarWidth: 'none',
-            '::-webkit-scrollbar': {
-              display: 'none',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "15px",
+            mt: "20px",
+            height: "250px",
+            overflowY: "auto",
+            scrollbarWidth: "none",
+            "::-webkit-scrollbar": {
+              display: "none",
             },
-            pb: '10px',
+            pb: "10px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '3px',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "3px",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
             >
               Your question<sup>*</sup>
             </Typography>
@@ -88,15 +88,15 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '3px',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "3px",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
             >
               Option 1<sup>*</sup>
             </Typography>
@@ -115,15 +115,15 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '3px',
-              '.MuiOutlinedInput-root': { height: '65px !important' },
-              input: { paddingBottom: '20px' },
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "3px",
+              ".MuiOutlinedInput-root": { height: "65px !important" },
+              input: { paddingBottom: "20px" },
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
             >
               Option 2<sup>*</sup>
             </Typography>
@@ -145,15 +145,15 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
               <Box
                 key={index}
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '3px',
-                  '.MuiOutlinedInput-root': { height: '65px !important' },
-                  input: { paddingBottom: '20px' },
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "3px",
+                  ".MuiOutlinedInput-root": { height: "65px !important" },
+                  input: { paddingBottom: "20px" },
                 }}
               >
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
                 >
                   {`Option ${index + 3}`}
                 </Typography>
@@ -180,36 +180,36 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            columnGap: '15px',
-            alignItems: 'center',
-            cursor: 'pointer',
-            width: 'fit-content',
+            display: "flex",
+            columnGap: "15px",
+            alignItems: "center",
+            cursor: "pointer",
+            width: "fit-content",
           }}
           onClick={handleAddOption}
         >
           <Typography
             variant="gradientText"
-            sx={{ fontSize: '14px', fontWeight: 400 }}
+            sx={{ fontSize: "14px", fontWeight: 400 }}
           >
             Add more option
           </Typography>
           <img
             src={plus}
             alt="Icon"
-            style={{ width: '24px', height: '24px' }}
+            style={{ width: "24px", height: "24px" }}
           />
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '3px',
-            pb: '25px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "3px",
+            pb: "25px",
           }}
         >
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
             Poll duration
           </Typography>
@@ -217,7 +217,7 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
             variant="outlined"
             options={eventDuration}
             handleChange={(event) =>
-              formik.setFieldValue('duration', event.target.value)
+              formik.setFieldValue("duration", event.target.value)
             }
             onBlur={formik.handleBlur}
             value={formik.values.duration}
@@ -228,52 +228,52 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
           />
         </Box>
         <Stack
-          justifyContent={'space-between'}
-          alignItems={'center'}
+          justifyContent={"space-between"}
+          alignItems={"center"}
           px={6}
-          direction={'row'}
+          direction={"row"}
           gap={3}
           sx={{
-            height: '55px',
-            borderTop: '1px solid #E4E4E4',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            position: 'fixed',
-            bottom: '0px',
-            right: '0px',
+            height: "55px",
+            borderTop: "1px solid #E4E4E4",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            position: "fixed",
+            bottom: "0px",
+            right: "0px",
             zIndex: 999,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           }}
         >
           <Box
             sx={{
-              width: '150px',
-              height: '36px',
-              borderRadius: '2px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background: 'white',
-              position: 'relative',
-              '&::before': {
+              width: "150px",
+              height: "36px",
+              borderRadius: "2px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
+              position: "relative",
+              "&::before": {
                 content: '""',
-                position: 'absolute',
+                position: "absolute",
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                borderRadius: '8px',
-                padding: '1px',
+                borderRadius: "8px",
+                padding: "1px",
                 background:
-                  'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                  "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
                 WebkitMask:
-                  'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                WebkitMaskComposite: 'destination-out',
-                maskComposite: 'exclude',
+                  "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                WebkitMaskComposite: "destination-out",
+                maskComposite: "exclude",
               },
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
             onClick={handleBack}
           >
@@ -283,7 +283,7 @@ const PollModal = ({ isLoading, handleSuccess, handleBack }) => {
             disabled={isLoading}
             loading={isLoading}
             type="submit"
-            sx={{ width: '150px', height: '36px', fontSize: '16px' }}
+            sx={{ width: "150px", height: "36px", fontSize: "16px" }}
           >
             Post
           </Button>

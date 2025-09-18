@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Avatar, Box, OutlinedInput, Typography } from '@mui/material';
-import DynamicModal from './dynamic-modal';
-import PhotoModal from './PhotoModal';
-import VideoModal from './VideoModal';
-import PostModal from './PostModal';
-import EventModal from './EventModal';
-import ViewEventModal from './ViewEventModal';
-import ScheduleModal from './ScheduleModal';
-import GroupShareModal from './GroupShareModal';
-import PollModal from './PollModal';
-import { useNewPostMutation } from '../services/post';
-import { article, event, photo, user, video } from '../assets';
-import { addDays } from '../utils';
-import ViewPollPost from './ViewPollPost';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Avatar, Box, OutlinedInput, Typography } from "@mui/material";
+import DynamicModal from "./dynamic-modal";
+import PhotoModal from "./PhotoModal";
+import VideoModal from "./VideoModal";
+import PostModal from "./PostModal";
+import EventModal from "./EventModal";
+import ViewEventModal from "./ViewEventModal";
+import ScheduleModal from "./ScheduleModal";
+import GroupShareModal from "./GroupShareModal";
+import PollModal from "./PollModal";
+import { useNewPostMutation } from "../services/post";
+import { article, event, photo, user, video } from "../assets";
+import { addDays } from "../utils";
+import ViewPollPost from "./ViewPollPost";
 
 const PostCard = ({
   childComp,
@@ -32,8 +32,8 @@ const PostCard = ({
   const [showModal, setShowModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
-  const [title, setTitle] = useState('');
-  const [visibility, setVisibility] = useState('PUBLIC');
+  const [title, setTitle] = useState("");
+  const [visibility, setVisibility] = useState("PUBLIC");
   const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -79,7 +79,7 @@ const PostCard = ({
         if (res?.data) {
           toast.success(res?.data?.message);
           refetch && refetch();
-          setTitle('');
+          setTitle("");
           setShowPostModal(false);
           HandleModalClose();
           setVideoModal(false);
@@ -105,9 +105,9 @@ const PostCard = ({
       content: {
         title,
       },
-      status: isSchedulePost ? 'SCHEDULED' : 'PUBLISH',
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
-      type: 'TEXT',
+      type: "TEXT",
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
@@ -133,9 +133,9 @@ const PostCard = ({
       content: {
         title,
       },
-      status: isSchedulePost ? 'SCHEDULED' : 'PUBLISH',
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
-      type: 'IMAGE',
+      type: "IMAGE",
       images: selectedFiles,
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
@@ -161,9 +161,9 @@ const PostCard = ({
       content: {
         title,
       },
-      status: isSchedulePost ? 'SCHEDULED' : 'PUBLISH',
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
-      type: 'VIDEO',
+      type: "VIDEO",
       videos: [videoData?.video],
       thumbnails: videoData?.thumbnail ? [videoData?.thumbnail] : null,
       isSchedulePost,
@@ -187,7 +187,7 @@ const PostCard = ({
     const options = [values?.opt1, values?.opt2, ...values.options];
     const hasDuplicate = (arr) => new Set(arr).size !== arr.length;
     if (hasDuplicate(options)) {
-      toast.error('Duplicate options are not allowed');
+      toast.error("Duplicate options are not allowed");
       return;
     } else {
       setViewPollModal(true);
@@ -215,9 +215,9 @@ const PostCard = ({
         isAnonymous: false,
         allowAddOptions: false,
       },
-      status: isSchedulePost ? 'SCHEDULED' : 'PUBLISH',
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
-      type: 'POLL',
+      type: "POLL",
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
         ? {
@@ -244,9 +244,9 @@ const PostCard = ({
         ...rest,
         title,
       },
-      status: isSchedulePost ? 'SCHEDULED' : 'PUBLISH',
+      status: isSchedulePost ? "SCHEDULED" : "PUBLISH",
       visibility,
-      type: 'EVENT',
+      type: "EVENT",
       cover: selectedFile,
       isSchedulePost,
       ...(isSchedulePost && schedule?.date && schedule?.time
@@ -266,23 +266,23 @@ const PostCard = ({
   };
 
   const HandlePostTypeClick = (item) => {
-    if (item === 'Photo') {
+    if (item === "Photo") {
       fileInputRef.current.click();
-    } else if (item === 'Video') {
+    } else if (item === "Video") {
       videoInputRef.current.click();
-    } else if (item === 'Event') {
+    } else if (item === "Event") {
       setEventModal(true);
       setShowPostModal(false);
-    } else if (item === 'Poll') {
+    } else if (item === "Poll") {
       setPollModal(true);
       setShowPostModal(false);
-    } else if (item === 'Article') {
+    } else if (item === "Article") {
       if (page) {
         navigate(`/article?page=${JSON.stringify(page)}`);
       } else if (group) {
         navigate(`/article?group=${JSON.stringify(group)}`);
       } else {
-        navigate('/article');
+        navigate("/article");
       }
     }
   };
@@ -312,7 +312,7 @@ const PostCard = ({
       try {
         setVideoData({ video: file, thumbnail: null });
       } catch (error) {
-        console.error('Error generating thumbnail:', error);
+        console.error("Error generating thumbnail:", error);
       }
     }
   };
@@ -385,15 +385,15 @@ const PostCard = ({
       {childComp ? (
         React.cloneElement(childComp, { onClick: () => setShowPostModal(true) })
       ) : (
-        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '30px' }}>
+        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              columnGap: '30px',
-              flexDirection: { xs: 'column', md: 'row' },
-              rowGap: '5px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              columnGap: "30px",
+              flexDirection: { xs: "column", md: "row" },
+              rowGap: "5px",
             }}
           >
             <Avatar
@@ -408,19 +408,19 @@ const PostCard = ({
               sx={{
                 width: 60,
                 height: 60,
-                objectFit: 'fill',
-                cursor: 'pointer',
+                objectFit: "fill",
+                cursor: "pointer",
               }}
               onClick={() => navigate(`/profile/${userData?.id}`)}
             />
             <OutlinedInput
               placeholder="Start a post"
               sx={{
-                height: '60px',
-                width: '100%',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
+                height: "60px",
+                width: "100%",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
               }}
               readOnly
               onClick={() => setShowPostModal(true)}
@@ -428,42 +428,42 @@ const PostCard = ({
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              rowGap: '10px',
-              columnGap: '10px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              rowGap: "10px",
+              columnGap: "10px",
             }}
           >
             {[
-              { img: photo, label: 'Photo' },
-              { img: video, label: 'Video' },
-              { img: article, label: 'Article' },
-              { img: event, label: 'Event' },
+              { img: photo, label: "Photo" },
+              { img: video, label: "Video" },
+              { img: article, label: "Article" },
+              { img: event, label: "Event" },
             ].map((item, index) => (
               <Box
                 key={index}
                 sx={{
-                  width: { xs: '100%', md: '180px' },
-                  height: '50px',
-                  padding: '20px',
-                  backgroundColor: '#F8FCFF',
-                  borderRadius: '2px',
-                  display: 'flex',
-                  columnGap: '15px',
-                  alignItems: 'center',
-                  cursor: 'pointer',
+                  width: { xs: "100%", md: "180px" },
+                  height: "50px",
+                  padding: "20px",
+                  backgroundColor: "#F8FCFF",
+                  borderRadius: "2px",
+                  display: "flex",
+                  columnGap: "15px",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
                 onClick={() => HandlePostTypeClick(item.label)}
               >
                 <img
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                   src={item.img}
                   alt={item.label}
                 />
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: 500, color: '#505050' }}
+                  sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}
                 >
                   {item.label}
                 </Typography>
@@ -477,7 +477,7 @@ const PostCard = ({
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         multiple
         onChange={handleFileChange}
       />
@@ -486,7 +486,7 @@ const PostCard = ({
         type="file"
         ref={videoInputRef}
         accept="video/*"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={handleVideoChange}
       />
 
@@ -495,14 +495,14 @@ const PostCard = ({
         onSuccess={handleImagePost}
         open={showModal}
         handleClose={HandleModalClose}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
         setVisibility={setVisibility}
@@ -517,7 +517,7 @@ const PostCard = ({
           setTitle={setTitle}
           files={selectedFiles}
           setFiles={setSelectedFiles}
-          placeholder={'Say something about this photo'}
+          placeholder={"Say something about this photo"}
           handleClose={HandleModalClose}
         />
       </DynamicModal>
@@ -527,15 +527,15 @@ const PostCard = ({
         onSuccess={handleVideoPost}
         open={videoModal}
         handleClose={() => setVideoModal(false)}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => setGroupShareModal(true)}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         visibility={visibility}
         setVisibility={setVisibility}
         groupAdmin={groupAdmin}
@@ -550,7 +550,7 @@ const PostCard = ({
           title={title}
           setTitle={setTitle}
           file={videoData}
-          placeholder={'Say something about this video'}
+          placeholder={"Say something about this video"}
           handleClose={HandleVideoModalClose}
           handleThumbnailUpload={handleThumbnailUpload}
         />
@@ -562,22 +562,22 @@ const PostCard = ({
         open={showPostModal}
         handleClose={() => {
           setShowPostModal(false);
-          setTitle('');
+          setTitle("");
           setIsSchedulePost(false);
           setSchedule({
             date: null,
             time: null,
           });
         }}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => setGroupShareModal(true)}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         visibility={visibility}
         setVisibility={setVisibility}
         groupAdmin={groupAdmin}
@@ -590,7 +590,7 @@ const PostCard = ({
           title={title}
           setTitle={setTitle}
           fileChange={HandleSelectedFile}
-          placeholder={'What do you want to talk about?'}
+          placeholder={"What do you want to talk about?"}
           videoChange={handleVideoChange}
           openModal={HandlePostTypeClick}
         />
@@ -599,13 +599,13 @@ const PostCard = ({
       <DynamicModal
         open={eventModal}
         handleClose={() => setEventModal(false)}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
         groupAdmin={groupAdmin}
         page={page}
@@ -621,13 +621,13 @@ const PostCard = ({
       <DynamicModal
         open={viewEventModal}
         handleClose={HandleViewEventClose}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
@@ -661,15 +661,15 @@ const PostCard = ({
           setIsSchedulePost(true);
         }}
         handleClose={() => setShowScheduleModal(false)}
-        title={'Schedule post'}
-        buttonText={'Post'}
+        title={"Schedule post"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
         groupAdmin={groupAdmin}
         page={page}
         group={group}
@@ -685,12 +685,12 @@ const PostCard = ({
       <DynamicModal
         open={groupShareModal}
         handleClose={() => setGroupShareModal(false)}
-        title={'Repost to group'}
-        buttonText={'Save'}
+        title={"Repost to group"}
+        buttonText={"Save"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
         hideFooter={true}
         groupAdmin={groupAdmin}
         page={page}
@@ -702,8 +702,8 @@ const PostCard = ({
       <DynamicModal
         open={pollModal}
         handleClose={() => setPollModal(false)}
-        title={'Create a poll'}
-        buttonText={'Post'}
+        title={"Create a poll"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}

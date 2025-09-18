@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { authApi } from '../../services/auth';
-import { eventBus } from '../../utils';
-import { CHAT_LEFT } from '../../socket/events';
-import { createSocket, disconnectSocket } from '../../socket';
+import { createSlice } from "@reduxjs/toolkit";
+import { authApi } from "../../services/auth";
+import { eventBus } from "../../utils";
+import { CHAT_LEFT } from "../../socket/events";
+import { createSocket, disconnectSocket } from "../../socket";
 
 const initialState = {
   user: null,
 };
 
 const slice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      localStorage.removeItem('onlineUsers');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("onlineUsers");
       eventBus.emit(CHAT_LEFT);
       disconnectSocket();
     },
@@ -30,7 +30,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data?.user;
-        localStorage.setItem('user', JSON.stringify(data?.user));
+        localStorage.setItem("user", JSON.stringify(data?.user));
       }
     );
     builder.addMatcher(
@@ -38,7 +38,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data));
         createSocket();
       }
     );
@@ -47,7 +47,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data.user;
-        localStorage.setItem('token', data?.token);
+        localStorage.setItem("token", data?.token);
       }
     );
     builder.addMatcher(
@@ -55,7 +55,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data));
       }
     );
     builder.addMatcher(
@@ -63,7 +63,7 @@ const slice = createSlice({
       (state, { payload }) => {
         const { data } = payload;
         state.user = data;
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data));
       }
     );
   },

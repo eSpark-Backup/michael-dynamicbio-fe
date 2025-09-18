@@ -1,12 +1,12 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import OutlinedInput from './outline-input';
-import { searchIcon } from '../assets';
-import GroupMemberCard from './GroupMemberCard';
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import OutlinedInput from "./outline-input";
+import { searchIcon } from "../assets";
+import GroupMemberCard from "./GroupMemberCard";
 
 const GroupMembers = ({ data, refetch }) => {
   const [members, setMembers] = useState(data?.followers || []);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!data?.followers || !data?.admins) return;
@@ -18,13 +18,13 @@ const GroupMembers = ({ data, refetch }) => {
       isAdmin: adminIds.has(follower.id),
     }));
 
-    if (search === '') {
+    if (search === "") {
       setMembers(enrichedFollowers);
     } else {
       const query = search.toLowerCase().trim();
 
       const filtered = enrichedFollowers.filter((item) => {
-        const fullName = `${item?.firstName ?? ''} ${item?.lastName ?? ''}`
+        const fullName = `${item?.firstName ?? ""} ${item?.lastName ?? ""}`
           .toLowerCase()
           .trim();
         return fullName.includes(query);
@@ -35,57 +35,57 @@ const GroupMembers = ({ data, refetch }) => {
   }, [search, data?.followers, data?.admins]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
-      <Paper sx={{ display: 'flex', flexDirection: 'column', rowGap: '10px' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+      <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <Stack direction={'row'} gap={1} alignItems={'center'}>
+          <Stack direction={"row"} gap={1} alignItems={"center"}>
             <Typography
-              sx={{ fontSize: '20px', fontWeight: '500', color: '#171717' }}
+              sx={{ fontSize: "20px", fontWeight: "500", color: "#171717" }}
             >
               Members
             </Typography>
             <Typography
-              sx={{ fontSize: '16px', fontWeight: '400', color: '#505050' }}
+              sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
             >
               •
             </Typography>
             <Typography
-              sx={{ fontSize: '16px', fontWeight: '400', color: '#505050' }}
+              sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
             >
               {data?.followerCount} people
             </Typography>
           </Stack>
-          <Box sx={{ width: '35%' }}>
+          <Box sx={{ width: "35%" }}>
             <OutlinedInput
               value={search}
               onInputChange={(e) => setSearch(e.target.value)}
-              placeholder={'Search group members'}
+              placeholder={"Search group members"}
               startAdornment={searchIcon}
               sx={{
-                height: '42px',
-                width: '100%',
-                backgroundColor: '#FCFCFC',
-                borderRadius: '4px',
-                '& .MuiOutlinedInput-root': {
-                  border: '1px solid #E4E4E4',
-                  height: '100%',
-                  backgroundColor: '#FCFCFC',
-                  borderRadius: '4px',
+                height: "42px",
+                width: "100%",
+                backgroundColor: "#FCFCFC",
+                borderRadius: "4px",
+                "& .MuiOutlinedInput-root": {
+                  border: "1px solid #E4E4E4",
+                  height: "100%",
+                  backgroundColor: "#FCFCFC",
+                  borderRadius: "4px",
                 },
-                '& .MuiOutlinedInput-notchedOutline': {
-                  border: '1px solid #E4E4E4',
+                "& .MuiOutlinedInput-notchedOutline": {
+                  border: "1px solid #E4E4E4",
                 },
               }}
             />
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           {members?.length > 0 ? (
             members?.map((item, index) => {
               return (
@@ -94,10 +94,10 @@ const GroupMembers = ({ data, refetch }) => {
                   groupId={data?.id}
                   id={item?.id}
                   profile={item?.profileImage}
-                  mainType={'members'}
+                  mainType={"members"}
                   name={`${item?.firstName} ${item?.lastName}`}
                   role={item?.designation}
-                  groupRole={item?.isAdmin ? 'admin' : 'member'}
+                  groupRole={item?.isAdmin ? "admin" : "member"}
                   key={index}
                 />
               );

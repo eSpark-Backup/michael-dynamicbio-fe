@@ -1,42 +1,42 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Box, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import {
   PageCard,
   SuggestedBonds,
   SuggestionPost,
-} from '../../../../components';
-import { getDaysLeft, useQuery } from '../../../../utils';
+} from "../../../../components";
+import { getDaysLeft, useQuery } from "../../../../utils";
 import {
   useAllBondsReqQuery,
   useUpdateBondReqMutation,
-} from '../../../../services/bonds';
-import { addBond, deleteBond, userAvatar } from '../../../../assets';
-import { useGetUniversalSearchQuery } from '../../../../services/general';
+} from "../../../../services/bonds";
+import { addBond, deleteBond, userAvatar } from "../../../../assets";
+import { useGetUniversalSearchQuery } from "../../../../services/general";
 import {
   useDeletePageMutation,
   useFollowPageMutation,
-} from '../../../../services/page';
+} from "../../../../services/page";
 import {
   useDeleteGroupMutation,
   useFollowGroupMutation,
-} from '../../../../services/group';
-import dayjs from 'dayjs';
+} from "../../../../services/group";
+import dayjs from "dayjs";
 
 const SearchBonds = () => {
   const sent = false;
   const { user } = useSelector((state) => state.auth);
   const { search } = useSelector((state) => state.search);
   const query = useQuery();
-  const q = query.get('q');
-  const filter = query.get('filter');
+  const q = query.get("q");
+  const filter = query.get("filter");
   const {
     data,
     refetch: refetchSearch,
     isLoading: isSearchLoading,
   } = useGetUniversalSearchQuery(
-    { page: 1, pageSize: 50, keyword: q, type: 'all' },
+    { page: 1, pageSize: 50, keyword: q, type: "all" },
     { refetchOnMountOrArgChange: true }
   );
 
@@ -112,7 +112,7 @@ const SearchBonds = () => {
     error: reqError,
     refetch,
   } = useAllBondsReqQuery(
-    { type: 'received', search },
+    { type: "received", search },
     {
       refetchOnMountOrArgChange: true,
     }
@@ -156,11 +156,11 @@ const SearchBonds = () => {
               user?.lastName?.toLowerCase()
         );
 
-      let lastLike = '';
+      let lastLike = "";
 
       const isOnlyUserLiked = item?.likes?.length === 1;
       if (isuserLiked && isOnlyUserLiked) {
-        lastLike = '';
+        lastLike = "";
       } else if (!isuserLiked) {
         lastLike = item?.lastLikedUser;
       } else if (Array.isArray(item?.likes)) {
@@ -189,33 +189,33 @@ const SearchBonds = () => {
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
-        activity: '',
+        activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
+        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
         thumbnail:
-          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
-        question: item?.type === 'POLL' ? item?.poll?.question : '',
+          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
+        question: item?.type === "POLL" ? item?.poll?.question : "",
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
-        pollId: item?.poll?.id || '',
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+        pollId: item?.poll?.id || "",
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
+        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: 'bringback',
+        eventPost: "bringback",
         id: item?.id,
         articleImage:
-          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
-        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
-        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
+          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: item?.isBond,
         lastUserLiked: lastLike,
@@ -237,14 +237,14 @@ const SearchBonds = () => {
         isPagePost: item?.isPagePost,
         isUserPost: !isOwnPost && !item?.isPagePost,
         isPageFollowing: item?.isPageFollowing,
-        pageId: item?.isPagePost ? item?.page?.id : '',
+        pageId: item?.isPagePost ? item?.page?.id : "",
         shareableLink: item?.shareableLink,
         groupPost: item?.isGroupPost,
         pinned: false,
         isAdminPost: true,
-        groupName: item?.isGroupPost ? item?.group?.name : '',
-        groupId: item?.isGroupPost ? item?.group?.id : '',
-        groupImage: item?.isGroupPost ? item?.group?.logoUrl : '',
+        groupName: item?.isGroupPost ? item?.group?.name : "",
+        groupId: item?.isGroupPost ? item?.group?.id : "",
+        groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
         isUserAdmin: item?.isAdmin || item?.isCreator,
       };
     });
@@ -252,18 +252,18 @@ const SearchBonds = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: 'normal',
-      VIDEO: 'video',
-      TEXT: 'normal',
-      POLL: 'poll',
-      EVENT: 'event',
-      ARTICLE: 'article',
+      IMAGE: "normal",
+      VIDEO: "video",
+      TEXT: "normal",
+      POLL: "poll",
+      EVENT: "event",
+      ARTICLE: "article",
     };
-    return typeMap[type] || '';
+    return typeMap[type] || "";
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== 'POLL') return [];
+    if (item?.type !== "POLL") return [];
     const isVote = item?.poll?.votes?.find((vote) => vote?.userId === user?.id);
     const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
@@ -280,7 +280,7 @@ const SearchBonds = () => {
   if (reqLoading || isSearchLoading) {
     return (
       <Stack justifyContent="center" alignItems="center">
-        <CircularProgress sx={{ color: '#1877F2' }} />
+        <CircularProgress sx={{ color: "#1877F2" }} />
       </Stack>
     );
   }
@@ -290,26 +290,26 @@ const SearchBonds = () => {
       <Typography
         fontSize="22px"
         sx={{
-          background: '#FFF',
-          border: '1px solid #E4E4E4',
-          borderRadius: '4px',
-          padding: '18px 30px',
+          background: "#FFF",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
+          padding: "18px 30px",
         }}
       >
         {q}
       </Typography>
-      {filter === 'all' || filter === 'people' ? (
+      {filter === "all" || filter === "people" ? (
         isUpdateReqLoading || reqLoading || isFetching ? (
           <Stack direction="row" justifyContent="center" alignItems="center">
-            <CircularProgress sx={{ color: '#1877F2' }} />
+            <CircularProgress sx={{ color: "#1877F2" }} />
           </Stack>
         ) : requests?.length > 0 ? (
           <Box
             sx={{
-              padding: '23px 32px',
-              background: '#fff',
-              border: '1px solid #E4E4E4',
-              borderRadius: '4px',
+              padding: "23px 32px",
+              background: "#fff",
+              border: "1px solid #E4E4E4",
+              borderRadius: "4px",
             }}
           >
             <Stack
@@ -326,10 +326,10 @@ const SearchBonds = () => {
                 alignItems="center"
                 justifyContent="space-between"
                 sx={{
-                  border: '1px solid #DDE2E4',
-                  background: '#F2F8FD',
-                  borderRadius: '4px',
-                  padding: '10px 26px 10px 22px',
+                  border: "1px solid #DDE2E4",
+                  background: "#F2F8FD",
+                  borderRadius: "4px",
+                  padding: "10px 26px 10px 22px",
                   mt: 2,
                   mb: 1,
                 }}
@@ -343,7 +343,7 @@ const SearchBonds = () => {
                   <img
                     width={73}
                     height={73}
-                    style={{ borderRadius: '50%' }}
+                    style={{ borderRadius: "50%" }}
                     src={
                       sent
                         ? item?.recipient?.profileImage
@@ -353,7 +353,7 @@ const SearchBonds = () => {
                   />
                   <Box>
                     <Typography
-                      sx={{ cursor: 'pointer' }}
+                      sx={{ cursor: "pointer" }}
                       fontSize="17px"
                       fontWeight={300}
                     >
@@ -368,7 +368,7 @@ const SearchBonds = () => {
                       }`}
                     </Typography>
                     <Typography
-                      sx={{ color: '#505050' }}
+                      sx={{ color: "#505050" }}
                       fontSize="14px"
                       fontWeight={400}
                     >
@@ -383,7 +383,7 @@ const SearchBonds = () => {
                       }” `}
                     </Typography>
                     <Typography
-                      sx={{ color: '#505050' }}
+                      sx={{ color: "#505050" }}
                       fontSize="14px"
                       fontWeight={400}
                     >
@@ -399,14 +399,14 @@ const SearchBonds = () => {
                 </Stack>
                 {sent ? (
                   <Typography
-                    onClick={() => handleBond(item?.id, 'canceled')}
+                    onClick={() => handleBond(item?.id, "canceled")}
                     fontSize="14px"
                     sx={{
-                      cursor: 'pointer',
+                      cursor: "pointer",
                       background:
-                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                      '-webkit-background-clip': 'text',
-                      '-webkit-text-fill-color': 'transparent',
+                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                      "-webkit-background-clip": "text",
+                      "-webkit-text-fill-color": "transparent",
                     }}
                   >
                     Withdraw
@@ -419,14 +419,14 @@ const SearchBonds = () => {
                     gap={1.5}
                   >
                     <img
-                      onClick={() => handleBond(item?.id, 'rejected')}
-                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleBond(item?.id, "rejected")}
+                      style={{ cursor: "pointer" }}
                       src={deleteBond}
                       alt="trash"
                     />
                     <img
-                      onClick={() => handleBond(item?.id, 'accepted')}
-                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleBond(item?.id, "accepted")}
+                      style={{ cursor: "pointer" }}
                       src={addBond}
                       alt="bond"
                     />
@@ -437,10 +437,10 @@ const SearchBonds = () => {
           </Box>
         ) : null
       ) : null}
-      {(filter === 'all' || filter === 'people') && (
+      {(filter === "all" || filter === "people") && (
         <SuggestedBonds refetch={refetch} search={search} />
       )}
-      {(filter === 'all' || filter === 'group') &&
+      {(filter === "all" || filter === "group") &&
         data?.data?.group?.groups?.length > 0 && (
           <Paper>
             <Typography>Groups</Typography>
@@ -448,17 +448,17 @@ const SearchBonds = () => {
               <Box mt={2} key={index}>
                 <PageCard
                   bgNotWhite
-                  mainType={'group'}
+                  mainType={"group"}
                   isFollowLoading={isGroupFollowLoading}
                   handleFollow={handleFollowGroup}
                   isDeleteLoading={isGroupDeleteLoading}
                   handleDelete={handleDeleteGroup}
                   type={
                     group?.creatorId === user?.id
-                      ? 'my-groups'
+                      ? "my-groups"
                       : group?.isFollowing
-                        ? 'joined-groups'
-                        : 'all-groups'
+                        ? "joined-groups"
+                        : "all-groups"
                   }
                   key={group.id}
                   {...group}
@@ -467,7 +467,7 @@ const SearchBonds = () => {
             ))}
           </Paper>
         )}
-      {(filter === 'all' || filter === 'page') &&
+      {(filter === "all" || filter === "page") &&
         data?.data?.page?.pages?.length > 0 && (
           <Paper>
             <Typography>Pages</Typography>
@@ -478,7 +478,7 @@ const SearchBonds = () => {
                   handleFollow={handleFollowPage}
                   isDeleteLoading={isPageDeleteLoading}
                   handleDelete={handleDeletePage}
-                  type={page?.creatorId === user?.id ? 'my-pages' : ''}
+                  type={page?.creatorId === user?.id ? "my-pages" : ""}
                   key={page.id}
                   {...page}
                 />
@@ -486,10 +486,10 @@ const SearchBonds = () => {
             ))}
           </Paper>
         )}
-      {(filter === 'all' || filter === 'post') &&
+      {(filter === "all" || filter === "post") &&
         data?.data?.post?.posts?.length > 0 && (
           <Box
-            sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
+            sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
           >
             {transformPosts(data?.data?.post?.posts).map((item) => (
               <SuggestionPost

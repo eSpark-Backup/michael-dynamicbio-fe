@@ -1,23 +1,23 @@
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import { Box, Stack, Typography } from '@mui/material';
-import { Input, Button } from '../../../components';
-import { useQuery } from '../../../utils';
-import { ForgetPasswordSchema } from '../../../schemas';
-import { useResetPasswordMutation } from '../../../services/auth';
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import { Box, Stack, Typography } from "@mui/material";
+import { Input, Button } from "../../../components";
+import { useQuery } from "../../../utils";
+import { ForgetPasswordSchema } from "../../../schemas";
+import { useResetPasswordMutation } from "../../../services/auth";
 
 const ForgetPassword = () => {
   const query = useQuery();
-  const token = query.get('token');
-  const expiresAt = query.get('expiresAt');
+  const token = query.get("token");
+  const expiresAt = query.get("expiresAt");
   const navigate = useNavigate();
   const [resetPw, { isLoading }] = useResetPasswordMutation();
 
   const formik = useFormik({
     initialValues: {
-      password: '',
-      conPassword: '',
+      password: "",
+      conPassword: "",
     },
     validationSchema: ForgetPasswordSchema,
     onSubmit: (values) => {
@@ -32,7 +32,7 @@ const ForgetPassword = () => {
         }
         if (res) {
           toast.success(res?.data?.message);
-          navigate('/reset-success');
+          navigate("/reset-success");
         }
       });
     },
@@ -40,21 +40,21 @@ const ForgetPassword = () => {
 
   return (
     <Stack
-      sx={{ width: { xs: '100%', md: '90%', lg: '77%', xl: '706px' } }}
+      sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
       direction="column"
       alignItems="center"
       justifyItems="flex-start"
-      component={'form'}
+      component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography sx={{ fontSize: { xs: '28px', md: '40px' } }}>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Set New Password
       </Typography>
-      <Box sx={{ width: '100%', marginTop: '48px' }}>
+      <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
-          label={'Enter Password'}
-          name={'password'}
-          type={'password'}
+          label={"Enter Password"}
+          name={"password"}
+          type={"password"}
           value={formik.values.password}
           handleChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -62,11 +62,11 @@ const ForgetPassword = () => {
           helperText={formik.touched.password && formik.errors.password}
         />
       </Box>
-      <Box sx={{ width: '100%', marginTop: '24px' }}>
+      <Box sx={{ width: "100%", marginTop: "24px" }}>
         <Input
-          label={'Re-enter Password'}
-          name={'conPassword'}
-          type={'password'}
+          label={"Re-enter Password"}
+          name={"conPassword"}
+          type={"password"}
           value={formik.values.conPassword}
           handleChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -78,9 +78,9 @@ const ForgetPassword = () => {
       </Box>
       <Typography
         sx={{
-          width: '100%',
-          marginTop: '24px',
-          fontSize: '17px',
+          width: "100%",
+          marginTop: "24px",
+          fontSize: "17px",
           fontWeight: 300,
         }}
         textAlign="left"
@@ -89,9 +89,9 @@ const ForgetPassword = () => {
       </Typography>
       <Box
         sx={{
-          width: '100%',
-          marginLeft: '60px',
-          li: { fontSize: '17px', fontWeight: 300 },
+          width: "100%",
+          marginLeft: "60px",
+          li: { fontSize: "17px", fontWeight: 300 },
         }}
         component="ul"
       >
@@ -109,7 +109,7 @@ const ForgetPassword = () => {
         <Typography component="li">Must not had been used before.</Typography>
       </Box>
 
-      <Box sx={{ width: '250px', marginTop: '155px', mb: 5 }}>
+      <Box sx={{ width: "250px", marginTop: "155px", mb: 5 }}>
         <Button loading={isLoading} type="submit">
           Done
         </Button>

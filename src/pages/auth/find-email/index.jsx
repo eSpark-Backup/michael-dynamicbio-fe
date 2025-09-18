@@ -1,17 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useFormik } from 'formik';
-import { Box, Stack, Typography } from '@mui/material';
-import { Input, Button } from '../../../components';
-import { findEmailSchema } from '../../../schemas';
-import { useFindEmailMutation } from '../../../services/auth';
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import { Box, Stack, Typography } from "@mui/material";
+import { Input, Button } from "../../../components";
+import { findEmailSchema } from "../../../schemas";
+import { useFindEmailMutation } from "../../../services/auth";
 
 const FindEmail = () => {
   const navigate = useNavigate();
   const [findEmail, { isLoading }] = useFindEmailMutation();
   const formik = useFormik({
     initialValues: {
-      email: '',
+      email: "",
     },
     validationSchema: findEmailSchema,
     onSubmit: (values) => {
@@ -23,7 +23,7 @@ const FindEmail = () => {
         if (res) {
           navigate(
             `/select-email?email=${res?.data?.data?.email}${
-              res?.data?.data?.image ? `&image=${res?.data?.data?.image}` : ''
+              res?.data?.data?.image ? `&image=${res?.data?.data?.image}` : ""
             }`
           );
         }
@@ -32,24 +32,24 @@ const FindEmail = () => {
   });
   return (
     <Stack
-      sx={{ width: { xs: '100%', md: '90%', lg: '77%', xl: '706px' } }}
+      sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
       direction="column"
       alignItems="center"
       justifyItems="flex-start"
-      component={'form'}
+      component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography sx={{ fontSize: { xs: '28px', md: '40px' } }}>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Find Your Account
       </Typography>
-      <Typography sx={{ width: '100%', textalign: 'left', marginTop: '48px' }}>
+      <Typography sx={{ width: "100%", textalign: "left", marginTop: "48px" }}>
         Please enter your email address to search for your account.
       </Typography>
-      <Box sx={{ width: '100%', marginTop: '24px' }}>
+      <Box sx={{ width: "100%", marginTop: "24px" }}>
         <Input
-          label={'Email'}
-          name={'email'}
-          type={'email'}
+          label={"Email"}
+          name={"email"}
+          type={"email"}
           value={formik.values.email}
           handleChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -57,18 +57,18 @@ const FindEmail = () => {
           helperText={formik.touched.email && formik.errors.email}
         />
       </Box>
-      <Box sx={{ marginTop: '132px', width: '250px' }}>
+      <Box sx={{ marginTop: "132px", width: "250px" }}>
         <Button loading={isLoading} type="submit">
           Search
         </Button>
       </Box>
-      <Typography sx={{ marginTop: '24px', mb: 5 }}>
+      <Typography sx={{ marginTop: "24px", mb: 5 }}>
         Back to
         <Link
           style={{
-            textDecoration: 'none',
-            marginLeft: '8px',
-            width: '100%',
+            textDecoration: "none",
+            marginLeft: "8px",
+            width: "100%",
           }}
           to="/login"
         >

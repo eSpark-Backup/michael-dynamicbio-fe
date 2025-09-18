@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -7,17 +7,17 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import { Checkbox, FormControlLabel, Box, Typography } from '@mui/material';
+} from "recharts";
+import { Checkbox, FormControlLabel, Box, Typography } from "@mui/material";
 
 const data = [
-  { date: 'Mar 5', newMembers: 0, activeMembers: 0 },
-  { date: 'Mar 8', newMembers: 0, activeMembers: 0 },
-  { date: 'Mar 11', newMembers: 0, activeMembers: 0 },
-  { date: 'Mar 14', newMembers: 0, activeMembers: 0 },
-  { date: 'Mar 17', newMembers: 2, activeMembers: 1 },
-  { date: 'Mar 18', newMembers: 0, activeMembers: 5 },
-  { date: 'Mar 19', newMembers: 2, activeMembers: 13 },
+  { date: "Mar 5", newMembers: 0, activeMembers: 0 },
+  { date: "Mar 8", newMembers: 0, activeMembers: 0 },
+  { date: "Mar 11", newMembers: 0, activeMembers: 0 },
+  { date: "Mar 14", newMembers: 0, activeMembers: 0 },
+  { date: "Mar 17", newMembers: 2, activeMembers: 1 },
+  { date: "Mar 18", newMembers: 0, activeMembers: 5 },
+  { date: "Mar 19", newMembers: 2, activeMembers: 13 },
 ];
 
 export default function GroupAnalyticsChart() {
@@ -25,7 +25,7 @@ export default function GroupAnalyticsChart() {
   const [showActive, setShowActive] = useState(true);
 
   return (
-    <Box sx={{ width: '100%', height: 500 }}>
+    <Box sx={{ width: "100%", height: 500 }}>
       <ResponsiveContainer width="100%" height="80%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -57,8 +57,8 @@ export default function GroupAnalyticsChart() {
       </ResponsiveContainer>
 
       {/* Custom Legend */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -68,14 +68,14 @@ export default function GroupAnalyticsChart() {
               />
             }
             label=""
-            sx={{ mr: '0px' }}
+            sx={{ mr: "0px" }}
           />
           <Box
-            sx={{ width: '21px', height: '2px', backgroundColor: '#007bff' }}
+            sx={{ width: "21px", height: "2px", backgroundColor: "#007bff" }}
           />
-          <Typography sx={{ ml: '10px' }}>New members</Typography>
+          <Typography sx={{ ml: "10px" }}>New members</Typography>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -85,20 +85,20 @@ export default function GroupAnalyticsChart() {
               />
             }
             label=""
-            sx={{ mr: '0px' }}
+            sx={{ mr: "0px" }}
           />
-          <Box sx={{ display: 'flex', columnGap: '3px' }}>
+          <Box sx={{ display: "flex", columnGap: "3px" }}>
             <Box
-              sx={{ width: '5px', height: '2px', backgroundColor: '#a3a300' }}
+              sx={{ width: "5px", height: "2px", backgroundColor: "#a3a300" }}
             />
             <Box
-              sx={{ width: '5px', height: '2px', backgroundColor: '#a3a300' }}
+              sx={{ width: "5px", height: "2px", backgroundColor: "#a3a300" }}
             />
             <Box
-              sx={{ width: '5px', height: '2px', backgroundColor: '#a3a300' }}
+              sx={{ width: "5px", height: "2px", backgroundColor: "#a3a300" }}
             />
           </Box>
-          <Typography sx={{ ml: '10px' }}>Active members</Typography>
+          <Typography sx={{ ml: "10px" }}>Active members</Typography>
         </Box>
       </Box>
     </Box>

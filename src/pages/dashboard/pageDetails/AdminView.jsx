@@ -6,9 +6,9 @@ import {
   Grid2,
   Paper,
   Typography,
-} from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import { dummyPhoto, edit, noPosts } from '../../../assets';
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { dummyPhoto, edit, noPosts } from "../../../assets";
 import {
   CreateAdminPost,
   DynamicModal,
@@ -21,25 +21,25 @@ import {
   ScheduleModal,
   VideoModal,
   ViewEventModal,
-} from '../../../components';
+} from "../../../components";
 import {
   convertToFormData,
   generateThumbnail,
   getDaysLeft,
-} from '../../../utils';
-import DashboardSection from './DashboardSection';
-import PagePosts from './PagePosts';
-import ActivitySection from './ActivitySection';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "../../../utils";
+import DashboardSection from "./DashboardSection";
+import PagePosts from "./PagePosts";
+import ActivitySection from "./ActivitySection";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useEditPageMutation,
   useGetPageByIdQuery,
   useGetPostsByPageQuery,
-} from '../../../services/page';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
-import EditPage from './EditPage';
+} from "../../../services/page";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
+import EditPage from "./EditPage";
 
 const AdminView = () => {
   const { id } = useParams();
@@ -86,8 +86,8 @@ const AdminView = () => {
     }
   };
 
-  const items = ['Dashboard', 'Page posts', 'Edit page'];
-  const [activeItem, setActiveItem] = useState('Dashboard');
+  const items = ["Dashboard", "Page posts", "Edit page"];
+  const [activeItem, setActiveItem] = useState("Dashboard");
   const [showPostModal, setShowPostModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [videoData, setVideoData] = useState({ video: null, thumbnail: null });
@@ -142,24 +142,24 @@ const AdminView = () => {
         const thumbnail = await generateThumbnail(file);
         setVideoData({ video: file, thumbnail });
       } catch (error) {
-        console.error('Error generating thumbnail:', error);
+        console.error("Error generating thumbnail:", error);
       }
     }
   };
 
   const HandlePostTypeClick = (item) => {
-    if (item === 'Photo') {
+    if (item === "Photo") {
       fileInputRef.current.click();
-    } else if (item === 'Video') {
+    } else if (item === "Video") {
       videoInputRef.current.click();
-    } else if (item === 'Event') {
+    } else if (item === "Event") {
       setEventModal(true);
       setShowPostModal(false);
-    } else if (item === 'Poll') {
+    } else if (item === "Poll") {
       setPollModal(true);
       setShowPostModal(false);
-    } else if (item === 'Article') {
-      navigate('/article');
+    } else if (item === "Article") {
+      navigate("/article");
     }
   };
 
@@ -256,11 +256,11 @@ const AdminView = () => {
               userData?.lastName?.toLowerCase()
         );
 
-      let lastLike = '';
+      let lastLike = "";
 
       const isOnlyUserLiked = item?.likes?.length === 1;
       if (isuserLiked && isOnlyUserLiked) {
-        lastLike = '';
+        lastLike = "";
       } else if (!isuserLiked) {
         lastLike = `${item?.lastLikedUser} ${item?.lastLikedUser}`;
       } else if (Array.isArray(item?.likes)) {
@@ -287,32 +287,32 @@ const AdminView = () => {
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
-        activity: '',
+        activity: "",
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
+        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
         thumbnail:
-          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
-        question: item?.type === 'POLL' ? item?.poll?.question : '',
+          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
+        question: item?.type === "POLL" ? item?.poll?.question : "",
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
-        pollId: item?.poll?.id || '',
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
+        pollId: item?.poll?.id || "",
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
+        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
-        eventPost: 'bringback',
+        eventPost: "bringback",
         id: item?.id,
         articleImage:
-          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
-        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
-        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
+          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
+        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
+        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: !isOwnPost,
         lastUserLiked: lastLike,
@@ -334,18 +334,18 @@ const AdminView = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: 'normal',
-      VIDEO: 'video',
-      TEXT: 'normal',
-      POLL: 'poll',
-      EVENT: 'event',
-      ARTICLE: 'article',
+      IMAGE: "normal",
+      VIDEO: "video",
+      TEXT: "normal",
+      POLL: "poll",
+      EVENT: "event",
+      ARTICLE: "article",
     };
-    return typeMap[type] || '';
+    return typeMap[type] || "";
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== 'POLL') return [];
+    if (item?.type !== "POLL") return [];
     const isVote = item?.poll?.votes?.find(
       (vote) => vote?.userId === userData?.id
     );
@@ -371,93 +371,93 @@ const AdminView = () => {
     return (
       <Box
         sx={{
-          width: '100%',
-          height: 'calc(100vh - 150px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: "100%",
+          height: "calc(100vh - 150px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <CircularProgress sx={{ color: '#1877F2' }} />
+        <CircularProgress sx={{ color: "#1877F2" }} />
       </Box>
     );
   }
 
   return (
     <Box
-      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Grid2
         container
         spacing={3}
         sx={{
           width: {
-            xs: '98%',
+            xs: "98%",
             md:
-              activeItem === 'Page posts' || activeItem === 'Activity'
-                ? '98%'
-                : '85%',
+              activeItem === "Page posts" || activeItem === "Activity"
+                ? "98%"
+                : "85%",
             lg:
-              activeItem === 'Page posts' || activeItem === 'Activity'
-                ? '98%'
-                : '80%',
+              activeItem === "Page posts" || activeItem === "Activity"
+                ? "98%"
+                : "80%",
             xl:
-              activeItem === 'Page posts' || activeItem === 'Activity'
-                ? '98%'
-                : '75%',
+              activeItem === "Page posts" || activeItem === "Activity"
+                ? "98%"
+                : "75%",
           },
-          py: '25px',
+          py: "25px",
         }}
       >
         <Grid2 size={{ xs: 12, lg: 3 }}>
-          <Paper sx={{ padding: '0px 0px' }}>
+          <Paper sx={{ padding: "0px 0px" }}>
             <Box
               sx={{
-                height: '90px',
-                borderTopRightRadius: '4px',
-                borderTopLeftRadius: '4px',
-                position: 'relative',
+                height: "90px",
+                borderTopRightRadius: "4px",
+                borderTopLeftRadius: "4px",
+                position: "relative",
                 backgroundImage:
-                  loading === 'cover' ? '' : `url(${coverPhoto || dummyPhoto})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                  loading === "cover" ? "" : `url(${coverPhoto || dummyPhoto})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {loading === 'cover' && (
-                <CircularProgress sx={{ color: '#1877F2' }} />
+              {loading === "cover" && (
+                <CircularProgress sx={{ color: "#1877F2" }} />
               )}
               <Box
                 sx={{
-                  width: '128px',
-                  height: '128px',
-                  border: '2px solid #fff',
-                  position: 'absolute',
-                  top: '20px',
-                  left: '15px',
+                  width: "128px",
+                  height: "128px",
+                  border: "2px solid #fff",
+                  position: "absolute",
+                  top: "20px",
+                  left: "15px",
                   backgroundImage: `url(${data?.data?.logoUrl || dummyPhoto})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
                 }}
               ></Box>
               <Box
                 sx={{
-                  width: '48px',
-                  height: '48px',
-                  backgroundColor: 'white',
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  transform: 'translateY(-50%)',
-                  cursor: 'pointer',
+                  width: "48px",
+                  height: "48px",
+                  backgroundColor: "white",
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
                 }}
                 onClick={() => coverPhotoRef.current.click()}
               >
@@ -466,25 +466,25 @@ const AdminView = () => {
             </Box>
             <Box
               sx={{
-                mt: '70px',
-                px: '15px',
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '5px',
+                mt: "70px",
+                px: "15px",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "5px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '24px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "24px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >
                 {data?.data?.name}
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
               >
                 {data?.data?.followerCount} followers
               </Typography>
@@ -494,7 +494,7 @@ const AdminView = () => {
                 adminPage={true}
                 childComp={
                   <Button
-                    sx={{ maxWidth: '120px', height: '36px' }}
+                    sx={{ maxWidth: "120px", height: "36px" }}
                     onClick={() => setCreateModal(true)}
                   >
                     Create
@@ -504,14 +504,14 @@ const AdminView = () => {
               <Button
                 onClick={() => navigate(`/page/${id}`)}
                 sx={{
-                  maxWidth: '100%',
-                  height: '36px',
-                  mt: '10px',
-                  background: 'transparent',
-                  border: '1px solid #E4E4E4',
-                  textTransform: 'none',
-                  borderRadius: '12px',
-                  ':hover': { background: 'transparent', color: '#000' },
+                  maxWidth: "100%",
+                  height: "36px",
+                  mt: "10px",
+                  background: "transparent",
+                  border: "1px solid #E4E4E4",
+                  textTransform: "none",
+                  borderRadius: "12px",
+                  ":hover": { background: "transparent", color: "#000" },
                 }}
               >
                 View as a member
@@ -519,37 +519,37 @@ const AdminView = () => {
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '3px',
-                mt: '10px',
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "3px",
+                mt: "10px",
               }}
             >
               {items?.map((item, index) => {
                 return (
                   <Box
                     sx={{
-                      borderLeft: '4px solid transparent',
+                      borderLeft: "4px solid transparent",
                       borderImageSource:
                         item === activeItem &&
-                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
                       borderImageSlice: 1,
-                      p: '20px 15px',
-                      cursor: 'pointer',
+                      p: "20px 15px",
+                      cursor: "pointer",
                     }}
                     key={index}
                     onClick={() => {
-                      if (item !== 'Breaker') {
+                      if (item !== "Breaker") {
                         setActiveItem(item);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                       }
                     }}
                   >
-                    {item === 'Breaker' ? (
+                    {item === "Breaker" ? (
                       <Divider />
                     ) : (
                       <Typography
-                        variant={item === activeItem ? 'gradientText' : 'body1'}
+                        variant={item === activeItem ? "gradientText" : "body1"}
                       >
                         {item}
                       </Typography>
@@ -564,11 +564,11 @@ const AdminView = () => {
           size={{
             xs: 12,
             lg:
-              activeItem === 'Page posts' || activeItem === 'Activity' ? 6 : 9,
+              activeItem === "Page posts" || activeItem === "Activity" ? 6 : 9,
           }}
-          sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
+          sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
         >
-          {activeItem === 'Page posts' ? (
+          {activeItem === "Page posts" ? (
             <PagePosts
               refetch={refetch}
               page={data?.data}
@@ -579,9 +579,9 @@ const AdminView = () => {
               isFetching={isPostFetching}
               handleDropdown={() => setPostSettingModal(true)}
             />
-          ) : activeItem === 'Activity' ? (
+          ) : activeItem === "Activity" ? (
             <ActivitySection page={data?.data} />
-          ) : activeItem === 'Edit page' ? (
+          ) : activeItem === "Edit page" ? (
             <EditPage page={data?.data} refetch={refetchPage} />
           ) : (
             <DashboardSection
@@ -593,40 +593,40 @@ const AdminView = () => {
             />
           )}
         </Grid2>
-        {(activeItem === 'Page posts' || activeItem === 'Activity') && (
+        {(activeItem === "Page posts" || activeItem === "Activity") && (
           <Grid2 size={{ xs: 12, lg: 2.5 }}>
             <Paper
-              sx={{ display: 'flex', flexDirection: 'column', rowGap: '10px' }}
+              sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
             >
               <Box>
                 <Typography
-                  sx={{ fontSize: '17px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
                 >
                   Post highlights
                 </Typography>
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
                   In the last 30 days
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  rowGap: '10px',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  rowGap: "10px",
                 }}
               >
                 <img src={noPosts} alt="Image" />
                 <Typography
-                  sx={{ fontSize: '20px', fontWeight: '600', color: '#171717' }}
+                  sx={{ fontSize: "20px", fontWeight: "600", color: "#171717" }}
                 >
                   No highlights
                 </Typography>
                 <Typography
-                  sx={{ fontSize: '16px', fontWeight: '400', color: '#505050' }}
+                  sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
                 >
                   No recent post highlights
                 </Typography>
@@ -639,7 +639,7 @@ const AdminView = () => {
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         multiple
         onChange={handleFileChange}
       />
@@ -647,32 +647,32 @@ const AdminView = () => {
         type="file"
         ref={coverPhotoRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: 'none' }}
-        onChange={(e) => handleImageChange(e, 'cover')}
+        style={{ display: "none" }}
+        onChange={(e) => handleImageChange(e, "cover")}
       />
 
       <input
         type="file"
         ref={videoInputRef}
         accept="video/*"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={handleVideoChange}
       />
 
       <DynamicModal
         open={showPostModal}
         handleClose={() => setShowPostModal(false)}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         adminPage={true}
         handleDropdown={() => setPostSettingModal(true)}
       >
         <PostModal
           fileChange={HandleSelectedFile}
-          placeholder={'What do you want to talk about?'}
+          placeholder={"What do you want to talk about?"}
           videoChange={handleVideoChange}
           openModal={HandlePostTypeClick}
         />
@@ -681,16 +681,16 @@ const AdminView = () => {
       <DynamicModal
         open={showModal}
         handleClose={HandleModalClose}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
       >
         <PhotoModal
           files={selectedFiles}
-          placeholder={'Say something about this photo'}
+          placeholder={"Say something about this photo"}
           handleClose={HandleModalClose}
         />
       </DynamicModal>
@@ -698,16 +698,16 @@ const AdminView = () => {
       <DynamicModal
         open={videoModal}
         handleClose={() => setVideoModal(false)}
-        title={'Hello'}
-        buttonText={'Post'}
+        title={"Hello"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
       >
         <VideoModal
           file={videoData}
-          placeholder={'Say something about this video'}
+          placeholder={"Say something about this video"}
           handleClose={HandleVideoModalClose}
         />
       </DynamicModal>
@@ -715,13 +715,13 @@ const AdminView = () => {
       <DynamicModal
         open={showScheduleModal}
         handleClose={() => setShowScheduleModal(false)}
-        title={'Schedule post'}
-        buttonText={'Post'}
+        title={"Schedule post"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
       >
         <ScheduleModal />
       </DynamicModal>
@@ -729,11 +729,11 @@ const AdminView = () => {
       <DynamicModal
         open={eventModal}
         handleClose={() => setEventModal(false)}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
       >
         <EventModal
@@ -746,11 +746,11 @@ const AdminView = () => {
       <DynamicModal
         open={viewEventModal}
         handleClose={handleViewEventModalClose}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
       >
         <ViewEventModal
@@ -764,8 +764,8 @@ const AdminView = () => {
       <DynamicModal
         open={pollModal}
         handleClose={() => setPollModal(false)}
-        title={'Create a poll'}
-        buttonText={'Post'}
+        title={"Create a poll"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => {}}
         styledHeader={true}
@@ -780,8 +780,8 @@ const AdminView = () => {
       <DynamicModal
         open={postSettingModal}
         handleClose={() => setPostSettingModal(false)}
-        title={'Post settings'}
-        buttonText={'Post'}
+        title={"Post settings"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => {}}
         styledHeader={true}
@@ -793,8 +793,8 @@ const AdminView = () => {
       <DynamicModal
         open={createModal}
         handleClose={() => setCreateModal(false)}
-        title={'Create'}
-        buttonText={'Post'}
+        title={"Create"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => {}}
         styledHeader={true}

@@ -1,6 +1,6 @@
-import { Box, OutlinedInput, Typography } from '@mui/material';
-import { useRef } from 'react';
-import { event, photo, poll, video } from '../assets';
+import { Box, OutlinedInput, Typography } from "@mui/material";
+import { useRef } from "react";
+import { event, photo, poll, video } from "../assets";
 
 const PostModal = ({
   title,
@@ -21,14 +21,14 @@ const PostModal = ({
   };
 
   const HandleItemClicked = (item) => {
-    if (item?.label === 'Photo') {
+    if (item?.label === "Photo") {
       fileInputRef.current.click();
-    } else if (item?.label === 'Video') {
+    } else if (item?.label === "Video") {
       videoInputRef.current.click();
-    } else if (item?.label === 'Event') {
-      openModal('Event');
-    } else if (item?.label === 'Poll') {
-      openModal('Poll');
+    } else if (item?.label === "Event") {
+      openModal("Event");
+    } else if (item?.label === "Poll") {
+      openModal("Poll");
     }
   };
 
@@ -37,56 +37,56 @@ const PostModal = ({
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
       <OutlinedInput
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder={placeholder}
         sx={{
-          height: '60px',
-          width: '100%',
-          '& .MuiOutlinedInput-root': { height: '100%' },
+          height: "60px",
+          width: "100%",
+          "& .MuiOutlinedInput-root": { height: "100%" },
         }}
       />
-      <Box sx={{ height: '440px' }}></Box>
-      <Box sx={{ height: '50px' }}>
+      <Box sx={{ height: "440px" }}></Box>
+      <Box sx={{ height: "50px" }}>
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            rowGap: '10px',
-            columnGap: '20px',
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            rowGap: "10px",
+            columnGap: "20px",
           }}
         >
           {[
-            { img: photo, label: 'Photo' },
-            { img: video, label: 'Video' },
-            { img: poll, label: 'Poll' },
-            { img: event, label: 'Event' },
+            { img: photo, label: "Photo" },
+            { img: video, label: "Video" },
+            { img: poll, label: "Poll" },
+            { img: event, label: "Event" },
           ].map((item, index) => (
             <Box
               key={index}
               sx={{
-                width: { xs: '100%', md: '180px' },
-                height: '50px',
-                padding: '20px',
-                backgroundColor: '#F8FCFF',
-                borderRadius: '2px',
-                display: 'flex',
-                columnGap: '15px',
-                alignItems: 'center',
-                cursor: 'pointer',
+                width: { xs: "100%", md: "180px" },
+                height: "50px",
+                padding: "20px",
+                backgroundColor: "#F8FCFF",
+                borderRadius: "2px",
+                display: "flex",
+                columnGap: "15px",
+                alignItems: "center",
+                cursor: "pointer",
               }}
               onClick={() => HandleItemClicked(item)}
             >
               <img
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
                 src={item.img}
                 alt={item.label}
               />
               <Typography
-                sx={{ fontSize: '14px', fontWeight: 500, color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}
               >
                 {item.label}
               </Typography>
@@ -100,7 +100,7 @@ const PostModal = ({
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
         multiple
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={handleFileChange}
       />
 
@@ -108,7 +108,7 @@ const PostModal = ({
         type="file"
         ref={videoInputRef}
         accept="video/*"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={handleVideoChange}
       />
     </Box>

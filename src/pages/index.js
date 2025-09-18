@@ -16,25 +16,25 @@ import {
   TroubleshootMfa,
   EmailMfa,
   ResyncMfa,
-} from './auth';
+} from "./auth";
 
-import { Home, Bonds, Pulses, Cells, Article, Profile } from './dashboard';
+import { Home, Bonds, Pulses, Cells, Article, Profile } from "./dashboard";
 
-import PageDetailsPage from './dashboard/pageDetails';
-import AdminView from './dashboard/pageDetails/AdminView';
-import SavedPosts from './dashboard/saved';
-import SinglePost from './dashboard/singlePost';
+import PageDetailsPage from "./dashboard/pageDetails";
+import AdminView from "./dashboard/pageDetails/AdminView";
+import SavedPosts from "./dashboard/saved";
+import SinglePost from "./dashboard/singlePost";
 
-import GeneralPage from './dashboard/general';
-import GeneralArticle from './dashboard/general/GeneralArticle';
-import GeneralEvent from './dashboard/general/GeneralEvent';
-import GeneralPost from './dashboard/general/GeneralPost';
+import GeneralPage from "./dashboard/general";
+import GeneralArticle from "./dashboard/general/GeneralArticle";
+import GeneralEvent from "./dashboard/general/GeneralEvent";
+import GeneralPost from "./dashboard/general/GeneralPost";
 
-import Settings from './settings';
+import Settings from "./settings";
 
-import UserBonds from './dashboard/profile/user-bonds';
+import UserBonds from "./dashboard/profile/user-bonds";
 
-import DDT from './DDT';
+import DDT from "./DDT";
 
 export {
   Login,

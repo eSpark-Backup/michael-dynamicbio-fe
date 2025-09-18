@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  search: '',
+  search: "",
 };
 
 const slice = createSlice({
-  name: 'search',
+  name: "search",
   initialState,
   reducers: {
     handleChange: (state, action) => {

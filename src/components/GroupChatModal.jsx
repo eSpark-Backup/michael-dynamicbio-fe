@@ -9,16 +9,16 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
-import React, { useState } from 'react';
-import { chipClose, three_vertical_dots } from '../assets';
-import { useSelector } from 'react-redux';
+} from "@mui/material";
+import React, { useState } from "react";
+import { chipClose, three_vertical_dots } from "../assets";
+import { useSelector } from "react-redux";
 import {
   useAddMemberMutation,
   useRemoveMemberMutation,
-} from '../services/chat';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
+} from "../services/chat";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const GroupChatModal = ({
   chatId,
@@ -50,7 +50,7 @@ const GroupChatModal = ({
     };
   });
   const [selectedNames, setSelectedNames] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [removedIndex, setRemovedIndex] = useState(0);
   const [id, setId] = useState(null);
@@ -110,55 +110,55 @@ const GroupChatModal = ({
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        rowGap: '15px',
-        pt: '20px',
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "15px",
+        pt: "20px",
       }}
     >
       {messageData?.length > 0 && (
         <Typography
-          sx={{ fontSize: '18px', fontWeight: '500', color: '#171717' }}
+          sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
         >
           {messageData?.length > 0
             ? messageData[messageData?.length - 1]?.text
-                ?.split('\n')
+                ?.split("\n")
                 .map((line, idx) => (
                   <React.Fragment key={idx}>
                     {line}
                     <br />
                   </React.Fragment>
                 ))
-            : ''}
+            : ""}
         </Typography>
       )}
       <Typography
-        sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+        sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
       >
-        {groupMembers?.length} members .{' '}
+        {groupMembers?.length} members .{" "}
         {messageData?.length > 0
           ? `Last activity ${dayjs(
               messageData[messageData?.length - 1]?.timestamp
             ).fromNow()}`
-          : ''}
+          : ""}
       </Typography>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: { xs: 'column', sm: 'row' },
-          rowGap: '10px',
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", sm: "row" },
+          rowGap: "10px",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             gap: 1,
-            flexWrap: 'wrap',
-            width: { xs: '100%', sm: '90%' },
-            border: '1px solid #E4E4E4',
-            p: '5px',
+            flexWrap: "wrap",
+            width: { xs: "100%", sm: "90%" },
+            border: "1px solid #E4E4E4",
+            p: "5px",
           }}
         >
           {selectedNames?.map((person) => {
@@ -171,11 +171,11 @@ const GroupChatModal = ({
                     selectedNames.filter((p) => p.id !== person.id)
                   )
                 }
-                sx={{ backgroundColor: '#e0e0e0', fontWeight: 'bold' }}
+                sx={{ backgroundColor: "#e0e0e0", fontWeight: "bold" }}
                 deleteIcon={
                   <img
                     src={chipClose}
-                    style={{ width: '6px', height: '6px' }}
+                    style={{ width: "6px", height: "6px" }}
                   />
                 }
               />
@@ -207,7 +207,7 @@ const GroupChatModal = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                placeholder={'Type a name or multiple names'}
+                placeholder={"Type a name or multiple names"}
                 variant="standard"
                 InputProps={{
                   ...params.InputProps,
@@ -215,8 +215,8 @@ const GroupChatModal = ({
                 }}
                 sx={{
                   minWidth: 200,
-                  '& .MuiInputBase-root': {
-                    borderBottom: 'none',
+                  "& .MuiInputBase-root": {
+                    borderBottom: "none",
                   },
                 }}
               />
@@ -226,30 +226,30 @@ const GroupChatModal = ({
                 {option.label}
               </Box>
             )}
-            className={'custom-autocomplete'}
+            className={"custom-autocomplete"}
           />
         </Box>
         <Button
           onClick={handleAddMember}
           loading={isAddLoading}
           disabled={selectedNames?.length === 0 || isAddLoading}
-          sx={{ width: { xs: '100%', sm: '5%' }, height: '40px' }}
+          sx={{ width: { xs: "100%", sm: "5%" }, height: "40px" }}
         >
           Add
         </Button>
       </Box>
       <Typography
-        sx={{ fontSize: '18px', fontWeight: '500', color: '#171717' }}
+        sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
       >
         Members
       </Typography>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          maxHeight: '300px',
-          overflowY: 'auto',
-          mb: '80px',
+          display: "flex",
+          flexDirection: "column",
+          maxHeight: "300px",
+          overflowY: "auto",
+          mb: "80px",
         }}
       >
         {groupMembers?.map((item, index) => {
@@ -257,44 +257,44 @@ const GroupChatModal = ({
           return (
             <Box
               sx={{
-                py: '15px',
+                py: "15px",
                 borderBottom:
                   index !== groupMembers?.length - 1
-                    ? '1px solid #e0e0e0'
-                    : 'none',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                    ? "1px solid #e0e0e0"
+                    : "none",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
               key={index}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  columnGap: '10px',
+                  display: "flex",
+                  alignItems: "center",
+                  columnGap: "10px",
                 }}
               >
                 <Box
-                  sx={{ width: '48px', height: '48px', position: 'relative' }}
+                  sx={{ width: "48px", height: "48px", position: "relative" }}
                 >
                   <Avatar
                     src={item?.image}
                     alt="user"
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: '50%',
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
                     }}
                   />
                   <Box
                     sx={{
-                      width: '10px',
-                      height: '10px',
-                      backgroundColor: isOnline ? '#12B76A' : '#7a7676',
-                      border: '1.5px solid #FFFFFF',
-                      borderRadius: '50%',
-                      position: 'absolute',
+                      width: "10px",
+                      height: "10px",
+                      backgroundColor: isOnline ? "#12B76A" : "#7a7676",
+                      border: "1.5px solid #FFFFFF",
+                      borderRadius: "50%",
+                      position: "absolute",
                       right: 0,
                       bottom: 0,
                     }}
@@ -303,18 +303,18 @@ const GroupChatModal = ({
                 <Stack>
                   <Typography
                     sx={{
-                      fontSize: '18px',
-                      fontWeight: '500',
-                      color: '#171717',
+                      fontSize: "18px",
+                      fontWeight: "500",
+                      color: "#171717",
                     }}
                   >
                     {item?.name}
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      fontWeight: '400',
-                      color: '#505050',
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      color: "#505050",
                     }}
                   >
                     {item?.role}
@@ -322,56 +322,56 @@ const GroupChatModal = ({
                 </Stack>
               </Box>
               {removedIndex === item?.id ? (
-                <Stack direction={'column'} gap={'3px'}>
+                <Stack direction={"column"} gap={"3px"}>
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      fontWeight: '400',
-                      color: '#505050',
+                      fontSize: "14px",
+                      fontWeight: "400",
+                      color: "#505050",
                     }}
                   >
-                    {id === userData?.userChatId ? 'Group members' : item?.name}{' '}
-                    will be informed you have{' '}
+                    {id === userData?.userChatId ? "Group members" : item?.name}{" "}
+                    will be informed you have{" "}
                     {id === userData?.userChatId
-                      ? 'left group'
-                      : 'removed them'}
+                      ? "left group"
+                      : "removed them"}
                     .
                   </Typography>
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                      columnGap: '10px',
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      columnGap: "10px",
                     }}
                   >
                     <Box
                       sx={{
-                        width: '80px',
-                        height: '36px',
-                        borderRadius: '2px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        background: 'white',
-                        position: 'relative',
-                        '&::before': {
+                        width: "80px",
+                        height: "36px",
+                        borderRadius: "2px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        background: "white",
+                        position: "relative",
+                        "&::before": {
                           content: '""',
-                          position: 'absolute',
+                          position: "absolute",
                           top: 0,
                           left: 0,
                           right: 0,
                           bottom: 0,
-                          borderRadius: '8px',
-                          padding: '1px',
+                          borderRadius: "8px",
+                          padding: "1px",
                           background:
-                            'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                          mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                            "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                          mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
                           WebkitMask:
-                            'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                          WebkitMaskComposite: 'destination-out',
-                          maskComposite: 'exclude',
+                            "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                          WebkitMaskComposite: "destination-out",
+                          maskComposite: "exclude",
                         },
-                        cursor: 'pointer',
+                        cursor: "pointer",
                       }}
                       onClick={() => {
                         setMenuAnchor(null);
@@ -385,13 +385,13 @@ const GroupChatModal = ({
                       disabled={isLoading}
                       onClick={handleRemoveMember}
                       sx={{
-                        maxWidth: '80px',
-                        height: '36px',
-                        fontSize: '16px',
-                        minWidth: { md: '80px' },
+                        maxWidth: "80px",
+                        height: "36px",
+                        fontSize: "16px",
+                        minWidth: { md: "80px" },
                       }}
                     >
-                      {id === userData?.userChatId ? 'Leave' : 'Remove'}
+                      {id === userData?.userChatId ? "Leave" : "Remove"}
                     </Button>
                   </Box>
                 </Stack>
@@ -400,7 +400,7 @@ const GroupChatModal = ({
                 <img
                   src={three_vertical_dots}
                   alt="Icon"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                   onClick={(e) => handleClick(e, item.id)}
                 />
               ) : null}
@@ -409,42 +409,42 @@ const GroupChatModal = ({
         })}
       </Box>
       <Stack
-        justifyContent={'space-between'}
-        alignItems={'center'}
+        justifyContent={"space-between"}
+        alignItems={"center"}
         px={2}
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: "column", sm: "row" }}
         gap={3}
         sx={{
-          minHeight: '55px',
-          borderTop: '1px solid #E4E4E4',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'fixed',
-          bottom: '0px',
-          right: '0px',
+          minHeight: "55px",
+          borderTop: "1px solid #E4E4E4",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "0px",
+          right: "0px",
           zIndex: 999,
-          backgroundColor: 'white',
-          pb: { xs: '10px', sm: '0px' },
+          backgroundColor: "white",
+          pb: { xs: "10px", sm: "0px" },
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            columnGap: '10px',
-            alignItems: 'center',
-            flexWrap: 'wrap',
+            display: "flex",
+            columnGap: "10px",
+            alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <Typography
-            sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+            sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
           >
-            Anyone who joins this chat will see previous messages.{' '}
+            Anyone who joins this chat will see previous messages.{" "}
           </Typography>
         </Box>
         <Button
           onClick={handleCloseModal}
-          sx={{ height: '36px', maxWidth: '150px' }}
+          sx={{ height: "36px", maxWidth: "150px" }}
         >
           Done
         </Button>
@@ -454,16 +454,16 @@ const GroupChatModal = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         <MenuItem onClick={handleRemove}>
-          {menuAnchor?.id === userData?.userChatId ? 'Leave' : 'Remove'}
+          {menuAnchor?.id === userData?.userChatId ? "Leave" : "Remove"}
         </MenuItem>
       </Menu>
     </Box>

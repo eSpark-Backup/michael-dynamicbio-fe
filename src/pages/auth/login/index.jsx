@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useFormik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { useFormik } from "formik";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Stack,
   Typography,
-} from '@mui/material';
-import { Input, Button } from '../../../components';
-import { useLoginMutation } from '../../../services/auth';
-import { loginSchema } from '../../../schemas';
+} from "@mui/material";
+import { Input, Button } from "../../../components";
+import { useLoginMutation } from "../../../services/auth";
+import { loginSchema } from "../../../schemas";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -20,8 +20,8 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: loginSchema,
     onSubmit: (values) => {
@@ -32,18 +32,18 @@ const Login = () => {
         }
         if (res) {
           const response = res?.data?.data;
-          if (response?.user?.profileStatus === 'completed') {
+          if (response?.user?.profileStatus === "completed") {
             if (response?.user?.is2FAEnabled) {
-              localStorage.setItem('temp-token', response?.token);
+              localStorage.setItem("temp-token", response?.token);
             } else {
-              localStorage.setItem('token', response?.token);
+              localStorage.setItem("token", response?.token);
             }
-            navigate('/google-auth');
-          } else if (response?.user?.profileStatus === 'both_verified') {
-            localStorage.setItem('token', response?.token);
-            navigate('/complete-profile');
+            navigate("/google-auth");
+          } else if (response?.user?.profileStatus === "both_verified") {
+            localStorage.setItem("token", response?.token);
+            navigate("/complete-profile");
             localStorage.setItem(
-              'temp_user_data',
+              "temp_user_data",
               JSON.stringify(response?.user)
             );
           }
@@ -54,21 +54,21 @@ const Login = () => {
 
   return (
     <Stack
-      sx={{ width: { xs: '100%', md: '90%', lg: '77%', xl: '706px' } }}
+      sx={{ width: { xs: "100%", md: "90%", lg: "77%", xl: "706px" } }}
       direction="column"
       alignItems="center"
       justifyItems="flex-start"
-      component={'form'}
+      component={"form"}
       onSubmit={formik.handleSubmit}
     >
-      <Typography sx={{ fontSize: { xs: '28px', md: '40px' } }}>
+      <Typography sx={{ fontSize: { xs: "28px", md: "40px" } }}>
         Login
       </Typography>
-      <Box sx={{ width: '100%', marginTop: '48px' }}>
+      <Box sx={{ width: "100%", marginTop: "48px" }}>
         <Input
-          label={'Email'}
-          name={'email'}
-          type={'email'}
+          label={"Email"}
+          name={"email"}
+          type={"email"}
           value={formik.values.email}
           handleChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -76,11 +76,11 @@ const Login = () => {
           helperText={formik.touched.email && formik.errors.email}
         />
       </Box>
-      <Box sx={{ width: '100%', marginTop: '24px' }}>
+      <Box sx={{ width: "100%", marginTop: "24px" }}>
         <Input
-          label={'Password'}
-          name={'password'}
-          type={'password'}
+          label={"Password"}
+          name={"password"}
+          type={"password"}
           value={formik.values.password}
           handleChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -90,17 +90,17 @@ const Login = () => {
       </Box>
       <Link
         style={{
-          color: '#505050',
-          textDecoration: 'none',
-          marginTop: '20px',
-          width: '100%',
+          color: "#505050",
+          textDecoration: "none",
+          marginTop: "20px",
+          width: "100%",
         }}
         to="/find-email"
       >
         <Typography textAlign="right">Forget Password?</Typography>
       </Link>
       <FormControlLabel
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
         control={
           <Checkbox
             checked={rememberMe}
@@ -110,18 +110,18 @@ const Login = () => {
         }
         label="Remember me"
       />
-      <Box sx={{ width: '250px' }}>
+      <Box sx={{ width: "250px" }}>
         <Button loading={isLoading} type="submit">
           login
         </Button>
       </Box>
-      <Typography sx={{ marginTop: '24px' }}>
+      <Typography sx={{ marginTop: "24px" }}>
         Don’t have an account?
         <Link
           style={{
-            textDecoration: 'none',
-            marginLeft: '8px',
-            width: '100%',
+            textDecoration: "none",
+            marginLeft: "8px",
+            width: "100%",
           }}
           to="/signup"
         >

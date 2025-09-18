@@ -6,8 +6,8 @@ import {
   LinearProgress,
   Paper,
   Typography,
-} from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+} from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import {
   comment,
   dummyPhoto,
@@ -19,29 +19,29 @@ import {
   send,
   unlike,
   user,
-} from '../assets';
-import OutlinedInput from './outline-input';
-import DynamicModal from './dynamic-modal';
-import ShareModal from './ShareModal';
-import PostChoiceModal from './PostChoiceModal';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useGetPostByIdQuery, useSavePostMutation } from '../services/post';
-import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
-import ReportArticle from './ReportArticle';
-import Button from './button';
+} from "../assets";
+import OutlinedInput from "./outline-input";
+import DynamicModal from "./dynamic-modal";
+import ShareModal from "./ShareModal";
+import PostChoiceModal from "./PostChoiceModal";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetPostByIdQuery, useSavePostMutation } from "../services/post";
+import dayjs from "dayjs";
+import { useSelector } from "react-redux";
+import ReportArticle from "./ReportArticle";
+import Button from "./button";
 import {
   useCommentMutation,
   useGetPostCommentsQuery,
   useLikeMutation,
-} from '../services/interaction';
-import Comment from './Comment';
-import { toast } from 'react-toastify';
+} from "../services/interaction";
+import Comment from "./Comment";
+import { toast } from "react-toastify";
 import {
   useSendBondReqMutation,
   useUpdateBondReqMutation,
-} from '../services/bonds';
-import { useFollowPageMutation } from '../services/page';
+} from "../services/bonds";
+import { useFollowPageMutation } from "../services/page";
 
 const ArticleDetails = () => {
   const [showComments, setShowComments] = useState(false);
@@ -57,7 +57,7 @@ const ArticleDetails = () => {
   const { user: userData } = useSelector((state) => state.auth);
   const [showReportArticle1, setReportArticle1] = useState(false);
   const [hasLiked, setHasLiked] = useState(null);
-  const [commentContent, setCommentContent] = useState('');
+  const [commentContent, setCommentContent] = useState("");
 
   const [likeData, { isLoading: isLikeloading }] = useLikeMutation();
 
@@ -79,13 +79,13 @@ const ArticleDetails = () => {
 
   const [articleContent, setArticleContent] = useState({
     articleImage: null,
-    articleTitle: '',
-    articleMaker: '',
-    articleMakerRole: '',
-    time: '',
-    content: '',
-    articleMakerImage: '',
-    authorId: '',
+    articleTitle: "",
+    articleMaker: "",
+    articleMakerRole: "",
+    time: "",
+    content: "",
+    articleMakerImage: "",
+    authorId: "",
     postId: null,
     isSaved: null,
     bondId: null,
@@ -97,7 +97,7 @@ const ArticleDetails = () => {
   });
 
   const [postComments, setPostComments] = useState([]);
-  const [commentId, setCommentId] = useState('');
+  const [commentId, setCommentId] = useState("");
 
   const {
     data: getCommentsData,
@@ -151,15 +151,15 @@ const ArticleDetails = () => {
     if (isSuccess && data?.data) {
       setArticleContent((prev) => ({
         ...prev,
-        articleImage: data?.data?.media['ARTICLES'][0]?.url,
+        articleImage: data?.data?.media["ARTICLES"][0]?.url,
         articleTitle: data?.data?.content?.articleTitle,
         articleMaker: data?.data?.isPagePost
           ? data?.data?.page?.name
-          : data?.data?.author?.firstName + ' ' + data?.data?.author?.lastName,
+          : data?.data?.author?.firstName + " " + data?.data?.author?.lastName,
         articleMakerRole: data?.data?.isPagePost
           ? data?.data?.pageFollowerCount
           : data?.data?.author?.company,
-        time: dayjs(data?.data?.createdAt).format('LL'),
+        time: dayjs(data?.data?.createdAt).format("LL"),
         content: data?.data?.content?.content,
         articleMakerImage: data?.data?.isPagePost
           ? data?.data?.page?.logoUrl
@@ -188,7 +188,7 @@ const ArticleDetails = () => {
   const LikeHandler = () => {
     const newLike = !hasLiked;
     setHasLiked(newLike);
-    likeData({ entityId: articleContent?.postId, type: 'POST' });
+    likeData({ entityId: articleContent?.postId, type: "POST" });
   };
 
   const HandleComment = (id) => {
@@ -202,15 +202,15 @@ const ArticleDetails = () => {
         return;
       }
       if (res?.data) {
-        toast.success('Comment added successfully');
-        setCommentContent('');
+        toast.success("Comment added successfully");
+        setCommentContent("");
         refetch();
       }
     });
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       HandleComment(articleContent?.postId);
     }
@@ -219,10 +219,10 @@ const ArticleDetails = () => {
   const SavePostHandler = async () => {
     const res = await savePostData({
       postId: articleContent?.postId,
-      type: 'POST',
+      type: "POST",
     });
     if (res?.error) {
-      toast.error(res?.error?.data?.message || 'Something went wrong');
+      toast.error(res?.error?.data?.message || "Something went wrong");
       return;
     } else if (res?.data) {
       toast.success(res?.data?.message);
@@ -236,7 +236,7 @@ const ArticleDetails = () => {
   const BondHandler = async () => {
     const bodyToSend = {
       otherUserId: articleContent?.authorId,
-      action: 'unfriend',
+      action: "unfriend",
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
@@ -263,7 +263,7 @@ const ArticleDetails = () => {
         return;
       }
       if (res) {
-        toast.success('Your Request sent successfully');
+        toast.success("Your Request sent successfully");
         setArticleContent((prev) => ({
           ...prev,
           isFriend: !prev?.isFriend,
@@ -295,14 +295,14 @@ const ArticleDetails = () => {
     return (
       <Box
         sx={{
-          width: '100%',
-          height: 'calc(100vh - 150px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: "100%",
+          height: "calc(100vh - 150px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <CircularProgress sx={{ color: '#1877F2' }} />
+        <CircularProgress sx={{ color: "#1877F2" }} />
       </Box>
     );
   }
@@ -314,33 +314,33 @@ const ArticleDetails = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        rowGap: '10px',
-        mt: '20px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        rowGap: "10px",
+        mt: "20px",
       }}
     >
       {articleContent?.authorId === userData?.id && (
         <Box
           sx={{
-            width: { xs: '98%', md: '85%', lg: '80%' },
-            backgroundColor: '#F2F8FD',
-            border: '1px solid #E4E4E4',
-            borderRadius: '8px',
-            p: '25px',
-            display: 'flex',
-            columnGap: '20px',
+            width: { xs: "98%", md: "85%", lg: "80%" },
+            backgroundColor: "#F2F8FD",
+            border: "1px solid #E4E4E4",
+            borderRadius: "8px",
+            p: "25px",
+            display: "flex",
+            columnGap: "20px",
           }}
         >
           <Box
-            sx={{ display: 'flex', columnGap: '3px', cursor: 'pointer' }}
+            sx={{ display: "flex", columnGap: "3px", cursor: "pointer" }}
             onClick={() => navigate(`/article/edit/${id}`)}
           >
-            <img src={editBlue} alt="Icon" style={{ width: '16px' }} />
+            <img src={editBlue} alt="Icon" style={{ width: "16px" }} />
             <Typography
-              sx={{ fontSize: '16px', fontWeight: '400' }}
+              sx={{ fontSize: "16px", fontWeight: "400" }}
               variant="gradientText"
             >
               Edit article
@@ -352,58 +352,58 @@ const ArticleDetails = () => {
       <Grid2
         container
         spacing={3}
-        sx={{ width: { xs: '98%', md: '85%', lg: '80%' }, py: '25px' }}
+        sx={{ width: { xs: "98%", md: "85%", lg: "80%" }, py: "25px" }}
       >
         <Grid2 size={{ xs: 12, lg: 8, xl: 9 }}>
-          <Paper sx={{ p: '0px' }}>
+          <Paper sx={{ p: "0px" }}>
             <Box
               sx={{
-                paddingTop: '46.25%',
+                paddingTop: "46.25%",
                 backgroundImage: `url("${
                   articleContent?.articleImage
                     ? articleContent?.articleImage
                     : dummyPhoto
                 }")`,
-                backgroundPosition: 'center',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                width: '100.1%',
+                backgroundPosition: "center",
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                width: "100.1%",
               }}
             ></Box>
-            <Box sx={{ p: '30px 20px' }}>
+            <Box sx={{ p: "30px 20px" }}>
               <Typography
-                sx={{ fontSize: '24px', fontWeight: '600', color: '#171717' }}
+                sx={{ fontSize: "24px", fontWeight: "600", color: "#171717" }}
               >
                 {articleContent?.articleTitle}
               </Typography>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    rowGap: '3px',
-                    width: '100%',
-                    p: '20px 0px 40px 0px',
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "3px",
+                    width: "100%",
+                    p: "20px 0px 40px 0px",
                   }}
                 >
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '15px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "15px",
+                        alignItems: "center",
                       }}
                     >
                       <img
@@ -414,62 +414,62 @@ const ArticleDetails = () => {
                         }
                         alt="Avatar"
                         style={{
-                          width: '42px',
-                          height: '42px',
-                          borderRadius: '50%',
+                          width: "42px",
+                          height: "42px",
+                          borderRadius: "50%",
                         }}
                       />
                       <Box
                         sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          rowGap: '2px',
+                          display: "flex",
+                          flexDirection: "column",
+                          rowGap: "2px",
                         }}
                       >
                         <Typography
                           sx={{
-                            fontSize: '14px',
-                            fontWeight: '500',
-                            color: '#171717',
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            color: "#171717",
                           }}
                         >
                           {articleContent?.articleMaker}
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: '14px',
-                            fontWeight: '500',
-                            color: '#505050',
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            color: "#505050",
                           }}
                         >
-                          {typeof articleContent?.articleMakerRole === 'string'
+                          {typeof articleContent?.articleMakerRole === "string"
                             ? articleContent?.articleMakerRole
                             : `${articleContent?.articleMakerRole} ${
                                 articleContent?.articleMakerRole > 1
-                                  ? 'followers'
-                                  : 'follower'
+                                  ? "followers"
+                                  : "follower"
                               }`}
                         </Typography>
                       </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', columnGap: '15px' }}>
+                    <Box sx={{ display: "flex", columnGap: "15px" }}>
                       <Box
                         sx={{
-                          width: '40px',
-                          height: '40px',
-                          border: '1px solid #E4E4E4',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          cursor: 'pointer',
+                          width: "40px",
+                          height: "40px",
+                          border: "1px solid #E4E4E4",
+                          borderRadius: "50%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          cursor: "pointer",
                         }}
                         onClick={SavePostHandler}
                       >
                         <img
                           src={articleContent?.isSaved ? save : saveUnfilled}
                           alt="Icon"
-                          style={{ width: '20px', height: '20px' }}
+                          style={{ width: "20px", height: "20px" }}
                         />
                       </Box>
                     </Box>
@@ -477,36 +477,36 @@ const ArticleDetails = () => {
                 </Box>
               </Box>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 {articleContent?.time}
               </Typography>
               <Typography
                 sx={{
-                  fontSize: '20px',
+                  fontSize: "20px",
                   fontWeight: 400,
-                  color: '#171717',
-                  pt: '15px',
-                  '& img': {
-                    maxWidth: '100%',
-                    height: 'auto',
-                    display: 'block',
+                  color: "#171717",
+                  pt: "15px",
+                  "& img": {
+                    maxWidth: "100%",
+                    height: "auto",
+                    display: "block",
                   },
                 }}
                 dangerouslySetInnerHTML={{ __html: articleContent?.content }}
               ></Typography>
               {articleContent?.authorId !== userData?.id && (
                 <Box
-                  sx={{ mt: '20px' }}
+                  sx={{ mt: "20px" }}
                   onClick={() => setReportArticle1(true)}
                 >
                   <Typography
                     sx={{
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      color: '#171717',
-                      cursor: 'pointer',
-                      width: 'fit-content',
+                      fontSize: "16px",
+                      fontWeight: "500",
+                      color: "#171717",
+                      cursor: "pointer",
+                      width: "fit-content",
                     }}
                   >
                     Report this article
@@ -515,19 +515,19 @@ const ArticleDetails = () => {
               )}
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  flexDirection: 'column',
-                  alignItems: 'flex-end',
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    rowGap: '10px',
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    rowGap: "10px",
                   }}
                 >
                   <img
@@ -538,27 +538,27 @@ const ArticleDetails = () => {
                     }
                     alt="Avatar"
                     style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '50%',
+                      width: "42px",
+                      height: "42px",
+                      borderRadius: "50%",
                     }}
                   />
-                  <Typography sx={{ textAlign: 'center' }}>
+                  <Typography sx={{ textAlign: "center" }}>
                     {articleContent?.articleMaker}
                   </Typography>
-                  <Typography sx={{ textAlign: 'center' }}>
-                    {typeof articleContent?.articleMakerRole === 'string'
+                  <Typography sx={{ textAlign: "center" }}>
+                    {typeof articleContent?.articleMakerRole === "string"
                       ? articleContent?.articleMakerRole
                       : `${articleContent?.articleMakerRole} ${
                           articleContent?.articleMakerRole > 1
-                            ? 'followers'
-                            : 'follower'
+                            ? "followers"
+                            : "follower"
                         }`}
                   </Typography>
                   {articleContent?.authorId !== userData?.id &&
                     !data?.data?.isPagePost && (
                       <Button
-                        sx={{ width: '150px', height: '36px' }}
+                        sx={{ width: "150px", height: "36px" }}
                         onClick={
                           articleContent?.isFriend
                             ? BondHandler
@@ -566,73 +566,73 @@ const ArticleDetails = () => {
                         }
                         loading={isUpdateReqLoading || isReqLoading}
                       >
-                        {articleContent?.isFriend ? 'Unbond' : 'Bond'}
+                        {articleContent?.isFriend ? "Unbond" : "Bond"}
                       </Button>
                     )}
 
                   {articleContent?.authorId !== userData?.id &&
                     data?.data?.isPagePost && (
                       <Button
-                        sx={{ width: '150px', height: '36px' }}
+                        sx={{ width: "150px", height: "36px" }}
                         onClick={FollowHandler}
                         loading={isFollowLoading}
                       >
-                        {articleContent?.isFollowed ? 'Unfollow' : 'Follow'}
+                        {articleContent?.isFollowed ? "Unfollow" : "Follow"}
                       </Button>
                     )}
                 </Box>
               </Box>
               <Box
                 sx={{
-                  pt: '35px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '15px',
+                  pt: "35px",
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "15px",
                 }}
               >
                 <Typography
-                  sx={{ fontSize: '24px', fontWeight: '600', color: '#171717' }}
+                  sx={{ fontSize: "24px", fontWeight: "600", color: "#171717" }}
                 >
                   More articles for you
                 </Typography>
                 <Box
                   sx={{
-                    width: '400px',
-                    height: '350px',
-                    border: '1px solid #E4E4E4',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    rowGap: '15px',
+                    width: "400px",
+                    height: "350px",
+                    border: "1px solid #E4E4E4",
+                    borderRadius: "8px",
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "15px",
                   }}
                 >
                   <Box
                     sx={{
                       backgroundImage: `url(${dummyPhoto})`,
-                      height: '70%',
-                      borderTopRightRadius: '8px',
-                      borderTopLeftRadius: '8px',
-                      backgroundSize: 'cover',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'center',
-                      width: '100.1%',
+                      height: "70%",
+                      borderTopRightRadius: "8px",
+                      borderTopLeftRadius: "8px",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      width: "100.1%",
                     }}
                   ></Box>
-                  <Box sx={{ p: '10px' }}>
+                  <Box sx={{ p: "10px" }}>
                     <Typography
                       sx={{
-                        fontSize: '14px',
-                        fontWeight: '400',
-                        color: '#171717',
+                        fontSize: "14px",
+                        fontWeight: "400",
+                        color: "#171717",
                       }}
                     >
                       Basic
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: '14px',
-                        fontWeight: '300',
-                        color: '#505050',
+                        fontSize: "14px",
+                        fontWeight: "300",
+                        color: "#505050",
                       }}
                     >
                       Default User
@@ -646,98 +646,98 @@ const ArticleDetails = () => {
         <Grid2 size={{ xs: 12, lg: 4, xl: 3 }}>
           <Paper>
             <Typography
-              sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
             >
               Comments
             </Typography>
             <Box
               sx={{
-                borderTop: '1px solid #E4E4E4',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                backgroundColor: '#F8FCFF',
-                height: '50px',
-                px: { xs: '10px', md: '0px' },
-                mt: '25px',
+                borderTop: "1px solid #E4E4E4",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                backgroundColor: "#F8FCFF",
+                height: "50px",
+                px: { xs: "10px", md: "0px" },
+                mt: "25px",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '15px',
-                  cursor: 'pointer',
-                  width: { md: '25%' },
-                  height: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  columnGap: "15px",
+                  cursor: "pointer",
+                  width: { md: "25%" },
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onClick={!isLikeloading ? LikeHandler : () => {}}
               >
                 <img
                   src={hasLiked ? like : unlike}
                   alt="Like"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
                   sx={{
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    display: { xs: 'none' },
-                    color: '#505050',
-                    '@media (min-width:1750px)': { display: 'block' },
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    display: { xs: "none" },
+                    color: "#505050",
+                    "@media (min-width:1750px)": { display: "block" },
                   }}
                 >
-                  {hasLiked ? 'Liked' : 'Like'}
+                  {hasLiked ? "Liked" : "Like"}
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '15px',
-                  cursor: 'pointer',
-                  backgroundColor: showComments ? '#FFFFFF' : 'inherit',
-                  width: { md: '25%' },
-                  height: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  columnGap: "15px",
+                  cursor: "pointer",
+                  backgroundColor: showComments ? "#FFFFFF" : "inherit",
+                  width: { md: "25%" },
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onClick={CommentHandler}
               >
                 <img src={comment} alt="Like" />
                 <Typography
                   sx={{
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    display: { xs: 'none' },
-                    color: '#505050',
-                    '@media (min-width:1750px)': { display: 'block' },
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    display: { xs: "none" },
+                    color: "#505050",
+                    "@media (min-width:1750px)": { display: "block" },
                   }}
                 >
                   Comment
                 </Typography>
               </Box>
-              {articleContent?.visibility === 'PUBLIC' && (
+              {articleContent?.visibility === "PUBLIC" && (
                 <Box
                   sx={{
-                    display: 'flex',
-                    columnGap: '15px',
-                    cursor: 'pointer',
-                    width: { md: '25%' },
-                    height: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: "flex",
+                    columnGap: "15px",
+                    cursor: "pointer",
+                    width: { md: "25%" },
+                    height: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                   onClick={() => setShowShareModal(true)}
                 >
                   <img src={send} alt="Repost" />
                   <Typography
                     sx={{
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      display: { xs: 'none' },
-                      color: '#505050',
-                      '@media (min-width:1750px)': { display: 'block' },
+                      fontSize: "14px",
+                      fontWeight: "500",
+                      display: { xs: "none" },
+                      color: "#505050",
+                      "@media (min-width:1750px)": { display: "block" },
                     }}
                   >
                     Send
@@ -748,44 +748,44 @@ const ArticleDetails = () => {
             {showComments && (
               <Box
                 sx={{
-                  px: { xs: '0px', md: '10px' },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '10px',
-                  mt: '25px',
+                  px: { xs: "0px", md: "10px" },
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "10px",
+                  mt: "25px",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    columnGap: '5px',
-                    flexDirection: { xs: 'column', md: 'row' },
+                    display: "flex",
+                    columnGap: "5px",
+                    flexDirection: { xs: "column", md: "row" },
                   }}
                 >
                   <Box
                     sx={{
-                      display: 'flex',
-                      columnGap: '5px',
-                      flexDirection: { xs: 'column', md: 'row' },
-                      width: '100%',
+                      display: "flex",
+                      columnGap: "5px",
+                      flexDirection: { xs: "column", md: "row" },
+                      width: "100%",
                     }}
                   >
                     {isGetCommentsLoading ? (
                       <Box
                         sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          width: '100%',
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
                         }}
                       >
                         <LinearProgress
                           sx={{
-                            width: '100%',
+                            width: "100%",
                             height: 6,
-                            bgcolor: '#F2F8FD',
-                            '& .MuiLinearProgress-bar': {
-                              backgroundColor: 'white',
+                            bgcolor: "#F2F8FD",
+                            "& .MuiLinearProgress-bar": {
+                              backgroundColor: "white",
                             },
                           }}
                         />
@@ -793,9 +793,9 @@ const ArticleDetails = () => {
                     ) : (
                       <Box
                         sx={{
-                          width: '100%',
-                          display: 'flex',
-                          columnGap: '3px',
+                          width: "100%",
+                          display: "flex",
+                          columnGap: "3px",
                         }}
                       >
                         <Avatar
@@ -805,50 +805,50 @@ const ArticleDetails = () => {
                               : user
                           }
                           alt="User"
-                          sx={{ width: 60, height: 60, objectFit: 'fill' }}
+                          sx={{ width: 60, height: 60, objectFit: "fill" }}
                         />
 
                         <Box
                           sx={{
-                            border: '1px solid #DDE2E4',
-                            width: '100%',
-                            display: 'flex',
-                            pr: '10px',
-                            minHeight: '60px',
-                            flexDirection: commentContent ? 'column' : 'row',
-                            pb: commentContent ? '10px' : '0px',
-                            rowGap: '13px',
+                            border: "1px solid #DDE2E4",
+                            width: "100%",
+                            display: "flex",
+                            pr: "10px",
+                            minHeight: "60px",
+                            flexDirection: commentContent ? "column" : "row",
+                            pb: commentContent ? "10px" : "0px",
+                            rowGap: "13px",
                           }}
                         >
                           <OutlinedInput
                             sx={{
-                              height: '100%',
-                              width: '100%',
-                              '& .MuiOutlinedInput-root': {
-                                border: 'none !important',
-                                height: '100%',
+                              height: "100%",
+                              width: "100%",
+                              "& .MuiOutlinedInput-root": {
+                                border: "none !important",
+                                height: "100%",
                               },
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                border: 'none !important',
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                border: "none !important",
                               },
-                              p: '10px',
+                              p: "10px",
                             }}
-                            placeholder={'Add a comment'}
+                            placeholder={"Add a comment"}
                             onInputChange={(e) =>
                               setCommentContent(e.target.value)
                             }
                             value={commentContent}
                             multiline={true}
                             onKeyDown={handleKeyDown}
-                            name={'comment'}
+                            name={"comment"}
                             inputRef={inputRef}
                           />
                           <Box
                             sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              pl: '10px',
-                              justifyContent: 'space-between',
+                              display: "flex",
+                              alignItems: "center",
+                              pl: "10px",
+                              justifyContent: "space-between",
                             }}
                           >
                             {commentContent && (
@@ -856,9 +856,9 @@ const ArticleDetails = () => {
                                 loading={postCommentLoading}
                                 onClick={() => HandleComment(id)}
                                 sx={{
-                                  width: '150px',
-                                  height: '36px',
-                                  color: 'white',
+                                  width: "150px",
+                                  height: "36px",
+                                  color: "white",
                                 }}
                               >
                                 Comment
@@ -872,11 +872,11 @@ const ArticleDetails = () => {
                 </Box>
                 <Box
                   sx={{
-                    maxHeight: '350px',
-                    overflowY: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    rowGap: '15px',
+                    maxHeight: "350px",
+                    overflowY: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "15px",
                   }}
                 >
                   {Array.isArray(postComments) &&
@@ -900,53 +900,53 @@ const ArticleDetails = () => {
             {getCommentsData && postComments?.length == 0 && (
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  mt: '25px',
-                  flexDirection: 'column',
-                  rowGap: '15px',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: "25px",
+                  flexDirection: "column",
+                  rowGap: "15px",
                 }}
               >
                 <img src={noComments} alt="Image" />
                 <Typography
-                  sx={{ fontSize: '17px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
                 >
                   No comments, yet.
                 </Typography>
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '400', color: '#505050' }}
+                  sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}
                 >
                   Be the first to comment.
                 </Typography>
                 <Box
                   sx={{
-                    width: '70%',
-                    height: '36px',
-                    borderRadius: '2px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    background: 'white',
-                    position: 'relative',
-                    '&::before': {
+                    width: "70%",
+                    height: "36px",
+                    borderRadius: "2px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background: "white",
+                    position: "relative",
+                    "&::before": {
                       content: '""',
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      borderRadius: '8px',
-                      padding: '1px',
+                      borderRadius: "8px",
+                      padding: "1px",
                       background:
-                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-                      mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                      mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
                       WebkitMask:
-                        'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-                      WebkitMaskComposite: 'destination-out',
-                      maskComposite: 'exclude',
+                        "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                      WebkitMaskComposite: "destination-out",
+                      maskComposite: "exclude",
                     },
-                    cursor: 'pointer',
+                    cursor: "pointer",
                   }}
                   onClick={HandleFocus}
                 >
@@ -977,8 +977,8 @@ const ArticleDetails = () => {
       <DynamicModal
         open={postChoiceModal}
         handleClose={() => setPostChoiceModal(false)}
-        title={'Comment, react, and repost as'}
-        buttonText={'Save'}
+        title={"Comment, react, and repost as"}
+        buttonText={"Save"}
         postModal={true}
         hideFooter={true}
         smallModal={true}
@@ -990,8 +990,8 @@ const ArticleDetails = () => {
       <DynamicModal
         open={showReportArticle1}
         handleClose={() => setReportArticle1(false)}
-        title={'Report this article'}
-        buttonText={'Next'}
+        title={"Report this article"}
+        buttonText={"Next"}
         postModal={true}
         hideFooter={true}
         smallModal={true}

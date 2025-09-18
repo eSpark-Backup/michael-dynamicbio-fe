@@ -1,22 +1,22 @@
-import { useFormik } from 'formik';
-import { Box, Button, Typography } from '@mui/material';
-import { Input } from '../../../components';
-import { profileDetailsSchema } from '../../../schemas';
-import { useNavigate } from 'react-router-dom';
-import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
+import { useFormik } from "formik";
+import { Box, Button, Typography } from "@mui/material";
+import { Input } from "../../../components";
+import { profileDetailsSchema } from "../../../schemas";
+import { useNavigate } from "react-router-dom";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const CompleteProfile = () => {
   const currentYear = dayjs();
-  const tempUser = JSON.parse(localStorage.getItem('temp_user_data'));
+  const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      country: '',
-      city: '',
-      company: '',
-      industry: '',
-      designation: '',
+      country: "",
+      city: "",
+      company: "",
+      industry: "",
+      designation: "",
       startingDate: null,
     },
     validationSchema: profileDetailsSchema,
@@ -26,20 +26,20 @@ const CompleteProfile = () => {
   });
   return (
     <>
-      <Typography mt="50px" fontSize={'29px'} textAlign="center">
+      <Typography mt="50px" fontSize={"29px"} textAlign="center">
         Welcome, {tempUser?.firstName}!
       </Typography>
-      <Typography fontSize={'17px'} fontWeight={300} textAlign="center">
+      <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Let’s begin your profile, connect to the people you know, and engage
         with them on topics you care about.
       </Typography>
       <Box
         sx={{
-          width: { xs: '90%', sm: '70%', md: '60%', lg: '40%' },
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '20px',
-          mt: '60px',
+          width: { xs: "90%", sm: "70%", md: "60%", lg: "40%" },
+          display: "flex",
+          flexDirection: "column",
+          rowGap: "20px",
+          mt: "60px",
         }}
       >
         <Input
@@ -82,23 +82,23 @@ const CompleteProfile = () => {
           error={formik.touched.designation && !!formik.errors.designation}
           helperText={formik.touched.designation && formik.errors.designation}
         />
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Typography mb={1}>Starting Date</Typography>
           <DatePicker
             value={formik.values.startingDate}
-            onChange={(value) => formik.setFieldValue('startingDate', value)}
+            onChange={(value) => formik.setFieldValue("startingDate", value)}
             maxDate={currentYear}
             openTo="day"
-            views={['year', 'month', 'day']}
+            views={["year", "month", "day"]}
             sx={{
-              '.MuiOutlinedInput-root': {
-                width: '100%',
-                backgroundColor: '#FCFCFC',
-                height: '65px',
-                border: 'none',
-                borderBottom: '1px solid #000000 !important',
-                borderRadius: '0px',
-                fontSize: '18px',
+              ".MuiOutlinedInput-root": {
+                width: "100%",
+                backgroundColor: "#FCFCFC",
+                height: "65px",
+                border: "none",
+                borderBottom: "1px solid #000000 !important",
+                borderRadius: "0px",
+                fontSize: "18px",
               },
             }}
             slotProps={{
@@ -113,16 +113,16 @@ const CompleteProfile = () => {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            rowGap: '20px',
-            mt: '50px',
-            mb: '40px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            rowGap: "20px",
+            mt: "50px",
+            mb: "40px",
           }}
         >
-          <Box sx={{ width: '250px' }}>
+          <Box sx={{ width: "250px" }}>
             <Button type="submit" onClick={formik.handleSubmit}>
               Continue
             </Button>

@@ -1,22 +1,22 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
-import PagesTab from './pagestab';
-import CreatePage from './createPage';
-import { useQuery } from '../../../../utils';
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import PagesTab from "./pagestab";
+import CreatePage from "./createPage";
+import { useQuery } from "../../../../utils";
 import {
   useDeletePageMutation,
   useFollowPageMutation,
   useGetAllPagesQuery,
   useGetFollowedPagesQuery,
   useGetMyPagesQuery,
-} from '../../../../services/page';
+} from "../../../../services/page";
 
 const Pages = () => {
   const query = useQuery();
-  const idEdit = query.get('edit') === 'true';
-  const [activeTabLabel, setActiveTabLabel] = useState('Your');
+  const idEdit = query.get("edit") === "true";
+  const [activeTabLabel, setActiveTabLabel] = useState("Your");
 
   const {
     data: myPagesData,
@@ -25,7 +25,7 @@ const Pages = () => {
     error: myPagesError,
     refetch: myPagesRefetch,
     isFetching: isMyPagesFetcing,
-  } = useGetMyPagesQuery('', {
+  } = useGetMyPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -36,7 +36,7 @@ const Pages = () => {
     error: allPagesError,
     refetch: allPagesRefetch,
     isFetching: isAllPagesFetcing,
-  } = useGetAllPagesQuery('', {
+  } = useGetAllPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -47,7 +47,7 @@ const Pages = () => {
     error: followedPagesError,
     refetch: followPagesRefetch,
     isFetching: isFollowedPagesFetcing,
-  } = useGetFollowedPagesQuery('', {
+  } = useGetFollowedPagesQuery("", {
     refetchOnMountOrArgChange: true,
   });
 
@@ -101,7 +101,7 @@ const Pages = () => {
     );
     return [
       {
-        label: 'Your',
+        label: "Your",
         component: (
           <PagesTab
             isFollowLoading={isFollowLoading}
@@ -116,7 +116,7 @@ const Pages = () => {
         ),
       },
       {
-        label: 'Followed',
+        label: "Followed",
         component: (
           <PagesTab
             isFollowLoading={isFollowLoading}
@@ -149,14 +149,14 @@ const Pages = () => {
     return (
       <Box
         sx={{
-          width: '100%',
-          height: 'calc(100vh - 150px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: "100%",
+          height: "calc(100vh - 150px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <CircularProgress sx={{ color: '#1877F2' }} />
+        <CircularProgress sx={{ color: "#1877F2" }} />
       </Box>
     );
   }
@@ -171,22 +171,22 @@ const Pages = () => {
         justifyContent="flex-start"
         gap={5}
         sx={{
-          background: '#FFF',
-          border: '1px solid #E4E4E4',
-          borderRadius: '4px',
-          padding: '18px 30px',
+          background: "#FFF",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
+          padding: "18px 30px",
         }}
       >
         {tabs.map((tab) => (
           <Typography
             sx={{
-              cursor: 'pointer',
-              position: 'relative',
+              cursor: "pointer",
+              position: "relative",
               background:
-                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-              WebkitBackgroundClip: 'text',
+                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+              WebkitBackgroundClip: "text",
               WebkitTextFillColor:
-                tab.label === activeTabLabel ? 'transparent' : '#000',
+                tab.label === activeTabLabel ? "transparent" : "#000",
             }}
             fontSize="14px"
             fontWeight={500}

@@ -1,64 +1,64 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { conversation, send2, user } from '../assets';
-import Button from './button';
+import { Box, Stack, Typography } from "@mui/material";
+import { conversation, send2, user } from "../assets";
+import Button from "./button";
 
 const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
   return (
     <>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          rowGap: '10px',
-          mt: '20px',
-          pb: '30px',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          rowGap: "10px",
+          mt: "20px",
+          pb: "30px",
         }}
       >
         <img src={conversation} alt="Image" />
         <Typography
-          sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
+          sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
         >
           Welcome to free
         </Typography>
         <Typography
-          sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
+          sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
         >
           Group admin sent you this note
         </Typography>
         <Box
           sx={{
-            width: '90%',
-            border: '1px solid #E4E4E4',
-            borderRadius: '8px',
-            p: '15px',
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '10px',
+            width: "90%",
+            border: "1px solid #E4E4E4",
+            borderRadius: "8px",
+            p: "15px",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "10px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <Stack direction={'row'} gap={1} alignItems={'center'}>
+            <Stack direction={"row"} gap={1} alignItems={"center"}>
               <img
                 src={user}
                 alt="Avatar"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '500', color: '#171717' }}
+                sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}
               >
                 Default User
               </Typography>
-              <Box sx={{ p: '5px 15px', backgroundColor: '#d3d3d3' }}>
+              <Box sx={{ p: "5px 15px", backgroundColor: "#d3d3d3" }}>
                 <Typography
-                  sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
+                  sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
                 >
                   Admin
                 </Typography>
@@ -68,10 +68,10 @@ const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
           </Box>
           <Typography
             sx={{
-              fontSize: '15px',
-              fontWeight: '400',
-              color: '#505050',
-              wordBreak: 'break-word',
+              fontSize: "15px",
+              fontWeight: "400",
+              color: "#505050",
+              wordBreak: "break-word",
             }}
           >
             {content}
@@ -79,52 +79,52 @@ const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
         </Box>
       </Box>
       <Stack
-        justifyContent={'flex-end'}
-        alignItems={'center'}
+        justifyContent={"flex-end"}
+        alignItems={"center"}
         px={6}
-        direction={'row'}
+        direction={"row"}
         gap={3}
         sx={{
-          height: '55px',
-          borderTop: '1px solid #E4E4E4',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'fixed',
-          bottom: '0px',
-          right: '0px',
+          height: "55px",
+          borderTop: "1px solid #E4E4E4",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "0px",
+          right: "0px",
           zIndex: 999,
-          backgroundColor: 'white',
+          backgroundColor: "white",
         }}
       >
         <Box
           sx={{
-            width: '150px',
-            height: '36px',
-            borderRadius: '2px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            background: 'white',
-            position: 'relative',
-            '&::before': {
+            width: "150px",
+            height: "36px",
+            borderRadius: "2px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "white",
+            position: "relative",
+            "&::before": {
               content: '""',
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              borderRadius: '8px',
-              padding: '1px',
+              borderRadius: "8px",
+              padding: "1px",
               background:
-                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-              mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+              mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
               WebkitMask:
-                'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-              WebkitMaskComposite: 'destination-out',
-              maskComposite: 'exclude',
+                "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+              WebkitMaskComposite: "destination-out",
+              maskComposite: "exclude",
             },
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
           onClick={handleClose}
         >
@@ -133,10 +133,10 @@ const WelcomePreviewModal = ({ content, handleClose, handleSave }) => {
         <Button
           type="submit"
           sx={{
-            maxWidth: '150px',
-            height: '36px',
-            fontSize: '16px',
-            minWidth: { md: '150px' },
+            maxWidth: "150px",
+            height: "36px",
+            fontSize: "16px",
+            minWidth: { md: "150px" },
           }}
           onClick={handleSave}
         >

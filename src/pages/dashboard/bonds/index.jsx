@@ -1,71 +1,71 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Stack, Typography } from '@mui/material';
-import { RightSideBar } from '../../../components';
-import MyBond from './my-bonds';
-import BondedSynergy from './bonded-synergy';
-import Groups from './groups';
-import Pages from './pages';
-import SearchBonds from './search-bonds';
-import { useQuery } from '../../../utils';
-import { pageTypes } from '../../../constant';
-import { handleChange } from '../../../store/slices/search';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import { RightSideBar } from "../../../components";
+import MyBond from "./my-bonds";
+import BondedSynergy from "./bonded-synergy";
+import Groups from "./groups";
+import Pages from "./pages";
+import SearchBonds from "./search-bonds";
+import { useQuery } from "../../../utils";
+import { pageTypes } from "../../../constant";
+import { handleChange } from "../../../store/slices/search";
 
 const Bonds = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
-  const sub = query.get('sub') || 'bond';
-  const q = query.get('q');
-  const filter = query.get('filter');
-  const pageType = query.get('pageType');
+  const sub = query.get("sub") || "bond";
+  const q = query.get("q");
+  const filter = query.get("filter");
+  const pageType = query.get("pageType");
   const bondSidebar1 = [
     {
-      sub: 'bond',
-      label: 'Bonds',
+      sub: "bond",
+      label: "Bonds",
       component: <MyBond />,
     },
     {
-      sub: 'bonded-synergy',
-      label: 'Bonded Synergy',
+      sub: "bonded-synergy",
+      label: "Bonded Synergy",
       component: <BondedSynergy />,
     },
     {
-      sub: 'group',
-      label: 'Groups',
+      sub: "group",
+      label: "Groups",
       component: <Groups />,
     },
     {
-      sub: 'page',
-      label: 'Pages',
+      sub: "page",
+      label: "Pages",
       component: <Pages />,
     },
   ];
   const bondSidebar2 = [
     {
-      filter: 'all',
-      label: 'All',
+      filter: "all",
+      label: "All",
       component: <SearchBonds />,
     },
     {
-      filter: 'people',
-      label: 'People',
+      filter: "people",
+      label: "People",
       component: <SearchBonds />,
     },
     {
-      filter: 'group',
-      label: 'Groups',
+      filter: "group",
+      label: "Groups",
       component: <SearchBonds />,
     },
     {
-      filter: 'page',
-      label: 'Pages',
+      filter: "page",
+      label: "Pages",
       component: <SearchBonds />,
     },
     {
-      filter: 'post',
-      label: 'Posts',
+      filter: "post",
+      label: "Posts",
       component: <SearchBonds />,
     },
   ];
@@ -83,7 +83,7 @@ const Bonds = () => {
   useEffect(() => {
     if (search !== null) {
       const delaySearch = setTimeout(() => {
-        if (search === '') {
+        if (search === "") {
           setMySidebar(bondSidebar1);
           setActiveSidebar(bondSidebar1.find((item) => item.sub === sub));
         } else {
@@ -97,24 +97,24 @@ const Bonds = () => {
   }, [search, filter]);
 
   return (
-    <Box sx={{ p: '20px' }}>
+    <Box sx={{ p: "20px" }}>
       <Grid container spacing={4}>
         <Grid
           item
           xs={12}
           md={2.2}
-          sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
+          sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
         >
           <Box
             sx={{
-              background: '#fff',
-              padding: '36px 16px 5px 16px',
-              border: '1px solid #E4E4E4',
-              borderRadius: '4px',
+              background: "#fff",
+              padding: "36px 16px 5px 16px",
+              border: "1px solid #E4E4E4",
+              borderRadius: "4px",
             }}
           >
             <Typography fontSize="24px" textAlign="center">
-              {q ? 'On this Page' : 'Manage my bonds'}
+              {q ? "On this Page" : "Manage my bonds"}
             </Typography>
             {mySidebar.map((item) => {
               return (
@@ -129,13 +129,13 @@ const Bonds = () => {
                   }}
                   key={item.label}
                   sx={{
-                    padding: '14px 20px',
-                    cursor: 'pointer',
+                    padding: "14px 20px",
+                    cursor: "pointer",
                     background:
                       activeSidebar?.label === item.label
-                        ? '#F2F8FD'
-                        : 'transparent',
-                    ':hover': { background: '#F2F8FD' },
+                        ? "#F2F8FD"
+                        : "transparent",
+                    ":hover": { background: "#F2F8FD" },
                   }}
                   mt={3}
                   fontSize="14px"
@@ -151,7 +151,7 @@ const Bonds = () => {
           item
           xs={12}
           md={6.9}
-          sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
+          sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
         >
           {activeSidebar?.component}
         </Grid>
@@ -170,17 +170,17 @@ const Bonds = () => {
                     <Box
                       key={item?.title}
                       sx={{
-                        width: '300px',
-                        height: '160px',
-                        boxShadow: '0px 0px 6.1px 0px #00000026',
-                        borderRadius: '4px',
-                        background: '#FFF',
-                        padding: '10px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        cursor: 'pointer',
+                        width: "300px",
+                        height: "160px",
+                        boxShadow: "0px 0px 6.1px 0px #00000026",
+                        borderRadius: "4px",
+                        background: "#FFF",
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        cursor: "pointer",
                       }}
                     >
                       <img src={item?.icon} alt={item?.alt} />

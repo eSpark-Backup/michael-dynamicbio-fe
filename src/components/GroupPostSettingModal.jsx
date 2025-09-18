@@ -7,11 +7,11 @@ import {
   Stack,
   Switch,
   Typography,
-} from '@mui/material';
-import { useState } from 'react';
-import { dummyPhoto, rightArrow } from '../assets';
-import DynamicModal from './dynamic-modal';
-import CommentsControlModal from './CommentsControlModal';
+} from "@mui/material";
+import { useState } from "react";
+import { dummyPhoto, rightArrow } from "../assets";
+import DynamicModal from "./dynamic-modal";
+import CommentsControlModal from "./CommentsControlModal";
 
 const GroupPostSettingModal = ({ handleClose }) => {
   const [commentControl, setCommentControl] = useState(false);
@@ -22,89 +22,89 @@ const GroupPostSettingModal = ({ handleClose }) => {
   return (
     <Box
       sx={{
-        mt: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        rowGap: '30px',
+        mt: "20px",
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "30px",
       }}
     >
       <Typography
-        sx={{ fontSize: '18px', fontWeight: '500', color: '#171717' }}
+        sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
       >
         Who can see your post?
       </Typography>
       <RadioGroup
         name="share"
         defaultValue="group"
-        sx={{ width: '100%', px: '0px', marginRight: '0px !important' }}
+        sx={{ width: "100%", px: "0px", marginRight: "0px !important" }}
       >
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mt: '15px',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mt: "15px",
           }}
         >
-          <Stack direction={'row'} alignItems={'center'} gap={2}>
+          <Stack direction={"row"} alignItems={"center"} gap={2}>
             <img
               src={dummyPhoto}
               alt="Image"
-              style={{ width: '60px', height: '45px' }}
+              style={{ width: "60px", height: "45px" }}
             />
             <Typography
-              sx={{ color: '#171717', fontSize: '16px', fontWeight: '500' }}
+              sx={{ color: "#171717", fontSize: "16px", fontWeight: "500" }}
             >
               free
             </Typography>
           </Stack>
           <FormControlLabel
             value="group"
-            control={<Radio sx={{ marginRight: '0px !important' }} />}
-            sx={{ marginRight: '0px !important' }}
+            control={<Radio sx={{ marginRight: "0px !important" }} />}
+            sx={{ marginRight: "0px !important" }}
           />
         </Box>
       </RadioGroup>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mt: '35px',
-          cursor: 'pointer',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mt: "35px",
+          cursor: "pointer",
         }}
         onClick={() => setCommentControl(true)}
       >
-        <Stack direction={'column'}>
+        <Stack direction={"column"}>
           <Typography
-            sx={{ color: '#171717', fontSize: '17px', fontWeight: '500' }}
+            sx={{ color: "#171717", fontSize: "17px", fontWeight: "500" }}
           >
             Comment control
           </Typography>
           <Typography
-            sx={{ color: '#505050', fontSize: '14px', fontWeight: '500' }}
+            sx={{ color: "#505050", fontSize: "14px", fontWeight: "500" }}
           >
             On
           </Typography>
         </Stack>
-        <img src={rightArrow} alt="Icon" style={{ marginRight: '16px' }} />
+        <img src={rightArrow} alt="Icon" style={{ marginRight: "16px" }} />
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          my: '35px',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          my: "35px",
         }}
       >
-        <Stack direction={'column'}>
+        <Stack direction={"column"}>
           <Typography
-            sx={{ color: '#171717', fontSize: '17px', fontWeight: '500' }}
+            sx={{ color: "#171717", fontSize: "17px", fontWeight: "500" }}
           >
             Brand partnership
           </Typography>
           <Typography
-            sx={{ color: '#505050', fontSize: '14px', fontWeight: '500' }}
+            sx={{ color: "#505050", fontSize: "14px", fontWeight: "500" }}
           >
             Off
           </Typography>
@@ -112,52 +112,52 @@ const GroupPostSettingModal = ({ handleClose }) => {
         <Switch checked={checked} onChange={handleChange} />
       </Box>
       <Stack
-        justifyContent={'flex-end'}
-        alignItems={'center'}
+        justifyContent={"flex-end"}
+        alignItems={"center"}
         px={6}
-        direction={'row'}
+        direction={"row"}
         gap={3}
         sx={{
-          height: '55px',
-          borderTop: '1px solid #E4E4E4',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'fixed',
-          bottom: '0px',
-          right: '0px',
+          height: "55px",
+          borderTop: "1px solid #E4E4E4",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          position: "fixed",
+          bottom: "0px",
+          right: "0px",
           zIndex: 999,
-          backgroundColor: 'white',
+          backgroundColor: "white",
         }}
       >
         <Box
           sx={{
-            width: '150px',
-            height: '36px',
-            borderRadius: '2px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            background: 'white',
-            position: 'relative',
-            '&::before': {
+            width: "150px",
+            height: "36px",
+            borderRadius: "2px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "white",
+            position: "relative",
+            "&::before": {
               content: '""',
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              borderRadius: '8px',
-              padding: '1px',
+              borderRadius: "8px",
+              padding: "1px",
               background:
-                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-              mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+              mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
               WebkitMask:
-                'linear-gradient(white, white) content-box, linear-gradient(white, white)',
-              WebkitMaskComposite: 'destination-out',
-              maskComposite: 'exclude',
+                "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+              WebkitMaskComposite: "destination-out",
+              maskComposite: "exclude",
             },
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
           onClick={handleClose}
         >
@@ -167,10 +167,10 @@ const GroupPostSettingModal = ({ handleClose }) => {
           disabled={!checked}
           type="submit"
           sx={{
-            maxWidth: '150px',
-            height: '36px',
-            fontSize: '16px',
-            minWidth: { md: '150px' },
+            maxWidth: "150px",
+            height: "36px",
+            fontSize: "16px",
+            minWidth: { md: "150px" },
           }}
         >
           Save
@@ -179,7 +179,7 @@ const GroupPostSettingModal = ({ handleClose }) => {
       <DynamicModal
         open={commentControl}
         handleClose={() => setCommentControl(false)}
-        title={'Comment control'}
+        title={"Comment control"}
         postModal={true}
         styledHeader={true}
         hideFooter={true}

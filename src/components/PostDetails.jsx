@@ -5,8 +5,8 @@ import {
   Menu,
   MenuItem,
   Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import {
   nextArrow,
   prevArrow,
@@ -16,25 +16,25 @@ import {
   send,
   user,
   unlike,
-} from '../assets';
-import BondCard2 from './BondCard';
-import DynamicModal from './dynamic-modal';
-import RepostWithThoughts from './RepostWithThoughts';
-import GroupShareModal from './GroupShareModal';
-import ConfirmationModal from './ConfirmationModal';
-import ShareModal from './ShareModal';
-import ScheduleModal from './ScheduleModal';
-import OutlinedInput from './outline-input';
-import Comment from './Comment';
+} from "../assets";
+import BondCard2 from "./BondCard";
+import DynamicModal from "./dynamic-modal";
+import RepostWithThoughts from "./RepostWithThoughts";
+import GroupShareModal from "./GroupShareModal";
+import ConfirmationModal from "./ConfirmationModal";
+import ShareModal from "./ShareModal";
+import ScheduleModal from "./ScheduleModal";
+import OutlinedInput from "./outline-input";
+import Comment from "./Comment";
 import {
   useCommentMutation,
   useGetPostCommentsQuery,
-} from '../services/interaction';
-import { useSelector } from 'react-redux';
-import Button from './button';
-import { toast } from 'react-toastify';
-import ShowLikesModal from './ShowLikesModal';
-import EditModal from './EditModal';
+} from "../services/interaction";
+import { useSelector } from "react-redux";
+import Button from "./button";
+import { toast } from "react-toastify";
+import ShowLikesModal from "./ShowLikesModal";
+import EditModal from "./EditModal";
 
 const PostDetails = ({
   images,
@@ -79,12 +79,12 @@ const PostDetails = ({
   const [showComments, setShowComments] = useState(false);
   const [showThoughtsModal, setShowThoughtsModal] = useState(false);
   const [groupShareModal, setGroupShareModal] = useState(false);
-  const [thoughts, setThoughts] = useState('');
+  const [thoughts, setThoughts] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
-  const [commentContent, setCommentContent] = useState('');
-  const [postId, setPostId] = useState('');
+  const [commentContent, setCommentContent] = useState("");
+  const [postId, setPostId] = useState("");
   const [postComments, setPostComments] = useState([]);
   const { user: userData } = useSelector((state) => state.auth);
   const [totalComments, setTotalComments] = useState(comments);
@@ -165,8 +165,8 @@ const PostDetails = ({
         return;
       }
       if (res?.data) {
-        toast.success('Comment added successfully');
-        setCommentContent('');
+        toast.success("Comment added successfully");
+        setCommentContent("");
         refetch();
         setTotalComments((prev) => prev + 1);
         handleCommentCounter();
@@ -180,7 +180,7 @@ const PostDetails = ({
   };
 
   const HandleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       HandleComment(id);
     }
@@ -192,7 +192,7 @@ const PostDetails = ({
   };
 
   const HandleRepost = (event) => {
-    if (event === 'thoughts') {
+    if (event === "thoughts") {
       setShowThoughtsModal(true);
       handleCloseMenu();
     }
@@ -203,7 +203,7 @@ const PostDetails = ({
   };
 
   const HandleSuccess = () => {
-    if (thoughts === '') {
+    if (thoughts === "") {
       setShowConfirmModal(true);
     } else {
       setShowThoughtsModal(false);
@@ -211,68 +211,68 @@ const PostDetails = ({
   };
 
   const ALertHandler = () => {
-    toast.warning('Please login for actions');
+    toast.warning("Please login for actions");
   };
 
   return (
     <>
       <Box
         sx={{
-          display: { xs: 'flex', md: 'none' },
-          justifyContent: 'flex-end',
-          alignItems: 'center',
+          display: { xs: "flex", md: "none" },
+          justifyContent: "flex-end",
+          alignItems: "center",
         }}
       >
-        <Box sx={{ display: 'flex', columnGap: '4px', alignItems: 'center' }}>
+        <Box sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}>
           <img
             src={close}
             alt="Icon"
-            style={{ width: '24px', height: '44px', cursor: 'pointer' }}
+            style={{ width: "24px", height: "44px", cursor: "pointer" }}
             onClick={handleModalClose}
           />
         </Box>
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          gap: '15px',
-          flexDirection: { xs: 'column', md: 'row' },
-          mt: { xs: '15px', md: '0px' },
+          display: "flex",
+          gap: "15px",
+          flexDirection: { xs: "column", md: "row" },
+          mt: { xs: "15px", md: "0px" },
         }}
       >
         <Box
           sx={{
-            width: { xs: '100%', md: '55%' },
-            height: '70vh',
-            position: 'relative',
+            width: { xs: "100%", md: "55%" },
+            height: "70vh",
+            position: "relative",
             backgroundImage: `url("${images[activeIndex]}")`,
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100%',
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100%",
           }}
         >
           {Array.isArray(images) && images?.length > 1 && (
             <Box
               sx={{
-                position: 'absolute',
-                width: '100%',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                px: '10px',
-                display: 'flex',
-                justifyContent: 'space-between',
+                position: "absolute",
+                width: "100%",
+                top: "50%",
+                transform: "translateY(-50%)",
+                px: "10px",
+                display: "flex",
+                justifyContent: "space-between",
               }}
             >
               <img
                 src={prevArrow}
                 alt="Icon"
-                style={{ width: '24px', height: '24px', cursor: 'pointer' }}
+                style={{ width: "24px", height: "24px", cursor: "pointer" }}
                 onClick={HandlePrevClick}
               />
               <img
                 src={nextArrow}
                 alt="Icon"
-                style={{ width: '24px', height: '24px', cursor: 'pointer' }}
+                style={{ width: "24px", height: "24px", cursor: "pointer" }}
                 onClick={HandleNextClick}
               />
             </Box>
@@ -280,31 +280,31 @@ const PostDetails = ({
         </Box>
         <Box
           sx={{
-            width: { xs: '100%', md: '44%' },
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '15px',
+            width: { xs: "100%", md: "44%" },
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "15px",
           }}
         >
           <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
-              justifyContent: 'flex-end',
-              alignItems: 'center',
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+              alignItems: "center",
             }}
           >
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '4px',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
+                display: "flex",
+                columnGap: "4px",
+                alignItems: "center",
+                justifyContent: "flex-end",
               }}
             >
               <img
                 src={close}
                 alt="Icon"
-                style={{ width: '24px', height: '44px', cursor: 'pointer' }}
+                style={{ width: "24px", height: "44px", cursor: "pointer" }}
                 onClick={handleModalClose}
               />
             </Box>
@@ -326,7 +326,7 @@ const PostDetails = ({
             handleDetailsClose={handleModalClose}
             visibility={visibility}
             commentSetting={commentSetting}
-            type={'IMAGE'}
+            type={"IMAGE"}
             pageId={pageId}
             handleEdit={() => setEditModal(true)}
             id={userId}
@@ -342,33 +342,33 @@ const PostDetails = ({
           />
           {postContent && (
             <Typography
-              sx={{ fontSize: '20px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
               dangerouslySetInnerHTML={{ __html: postContent }}
             ></Typography>
           )}
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Box
-              sx={{ display: 'flex', alignItems: 'center', columnGap: '6px' }}
+              sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}
             >
               {numberofLikes >= 1 && (
                 <img
                   src={like}
                   alt="Like"
-                  style={{ width: '13.43px', height: '12px' }}
+                  style={{ width: "13.43px", height: "12px" }}
                 />
               )}
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '400',
-                  color: '#505050',
-                  cursor: numberofLikes > 0 ? 'pointer' : 'text',
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  cursor: numberofLikes > 0 ? "pointer" : "text",
                 }}
                 onClick={
                   isGeneralPost
@@ -379,9 +379,9 @@ const PostDetails = ({
                 }
               >
                 {numberofLikes === 0
-                  ? 'Be first to like this'
+                  ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                    ? 'You liked this post'
+                    ? "You liked this post"
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
@@ -389,19 +389,19 @@ const PostDetails = ({
                         : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', columnGap: '10px' }}>
+            <Box sx={{ display: "flex", columnGap: "10px" }}>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 {totalComments} comments
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 •
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 0 reposts
               </Typography>
@@ -409,24 +409,24 @@ const PostDetails = ({
           </Box>
           <Box
             sx={{
-              borderTop: '1px solid #E4E4E4',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              backgroundColor: '#F8FCFF',
-              height: '50px',
-              px: { xs: '10px', md: '0px' },
+              borderTop: "1px solid #E4E4E4",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              backgroundColor: "#F8FCFF",
+              height: "50px",
+              px: { xs: "10px", md: "0px" },
             }}
           >
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '15px',
-                cursor: 'pointer',
-                width: { md: '20%' },
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={
                 isGeneralPost
@@ -439,54 +439,54 @@ const PostDetails = ({
               <img
                 src={isLiked ? like : unlike}
                 alt="Like"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  display: { xs: 'none', md: 'block' },
-                  color: '#505050',
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
                 }}
               >
-                {isLiked ? 'Liked' : 'Like'}
+                {isLiked ? "Liked" : "Like"}
               </Typography>
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '15px',
-                cursor: 'pointer',
-                backgroundColor: showComments ? '#FFFFFF' : 'inherit',
-                width: { md: '20%' },
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                backgroundColor: showComments ? "#FFFFFF" : "inherit",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={isGeneralPost ? ALertHandler : () => CommentHandler(id)}
             >
               <img src={comment} alt="Like" />
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  display: { xs: 'none', lg: 'block' },
-                  color: '#505050',
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", lg: "block" },
+                  color: "#505050",
                 }}
               >
                 Comment
               </Typography>
             </Box>
-            {visibility === 'PUBLIC' && (
+            {visibility === "PUBLIC" && (
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '15px',
-                  cursor: 'pointer',
-                  width: { md: '20%' },
-                  height: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  columnGap: "15px",
+                  cursor: "pointer",
+                  width: { md: "20%" },
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
                 onClick={
                   isGeneralPost ? ALertHandler : () => setShowShareModal(true)
@@ -495,10 +495,10 @@ const PostDetails = ({
                 <img src={send} alt="Like" />
                 <Typography
                   sx={{
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    display: { xs: 'none', lg: 'block' },
-                    color: '#505050',
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    display: { xs: "none", lg: "block" },
+                    color: "#505050",
                   }}
                 >
                   Share
@@ -509,35 +509,35 @@ const PostDetails = ({
           {showComments && (
             <Box
               sx={{
-                px: { xs: '0px', md: '10px' },
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '10px',
+                px: { xs: "0px", md: "10px" },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '5px',
-                  flexDirection: { xs: 'column', md: 'row' },
+                  display: "flex",
+                  columnGap: "5px",
+                  flexDirection: { xs: "column", md: "row" },
                 }}
               >
                 {isGetCommentsLoading ? (
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '100%',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
                     }}
                   >
                     <LinearProgress
                       sx={{
-                        width: '100%',
+                        width: "100%",
                         height: 6,
-                        bgcolor: '#F2F8FD',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: 'white',
+                        bgcolor: "#F2F8FD",
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "white",
                         },
                       }}
                     />
@@ -549,36 +549,36 @@ const PostDetails = ({
                         userData?.profileImage ? userData.profileImage : user
                       }
                       alt="User"
-                      sx={{ width: 60, height: 60, objectFit: 'fill' }}
+                      sx={{ width: 60, height: 60, objectFit: "fill" }}
                     />
                     <Box
                       sx={{
-                        border: '1px solid #DDE2E4',
-                        width: '100%',
-                        display: 'flex',
-                        pr: '10px',
-                        minHeight: '60px',
-                        flexDirection: commentContent ? 'column' : 'row',
-                        pb: commentContent ? '10px' : '0px',
-                        rowGap: '13px',
-                        maxHeight: '120px',
-                        overflowY: 'auto',
+                        border: "1px solid #DDE2E4",
+                        width: "100%",
+                        display: "flex",
+                        pr: "10px",
+                        minHeight: "60px",
+                        flexDirection: commentContent ? "column" : "row",
+                        pb: commentContent ? "10px" : "0px",
+                        rowGap: "13px",
+                        maxHeight: "120px",
+                        overflowY: "auto",
                       }}
                     >
                       <OutlinedInput
                         sx={{
-                          height: '100%',
-                          width: '100%',
-                          '& .MuiOutlinedInput-root': {
-                            border: 'none !important',
-                            height: '100%',
+                          height: "100%",
+                          width: "100%",
+                          "& .MuiOutlinedInput-root": {
+                            border: "none !important",
+                            height: "100%",
                           },
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            border: 'none !important',
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            border: "none !important",
                           },
-                          p: '10px',
+                          p: "10px",
                         }}
-                        placeholder={'Add a comment'}
+                        placeholder={"Add a comment"}
                         onInputChange={(e) => setCommentContent(e.target.value)}
                         value={commentContent}
                         multiline={true}
@@ -586,10 +586,10 @@ const PostDetails = ({
                       />
                       <Box
                         sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          pl: '10px',
-                          justifyContent: 'space-between',
+                          display: "flex",
+                          alignItems: "center",
+                          pl: "10px",
+                          justifyContent: "space-between",
                         }}
                       >
                         {commentContent && (
@@ -597,9 +597,9 @@ const PostDetails = ({
                             loading={postCommentLoading}
                             onClick={() => HandleComment(id)}
                             sx={{
-                              width: '150px',
-                              height: '36px',
-                              color: 'white',
+                              width: "150px",
+                              height: "36px",
+                              color: "white",
                             }}
                           >
                             Comment
@@ -612,11 +612,11 @@ const PostDetails = ({
               </Box>
               <Box
                 sx={{
-                  maxHeight: '200px',
-                  overflowY: 'auto',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '20px',
+                  maxHeight: "200px",
+                  overflowY: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "20px",
                 }}
               >
                 {Array.isArray(postComments) &&
@@ -643,21 +643,21 @@ const PostDetails = ({
           open={open}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            vertical: "bottom",
+            horizontal: "center",
           }}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
+            vertical: "top",
+            horizontal: "left",
           }}
         >
           <MenuItem
-            onClick={() => HandleRepost('thoughts')}
-            sx={{ width: '245px' }}
+            onClick={() => HandleRepost("thoughts")}
+            sx={{ width: "245px" }}
           >
             Repost with your thoughts
           </MenuItem>
-          <MenuItem onClick={handleClose} sx={{ width: '245px' }}>
+          <MenuItem onClick={handleClose} sx={{ width: "245px" }}>
             Repost
           </MenuItem>
         </Menu>
@@ -665,12 +665,12 @@ const PostDetails = ({
         <DynamicModal
           open={showThoughtsModal}
           handleClose={() => setShowThoughtsModal(false)}
-          buttonText={'Post'}
+          buttonText={"Post"}
           postModal={true}
-          userName={'Default User'}
+          userName={"Default User"}
           handleScheduleClick={() => setShowScheduleModal(true)}
           dropdownHeader={true}
-          footerDirection={'flex-end'}
+          footerDirection={"flex-end"}
           onSuccess={HandleSuccess}
           handleGroupClick={() => setGroupShareModal(true)}
         >
@@ -680,11 +680,11 @@ const PostDetails = ({
         <DynamicModal
           open={groupShareModal}
           handleClose={() => setGroupShareModal(false)}
-          title={'Repost to group'}
-          buttonText={'Save'}
+          title={"Repost to group"}
+          buttonText={"Save"}
           postModal={true}
-          userName={'Default User'}
-          footerDirection={'space-between'}
+          userName={"Default User"}
+          footerDirection={"space-between"}
           hideFooter={true}
         >
           <GroupShareModal />
@@ -693,14 +693,14 @@ const PostDetails = ({
         <ConfirmationModal
           open={showConfirmModal}
           handleClose={() => setShowConfirmModal(false)}
-          title={'Repost without adding your thoughts?'}
-          cancelButtonText={'Back'}
-          acceptButtonText={'Yes, repost'}
+          title={"Repost without adding your thoughts?"}
+          cancelButtonText={"Back"}
+          acceptButtonText={"Yes, repost"}
           handleAccept={() => setShowConfirmModal(false)}
           handleCancel={() => setShowConfirmModal(false)}
         >
           <Typography
-            sx={{ fontSize: '17px', fontWeight: '300', color: '#595959' }}
+            sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}
           >
             If you repost without adding your thoughts, all new comments &
             reactions will be added to XYZ’s post.
@@ -724,14 +724,14 @@ const PostDetails = ({
         <DynamicModal
           open={showScheduleModal}
           handleClose={() => setShowScheduleModal(false)}
-          title={'Schedule post'}
-          buttonText={'Post'}
+          title={"Schedule post"}
+          buttonText={"Post"}
           postModal={true}
-          userName={'Default User'}
+          userName={"Default User"}
           handleScheduleClick={() => {}}
           smallModal={true}
           styledHeader={true}
-          footerDirection={'space-between'}
+          footerDirection={"space-between"}
         >
           <ScheduleModal />
         </DynamicModal>
@@ -739,7 +739,7 @@ const PostDetails = ({
         <DynamicModal
           open={showLikesModal}
           handleClose={() => setShowLikesModal(false)}
-          title={'Likes'}
+          title={"Likes"}
           hideFooter={true}
           smallModal={true}
           styledHeader={true}
@@ -761,7 +761,7 @@ const PostDetails = ({
           group={{ name: groupName, logoUrl: groupImage }}
         >
           <EditModal
-            type={'normal'}
+            type={"normal"}
             title={editTitle}
             id={id}
             normalPostData={{ images }}

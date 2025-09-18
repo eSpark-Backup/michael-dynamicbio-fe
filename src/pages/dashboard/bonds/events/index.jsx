@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Box, Stack, Typography } from '@mui/material';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Box, Stack, Typography } from "@mui/material";
 import {
   Button,
   DynamicModal,
   EventModal,
   ScheduleModal,
   ViewEventModal,
-} from '../../../../components';
-import { useNewPostMutation } from '../../../../services/post';
-import { eventImage, plus, share } from '../../../../assets';
+} from "../../../../components";
+import { useNewPostMutation } from "../../../../services/post";
+import { eventImage, plus, share } from "../../../../assets";
 
 const Events = () => {
   const [newPost, { isLoading }] = useNewPostMutation();
   const [showScheduleModal, setShowScheduleModal] = useState(false);
-  const [title, setTitle] = useState('');
-  const [visibility, setVisibility] = useState('PUBLIC');
+  const [title, setTitle] = useState("");
+  const [visibility, setVisibility] = useState("PUBLIC");
 
   const [eventModal, setEventModal] = useState(false);
   const [eventFormValues, setEventFormValues] = useState({});
@@ -28,7 +28,7 @@ const Events = () => {
     date: null,
     time: null,
   });
-  console.log(groupShareModal, 'groupShareModal');
+  console.log(groupShareModal, "groupShareModal");
 
   const handleEventPost = () => {
     const { selectedFile, ...rest } = eventFormValues;
@@ -38,9 +38,9 @@ const Events = () => {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: 'PUBLISH',
+      status: "PUBLISH",
       visibility,
-      type: 'EVENT',
+      type: "EVENT",
       cover: selectedFile,
     };
     newPost(obj).then((res) => {
@@ -49,8 +49,8 @@ const Events = () => {
         return;
       }
       if (res?.data) {
-        toast.success('Your post is uploaded successfully');
-        setTitle('');
+        toast.success("Your post is uploaded successfully");
+        setTitle("");
         setViewEventModal(false);
         setEventFormValues({});
       }
@@ -78,10 +78,10 @@ const Events = () => {
     <>
       <Box
         sx={{
-          background: '#fff',
-          padding: '16px',
-          border: '1px solid #E4E4E4',
-          borderRadius: '4px',
+          background: "#fff",
+          padding: "16px",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
         }}
       >
         <Stack
@@ -93,7 +93,7 @@ const Events = () => {
           <Typography fontSize="22px">Events</Typography>
           <img
             onClick={() => setEventModal(true)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             src={plus}
             alt="add"
           />
@@ -101,10 +101,10 @@ const Events = () => {
       </Box>
       <Box
         sx={{
-          background: '#fff',
-          padding: '36px 16px 36px 16px',
-          border: '1px solid #E4E4E4',
-          borderRadius: '4px',
+          background: "#fff",
+          padding: "36px 16px 36px 16px",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
         }}
       >
         <Stack
@@ -117,12 +117,12 @@ const Events = () => {
           <Typography
             fontSize="14px"
             sx={{
-              minWidth: '60px',
-              cursor: 'pointer',
+              minWidth: "60px",
+              cursor: "pointer",
               background:
-                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
-              '-webkit-background-clip': 'text',
-              '-webkit-text-fill-color': 'transparent',
+                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+              "-webkit-background-clip": "text",
+              "-webkit-text-fill-color": "transparent",
             }}
           >
             View all
@@ -143,18 +143,18 @@ const Events = () => {
               justifyContent="center"
               alignItems="flex-start"
               gap={1}
-              sx={{ width: '400px', cursor: 'pointer' }}
+              sx={{ width: "400px", cursor: "pointer" }}
             >
               <img
-                style={{ width: '40%', height: 'auto', borderRadius: '15px' }}
+                style={{ width: "40%", height: "auto", borderRadius: "15px" }}
                 src={eventImage}
                 alt="event"
               />
               <Box mt={2}>
-                <Typography sx={{ color: '#505050' }}>
+                <Typography sx={{ color: "#505050" }}>
                   Mon, Mar 3, 2025, 5:00 PM
                 </Typography>
-                <Typography fontSize="20px" sx={{ color: '#171717' }}>
+                <Typography fontSize="20px" sx={{ color: "#171717" }}>
                   Mocking
                 </Typography>
               </Box>
@@ -164,10 +164,10 @@ const Events = () => {
       </Box>
       <Box
         sx={{
-          background: '#fff',
-          padding: '36px 16px 36px 16px',
-          border: '1px solid #E4E4E4',
-          borderRadius: '4px',
+          background: "#fff",
+          padding: "36px 16px 36px 16px",
+          border: "1px solid #E4E4E4",
+          borderRadius: "4px",
         }}
       >
         <Typography fontSize="14px">Recommended for you</Typography>
@@ -187,24 +187,24 @@ const Events = () => {
               alignItems="flex-start"
               gap={1}
               sx={{
-                border: '1px solid #aba8a8',
-                borderRadius: '15px',
-                overflow: 'hidden',
+                border: "1px solid #aba8a8",
+                borderRadius: "15px",
+                overflow: "hidden",
               }}
             >
               <img
-                style={{ width: '100%', height: 'auto' }}
+                style={{ width: "100%", height: "auto" }}
                 src={eventImage}
                 alt="event"
               />
-              <Box sx={{ width: '100%', padding: '0 16px 16px 16px' }}>
-                <Typography sx={{ color: '#171717' }}>
+              <Box sx={{ width: "100%", padding: "0 16px 16px 16px" }}>
+                <Typography sx={{ color: "#171717" }}>
                   Mon, Mar 3, 2025, 5:00 PM
                 </Typography>
-                <Typography fontSize="20px" sx={{ color: '#171717' }}>
+                <Typography fontSize="20px" sx={{ color: "#171717" }}>
                   Mocking
                 </Typography>
-                <Typography mt={3} sx={{ color: '#505050' }}>
+                <Typography mt={3} sx={{ color: "#505050" }}>
                   ISM-New jerse . 13 attendees
                 </Typography>
                 <Stack
@@ -214,9 +214,9 @@ const Events = () => {
                   alignItems="center"
                   gap={2}
                 >
-                  <Button sx={{ flex: 1, height: '40px' }}>View</Button>
+                  <Button sx={{ flex: 1, height: "40px" }}>View</Button>
                   <img
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                     width={40}
                     height={40}
                     src={share}
@@ -231,13 +231,13 @@ const Events = () => {
       <DynamicModal
         open={eventModal}
         handleClose={() => setEventModal(false)}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
       >
         <EventModal
@@ -250,13 +250,13 @@ const Events = () => {
       <DynamicModal
         open={viewEventModal}
         handleClose={HandleViewEventClose}
-        title={'Create an event'}
-        buttonText={'Post'}
+        title={"Create an event"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         hideFooter={true}
         handleGroupClick={() => setGroupShareModal(true)}
         visibility={visibility}
@@ -284,15 +284,15 @@ const Events = () => {
           setShowScheduleModal(false);
         }}
         handleClose={() => setShowScheduleModal(false)}
-        title={'Schedule post'}
-        buttonText={'Post'}
+        title={"Schedule post"}
+        buttonText={"Post"}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}

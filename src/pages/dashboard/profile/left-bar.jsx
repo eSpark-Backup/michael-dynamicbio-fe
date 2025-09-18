@@ -1,37 +1,37 @@
-import { useState } from 'react';
-import { Avatar, Box, Chip, Paper, Stack, Typography } from '@mui/material';
-import EditBioModal from './modals/edit-bio';
-import { deleteIcon, plus, primaryEdit, user } from '../../../assets';
-import AddExperienceModal from './modals/add-experience';
-import dayjs from 'dayjs';
-import EditExperienceModal from './modals/edit-experience';
-import AddSkillModal from './modals/add-skill';
-import EditSkillModal from './modals/edit-skill';
-import AddEducationModal from './modals/add-education';
-import EditEducationModal from './modals/edit-education';
-import AddEmailModal from './modals/add-email';
-import EditEmailModal from './modals/edit-email';
-import AddPhoneModal from './modals/add-phone';
-import EditPhoneModal from './modals/edit-phone';
-import AddProject from './modals/add-project';
-import { useDispatch } from 'react-redux';
-import { updateUser } from '../../../store/slices/auth';
-import { useUpdateUserInfoMutation } from '../../../services/auth';
-import { toast } from 'react-toastify';
-import { ConfirmationModal } from '../../../components';
-import EditProject from './modals/edit-project';
-import AddCertificate from './modals/add-certificate';
-import EditCertificate from './modals/edit-certificate';
+import { useState } from "react";
+import { Avatar, Box, Chip, Paper, Stack, Typography } from "@mui/material";
+import EditBioModal from "./modals/edit-bio";
+import { deleteIcon, plus, primaryEdit, user } from "../../../assets";
+import AddExperienceModal from "./modals/add-experience";
+import dayjs from "dayjs";
+import EditExperienceModal from "./modals/edit-experience";
+import AddSkillModal from "./modals/add-skill";
+import EditSkillModal from "./modals/edit-skill";
+import AddEducationModal from "./modals/add-education";
+import EditEducationModal from "./modals/edit-education";
+import AddEmailModal from "./modals/add-email";
+import EditEmailModal from "./modals/edit-email";
+import AddPhoneModal from "./modals/add-phone";
+import EditPhoneModal from "./modals/edit-phone";
+import AddProject from "./modals/add-project";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../../store/slices/auth";
+import { useUpdateUserInfoMutation } from "../../../services/auth";
+import { toast } from "react-toastify";
+import { ConfirmationModal } from "../../../components";
+import EditProject from "./modals/edit-project";
+import AddCertificate from "./modals/add-certificate";
+import EditCertificate from "./modals/edit-certificate";
 
 const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
   const [item, setItem] = useState(null);
-  const [deleteItem, setDeleteItem] = useState('');
-  const [deleteId, setDeleteId] = useState('');
+  const [deleteItem, setDeleteItem] = useState("");
+  const [deleteId, setDeleteId] = useState("");
   const [showConfirmModal, setConfirmModal] = useState(false);
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
 
   const handleClose = () => {
-    setModal('');
+    setModal("");
     setItem(null);
   };
 
@@ -46,12 +46,12 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
   const handleAccept = () => {
     if (
       ![
-        'projects',
-        'experience',
-        'education',
-        'skills',
-        'phone',
-        'certifications',
+        "projects",
+        "experience",
+        "education",
+        "skills",
+        "phone",
+        "certifications",
       ].includes(deleteItem)
     )
       return;
@@ -70,9 +70,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       }
       toast.success(`Your ${deleteItem} deleted successfully`);
       dispatch(updateUser(res?.data?.data));
-      setDeleteId('');
+      setDeleteId("");
       setConfirmModal(false);
-      setDeleteItem('');
+      setDeleteItem("");
     });
   };
 
@@ -81,28 +81,28 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       {userData?.about?.bio && isPublic ? (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Bio
             </Typography>
             {!isPublicView && (
               <img
-                onClick={() => setModal('bio')}
-                style={{ cursor: 'pointer' }}
+                onClick={() => setModal("bio")}
+                style={{ cursor: "pointer" }}
                 src={primaryEdit}
                 alt="edit"
               />
@@ -110,23 +110,23 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
           <Box
             sx={{
-              border: '1px solid #E4E4E4',
-              p: '10px 5px 10px 5px',
-              borderRadius: '4px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              border: "1px solid #E4E4E4",
+              p: "10px 5px 10px 5px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Typography
               sx={{
-                fontSize: '10px',
+                fontSize: "10px",
                 fontWeight: 400,
-                color: '#171717',
+                color: "#171717",
               }}
             >
               {userData?.about?.bio ||
-                'Adding your experience allow you to get better opportunities.'}
+                "Adding your experience allow you to get better opportunities."}
             </Typography>
           </Box>
         </Paper>
@@ -138,29 +138,29 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
               (!isPublic &&
                 isPublicView &&
                 userData?.profileSettings?.showSummary)
-                ? 'flex'
-                : 'none',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+                ? "flex"
+                : "none",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Bio
             </Typography>
             {!isPublicView && (
               <img
-                onClick={() => setModal('bio')}
-                style={{ cursor: 'pointer' }}
+                onClick={() => setModal("bio")}
+                style={{ cursor: "pointer" }}
                 src={primaryEdit}
                 alt="edit"
               />
@@ -168,23 +168,23 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           </Box>
           <Box
             sx={{
-              border: '1px solid #E4E4E4',
-              p: '10px 5px 10px 5px',
-              borderRadius: '4px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              border: "1px solid #E4E4E4",
+              p: "10px 5px 10px 5px",
+              borderRadius: "4px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Typography
               sx={{
-                fontSize: '10px',
+                fontSize: "10px",
                 fontWeight: 400,
-                color: '#171717',
+                color: "#171717",
               }}
             >
               {userData?.about?.bio ||
-                'Adding your experience allow you to get better opportunities.'}
+                "Adding your experience allow you to get better opportunities."}
             </Typography>
           </Box>
         </Paper>
@@ -197,21 +197,21 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       ) : (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Contact details
             </Typography>
@@ -221,27 +221,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 {userData?.email}
               </Typography>
               {!isPublicView && (
                 <img
-                  onClick={() => setModal('addemail')}
-                  style={{ cursor: 'pointer' }}
+                  onClick={() => setModal("addemail")}
+                  style={{ cursor: "pointer" }}
                   src={plus}
                   alt="add"
                 />
@@ -255,19 +255,19 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.email}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '10px 5px 10px 5px',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    border: "1px solid #E4E4E4",
+                    p: "10px 5px 10px 5px",
+                    borderRadius: "4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.email}
@@ -275,10 +275,10 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <img
                       onClick={() => {
-                        setModal('editemail');
+                        setModal("editemail");
                         setItem(item);
                       }}
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: "pointer" }}
                       src={primaryEdit}
                       alt="edit"
                     />
@@ -292,27 +292,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
-                {userData?.phoneNumber || 'Phone number'}
+                {userData?.phoneNumber || "Phone number"}
               </Typography>
               {!isPublicView && (
                 <img
-                  onClick={() => setModal('addphone')}
-                  style={{ cursor: 'pointer' }}
+                  onClick={() => setModal("addphone")}
+                  style={{ cursor: "pointer" }}
                   src={plus}
                   alt="add"
                 />
@@ -326,19 +326,19 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.phone}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '10px 5px 10px 5px',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    border: "1px solid #E4E4E4",
+                    p: "10px 5px 10px 5px",
+                    borderRadius: "4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.phone}
@@ -346,27 +346,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '3px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "3px",
+                        alignItems: "center",
                       }}
                     >
                       <img
                         src={deleteIcon}
                         alt=""
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
-                        onClick={() => HandleDelete('phone', index)}
+                        onClick={() => HandleDelete("phone", index)}
                       />
                       <img
                         onClick={() => {
-                          setModal('editphone');
+                          setModal("editphone");
                           setItem(item);
                         }}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                         src={primaryEdit}
                         alt="edit"
                       />
@@ -385,22 +385,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
         (!isPublic && !isPublicView)) && (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Experience
             </Typography>
@@ -412,21 +412,21 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.title}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '15px',
-                    borderRadius: '4px',
+                    border: "1px solid #E4E4E4",
+                    p: "15px",
+                    borderRadius: "4px",
                     display:
                       isPublicView &&
                       !isPublic &&
                       !userData?.profileSettings?.showCurrentExperience &&
                       item?.currently
-                        ? 'none'
+                        ? "none"
                         : isPublicView &&
                             !isPublic &&
                             !userData?.profileSettings?.showPastExperience &&
                             !item?.currently
-                          ? 'none'
-                          : 'block',
+                          ? "none"
+                          : "block",
                   }}
                 >
                   <Stack
@@ -437,9 +437,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     <Typography
                       sx={{
-                        fontSize: '12px',
+                        fontSize: "12px",
                         fontWeight: 400,
-                        color: '#171717',
+                        color: "#171717",
                       }}
                     >
                       {item?.title}
@@ -447,27 +447,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     {!isPublicView && (
                       <Box
                         sx={{
-                          display: 'flex',
-                          columnGap: '3px',
-                          alignItems: 'center',
+                          display: "flex",
+                          columnGap: "3px",
+                          alignItems: "center",
                         }}
                       >
                         <img
                           src={deleteIcon}
                           alt=""
                           style={{
-                            cursor: 'pointer',
-                            width: '20px',
-                            height: '20px',
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
                           }}
-                          onClick={() => HandleDelete('experience', index)}
+                          onClick={() => HandleDelete("experience", index)}
                         />
                         <img
                           onClick={() => {
-                            setModal('editexp');
+                            setModal("editexp");
                             setItem(item);
                           }}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: "pointer" }}
                           src={primaryEdit}
                           alt="edit"
                         />
@@ -496,9 +496,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                           userData?.profileImage ? userData.profileImage : user
                         }
                         alt="User"
-                        sx={{ width: 24, height: 24, objectFit: 'fill' }}
+                        sx={{ width: 24, height: 24, objectFit: "fill" }}
                       />
-                      <Box sx={{ width: '100%' }}>
+                      <Box sx={{ width: "100%" }}>
                         <Stack
                           direction="row"
                           justifyContent="space-between"
@@ -507,27 +507,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                         >
                           <Typography
                             sx={{
-                              fontSize: '10px',
+                              fontSize: "10px",
                               fontWeight: 400,
-                              color: '#171717',
+                              color: "#171717",
                             }}
                           >
                             {item?.company}
                           </Typography>
                           <Typography
                             sx={{
-                              fontSize: '10px',
+                              fontSize: "10px",
                               fontWeight: 400,
-                              color: '#171717',
+                              color: "#171717",
                             }}
                           >
                             {item?.startingDate &&
-                              dayjs(item?.startingDate).format('MM/YYYY')}{' '}
-                            -{' '}
+                              dayjs(item?.startingDate).format("MM/YYYY")}{" "}
+                            -{" "}
                             {item?.currently
-                              ? 'Present'
+                              ? "Present"
                               : item?.endingDate &&
-                                dayjs(item?.endingDate).format('MM/YYYY')}
+                                dayjs(item?.endingDate).format("MM/YYYY")}
                           </Typography>
                         </Stack>
                         <Stack
@@ -538,18 +538,18 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                         >
                           <Typography
                             sx={{
-                              fontSize: '10px',
+                              fontSize: "10px",
                               fontWeight: 400,
-                              color: '#171717',
+                              color: "#171717",
                             }}
                           >
                             {item?.location}
                           </Typography>
                           <Typography
                             sx={{
-                              fontSize: '10px',
+                              fontSize: "10px",
                               fontWeight: 400,
-                              color: '#171717',
+                              color: "#171717",
                             }}
                           >
                             {item?.type}
@@ -564,20 +564,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding your experience allow you to get better opportunities.
@@ -586,16 +586,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addexp')}
+              onClick={() => setModal("addexp")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -608,22 +608,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       isPublic ? (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Education
             </Typography>
@@ -635,9 +635,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.school}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '15px',
-                    borderRadius: '4px',
+                    border: "1px solid #E4E4E4",
+                    p: "15px",
+                    borderRadius: "4px",
                   }}
                 >
                   <Stack
@@ -648,9 +648,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     <Typography
                       sx={{
-                        fontSize: '12px',
+                        fontSize: "12px",
                         fontWeight: 400,
-                        color: '#171717',
+                        color: "#171717",
                       }}
                     >
                       {item?.school}
@@ -658,27 +658,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     {!isPublicView && (
                       <Box
                         sx={{
-                          display: 'flex',
-                          columnGap: '3px',
-                          alignItems: 'center',
+                          display: "flex",
+                          columnGap: "3px",
+                          alignItems: "center",
                         }}
                       >
                         <img
                           src={deleteIcon}
                           alt=""
                           style={{
-                            cursor: 'pointer',
-                            width: '20px',
-                            height: '20px',
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
                           }}
-                          onClick={() => HandleDelete('education', index)}
+                          onClick={() => HandleDelete("education", index)}
                         />
                         <img
                           onClick={() => {
-                            setModal('editedu');
+                            setModal("editedu");
                             setItem(item);
                           }}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: "pointer" }}
                           src={primaryEdit}
                           alt="edit"
                         />
@@ -686,7 +686,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     )}
                   </Stack>
                   {item?.degree && (
-                    <Box sx={{ width: '100%', mt: 1 }}>
+                    <Box sx={{ width: "100%", mt: 1 }}>
                       <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -695,27 +695,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       >
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.degree} in {item?.field}
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.startingDate &&
-                            dayjs(item?.startingDate).format('YYYY')}{' '}
-                          -{' '}
+                            dayjs(item?.startingDate).format("YYYY")}{" "}
+                          -{" "}
                           {item?.currently
-                            ? 'Present'
+                            ? "Present"
                             : item?.endingDate &&
-                              dayjs(item?.endingDate).format('YYYY')}
+                              dayjs(item?.endingDate).format("YYYY")}
                         </Typography>
                       </Stack>
                       <Stack
@@ -726,18 +726,18 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       >
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.location}
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.type}
@@ -755,16 +755,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addedu')}
+              onClick={() => setModal("addedu")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -779,23 +779,23 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 isPublicView &&
                 userData?.profileSettings?.showEducation) ||
               (!isPublic && !isPublicView)
-                ? 'flex'
-                : 'none',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+                ? "flex"
+                : "none",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Education
             </Typography>
@@ -807,9 +807,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.school}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '15px',
-                    borderRadius: '4px',
+                    border: "1px solid #E4E4E4",
+                    p: "15px",
+                    borderRadius: "4px",
                   }}
                 >
                   <Stack
@@ -820,9 +820,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   >
                     <Typography
                       sx={{
-                        fontSize: '12px',
+                        fontSize: "12px",
                         fontWeight: 400,
-                        color: '#171717',
+                        color: "#171717",
                       }}
                     >
                       {item?.school}
@@ -830,27 +830,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     {!isPublicView && (
                       <Box
                         sx={{
-                          display: 'flex',
-                          columnGap: '3px',
-                          alignItems: 'center',
+                          display: "flex",
+                          columnGap: "3px",
+                          alignItems: "center",
                         }}
                       >
                         <img
                           src={deleteIcon}
                           alt=""
                           style={{
-                            cursor: 'pointer',
-                            width: '20px',
-                            height: '20px',
+                            cursor: "pointer",
+                            width: "20px",
+                            height: "20px",
                           }}
-                          onClick={() => HandleDelete('education', index)}
+                          onClick={() => HandleDelete("education", index)}
                         />
                         <img
                           onClick={() => {
-                            setModal('editedu');
+                            setModal("editedu");
                             setItem(item);
                           }}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: "pointer" }}
                           src={primaryEdit}
                           alt="edit"
                         />
@@ -861,7 +861,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                     isPublicView &&
                     userData?.profileSettings?.showEducationDetails) ||
                     (!isPublic && !isPublicView)) && (
-                    <Box sx={{ width: '100%', mt: 1 }}>
+                    <Box sx={{ width: "100%", mt: 1 }}>
                       <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -870,27 +870,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       >
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.degree} in {item?.field}
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.startingDate &&
-                            dayjs(item?.startingDate).format('YYYY')}{' '}
-                          -{' '}
+                            dayjs(item?.startingDate).format("YYYY")}{" "}
+                          -{" "}
                           {item?.currently
-                            ? 'Present'
+                            ? "Present"
                             : item?.endingDate &&
-                              dayjs(item?.endingDate).format('YYYY')}
+                              dayjs(item?.endingDate).format("YYYY")}
                         </Typography>
                       </Stack>
                       <Stack
@@ -901,18 +901,18 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       >
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.location}
                         </Typography>
                         <Typography
                           sx={{
-                            fontSize: '10px',
+                            fontSize: "10px",
                             fontWeight: 400,
-                            color: '#171717',
+                            color: "#171717",
                           }}
                         >
                           {item?.type}
@@ -926,20 +926,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding education allow people to know what your capability.
@@ -948,16 +948,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addedu')}
+              onClick={() => setModal("addedu")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -970,22 +970,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       isPublic ? (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Skills
             </Typography>
@@ -996,20 +996,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.skill}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '10px 5px 10px 5px',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    height: '40px',
+                    border: "1px solid #E4E4E4",
+                    p: "10px 5px 10px 5px",
+                    borderRadius: "4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    height: "40px",
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.skill}
@@ -1017,27 +1017,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '3px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "3px",
+                        alignItems: "center",
                       }}
                     >
                       <img
                         src={deleteIcon}
                         alt=""
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
-                        onClick={() => HandleDelete('skills', index)}
+                        onClick={() => HandleDelete("skills", index)}
                       />
                       <img
                         onClick={() => {
-                          setModal('editskill');
+                          setModal("editskill");
                           setItem(item);
                         }}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                         src={primaryEdit}
                         alt="edit"
                       />
@@ -1049,20 +1049,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding soft or technical skills allow others to know you better
@@ -1071,16 +1071,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addskill')}
+              onClick={() => setModal("addskill")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -1092,22 +1092,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       ) : (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Skills
             </Typography>
@@ -1118,20 +1118,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 <Box
                   key={item?.skill}
                   sx={{
-                    border: '1px solid #E4E4E4',
-                    p: '10px 5px 10px 5px',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    height: '40px',
+                    border: "1px solid #E4E4E4",
+                    p: "10px 5px 10px 5px",
+                    borderRadius: "4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    height: "40px",
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.skill}
@@ -1139,27 +1139,27 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '3px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "3px",
+                        alignItems: "center",
                       }}
                     >
                       <img
                         src={deleteIcon}
                         alt=""
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
-                        onClick={() => HandleDelete('skills', index)}
+                        onClick={() => HandleDelete("skills", index)}
                       />
                       <img
                         onClick={() => {
-                          setModal('editskill');
+                          setModal("editskill");
                           setItem(item);
                         }}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: "pointer" }}
                         src={primaryEdit}
                         alt="edit"
                       />
@@ -1171,20 +1171,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding soft or technical skills allow others to know you better
@@ -1193,16 +1193,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addskill')}
+              onClick={() => setModal("addskill")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -1218,22 +1218,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           userData?.about?.projects?.length > 0)) && (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Projects
             </Typography>
@@ -1244,20 +1244,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
               <Box
                 key={index}
                 sx={{
-                  border: '1px solid #E4E4E4',
-                  p: '10px 5px 10px 5px',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '10px',
+                  border: "1px solid #E4E4E4",
+                  p: "10px 5px 10px 5px",
+                  borderRadius: "4px",
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "10px",
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography
                     sx={{
-                      fontSize: '12px',
+                      fontSize: "12px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.name}
@@ -1265,30 +1265,30 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '3px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "3px",
+                        alignItems: "center",
                       }}
                     >
                       <img
                         src={deleteIcon}
                         alt=""
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
-                        onClick={() => HandleDelete('projects', index)}
+                        onClick={() => HandleDelete("projects", index)}
                       />
                       <img
                         onClick={() => {
-                          setModal('editproject');
+                          setModal("editproject");
                           setItem(item);
                         }}
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
                         src={primaryEdit}
                         alt="edit"
@@ -1300,12 +1300,12 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   item?.startYear ||
                   item?.endMonth ||
                   item?.endYear) && (
-                  <Box sx={{ display: 'flex' }}>
+                  <Box sx={{ display: "flex" }}>
                     <Typography
                       sx={{
-                        fontSize: '10px',
+                        fontSize: "10px",
                         fontWeight: 400,
-                        color: '#171717',
+                        color: "#171717",
                       }}
                     >
                       {item?.startMonth && item?.startYear
@@ -1314,20 +1314,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                           ? item.startMonth
                           : item?.startYear
                             ? item.startYear
-                            : ''}
+                            : ""}
 
                       {(item?.working || item?.endMonth || item?.endYear) &&
                         ` - `}
 
                       {item?.working
-                        ? 'Present'
+                        ? "Present"
                         : item?.endMonth && item?.endYear
                           ? `${item.endMonth} / ${item.endYear}`
                           : item?.endMonth
                             ? item.endMonth
                             : item?.endYear
                               ? item.endYear
-                              : ''}
+                              : ""}
                     </Typography>
                   </Box>
                 )}
@@ -1335,9 +1335,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.description && (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.description}
@@ -1346,9 +1346,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.links?.map((item, index) => (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                     key={index}
                   >
@@ -1359,7 +1359,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   item?.skills &&
                   item?.skills?.length > 0 && (
                     <Box
-                      sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
+                      sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
                     >
                       {item?.skills?.map((skill, index) => (
                         <Chip label={skill} key={index} />
@@ -1369,9 +1369,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.related && (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     This project is related to {item?.related}
@@ -1380,26 +1380,26 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.contributors && item?.contributors?.length > 0 && (
                   <Box
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      rowGap: '5px',
+                      display: "flex",
+                      flexDirection: "column",
+                      rowGap: "5px",
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: '16px',
-                        fontWeight: '500',
-                        color: '#171717',
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        color: "#171717",
                       }}
                     >
                       Other contributors
                     </Typography>
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '10px',
-                        flexWrap: 'wrap',
-                        rowGap: '5px',
+                        display: "flex",
+                        columnGap: "10px",
+                        flexWrap: "wrap",
+                        rowGap: "5px",
                       }}
                     >
                       {item?.contributors?.map((contributor, index2) => (
@@ -1411,7 +1411,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                               : user
                           }
                           alt="User"
-                          sx={{ width: 40, height: 40, objectFit: 'fill' }}
+                          sx={{ width: 40, height: 40, objectFit: "fill" }}
                         />
                       ))}
                     </Box>
@@ -1422,20 +1422,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding project allow people to know what your capability.
@@ -1444,16 +1444,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addproject')}
+              onClick={() => setModal("addproject")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -1472,22 +1472,22 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           userData?.about?.certifications?.length > 0)) && (
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '12px',
-            px: '20px',
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "12px",
+            px: "20px",
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              height: '40px',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: "40px",
             }}
           >
             <Typography
-              sx={{ fontSize: '14px', fontWeight: 400, color: '#171717' }}
+              sx={{ fontSize: "14px", fontWeight: 400, color: "#171717" }}
             >
               Certifications
             </Typography>
@@ -1498,20 +1498,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
               <Box
                 key={index}
                 sx={{
-                  border: '1px solid #E4E4E4',
-                  p: '10px 5px 10px 5px',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  rowGap: '4px',
+                  border: "1px solid #E4E4E4",
+                  p: "10px 5px 10px 5px",
+                  borderRadius: "4px",
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: "4px",
                 }}
               >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography
                     sx={{
-                      fontSize: '12px',
+                      fontSize: "12px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     {item?.name}
@@ -1519,30 +1519,30 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   {!isPublicView && (
                     <Box
                       sx={{
-                        display: 'flex',
-                        columnGap: '3px',
-                        alignItems: 'center',
+                        display: "flex",
+                        columnGap: "3px",
+                        alignItems: "center",
                       }}
                     >
                       <img
                         src={deleteIcon}
                         alt=""
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
-                        onClick={() => HandleDelete('certifications', index)}
+                        onClick={() => HandleDelete("certifications", index)}
                       />
                       <img
                         onClick={() => {
-                          setModal('editcertificate');
+                          setModal("editcertificate");
                           setItem(item);
                         }}
                         style={{
-                          cursor: 'pointer',
-                          width: '20px',
-                          height: '20px',
+                          cursor: "pointer",
+                          width: "20px",
+                          height: "20px",
                         }}
                         src={primaryEdit}
                         alt="edit"
@@ -1552,48 +1552,48 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 </Box>
                 <Typography
                   sx={{
-                    fontSize: '10px',
+                    fontSize: "10px",
                     fontWeight: 400,
-                    color: '#505050',
+                    color: "#505050",
                   }}
                 >
                   {item?.issuer}
                 </Typography>
-                <Box sx={{ display: 'flex' }}>
+                <Box sx={{ display: "flex" }}>
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
-                    {(item?.issueMonth || item?.issueYear) && 'Issued '}
+                    {(item?.issueMonth || item?.issueYear) && "Issued "}
                     {item?.issueMonth && item?.issueYear
                       ? `${item.issueMonth} ${item.issueYear}`
                       : item?.issueMonth
                         ? item.issueMonth
                         : item?.issueYear
                           ? item.issueYear
-                          : ''}
+                          : ""}
 
                     {(item?.expireMonth || item?.expireYear) && ` - `}
 
-                    {(item?.expireMonth || item?.expireYear) && 'Expires '}
+                    {(item?.expireMonth || item?.expireYear) && "Expires "}
                     {item?.expireMonth && item?.expireYear
                       ? `${item.expireMonth} ${item.expireYear}`
                       : item?.expireMonth
                         ? item.expireMonth
                         : item?.expireYear
                           ? item.expireYear
-                          : ''}
+                          : ""}
                   </Typography>
                 </Box>
                 {item?.credId && (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     Credential ID: {item?.credId}
@@ -1602,9 +1602,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.credURL && (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                   >
                     Credential URL: {item?.credURL}
@@ -1613,9 +1613,9 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                 {item?.links?.map((item, index) => (
                   <Typography
                     sx={{
-                      fontSize: '10px',
+                      fontSize: "10px",
                       fontWeight: 400,
-                      color: '#171717',
+                      color: "#171717",
                     }}
                     key={index}
                   >
@@ -1626,7 +1626,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                   item?.skills &&
                   item?.skills?.length > 0 && (
                     <Box
-                      sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
+                      sx={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
                     >
                       {item?.skills?.map((skill, index) => (
                         <Chip label={skill} key={index} />
@@ -1638,20 +1638,20 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           ) : (
             <Box
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '40px',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                height: "40px",
               }}
             >
               <Typography
                 sx={{
-                  fontSize: '10px',
+                  fontSize: "10px",
                   fontWeight: 400,
-                  color: '#171717',
+                  color: "#171717",
                 }}
               >
                 Adding certificates allow people to know what your capability.
@@ -1660,16 +1660,16 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
           )}
           {!isPublicView && (
             <Box
-              onClick={() => setModal('addcertificate')}
+              onClick={() => setModal("addcertificate")}
               sx={{
-                border: '1px solid #E4E4E4',
-                p: '10px 5px 10px 5px',
-                borderRadius: '4px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '40px',
-                cursor: 'pointer',
+                border: "1px solid #E4E4E4",
+                p: "10px 5px 10px 5px",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "40px",
+                cursor: "pointer",
               }}
             >
               <img src={plus} alt="add" />
@@ -1679,84 +1679,84 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
       )}
       <EditBioModal
         userData={userData}
-        open={modal === 'bio'}
+        open={modal === "bio"}
         handleClose={handleClose}
       />
       <AddEmailModal
         userData={userData}
-        open={modal === 'addemail'}
+        open={modal === "addemail"}
         handleClose={handleClose}
       />
       <EditEmailModal
         userData={userData}
         email={item}
-        open={modal === 'editemail'}
+        open={modal === "editemail"}
         handleClose={handleClose}
       />
       <AddPhoneModal
         userData={userData}
-        open={modal === 'addphone'}
+        open={modal === "addphone"}
         handleClose={handleClose}
       />
       <EditPhoneModal
         userData={userData}
         phone={item}
-        open={modal === 'editphone'}
+        open={modal === "editphone"}
         handleClose={handleClose}
       />
       <AddExperienceModal
         userData={userData}
-        open={modal === 'addexp'}
+        open={modal === "addexp"}
         handleClose={handleClose}
       />
       <EditExperienceModal
         userData={userData}
         exp={item}
-        open={modal === 'editexp'}
+        open={modal === "editexp"}
         handleClose={handleClose}
       />
       <AddEducationModal
         userData={userData}
-        open={modal === 'addedu'}
+        open={modal === "addedu"}
         handleClose={handleClose}
       />
       <EditEducationModal
         userData={userData}
         edu={item}
-        open={modal === 'editedu'}
+        open={modal === "editedu"}
         handleClose={handleClose}
       />
       <AddSkillModal
         userData={userData}
-        open={modal === 'addskill'}
+        open={modal === "addskill"}
         handleClose={handleClose}
       />
       <EditSkillModal
         userData={userData}
         skill={item}
-        open={modal === 'editskill'}
+        open={modal === "editskill"}
         handleClose={handleClose}
       />
       <AddProject
-        open={modal === 'addproject'}
+        open={modal === "addproject"}
         handleClose={handleClose}
         userData={userData}
       />
       <EditProject
-        open={modal === 'editproject'}
+        open={modal === "editproject"}
         handleClose={handleClose}
         userData={userData}
         project={item}
       />
 
       <AddCertificate
-        open={modal === 'addcertificate'}
+        open={modal === "addcertificate"}
         handleClose={handleClose}
         userData={userData}
       />
 
       <EditCertificate
-        open={modal === 'editcertificate'}
+        open={modal === "editcertificate"}
         handleClose={handleClose}
         userData={userData}
         certificate={item}
@@ -1766,14 +1766,14 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
         open={showConfirmModal}
         handleClose={() => setConfirmModal(false)}
         title={`Delete ${deleteItem}`}
-        cancelButtonText={'No thanks'}
-        acceptButtonText={'Delete'}
+        cancelButtonText={"No thanks"}
+        acceptButtonText={"Delete"}
         handleAccept={handleAccept}
         handleCancel={() => setConfirmModal(false)}
         isLoading={isLoading}
       >
         <Typography
-          sx={{ fontSize: '17px', fontWeight: '300', color: '#595959' }}
+          sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}
         >
           Are you sure you want to delete?
         </Typography>

@@ -6,8 +6,8 @@ import {
   MenuItem,
   Stack,
   Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import {
   bondMain,
   earth,
@@ -29,20 +29,20 @@ import {
   person,
   group,
   eyeOff,
-} from '../assets';
-import { useNavigate } from 'react-router-dom';
+} from "../assets";
+import { useNavigate } from "react-router-dom";
 import {
   useDeletePostByIdMutation,
   useSavePostMutation,
-} from '../services/post';
-import { toast } from 'react-toastify';
-import ViewAndCommentModal from './ViewAndCommentModal';
-import DynamicModal from './dynamic-modal';
+} from "../services/post";
+import { toast } from "react-toastify";
+import ViewAndCommentModal from "./ViewAndCommentModal";
+import DynamicModal from "./dynamic-modal";
 import {
   useSendBondReqMutation,
   useUpdateBondReqMutation,
-} from '../services/bonds';
-import { useFollowPageMutation } from '../services/page';
+} from "../services/bonds";
+import { useFollowPageMutation } from "../services/page";
 
 const BondCard2 = ({
   userImage,
@@ -85,7 +85,7 @@ const BondCard2 = ({
   const open = Boolean(anchorEl);
   const [saved, setSaved] = useState(isSaved);
   const [showPermissionModal, setShowPermissionModal] = useState(false);
-  const [permission, setPermission] = useState('');
+  const [permission, setPermission] = useState("");
   const [postVisibility, setPostVisibility] = useState(visibility);
   const [commentVisibility, setCommentVisibility] = useState(commentSetting);
   const [isFriend, setFriend] = useState(isFriendPost);
@@ -108,7 +108,7 @@ const BondCard2 = ({
   const [follow, { isLoading: isFollowLoading }] = useFollowPageMutation();
 
   const HandleChoiceChange = (value, type) => {
-    if (type === 'comment') {
+    if (type === "comment") {
       setCommentVisibility(value);
     } else {
       setPostVisibility(value);
@@ -124,22 +124,22 @@ const BondCard2 = ({
   };
 
   const HandleMenuItemClicked = async (event) => {
-    if (event === 'Save') {
+    if (event === "Save") {
       const res = await savePostData({
         postId,
-        type: 'POST',
+        type: "POST",
       });
       if (res?.error) {
-        toast.error(res?.error?.data?.message || 'Something went wrong');
+        toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
         toast.success(res?.data?.message);
         setSaved(!saved);
       }
-    } else if (event === 'delete') {
+    } else if (event === "delete") {
       const res = await deletePost(postId);
       if (res?.error) {
-        toast.error(res?.error?.data?.message || 'Something went wrong');
+        toast.error(res?.error?.data?.message || "Something went wrong");
         return;
       } else if (res?.data) {
         handleDelete(postId);
@@ -148,15 +148,15 @@ const BondCard2 = ({
       if (isDetails) {
         handleDetailsClose();
       }
-    } else if (event === 'edit') {
+    } else if (event === "edit") {
       handleEdit();
-    } else if (event === 'view') {
+    } else if (event === "view") {
       setShowPermissionModal(true);
-      setPermission('view');
-    } else if (event === 'comment') {
+      setPermission("view");
+    } else if (event === "comment") {
       setShowPermissionModal(true);
-      setPermission('comment');
-    } else if (event === 'friend') {
+      setPermission("comment");
+    } else if (event === "friend") {
       const bodyToSend = {
         recipientId: id,
       };
@@ -166,14 +166,14 @@ const BondCard2 = ({
           return;
         }
         if (res) {
-          toast.success('Your Request sent successfully');
+          toast.success("Your Request sent successfully");
           setFriend(!isFriend);
         }
       });
-    } else if (event === 'unfriend') {
+    } else if (event === "unfriend") {
       const bodyToSend = {
         otherUserId: id,
-        action: 'unfriend',
+        action: "unfriend",
       };
       updateReq(bodyToSend).then((res) => {
         if (res?.error) {
@@ -185,7 +185,7 @@ const BondCard2 = ({
           setFriend(!isFriend);
         }
       });
-    } else if (event === 'follow') {
+    } else if (event === "follow") {
       follow(pageId).then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
@@ -201,10 +201,10 @@ const BondCard2 = ({
           setIsFollowing(!isFollowing);
         }
       });
-    } else if (event === 'copy') {
+    } else if (event === "copy") {
       navigator.clipboard.writeText(shareableLink);
-      toast.success('Link copied successfully');
-    } else if (event === 'profile') {
+      toast.success("Link copied successfully");
+    } else if (event === "profile") {
       navigate(`/profile/${id}`);
     }
     handleMenuClose();
@@ -212,51 +212,51 @@ const BondCard2 = ({
 
   const displayText = isPagePost
     ? followerCount === 0
-      ? 'No followers'
+      ? "No followers"
       : followerCount === 1
-        ? '1 follower'
+        ? "1 follower"
         : `${followerCount} followers`
     : groupPost && !isGroupfeed
       ? userName
-      : userRole && userRole !== '0'
+      : userRole && userRole !== "0"
         ? userRole
-        : '';
+        : "";
 
   const AlertHandler = () => {
-    toast.warning('Please login for actions');
+    toast.warning("Please login for actions");
   };
   return (
     <Box
       sx={{
-        border: '1px solid #E4E4E4',
-        borderRadius: '2px',
-        backgroundColor: '#F2F8FD',
-        display: 'flex',
-        justifyContent: { xs: 'center', sm: 'space-between' },
-        alignItems: 'center',
-        p: '10px',
-        cursor: 'pointer',
+        border: "1px solid #E4E4E4",
+        borderRadius: "2px",
+        backgroundColor: "#F2F8FD",
+        display: "flex",
+        justifyContent: { xs: "center", sm: "space-between" },
+        alignItems: "center",
+        p: "10px",
+        cursor: "pointer",
       }}
     >
       <Box
         sx={{
-          display: 'flex',
-          columnGap: '15px',
-          alignItems: 'center',
-          flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: { xs: 'center', sm: 'flex-start' },
+          display: "flex",
+          columnGap: "15px",
+          alignItems: "center",
+          flexDirection: { xs: "column", sm: "row" },
+          justifyContent: { xs: "center", sm: "flex-start" },
         }}
       >
         {groupPost && !isGroupfeed ? (
           <Box
             sx={{
-              width: '60px',
-              height: '60px',
+              width: "60px",
+              height: "60px",
               backgroundImage: `url("${groupImage ? groupImage : dummyPhoto}")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              position: 'relative',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              position: "relative",
             }}
             onClick={
               isGeneralPost ? AlertHandler : () => navigate(`/group/${groupId}`)
@@ -268,10 +268,10 @@ const BondCard2 = ({
               sx={{
                 width: 35,
                 height: 35,
-                objectFit: 'fill',
-                position: 'absolute',
-                right: '-10px',
-                bottom: '-6px',
+                objectFit: "fill",
+                position: "absolute",
+                right: "-10px",
+                bottom: "-6px",
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -283,7 +283,7 @@ const BondCard2 = ({
           <Avatar
             src={userImage ? userImage : user}
             alt="User"
-            sx={{ width: 60, height: 60, objectFit: 'fill' }}
+            sx={{ width: 60, height: 60, objectFit: "fill" }}
             onClick={
               isGeneralPost
                 ? AlertHandler
@@ -293,17 +293,17 @@ const BondCard2 = ({
           />
         )}
         <Stack
-          direction={'column'}
-          ml={groupPost && !isGroupfeed ? '5px' : '0px'}
+          direction={"column"}
+          ml={groupPost && !isGroupfeed ? "5px" : "0px"}
         >
           {userName && (
             <Typography
               sx={{
-                fontSize: '18px',
+                fontSize: "18px",
                 fontWeight: 500,
-                color: '#171717',
-                textAlign: { xs: 'center', sm: 'left' },
-                textTransform: 'capitalize',
+                color: "#171717",
+                textAlign: { xs: "center", sm: "left" },
+                textTransform: "capitalize",
               }}
               onClick={
                 isGeneralPost
@@ -325,10 +325,10 @@ const BondCard2 = ({
           {displayText && (
             <Typography
               sx={{
-                fontSize: '12px',
+                fontSize: "12px",
                 fontWeight: 400,
-                color: '#505050',
-                textAlign: { xs: 'center', sm: 'left' },
+                color: "#505050",
+                textAlign: { xs: "center", sm: "left" },
               }}
               onClick={
                 isGeneralPost
@@ -345,10 +345,10 @@ const BondCard2 = ({
           {userAddress && (
             <Typography
               sx={{
-                fontSize: '12px',
+                fontSize: "12px",
                 fontWeight: 400,
-                color: '#505050',
-                textAlign: { xs: 'center', sm: 'left' },
+                color: "#505050",
+                textAlign: { xs: "center", sm: "left" },
               }}
             >
               {userAddress}
@@ -356,33 +356,33 @@ const BondCard2 = ({
           )}
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              columnGap: '4px',
-              justifyContent: { xs: 'center', sm: 'flex-start' },
+              display: "flex",
+              alignItems: "center",
+              columnGap: "4px",
+              justifyContent: { xs: "center", sm: "flex-start" },
             }}
           >
             {groupPost && isAdminPost && isGroupfeed && (
               <Box
-                sx={{ display: 'flex', columnGap: '4px', alignItems: 'center' }}
+                sx={{ display: "flex", columnGap: "4px", alignItems: "center" }}
               >
                 <img
                   src={starBlack}
                   alt=""
-                  style={{ width: '20px', height: '20px' }}
+                  style={{ width: "20px", height: "20px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '12px', color: '#171717', fontWeight: '500' }}
+                  sx={{ fontSize: "12px", color: "#171717", fontWeight: "500" }}
                 >
                   Admin
                 </Typography>
                 <Typography
-                  sx={{ fontSize: '12px', color: '#171717', fontWeight: '500' }}
+                  sx={{ fontSize: "12px", color: "#171717", fontWeight: "500" }}
                 >
                   •
                 </Typography>
                 <Typography
-                  sx={{ fontSize: '12px', color: '#505050', fontWeight: '500' }}
+                  sx={{ fontSize: "12px", color: "#505050", fontWeight: "500" }}
                 >
                   Admin
                 </Typography>
@@ -391,9 +391,9 @@ const BondCard2 = ({
             {time && (
               <Typography
                 sx={{
-                  fontSize: '12px',
+                  fontSize: "12px",
                   fontWeight: 400,
-                  color: '#505050',
+                  color: "#505050",
                 }}
               >
                 {time}
@@ -402,17 +402,17 @@ const BondCard2 = ({
             {showWorldIcon && (
               <img
                 src={
-                  postVisibility === 'PUBLIC'
+                  postVisibility === "PUBLIC"
                     ? earth
-                    : postVisibility === 'CONNECTIONS'
+                    : postVisibility === "CONNECTIONS"
                       ? group
-                      : postVisibility === 'PRIVATE' ||
-                          postVisibility === 'ONLY_ME'
+                      : postVisibility === "PRIVATE" ||
+                          postVisibility === "ONLY_ME"
                         ? eyeOff
                         : earth
                 }
                 alt="Icon"
-                style={{ width: '14px', height: '14px' }}
+                style={{ width: "14px", height: "14px" }}
               />
             )}
           </Box>
@@ -426,10 +426,10 @@ const BondCard2 = ({
             e.stopPropagation();
             handleBondClick(id);
           }}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         />
       )}
-      {isLoading && <CircularProgress sx={{ color: 'black' }} />}
+      {isLoading && <CircularProgress sx={{ color: "black" }} />}
       {postId && (ownPost || isUserPost || isPagePost || groupPost) && (
         <img
           src={three_vertical_dots}
@@ -442,12 +442,12 @@ const BondCard2 = ({
         open={open}
         onClose={handleMenuClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         {groupPost && ownPost ? (
@@ -456,75 +456,75 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
               </MenuItem>
             )}
             <MenuItem
-              onClick={() => HandleMenuItemClicked('edit')}
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              onClick={() => HandleMenuItemClicked("edit")}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={editBlue}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
                 Edit post
               </Typography>
             </MenuItem>
             <MenuItem
-              onClick={() => HandleMenuItemClicked('delete')}
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              onClick={() => HandleMenuItemClicked("delete")}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={deleteIcon}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
                 Delete post
@@ -537,77 +537,77 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
               </MenuItem>
             )}
             <MenuItem
-              onClick={() => HandleMenuItemClicked('profile')}
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              onClick={() => HandleMenuItemClicked("profile")}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={person}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >{`View ${userName}`}</Typography>
             </MenuItem>
             <MenuItem
               onClick={() =>
-                HandleMenuItemClicked(isFriend ? 'unfriend' : 'friend')
+                HandleMenuItemClicked(isFriend ? "unfriend" : "friend")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={isFriend ? deleteBond : bondMain}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >
                 {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
@@ -620,37 +620,37 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
@@ -663,75 +663,75 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
               </MenuItem>
             )}
             <MenuItem
-              onClick={() => HandleMenuItemClicked('edit')}
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              onClick={() => HandleMenuItemClicked("edit")}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={editBlue}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
                 Edit post
               </Typography>
             </MenuItem>
             <MenuItem
-              onClick={() => HandleMenuItemClicked('delete')}
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              onClick={() => HandleMenuItemClicked("delete")}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={deleteIcon}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
                 Delete post
@@ -739,32 +739,32 @@ const BondCard2 = ({
             </MenuItem>
             {groupPost ? (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={commentOff}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Disable comment on this post
                 </Typography>
               </MenuItem>
             ) : (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('comment')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("comment")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={comment}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Who can comment on this post?
                 </Typography>
@@ -772,16 +772,16 @@ const BondCard2 = ({
             )}
             {!groupPost && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('view')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("view")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={primaryEye}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Who can see on this post?
                 </Typography>
@@ -794,37 +794,37 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ width: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ width: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
@@ -834,24 +834,24 @@ const BondCard2 = ({
               onClick={
                 isFollowLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('follow')
+                  : () => HandleMenuItemClicked("follow")
               }
-              sx={{ width: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ width: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={isFollowing ? close : tick}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >{`${
-                isFollowing ? 'Unfollow' : 'Follow'
+                isFollowing ? "Unfollow" : "Follow"
               } ${userName}`}</Typography>
             </MenuItem>
           </>
@@ -861,37 +861,37 @@ const BondCard2 = ({
               onClick={
                 isSavingPostLoading
                   ? () => {}
-                  : () => HandleMenuItemClicked('Save')
+                  : () => HandleMenuItemClicked("Save")
               }
-              sx={{ width: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ width: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={saved ? save : saveUnfilled}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
                 }}
               >
-                {saved ? 'Unsave' : 'Save'}
+                {saved ? "Unsave" : "Save"}
               </Typography>
             </MenuItem>
-            {postVisibility === 'PUBLIC' && (
+            {postVisibility === "PUBLIC" && (
               <MenuItem
-                onClick={() => HandleMenuItemClicked('copy')}
-                sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+                onClick={() => HandleMenuItemClicked("copy")}
+                sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
               >
                 <img
                   src={copyLink}
                   alt="Icon"
-                  style={{ width: '24px', height: '24px' }}
+                  style={{ width: "24px", height: "24px" }}
                 />
                 <Typography
-                  sx={{ fontSize: '15px', fontWeight: '500', color: '#171717' }}
+                  sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
                 >
                   Copy link to post
                 </Typography>
@@ -899,21 +899,21 @@ const BondCard2 = ({
             )}
             <MenuItem
               onClick={() =>
-                HandleMenuItemClicked(isFriend ? 'unfriend' : 'friend')
+                HandleMenuItemClicked(isFriend ? "unfriend" : "friend")
               }
-              sx={{ minWidth: '245px', display: 'flex', columnGap: '5px' }}
+              sx={{ minWidth: "245px", display: "flex", columnGap: "5px" }}
             >
               <img
                 src={isFriend ? deleteBond : bondMain}
                 alt="Icon"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '15px',
-                  fontWeight: '500',
-                  color: '#171717',
-                  textTransform: 'capitalize',
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  color: "#171717",
+                  textTransform: "capitalize",
                 }}
               >
                 {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
@@ -929,12 +929,12 @@ const BondCard2 = ({
         postModal={true}
         hideFooter={true}
         title={
-          permission === 'view'
-            ? 'Who can view this post?'
-            : 'Who can comment on this post?'
+          permission === "view"
+            ? "Who can view this post?"
+            : "Who can comment on this post?"
         }
         description={
-          permission === 'comment' && 'Existing comment will remain on post'
+          permission === "comment" && "Existing comment will remain on post"
         }
         smallModal={true}
       >

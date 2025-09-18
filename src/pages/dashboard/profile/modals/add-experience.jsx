@@ -1,19 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
-import dayjs from 'dayjs';
-import { DatePicker } from '@mui/x-date-pickers';
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers";
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Stack,
   Typography,
-} from '@mui/material';
-import { Dropdown, DynamicModal, Input } from '../../../../components';
-import { useUpdateUserInfoMutation } from '../../../../services/auth';
-import { updateUser } from '../../../../store/slices/auth';
-import { experienceSchema } from '../../../../schemas';
+} from "@mui/material";
+import { Dropdown, DynamicModal, Input } from "../../../../components";
+import { useUpdateUserInfoMutation } from "../../../../services/auth";
+import { updateUser } from "../../../../store/slices/auth";
+import { experienceSchema } from "../../../../schemas";
 
 const AddExperienceModal = ({ userData, open, handleClose }) => {
   const currentYear = dayjs();
@@ -21,10 +21,10 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
     initialValues: {
-      title: '',
-      type: '',
-      company: '',
-      location: '',
+      title: "",
+      type: "",
+      company: "",
+      location: "",
       currently: false,
       startingDate: null,
       endingDate: null,
@@ -43,7 +43,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
           return;
         }
         if (res) {
-          toast.success('Your Experience added successfully');
+          toast.success("Your Experience added successfully");
           dispatch(updateUser(res?.data?.data));
           onClose();
         }
@@ -67,15 +67,15 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
     >
       <Box
         sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '10px',
-          '.MuiOutlinedInput-root': { height: 'auto !important' },
-          textarea: { paddingBottom: '20px' },
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          rowGap: "10px",
+          ".MuiOutlinedInput-root": { height: "auto !important" },
+          textarea: { paddingBottom: "20px" },
         }}
       >
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Input
             customLabel="Title *"
             variant="outlined"
@@ -87,15 +87,15 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
             helperText={formik.touched.title && formik.errors.title}
           />
         </Box>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Dropdown
             variant="outlined"
             options={[
-              { label: 'Full-Time', value: 'Full-Time' },
-              { label: 'Part-Time', value: 'Part-Time' },
+              { label: "Full-Time", value: "Full-Time" },
+              { label: "Part-Time", value: "Part-Time" },
             ]}
             handleChange={(event) =>
-              formik.setFieldValue('type', event.target.value)
+              formik.setFieldValue("type", event.target.value)
             }
             customLabel="Employment type *"
             noLabel
@@ -105,7 +105,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
             value={formik.values.type}
           />
         </Box>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Input
             customLabel="Company *"
             variant="outlined"
@@ -117,7 +117,7 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
             helperText={formik.touched.company && formik.errors.company}
           />
         </Box>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <Input
             customLabel="Location *"
             variant="outlined"
@@ -129,15 +129,15 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
             helperText={formik.touched.location && formik.errors.location}
           />
         </Box>
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: "100%" }}>
           <FormControlLabel
             sx={{
-              width: '100%',
-              alignItems: 'flex-start',
+              width: "100%",
+              alignItems: "flex-start",
               padding: 0,
               margin: 0,
               mt: 2,
-              gap: '10px',
+              gap: "10px",
               span: { padding: 0 },
             }}
             control={
@@ -156,14 +156,14 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
           justifyContent="space-between"
           gap={2}
         >
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: "100%" }}>
             <Typography mb={1}>Starting Date</Typography>
             <DatePicker
               value={formik.values.startingDate}
-              onChange={(value) => formik.setFieldValue('startingDate', value)}
+              onChange={(value) => formik.setFieldValue("startingDate", value)}
               maxDate={currentYear}
               openTo="day"
-              views={['year', 'month', 'day']}
+              views={["year", "month", "day"]}
               sx={{ minWidth: 250 }}
               slotProps={{
                 textField: {
@@ -176,15 +176,15 @@ const AddExperienceModal = ({ userData, open, handleClose }) => {
             />
           </Box>
 
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: "100%" }}>
             <Typography mb={1}>Ending Date</Typography>
             <DatePicker
               value={formik.values.endingDate}
-              onChange={(value) => formik.setFieldValue('endingDate', value)}
+              onChange={(value) => formik.setFieldValue("endingDate", value)}
               disabled={formik.values.currently}
               maxDate={currentYear}
               openTo="day"
-              views={['year', 'month', 'day']}
+              views={["year", "month", "day"]}
               sx={{ minWidth: 250 }}
               slotProps={{
                 textField: {

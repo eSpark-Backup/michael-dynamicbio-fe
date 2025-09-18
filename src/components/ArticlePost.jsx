@@ -7,9 +7,9 @@ import {
   MenuItem,
   Paper,
   Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import BondCard2 from './BondCard';
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import BondCard2 from "./BondCard";
 import {
   comment,
   commentOff,
@@ -20,25 +20,25 @@ import {
   tick,
   unlike,
   user,
-} from '../assets';
-import OutlinedInput from './outline-input';
-import DynamicModal from './dynamic-modal';
-import ScheduleModal from './ScheduleModal';
-import ShareModal from './ShareModal';
-import ConfirmationModal from './ConfirmationModal';
-import GroupShareModal from './GroupShareModal';
-import RepostWithThoughts from './RepostWithThoughts';
-import PostChoiceModal from './PostChoiceModal';
-import { useSelector } from 'react-redux';
+} from "../assets";
+import OutlinedInput from "./outline-input";
+import DynamicModal from "./dynamic-modal";
+import ScheduleModal from "./ScheduleModal";
+import ShareModal from "./ShareModal";
+import ConfirmationModal from "./ConfirmationModal";
+import GroupShareModal from "./GroupShareModal";
+import RepostWithThoughts from "./RepostWithThoughts";
+import PostChoiceModal from "./PostChoiceModal";
+import { useSelector } from "react-redux";
 import {
   useCommentMutation,
   useGetPostCommentsQuery,
-} from '../services/interaction';
-import { toast } from 'react-toastify';
-import Comment from './Comment';
-import Button from './button';
-import { Link, useNavigate } from 'react-router-dom';
-import ShowLikesModal from './ShowLikesModal';
+} from "../services/interaction";
+import { toast } from "react-toastify";
+import Comment from "./Comment";
+import Button from "./button";
+import { Link, useNavigate } from "react-router-dom";
+import ShowLikesModal from "./ShowLikesModal";
 
 const ArticlePost = ({
   page,
@@ -86,7 +86,7 @@ const ArticlePost = ({
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [thoughts, setThoughts] = useState('');
+  const [thoughts, setThoughts] = useState("");
   const [showThoughtsModal, setShowThoughtsModal] = useState(false);
   const [groupShareModal, setGroupShareModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -94,8 +94,8 @@ const ArticlePost = ({
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [postChoiceModal, setPostChoiceModal] = useState(false);
   const { user: userData } = useSelector((state) => state.auth);
-  const [postId, setPostId] = useState('');
-  const [commentContent, setCommentContent] = useState('');
+  const [postId, setPostId] = useState("");
+  const [commentContent, setCommentContent] = useState("");
   const [postComments, setPostComments] = useState([]);
   const [totalComments, setTotalComments] = useState(comments);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -128,14 +128,14 @@ const ArticlePost = ({
   };
 
   const HandleRepost = (event) => {
-    if (event === 'thoughts') {
+    if (event === "thoughts") {
       setShowThoughtsModal(true);
       handleCloseMenu();
     }
   };
 
   const HandleSuccess = () => {
-    if (thoughts === '') {
+    if (thoughts === "") {
       setShowConfirmModal(true);
     } else {
       setShowThoughtsModal(false);
@@ -143,7 +143,7 @@ const ArticlePost = ({
   };
 
   const HandleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       HandleComment(id);
     }
@@ -165,8 +165,8 @@ const ArticlePost = ({
         return;
       }
       if (res?.data) {
-        toast.success('Comment added successfully');
-        setCommentContent('');
+        toast.success("Comment added successfully");
+        setCommentContent("");
         refetch();
         setTotalComments((prev) => prev + 1);
       }
@@ -201,7 +201,7 @@ const ArticlePost = ({
   }, [getCommentsSuccess, getCommentsData]);
 
   return (
-    <Paper sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
+    <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
       <BondCard2
         id={userId}
         userImage={userImage}
@@ -218,13 +218,13 @@ const ArticlePost = ({
         isSaved={isSaved}
         handleEdit={() =>
           navigate(
-            `/article/edit/${id}${page ? `?page=${JSON.stringify(page)}` : ''}`
+            `/article/edit/${id}${page ? `?page=${JSON.stringify(page)}` : ""}`
           )
         }
         handleDelete={handleDelete}
         visibility={postVisibility}
         commentSetting={commentSetting}
-        type={'ARTICLE'}
+        type={"ARTICLE"}
         isPagePost={isPagePost}
         isUserPost={isUserPost}
         isPageFollowing={isPageFollowing}
@@ -238,64 +238,64 @@ const ArticlePost = ({
       />
       {postContent && (
         <Typography
-          sx={{ fontSize: '20px', fontWeight: 400, color: '#171717' }}
+          sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
           dangerouslySetInnerHTML={{ __html: postContent }}
         ></Typography>
       )}
       <Link
-        to={isPending ? '#' : `/article/${id}`}
-        style={{ textDecoration: 'none' }}
+        to={isPending ? "#" : `/article/${id}`}
+        style={{ textDecoration: "none" }}
       >
         <Box
           sx={{
-            border: '1px solid #E4E4E4',
-            borderRadius: '8px',
-            display: 'flex',
-            flexDirection: 'column',
-            rowGap: '15px',
-            height: '375px',
-            backgroundColor: '#F2F8FD',
-            cursor: 'pointer',
+            border: "1px solid #E4E4E4",
+            borderRadius: "8px",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "15px",
+            height: "375px",
+            backgroundColor: "#F2F8FD",
+            cursor: "pointer",
           }}
         >
           <Box
             sx={{
-              height: '65%',
+              height: "65%",
               backgroundImage: `url("${
                 articleImage ? articleImage : dummyPhoto
               }")`,
-              borderTopRightRadius: '8px',
-              borderTopLeftRadius: '8px',
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              width: '100.1%',
+              borderTopRightRadius: "8px",
+              borderTopLeftRadius: "8px",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              width: "100.1%",
             }}
           />
           <Box
             sx={{
-              p: '0px 20px',
-              display: 'flex',
-              flexDirection: 'column',
-              rowGap: '10px',
+              p: "0px 20px",
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "10px",
             }}
           >
             <Typography
-              sx={{ fontSize: '18px', fontWeight: '500', color: '#171717' }}
+              sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
             >
               {articleTitle}
             </Typography>
             <Typography
-              sx={{ fontSize: '15px', fontWeight: '500', color: '#505050' }}
+              sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
             >
               {userName}
             </Typography>
             <Typography
-              sx={{ fontSize: '15px', fontWeight: '500', color: '#505050' }}
+              sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
               dangerouslySetInnerHTML={{
                 __html:
                   articleDescription?.length > 94
-                    ? articleDescription?.slice(0, 93) + '...'
+                    ? articleDescription?.slice(0, 93) + "..."
                     : articleDescription,
               }}
             />
@@ -305,38 +305,38 @@ const ArticlePost = ({
       {isPending ? (
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <Box
             sx={{
-              width: { xs: '100%', sm: '85%', md: '80%', lg: '70%' },
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              width: { xs: "100%", sm: "85%", md: "80%", lg: "70%" },
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === 'reject' ? (
-              <CircularProgress sx={{ color: '#1877F2' }} />
+            isUpdateLoading.action === "reject" ? (
+              <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '5px',
-                  alignItems: 'center',
-                  cursor: 'pointer',
+                  display: "flex",
+                  columnGap: "5px",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
-                onClick={() => handleResponse(reqId, 'reject')}
+                onClick={() => handleResponse(reqId, "reject")}
               >
                 <img src={deleteBlack} alt="Icon" />
                 <Typography
                   sx={{
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    color: '#171717',
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    color: "#171717",
                   }}
                 >
                   Delete
@@ -344,21 +344,21 @@ const ArticlePost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === 'approve' ? (
-              <CircularProgress sx={{ color: '#1877F2' }} />
+            isUpdateLoading.action === "approve" ? (
+              <CircularProgress sx={{ color: "#1877F2" }} />
             ) : (
               <Box
-                onClick={() => handleResponse(reqId, 'approve')}
+                onClick={() => handleResponse(reqId, "approve")}
                 sx={{
-                  display: 'flex',
-                  columnGap: '5px',
-                  alignItems: 'center',
-                  cursor: 'pointer',
+                  display: "flex",
+                  columnGap: "5px",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
               >
                 <img src={tick} alt="Icon" />
                 <Typography
-                  sx={{ fontSize: '16px', fontWeight: '500' }}
+                  sx={{ fontSize: "16px", fontWeight: "500" }}
                   variant="gradientText"
                 >
                   Approve
@@ -371,27 +371,27 @@ const ArticlePost = ({
         <>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <Box
-              sx={{ display: 'flex', alignItems: 'center', columnGap: '6px' }}
+              sx={{ display: "flex", alignItems: "center", columnGap: "6px" }}
             >
               {numberofLikes >= 1 && (
                 <img
                   src={like}
                   alt="Like"
-                  style={{ width: '13.43px', height: '12px' }}
+                  style={{ width: "13.43px", height: "12px" }}
                 />
               )}
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '400',
-                  color: '#505050',
-                  cursor: numberofLikes > 0 ? 'pointer' : 'text',
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  color: "#505050",
+                  cursor: numberofLikes > 0 ? "pointer" : "text",
                 }}
                 onClick={
                   numberofLikes > 0 && !isLoading
@@ -400,9 +400,9 @@ const ArticlePost = ({
                 }
               >
                 {numberofLikes === 0
-                  ? 'Be first to like this'
+                  ? "Be first to like this"
                   : isLiked && numberofLikes === 1
-                    ? 'You liked this post'
+                    ? "You liked this post"
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
@@ -410,19 +410,19 @@ const ArticlePost = ({
                         : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', columnGap: '10px' }}>
+            <Box sx={{ display: "flex", columnGap: "10px" }}>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 {totalComments} comments
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 •
               </Typography>
               <Typography
-                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
+                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
               >
                 0 reposts
               </Typography>
@@ -430,63 +430,63 @@ const ArticlePost = ({
           </Box>
           <Box
             sx={{
-              borderTop: '1px solid #E4E4E4',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              backgroundColor: '#F8FCFF',
-              height: '50px',
-              px: { xs: '10px', md: '0px' },
+              borderTop: "1px solid #E4E4E4",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              backgroundColor: "#F8FCFF",
+              height: "50px",
+              px: { xs: "10px", md: "0px" },
             }}
           >
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '15px',
-                cursor: 'pointer',
-                width: { md: '20%' },
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={isLoading ? () => {} : () => handleLike(id)}
             >
               <img
                 src={isLiked ? like : unlike}
                 alt="Like"
-                style={{ width: '24px', height: '24px' }}
+                style={{ width: "24px", height: "24px" }}
               />
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  display: { xs: 'none', md: 'block' },
-                  color: '#505050',
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
                 }}
               >
-                {isLiked ? 'Liked' : 'Like'}
+                {isLiked ? "Liked" : "Like"}
               </Typography>
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '15px',
-                cursor: 'pointer',
-                backgroundColor: showComments ? '#FFFFFF' : 'inherit',
-                width: { md: '20%' },
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                backgroundColor: showComments ? "#FFFFFF" : "inherit",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={() => CommentHandler(id)}
             >
               <img src={comment} alt="Like" />
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  display: { xs: 'none', md: 'block' },
-                  color: '#505050',
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
                 }}
               >
                 Comment
@@ -494,23 +494,23 @@ const ArticlePost = ({
             </Box>
             <Box
               sx={{
-                display: 'flex',
-                columnGap: '15px',
-                cursor: 'pointer',
-                width: { md: '20%' },
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                columnGap: "15px",
+                cursor: "pointer",
+                width: { md: "20%" },
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
               }}
               onClick={() => setShowShareModal(true)}
             >
               <img src={send} alt="Repost" />
               <Typography
                 sx={{
-                  fontSize: '14px',
-                  fontWeight: '500',
-                  display: { xs: 'none', md: 'block' },
-                  color: '#505050',
+                  fontSize: "14px",
+                  fontWeight: "500",
+                  display: { xs: "none", md: "block" },
+                  color: "#505050",
                 }}
               >
                 Share
@@ -520,36 +520,36 @@ const ArticlePost = ({
           {showComments && (
             <Box
               sx={{
-                px: { xs: '0px', md: '10px' },
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: '10px',
+                px: { xs: "0px", md: "10px" },
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  columnGap: '5px',
-                  flexDirection: { xs: 'column', md: 'row' },
-                  rowGap: '5px',
+                  display: "flex",
+                  columnGap: "5px",
+                  flexDirection: { xs: "column", md: "row" },
+                  rowGap: "5px",
                 }}
               >
                 {isGetCommentsLoading ? (
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '100%',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
                     }}
                   >
                     <LinearProgress
                       sx={{
-                        width: '100%',
+                        width: "100%",
                         height: 6,
-                        bgcolor: '#F2F8FD',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: 'white',
+                        bgcolor: "#F2F8FD",
+                        "& .MuiLinearProgress-bar": {
+                          backgroundColor: "white",
                         },
                       }}
                     />
@@ -565,35 +565,35 @@ const ArticlePost = ({
                               : user
                           }
                           alt="User"
-                          sx={{ width: 60, height: 60, objectFit: 'fill' }}
+                          sx={{ width: 60, height: 60, objectFit: "fill" }}
                         />
 
                         <Box
                           sx={{
-                            border: '1px solid #DDE2E4',
-                            width: '100%',
-                            display: 'flex',
-                            pr: '10px',
-                            minHeight: '60px',
-                            flexDirection: commentContent ? 'column' : 'row',
-                            pb: commentContent ? '10px' : '0px',
-                            rowGap: '13px',
+                            border: "1px solid #DDE2E4",
+                            width: "100%",
+                            display: "flex",
+                            pr: "10px",
+                            minHeight: "60px",
+                            flexDirection: commentContent ? "column" : "row",
+                            pb: commentContent ? "10px" : "0px",
+                            rowGap: "13px",
                           }}
                         >
                           <OutlinedInput
                             sx={{
-                              height: '100%',
-                              width: '100%',
-                              '& .MuiOutlinedInput-root': {
-                                border: 'none !important',
-                                height: '100%',
+                              height: "100%",
+                              width: "100%",
+                              "& .MuiOutlinedInput-root": {
+                                border: "none !important",
+                                height: "100%",
                               },
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                border: 'none !important',
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                border: "none !important",
                               },
-                              p: '10px',
+                              p: "10px",
                             }}
-                            placeholder={'Add a comment'}
+                            placeholder={"Add a comment"}
                             onInputChange={(e) =>
                               setCommentContent(e.target.value)
                             }
@@ -603,10 +603,10 @@ const ArticlePost = ({
                           />
                           <Box
                             sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              pl: '10px',
-                              justifyContent: 'space-between',
+                              display: "flex",
+                              alignItems: "center",
+                              pl: "10px",
+                              justifyContent: "space-between",
                             }}
                           >
                             {commentContent && (
@@ -614,9 +614,9 @@ const ArticlePost = ({
                                 loading={postCommentLoading}
                                 onClick={() => HandleComment(id)}
                                 sx={{
-                                  width: '150px',
-                                  height: '36px',
-                                  color: 'white',
+                                  width: "150px",
+                                  height: "36px",
+                                  color: "white",
                                 }}
                               >
                                 Comment
@@ -628,19 +628,19 @@ const ArticlePost = ({
                     ) : (
                       <Box
                         sx={{
-                          backgroundColor: '#F2F8FD',
-                          p: '10px',
-                          display: 'flex',
-                          columnGap: '5px',
-                          width: '100%',
+                          backgroundColor: "#F2F8FD",
+                          p: "10px",
+                          display: "flex",
+                          columnGap: "5px",
+                          width: "100%",
                         }}
                       >
                         <img src={commentOff} alt="Icon" />
                         <Typography
                           sx={{
-                            fontSize: '14px',
-                            fontWeight: '500',
-                            color: '#171717',
+                            fontSize: "14px",
+                            fontWeight: "500",
+                            color: "#171717",
                           }}
                         >
                           Comments are restricted on this post.
@@ -674,29 +674,29 @@ const ArticlePost = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
+          vertical: "top",
+          horizontal: "left",
         }}
       >
         <MenuItem
-          onClick={() => HandleRepost('thoughts')}
-          sx={{ width: '245px' }}
+          onClick={() => HandleRepost("thoughts")}
+          sx={{ width: "245px" }}
         >
           Repost with your thoughts
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ width: '245px' }}>
+        <MenuItem onClick={handleClose} sx={{ width: "245px" }}>
           Repost
         </MenuItem>
       </Menu>
       <DynamicModal
         open={postChoiceModal}
         handleClose={() => setPostChoiceModal(false)}
-        title={'Comment, react, and repost as'}
-        buttonText={'Save'}
+        title={"Comment, react, and repost as"}
+        buttonText={"Save"}
         postModal={true}
         hideFooter={true}
         smallModal={true}
@@ -708,11 +708,11 @@ const ArticlePost = ({
       <DynamicModal
         open={showThoughtsModal}
         handleClose={() => setShowThoughtsModal(false)}
-        buttonText={'Post'}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={'flex-end'}
+        footerDirection={"flex-end"}
         onSuccess={HandleSuccess}
         handleGroupClick={() => setGroupShareModal(true)}
       >
@@ -722,10 +722,10 @@ const ArticlePost = ({
       <DynamicModal
         open={groupShareModal}
         handleClose={() => setGroupShareModal(false)}
-        title={'Repost to group'}
-        buttonText={'Save'}
+        title={"Repost to group"}
+        buttonText={"Save"}
         postModal={true}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
         hideFooter={true}
       >
         <GroupShareModal />
@@ -734,14 +734,14 @@ const ArticlePost = ({
       <ConfirmationModal
         open={showConfirmModal}
         handleClose={() => setShowConfirmModal(false)}
-        title={'Repost without adding your thoughts?'}
-        cancelButtonText={'Back'}
-        acceptButtonText={'Yes, repost'}
+        title={"Repost without adding your thoughts?"}
+        cancelButtonText={"Back"}
+        acceptButtonText={"Yes, repost"}
         handleAccept={() => setShowConfirmModal(false)}
         handleCancel={() => setShowConfirmModal(false)}
       >
         <Typography
-          sx={{ fontSize: '17px', fontWeight: '300', color: '#595959' }}
+          sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}
         >
           If you repost without adding your thoughts, all new comments &
           reactions will be added to XYZ’s post.
@@ -765,13 +765,13 @@ const ArticlePost = ({
       <DynamicModal
         open={showScheduleModal}
         handleClose={() => setShowScheduleModal(false)}
-        title={'Schedule post'}
-        buttonText={'Post'}
+        title={"Schedule post"}
+        buttonText={"Post"}
         postModal={true}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={'space-between'}
+        footerDirection={"space-between"}
       >
         <ScheduleModal />
       </DynamicModal>
@@ -779,7 +779,7 @@ const ArticlePost = ({
       <DynamicModal
         open={showLikesModal}
         handleClose={() => setShowLikesModal(false)}
-        title={'Likes'}
+        title={"Likes"}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}

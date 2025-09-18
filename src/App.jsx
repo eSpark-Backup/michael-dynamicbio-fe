@@ -4,9 +4,9 @@ import {
   Navigate,
   useNavigate,
   useLocation,
-} from 'react-router-dom';
-import AuthLayout from './layout/auth-layout';
-import PrivateLayout from './layout/private-layout';
+} from "react-router-dom";
+import AuthLayout from "./layout/auth-layout";
+import PrivateLayout from "./layout/private-layout";
 
 import {
   Login,
@@ -43,28 +43,28 @@ import {
   Settings,
   UserBonds,
   DDT,
-} from './pages';
-import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
+} from "./pages";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import {
   ArticleDetails,
   EventDetails,
   GroupDetails,
   ManageGroup,
-} from './components';
-import SocketListener from './socket/socket-listener';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useQuery } from './utils';
-import { handleChange } from './store/slices/search';
+} from "./components";
+import SocketListener from "./socket/socket-listener";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useQuery } from "./utils";
+import { handleChange } from "./store/slices/search";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const query = useQuery();
-  const q = query.get('q');
-  const filter = query.get('filter');
+  const q = query.get("q");
+  const filter = query.get("filter");
   useEffect(() => {
     dispatch(handleChange(q));
   }, []);
@@ -72,10 +72,10 @@ const App = () => {
   useEffect(() => {
     if (search !== null) {
       const delaySearch = setTimeout(() => {
-        if (search === '') {
-          navigate('/bonds?sub=bond');
+        if (search === "") {
+          navigate("/bonds?sub=bond");
         } else {
-          navigate(`/bonds?q=${search}&filter=${filter || 'all'}`);
+          navigate(`/bonds?q=${search}&filter=${filter || "all"}`);
         }
       }, 500);
 
@@ -84,7 +84,7 @@ const App = () => {
   }, [search, filter]);
 
   useEffect(() => {
-    if (pathname !== '/bonds') {
+    if (pathname !== "/bonds") {
       dispatch(handleChange(null));
     }
   }, [pathname]);

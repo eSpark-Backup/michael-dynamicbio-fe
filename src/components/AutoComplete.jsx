@@ -1,6 +1,6 @@
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { Stack, Typography } from '@mui/material';
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { Stack, Typography } from "@mui/material";
 
 const MultiSelect = ({
   multiple,
@@ -19,7 +19,7 @@ const MultiSelect = ({
       const selectedCodes = newValue.map((item) => item.label);
       setFieldValue(name, selectedCodes);
     } else {
-      setFieldValue(name, newValue ? newValue.label : '');
+      setFieldValue(name, newValue ? newValue.label : "");
     }
   };
 

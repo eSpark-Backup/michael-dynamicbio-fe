@@ -1,4 +1,4 @@
-import { api } from './rtk';
+import { api } from "./rtk";
 
 export const postApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -6,17 +6,17 @@ export const postApi = api.injectEndpoints({
       query: (credentials) => {
         const formData = new FormData();
 
-        if (credentials?.pageId) formData.append('pageId', credentials?.pageId);
+        if (credentials?.pageId) formData.append("pageId", credentials?.pageId);
         if (credentials?.groupId)
-          formData.append('groupId', credentials?.groupId);
-        formData.append('content', JSON.stringify(credentials.content));
-        formData.append('status', credentials.status);
-        formData.append('visibility', credentials.visibility);
-        formData.append('type', credentials.type);
+          formData.append("groupId", credentials?.groupId);
+        formData.append("content", JSON.stringify(credentials.content));
+        formData.append("status", credentials.status);
+        formData.append("visibility", credentials.visibility);
+        formData.append("type", credentials.type);
         if (credentials?.poll)
-          formData.append('poll', JSON.stringify(credentials.poll));
+          formData.append("poll", JSON.stringify(credentials.poll));
 
-        if (credentials.cover) formData.append('cover', credentials.cover);
+        if (credentials.cover) formData.append("cover", credentials.cover);
         if (
           credentials?.images &&
           Object.keys(credentials?.images).length > 0
@@ -24,18 +24,18 @@ export const postApi = api.injectEndpoints({
           const imageOrder = [];
 
           credentials.images.forEach((file) => {
-            formData.append('images', file);
+            formData.append("images", file);
             imageOrder.push(file.name);
           });
 
-          formData.append('imageOrder', JSON.stringify(imageOrder));
+          formData.append("imageOrder", JSON.stringify(imageOrder));
         }
         if (
           credentials?.videos &&
           Object.keys(credentials?.videos).length > 0
         ) {
           credentials.videos.forEach((file) => {
-            formData.append('videos', file);
+            formData.append("videos", file);
           });
         }
         if (
@@ -43,107 +43,107 @@ export const postApi = api.injectEndpoints({
           Object.keys(credentials?.thumbnails).length > 0
         ) {
           credentials.thumbnails.forEach((file) => {
-            formData.append('thumbnails', file);
+            formData.append("thumbnails", file);
           });
         }
 
         if (credentials?.isSchedulePost) {
-          formData.append('scheduledDate', credentials?.scheduledDate);
+          formData.append("scheduledDate", credentials?.scheduledDate);
         }
         return {
-          url: '/post',
-          method: 'POST',
+          url: "/post",
+          method: "POST",
           body: formData,
-          credentials: 'include',
+          credentials: "include",
         };
       },
-      invalidatesTags: ['post', 'group'],
+      invalidatesTags: ["post", "group"],
     }),
     getMyPost: builder.query({
       query: ({ page = 1, limit = 15, id }) => ({
-        url: id ? `/user/public-profile/post?profileId=${id}` : '/post',
-        method: 'GET',
+        url: id ? `/user/public-profile/post?profileId=${id}` : "/post",
+        method: "GET",
         params: {
           page,
           pageSize: limit,
-          status: 'PUBLISH',
+          status: "PUBLISH",
         },
       }),
     }),
     getPostById: builder.query({
       query: (id) => ({
         url: `/post/${id}`,
-        method: 'GET',
+        method: "GET",
       }),
     }),
     editPost: builder.mutation({
       query: (credentials) => {
         const formData = new FormData();
         if (credentials?.edit) {
-          formData.append('edit', credentials.edit);
+          formData.append("edit", credentials.edit);
         }
-        if (credentials?.pageId) formData.append('pageId', credentials?.pageId);
+        if (credentials?.pageId) formData.append("pageId", credentials?.pageId);
         if (credentials?.groupId)
-          formData.append('groupId', credentials?.groupId);
+          formData.append("groupId", credentials?.groupId);
 
         if (credentials?.content) {
-          formData.append('content', JSON.stringify(credentials.content));
+          formData.append("content", JSON.stringify(credentials.content));
         }
-        formData.append('status', credentials.status);
+        formData.append("status", credentials.status);
         if (credentials?.visibility) {
-          formData.append('visibility', credentials.visibility);
+          formData.append("visibility", credentials.visibility);
         }
         if (credentials?.commentVisibility) {
-          formData.append('commentVisibility', credentials.commentVisibility);
+          formData.append("commentVisibility", credentials.commentVisibility);
         }
         if (credentials?.type) {
-          formData.append('type', credentials.type);
+          formData.append("type", credentials.type);
         }
         if (
           !credentials?.edit &&
-          typeof credentials.cover !== 'string' &&
+          typeof credentials.cover !== "string" &&
           credentials.cover
         ) {
-          formData.append('cover', credentials.cover);
+          formData.append("cover", credentials.cover);
         }
 
         return {
           url: `/post/${credentials?.id}`,
-          method: 'PUT',
+          method: "PUT",
           body: formData,
-          credentials: 'include',
+          credentials: "include",
         };
       },
-      invalidatesTags: ['post', 'group'],
+      invalidatesTags: ["post", "group"],
     }),
     interactPoll: builder.mutation({
       query: ({ id, credentials }) => ({
         url: `/poll/${id}/vote`,
-        method: 'POST',
+        method: "POST",
         body: credentials,
-        credentials: 'include',
+        credentials: "include",
       }),
     }),
     removePoll: builder.mutation({
       query: ({ id, credentials }) => ({
         url: `/poll/${id}/vote`,
-        method: 'DELETE',
+        method: "DELETE",
         body: credentials,
-        credentials: 'include',
+        credentials: "include",
       }),
     }),
     savePost: builder.mutation({
       query: ({ postId, type }) => ({
         url: `/user/save/${postId}`,
-        method: 'POST',
-        credentials: 'include',
+        method: "POST",
+        credentials: "include",
         body: { type },
       }),
     }),
     getSavedPosts: builder.query({
       query: ({ page = 1, limit = 15 }) => ({
-        url: '/user/saved-posts',
-        method: 'GET',
+        url: "/user/saved-posts",
+        method: "GET",
         params: {
           page,
           pageSize: limit,
@@ -153,10 +153,10 @@ export const postApi = api.injectEndpoints({
     deletePostById: builder.mutation({
       query: (id) => ({
         url: `/post/${id}`,
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
       }),
-      invalidatesTags: ['post'],
+      invalidatesTags: ["post"],
     }),
   }),
 });
