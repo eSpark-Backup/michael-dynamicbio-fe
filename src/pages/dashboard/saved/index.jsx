@@ -1,26 +1,26 @@
-import { Box, Grid2, LinearProgress, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { save } from "../../../assets";
-import { SavedItemCard } from "../../../components/index.js";
-import { useGetSavedPostsQuery } from "../../../services/post.js";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { toast } from "react-toastify";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import duration from "dayjs/plugin/duration";
-import { useSelector } from "react-redux";
+import { Box, Grid2, LinearProgress, Paper, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { save } from '../../../assets';
+import { SavedItemCard } from '../../../components/index.js';
+import { useGetSavedPostsQuery } from '../../../services/post.js';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import duration from 'dayjs/plugin/duration';
+import { useSelector } from 'react-redux';
 
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
 const SavedPosts = () => {
-  const [selectedChoice, setSelectedChoice] = useState("All");
+  const [selectedChoice, setSelectedChoice] = useState('All');
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [hasFetchedFirstTime, setHasFetchedFirstTime] = useState(false);
   const { user: userData } = useSelector((state) => state.auth);
-  console.log(hasFetchedFirstTime, "hasFetchedFirstTime");
+  console.log(hasFetchedFirstTime, 'hasFetchedFirstTime');
 
   const { data, error, isLoading, isSuccess, isFetching, refetch } =
     useGetSavedPostsQuery(
@@ -79,9 +79,9 @@ const SavedPosts = () => {
 
       // Filter by selected choice
       const filteredPosts =
-        selectedChoice === "All"
+        selectedChoice === 'All'
           ? newPosts
-          : newPosts.filter((post) => post.type === "article");
+          : newPosts.filter((post) => post.type === 'article');
 
       if (page === 1) {
         setPosts(filteredPosts);
@@ -109,13 +109,13 @@ const SavedPosts = () => {
     return posts?.map((item) => {
       const now = dayjs();
       const post = item?.post;
-      let pollTimeLeft = "";
+      let pollTimeLeft = '';
 
-      if (post?.type === "POLL") {
+      if (post?.type === 'POLL') {
         const endDate = dayjs(post?.poll?.endDate);
 
         if (endDate.isBefore(now)) {
-          pollTimeLeft = "Poll expired";
+          pollTimeLeft = 'Poll expired';
         } else {
           const diffInMs = endDate.diff(now);
           const humanDiff = dayjs.duration(diffInMs).humanize();
@@ -124,15 +124,15 @@ const SavedPosts = () => {
       }
 
       // Determine postImage based on post type
-      let postImage = "";
-      if (post?.type === "IMAGE") {
-        postImage = post?.media?.IMAGES?.[0]?.url || "";
-      } else if (post?.type === "VIDEO") {
-        postImage = post?.media?.THUMBNAILS?.[0]?.url || "";
-      } else if (post?.type === "ARTICLE") {
-        postImage = post?.media?.ARTICLES?.[0]?.url || "";
-      } else if (post?.type === "EVENT") {
-        postImage = post?.media?.EVENTS?.[0]?.url || "";
+      let postImage = '';
+      if (post?.type === 'IMAGE') {
+        postImage = post?.media?.IMAGES?.[0]?.url || '';
+      } else if (post?.type === 'VIDEO') {
+        postImage = post?.media?.THUMBNAILS?.[0]?.url || '';
+      } else if (post?.type === 'ARTICLE') {
+        postImage = post?.media?.ARTICLES?.[0]?.url || '';
+      } else if (post?.type === 'EVENT') {
+        postImage = post?.media?.EVENTS?.[0]?.url || '';
       }
 
       return {
@@ -150,13 +150,13 @@ const SavedPosts = () => {
         time: dayjs(post?.createdAt).fromNow(),
         type: getPostType(post?.type),
         text: post?.content?.title,
-        question: post?.type === "POLL" && post?.poll?.question,
-        totalVotes: post?.type === "POLL" && post?.pollStats?.totalVotes,
+        question: post?.type === 'POLL' && post?.poll?.question,
+        totalVotes: post?.type === 'POLL' && post?.pollStats?.totalVotes,
         pollTimeLeft,
         postImage,
-        articleTitle: post?.type === "ARTICLE" && post?.content?.articleTitle,
+        articleTitle: post?.type === 'ARTICLE' && post?.content?.articleTitle,
         id: post?.id,
-        eventName: post?.type === "EVENT" && post?.content?.name,
+        eventName: post?.type === 'EVENT' && post?.content?.name,
         shareableLink: post?.shareableLink,
         visibility: post?.visibility,
         isGroupPost: post?.isGroupPost,
@@ -168,14 +168,14 @@ const SavedPosts = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: "normal",
-      VIDEO: "video",
-      TEXT: "normal",
-      POLL: "poll",
-      EVENT: "event",
-      ARTICLE: "article",
+      IMAGE: 'normal',
+      VIDEO: 'video',
+      TEXT: 'normal',
+      POLL: 'poll',
+      EVENT: 'event',
+      ARTICLE: 'article',
     };
-    return typeMap[type] || "";
+    return typeMap[type] || '';
   };
 
   if (isLoading) {
@@ -184,61 +184,61 @@ const SavedPosts = () => {
 
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid2
         container
         spacing={3}
         sx={{
-          width: { xs: "98%", md: "85%", lg: "70%" },
-          py: "25px",
+          width: { xs: '98%', md: '85%', lg: '70%' },
+          py: '25px',
         }}
       >
         <Grid2 size={{ xs: 12, md: 4, lg: 3 }}>
-          <Paper sx={{ p: "0px" }}>
-            <Box sx={{ display: "flex", columnGap: "10px", p: "15px" }}>
+          <Paper sx={{ p: '0px' }}>
+            <Box sx={{ display: 'flex', columnGap: '10px', p: '15px' }}>
               <img src={save} alt="Icon" />
               <Typography
-                sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
+                sx={{ fontSize: '16px', fontWeight: '400', color: '#505050' }}
               >
                 My items
               </Typography>
             </Box>
             <Box
               sx={{
-                p: "15px",
-                cursor: "pointer",
-                position: "relative",
+                p: '15px',
+                cursor: 'pointer',
+                position: 'relative',
                 background:
-                  "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                "-webkit-background-clip": "text",
-                "-webkit-text-fill-color": "transparent",
-                "&::after": {
+                  'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                '-webkit-background-clip': 'text',
+                '-webkit-text-fill-color': 'transparent',
+                '&::after': {
                   content: '""',
-                  display: "block",
-                  width: "6px",
-                  height: "100%",
+                  display: 'block',
+                  width: '6px',
+                  height: '100%',
                   background:
-                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                  position: "absolute",
-                  bottom: "0px",
-                  left: "0px",
-                  borderRadius: "2px",
+                    'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                  position: 'absolute',
+                  bottom: '0px',
+                  left: '0px',
+                  borderRadius: '2px',
                 },
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                borderTop: "1px solid #E4E4E4",
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderTop: '1px solid #E4E4E4',
               }}
             >
               <Typography
-                sx={{ fontSize: "16px", fontWeight: "400" }}
+                sx={{ fontSize: '16px', fontWeight: '400' }}
                 variant="gradientText"
               >
                 Saved posts and articles
               </Typography>
               <Typography
-                sx={{ fontSize: "16px", fontWeight: "400", color: "#505050" }}
+                sx={{ fontSize: '16px', fontWeight: '400', color: '#505050' }}
               >
                 {data?.data?.pagination?.totalItems}
               </Typography>
@@ -246,75 +246,75 @@ const SavedPosts = () => {
           </Paper>
         </Grid2>
         <Grid2 size={{ xs: 12, md: 8, lg: 8 }}>
-          <Paper sx={{ px: "0px" }}>
+          <Paper sx={{ px: '0px' }}>
             <Typography
               sx={{
-                fontSize: "24px",
-                fontWeight: "200",
-                color: "#171717",
-                px: "15px",
+                fontSize: '24px',
+                fontWeight: '200',
+                color: '#171717',
+                px: '15px',
               }}
             >
               Saved Posts
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                columnGap: "15px",
-                mt: "10px",
-                px: "15px",
+                display: 'flex',
+                columnGap: '15px',
+                mt: '10px',
+                px: '15px',
               }}
             >
               <Box
                 sx={{
-                  height: "32px",
-                  borderRadius: "1.59rem",
-                  fontSize: "1.2rem",
-                  padding: "1.2rem",
-                  color: selectedChoice === "All" ? "white" : "#505050",
+                  height: '32px',
+                  borderRadius: '1.59rem',
+                  fontSize: '1.2rem',
+                  padding: '1.2rem',
+                  color: selectedChoice === 'All' ? 'white' : '#505050',
                   border:
-                    selectedChoice === "All" ? "none" : "1px solid #E4E4E4",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                    selectedChoice === 'All' ? 'none' : '1px solid #E4E4E4',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   background:
-                    selectedChoice === "All"
-                      ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-                      : "transparent",
-                  cursor: "pointer",
+                    selectedChoice === 'All'
+                      ? 'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)'
+                      : 'transparent',
+                  cursor: 'pointer',
                 }}
-                onClick={() => setSelectedChoice("All")}
+                onClick={() => setSelectedChoice('All')}
               >
                 All
               </Box>
               <Box
                 sx={{
-                  height: "32px",
-                  borderRadius: "1.59rem",
-                  fontSize: "1.2rem",
-                  padding: "1.2rem",
-                  color: selectedChoice === "Articles" ? "white" : "#505050",
+                  height: '32px',
+                  borderRadius: '1.59rem',
+                  fontSize: '1.2rem',
+                  padding: '1.2rem',
+                  color: selectedChoice === 'Articles' ? 'white' : '#505050',
                   border:
-                    selectedChoice === "Articles"
-                      ? "none"
-                      : "1px solid #E4E4E4",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                    selectedChoice === 'Articles'
+                      ? 'none'
+                      : '1px solid #E4E4E4',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   background:
-                    selectedChoice === "Articles"
-                      ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-                      : "transparent",
-                  cursor: "pointer",
+                    selectedChoice === 'Articles'
+                      ? 'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)'
+                      : 'transparent',
+                  cursor: 'pointer',
                 }}
-                onClick={() => setSelectedChoice("Articles")}
+                onClick={() => setSelectedChoice('Articles')}
               >
                 Articles
               </Box>
             </Box>
-            <Box sx={{ mt: "10px" }}>
+            <Box sx={{ mt: '10px' }}>
               <InfiniteScroll
-                key={userData?.id || "no-user"}
+                key={userData?.id || 'no-user'}
                 dataLength={posts.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
@@ -327,16 +327,16 @@ const SavedPosts = () => {
                     fontWeight={700}
                   >
                     {posts.length === 0
-                      ? "No posts available"
-                      : "No more posts"}
+                      ? 'No posts available'
+                      : 'No more posts'}
                   </Typography>
                 }
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "20px",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '20px',
                   }}
                 >
                   {posts.map((item) => (

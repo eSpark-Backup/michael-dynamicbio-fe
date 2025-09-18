@@ -5,19 +5,19 @@ import {
   LinearProgress,
   Paper,
   Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { user } from "../../../assets";
-import BoxWithTextIcon from "../../../components/BoxWithTextIcon";
-import { usePublicProfileMutation } from "../../../services/user";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { RightSideBar } from "../../../components";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { user } from '../../../assets';
+import BoxWithTextIcon from '../../../components/BoxWithTextIcon';
+import { usePublicProfileMutation } from '../../../services/user';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { RightSideBar } from '../../../components';
 import {
   useSendBondReqMutation,
   useUpdateBondReqMutation,
-} from "../../../services/bonds";
+} from '../../../services/bonds';
 
 const UserBonds = () => {
   const { id } = useParams();
@@ -28,7 +28,7 @@ const UserBonds = () => {
   const [sendReq, { isLoading: isReqLoading }] = useSendBondReqMutation();
   const [updateReq, { isLoading: isUpdateReqLoading }] =
     useUpdateBondReqMutation();
-  const [selectedId, setSelctedId] = useState("");
+  const [selectedId, setSelctedId] = useState('');
 
   const fetchUserBonds = async (id, userBonds, userData, setBondsData) => {
     try {
@@ -40,7 +40,7 @@ const UserBonds = () => {
 
       const transformData = res?.data?.data?.map((item) => ({
         profileImg: item?.otherUser?.profileImage,
-        name: item?.otherUser?.firstName + " " + item?.otherUser?.lastName,
+        name: item?.otherUser?.firstName + ' ' + item?.otherUser?.lastName,
         bio: item?.otherUser?.bio?.bio,
         city: item?.otherUser?.city,
         country: item?.otherUser?.country,
@@ -53,7 +53,7 @@ const UserBonds = () => {
 
       setBondsData(transformData);
     } catch (error) {
-      toast.error("Something went wrong", error);
+      toast.error('Something went wrong', error);
     }
   };
 
@@ -71,12 +71,12 @@ const UserBonds = () => {
     sendReq(bodyToSend).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
-        setSelctedId("");
+        setSelctedId('');
         return;
       }
       if (res) {
-        toast.success("Your Request sent successfully");
-        setSelctedId("");
+        toast.success('Your Request sent successfully');
+        setSelctedId('');
         fetchUserBonds(id, userBonds, userData, setBondsData);
       }
     });
@@ -86,16 +86,16 @@ const UserBonds = () => {
     setSelctedId(bondId);
     const bodyToSend = {
       bondId: bondId,
-      action: "unfriend",
+      action: 'unfriend',
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
-        setSelctedId("");
+        setSelctedId('');
         return;
       }
       if (res) {
-        setSelctedId("");
+        setSelctedId('');
         fetchUserBonds(id, userBonds, userData, setBondsData);
       }
     });
@@ -105,20 +105,20 @@ const UserBonds = () => {
     return <LinearProgress />;
   }
   return (
-    <Box sx={{ p: "20px" }}>
+    <Box sx={{ p: '20px' }}>
       <Grid2 container spacing={5}>
         <Grid2 size={{ xs: 12, lg: 9 }}>
-          <Paper sx={{ width: "100%" }}>
+          <Paper sx={{ width: '100%' }}>
             <Box
-              sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
+              sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}
             >
               {bondsData?.map((item, index) => (
                 <Box
                   sx={{
-                    display: "flex",
-                    columnGap: "10px",
-                    alignItems: "flex-start",
-                    flexDirection: { xs: "column", sm: "row" },
+                    display: 'flex',
+                    columnGap: '10px',
+                    alignItems: 'flex-start',
+                    flexDirection: { xs: 'column', sm: 'row' },
                   }}
                   key={index}
                 >
@@ -128,36 +128,36 @@ const UserBonds = () => {
                     sx={{
                       width: 50,
                       height: 50,
-                      objectFit: "fill",
-                      mt: "10px",
-                      cursor: "pointer",
+                      objectFit: 'fill',
+                      mt: '10px',
+                      cursor: 'pointer',
                     }}
                     onClick={() => navigate(`/profile/${item?.id}`)}
                   />
                   <Box
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      rowGap: "0px",
-                      width: "100%",
-                      borderBottom: "1px solid #E4E4E4",
-                      pb: "10px",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      rowGap: '0px',
+                      width: '100%',
+                      borderBottom: '1px solid #E4E4E4',
+                      pb: '10px',
                     }}
                   >
                     <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
+                        display: 'flex',
+                        justifyContent: 'space-between',
                         flex: 1,
-                        alignItems: "center",
+                        alignItems: 'center',
                       }}
                     >
                       <Typography
                         sx={{
-                          fontSize: "20px",
-                          fontWeight: "500",
-                          color: "#171717",
-                          cursor: "pointer",
+                          fontSize: '20px',
+                          fontWeight: '500',
+                          color: '#171717',
+                          cursor: 'pointer',
                         }}
                         onClick={() => navigate(`/profile/${item?.id}`)}
                       >
@@ -166,8 +166,8 @@ const UserBonds = () => {
                       {!item?.isUser && (
                         <Box
                           sx={{
-                            width: "180px",
-                            display: { xs: "none", sm: "block" },
+                            width: '180px',
+                            display: { xs: 'none', sm: 'block' },
                           }}
                         >
                           <BoxWithTextIcon
@@ -180,10 +180,10 @@ const UserBonds = () => {
                             }
                             text={
                               item?.isMutual
-                                ? "Unbond"
+                                ? 'Unbond'
                                 : item?.isPending
-                                  ? "Pending"
-                                  : "Bond"
+                                  ? 'Pending'
+                                  : 'Bond'
                             }
                             isLoading={
                               (isReqLoading && selectedId === item?.id) ||
@@ -196,29 +196,29 @@ const UserBonds = () => {
                     </Box>
                     <Typography
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        color: "#505050",
+                        fontSize: '16px',
+                        fontWeight: '400',
+                        color: '#505050',
                       }}
                     >
                       {item?.bio}
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        color: "#505050",
+                        fontSize: '16px',
+                        fontWeight: '400',
+                        color: '#505050',
                       }}
                     >
-                      {item?.city ? item?.city : ""}
-                      {item?.city && item?.country && ", "}{" "}
-                      {item?.country ? item?.country : ""}
+                      {item?.city ? item?.city : ''}
+                      {item?.city && item?.country && ', '}{' '}
+                      {item?.country ? item?.country : ''}
                     </Typography>
                     {!item?.isUser && (
                       <Box
                         sx={{
-                          width: "100%",
-                          display: { xs: "block", sm: "none" },
+                          width: '100%',
+                          display: { xs: 'block', sm: 'none' },
                         }}
                       >
                         <BoxWithTextIcon
@@ -231,10 +231,10 @@ const UserBonds = () => {
                           }
                           text={
                             item?.isMutual
-                              ? "Unbond"
+                              ? 'Unbond'
                               : item?.isPending
-                                ? "Pending"
-                                : "Bond"
+                                ? 'Pending'
+                                : 'Bond'
                           }
                           isLoading={
                             (isReqLoading && selectedId === item?.id) ||

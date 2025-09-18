@@ -7,9 +7,9 @@ import {
   useMediaQuery,
   Menu,
   MenuItem,
-} from "@mui/material";
-import { useState } from "react";
-import { bell, deleteIcon, dislike, userAvatar } from "../assets";
+} from '@mui/material';
+import { useState } from 'react';
+import { bell, deleteIcon, dislike, userAvatar } from '../assets';
 
 const PulseProfileCard = ({
   userImage,
@@ -22,7 +22,7 @@ const PulseProfileCard = ({
   metadata,
 }) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClose = (event) => {
@@ -33,19 +33,19 @@ const PulseProfileCard = ({
   return (
     <Card
       sx={{
-        width: "100%",
-        minHeight: "max-content",
-        display: "flex",
-        flexDirection: isSmallScreen ? "column" : "row",
-        alignItems: isSmallScreen ? "center" : "flex-start",
+        width: '100%',
+        minHeight: 'max-content',
+        display: 'flex',
+        flexDirection: isSmallScreen ? 'column' : 'row',
+        alignItems: isSmallScreen ? 'center' : 'flex-start',
         background:
           activeItem === id
-            ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-            : "#F8FCFF",
-        borderRadius: "2px",
-        padding: "16px",
-        cursor: "pointer",
-        textAlign: isSmallScreen ? "center" : "left",
+            ? 'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)'
+            : '#F8FCFF',
+        borderRadius: '2px',
+        padding: '16px',
+        cursor: 'pointer',
+        textAlign: isSmallScreen ? 'center' : 'left',
       }}
       onClick={() => HandleClick(id, metadata)}
     >
@@ -55,8 +55,8 @@ const PulseProfileCard = ({
         sx={{
           width: 60,
           height: 60,
-          marginBottom: isSmallScreen ? "12px" : 0,
-          marginRight: isSmallScreen ? 0 : "16px",
+          marginBottom: isSmallScreen ? '12px' : 0,
+          marginRight: isSmallScreen ? 0 : '16px',
         }}
       />
 
@@ -64,18 +64,18 @@ const PulseProfileCard = ({
         <Typography
           sx={{
             fontWeight: 500,
-            fontSize: "16px",
-            color: activeItem === id ? theme.palette.primary.light : "#171717",
+            fontSize: '16px',
+            color: activeItem === id ? theme.palette.primary.light : '#171717',
           }}
         >
           {userRole}
         </Typography>
         <Typography
           sx={{
-            marginTop: "4px",
-            fontSize: "14px",
+            marginTop: '4px',
+            fontSize: '14px',
             fontWeight: 400,
-            color: activeItem === id ? theme.palette.primary.light : "#505050",
+            color: activeItem === id ? theme.palette.primary.light : '#505050',
           }}
         >
           {description}
@@ -84,18 +84,18 @@ const PulseProfileCard = ({
 
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: isSmallScreen ? "row" : "column",
-          marginTop: isSmallScreen ? "12px" : 0,
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: isSmallScreen ? 'row' : 'column',
+          marginTop: isSmallScreen ? '12px' : 0,
         }}
       >
         <Typography
           sx={{
-            marginRight: isSmallScreen ? "8px" : "0px",
-            fontSize: "12px",
+            marginRight: isSmallScreen ? '8px' : '0px',
+            fontSize: '12px',
             fontWeight: 400,
-            color: activeItem === id ? theme.palette.primary.light : "#505050",
+            color: activeItem === id ? theme.palette.primary.light : '#505050',
           }}
         >
           {time}
@@ -106,35 +106,35 @@ const PulseProfileCard = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
       >
         <MenuItem
           onClick={handleClose}
           sx={{
-            width: "224px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            columnGap: "5px",
+            width: '224px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: '5px',
           }}
         >
           <img
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
             src={bell}
             alt="Bell"
           />
           <Typography
             sx={{
-              fontSize: "12px",
+              fontSize: '12px',
               fontWeight: 300,
-              color: "#505050",
-              width: "100%",
+              color: '#505050',
+              width: '100%',
             }}
           >
             Change pulse preferences
@@ -143,24 +143,24 @@ const PulseProfileCard = ({
         <MenuItem
           onClick={handleClose}
           sx={{
-            width: "224px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            columnGap: "5px",
+            width: '224px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: '5px',
           }}
         >
           <img
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
             src={deleteIcon}
             alt="Bell"
           />
           <Typography
             sx={{
-              fontSize: "12px",
+              fontSize: '12px',
               fontWeight: 300,
-              color: "#505050",
-              width: "100%",
+              color: '#505050',
+              width: '100%',
             }}
           >
             Delete pulse
@@ -169,24 +169,24 @@ const PulseProfileCard = ({
         <MenuItem
           onClick={handleClose}
           sx={{
-            width: "224px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            columnGap: "5px",
+            width: '224px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: '5px',
           }}
         >
           <img
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
             src={dislike}
             alt="Bell"
           />
           <Typography
             sx={{
-              fontSize: "12px",
+              fontSize: '12px',
               fontWeight: 300,
-              color: "#505050",
-              width: "100%",
+              color: '#505050',
+              width: '100%',
             }}
           >
             Show less like this

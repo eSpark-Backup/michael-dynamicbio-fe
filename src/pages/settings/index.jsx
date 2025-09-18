@@ -7,9 +7,9 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import { useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
+} from '@mui/material';
+import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   accountBlack,
   accountBlue,
@@ -17,18 +17,18 @@ import {
   fullEyeBlue,
   logo2,
   user,
-} from "../../assets";
-import { useSelector } from "react-redux";
-import VisibilitySettings from "./VisibilitySettings";
-import AccountSettings from "./AccountSettings";
-import { useNavigate } from "react-router-dom";
+} from '../../assets';
+import { useSelector } from 'react-redux';
+import VisibilitySettings from './VisibilitySettings';
+import AccountSettings from './AccountSettings';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 300;
 
 const Settings = () => {
   const { user: userData } = useSelector((state) => state.auth);
   const theme = useTheme();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -39,13 +39,13 @@ const Settings = () => {
 
   const tabs = [
     {
-      label: "Account Preferences",
+      label: 'Account Preferences',
       icon: accountBlack,
       activeIcon: accountBlue,
       component: <AccountSettings />,
     },
     {
-      label: "Visibility",
+      label: 'Visibility',
       icon: fullEyeBlack,
       activeIcon: fullEyeBlue,
       component: <VisibilitySettings />,
@@ -58,24 +58,24 @@ const Settings = () => {
     <>
       <Paper
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          py: "6px",
-          px: "12px",
-          position: "fixed",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          py: '6px',
+          px: '12px',
+          position: 'fixed',
           top: 0,
-          width: "100%",
+          width: '100%',
           zIndex: 1201,
         }}
       >
         <img
           src={logo2}
           alt="Logo"
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
+          onClick={() => navigate('/')}
+          style={{ cursor: 'pointer' }}
         />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {!isLargeScreen && (
             <IconButton onClick={toggleDrawer(true)}>
               <MenuIcon />
@@ -84,30 +84,30 @@ const Settings = () => {
           <Avatar
             src={userData?.profileImage || user}
             alt="User"
-            sx={{ width: 32, height: 32, cursor: "pointer" }}
+            sx={{ width: 32, height: 32, cursor: 'pointer' }}
             onClick={() => navigate(`/profile/${userData?.id}`)}
           />
         </Box>
       </Paper>
 
-      <Box sx={{ display: "flex", pt: "68px" }}>
+      <Box sx={{ display: 'flex', pt: '68px' }}>
         <Drawer
-          variant={isLargeScreen ? "persistent" : "temporary"}
+          variant={isLargeScreen ? 'persistent' : 'temporary'}
           open={isLargeScreen ? true : mobileOpen}
           onClose={toggleDrawer(false)}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            "& .MuiDrawer-paper": {
+            '& .MuiDrawer-paper': {
               width: drawerWidth,
-              boxSizing: "border-box",
-              mt: "68px",
-              px: "0px",
+              boxSizing: 'border-box',
+              mt: '68px',
+              px: '0px',
             },
           }}
         >
           <Box sx={{ py: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", px: 2, mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', px: 2, mb: 2 }}>
               <Avatar
                 src={userData?.profileImage || user}
                 sx={{ width: 40, height: 40 }}
@@ -117,7 +117,7 @@ const Settings = () => {
               </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 1 }}>
               {tabs.map((item) => {
                 const isActive = item.label === activeTab.label;
                 return (
@@ -127,28 +127,28 @@ const Settings = () => {
                     sx={{
                       px: 3,
                       py: 2,
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
                       gap: 1,
-                      position: "relative",
-                      color: isActive ? "transparent" : "#000",
+                      position: 'relative',
+                      color: isActive ? 'transparent' : '#000',
                       background: isActive
-                        ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
-                        : "transparent",
-                      WebkitBackgroundClip: isActive ? "text" : "none",
-                      WebkitTextFillColor: isActive ? "transparent" : "inherit",
-                      "&::after": {
+                        ? 'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)'
+                        : 'transparent',
+                      WebkitBackgroundClip: isActive ? 'text' : 'none',
+                      WebkitTextFillColor: isActive ? 'transparent' : 'inherit',
+                      '&::after': {
                         content: '""',
-                        display: isActive ? "block" : "none",
-                        width: "3px",
-                        height: "100%",
+                        display: isActive ? 'block' : 'none',
+                        width: '3px',
+                        height: '100%',
                         background:
-                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                        position: "absolute",
+                          'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                        position: 'absolute',
                         left: 0,
                         top: 0,
-                        borderRadius: "2px",
+                        borderRadius: '2px',
                       },
                     }}
                   >
@@ -173,16 +173,16 @@ const Settings = () => {
             flexGrow: 1,
             width: { md: `calc(100% - ${drawerWidth}px)` },
             p: 2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Paper
             sx={{
-              width: { xs: "100%", sm: "95%", md: "90%", lg: "60%", xl: "50%" },
-              px: "0px",
-              pb: "0px",
+              width: { xs: '100%', sm: '95%', md: '90%', lg: '60%', xl: '50%' },
+              px: '0px',
+              pb: '0px',
             }}
           >
             {activeTab.component}

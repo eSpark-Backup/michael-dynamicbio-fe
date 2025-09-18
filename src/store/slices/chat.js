@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  onlineUsers: JSON.parse(localStorage.getItem("onlineUsers")) || [],
+  onlineUsers: JSON.parse(localStorage.getItem('onlineUsers')) || [],
 };
 
 const slice = createSlice({
-  name: "chat",
+  name: 'chat',
   initialState,
   reducers: {
     updateOnlineUser: (state, action) => {
       state.onlineUsers = action.payload;
-      localStorage.setItem("onlineUsers", JSON.stringify(action.payload));
+      localStorage.setItem('onlineUsers', JSON.stringify(action.payload));
     },
   },
 });

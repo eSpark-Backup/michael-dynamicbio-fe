@@ -10,9 +10,9 @@ import {
   Radio,
   RadioGroup,
   Typography,
-} from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import BondCard2 from "./BondCard";
+} from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import BondCard2 from './BondCard';
 import {
   comment,
   commentOff,
@@ -22,30 +22,30 @@ import {
   tick,
   unlike,
   user,
-} from "../assets";
-import DynamicModal from "./dynamic-modal";
-import RepostWithThoughts from "./RepostWithThoughts";
-import GroupShareModal from "./GroupShareModal";
-import ConfirmationModal from "./ConfirmationModal";
-import ShareModal from "./ShareModal";
-import ScheduleModal from "./ScheduleModal";
-import OutlinedInput from "./outline-input";
-import RemovePostModal from "./RemovePostModal";
-import ViewPolls from "./ViewPolls";
-import { useSelector } from "react-redux";
+} from '../assets';
+import DynamicModal from './dynamic-modal';
+import RepostWithThoughts from './RepostWithThoughts';
+import GroupShareModal from './GroupShareModal';
+import ConfirmationModal from './ConfirmationModal';
+import ShareModal from './ShareModal';
+import ScheduleModal from './ScheduleModal';
+import OutlinedInput from './outline-input';
+import RemovePostModal from './RemovePostModal';
+import ViewPolls from './ViewPolls';
+import { useSelector } from 'react-redux';
 import {
   useCommentMutation,
   useGetPostCommentsQuery,
-} from "../services/interaction";
-import Button from "./button";
-import Comment from "./Comment";
-import { toast } from "react-toastify";
+} from '../services/interaction';
+import Button from './button';
+import Comment from './Comment';
+import { toast } from 'react-toastify';
 import {
   useInteractPollMutation,
   useRemovePollMutation,
-} from "../services/post";
-import ShowLikesModal from "./ShowLikesModal";
-import EditModal from "./EditModal";
+} from '../services/post';
+import ShowLikesModal from './ShowLikesModal';
+import EditModal from './EditModal';
 
 const PollPost = ({
   isUpdateLoading,
@@ -98,13 +98,13 @@ const PollPost = ({
   const [voteCount, setVoteCount] = useState(totalVoteCount);
   const [options, setOptions] = useState(pollOptions);
   const initialSelectedValue =
-    options?.find((option) => option.isChecked)?.value || "";
+    options?.find((option) => option.isChecked)?.value || '';
 
   const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
   const [showComments, setShowComments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [thoughts, setThoughts] = useState("");
+  const [thoughts, setThoughts] = useState('');
   const [showThoughtsModal, setShowThoughtsModal] = useState(false);
   const [groupShareModal, setGroupShareModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -113,8 +113,8 @@ const PollPost = ({
   const [postRemoveModal, setPostRemoveModal] = useState(false);
   const [viewVotes, setViewVotes] = useState(false);
   const { user: userData } = useSelector((state) => state.auth);
-  const [postId, setPostId] = useState("");
-  const [commentContent, setCommentContent] = useState("");
+  const [postId, setPostId] = useState('');
+  const [commentContent, setCommentContent] = useState('');
   const [postComments, setPostComments] = useState([]);
   const [totalComments, setTotalComments] = useState(comments);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -150,14 +150,14 @@ const PollPost = ({
   };
 
   const HandleRepost = (event) => {
-    if (event === "thoughts") {
+    if (event === 'thoughts') {
       setShowThoughtsModal(true);
       handleCloseMenu();
     }
   };
 
   const HandleSuccess = () => {
-    if (thoughts === "") {
+    if (thoughts === '') {
       setShowConfirmModal(true);
     } else {
       setShowThoughtsModal(false);
@@ -165,7 +165,7 @@ const PollPost = ({
   };
 
   const HandleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       HandleComment(id);
     }
@@ -189,7 +189,7 @@ const PollPost = ({
     });
 
     if (res?.error) {
-      toast.error(res?.error?.data?.message || "Something went wrong");
+      toast.error(res?.error?.data?.message || 'Something went wrong');
       return;
     } else if (res?.data) {
       setSelectedValue(event.target.value?.value);
@@ -231,7 +231,7 @@ const PollPost = ({
     });
 
     if (res?.error) {
-      toast.error(res?.error?.data?.message || "Something went wrong");
+      toast.error(res?.error?.data?.message || 'Something went wrong');
       return;
     } else if (res?.data) {
       setOptions((prevOptions) =>
@@ -290,8 +290,8 @@ const PollPost = ({
         return;
       }
       if (res?.data) {
-        toast.success("Comment added successfully");
-        setCommentContent("");
+        toast.success('Comment added successfully');
+        setCommentContent('');
         refetch();
         setTotalComments((prev) => prev + 1);
       }
@@ -326,11 +326,11 @@ const PollPost = ({
   }, [getCommentsSuccess, getCommentsData]);
 
   const AlertHandler = () => {
-    toast.warning("Please login for actions");
+    toast.warning('Please login for actions');
   };
 
   return (
-    <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+    <Paper sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
       <BondCard2
         id={userId}
         userName={userName}
@@ -350,7 +350,7 @@ const PollPost = ({
         handleDelete={handleDelete}
         visibility={postVisibility}
         commentSetting={commentSetting}
-        type={"POLL"}
+        type={'POLL'}
         isPagePost={isPagePost}
         isUserPost={isUserPost}
         isPageFollowing={isPageFollowing}
@@ -365,40 +365,40 @@ const PollPost = ({
       />
       {editTitle && (
         <Typography
-          sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
+          sx={{ fontSize: '20px', fontWeight: 400, color: '#171717' }}
           dangerouslySetInnerHTML={{ __html: editTitle }}
         ></Typography>
       )}
       <Box
         sx={{
-          backgroundColor: "#FCFCFC",
-          borderRadius: "4px",
-          p: { xs: "5px", md: "24px 32px" },
+          backgroundColor: '#FCFCFC',
+          borderRadius: '4px',
+          p: { xs: '5px', md: '24px 32px' },
         }}
       >
         <Box
           sx={{
-            minHeight: "250px",
-            width: "100%",
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #E4E4E4",
-            maxHeight: "350px",
-            overflowY: "auto",
-            p: "25px 0px 5px 0px",
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "20px",
+            minHeight: '250px',
+            width: '100%',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #E4E4E4',
+            maxHeight: '350px',
+            overflowY: 'auto',
+            p: '25px 0px 5px 0px',
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px',
           }}
         >
           <Box
             sx={{
-              backgroundColor: "#F2F8FD",
-              borderRadius: "2px",
-              border: "1px solid #E4E4E4",
-              p: "15px 25px",
-              fontSize: "18px",
-              fontWeight: "500",
-              color: "#171717",
+              backgroundColor: '#F2F8FD',
+              borderRadius: '2px',
+              border: '1px solid #E4E4E4',
+              p: '15px 25px',
+              fontSize: '18px',
+              fontWeight: '500',
+              color: '#171717',
             }}
           >
             {question}
@@ -407,14 +407,14 @@ const PollPost = ({
           {pollLoading || removePollLoading ? (
             <Box
               sx={{
-                width: "100%",
-                height: "200px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                width: '100%',
+                height: '200px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              <CircularProgress sx={{ color: "#1877F2" }} />
+              <CircularProgress sx={{ color: '#1877F2' }} />
             </Box>
           ) : (
             <RadioGroup
@@ -427,33 +427,33 @@ const PollPost = ({
                     ? () => {}
                     : handleChange
               }
-              sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
+              sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}
             >
               {options?.map((item, index) => (
                 <Box
                   sx={{
-                    display: "flex",
-                    p: "10px 35px",
-                    alignItems: "center",
-                    backgroundColor: "#FCFCFC",
-                    justifyContent: "space-between",
+                    display: 'flex',
+                    p: '10px 35px',
+                    alignItems: 'center',
+                    backgroundColor: '#FCFCFC',
+                    justifyContent: 'space-between',
                   }}
                   key={index}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      width: "95%",
-                      alignItems: "center",
-                      minHeight: "20px",
-                      py: "0px",
-                      maxHeight: "45px",
+                      display: 'flex',
+                      width: '95%',
+                      alignItems: 'center',
+                      minHeight: '20px',
+                      py: '0px',
+                      maxHeight: '45px',
                       background:
                         selectedValue === item.value
                           ? `linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)`
-                          : "#FCFCFC",
-                      cursor: "pointer",
-                      p: "4px",
+                          : '#FCFCFC',
+                      cursor: 'pointer',
+                      p: '4px',
                     }}
                     onClick={
                       isGeneralPost || isPending
@@ -466,29 +466,29 @@ const PollPost = ({
                       control={
                         <Radio
                           sx={{
-                            marginRight: "0px !important",
-                            p: "0px 9px 0px 5px",
+                            marginRight: '0px !important',
+                            p: '0px 9px 0px 5px',
                             color:
                               selectedValue === item.value
-                                ? "#171717"
-                                : "default",
-                            "&.Mui-checked": {
-                              color: "#fff",
+                                ? '#171717'
+                                : 'default',
+                            '&.Mui-checked': {
+                              color: '#fff',
                             },
                           }}
                         />
                       }
                       sx={{
-                        marginRight: "0px !important",
-                        p: "0px 9px 0px 4px",
+                        marginRight: '0px !important',
+                        p: '0px 9px 0px 4px',
                       }}
                     />
                     <Typography
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "500",
+                        fontSize: '16px',
+                        fontWeight: '500',
                         color:
-                          selectedValue === item?.value ? "#FFFFFF" : "#171717",
+                          selectedValue === item?.value ? '#FFFFFF' : '#171717',
                       }}
                     >
                       {item.value}
@@ -496,9 +496,9 @@ const PollPost = ({
                   </Box>
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "300",
-                      color: "#505050",
+                      fontSize: '14px',
+                      fontWeight: '300',
+                      color: '#505050',
                     }}
                   >
                     {item.numbersVoted}
@@ -511,19 +511,19 @@ const PollPost = ({
           {!isPending && (
             <Box
               sx={{
-                display: "flex",
-                columnGap: "4px",
-                alignItems: "center",
-                pl: "5px",
+                display: 'flex',
+                columnGap: '4px',
+                alignItems: 'center',
+                pl: '5px',
               }}
             >
               {ownPost && (
                 <>
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "400",
-                      cursor: "pointer",
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      cursor: 'pointer',
                     }}
                     variant="gradientText"
                     onClick={
@@ -533,35 +533,35 @@ const PollPost = ({
                     {voteCount} votes
                   </Typography>
                   <Typography
-                    sx={{ fontSize: "14px", fontWeight: "400" }}
+                    sx={{ fontSize: '14px', fontWeight: '400' }}
                     variant="gradientText"
                   >
                     •
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "400",
-                      color: "#505050",
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      color: '#505050',
                     }}
                   >
                     {endDate}
                   </Typography>
                 </>
               )}
-              {selectedValue && selectedValue !== "" && ownPost && (
+              {selectedValue && selectedValue !== '' && ownPost && (
                 <>
                   <Typography
-                    sx={{ fontSize: "14px", fontWeight: "400" }}
+                    sx={{ fontSize: '14px', fontWeight: '400' }}
                     variant="gradientText"
                   >
                     •
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      cursor: "pointer",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
                     }}
                     variant="gradientText"
                     onClick={isGeneralPost ? AlertHandler : handleUndo}
@@ -570,13 +570,13 @@ const PollPost = ({
                   </Typography>
                 </>
               )}
-              {selectedValue && selectedValue !== "" && !ownPost && (
+              {selectedValue && selectedValue !== '' && !ownPost && (
                 <>
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      cursor: "pointer",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
                     }}
                     variant="gradientText"
                     onClick={isGeneralPost ? AlertHandler : handleUndo}
@@ -592,38 +592,38 @@ const PollPost = ({
       {isPending ? (
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Box
             sx={{
-              width: { xs: "100%", sm: "85%", md: "80%", lg: "70%" },
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              width: { xs: '100%', sm: '85%', md: '80%', lg: '70%' },
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "reject" ? (
-              <CircularProgress sx={{ color: "#1877F2" }} />
+            isUpdateLoading.action === 'reject' ? (
+              <CircularProgress sx={{ color: '#1877F2' }} />
             ) : (
               <Box
                 sx={{
-                  display: "flex",
-                  columnGap: "5px",
-                  alignItems: "center",
-                  cursor: "pointer",
+                  display: 'flex',
+                  columnGap: '5px',
+                  alignItems: 'center',
+                  cursor: 'pointer',
                 }}
-                onClick={() => handleResponse(reqId, "reject")}
+                onClick={() => handleResponse(reqId, 'reject')}
               >
                 <img src={deleteBlack} alt="Icon" />
                 <Typography
                   sx={{
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    color: "#171717",
+                    fontSize: '16px',
+                    fontWeight: '500',
+                    color: '#171717',
                   }}
                 >
                   Delete
@@ -631,21 +631,21 @@ const PollPost = ({
               </Box>
             )}
             {isUpdateLoading?.id === reqId &&
-            isUpdateLoading.action === "approve" ? (
-              <CircularProgress sx={{ color: "#1877F2" }} />
+            isUpdateLoading.action === 'approve' ? (
+              <CircularProgress sx={{ color: '#1877F2' }} />
             ) : (
               <Box
-                onClick={() => handleResponse(reqId, "approve")}
+                onClick={() => handleResponse(reqId, 'approve')}
                 sx={{
-                  display: "flex",
-                  columnGap: "5px",
-                  alignItems: "center",
-                  cursor: "pointer",
+                  display: 'flex',
+                  columnGap: '5px',
+                  alignItems: 'center',
+                  cursor: 'pointer',
                 }}
               >
                 <img src={tick} alt="Icon" />
                 <Typography
-                  sx={{ fontSize: "16px", fontWeight: "500" }}
+                  sx={{ fontSize: '16px', fontWeight: '500' }}
                   variant="gradientText"
                 >
                   Approve
@@ -658,31 +658,31 @@ const PollPost = ({
         <>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                columnGap: "6px",
+                display: 'flex',
+                alignItems: 'center',
+                columnGap: '6px',
               }}
             >
               {numberofLikes >= 1 && (
                 <img
                   src={like}
                   alt="Like"
-                  style={{ width: "13.43px", height: "12px" }}
+                  style={{ width: '13.43px', height: '12px' }}
                 />
               )}
               <Typography
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  color: "#505050",
-                  cursor: numberofLikes > 0 ? "pointer" : "text",
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  color: '#505050',
+                  cursor: numberofLikes > 0 ? 'pointer' : 'text',
                 }}
                 onClick={
                   isGeneralPost
@@ -693,9 +693,9 @@ const PollPost = ({
                 }
               >
                 {numberofLikes === 0
-                  ? "Be first to like this"
+                  ? 'Be first to like this'
                   : isLiked && numberofLikes === 1
-                    ? "You liked this post"
+                    ? 'You liked this post'
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
@@ -703,19 +703,19 @@ const PollPost = ({
                         : `${lastUserLiked} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", columnGap: "10px" }}>
+            <Box sx={{ display: 'flex', columnGap: '10px' }}>
               <Typography
-                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
               >
                 {totalComments} comments
               </Typography>
               <Typography
-                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
               >
                 •
               </Typography>
               <Typography
-                sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+                sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
               >
                 0 reposts
               </Typography>
@@ -723,24 +723,24 @@ const PollPost = ({
           </Box>
           <Box
             sx={{
-              borderTop: "1px solid #E4E4E4",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#F8FCFF",
-              height: "50px",
-              px: { xs: "10px", md: "0px" },
+              borderTop: '1px solid #E4E4E4',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: '#F8FCFF',
+              height: '50px',
+              px: { xs: '10px', md: '0px' },
             }}
           >
             <Box
               sx={{
-                display: "flex",
-                columnGap: "15px",
-                cursor: "pointer",
-                width: { md: "20%" },
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                columnGap: '15px',
+                cursor: 'pointer',
+                width: { md: '20%' },
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={
                 isGeneralPost
@@ -753,39 +753,39 @@ const PollPost = ({
               <img
                 src={isLiked ? like : unlike}
                 alt="Like"
-                style={{ width: "24px", height: "24px" }}
+                style={{ width: '24px', height: '24px' }}
               />
               <Typography
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  display: { xs: "none", md: "block" },
-                  color: "#505050",
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  display: { xs: 'none', md: 'block' },
+                  color: '#505050',
                 }}
               >
-                {isLiked ? "Liked" : "Like"}
+                {isLiked ? 'Liked' : 'Like'}
               </Typography>
             </Box>
             <Box
               sx={{
-                display: "flex",
-                columnGap: "15px",
-                cursor: "pointer",
-                backgroundColor: showComments ? "#FFFFFF" : "inherit",
-                width: { md: "20%" },
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                columnGap: '15px',
+                cursor: 'pointer',
+                backgroundColor: showComments ? '#FFFFFF' : 'inherit',
+                width: { md: '20%' },
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={isGeneralPost ? AlertHandler : () => CommentHandler(id)}
             >
               <img src={comment} alt="Like" />
               <Typography
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  display: { xs: "none", md: "block" },
-                  color: "#505050",
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  display: { xs: 'none', md: 'block' },
+                  color: '#505050',
                 }}
               >
                 Comment
@@ -793,13 +793,13 @@ const PollPost = ({
             </Box>
             <Box
               sx={{
-                display: "flex",
-                columnGap: "15px",
-                cursor: "pointer",
-                width: { md: "20%" },
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                columnGap: '15px',
+                cursor: 'pointer',
+                width: { md: '20%' },
+                height: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={
                 isGeneralPost ? AlertHandler : () => setShowShareModal(true)
@@ -808,10 +808,10 @@ const PollPost = ({
               <img src={send} alt="Like" />
               <Typography
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  display: { xs: "none", md: "block" },
-                  color: "#505050",
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  display: { xs: 'none', md: 'block' },
+                  color: '#505050',
                 }}
               >
                 Share
@@ -821,35 +821,35 @@ const PollPost = ({
           {showComments && (
             <Box
               sx={{
-                px: { xs: "0px", md: "10px" },
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "10px",
+                px: { xs: '0px', md: '10px' },
+                display: 'flex',
+                flexDirection: 'column',
+                rowGap: '10px',
               }}
             >
               <Box
                 sx={{
-                  display: "flex",
-                  columnGap: "5px",
-                  flexDirection: { xs: "column", md: "row" },
+                  display: 'flex',
+                  columnGap: '5px',
+                  flexDirection: { xs: 'column', md: 'row' },
                 }}
               >
                 {isGetCommentsLoading ? (
                   <Box
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: '100%',
                     }}
                   >
                     <LinearProgress
                       sx={{
-                        width: "100%",
+                        width: '100%',
                         height: 6,
-                        bgcolor: "#F2F8FD",
-                        "& .MuiLinearProgress-bar": {
-                          backgroundColor: "white",
+                        bgcolor: '#F2F8FD',
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: 'white',
                         },
                       }}
                     />
@@ -865,35 +865,35 @@ const PollPost = ({
                               : user
                           }
                           alt="User"
-                          sx={{ width: 60, height: 60, objectFit: "fill" }}
+                          sx={{ width: 60, height: 60, objectFit: 'fill' }}
                         />
 
                         <Box
                           sx={{
-                            border: "1px solid #DDE2E4",
-                            width: "100%",
-                            display: "flex",
-                            pr: "10px",
-                            minHeight: "60px",
-                            flexDirection: commentContent ? "column" : "row",
-                            pb: commentContent ? "10px" : "0px",
-                            rowGap: "13px",
+                            border: '1px solid #DDE2E4',
+                            width: '100%',
+                            display: 'flex',
+                            pr: '10px',
+                            minHeight: '60px',
+                            flexDirection: commentContent ? 'column' : 'row',
+                            pb: commentContent ? '10px' : '0px',
+                            rowGap: '13px',
                           }}
                         >
                           <OutlinedInput
                             sx={{
-                              height: "100%",
-                              width: "100%",
-                              "& .MuiOutlinedInput-root": {
-                                border: "none !important",
-                                height: "100%",
+                              height: '100%',
+                              width: '100%',
+                              '& .MuiOutlinedInput-root': {
+                                border: 'none !important',
+                                height: '100%',
                               },
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                border: "none !important",
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                border: 'none !important',
                               },
-                              p: "10px",
+                              p: '10px',
                             }}
-                            placeholder={"Add a comment"}
+                            placeholder={'Add a comment'}
                             onInputChange={(e) =>
                               setCommentContent(e.target.value)
                             }
@@ -903,10 +903,10 @@ const PollPost = ({
                           />
                           <Box
                             sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              pl: "10px",
-                              justifyContent: "space-between",
+                              display: 'flex',
+                              alignItems: 'center',
+                              pl: '10px',
+                              justifyContent: 'space-between',
                             }}
                           >
                             {commentContent && (
@@ -914,9 +914,9 @@ const PollPost = ({
                                 loading={postCommentLoading}
                                 onClick={() => HandleComment(id)}
                                 sx={{
-                                  width: "150px",
-                                  height: "36px",
-                                  color: "white",
+                                  width: '150px',
+                                  height: '36px',
+                                  color: 'white',
                                 }}
                               >
                                 Comment
@@ -928,19 +928,19 @@ const PollPost = ({
                     ) : (
                       <Box
                         sx={{
-                          backgroundColor: "#F2F8FD",
-                          p: "10px",
-                          display: "flex",
-                          columnGap: "5px",
-                          width: "100%",
+                          backgroundColor: '#F2F8FD',
+                          p: '10px',
+                          display: 'flex',
+                          columnGap: '5px',
+                          width: '100%',
                         }}
                       >
                         <img src={commentOff} alt="Icon" />
                         <Typography
                           sx={{
-                            fontSize: "14px",
-                            fontWeight: "500",
-                            color: "#171717",
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            color: '#171717',
                           }}
                         >
                           Comments are restricted on this post.
@@ -974,21 +974,21 @@ const PollPost = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem
-          onClick={() => HandleRepost("thoughts")}
-          sx={{ width: "245px" }}
+          onClick={() => HandleRepost('thoughts')}
+          sx={{ width: '245px' }}
         >
           Repost with your thoughts
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ width: "245px" }}>
+        <MenuItem onClick={handleClose} sx={{ width: '245px' }}>
           Repost
         </MenuItem>
       </Menu>
@@ -996,11 +996,11 @@ const PollPost = ({
       <DynamicModal
         open={showThoughtsModal}
         handleClose={() => setShowThoughtsModal(false)}
-        buttonText={"Post"}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         onSuccess={HandleSuccess}
         handleGroupClick={() => setGroupShareModal(true)}
       >
@@ -1010,10 +1010,10 @@ const PollPost = ({
       <DynamicModal
         open={groupShareModal}
         handleClose={() => setGroupShareModal(false)}
-        title={"Repost to group"}
-        buttonText={"Save"}
+        title={'Repost to group'}
+        buttonText={'Save'}
         postModal={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
         hideFooter={true}
       >
         <GroupShareModal />
@@ -1022,14 +1022,14 @@ const PollPost = ({
       <ConfirmationModal
         open={showConfirmModal}
         handleClose={() => setShowConfirmModal(false)}
-        title={"Repost without adding your thoughts?"}
-        cancelButtonText={"Back"}
-        acceptButtonText={"Yes, repost"}
+        title={'Repost without adding your thoughts?'}
+        cancelButtonText={'Back'}
+        acceptButtonText={'Yes, repost'}
         handleAccept={() => setShowConfirmModal(false)}
         handleCancel={() => setShowConfirmModal(false)}
       >
         <Typography
-          sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}
+          sx={{ fontSize: '17px', fontWeight: '300', color: '#595959' }}
         >
           If you repost without adding your thoughts, all new comments &
           reactions will be added to XYZ’s post.
@@ -1053,13 +1053,13 @@ const PollPost = ({
       <DynamicModal
         open={showScheduleModal}
         handleClose={() => setShowScheduleModal(false)}
-        title={"Schedule post"}
-        buttonText={"Post"}
+        title={'Schedule post'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
       >
         <ScheduleModal />
       </DynamicModal>
@@ -1067,7 +1067,7 @@ const PollPost = ({
       <DynamicModal
         open={postRemoveModal}
         handleClose={() => setPostRemoveModal(false)}
-        title={"Post removed from your feed"}
+        title={'Post removed from your feed'}
         postModal={true}
         styledHeader={true}
         hideFooter={true}
@@ -1080,7 +1080,7 @@ const PollPost = ({
       <DynamicModal
         open={viewVotes}
         handleClose={() => setViewVotes(false)}
-        title={"Votes"}
+        title={'Votes'}
         postModal={true}
         styledHeader={true}
         hideFooter={true}
@@ -1092,7 +1092,7 @@ const PollPost = ({
       <DynamicModal
         open={showLikesModal}
         handleClose={() => setShowLikesModal(false)}
-        title={"Likes"}
+        title={'Likes'}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}
@@ -1115,7 +1115,7 @@ const PollPost = ({
         group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
-          type={"poll"}
+          type={'poll'}
           title={editTitle}
           id={id}
           pollData={{

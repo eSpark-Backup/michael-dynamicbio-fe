@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   BoxWithTextIcon,
   Dropdown,
   DynamicModal,
   Input,
-} from "../../../../components";
+} from '../../../../components';
 import {
   Autocomplete,
   Box,
@@ -14,17 +14,17 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@mui/material";
-import { useFormik } from "formik";
-import { monthOptions } from "../../../../constant";
-import { checkDate, yearOptions } from "../../../../utils";
-import { deleteIcon, link, plus } from "../../../../assets";
-import AddLink from "./add-link";
-import { certificateSchema } from "../../../../schemas";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { updateUser } from "../../../../store/slices/auth";
-import { useUpdateUserInfoMutation } from "../../../../services/auth";
+} from '@mui/material';
+import { useFormik } from 'formik';
+import { monthOptions } from '../../../../constant';
+import { checkDate, yearOptions } from '../../../../utils';
+import { deleteIcon, link, plus } from '../../../../assets';
+import AddLink from './add-link';
+import { certificateSchema } from '../../../../schemas';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../../../store/slices/auth';
+import { useUpdateUserInfoMutation } from '../../../../services/auth';
 
 const AddCertificate = ({ open, handleClose, userData }) => {
   const dispatch = useDispatch();
@@ -34,14 +34,14 @@ const AddCertificate = ({ open, handleClose, userData }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: "",
-      issuer: "",
-      issueYear: "",
-      issueMonth: "",
-      expireMonth: "",
-      expireYear: "",
-      credId: "",
-      credURL: "",
+      name: '',
+      issuer: '',
+      issueYear: '',
+      issueMonth: '',
+      expireMonth: '',
+      expireYear: '',
+      credId: '',
+      credURL: '',
       skills: [],
       links: [],
     },
@@ -54,7 +54,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         values?.expireYear
       );
       if (!isValidDate) {
-        toast.error("Check Date Please");
+        toast.error('Check Date Please');
         return;
       }
       const arrToSend = userData?.about?.certifications
@@ -72,7 +72,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
           return;
         }
         if (res) {
-          toast.success("Your certificate added successfully");
+          toast.success('Your certificate added successfully');
           dispatch(updateUser(res?.data?.data));
           onClose();
         }
@@ -98,23 +98,23 @@ const AddCertificate = ({ open, handleClose, userData }) => {
   };
 
   const HandleMenuItemClicked = (event) => {
-    if (event === "link") {
+    if (event === 'link') {
       setShowLinkModal(true);
-    } else if (event === "media") {
+    } else if (event === 'media') {
       event.current.click();
     }
     handleMenuItemClose();
   };
 
   const handleAddLink = (newLink) => {
-    formik.setFieldValue("links", [...formik.values.links, newLink]);
+    formik.setFieldValue('links', [...formik.values.links, newLink]);
   };
 
   const handleDeleteLink = (indexToRemove) => {
     const updatedLinks = formik.values.links.filter(
       (_, i) => i !== indexToRemove
     );
-    formik.setFieldValue("links", updatedLinks);
+    formik.setFieldValue('links', updatedLinks);
   };
 
   const onClose = () => {
@@ -127,25 +127,25 @@ const AddCertificate = ({ open, handleClose, userData }) => {
   return (
     <DynamicModal
       isLoading={updateLoading}
-      title={"Add certificate"}
+      title={'Add certificate'}
       buttonText="Save"
       open={open}
       onSuccess={formik.handleSubmit}
       handleClose={onClose}
     >
       <Typography
-        sx={{ fontSize: "15px", fontWeight: "400", color: "#505050" }}
+        sx={{ fontSize: '15px', fontWeight: '400', color: '#505050' }}
       >
         * Indicates required
       </Typography>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
-          mt: "30px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
+          mt: '30px',
         }}
       >
         <Input
@@ -161,12 +161,12 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       </Box>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
-          mt: "20px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
+          mt: '20px',
         }}
       >
         <Input
@@ -181,24 +181,24 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         />
       </Box>
       <Box
-        sx={{ display: "flex", justifyContent: "space-between", mt: "20px" }}
+        sx={{ display: 'flex', justifyContent: 'space-between', mt: '20px' }}
       >
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "8px",
-            width: "45%",
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '8px',
+            width: '45%',
           }}
         >
-          <Typography sx={{ fontSize: "12px", fontWeight: "400" }}>
+          <Typography sx={{ fontSize: '12px', fontWeight: '400' }}>
             Issue date
           </Typography>
           <Dropdown
             variant="outlined"
             options={monthOptions}
             handleChange={(event) =>
-              formik.setFieldValue("issueMonth", event.target.value)
+              formik.setFieldValue('issueMonth', event.target.value)
             }
             customLabel=""
             noLabel
@@ -210,14 +210,14 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "8px",
-            width: "45%",
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '8px',
+            width: '45%',
           }}
         >
           <Typography
-            sx={{ fontSize: "12px", fontWeight: "400", visibility: "hidden" }}
+            sx={{ fontSize: '12px', fontWeight: '400', visibility: 'hidden' }}
           >
             Start date
           </Typography>
@@ -225,7 +225,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
             variant="outlined"
             options={yearOptions}
             handleChange={(event) =>
-              formik.setFieldValue("issueYear", event.target.value)
+              formik.setFieldValue('issueYear', event.target.value)
             }
             customLabel=""
             noLabel
@@ -237,24 +237,24 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         </Box>
       </Box>
       <Box
-        sx={{ display: "flex", justifyContent: "space-between", mt: "20px" }}
+        sx={{ display: 'flex', justifyContent: 'space-between', mt: '20px' }}
       >
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "8px",
-            width: "45%",
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '8px',
+            width: '45%',
           }}
         >
-          <Typography sx={{ fontSize: "12px", fontWeight: "400" }}>
+          <Typography sx={{ fontSize: '12px', fontWeight: '400' }}>
             Expiration date
           </Typography>
           <Dropdown
             variant="outlined"
             options={monthOptions}
             handleChange={(event) =>
-              formik.setFieldValue("expireMonth", event.target.value)
+              formik.setFieldValue('expireMonth', event.target.value)
             }
             customLabel=""
             noLabel
@@ -266,14 +266,14 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "8px",
-            width: "45%",
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '8px',
+            width: '45%',
           }}
         >
           <Typography
-            sx={{ fontSize: "12px", fontWeight: "400", visibility: "hidden" }}
+            sx={{ fontSize: '12px', fontWeight: '400', visibility: 'hidden' }}
           >
             Expiration date
           </Typography>
@@ -281,7 +281,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
             variant="outlined"
             options={yearOptions}
             handleChange={(event) =>
-              formik.setFieldValue("expireYear", event.target.value)
+              formik.setFieldValue('expireYear', event.target.value)
             }
             customLabel=""
             noLabel
@@ -294,12 +294,12 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       </Box>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
-          mt: "20px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
+          mt: '20px',
         }}
       >
         <Input
@@ -315,12 +315,12 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       </Box>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
-          mt: "20px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
+          mt: '20px',
         }}
       >
         <Input
@@ -336,26 +336,26 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       </Box>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          my: "15px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          my: '15px',
         }}
       >
         <Typography
-          sx={{ fontSize: "22px", fontWeight: "500", color: "#171717" }}
+          sx={{ fontSize: '22px', fontWeight: '500', color: '#171717' }}
         >
           Skills
         </Typography>
         <Typography
-          sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+          sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
         >
           Associate atleast 1 skill to this certificate. It will also appear in
           your Skills section
         </Typography>
 
         {/* Always show selected skills as chips */}
-        <Box sx={{ mt: "10px", display: "flex", gap: 1, flexWrap: "wrap" }}>
+        <Box sx={{ mt: '10px', display: 'flex', gap: 1, flexWrap: 'wrap' }}>
           {formik.values.skills.map((skill, index) => (
             <Chip
               key={index}
@@ -364,7 +364,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
               onDelete={() => {
                 const updated = [...formik.values.skills];
                 updated.splice(index, 1);
-                formik.setFieldValue("skills", updated);
+                formik.setFieldValue('skills', updated);
               }}
             />
           ))}
@@ -382,15 +382,15 @@ const AddCertificate = ({ open, handleClose, userData }) => {
                 {...props}
                 elevation={0}
                 sx={{
-                  border: "none",
-                  boxShadow: "none",
-                  backgroundColor: "transparent",
+                  border: 'none',
+                  boxShadow: 'none',
+                  backgroundColor: 'transparent',
                 }}
               />
             )}
             onChange={(event, newValue) => {
               const unique = [...new Set(newValue.map((item) => item.trim()))];
-              formik.setFieldValue("skills", unique);
+              formik.setFieldValue('skills', unique);
               setShowSkillsInput(false);
             }}
             renderTags={() => null}
@@ -400,16 +400,16 @@ const AddCertificate = ({ open, handleClose, userData }) => {
                 placeholder="Type a skill and press Enter"
                 variant="standard"
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && e.target.value.trim()) {
+                  if (e.key === 'Enter' && e.target.value.trim()) {
                     e.preventDefault();
                     const newSkill = e.target.value.trim();
                     if (!formik.values.skills.includes(newSkill)) {
-                      formik.setFieldValue("skills", [
+                      formik.setFieldValue('skills', [
                         ...formik.values.skills,
                         newSkill,
                       ]);
                     }
-                    e.target.value = "";
+                    e.target.value = '';
                     setShowSkillsInput(false);
                   }
                 }}
@@ -418,10 +418,10 @@ const AddCertificate = ({ open, handleClose, userData }) => {
             )}
           />
         ) : (
-          <Box sx={{ width: "200px", mt: "10px" }}>
+          <Box sx={{ width: '200px', mt: '10px' }}>
             <BoxWithTextIcon
               icon={plus}
-              text={"Add skill"}
+              text={'Add skill'}
               onClick={() => setShowSkillsInput(true)}
             />
           </Box>
@@ -429,40 +429,40 @@ const AddCertificate = ({ open, handleClose, userData }) => {
       </Box>
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          my: "15px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          my: '15px',
         }}
       >
         <Typography
-          sx={{ fontSize: "22px", fontWeight: "500", color: "#171717" }}
+          sx={{ fontSize: '22px', fontWeight: '500', color: '#171717' }}
         >
           Link
         </Typography>
         <Typography
-          sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+          sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
         >
           Add links related to this certificate.
         </Typography>
-        <Box sx={{ width: "200px", mt: "10px" }}>
+        <Box sx={{ width: '200px', mt: '10px' }}>
           <BoxWithTextIcon
             icon={plus}
-            text={"Add link"}
+            text={'Add link'}
             onClick={handleClick}
           />
         </Box>
       </Box>
 
-      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "2px" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '2px' }}>
         {formik?.values?.links?.map((item, index) => (
           <Box
             key={index}
-            sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
+            sx={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}
           >
             <Typography
               variant="gradientText"
-              sx={{ fontSize: "16px", fontWeight: "500" }}
+              sx={{ fontSize: '16px', fontWeight: '500' }}
               key={index}
             >
               {item}
@@ -470,7 +470,7 @@ const AddCertificate = ({ open, handleClose, userData }) => {
             <img
               src={deleteIcon}
               alt=""
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               onClick={() => handleDeleteLink(index)}
             />
           </Box>
@@ -481,32 +481,32 @@ const AddCertificate = ({ open, handleClose, userData }) => {
         open={openMenu}
         onClose={handleMenuClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem
-          onClick={() => HandleMenuItemClicked("link")}
+          onClick={() => HandleMenuItemClicked('link')}
           sx={{
-            width: { xs: "fit-content", sm: "350px" },
-            display: "flex",
-            columnGap: "5px",
-            alignItems: "flex-start",
+            width: { xs: 'fit-content', sm: '350px' },
+            display: 'flex',
+            columnGap: '5px',
+            alignItems: 'flex-start',
           }}
         >
           <img src={link} alt="Icon" />
           <Box>
             <Typography
-              sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}
+              sx={{ fontSize: '14px', fontWeight: '500', color: '#171717' }}
             >
               Add a link
             </Typography>
             <Typography
-              sx={{ fontSize: "12px", fontWeight: "400", color: "#505050" }}
+              sx={{ fontSize: '12px', fontWeight: '400', color: '#505050' }}
             >
               Use for videos, articles, and websites
             </Typography>

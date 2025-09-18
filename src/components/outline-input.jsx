@@ -1,4 +1,4 @@
-import { Box, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 
 const OutlinedInput = ({
   label,
@@ -17,16 +17,16 @@ const OutlinedInput = ({
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "8px",
-        width: "100%",
+        display: 'flex',
+        flexDirection: 'column',
+        rowGap: '8px',
+        width: '100%',
       }}
     >
       {label && (
         <Typography
           component="label"
-          sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
+          sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
         >
           {label}
         </Typography>
@@ -44,7 +44,7 @@ const OutlinedInput = ({
         InputProps={{
           startAdornment: startAdornment && (
             <InputAdornment position="start">
-              {typeof startAdornment === "string" ? (
+              {typeof startAdornment === 'string' ? (
                 <img
                   src={startAdornment}
                   alt="icon"

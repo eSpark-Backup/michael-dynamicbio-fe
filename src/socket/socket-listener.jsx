@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { getSocket } from "./index";
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { getSocket } from './index';
 import {
   NEW_BOND_REQUEST,
   BOND_REQUEST_UPDATED,
@@ -19,9 +19,9 @@ import {
   GET_NEW_MESSAGE,
   SEND_NEW_MESSAGE,
   REFETCH_CHATS,
-} from "./events";
-import { eventBus } from "../utils";
-import { updateOnlineUser } from "../store/slices/chat";
+} from './events';
+import { eventBus } from '../utils';
+import { updateOnlineUser } from '../store/slices/chat';
 
 const SocketListener = () => {
   const { user } = useSelector((state) => state.auth);
@@ -36,50 +36,50 @@ const SocketListener = () => {
         socket.connect();
       }
 
-      socket.on("connect", () => {
-        console.log("✅ Connected to socket server", socket.id);
+      socket.on('connect', () => {
+        console.log('✅ Connected to socket server', socket.id);
         socket.emit(CHAT_JOINED);
       });
 
-      socket.on("connect_error", (err) => {
-        console.error("❌ Connection error:", err.message);
+      socket.on('connect_error', (err) => {
+        console.error('❌ Connection error:', err.message);
       });
 
       socket.on(NEW_BOND_REQUEST, (data) => {
         toast.success(data?.message);
-        eventBus.emit("refetchBondData");
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchBondData');
+        eventBus.emit('refetchnotifications');
       });
 
       socket.on(BOND_REQUEST_UPDATED, (data) => {
-        eventBus.emit("refetchBondData");
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchBondData');
+        eventBus.emit('refetchnotifications');
         toast.success(data?.message);
       });
 
       socket.on(NEW_GROUP_REQUEST, (data) => {
         toast.success(data?.message);
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchnotifications');
       });
 
       socket.on(GROUP_REQUEST_UPDATED, (data) => {
         toast.success(data?.message);
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchnotifications');
       });
 
       socket.on(NEW_GROUP_POST_REQUEST, (data) => {
         toast.success(data?.message);
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchnotifications');
       });
 
       socket.on(GROUP_POST_REQUEST_UPDATED, (data) => {
         toast.success(data?.message);
-        eventBus.emit("refetchnotifications");
+        eventBus.emit('refetchnotifications');
       });
 
       socket.on(NEW_MESSAGE, (data) => {
         eventBus.emit(GET_NEW_MESSAGE, data);
-        if (pathname !== "/cells") {
+        if (pathname !== '/cells') {
           toast.success(`${data?.message?.sender?.name} sent you a message`);
         }
       });

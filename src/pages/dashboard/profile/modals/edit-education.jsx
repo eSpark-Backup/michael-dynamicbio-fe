@@ -1,14 +1,14 @@
-import { useMemo } from "react";
-import { useDispatch } from "react-redux";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import dayjs from "dayjs";
-import { DatePicker } from "@mui/x-date-pickers";
-import { Box, Stack, Typography } from "@mui/material";
-import { DynamicModal, Input } from "../../../../components";
-import { useUpdateUserInfoMutation } from "../../../../services/auth";
-import { updateUser } from "../../../../store/slices/auth";
-import { educationSchema } from "../../../../schemas";
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers';
+import { Box, Stack, Typography } from '@mui/material';
+import { DynamicModal, Input } from '../../../../components';
+import { useUpdateUserInfoMutation } from '../../../../services/auth';
+import { updateUser } from '../../../../store/slices/auth';
+import { educationSchema } from '../../../../schemas';
 
 const EditEducationModal = ({ edu, userData, open, handleClose }) => {
   const currentYear = dayjs();
@@ -17,10 +17,10 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
 
   const initialValues = useMemo(
     () => ({
-      school: edu?.school || "",
-      degree: edu?.degree || "",
-      field: edu?.field || "",
-      grade: edu?.grade || "",
+      school: edu?.school || '',
+      degree: edu?.degree || '',
+      field: edu?.field || '',
+      grade: edu?.grade || '',
       startingDate: edu?.startingDate ? dayjs(edu.startingDate) : null,
       endingDate: edu?.endingDate ? dayjs(edu.endingDate) : null,
     }),
@@ -53,7 +53,7 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
           return;
         }
         if (res) {
-          toast.success("Your Education edited successfully");
+          toast.success('Your Education edited successfully');
           dispatch(updateUser(res?.data?.data));
           onClose();
         }
@@ -77,15 +77,15 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
     >
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          rowGap: "10px",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
         }}
       >
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Input
             customLabel="School *"
             variant="outlined"
@@ -95,9 +95,9 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             handleChange={formik.handleChange}
             error={formik.touched.school && !!formik.errors.school}
             helperText={formik.touched.school && formik.errors.school}
-          />{" "}
+          />{' '}
         </Box>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Input
             customLabel="Degree *"
             variant="outlined"
@@ -107,9 +107,9 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             handleChange={formik.handleChange}
             error={formik.touched.degree && !!formik.errors.degree}
             helperText={formik.touched.degree && formik.errors.degree}
-          />{" "}
+          />{' '}
         </Box>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Input
             customLabel="Field of study *"
             variant="outlined"
@@ -119,7 +119,7 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             handleChange={formik.handleChange}
             error={formik.touched.field && !!formik.errors.field}
             helperText={formik.touched.field && formik.errors.field}
-          />{" "}
+          />{' '}
         </Box>
         <Stack
           direction="row"
@@ -127,14 +127,14 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
           justifyContent="space-between"
           gap={2}
         >
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: '100%' }}>
             <Typography mb={1}>Starting Date</Typography>
             <DatePicker
               value={formik.values.startingDate}
-              onChange={(value) => formik.setFieldValue("startingDate", value)}
+              onChange={(value) => formik.setFieldValue('startingDate', value)}
               maxDate={currentYear}
               openTo="year"
-              views={["year"]}
+              views={['year']}
               yearsOrder="desc"
               sx={{ minWidth: 250 }}
               slotProps={{
@@ -147,15 +147,15 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
               }}
             />
           </Box>
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: '100%' }}>
             <Typography mb={1}>Ending Date (or expected)</Typography>
             <DatePicker
               value={formik.values.endingDate}
-              onChange={(value) => formik.setFieldValue("endingDate", value)}
+              onChange={(value) => formik.setFieldValue('endingDate', value)}
               disabled={formik.values.currently}
               maxDate={currentYear}
               openTo="year"
-              views={["year"]}
+              views={['year']}
               yearsOrder="desc"
               sx={{ minWidth: 250 }}
               slotProps={{
@@ -169,7 +169,7 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             />
           </Box>
         </Stack>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: '100%' }}>
           <Input
             customLabel="Grade"
             variant="outlined"
@@ -179,7 +179,7 @@ const EditEducationModal = ({ edu, userData, open, handleClose }) => {
             handleChange={formik.handleChange}
             error={formik.touched.grade && !!formik.errors.grade}
             helperText={formik.touched.grade && formik.errors.grade}
-          />{" "}
+          />{' '}
         </Box>
       </Box>
     </DynamicModal>

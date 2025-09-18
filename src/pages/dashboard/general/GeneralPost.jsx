@@ -1,12 +1,12 @@
-import { Box, Grid2, LinearProgress } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { SuggestionPost } from "../../../components";
-import { useGetGeneralPageQuery } from "../../../services/general";
-import dayjs from "dayjs";
-import { getDaysLeft } from "../../../utils";
-import { user } from "../../../assets";
-import Header from "../../../layout/private-layout/Header";
-import Navbar from "../../../layout/private-layout/Navbar";
+import { Box, Grid2, LinearProgress } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import { SuggestionPost } from '../../../components';
+import { useGetGeneralPageQuery } from '../../../services/general';
+import dayjs from 'dayjs';
+import { getDaysLeft } from '../../../utils';
+import { user } from '../../../assets';
+import Header from '../../../layout/private-layout/Header';
+import Navbar from '../../../layout/private-layout/Navbar';
 
 const GeneralPost = () => {
   const encodedData = useMemo(() => {
@@ -51,33 +51,33 @@ const GeneralPost = () => {
         numberofLikes: item?.likesCount,
         isLiked: false,
         comments: item?.commentsCount,
-        activity: "",
+        activity: '',
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
+        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
         thumbnail:
-          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
-        question: item?.type === "POLL" ? item?.poll?.question : "",
+          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
+        question: item?.type === 'POLL' ? item?.poll?.question : '',
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-        pollId: item?.poll?.id || "",
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
+        pollId: item?.poll?.id || '',
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: "bringback",
+        eventPost: 'bringback',
         id: item?.id,
         articleImage:
-          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
+        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
+        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
         ownPost: false,
         isFriendPost: item?.isBond,
         lastUserLiked: item?.lastLikedUser,
@@ -97,13 +97,13 @@ const GeneralPost = () => {
         isPagePost: item?.isPagePost,
         isUserPost: !item?.isPagePost,
         isPageFollowing: item?.isPageFollowing,
-        pageId: item?.isPagePost ? item?.page?.id : "",
+        pageId: item?.isPagePost ? item?.page?.id : '',
         groupPost: item?.isGroupPost,
         pinned: false,
         isAdminPost: false,
-        groupName: item?.isGroupPost ? item?.group?.name : "",
-        groupId: item?.isGroupPost ? item?.group?.id : "",
-        groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+        groupName: item?.isGroupPost ? item?.group?.name : '',
+        groupId: item?.isGroupPost ? item?.group?.id : '',
+        groupImage: item?.isGroupPost ? item?.group?.logoUrl : '',
         isUserAdmin: item?.isAdmin || item?.isCreator,
       };
     });
@@ -111,18 +111,18 @@ const GeneralPost = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: "normal",
-      VIDEO: "video",
-      TEXT: "normal",
-      POLL: "poll",
-      EVENT: "event",
-      ARTICLE: "article",
+      IMAGE: 'normal',
+      VIDEO: 'video',
+      TEXT: 'normal',
+      POLL: 'poll',
+      EVENT: 'event',
+      ARTICLE: 'article',
     };
-    return typeMap[type] || "";
+    return typeMap[type] || '';
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== "POLL") return [];
+    if (item?.type !== 'POLL') return [];
     const myVoteIndex = null;
     return [
       ...(item?.pollResults?.map((option, index) => ({
@@ -142,19 +142,19 @@ const GeneralPost = () => {
     <Box>
       <Header />
       <Navbar />
-      <Box sx={{ p: "20px" }}>
-        <Grid2 container spacing={5} sx={{ mt: "15px" }}>
+      <Box sx={{ p: '20px' }}>
+        <Grid2 container spacing={5} sx={{ mt: '15px' }}>
           <Grid2
             size={{ xs: 12, lg: 2.5 }}
-            sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
+            sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
           ></Grid2>
 
           <Grid2
             size={{ xs: 12, lg: 6.5 }}
-            sx={{ display: "flex", flexDirection: "column", rowGap: "25px" }}
+            sx={{ display: 'flex', flexDirection: 'column', rowGap: '25px' }}
           >
             <Box
-              sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+              sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
             >
               {posts.map((item) => (
                 <SuggestionPost key={item.id} {...item} isGeneralPost={true} />

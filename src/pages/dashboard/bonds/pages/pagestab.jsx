@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
-import { PageCard } from "../../../../components";
-import { plus } from "../../../../assets";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Stack, Typography } from '@mui/material';
+import { PageCard } from '../../../../components';
+import { plus } from '../../../../assets';
 
 const PagesTab = ({
   isFollowLoading,
@@ -26,9 +26,9 @@ const PagesTab = ({
     );
   }, [showAll, suggestedContent]);
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: '100%' }}>
       <Stack
-        sx={{ width: "100%", maxHeight: "420px", overflow: "auto" }}
+        sx={{ width: '100%', maxHeight: '420px', overflow: 'auto' }}
         mt={2}
         direction="column"
         alignItems="center"
@@ -37,7 +37,7 @@ const PagesTab = ({
       >
         {accounts?.length > 0 ? (
           <Stack
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             mt={2}
             direction="column"
             alignItems="center"
@@ -58,29 +58,29 @@ const PagesTab = ({
           </Stack>
         ) : (
           <Typography>
-            {type === "my-pages"
-              ? "You  don’t have any page"
+            {type === 'my-pages'
+              ? 'You  don’t have any page'
               : "You  didn't followed any page"}
           </Typography>
         )}
       </Stack>
-      {type === "my-pages" && (
+      {type === 'my-pages' && (
         <Stack
           mt={5}
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
           <Stack
-            sx={{ cursor: "pointer" }}
-            onClick={() => navigate("/bonds?sub=page&edit=true")}
+            sx={{ cursor: 'pointer' }}
+            onClick={() => navigate('/bonds?sub=page&edit=true')}
             gap={1}
             alignItems="center"
             justifyContent="center"
           >
             <img width={52} height={52} src={plus} alt="add" />
-            <Typography>Create Page</Typography>{" "}
+            <Typography>Create Page</Typography>{' '}
           </Stack>
         </Stack>
       )}
@@ -102,16 +102,16 @@ const PagesTab = ({
                 fontSize="14px"
                 variant="gradientText"
                 sx={{
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
               >
-                {showAll ? "View less" : "View all"}
+                {showAll ? 'View less' : 'View all'}
               </Typography>
             )}
           </Stack>
 
           <Stack
-            sx={{ width: "100%", maxHeight: "400px", overflow: "auto" }}
+            sx={{ width: '100%', maxHeight: '400px', overflow: 'auto' }}
             mt={2}
             direction="column"
             alignItems="center"

@@ -1,17 +1,17 @@
-import { useDispatch } from "react-redux";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { Box } from "@mui/material";
-import { DynamicModal, Input } from "../../../../components";
-import { useUpdateUserInfoMutation } from "../../../../services/auth";
-import { updateUser } from "../../../../store/slices/auth";
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { Box } from '@mui/material';
+import { DynamicModal, Input } from '../../../../components';
+import { useUpdateUserInfoMutation } from '../../../../services/auth';
+import { updateUser } from '../../../../store/slices/auth';
 
 const EditBioModal = ({ userData, open, handleClose }) => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
     initialValues: {
-      bio: userData?.about?.bio || "",
+      bio: userData?.about?.bio || '',
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -22,7 +22,7 @@ const EditBioModal = ({ userData, open, handleClose }) => {
             return;
           }
           if (res) {
-            toast.success("Your Bio updated successfully");
+            toast.success('Your Bio updated successfully');
             dispatch(updateUser(res?.data?.data));
             onClose();
           }
@@ -47,11 +47,11 @@ const EditBioModal = ({ userData, open, handleClose }) => {
     >
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
         }}
       >
         <Input

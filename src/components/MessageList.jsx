@@ -1,11 +1,11 @@
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import React, { useEffect, useRef, useCallback, useLayoutEffect } from "react";
-import MessageBubble from "./MessageBubble";
-import dayjs from "dayjs";
-import { formatChatTimestamp } from "../utils";
-import TypingDots from "./TypingDots";
-import { useSelector } from "react-redux";
-import { userAvatar } from "../assets";
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import React, { useEffect, useRef, useCallback, useLayoutEffect } from 'react';
+import MessageBubble from './MessageBubble';
+import dayjs from 'dayjs';
+import { formatChatTimestamp } from '../utils';
+import TypingDots from './TypingDots';
+import { useSelector } from 'react-redux';
+import { userAvatar } from '../assets';
 
 const SCROLL_THRESHOLD = 100;
 
@@ -48,7 +48,7 @@ const MessageList = ({
   // Handle scroll to bottom on chat change (initial mount or new chat)
   useLayoutEffect(() => {
     if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "auto" });
+      bottomRef.current.scrollIntoView({ behavior: 'auto' });
     }
     isInitialMount.current = true;
   }, [chatId]);
@@ -79,7 +79,7 @@ const MessageList = ({
     } else if (isInitialMount.current || isAtBottom) {
       // Scroll to bottom for first load or if already at bottom
       bottomRef.current?.scrollIntoView({
-        behavior: isInitialMount.current ? "auto" : "smooth",
+        behavior: isInitialMount.current ? 'auto' : 'smooth',
       });
     }
 
@@ -104,32 +104,32 @@ const MessageList = ({
     const container = containerRef.current;
     if (!container) return;
 
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
   return (
     <Box
       ref={containerRef}
       sx={{
-        height: "100%",
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column",
-        position: "relative",
+        height: '100%',
+        overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
         px: 2,
       }}
     >
       {loading && (
         <Box
           sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
             py: 2,
           }}
         >
-          <CircularProgress sx={{ color: "#1877F2" }} />
+          <CircularProgress sx={{ color: '#1877F2' }} />
         </Box>
       )}
 
@@ -141,15 +141,15 @@ const MessageList = ({
             .tz(userTimeZone)
             .isSame(
               dayjs(messages[index - 1]?.timestamp).tz(userTimeZone),
-              "day"
+              'day'
             );
 
         return (
           <React.Fragment key={msg.id}>
             {showTimestamp && (
-              <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
                 <Typography
-                  sx={{ color: "#505050", fontSize: "12px", fontWeight: "400" }}
+                  sx={{ color: '#505050', fontSize: '12px', fontWeight: '400' }}
                 >
                   {formatChatTimestamp(msg.timestamp)}
                 </Typography>
@@ -166,29 +166,29 @@ const MessageList = ({
             <Box
               key={user._id}
               sx={{
-                display: "flex",
-                maxWidth: { xs: "90%", lg: "50%" },
-                columnGap: "10px",
+                display: 'flex',
+                maxWidth: { xs: '90%', lg: '50%' },
+                columnGap: '10px',
                 my: 1,
               }}
             >
               <img
                 src={user?.img || userAvatar}
                 alt={user?.name}
-                style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
               />
-              <Stack direction={"column"}>
-                <Typography sx={{ fontSize: "13px", fontWeight: 500 }}>
+              <Stack direction={'column'}>
+                <Typography sx={{ fontSize: '13px', fontWeight: 500 }}>
                   {user?.name}
                 </Typography>
                 <Box
                   sx={{
-                    background: "#F2F8FD",
-                    p: "10px 14px",
-                    borderRadius: "0px 8px 8px 8px",
-                    fontSize: "14px",
+                    background: '#F2F8FD',
+                    p: '10px 14px',
+                    borderRadius: '0px 8px 8px 8px',
+                    fontSize: '14px',
                     fontWeight: 400,
-                    color: "#171717",
+                    color: '#171717',
                   }}
                 >
                   <TypingDots />

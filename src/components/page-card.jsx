@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { plus, userAvatar, verticleDots } from "../assets";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import { plus, userAvatar, verticleDots } from '../assets';
 
 const PageCard = ({
   rightBar,
@@ -22,7 +22,7 @@ const PageCard = ({
   mainType,
 }) => {
   const isGroup =
-    type === "my-groups" || type === "joined-groups" || type === "all-groups";
+    type === 'my-groups' || type === 'joined-groups' || type === 'all-groups';
   const { user } = useSelector((state) => state.auth);
   const isFollowed = followers?.some((item) => item?.id === user?.id);
   const owner = creatorId === user?.id;
@@ -41,71 +41,71 @@ const PageCard = ({
     <>
       <Box
         sx={{
-          border: "1px solid #E4E4E4",
-          borderRadius: "2px",
-          backgroundColor: bgNotWhite ? "#F2F8FD" : "#FFF",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          p: "5px 20px",
-          width: "100%",
+          border: '1px solid #E4E4E4',
+          borderRadius: '2px',
+          backgroundColor: bgNotWhite ? '#F2F8FD' : '#FFF',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          p: '5px 20px',
+          width: '100%',
         }}
       >
         <Box
-          onClick={() => navigate(`/${isGroup ? "group" : "page"}/${id}`)}
+          onClick={() => navigate(`/${isGroup ? 'group' : 'page'}/${id}`)}
           sx={{
-            width: "calc(100% - 20px)",
-            cursor: "pointer",
-            display: "flex",
-            columnGap: "20px",
-            alignItems: "center",
-            flexDirection: { xs: "column", sm: "row" },
+            width: 'calc(100% - 20px)',
+            cursor: 'pointer',
+            display: 'flex',
+            columnGap: '20px',
+            alignItems: 'center',
+            flexDirection: { xs: 'column', sm: 'row' },
           }}
         >
           <img
-            style={{ width: "73px", height: "73px", borderRadius: "50%" }}
+            style={{ width: '73px', height: '73px', borderRadius: '50%' }}
             src={logoUrl || userAvatar}
             alt="User"
           />
-          <Stack sx={{ width: "calc(100% - 100px)" }} direction={"column"}>
+          <Stack sx={{ width: 'calc(100% - 100px)' }} direction={'column'}>
             <Typography
               sx={{
-                fontSize: "18px",
+                fontSize: '18px',
                 fontWeight: 500,
-                color: "#171717",
-                textAlign: { xs: "center", sm: "left" },
-                cursor: "pointer",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                textTransform: "capitalize",
+                color: '#171717',
+                textAlign: { xs: 'center', sm: 'left' },
+                cursor: 'pointer',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textTransform: 'capitalize',
               }}
             >
               {name}
             </Typography>
             <Typography
               sx={{
-                fontSize: "12px",
+                fontSize: '12px',
                 fontWeight: 400,
-                color: "#505050",
-                textAlign: { xs: "center", sm: "left" },
+                color: '#505050',
+                textAlign: { xs: 'center', sm: 'left' },
               }}
             >
-              {followerCount}{" "}
-              {mainType === "group"
-                ? `Member${followerCount === 1 ? "" : "s"}`
-                : `Follower${followerCount === 1 ? "" : "s"}`}
+              {followerCount}{' '}
+              {mainType === 'group'
+                ? `Member${followerCount === 1 ? '' : 's'}`
+                : `Follower${followerCount === 1 ? '' : 's'}`}
             </Typography>
           </Stack>
         </Box>
-        {type === "joined-groups" ? (
+        {type === 'joined-groups' ? (
           <Typography
-            sx={{ width: "120px", cursor: "pointer" }}
+            sx={{ width: '120px', cursor: 'pointer' }}
             onClick={() => {
               if (!isFollowLoading) handleFollow(id);
             }}
           >
-            {isFollowLoading ? "loading..." : "Leave group"}
+            {isFollowLoading ? 'loading...' : 'Leave group'}
           </Typography>
         ) : rightBar ? (
           <img
@@ -114,14 +114,14 @@ const PageCard = ({
                 handleFollow(id);
               }
             }}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             src={plus}
             alt="add"
           />
         ) : (
           <img
             onClick={handleClick}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             src={verticleDots}
             alt="Bond"
           />
@@ -132,15 +132,15 @@ const PageCard = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
-        {type === "my-groups" ? (
+        {type === 'my-groups' ? (
           <>
             <MenuItem
               onClick={(e) => {
@@ -150,10 +150,10 @@ const PageCard = ({
                 }
               }}
             >
-              {isDeleteLoading ? "loading..." : "Delete group"}
+              {isDeleteLoading ? 'loading...' : 'Delete group'}
             </MenuItem>
           </>
-        ) : type === "all-groups" ? (
+        ) : type === 'all-groups' ? (
           <>
             <MenuItem
               onClick={(e) => {
@@ -164,12 +164,12 @@ const PageCard = ({
               }}
             >
               {isFollowLoading
-                ? "loading..."
+                ? 'loading...'
                 : isFollowed
-                  ? "Leave group"
+                  ? 'Leave group'
                   : requestSent
-                    ? "Withdraw request"
-                    : "Join group"}
+                    ? 'Withdraw request'
+                    : 'Join group'}
             </MenuItem>
           </>
         ) : owner ? (
@@ -182,7 +182,7 @@ const PageCard = ({
                 }
               }}
             >
-              {isDeleteLoading ? "loading..." : "Delete page"}
+              {isDeleteLoading ? 'loading...' : 'Delete page'}
             </MenuItem>
           </>
         ) : (
@@ -196,10 +196,10 @@ const PageCard = ({
               }}
             >
               {isFollowLoading
-                ? "loading..."
+                ? 'loading...'
                 : isFollowed
-                  ? "Unfollow"
-                  : "Follow"}
+                  ? 'Unfollow'
+                  : 'Follow'}
             </MenuItem>
           </>
         )}

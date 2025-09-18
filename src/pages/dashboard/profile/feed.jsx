@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material";
-import { PostCard, SuggestionPost } from "../../../components";
-import { useGetMyPostQuery } from "../../../services/post";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useSelector } from "react-redux";
-import { getDaysLeft } from "../../../utils";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material';
+import { PostCard, SuggestionPost } from '../../../components';
+import { useGetMyPostQuery } from '../../../services/post';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useSelector } from 'react-redux';
+import { getDaysLeft } from '../../../utils';
+import { useNavigate } from 'react-router-dom';
 
 dayjs.extend(relativeTime);
 
@@ -82,11 +82,11 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
               user?.lastName?.toLowerCase()
         );
 
-      let lastLike = "";
+      let lastLike = '';
 
       const isOnlyUserLiked = item?.likes?.length === 1;
       if (isuserLiked && isOnlyUserLiked) {
-        lastLike = "";
+        lastLike = '';
       } else if (!isuserLiked) {
         lastLike = item?.lastLikedUser;
       } else if (Array.isArray(item?.likes)) {
@@ -115,33 +115,33 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
-        activity: "",
+        activity: '',
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
+        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
         thumbnail:
-          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
-        question: item?.type === "POLL" ? item?.poll?.question : "",
+          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
+        question: item?.type === 'POLL' ? item?.poll?.question : '',
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-        pollId: item?.poll?.id || "",
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
+        pollId: item?.poll?.id || '',
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: "bringback",
+        eventPost: 'bringback',
         id: item?.id,
         articleImage:
-          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
+        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
+        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: item?.isBond,
         lastUserLiked: lastLike,
@@ -163,14 +163,14 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
         isPagePost: item?.isPagePost,
         isUserPost: !isOwnPost && !item?.isPagePost,
         isPageFollowing: item?.isPageFollowing,
-        pageId: item?.isPagePost ? item?.page?.id : "",
+        pageId: item?.isPagePost ? item?.page?.id : '',
         shareableLink: item?.shareableLink,
         groupPost: item?.isGroupPost,
         pinned: false,
         isAdminPost: true,
-        groupName: item?.isGroupPost ? item?.group?.name : "",
-        groupId: item?.isGroupPost ? item?.group?.id : "",
-        groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+        groupName: item?.isGroupPost ? item?.group?.name : '',
+        groupId: item?.isGroupPost ? item?.group?.id : '',
+        groupImage: item?.isGroupPost ? item?.group?.logoUrl : '',
         isUserAdmin: item?.isAdmin || item?.isCreator,
       };
     });
@@ -178,18 +178,18 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: "normal",
-      VIDEO: "video",
-      TEXT: "normal",
-      POLL: "poll",
-      EVENT: "event",
-      ARTICLE: "article",
+      IMAGE: 'normal',
+      VIDEO: 'video',
+      TEXT: 'normal',
+      POLL: 'poll',
+      EVENT: 'event',
+      ARTICLE: 'article',
     };
-    return typeMap[type] || "";
+    return typeMap[type] || '';
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== "POLL") return [];
+    if (item?.type !== 'POLL') return [];
     const isVote = item?.poll?.votes?.find((vote) => vote?.userId === user?.id);
     const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
@@ -227,19 +227,19 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
       >
         {[
           {
-            title: "Bonds",
+            title: 'Bonds',
             count: userData?.bondCount,
             link: isPublic
               ? `/profile/bonds/${userId}`
-              : "/bonds?sub=bonded-synergy",
+              : '/bonds?sub=bonded-synergy',
           },
           {
-            title: "Your Groups",
+            title: 'Your Groups',
             count: userData?.groupCount || userData?.yourGroupCount,
             link: `/bonds?sub=group`,
           },
           {
-            title: "Joined Groups",
+            title: 'Joined Groups',
             count: userData?.followedGroupCount,
             link: `/bonds?sub=group&joined=true`,
           },
@@ -267,23 +267,23 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
                     Number(userData?.bondCount) > 0 &&
                     item?.link) ||
                   (!isPublic && item?.link)
-                    ? "pointer"
-                    : "default",
-                width: "315px",
-                height: "61px",
-                borderRadius: "4px",
-                background: "#FFF",
+                    ? 'pointer'
+                    : 'default',
+                width: '315px',
+                height: '61px',
+                borderRadius: '4px',
+                background: '#FFF',
               }}
             >
               <Typography
-                sx={{ color: "#171717" }}
+                sx={{ color: '#171717' }}
                 fontSize="14px"
                 fontWeight={500}
               >
                 {item?.count || 0}
               </Typography>
               <Typography
-                sx={{ color: "#505050" }}
+                sx={{ color: '#505050' }}
                 fontSize="14px"
                 fontWeight={400}
               >
@@ -293,7 +293,7 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
           );
         })}
       </Stack>
-      <Paper sx={{ display: "flex", flexDirection: "column", rowGap: "30px" }}>
+      <Paper sx={{ display: 'flex', flexDirection: 'column', rowGap: '30px' }}>
         <Stack
           direction="row"
           alignItems="center"
@@ -318,13 +318,13 @@ const Feed = ({ userData, isPublicView, isPublic, userId }) => {
             fontSize="18px"
             fontWeight={700}
           >
-            {posts.length === 0 ? "No posts available" : "No more posts"}
+            {posts.length === 0 ? 'No posts available' : 'No more posts'}
           </Typography>
         }
         scrollThreshold="100px"
-        style={{ overflow: "visible" }}
+        style={{ overflow: 'visible' }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
           {posts.map((item) => (
             <SuggestionPost
               key={item.id}

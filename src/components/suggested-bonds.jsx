@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import BondCard from "./bond-card";
-import { useAllBondsQuery, useSendBondReqMutation } from "../services/bonds";
-import BondCard2 from "./BondCard";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import BondCard from './bond-card';
+import { useAllBondsQuery, useSendBondReqMutation } from '../services/bonds';
+import BondCard2 from './BondCard';
 
 const SuggestedBonds = ({ refetch, feedPage, search }) => {
   const [id, setId] = useState(false);
@@ -39,7 +39,7 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
     const feedUsers = filteredUsers?.map((item) => ({
       img: item?.profileImage,
       name: `${item?.firstName} ${item?.lastName}`,
-      address: "",
+      address: '',
       role: item?.designation,
       id: item?.id,
     }));
@@ -82,7 +82,7 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
         return;
       }
       if (res) {
-        toast.success("Your Request sent successfully");
+        toast.success('Your Request sent successfully');
         refetchUsers && refetchUsers();
         refetch && refetch();
         setId(null);
@@ -93,7 +93,7 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
   if (isLoading && search) {
     return (
       <Stack justifyContent="center" alignItems="center">
-        <CircularProgress sx={{ color: "#1877F2" }} />
+        <CircularProgress sx={{ color: '#1877F2' }} />
       </Stack>
     );
   }
@@ -101,13 +101,13 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
   return (
     <Box
       sx={{
-        mt: feedPage || search ? "0px" : "40px",
-        padding: "20px 32px 25px 32px",
-        background: "#FFF",
-        border: "1px solid #E4E4E4",
-        borderRadius: "4px",
-        maxHeight: "800px",
-        overflowY: "auto",
+        mt: feedPage || search ? '0px' : '40px',
+        padding: '20px 32px 25px 32px',
+        background: '#FFF',
+        border: '1px solid #E4E4E4',
+        borderRadius: '4px',
+        maxHeight: '800px',
+        overflowY: 'auto',
       }}
     >
       <Stack
@@ -118,35 +118,35 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
       >
         <Typography fontSize="14px">
           {feedPage
-            ? "Suggestion for you to create bonds"
-            : "People you may know"}
+            ? 'Suggestion for you to create bonds'
+            : 'People you may know'}
         </Typography>
         {users?.length > 4 && (
           <Typography
             onClick={
-              feedPage ? () => navigate("/bonds") : () => setShowAll(!showAll)
+              feedPage ? () => navigate('/bonds') : () => setShowAll(!showAll)
             }
             fontSize="14px"
             sx={{
-              minWidth: "60px",
-              cursor: "pointer",
+              minWidth: '60px',
+              cursor: 'pointer',
               background:
-                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-              "-webkit-background-clip": "text",
-              "-webkit-text-fill-color": "transparent",
+                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+              '-webkit-background-clip': 'text',
+              '-webkit-text-fill-color': 'transparent',
             }}
           >
-            {showAll ? "View less" : "View all"}
+            {showAll ? 'View less' : 'View all'}
           </Typography>
         )}
       </Stack>
       {feedPage ? (
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "20px",
-            mt: "30px",
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px',
+            mt: '30px',
           }}
         >
           {feedBonds?.length <= 0 ? (
@@ -179,7 +179,7 @@ const SuggestedBonds = ({ refetch, feedPage, search }) => {
         >
           {isLoading ? (
             <Stack justifyContent="center" alignItems="center">
-              <CircularProgress sx={{ color: "#1877F2" }} />
+              <CircularProgress sx={{ color: '#1877F2' }} />
             </Stack>
           ) : displayedBonds?.length <= 0 ? (
             <Typography textAlign="center" sx={{ mt: 2 }}>

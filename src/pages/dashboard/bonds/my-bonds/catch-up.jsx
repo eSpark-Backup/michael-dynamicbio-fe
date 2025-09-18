@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   Box,
   CircularProgress,
@@ -7,34 +7,34 @@ import {
   Stack,
   Switch,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Button,
   CustomizeTabs,
   DynamicModal,
   Input,
   SuggestedBonds,
-} from "../../../../components";
-import { cellBlack, userAvatar } from "../../../../assets";
-import { useGetCatchupQuery } from "../../../../services/bonds";
-import { eventBus, getDesc, getMessage } from "../../../../utils";
-import { SEND_NEW_MESSAGE } from "../../../../socket/events";
+} from '../../../../components';
+import { cellBlack, userAvatar } from '../../../../assets';
+import { useGetCatchupQuery } from '../../../../services/bonds';
+import { eventBus, getDesc, getMessage } from '../../../../utils';
+import { SEND_NEW_MESSAGE } from '../../../../socket/events';
 
 const CatchUp = ({ onGrow }) => {
-  const { data, isLoading, isError, error } = useGetCatchupQuery("", {
+  const { data, isLoading, isError, error } = useGetCatchupQuery('', {
     refetchOnMountOrArgChange: true,
   });
 
   const [openMenu, setOpenMenu] = useState(false);
   const [msgModal, setMsgModal] = useState(false);
-  const [wishInput, setWishInput] = useState("");
+  const [wishInput, setWishInput] = useState('');
 
   const tabs = [
-    "All",
-    "Job changes",
-    "Birthdays",
-    "Work anniversaries",
-    "Education",
+    'All',
+    'Job changes',
+    'Birthdays',
+    'Work anniversaries',
+    'Education',
   ];
   const [activeTab, setActiveTab] = useState(0);
   const [myValue, setMyValue] = useState(true);
@@ -48,36 +48,36 @@ const CatchUp = ({ onGrow }) => {
         const all = [
           ...myData.anniversaries.map((item) => ({
             ...item,
-            type: "anniversary",
+            type: 'anniversary',
           })),
-          ...myData.birthdays.map((item) => ({ ...item, type: "birthday" })),
+          ...myData.birthdays.map((item) => ({ ...item, type: 'birthday' })),
           ...myData.educationChanges.map((item) => ({
             ...item,
-            type: "educationChange",
+            type: 'educationChange',
           })),
-          ...myData.jobChanges.map((item) => ({ ...item, type: "jobChange" })),
+          ...myData.jobChanges.map((item) => ({ ...item, type: 'jobChange' })),
         ];
         setCatchupData(all);
       } else if (activeTab === 1) {
         setCatchupData(
-          myData?.jobChanges.map((item) => ({ ...item, type: "jobChange" }))
+          myData?.jobChanges.map((item) => ({ ...item, type: 'jobChange' }))
         );
       } else if (activeTab === 2) {
         setCatchupData(
-          myData?.birthdays.map((item) => ({ ...item, type: "birthday" }))
+          myData?.birthdays.map((item) => ({ ...item, type: 'birthday' }))
         );
       } else if (activeTab === 3) {
         setCatchupData(
           myData?.anniversaries.map((item) => ({
             ...item,
-            type: "anniversary",
+            type: 'anniversary',
           }))
         );
       } else if (activeTab === 4) {
         setCatchupData(
           myData?.educationChanges.map((item) => ({
             ...item,
-            type: "educationChange",
+            type: 'educationChange',
           }))
         );
       }
@@ -98,7 +98,7 @@ const CatchUp = ({ onGrow }) => {
       members: [msgModal?.userChatId],
     };
     eventBus.emit(SEND_NEW_MESSAGE, messageBody);
-    toast.success("Message sent successfully");
+    toast.success('Message sent successfully');
     setMsgModal(false);
   };
 
@@ -109,13 +109,13 @@ const CatchUp = ({ onGrow }) => {
       </Paper>
       <Box
         sx={{
-          mt: "40px",
-          padding: "23px 32px",
-          background: "#fff",
-          border: "1px solid #E4E4E4",
-          borderRadius: "4px",
-          maxHeight: "500px",
-          overflowY: "auto",
+          mt: '40px',
+          padding: '23px 32px',
+          background: '#fff',
+          border: '1px solid #E4E4E4',
+          borderRadius: '4px',
+          maxHeight: '500px',
+          overflowY: 'auto',
         }}
       >
         {isLoading ? (
@@ -125,7 +125,7 @@ const CatchUp = ({ onGrow }) => {
             justifyContent="center"
             alignItems="center"
           >
-            <CircularProgress sx={{ color: "#1877F2" }} />
+            <CircularProgress sx={{ color: '#1877F2' }} />
           </Stack>
         ) : catchupData?.length > 0 ? (
           catchupData.map((item, ind) => (
@@ -145,20 +145,20 @@ const CatchUp = ({ onGrow }) => {
                 <img
                   width={73}
                   height={73}
-                  style={{ borderRadius: "50%" }}
+                  style={{ borderRadius: '50%' }}
                   src={item?.profileImage || userAvatar}
                   alt="profile"
                 />
                 <Box>
                   <Typography
-                    sx={{ cursor: "pointer" }}
+                    sx={{ cursor: 'pointer' }}
                     fontSize="17px"
                     fontWeight={300}
                   >
                     {`${item?.firstName} ${item?.lastName}`}
                   </Typography>
                   <Typography
-                    sx={{ color: "#505050" }}
+                    sx={{ color: '#505050' }}
                     fontSize="14px"
                     fontWeight={400}
                   >
@@ -171,29 +171,29 @@ const CatchUp = ({ onGrow }) => {
                       setWishInput(msg);
                     }}
                     sx={{
-                      justifyContent: "flex-start",
-                      height: "auto",
-                      padding: "6px 30px",
-                      borderRadius: "20px",
+                      justifyContent: 'flex-start',
+                      height: 'auto',
+                      padding: '6px 30px',
+                      borderRadius: '20px',
                       mt: 1,
-                      width: { xs: "150px", sm: "300px", lg: "400px" },
+                      width: { xs: '150px', sm: '300px', lg: '400px' },
                     }}
                   >
                     <img
                       style={{
-                        marginRight: "5px",
-                        width: "20px",
-                        height: "20px",
+                        marginRight: '5px',
+                        width: '20px',
+                        height: '20px',
                       }}
                       src={cellBlack}
                       alt="message"
                     />
                     <Typography
                       sx={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        fontSize: "16px",
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        fontSize: '16px',
                       }}
                     >
                       {getMessage(item)}
@@ -208,18 +208,18 @@ const CatchUp = ({ onGrow }) => {
             <Typography
               textAlign="center"
               fontSize="32px"
-              sx={{ color: "#171717" }}
+              sx={{ color: '#171717' }}
             >
               No recent updates
             </Typography>
             <Typography
               textAlign="center"
               fontSize="20px"
-              sx={{ color: "#505050" }}
+              sx={{ color: '#505050' }}
             >
               As your network grows, you will get more updates.
             </Typography>
-            <Button onClick={onGrow} sx={{ height: "48px", width: "250px" }}>
+            <Button onClick={onGrow} sx={{ height: '48px', width: '250px' }}>
               Grow your network
             </Button>
           </Stack>
@@ -247,7 +247,7 @@ const CatchUp = ({ onGrow }) => {
             justifyContent="center"
             gap={1}
           >
-            <Typography fontSize="20px">{myValue ? "On" : "Off"}</Typography>
+            <Typography fontSize="20px">{myValue ? 'On' : 'Off'}</Typography>
             <Switch checked={myValue} onChange={(_, e) => setMyValue(e)} />
           </Stack>
         </Stack>
@@ -267,7 +267,7 @@ const CatchUp = ({ onGrow }) => {
             justifyContent="center"
             gap={1}
           >
-            <Typography fontSize="20px">{celeb ? "On" : "Off"}</Typography>
+            <Typography fontSize="20px">{celeb ? 'On' : 'Off'}</Typography>
             <Switch checked={celeb} onChange={(_, e) => setCeleb(e)} />
           </Stack>
         </Stack>
@@ -288,15 +288,15 @@ const CatchUp = ({ onGrow }) => {
           <img
             width={73}
             height={73}
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: '50%' }}
             src={msgModal?.profileImage || userAvatar}
             alt="profile"
           />
           <Box>
-            <Typography sx={{ color: "#171717" }} fontSize="18px">
+            <Typography sx={{ color: '#171717' }} fontSize="18px">
               {`${msgModal?.firstName} ${msgModal?.lastName}`}
             </Typography>
-            <Typography sx={{ color: "#505050" }}>
+            <Typography sx={{ color: '#505050' }}>
               {getDesc(msgModal)}
             </Typography>
           </Box>
@@ -308,19 +308,19 @@ const CatchUp = ({ onGrow }) => {
             onChange={(e) => setWishInput(e.target.value)}
             placeholder={getDesc(msgModal)}
             sx={{
-              backgroundColor: "transparent",
-              border: "1px solid white",
-              "& .MuiInputBase-root": {
-                padding: "6px 10px",
-                height: "auto",
+              backgroundColor: 'transparent',
+              border: '1px solid white',
+              '& .MuiInputBase-root': {
+                padding: '6px 10px',
+                height: 'auto',
               },
-              "& .MuiInputBase-input": {
-                color: "black",
-                wordBreak: "break-word",
-                caretColor: "black",
+              '& .MuiInputBase-input': {
+                color: 'black',
+                wordBreak: 'break-word',
+                caretColor: 'black',
               },
-              "& .MuiInputBase-input::placeholder": {
-                color: "black",
+              '& .MuiInputBase-input::placeholder': {
+                color: 'black',
               },
             }}
             multiline

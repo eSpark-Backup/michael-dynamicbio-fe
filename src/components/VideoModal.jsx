@@ -1,6 +1,6 @@
-import { Box, OutlinedInput } from "@mui/material";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { deleteIcon, plus } from "../assets";
+import { Box, OutlinedInput } from '@mui/material';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { deleteIcon, plus } from '../assets';
 
 const VideoModal = ({
   videoData,
@@ -76,21 +76,21 @@ const VideoModal = ({
 
     // Reset file input field
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
       <OutlinedInput
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder={placeholder}
         sx={{
-          height: "60px",
-          width: "100%",
-          "& .MuiOutlinedInput-root": {
-            height: "100%",
+          height: '60px',
+          width: '100%',
+          '& .MuiOutlinedInput-root': {
+            height: '100%',
           },
         }}
       />
@@ -98,23 +98,23 @@ const VideoModal = ({
         () => (
           <Box
             sx={{
-              display: "flex",
-              backgroundColor: "#FCFCFC",
-              borderRadius: "4px",
-              height: "440px",
-              p: "15px",
-              justifyContent: "space-between",
-              flexDirection: { xs: "column", md: "row" },
-              rowGap: "10px",
-              overflowY: "auto",
+              display: 'flex',
+              backgroundColor: '#FCFCFC',
+              borderRadius: '4px',
+              height: '440px',
+              p: '15px',
+              justifyContent: 'space-between',
+              flexDirection: { xs: 'column', md: 'row' },
+              rowGap: '10px',
+              overflowY: 'auto',
             }}
           >
             <Box
               sx={{
-                width: { xs: "100%", md: "80%" },
-                height: "100%",
-                position: "relative",
-                maxHeight: { xs: "230px", md: "100%" },
+                width: { xs: '100%', md: '80%' },
+                height: '100%',
+                position: 'relative',
+                maxHeight: { xs: '230px', md: '100%' },
               }}
             >
               {videoData.video && (
@@ -122,10 +122,10 @@ const VideoModal = ({
                   src={URL.createObjectURL(videoData.video)}
                   controls
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: "4px",
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '4px',
                   }}
                 />
               )}
@@ -133,12 +133,12 @@ const VideoModal = ({
                 src={deleteIcon}
                 alt="Delete Icon"
                 style={{
-                  width: "24px",
-                  height: "24px",
-                  position: "absolute",
-                  right: "15px",
-                  top: "15px",
-                  cursor: "pointer",
+                  width: '24px',
+                  height: '24px',
+                  position: 'absolute',
+                  right: '15px',
+                  top: '15px',
+                  cursor: 'pointer',
                 }}
                 onClick={HandleDelete}
               />
@@ -146,31 +146,31 @@ const VideoModal = ({
 
             <Box
               sx={{
-                width: { xs: "100%", md: "18%" },
-                height: "100%",
-                overflowY: "auto",
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "10px",
-                alignItems: newThumbnail ? "flex-start" : "center",
-                justifyContent: newThumbnail ? "flex-start" : "center",
+                width: { xs: '100%', md: '18%' },
+                height: '100%',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                rowGap: '10px',
+                alignItems: newThumbnail ? 'flex-start' : 'center',
+                justifyContent: newThumbnail ? 'flex-start' : 'center',
               }}
             >
               <Box
                 sx={{
-                  width: { xs: "100%", md: "95%" },
-                  minHeight: "125px",
-                  display: "flex",
-                  justifyContent: isFileUploaded ? "flex-end" : "center",
-                  alignItems: "center",
+                  width: { xs: '100%', md: '95%' },
+                  minHeight: '125px',
+                  display: 'flex',
+                  justifyContent: isFileUploaded ? 'flex-end' : 'center',
+                  alignItems: 'center',
                   backgroundImage: thumbnailPreview
                     ? `url(${thumbnailPreview})`
-                    : "none",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  borderRadius: "4px",
-                  position: "relative",
-                  backgroundColor: thumbnailPreview ? "transparent" : "#F0F0F0",
+                    : 'none',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  borderRadius: '4px',
+                  position: 'relative',
+                  backgroundColor: thumbnailPreview ? 'transparent' : '#F0F0F0',
                 }}
               >
                 {isFileUploaded ? (
@@ -179,19 +179,19 @@ const VideoModal = ({
                     src={deleteIcon}
                     alt="Delete"
                     style={{
-                      width: "24px",
-                      height: "24px",
-                      cursor: "pointer",
-                      position: "absolute",
-                      top: "10px",
-                      right: "10px",
+                      width: '24px',
+                      height: '24px',
+                      cursor: 'pointer',
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
                     }}
                   />
                 ) : (
                   <img
                     src={plus}
                     alt="Add"
-                    style={{ width: "40px", height: "40px", cursor: "pointer" }}
+                    style={{ width: '40px', height: '40px', cursor: 'pointer' }}
                     onClick={() => fileInputRef.current.click()}
                   />
                 )}
@@ -205,7 +205,7 @@ const VideoModal = ({
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         onChange={handleFileChange}
       />
     </Box>

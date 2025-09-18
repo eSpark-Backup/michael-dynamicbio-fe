@@ -1,6 +1,6 @@
 export default {
   semi: true,
-  singleQuote: false,
+  singleQuote: true, // or false
   trailingComma: "es5",
   printWidth: 80,
   tabWidth: 2,

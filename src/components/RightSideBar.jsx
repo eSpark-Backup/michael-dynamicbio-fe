@@ -1,10 +1,10 @@
-import { Box, LinearProgress, Typography } from "@mui/material";
-import { useEffect } from "react";
-import PageCard from "./page-card";
-import { useFollowPageMutation, useGetAllPagesQuery } from "../services/page";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Box, LinearProgress, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import PageCard from './page-card';
+import { useFollowPageMutation, useGetAllPagesQuery } from '../services/page';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const RightSideBar = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const RightSideBar = () => {
     error: allPagesError,
     refetch: allPagesRefetch,
     isFetching: isAllPagesFetcing,
-  } = useGetAllPagesQuery("", {
+  } = useGetAllPagesQuery('', {
     refetchOnMountOrArgChange: true,
   });
 
@@ -51,43 +51,43 @@ const RightSideBar = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <LinearProgress sx={{ width: "100%" }} />
+        <LinearProgress sx={{ width: '100%' }} />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ display: "flex", rowGap: "25px", flexDirection: "column" }}>
+    <Box sx={{ display: 'flex', rowGap: '25px', flexDirection: 'column' }}>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          pt: "15px",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          pt: '15px',
           gap: 2,
         }}
       >
         <Typography
           sx={{
-            fontSize: "14px",
+            fontSize: '14px',
             fontWeight: 400,
-            color: "#171717",
+            color: '#171717',
           }}
         >
           You might be interested in following
         </Typography>
         <Typography
           sx={{
-            minWidth: "60px",
-            fontSize: "14px",
+            minWidth: '60px',
+            fontSize: '14px',
             fontWeight: 400,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
           variant="gradientText"
           onClick={() => navigate(`/bonds?sub=page`)}
@@ -95,7 +95,7 @@ const RightSideBar = () => {
           View all
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
         {filteredPages?.slice(0, 4)?.map((group) => (
           <PageCard
             rightBar

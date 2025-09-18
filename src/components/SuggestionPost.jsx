@@ -7,8 +7,8 @@ import {
   MenuItem,
   Paper,
   Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import {
   comment,
   commentOff,
@@ -20,32 +20,32 @@ import {
   tick,
   unlike,
   user,
-} from "../assets/index.js";
-import OutlinedInput from "./outline-input.jsx";
-import Comment from "./Comment.jsx";
-import BondCard2 from "./BondCard.jsx";
-import DynamicModal from "./dynamic-modal.jsx";
-import ShareModal from "./ShareModal.jsx";
-import ScheduleModal from "./ScheduleModal.jsx";
-import RepostWithThoughts from "./RepostWithThoughts.jsx";
-import ConfirmationModal from "./ConfirmationModal.jsx";
-import GroupShareModal from "./GroupShareModal.jsx";
-import PhotoDetailsModal from "./PhotoDetailsModal.jsx";
-import PostDetails from "./PostDetails.jsx";
-import VideoPost from "./VideoPost.jsx";
-import PollPost from "./PollPost.jsx";
-import EventPost from "./EventPost.jsx";
-import ArticlePost from "./ArticlePost.jsx";
+} from '../assets/index.js';
+import OutlinedInput from './outline-input.jsx';
+import Comment from './Comment.jsx';
+import BondCard2 from './BondCard.jsx';
+import DynamicModal from './dynamic-modal.jsx';
+import ShareModal from './ShareModal.jsx';
+import ScheduleModal from './ScheduleModal.jsx';
+import RepostWithThoughts from './RepostWithThoughts.jsx';
+import ConfirmationModal from './ConfirmationModal.jsx';
+import GroupShareModal from './GroupShareModal.jsx';
+import PhotoDetailsModal from './PhotoDetailsModal.jsx';
+import PostDetails from './PostDetails.jsx';
+import VideoPost from './VideoPost.jsx';
+import PollPost from './PollPost.jsx';
+import EventPost from './EventPost.jsx';
+import ArticlePost from './ArticlePost.jsx';
 import {
   useCommentMutation,
   useGetPostCommentsQuery,
   useLikeMutation,
-} from "../services/interaction.js";
-import { useSelector } from "react-redux";
-import Button from "./button.jsx";
-import { toast } from "react-toastify";
-import ShowLikesModal from "./ShowLikesModal.jsx";
-import EditModal from "./EditModal.jsx";
+} from '../services/interaction.js';
+import { useSelector } from 'react-redux';
+import Button from './button.jsx';
+import { toast } from 'react-toastify';
+import ShowLikesModal from './ShowLikesModal.jsx';
+import EditModal from './EditModal.jsx';
 
 const SuggestionPost = ({
   isUpdateLoading,
@@ -117,15 +117,15 @@ const SuggestionPost = ({
   const open = Boolean(anchorEl);
   const [showThoughtsModal, setShowThoughtsModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
-  const [thoughts, setThoughts] = useState("");
+  const [thoughts, setThoughts] = useState('');
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [groupShareModal, setGroupShareModal] = useState(false);
   const [showPostDetails, setShowPostDetails] = useState(false);
   const [totalLikes, setTotalLikes] = useState(numberofLikes);
   const [isPostLiked, setIsPostLiked] = useState(isLiked);
   const { user: userData } = useSelector((state) => state.auth);
-  const [postId, setPostId] = useState("");
-  const [commentContent, setCommentContent] = useState("");
+  const [postId, setPostId] = useState('');
+  const [commentContent, setCommentContent] = useState('');
   const [postComments, setPostComments] = useState([]);
   const [likesUserData, setLikesUserData] = useState(allLikesData);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -134,7 +134,7 @@ const SuggestionPost = ({
   const [visibility, setVisibility] = useState(postVisibility);
   const [commentSettings, setCommentSettings] = useState(commentVisibility);
   const [editTitle, setEditTitle] = useState(postContent);
-  console.log(setCommentSettings, "setCommentSettings");
+  console.log(setCommentSettings, 'setCommentSettings');
 
   useEffect(() => setEditTitle(postContent), [postContent]);
 
@@ -160,7 +160,7 @@ const SuggestionPost = ({
   }, [numberofLikes, isLiked, allLikesData, comments]);
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       HandleComment(id);
     }
@@ -185,7 +185,7 @@ const SuggestionPost = ({
       setLikesUserData(users);
     }
 
-    likeData({ entityId: id, type: "POST" });
+    likeData({ entityId: id, type: 'POST' });
   };
 
   useEffect(() => {
@@ -223,8 +223,8 @@ const SuggestionPost = ({
         return;
       }
       if (res?.data) {
-        toast.success("Comment added successfully");
-        setCommentContent("");
+        toast.success('Comment added successfully');
+        setCommentContent('');
         refetch();
         setTotalComments((prev) => prev + 1);
       }
@@ -285,14 +285,14 @@ const SuggestionPost = ({
   };
 
   const HandleRepost = (event) => {
-    if (event === "thoughts") {
+    if (event === 'thoughts') {
       setShowThoughtsModal(true);
       handleCloseMenu();
     }
   };
 
   const HandleSuccess = () => {
-    if (thoughts === "") {
+    if (thoughts === '') {
       setShowConfirmModal(true);
     } else {
       setShowThoughtsModal(false);
@@ -304,12 +304,12 @@ const SuggestionPost = ({
   };
 
   const AlertHandler = () => {
-    toast.warning("Please login for actions");
+    toast.warning('Please login for actions');
   };
 
   return (
     <>
-      {type === "video" ? (
+      {type === 'video' ? (
         <VideoPost
           page={page}
           isUpdateLoading={isUpdateLoading}
@@ -327,7 +327,7 @@ const SuggestionPost = ({
           isLiked={isPostLiked}
           comments={comments}
           friendLiked={true}
-          friend={"Albert"}
+          friend={'Albert'}
           videoUrl={videoUrl}
           thumbnail={thumbnail}
           isFriendPost={isFriendPost}
@@ -356,7 +356,7 @@ const SuggestionPost = ({
           groupImage={groupImage}
           isUserAdmin={isUserAdmin}
         />
-      ) : type === "poll" ? (
+      ) : type === 'poll' ? (
         <PollPost
           page={page}
           isUpdateLoading={isUpdateLoading}
@@ -380,7 +380,7 @@ const SuggestionPost = ({
           isLiked={isPostLiked}
           comments={comments}
           friendLiked={true}
-          friend={"Albert"}
+          friend={'Albert'}
           isFriendPost={isFriendPost}
           ownPost={ownPost}
           id={id}
@@ -407,7 +407,7 @@ const SuggestionPost = ({
           groupImage={groupImage}
           isUserAdmin={isUserAdmin}
         />
-      ) : type === "event" ? (
+      ) : type === 'event' ? (
         <EventPost
           page={page}
           isUpdateLoading={isUpdateLoading}
@@ -424,7 +424,7 @@ const SuggestionPost = ({
           isLiked={isPostLiked}
           comments={comments}
           friendLiked={true}
-          friend={"Albert"}
+          friend={'Albert'}
           eventName={eventName}
           eventImage={eventImage}
           startTime={startTime}
@@ -459,7 +459,7 @@ const SuggestionPost = ({
           groupImage={groupImage}
           isUserAdmin={isUserAdmin}
         />
-      ) : type === "article" ? (
+      ) : type === 'article' ? (
         <ArticlePost
           page={page}
           isUpdateLoading={isUpdateLoading}
@@ -476,7 +476,7 @@ const SuggestionPost = ({
           isLiked={isPostLiked}
           comments={comments}
           friendLiked={true}
-          friend={"Albert"}
+          friend={'Albert'}
           id={id}
           postContent={postContent}
           articleImage={articleImage}
@@ -508,7 +508,7 @@ const SuggestionPost = ({
         />
       ) : (
         <Paper
-          sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
+          sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}
         >
           <BondCard2
             showWorldIcon
@@ -527,7 +527,7 @@ const SuggestionPost = ({
             handleDelete={handlePostDelete}
             visibility={visibility}
             commentSetting={commentSettings}
-            type={postPic?.length > 0 ? "IMAGE" : "TEXT"}
+            type={postPic?.length > 0 ? 'IMAGE' : 'TEXT'}
             isPagePost={isPagePost}
             isUserPost={isUserPost}
             isPageFollowing={isPageFollowing}
@@ -542,7 +542,7 @@ const SuggestionPost = ({
           />
           {editTitle && (
             <Typography
-              sx={{ fontSize: "20px", fontWeight: 400, color: "#171717" }}
+              sx={{ fontSize: '20px', fontWeight: 400, color: '#171717' }}
               dangerouslySetInnerHTML={{ __html: editTitle }}
             ></Typography>
           )}
@@ -550,51 +550,51 @@ const SuggestionPost = ({
             <img
               src={postPic[0]}
               alt="Post"
-              style={{ height: "375px", cursor: "pointer" }}
+              style={{ height: '375px', cursor: 'pointer' }}
               onClick={handleLastImageClick}
             />
           )}
           {postPic && Array.isArray(postPic) && postPic?.length > 1 && (
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <img
                 src={postPic[0]}
                 alt="Post"
                 style={{
-                  width: "77%",
-                  objectFit: "cover",
-                  minHeight: "375px",
-                  maxHeight: "375px",
-                  cursor: "pointer",
+                  width: '77%',
+                  objectFit: 'cover',
+                  minHeight: '375px',
+                  maxHeight: '375px',
+                  cursor: 'pointer',
                 }}
                 onClick={handleLastImageClick}
               />
               <Box
                 sx={{
-                  width: "20%",
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "375px",
-                  justifyContent: "space-between",
+                  width: '20%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: '375px',
+                  justifyContent: 'space-between',
                 }}
               >
                 {postPic?.slice(1, 4)?.map((item, index) => {
                   return (
                     <Box
                       sx={{
-                        width: "100%",
+                        width: '100%',
                         height:
                           postPic.length === 2
-                            ? "100%"
+                            ? '100%'
                             : postPic.length === 3
-                              ? "48%"
-                              : "30%",
-                        objectFit: "cover",
+                              ? '48%'
+                              : '30%',
+                        objectFit: 'cover',
                         backgroundImage: `url("${item}")`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        position: "relative",
-                        cursor: "pointer",
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        position: 'relative',
+                        cursor: 'pointer',
                       }}
                       key={index}
                       onClick={handleLastImageClick}
@@ -602,29 +602,29 @@ const SuggestionPost = ({
                       {postPic?.length > 4 && index === 2 && (
                         <Box
                           sx={{
-                            position: "absolute",
+                            position: 'absolute',
                             top: 0,
                             left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "#00000033",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "#fff",
-                            fontSize: "20px",
-                            fontWeight: "bold",
-                            columnGap: "5px",
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: '#00000033',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#fff',
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            columnGap: '5px',
                           }}
                         >
                           <img
                             src={plus}
                             alt="Icon"
-                            style={{ width: "16px", height: "16px" }}
+                            style={{ width: '16px', height: '16px' }}
                           />
                           <Typography
                             variant="gradientText"
-                            sx={{ fontSize: "24px", fontWeight: 600 }}
+                            sx={{ fontSize: '24px', fontWeight: 600 }}
                           >
                             {postPic?.length - 4}
                           </Typography>
@@ -639,38 +639,38 @@ const SuggestionPost = ({
           {isPending ? (
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Box
                 sx={{
-                  width: { xs: "100%", sm: "85%", md: "80%", lg: "70%" },
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  width: { xs: '100%', sm: '85%', md: '80%', lg: '70%' },
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 {isUpdateLoading?.id === reqId &&
-                isUpdateLoading.action === "reject" ? (
-                  <CircularProgress sx={{ color: "#1877F2" }} />
+                isUpdateLoading.action === 'reject' ? (
+                  <CircularProgress sx={{ color: '#1877F2' }} />
                 ) : (
                   <Box
                     sx={{
-                      display: "flex",
-                      columnGap: "5px",
-                      alignItems: "center",
-                      cursor: "pointer",
+                      display: 'flex',
+                      columnGap: '5px',
+                      alignItems: 'center',
+                      cursor: 'pointer',
                     }}
-                    onClick={() => handleResponse(reqId, "reject")}
+                    onClick={() => handleResponse(reqId, 'reject')}
                   >
                     <img src={deleteBlack} alt="Icon" />
                     <Typography
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "500",
-                        color: "#171717",
+                        fontSize: '16px',
+                        fontWeight: '500',
+                        color: '#171717',
                       }}
                     >
                       Delete
@@ -678,21 +678,21 @@ const SuggestionPost = ({
                   </Box>
                 )}
                 {isUpdateLoading?.id === reqId &&
-                isUpdateLoading.action === "approve" ? (
-                  <CircularProgress sx={{ color: "#1877F2" }} />
+                isUpdateLoading.action === 'approve' ? (
+                  <CircularProgress sx={{ color: '#1877F2' }} />
                 ) : (
                   <Box
-                    onClick={() => handleResponse(reqId, "approve")}
+                    onClick={() => handleResponse(reqId, 'approve')}
                     sx={{
-                      display: "flex",
-                      columnGap: "5px",
-                      alignItems: "center",
-                      cursor: "pointer",
+                      display: 'flex',
+                      columnGap: '5px',
+                      alignItems: 'center',
+                      cursor: 'pointer',
                     }}
                   >
                     <img src={tick} alt="Icon" />
                     <Typography
-                      sx={{ fontSize: "16px", fontWeight: "500" }}
+                      sx={{ fontSize: '16px', fontWeight: '500' }}
                       variant="gradientText"
                     >
                       Approve
@@ -705,31 +705,31 @@ const SuggestionPost = ({
             <>
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    columnGap: "6px",
+                    display: 'flex',
+                    alignItems: 'center',
+                    columnGap: '6px',
                   }}
                 >
                   {totalLikes >= 1 && (
                     <img
                       src={like}
                       alt="Like"
-                      style={{ width: "13.43px", height: "12px" }}
+                      style={{ width: '13.43px', height: '12px' }}
                     />
                   )}
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "400",
-                      color: "#505050",
-                      cursor: totalLikes > 0 ? "pointer" : "text",
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      color: '#505050',
+                      cursor: totalLikes > 0 ? 'pointer' : 'text',
                     }}
                     onClick={
                       isGeneralPost
@@ -740,9 +740,9 @@ const SuggestionPost = ({
                     }
                   >
                     {totalLikes === 0
-                      ? "Be first to like this"
+                      ? 'Be first to like this'
                       : isPostLiked && totalLikes === 1
-                        ? "You liked this post"
+                        ? 'You liked this post'
                         : isPostLiked && totalLikes > 1
                           ? `You and ${totalLikes - 1} more like this`
                           : totalLikes === 1
@@ -751,31 +751,31 @@ const SuggestionPost = ({
                   </Typography>
                 </Box>
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: "300", color: "#505050" }}
+                  sx={{ fontSize: '14px', fontWeight: '300', color: '#505050' }}
                 >
                   {totalComments} comments
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  borderTop: "1px solid #E4E4E4",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor: "#F8FCFF",
-                  height: "50px",
-                  px: { xs: "10px", md: "0px" },
+                  borderTop: '1px solid #E4E4E4',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  backgroundColor: '#F8FCFF',
+                  height: '50px',
+                  px: { xs: '10px', md: '0px' },
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    columnGap: "15px",
-                    cursor: "pointer",
-                    width: { md: "20%" },
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    columnGap: '15px',
+                    cursor: 'pointer',
+                    width: { md: '20%' },
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                   onClick={
                     isGeneralPost
@@ -788,29 +788,29 @@ const SuggestionPost = ({
                   <img
                     src={isPostLiked ? like : unlike}
                     alt="Like"
-                    style={{ width: "24px", height: "24px" }}
+                    style={{ width: '24px', height: '24px' }}
                   />
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      display: { xs: "none", md: "block" },
-                      color: "#505050",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      display: { xs: 'none', md: 'block' },
+                      color: '#505050',
                     }}
                   >
-                    {isPostLiked ? "Liked" : "Like"}
+                    {isPostLiked ? 'Liked' : 'Like'}
                   </Typography>
                 </Box>
                 <Box
                   sx={{
-                    display: "flex",
-                    columnGap: "15px",
-                    cursor: "pointer",
-                    backgroundColor: showComments ? "#FFFFFF" : "inherit",
-                    width: { md: "20%" },
-                    height: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    columnGap: '15px',
+                    cursor: 'pointer',
+                    backgroundColor: showComments ? '#FFFFFF' : 'inherit',
+                    width: { md: '20%' },
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                   onClick={
                     isGeneralPost ? AlertHandler : () => CommentHandler(id)
@@ -819,25 +819,25 @@ const SuggestionPost = ({
                   <img src={comment} alt="Like" />
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      display: { xs: "none", md: "block" },
-                      color: "#505050",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      display: { xs: 'none', md: 'block' },
+                      color: '#505050',
                     }}
                   >
                     Comment
                   </Typography>
                 </Box>
-                {visibility === "PUBLIC" && (
+                {visibility === 'PUBLIC' && (
                   <Box
                     sx={{
-                      display: "flex",
-                      columnGap: "15px",
-                      cursor: "pointer",
-                      width: { md: "20%" },
-                      height: "100%",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      display: 'flex',
+                      columnGap: '15px',
+                      cursor: 'pointer',
+                      width: { md: '20%' },
+                      height: '100%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                     onClick={
                       isGeneralPost
@@ -848,10 +848,10 @@ const SuggestionPost = ({
                     <img src={send} alt="Like" />
                     <Typography
                       sx={{
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        display: { xs: "none", md: "block" },
-                        color: "#505050",
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        display: { xs: 'none', md: 'block' },
+                        color: '#505050',
                       }}
                     >
                       Share
@@ -862,35 +862,35 @@ const SuggestionPost = ({
               {showComments && (
                 <Box
                   sx={{
-                    px: { xs: "0px", md: "10px" },
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "10px",
+                    px: { xs: '0px', md: '10px' },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '10px',
                   }}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      columnGap: "5px",
-                      flexDirection: { xs: "column", md: "row" },
+                      display: 'flex',
+                      columnGap: '5px',
+                      flexDirection: { xs: 'column', md: 'row' },
                     }}
                   >
                     {isGetCommentsLoading ? (
                       <Box
                         sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: "100%",
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          width: '100%',
                         }}
                       >
                         <LinearProgress
                           sx={{
-                            width: "100%",
+                            width: '100%',
                             height: 6,
-                            bgcolor: "#F2F8FD",
-                            "& .MuiLinearProgress-bar": {
-                              backgroundColor: "white",
+                            bgcolor: '#F2F8FD',
+                            '& .MuiLinearProgress-bar': {
+                              backgroundColor: 'white',
                             },
                           }}
                         />
@@ -906,37 +906,37 @@ const SuggestionPost = ({
                                   : user
                               }
                               alt="User"
-                              sx={{ width: 60, height: 60, objectFit: "fill" }}
+                              sx={{ width: 60, height: 60, objectFit: 'fill' }}
                             />
 
                             <Box
                               sx={{
-                                border: "1px solid #DDE2E4",
-                                width: "100%",
-                                display: "flex",
-                                pr: "10px",
-                                minHeight: "60px",
+                                border: '1px solid #DDE2E4',
+                                width: '100%',
+                                display: 'flex',
+                                pr: '10px',
+                                minHeight: '60px',
                                 flexDirection: commentContent
-                                  ? "column"
-                                  : "row",
-                                pb: commentContent ? "10px" : "0px",
-                                rowGap: "13px",
+                                  ? 'column'
+                                  : 'row',
+                                pb: commentContent ? '10px' : '0px',
+                                rowGap: '13px',
                               }}
                             >
                               <OutlinedInput
                                 sx={{
-                                  height: "100%",
-                                  width: "100%",
-                                  "& .MuiOutlinedInput-root": {
-                                    border: "none !important",
-                                    height: "100%",
+                                  height: '100%',
+                                  width: '100%',
+                                  '& .MuiOutlinedInput-root': {
+                                    border: 'none !important',
+                                    height: '100%',
                                   },
-                                  "& .MuiOutlinedInput-notchedOutline": {
-                                    border: "none !important",
+                                  '& .MuiOutlinedInput-notchedOutline': {
+                                    border: 'none !important',
                                   },
-                                  p: "10px",
+                                  p: '10px',
                                 }}
-                                placeholder={"Add a comment"}
+                                placeholder={'Add a comment'}
                                 onInputChange={(e) =>
                                   setCommentContent(e.target.value)
                                 }
@@ -946,10 +946,10 @@ const SuggestionPost = ({
                               />
                               <Box
                                 sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  pl: "10px",
-                                  justifyContent: "space-between",
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  pl: '10px',
+                                  justifyContent: 'space-between',
                                 }}
                               >
                                 {commentContent && (
@@ -957,9 +957,9 @@ const SuggestionPost = ({
                                     loading={postCommentLoading}
                                     onClick={() => HandleComment(id)}
                                     sx={{
-                                      width: "150px",
-                                      height: "36px",
-                                      color: "white",
+                                      width: '150px',
+                                      height: '36px',
+                                      color: 'white',
                                     }}
                                   >
                                     Comment
@@ -971,19 +971,19 @@ const SuggestionPost = ({
                         ) : (
                           <Box
                             sx={{
-                              backgroundColor: "#F2F8FD",
-                              p: "10px",
-                              display: "flex",
-                              columnGap: "5px",
-                              width: "100%",
+                              backgroundColor: '#F2F8FD',
+                              p: '10px',
+                              display: 'flex',
+                              columnGap: '5px',
+                              width: '100%',
                             }}
                           >
                             <img src={commentOff} alt="Icon" />
                             <Typography
                               sx={{
-                                fontSize: "14px",
-                                fontWeight: "500",
-                                color: "#171717",
+                                fontSize: '14px',
+                                fontWeight: '500',
+                                color: '#171717',
                               }}
                             >
                               Comments are restricted on this post.
@@ -1015,16 +1015,16 @@ const SuggestionPost = ({
           {index === length - 1 && (
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                columnGap: "4px",
-                cursor: "pointer",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                columnGap: '4px',
+                cursor: 'pointer',
               }}
             >
               <img src={refresh} alt="Refresh" />
               <Typography
-                sx={{ fontSize: "10px", fontWeight: 300, color: "#505050" }}
+                sx={{ fontSize: '10px', fontWeight: 300, color: '#505050' }}
               >
                 Load more
               </Typography>
@@ -1052,21 +1052,21 @@ const SuggestionPost = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem
-          onClick={() => HandleRepost("thoughts")}
-          sx={{ width: "245px" }}
+          onClick={() => HandleRepost('thoughts')}
+          sx={{ width: '245px' }}
         >
           Repost with your thoughts
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ width: "245px" }}>
+        <MenuItem onClick={handleClose} sx={{ width: '245px' }}>
           Repost
         </MenuItem>
       </Menu>
@@ -1074,11 +1074,11 @@ const SuggestionPost = ({
       <DynamicModal
         open={showThoughtsModal}
         handleClose={() => setShowThoughtsModal(false)}
-        buttonText={"Post"}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         onSuccess={HandleSuccess}
         handleGroupClick={() => setGroupShareModal(true)}
       >
@@ -1088,13 +1088,13 @@ const SuggestionPost = ({
       <DynamicModal
         open={showScheduleModal}
         handleClose={() => setShowScheduleModal(false)}
-        title={"Schedule post"}
-        buttonText={"Post"}
+        title={'Schedule post'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
       >
         <ScheduleModal />
       </DynamicModal>
@@ -1102,10 +1102,10 @@ const SuggestionPost = ({
       <DynamicModal
         open={groupShareModal}
         handleClose={() => setGroupShareModal(false)}
-        title={"Repost to group"}
-        buttonText={"Save"}
+        title={'Repost to group'}
+        buttonText={'Save'}
         postModal={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
         hideFooter={true}
       >
         <GroupShareModal />
@@ -1114,14 +1114,14 @@ const SuggestionPost = ({
       <ConfirmationModal
         open={showConfirmModal}
         handleClose={() => setShowConfirmModal(false)}
-        title={"Repost without adding your thoughts?"}
-        cancelButtonText={"Back"}
-        acceptButtonText={"Yes, repost"}
+        title={'Repost without adding your thoughts?'}
+        cancelButtonText={'Back'}
+        acceptButtonText={'Yes, repost'}
         handleAccept={() => setShowConfirmModal(false)}
         handleCancel={() => setShowConfirmModal(false)}
       >
         <Typography
-          sx={{ fontSize: "17px", fontWeight: "300", color: "#595959" }}
+          sx={{ fontSize: '17px', fontWeight: '300', color: '#595959' }}
         >
           If you repost without adding your thoughts, all new comments &
           reactions will be added to XYZ’s post.
@@ -1143,7 +1143,7 @@ const SuggestionPost = ({
           isLiked={isPostLiked}
           comments={totalComments}
           friendLiked={true}
-          friend={"Albert"}
+          friend={'Albert'}
           handleModalClose={() => setShowPostDetails(false)}
           lastUserLiked={lastUserLiked}
           id={id}
@@ -1176,7 +1176,7 @@ const SuggestionPost = ({
       <DynamicModal
         open={showLikesModal}
         handleClose={() => setShowLikesModal(false)}
-        title={"Likes"}
+        title={'Likes'}
         hideFooter={true}
         smallModal={true}
         styledHeader={true}
@@ -1199,7 +1199,7 @@ const SuggestionPost = ({
         group={{ name: groupName, logoUrl: groupImage }}
       >
         <EditModal
-          type={"normal"}
+          type={'normal'}
           title={editTitle}
           id={id}
           normalPostData={{ images: postPic }}

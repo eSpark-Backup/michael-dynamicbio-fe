@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import auth from "./slices/auth";
-import search from "./slices/search";
-import chat from "./slices/chat";
-import notifications from "./slices/notifications";
-import { authApi } from "../services/auth";
-import { notificationsApi } from "../services/notification";
+import { configureStore } from '@reduxjs/toolkit';
+import auth from './slices/auth';
+import search from './slices/search';
+import chat from './slices/chat';
+import notifications from './slices/notifications';
+import { authApi } from '../services/auth';
+import { notificationsApi } from '../services/notification';
 
 const store = configureStore({
   reducer: {

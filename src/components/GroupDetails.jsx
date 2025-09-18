@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import dayjs from "dayjs";
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 import {
   Box,
   CircularProgress,
@@ -16,22 +16,22 @@ import {
   Radio,
   RadioGroup,
   Typography,
-} from "@mui/material";
-import PostCard from "./post-card";
-import GroupSidebar from "./GroupSidebar";
-import DynamicModal from "./dynamic-modal";
-import AboutGroupModal from "./AboutGroupModal";
-import NotificationSettingsModal from "./NotificationSettingsModal";
-import GroupPostSettingModal from "./GroupPostSettingModal";
-import SuggestionPost from "./SuggestionPost";
-import EditGroupModal from "./EditGroupModal";
+} from '@mui/material';
+import PostCard from './post-card';
+import GroupSidebar from './GroupSidebar';
+import DynamicModal from './dynamic-modal';
+import AboutGroupModal from './AboutGroupModal';
+import NotificationSettingsModal from './NotificationSettingsModal';
+import GroupPostSettingModal from './GroupPostSettingModal';
+import SuggestionPost from './SuggestionPost';
+import EditGroupModal from './EditGroupModal';
 import {
   useDeleteGroupMutation,
   useFollowGroupMutation,
   useGetGroupDetailQuery,
   useGetGroupPostsQuery,
-} from "../services/group";
-import { copyToClipboard, getDaysLeft } from "../utils";
+} from '../services/group';
+import { copyToClipboard, getDaysLeft } from '../utils';
 import {
   arrowUpRight,
   bulb,
@@ -46,8 +46,8 @@ import {
   link2,
   plus,
   three_vertical_dots,
-} from "../assets";
-import InfiniteScroll from "react-infinite-scroll-component";
+} from '../assets';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const GroupDetails = () => {
   const navigate = useNavigate();
@@ -71,8 +71,8 @@ const GroupDetails = () => {
   const [aboutModal, setAboutModal] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
   const [postSettingsModal, setPostSettingsModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("relevant");
-  console.log(anchorEl3, "anchorEl3");
+  const [selectedOption, setSelectedOption] = useState('relevant');
+  console.log(anchorEl3, 'anchorEl3');
 
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -141,13 +141,13 @@ const GroupDetails = () => {
         return;
       }
       if (res?.data) {
-        navigate("/bonds?sub=group");
+        navigate('/bonds?sub=group');
       }
     });
   };
 
   const handleAction = (id, type) => {
-    type === "delete" ? handleDelete(id) : handleFollow(id);
+    type === 'delete' ? handleDelete(id) : handleFollow(id);
   };
 
   const skip = !id;
@@ -213,11 +213,11 @@ const GroupDetails = () => {
               user?.lastName?.toLowerCase()
         );
 
-      let lastLike = "";
+      let lastLike = '';
 
       const isOnlyUserLiked = item?.likes?.length === 1;
       if (isuserLiked && isOnlyUserLiked) {
-        lastLike = "";
+        lastLike = '';
       } else if (!isuserLiked) {
         lastLike = item?.lastLikedUser;
       } else if (Array.isArray(item?.likes)) {
@@ -250,33 +250,33 @@ const GroupDetails = () => {
         numberofLikes: item?.likesCount,
         isLiked: isuserLiked,
         comments: item?.commentsCount,
-        activity: "",
+        activity: '',
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         commentsContent: [],
         type: getPostType(item?.type),
-        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
+        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
         thumbnail:
-          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
-        question: item?.type === "POLL" ? item?.poll?.question : "",
+          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
+        question: item?.type === 'POLL' ? item?.poll?.question : '',
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-        pollId: item?.poll?.id || "",
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
+        pollId: item?.poll?.id || '',
         isVoted: false,
         eventName: item?.content?.name,
-        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: "bringback",
+        eventPost: 'bringback',
         id: item?.id,
         articleImage:
-          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
+        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
+        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
         ownPost: isOwnPost,
         isFriendPost: item?.isBond,
         lastUserLiked: lastLike,
@@ -298,14 +298,14 @@ const GroupDetails = () => {
         isPagePost: item?.isPagePost,
         isUserPost: !isOwnPost && !item?.isPagePost && !item?.isGroupPost,
         isPageFollowing: item?.isPageFollowing,
-        pageId: item?.isPagePost ? item?.page?.id : "",
+        pageId: item?.isPagePost ? item?.page?.id : '',
         shareableLink: item?.shareableLink,
         pinned: false,
         groupPost: true,
         isAdminPost: isAdminPost,
-        groupName: item?.isGroupPost ? item?.group?.name : "",
-        groupId: item?.isGroupPost ? item?.group?.id : "",
-        groupImage: item?.isGroupPost ? item?.group?.logoUrl : "",
+        groupName: item?.isGroupPost ? item?.group?.name : '',
+        groupId: item?.isGroupPost ? item?.group?.id : '',
+        groupImage: item?.isGroupPost ? item?.group?.logoUrl : '',
         isUserAdmin:
           groupPostsData?.data?.group?.isAdmin ||
           groupPostsData?.data?.group?.isCreator,
@@ -315,18 +315,18 @@ const GroupDetails = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: "normal",
-      VIDEO: "video",
-      TEXT: "normal",
-      POLL: "poll",
-      EVENT: "event",
-      ARTICLE: "article",
+      IMAGE: 'normal',
+      VIDEO: 'video',
+      TEXT: 'normal',
+      POLL: 'poll',
+      EVENT: 'event',
+      ARTICLE: 'article',
     };
-    return typeMap[type] || "";
+    return typeMap[type] || '';
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== "POLL") return [];
+    if (item?.type !== 'POLL') return [];
     const isVote = item?.poll?.votes?.find((vote) => vote?.userId === user?.id);
     const myVoteIndex = isVote ? isVote?.optionIndex : null;
     return [
@@ -354,94 +354,94 @@ const GroupDetails = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "calc(100vh - 150px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          height: 'calc(100vh - 150px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <CircularProgress sx={{ color: "#1877F2" }} />
+        <CircularProgress sx={{ color: '#1877F2' }} />
       </Box>
     );
   }
 
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
     >
       <Grid2
         container
         spacing={3}
         sx={{
-          width: { xs: "98%", md: "85%", lg: "95%" },
-          py: "25px",
-          "@media(min-width:1900px)": {
-            width: "75%",
+          width: { xs: '98%', md: '85%', lg: '95%' },
+          py: '25px',
+          '@media(min-width:1900px)': {
+            width: '75%',
           },
         }}
       >
         <Grid2
           size={{ xs: 12, lg: 3 }}
-          sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+          sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
         >
-          <Paper sx={{ p: "0px" }}>
+          <Paper sx={{ p: '0px' }}>
             <Box
               sx={{
-                height: "90px",
-                borderTopRightRadius: "4px",
-                borderTopLeftRadius: "4px",
-                position: "relative",
+                height: '90px',
+                borderTopRightRadius: '4px',
+                borderTopLeftRadius: '4px',
+                position: 'relative',
                 backgroundImage: `url(${user?.coverImage || dummyPhoto})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                width: "100.1%",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                width: '100.1%',
               }}
             >
               <Box
                 sx={{
-                  width: "100px",
-                  height: "100px",
-                  border: "2px solid #fff",
-                  position: "absolute",
-                  top: "40px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
+                  width: '100px',
+                  height: '100px',
+                  border: '2px solid #fff',
+                  position: 'absolute',
+                  top: '40px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
                   backgroundImage: `url(${user?.profileImage || dummyPhoto})`,
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  borderRadius: "50%",
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
+                  borderRadius: '50%',
                 }}
               />
             </Box>
             <Box
               sx={{
-                mt: "70px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                rowGap: "4px",
+                mt: '70px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                rowGap: '4px',
                 mb: 1,
               }}
             >
               <Box
-                sx={{ display: "flex", columnGap: "5px", alignItems: "center" }}
+                sx={{ display: 'flex', columnGap: '5px', alignItems: 'center' }}
               >
                 <Typography
-                  sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
+                  sx={{ fontSize: '17px', fontWeight: '500', color: '#171717' }}
                 >
                   {`${user?.firstName} ${user?.lastName}`}
                 </Typography>
                 {isMyGroup && (
-                  <Box sx={{ p: "5px 15px", backgroundColor: "#d3d3d3" }}>
+                  <Box sx={{ p: '5px 15px', backgroundColor: '#d3d3d3' }}>
                     <Typography
                       sx={{
-                        fontSize: "14px",
-                        fontWeight: "400",
-                        color: "#171717",
+                        fontSize: '14px',
+                        fontWeight: '400',
+                        color: '#171717',
                       }}
                     >
                       Owner
@@ -450,43 +450,43 @@ const GroupDetails = () => {
                 )}
               </Box>
               <Typography
-                sx={{ fontSize: "13px", fontWeight: "400", color: "#505050" }}
+                sx={{ fontSize: '13px', fontWeight: '400', color: '#505050' }}
               >
-                Group created:{" "}
+                Group created:{' '}
                 {data?.data?.createdAt &&
-                  dayjs(data?.data?.createdAt).format("MMM YYYY")}
+                  dayjs(data?.data?.createdAt).format('MMM YYYY')}
               </Typography>
             </Box>
             {data?.data?.isAdmin && (
               <>
                 <Box
                   sx={{
-                    mt: "40px",
-                    px: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "10px",
-                    pb: "20px",
+                    mt: '40px',
+                    px: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '10px',
+                    pb: '20px',
                   }}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: "13px",
-                        fontWeight: "400",
-                        color: "#505050",
+                        fontSize: '13px',
+                        fontWeight: '400',
+                        color: '#505050',
                       }}
                     >
                       Pending posts
                     </Typography>
                     <Typography
-                      sx={{ fontSize: "13px", fontWeight: "400" }}
+                      sx={{ fontSize: '13px', fontWeight: '400' }}
                       variant="gradientText"
                     >
                       {data?.data?.pendingPostRequest}
@@ -494,22 +494,22 @@ const GroupDetails = () => {
                   </Box>
                   <Box
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: "13px",
-                        fontWeight: "400",
-                        color: "#505050",
+                        fontSize: '13px',
+                        fontWeight: '400',
+                        color: '#505050',
                       }}
                     >
                       Requests to join
                     </Typography>
                     <Typography
-                      sx={{ fontSize: "13px", fontWeight: "400" }}
+                      sx={{ fontSize: '13px', fontWeight: '400' }}
                       variant="gradientText"
                     >
                       {data?.data?.pendingJoinRequest}
@@ -518,12 +518,12 @@ const GroupDetails = () => {
                 </Box>
                 <Box
                   sx={{
-                    height: "60px",
-                    borderTop: "1px solid #E5E5E5",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    cursor: "pointer",
+                    height: '60px',
+                    borderTop: '1px solid #E5E5E5',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    cursor: 'pointer',
                   }}
                   onClick={() =>
                     navigate(
@@ -533,9 +533,9 @@ const GroupDetails = () => {
                 >
                   <Typography
                     sx={{
-                      fontSize: "16px",
-                      fontWeight: "400",
-                      color: "#171717",
+                      fontSize: '16px',
+                      fontWeight: '400',
+                      color: '#171717',
                     }}
                   >
                     Manage group
@@ -545,19 +545,19 @@ const GroupDetails = () => {
                   <Box
                     onClick={() => setEditModal(data?.data)}
                     sx={{
-                      height: "60px",
-                      borderTop: "1px solid #E5E5E5",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      cursor: "pointer",
+                      height: '60px',
+                      borderTop: '1px solid #E5E5E5',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      cursor: 'pointer',
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: "16px",
-                        fontWeight: "400",
-                        color: "#171717",
+                        fontSize: '16px',
+                        fontWeight: '400',
+                        color: '#171717',
                       }}
                     >
                       Edit group
@@ -570,45 +570,45 @@ const GroupDetails = () => {
         </Grid2>
         <Grid2
           size={{ xs: 12, lg: 6 }}
-          sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+          sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
         >
-          <Paper sx={{ p: "0px" }}>
+          <Paper sx={{ p: '0px' }}>
             <Box
               sx={{
-                height: "200px",
-                borderTopRightRadius: "4px",
-                borderTopLeftRadius: "4px",
-                position: "relative",
+                height: '200px',
+                borderTopRightRadius: '4px',
+                borderTopLeftRadius: '4px',
+                position: 'relative',
                 backgroundImage: `url(${
                   data?.data?.coverImageUrl || dummyPhoto
                 })`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                width: "100.1%",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                width: '100.1%',
               }}
             >
               <Box
                 sx={{
-                  width: "128px",
-                  height: "128px",
-                  border: "2px solid #fff",
-                  position: "absolute",
-                  top: "128px",
-                  left: "15px",
+                  width: '128px',
+                  height: '128px',
+                  border: '2px solid #fff',
+                  position: 'absolute',
+                  top: '128px',
+                  left: '15px',
                   backgroundImage: `url(${data?.data?.logoUrl || dummyPhoto})`,
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  backgroundRepeat: 'no-repeat',
                 }}
               ></Box>
             </Box>
-            <Box sx={{ p: "20px" }}>
+            <Box sx={{ p: '20px' }}>
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  columnGap: "15px",
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  columnGap: '15px',
                 }}
               >
                 {(data?.data?.isAdmin || data?.data?.isFollowing) && (
@@ -616,19 +616,19 @@ const GroupDetails = () => {
                     src={info}
                     alt="Icon"
                     onClick={() => setAboutModal(true)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   />
                 )}
                 <img
                   src={arrowUpRight}
                   alt="Icon"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={handleClick}
                 />
                 {isMyGroup && (
                   <img
                     onClick={() => setEditModal(data?.data)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     src={editBlue}
                     alt="Icon"
                   />
@@ -636,54 +636,54 @@ const GroupDetails = () => {
                 <img
                   src={three_vertical_dots}
                   alt="Icon"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={handleClick2}
                 />
               </Box>
               <Box
                 sx={{
-                  mt: "70px",
-                  p: "0px",
-                  display: "flex",
-                  flexDirection: "column",
-                  rowGap: "5px",
+                  mt: '70px',
+                  p: '0px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  rowGap: '5px',
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "20px",
-                    fontWeight: "500",
-                    color: "#171717",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textTransform: "capitalize",
+                    fontSize: '20px',
+                    fontWeight: '500',
+                    color: '#171717',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textTransform: 'capitalize',
                   }}
                 >
                   {data?.data?.name}
                 </Typography>
                 <Box
                   sx={{
-                    display: "flex",
-                    columnGap: "5px",
-                    alignItems: "center",
+                    display: 'flex',
+                    columnGap: '5px',
+                    alignItems: 'center',
                   }}
                 >
                   <img
                     src={group}
                     alt="Icon"
-                    style={{ width: "14px", height: "14px" }}
+                    style={{ width: '14px', height: '14px' }}
                   />
                   <Typography
                     sx={{
-                      fontSize: "17px",
-                      fontWeight: "400",
-                      color: "#505050",
+                      fontSize: '17px',
+                      fontWeight: '400',
+                      color: '#505050',
                     }}
                   >
-                    {data?.data?.status === "PUBLIC"
-                      ? "Public group"
-                      : "Private group"}
+                    {data?.data?.status === 'PUBLIC'
+                      ? 'Public group'
+                      : 'Private group'}
                   </Typography>
                 </Box>
               </Box>
@@ -702,34 +702,34 @@ const GroupDetails = () => {
           )}
           {showTip &&
             (isMyGroup ||
-              data?.data?.status === "PUBLIC" ||
+              data?.data?.status === 'PUBLIC' ||
               data?.data?.isFollowing) && (
-              <Paper sx={{ display: "flex", columnGap: "10px" }}>
+              <Paper sx={{ display: 'flex', columnGap: '10px' }}>
                 <img
                   src={bulb}
                   alt="Icon"
-                  style={{ width: "64px", height: "64px" }}
+                  style={{ width: '64px', height: '64px' }}
                 />
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "2px",
-                    width: "100%",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '2px',
+                    width: '100%',
                   }}
                 >
                   <Box
                     sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        color: "#171717",
+                        fontSize: '18px',
+                        fontWeight: '500',
+                        color: '#171717',
                       }}
                     >
                       Your comments matter to group members
@@ -737,15 +737,15 @@ const GroupDetails = () => {
                     <img
                       src={close}
                       alt="Icon"
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => setShowTip(false)}
                     />
                   </Box>
                   <Typography
                     sx={{
-                      fontSize: "18px",
-                      fontWeight: "500",
-                      color: "#505050",
+                      fontSize: '18px',
+                      fontWeight: '500',
+                      color: '#505050',
                     }}
                   >
                     Group members are likely to create more posts when they get
@@ -755,14 +755,14 @@ const GroupDetails = () => {
               </Paper>
             )}
           {(isMyGroup ||
-            data?.data?.status === "PUBLIC" ||
+            data?.data?.status === 'PUBLIC' ||
             data?.data?.isFollowing) && (
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: "15px",
-                width: "100%",
+                display: 'flex',
+                flexDirection: 'column',
+                rowGap: '15px',
+                width: '100%',
               }}
             >
               <InfiniteScroll
@@ -782,18 +782,18 @@ const GroupDetails = () => {
                     fontWeight={700}
                   >
                     {posts.length === 0
-                      ? "No posts available"
-                      : "No more posts"}
+                      ? 'No posts available'
+                      : 'No more posts'}
                   </Typography>
                 }
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: "20px",
-                    width: "100%",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    rowGap: '20px',
+                    width: '100%',
                   }}
                 >
                   {posts.map((item) => (
@@ -825,7 +825,7 @@ const GroupDetails = () => {
       <DynamicModal
         open={aboutModal}
         handleClose={() => setAboutModal(false)}
-        title={"About this group"}
+        title={'About this group'}
         postModal={true}
         styledHeader={true}
         hideFooter={true}
@@ -840,7 +840,7 @@ const GroupDetails = () => {
       <DynamicModal
         open={notificationModal}
         handleClose={() => setNotificationModal(false)}
-        title={"Notification settings disabled"}
+        title={'Notification settings disabled'}
         postModal={true}
         styledHeader={true}
         hideFooter={true}
@@ -854,7 +854,7 @@ const GroupDetails = () => {
       <DynamicModal
         open={postSettingsModal}
         handleClose={() => setPostSettingsModal(false)}
-        title={"Post settings"}
+        title={'Post settings'}
         postModal={true}
         styledHeader={true}
         hideFooter={true}
@@ -870,12 +870,12 @@ const GroupDetails = () => {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "bottom",
+          vertical: 'top',
+          horizontal: 'bottom',
         }}
       >
         <MenuItem
@@ -883,11 +883,11 @@ const GroupDetails = () => {
             copyToClipboard(data?.data?.shareableLink);
             handleClose(e);
           }}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
+          sx={{ width: '195px', display: 'flex', columnGap: '5px' }}
         >
           <img src={link2} alt="" />
           <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
+            sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
           >
             Copy link
           </Typography>
@@ -898,22 +898,22 @@ const GroupDetails = () => {
         open={open2}
         onClose={handleClose2}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "bottom",
+          vertical: 'top',
+          horizontal: 'bottom',
         }}
       >
         <MenuItem
           onClick={(e) => {
             if (!isFollowLoading || !isDeleteLoading) {
-              handleAction(data?.data?.id, isMyGroup ? "delete" : "follow");
+              handleAction(data?.data?.id, isMyGroup ? 'delete' : 'follow');
               handleClose2(e);
             }
           }}
-          sx={{ width: "195px", display: "flex", columnGap: "5px" }}
+          sx={{ width: '195px', display: 'flex', columnGap: '5px' }}
         >
           <img
             src={
@@ -928,15 +928,15 @@ const GroupDetails = () => {
             alt=""
           />
           <Typography
-            sx={{ fontSize: "14px", fontWeight: "400", color: "#171717" }}
+            sx={{ fontSize: '14px', fontWeight: '400', color: '#171717' }}
           >
             {isMyGroup
-              ? "Delete this group"
+              ? 'Delete this group'
               : data?.data?.isFollowing
-                ? "Leave this group"
+                ? 'Leave this group'
                 : data?.data?.requestSent
-                  ? "Withdraw join request"
-                  : "Join this group"}
+                  ? 'Withdraw join request'
+                  : 'Join this group'}
           </Typography>
         </MenuItem>
       </Menu>
@@ -944,14 +944,14 @@ const GroupDetails = () => {
         anchorEl={anchorEl4}
         open={open4}
         onClose={handleClose}
-        sx={{ maxWidth: { xs: "300px", md: "420px" } }}
+        sx={{ maxWidth: { xs: '300px', md: '420px' } }}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem disabled>
@@ -959,11 +959,11 @@ const GroupDetails = () => {
             variant="subtitle1"
             sx={{
               fontWeight: 600,
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-              width: "100%",
-              textTransform: "capitalize",
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              width: '100%',
+              textTransform: 'capitalize',
             }}
           >
             {`Manage notifications about ${data?.data?.name}`}

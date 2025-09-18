@@ -1,9 +1,9 @@
-import { useFormik } from "formik";
-import countries from "country-telephone-data";
-import { Button, Dropdown, Input } from "../../../components";
-import { addMobileSchema } from "../../../schemas";
-import { Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useFormik } from 'formik';
+import countries from 'country-telephone-data';
+import { Button, Dropdown, Input } from '../../../components';
+import { addMobileSchema } from '../../../schemas';
+import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const AddMobile = () => {
   const countriesOptions = countries?.allCountries?.map((item) => ({
@@ -14,12 +14,12 @@ const AddMobile = () => {
 
   const formik = useFormik({
     initialValues: {
-      countryCode: "",
-      phoneNumber: "",
+      countryCode: '',
+      phoneNumber: '',
     },
     validationSchema: addMobileSchema,
     onSubmit: (values) => {
-      console.log(values, "values");
+      console.log(values, 'values');
     },
   });
   return (
@@ -28,19 +28,19 @@ const AddMobile = () => {
         component="form"
         onSubmit={formik.handleSubmit}
         sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          rowGap: "20px",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          rowGap: '20px',
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: "28px", md: "40px" },
-            fontWeight: "400",
-            textAlign: "center",
+            fontSize: { xs: '28px', md: '40px' },
+            fontWeight: '400',
+            textAlign: 'center',
           }}
         >
           Number verification
@@ -50,17 +50,17 @@ const AddMobile = () => {
         </Typography>
         <Box
           sx={{
-            width: { xs: "90%", sm: "70%" },
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "20px",
-            mt: "30px",
+            width: { xs: '90%', sm: '70%' },
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px',
+            mt: '30px',
           }}
         >
           <Dropdown
             options={countriesOptions}
             handleChange={(event) =>
-              formik.setFieldValue("countryCode", event.target.value)
+              formik.setFieldValue('countryCode', event.target.value)
             }
             placeholder="Country Code*"
             isCountries={true}
@@ -79,39 +79,39 @@ const AddMobile = () => {
           />
           <Box
             sx={{
-              mt: "250px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              rowGap: "20px",
+              mt: '250px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              rowGap: '20px',
             }}
           >
-            <Box sx={{ width: "250px" }}>
+            <Box sx={{ width: '250px' }}>
               <Button loading={false} type="submit">
                 Verify Number
               </Button>
             </Box>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "27px",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '27px',
               }}
             >
               <Typography
                 sx={{
-                  fontSize: "16px",
-                  fontWeight: "300",
-                  textAlign: "center",
+                  fontSize: '16px',
+                  fontWeight: '300',
+                  textAlign: 'center',
                 }}
               >
                 Already have an account?
                 <Link
                   style={{
-                    textDecoration: "none",
-                    width: "100%",
+                    textDecoration: 'none',
+                    width: '100%',
                   }}
                   to="/login"
                 >
@@ -122,7 +122,7 @@ const AddMobile = () => {
                     component="span"
                     sx={{
                       color: (theme) => theme.palette.primary.dark,
-                      textAlign: "center",
+                      textAlign: 'center',
                     }}
                     variant="gradientText"
                   >

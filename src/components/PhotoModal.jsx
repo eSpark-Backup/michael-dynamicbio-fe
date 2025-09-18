@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { useEffect, useMemo, useRef, useState } from "react";
-import OutlinedInput from "./outline-input";
-import { article, deleteIcon, event, photo, plus, video } from "../assets";
+import { Box, Typography } from '@mui/material';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import OutlinedInput from './outline-input';
+import { article, deleteIcon, event, photo, plus, video } from '../assets';
 
 const PhotoModal = ({
   title,
@@ -21,7 +21,7 @@ const PhotoModal = ({
   }, [files]);
 
   const HandlePostTypeClick = (item) => {
-    if (item === "Photo") {
+    if (item === 'Photo') {
       fileInputRef.current.click();
     }
   };
@@ -65,16 +65,16 @@ const PhotoModal = ({
     });
   };
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
       <OutlinedInput
         placeholder={placeholder}
         value={title}
         onInputChange={(e) => setTitle(e.target.value)}
         sx={{
-          height: "60px",
-          width: "100%",
-          "& .MuiOutlinedInput-root": {
-            height: "100%",
+          height: '60px',
+          width: '100%',
+          '& .MuiOutlinedInput-root': {
+            height: '100%',
           },
         }}
       />
@@ -82,27 +82,27 @@ const PhotoModal = ({
         () => (
           <Box
             sx={{
-              display: "flex",
-              backgroundColor: "#FCFCFC",
-              borderRadius: "4px",
-              height: "440px",
-              p: "15px",
-              justifyContent: "space-between",
-              flexDirection: { xs: "column", md: "row" },
-              rowGap: "10px",
+              display: 'flex',
+              backgroundColor: '#FCFCFC',
+              borderRadius: '4px',
+              height: '440px',
+              p: '15px',
+              justifyContent: 'space-between',
+              flexDirection: { xs: 'column', md: 'row' },
+              rowGap: '10px',
             }}
           >
             <Box
               sx={{
-                width: { xs: "100%", md: "80%" },
-                height: "100%",
-                position: "relative",
+                width: { xs: '100%', md: '80%' },
+                height: '100%',
+                position: 'relative',
                 backgroundImage:
                   selectedFiles?.length > 0
                     ? `url(${URL.createObjectURL(currentActiveIndex === -1 ? selectedFiles[selectedFiles?.length - 1] : selectedFiles[currentActiveIndex])})`
-                    : "",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
+                    : '',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
               }}
             >
               {selectedFiles?.length > 0 && (
@@ -110,12 +110,12 @@ const PhotoModal = ({
                   src={deleteIcon}
                   alt="Icon"
                   style={{
-                    width: "24px",
-                    height: "24px",
-                    position: "absolute",
-                    right: "15px",
-                    top: "15px",
-                    cursor: "pointer",
+                    width: '24px',
+                    height: '24px',
+                    position: 'absolute',
+                    right: '15px',
+                    top: '15px',
+                    cursor: 'pointer',
                   }}
                   onClick={() => handleDeleteFile(selectedFiles.length - 1)}
                 />
@@ -123,17 +123,17 @@ const PhotoModal = ({
             </Box>
             <Box
               sx={{
-                width: { xs: "100%", md: "18%" },
-                height: "100%",
-                overflowY: "auto",
-                display: "flex",
-                flexDirection: { xs: "row", md: "column" },
-                gap: "10px",
+                width: { xs: '100%', md: '18%' },
+                height: '100%',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: { xs: 'row', md: 'column' },
+                gap: '10px',
                 alignItems:
-                  selectedFiles.length === 1 ? "center" : "flex-start",
+                  selectedFiles.length === 1 ? 'center' : 'flex-start',
                 justifyContent:
-                  selectedFiles.length === 1 ? "center" : "flex-start",
-                overflowX: { xs: "auto", md: "hidden" },
+                  selectedFiles.length === 1 ? 'center' : 'flex-start',
+                overflowX: { xs: 'auto', md: 'hidden' },
               }}
             >
               {selectedFiles?.length > 0 &&
@@ -142,20 +142,20 @@ const PhotoModal = ({
                     <Box
                       key={index}
                       sx={{
-                        width: { xs: "125px", md: "95%" },
-                        minHeight: "125px",
-                        display: "flex",
+                        width: { xs: '125px', md: '95%' },
+                        minHeight: '125px',
+                        display: 'flex',
                         justifyContent:
                           index === selectedFiles.length - 1
-                            ? "center"
-                            : "flex-end",
-                        alignItems: "center",
+                            ? 'center'
+                            : 'flex-end',
+                        alignItems: 'center',
                         backgroundImage: `url(${URL.createObjectURL(item)})`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
-                        borderRadius: "4px",
-                        position: "relative",
-                        minWidth: { xs: "125px" },
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        borderRadius: '4px',
+                        position: 'relative',
+                        minWidth: { xs: '125px' },
                       }}
                       onClick={() => setCurrentActiveIndex(index)}
                     >
@@ -164,9 +164,9 @@ const PhotoModal = ({
                           src={plus}
                           alt="Add"
                           style={{
-                            width: "40px",
-                            height: "40px",
-                            cursor: "pointer",
+                            width: '40px',
+                            height: '40px',
+                            cursor: 'pointer',
                           }}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -178,12 +178,12 @@ const PhotoModal = ({
                           src={deleteIcon}
                           alt="Delete"
                           style={{
-                            width: "24px",
-                            height: "24px",
-                            cursor: "pointer",
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
+                            width: '24px',
+                            height: '24px',
+                            cursor: 'pointer',
+                            position: 'absolute',
+                            top: '10px',
+                            right: '10px',
                           }}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -199,45 +199,45 @@ const PhotoModal = ({
         ),
         [selectedFiles]
       )}
-      <Box sx={{ height: "50px" }}>
+      <Box sx={{ height: '50px' }}>
         {selectedFiles?.length === 0 && (
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              flexWrap: "wrap",
-              rowGap: "10px",
-              columnGap: "20px",
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              rowGap: '10px',
+              columnGap: '20px',
             }}
           >
             {[
-              { img: photo, label: "Photo" },
-              { img: video, label: "Video" },
-              { img: article, label: "Article" },
-              { img: event, label: "Event" },
+              { img: photo, label: 'Photo' },
+              { img: video, label: 'Video' },
+              { img: article, label: 'Article' },
+              { img: event, label: 'Event' },
             ].map((item, index) => (
               <Box
                 key={index}
                 sx={{
-                  width: { xs: "100%", md: "180px" },
-                  height: "50px",
-                  padding: "20px",
-                  backgroundColor: "#F8FCFF",
-                  borderRadius: "2px",
-                  display: "flex",
-                  columnGap: "15px",
-                  alignItems: "center",
-                  cursor: "pointer",
+                  width: { xs: '100%', md: '180px' },
+                  height: '50px',
+                  padding: '20px',
+                  backgroundColor: '#F8FCFF',
+                  borderRadius: '2px',
+                  display: 'flex',
+                  columnGap: '15px',
+                  alignItems: 'center',
+                  cursor: 'pointer',
                 }}
                 onClick={() => HandlePostTypeClick(item.label)}
               >
                 <img
-                  style={{ width: "24px", height: "24px" }}
+                  style={{ width: '24px', height: '24px' }}
                   src={item.img}
                   alt={item.label}
                 />
                 <Typography
-                  sx={{ fontSize: "14px", fontWeight: 500, color: "#505050" }}
+                  sx={{ fontSize: '14px', fontWeight: 500, color: '#505050' }}
                 >
                   {item.label}
                 </Typography>
@@ -250,7 +250,7 @@ const PhotoModal = ({
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         multiple
         onChange={handleFileChange}
       />

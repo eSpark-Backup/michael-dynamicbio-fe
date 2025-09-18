@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import { PageCard } from "../../../../components";
-import CreateGroupModal from "./createGroup";
-import { plus } from "../../../../assets";
+import { useEffect, useState } from 'react';
+import { Box, Stack, Typography } from '@mui/material';
+import { PageCard } from '../../../../components';
+import CreateGroupModal from './createGroup';
+import { plus } from '../../../../assets';
 
 const GroupsTab = ({
   isDeleteLoading,
@@ -23,10 +23,10 @@ const GroupsTab = ({
     setSuggestedGroups(showAll ? allGroups : allGroups?.slice(0, 4));
   }, [showAll, allGroups]);
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: '100%' }}>
       {accounts?.length > 0 ? (
         <Stack
-          sx={{ width: "100%", maxHeight: "420px", overflow: "auto" }}
+          sx={{ width: '100%', maxHeight: '420px', overflow: 'auto' }}
           mt={2}
           direction="column"
           alignItems="center"
@@ -35,7 +35,7 @@ const GroupsTab = ({
         >
           {accounts.map((group) => (
             <PageCard
-              mainType={"group"}
+              mainType={'group'}
               isFollowLoading={isFollowLoading}
               handleFollow={handleFollow}
               isDeleteLoading={isDeleteLoading}
@@ -48,28 +48,28 @@ const GroupsTab = ({
         </Stack>
       ) : (
         <Typography>
-          {type === "my-groups"
-            ? "You  don’t have any group "
+          {type === 'my-groups'
+            ? 'You  don’t have any group '
             : "You  didn't join any group "}
         </Typography>
       )}
-      {type === "my-groups" && (
+      {type === 'my-groups' && (
         <Stack
           mt={5}
-          sx={{ width: "100%" }}
+          sx={{ width: '100%' }}
           direction="row"
           alignItems="center"
           justifyContent="center"
         >
           <Stack
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: 'pointer' }}
             onClick={() => setOpen(true)}
             gap={1}
             alignItems="center"
             justifyContent="center"
           >
             <img width={52} height={52} src={plus} alt="add" />
-            <Typography>Create Group</Typography>{" "}
+            <Typography>Create Group</Typography>{' '}
           </Stack>
         </Stack>
       )}
@@ -91,15 +91,15 @@ const GroupsTab = ({
                 fontSize="14px"
                 variant="gradientText"
                 sx={{
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
               >
-                {showAll ? "View less" : "View all"}
+                {showAll ? 'View less' : 'View all'}
               </Typography>
             )}
           </Stack>
           <Stack
-            sx={{ width: "100%", maxHeight: "420px", overflow: "auto" }}
+            sx={{ width: '100%', maxHeight: '420px', overflow: 'auto' }}
             mt={2}
             direction="column"
             alignItems="center"
@@ -108,10 +108,10 @@ const GroupsTab = ({
           >
             {suggestedGroups.map((group) => (
               <PageCard
-                mainType={"group"}
+                mainType={'group'}
                 isFollowLoading={isFollowLoading}
                 handleFollow={handleFollow}
-                type={"all-groups"}
+                type={'all-groups'}
                 key={group.id}
                 {...group}
               />

@@ -1,9 +1,9 @@
-import { Stack, Typography } from "@mui/material";
-import OTPInput from "react-otp-input";
+import { Stack, Typography } from '@mui/material';
+import OTPInput from 'react-otp-input';
 
 const OtpInput = ({ placeholder, numInputs, value, onChange }) => {
   const handleOtpChange = (val) => {
-    const paddedOtp = val.padEnd(6, "_").slice(0, 6);
+    const paddedOtp = val.padEnd(6, '_').slice(0, 6);
     onChange(paddedOtp);
   };
 
@@ -13,23 +13,23 @@ const OtpInput = ({ placeholder, numInputs, value, onChange }) => {
       alignItems="center"
       justifyContent="center"
       sx={{
-        width: "100%",
-        borderRadius: "16px",
+        width: '100%',
+        borderRadius: '16px',
         div: {
-          gap: "8px",
-          height: "70px",
+          gap: '8px',
+          height: '70px',
         },
         input: {
-          fontSize: "32px",
+          fontSize: '32px',
           fontWeight: 600,
-          border: "none",
-          outline: "none",
-          color: "#000",
+          border: 'none',
+          outline: 'none',
+          color: '#000',
         },
       }}
     >
       {placeholder ? (
-        <Typography sx={{ margin: "20px 0" }} fontSize={24}>
+        <Typography sx={{ margin: '20px 0' }} fontSize={24}>
           {placeholder}
         </Typography>
       ) : (

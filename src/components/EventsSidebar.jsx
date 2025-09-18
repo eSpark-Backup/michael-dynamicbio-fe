@@ -1,21 +1,21 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { useState } from "react";
-import { conversation } from "../assets";
-import { useNewPostMutation } from "../services/post";
-import { toast } from "react-toastify";
-import DynamicModal from "./dynamic-modal";
-import ViewEventModal from "./ViewEventModal";
-import EventModal from "./EventModal";
-import { useSelector } from "react-redux";
-import ScheduleModal from "./ScheduleModal";
+import { Box, Button, Paper, Typography } from '@mui/material';
+import { useState } from 'react';
+import { conversation } from '../assets';
+import { useNewPostMutation } from '../services/post';
+import { toast } from 'react-toastify';
+import DynamicModal from './dynamic-modal';
+import ViewEventModal from './ViewEventModal';
+import EventModal from './EventModal';
+import { useSelector } from 'react-redux';
+import ScheduleModal from './ScheduleModal';
 
 const EventsSidebar = () => {
   const [eventModal, setEventModal] = useState(false);
   const [eventFormValues, setEventFormValues] = useState({});
   const [viewEventModal, setViewEventModal] = useState(false);
   const [newPost, { isLoading }] = useNewPostMutation();
-  const [title, setTitle] = useState("");
-  const [visibility, setVisibility] = useState("PUBLIC");
+  const [title, setTitle] = useState('');
+  const [visibility, setVisibility] = useState('PUBLIC');
   const { user: userData } = useSelector((state) => state.auth);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [scheduleDate, setScheduleDate] = useState(new Date());
@@ -33,9 +33,9 @@ const EventsSidebar = () => {
         title,
         ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: 'PUBLISH',
       visibility,
-      type: "EVENT",
+      type: 'EVENT',
       cover: selectedFile,
     };
     handlePost(obj);
@@ -48,10 +48,10 @@ const EventsSidebar = () => {
         return;
       }
       if (res?.data) {
-        toast.success("Your post is uploaded successfully");
+        toast.success('Your post is uploaded successfully');
         setViewEventModal(false);
         setEventFormValues({});
-        setTitle("");
+        setTitle('');
       }
     });
   };
@@ -73,28 +73,28 @@ const EventsSidebar = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
       <Paper>
-        <Box sx={{ display: "flex", columnGap: "10px" }}>
-          <img src={conversation} alt="Image" style={{ width: "60px" }} />
+        <Box sx={{ display: 'flex', columnGap: '10px' }}>
+          <img src={conversation} alt="Image" style={{ width: '60px' }} />
           <Box
-            sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}
+            sx={{ display: 'flex', flexDirection: 'column', rowGap: '10px' }}
           >
             <Typography>
               Host an event on Fusion and invite your network
             </Typography>
             <Button
               sx={{
-                display: "flex",
-                columnGap: "3px",
-                width: "180px",
-                height: "30px",
-                background: "white !important",
-                border: "1px solid black",
+                display: 'flex',
+                columnGap: '3px',
+                width: '180px',
+                height: '30px',
+                background: 'white !important',
+                border: '1px solid black',
               }}
               onClick={() => setEventModal(true)}
             >
-              <Typography sx={{ color: "black" }}>Create event</Typography>
+              <Typography sx={{ color: 'black' }}>Create event</Typography>
             </Button>
           </Box>
         </Box>
@@ -103,13 +103,13 @@ const EventsSidebar = () => {
       <DynamicModal
         open={eventModal}
         handleClose={() => setEventModal(false)}
-        title={"Create an event"}
-        buttonText={"Post"}
+        title={'Create an event'}
+        buttonText={'Post'}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => setShowScheduleModal(true)}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         hideFooter={true}
       >
         <EventModal
@@ -122,13 +122,13 @@ const EventsSidebar = () => {
       <DynamicModal
         open={viewEventModal}
         handleClose={HandleViewEventClose}
-        title={"Create an event"}
-        buttonText={"Post"}
+        title={'Create an event'}
+        buttonText={'Post'}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         hideFooter={true}
         handleGroupClick={() => {}}
         visibility={visibility}
@@ -156,15 +156,15 @@ const EventsSidebar = () => {
           setShowScheduleModal(false);
         }}
         handleClose={() => setShowScheduleModal(false)}
-        title={"Schedule post"}
-        buttonText={"Post"}
+        title={'Schedule post'}
+        buttonText={'Post'}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
       >
         <ScheduleModal
           scheduleDate={scheduleDate}

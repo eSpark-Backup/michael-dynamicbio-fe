@@ -1,13 +1,13 @@
-import dayjs from "dayjs";
-import { useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import mitt from "mitt";
-import relativeTime from "dayjs/plugin/relativeTime";
-import isToday from "dayjs/plugin/isToday";
-import isYesterday from "dayjs/plugin/isYesterday";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import dayjs from 'dayjs';
+import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import mitt from 'mitt';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import isToday from 'dayjs/plugin/isToday';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 dayjs.extend(relativeTime);
 dayjs.extend(isToday);
@@ -24,9 +24,9 @@ export function useQuery() {
 
 export const generateThumbnail = (file) => {
   return new Promise((resolve, reject) => {
-    const video = document.createElement("video");
+    const video = document.createElement('video');
     video.src = URL.createObjectURL(file);
-    video.crossOrigin = "anonymous";
+    video.crossOrigin = 'anonymous';
     video.muted = true; // Required for some browsers
     video.playsInline = true; // Prevents fullscreen on iOS
 
@@ -34,13 +34,13 @@ export const generateThumbnail = (file) => {
       video.currentTime = 0.5; // Move to the 2-second mark
 
       video.onseeked = () => {
-        const canvas = document.createElement("canvas");
+        const canvas = document.createElement('canvas');
         canvas.width = 300;
         canvas.height = 200;
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext('2d');
 
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const thumbnailURL = canvas.toDataURL("image/png");
+        const thumbnailURL = canvas.toDataURL('image/png');
 
         // Cleanup
         URL.revokeObjectURL(video.src);
@@ -69,22 +69,22 @@ export const formatEventTime = (
   endTime = null
 ) => {
   const options = {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   };
-  const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
+  const timeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
 
   const timeZoneOffset = new Date().getTimezoneOffset() / -60;
   const timeZoneString = `(UTC ${
-    timeZoneOffset >= 0 ? "+" : ""
+    timeZoneOffset >= 0 ? '+' : ''
   }${timeZoneOffset}:00)`;
 
-  const startDateStr = new Intl.DateTimeFormat("en-US", options).format(
+  const startDateStr = new Intl.DateTimeFormat('en-US', options).format(
     startDate
   );
-  const startTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(
+  const startTimeStr = new Intl.DateTimeFormat('en-US', timeOptions).format(
     startTime
   );
 
@@ -92,8 +92,8 @@ export const formatEventTime = (
     return `${startDateStr}, ${startTimeStr} ${timeZoneString}`;
   }
 
-  const endDateStr = new Intl.DateTimeFormat("en-US", options).format(endDate);
-  const endTimeStr = new Intl.DateTimeFormat("en-US", timeOptions).format(
+  const endDateStr = new Intl.DateTimeFormat('en-US', options).format(endDate);
+  const endTimeStr = new Intl.DateTimeFormat('en-US', timeOptions).format(
     endTime
   );
 
@@ -104,9 +104,9 @@ export const formatEventTime = (
   }
 };
 export function maskEmail(email) {
-  const [name, domain] = email.split("@");
+  const [name, domain] = email.split('@');
   if (name.length > 2) {
-    const maskedName = name.slice(0, 2) + "*".repeat(name.length - 2);
+    const maskedName = name.slice(0, 2) + '*'.repeat(name.length - 2);
     return `${maskedName}@${domain}`;
   }
   return email;
@@ -115,35 +115,35 @@ export function maskEmail(email) {
 export const copyToClipboard = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.success('Copied to clipboard!');
     return true;
   } catch (error) {
-    toast.error("Failed to copy to clipboard", error);
+    toast.error('Failed to copy to clipboard', error);
     return false;
   }
 };
 
 export function formatEventPostTime(startTime, endTime = null) {
   const start = dayjs.utc(startTime).local();
-  const today = dayjs().startOf("day");
+  const today = dayjs().startOf('day');
 
   let dateLabel;
-  if (start.isSame(today, "day")) {
-    dateLabel = "Today";
-  } else if (start.isSame(today.add(1, "day"), "day")) {
-    dateLabel = "Tomorrow";
+  if (start.isSame(today, 'day')) {
+    dateLabel = 'Today';
+  } else if (start.isSame(today.add(1, 'day'), 'day')) {
+    dateLabel = 'Tomorrow';
   } else {
-    dateLabel = start.format("MMMM D, YYYY");
+    dateLabel = start.format('MMMM D, YYYY');
   }
 
-  const formattedStartTime = start.format("h:mm A");
+  const formattedStartTime = start.format('h:mm A');
 
   if (!endTime) {
     return `${dateLabel}, ${formattedStartTime}`;
   }
 
   const end = dayjs.utc(endTime).local();
-  const formattedEndTime = end.format("h:mm A");
+  const formattedEndTime = end.format('h:mm A');
 
   return `${dateLabel}, ${formattedStartTime} - ${formattedEndTime}`;
 }
@@ -152,14 +152,14 @@ export function formatEventTimeLocal(startTime, endTime) {
   const start = dayjs(startTime);
   const end = dayjs(endTime);
 
-  const dateFormat = "ddd, MMM D, YYYY";
-  const timeFormat = "h:mm A";
+  const dateFormat = 'ddd, MMM D, YYYY';
+  const timeFormat = 'h:mm A';
 
   const dateStr = start.format(dateFormat);
   const startTimeStr = start.format(timeFormat);
   const endTimeStr = end.format(timeFormat);
 
-  if (start.isSame(end, "minute")) {
+  if (start.isSame(end, 'minute')) {
     return `${dateStr}, ${startTimeStr}`;
   }
 
@@ -172,20 +172,20 @@ export const formatDate = (isoString) => {
   const date = new Date(isoString);
 
   const day = date.getDate();
-  const month = date.toLocaleString("default", { month: "long" });
+  const month = date.toLocaleString('default', { month: 'long' });
   const year = date.getFullYear();
 
   const getOrdinalSuffix = (n) => {
-    if (n > 3 && n < 21) return "th";
+    if (n > 3 && n < 21) return 'th';
     switch (n % 10) {
       case 1:
-        return "st";
+        return 'st';
       case 2:
-        return "nd";
+        return 'nd';
       case 3:
-        return "rd";
+        return 'rd';
       default:
-        return "th";
+        return 'th';
     }
   };
 
@@ -207,10 +207,10 @@ export const getDaysLeft = (isoDate) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   if (diffDays < 0) {
-    return "Poll ended";
+    return 'Poll ended';
   }
 
-  return `${diffDays} day${diffDays !== 1 ? "s" : ""} left`;
+  return `${diffDays} day${diffDays !== 1 ? 's' : ''} left`;
 };
 
 export function convertToFormData(data) {
@@ -220,7 +220,7 @@ export function convertToFormData(data) {
     const isEmpty =
       value === undefined ||
       value === null ||
-      (typeof value === "string" && value.trim() === "") ||
+      (typeof value === 'string' && value.trim() === '') ||
       (Array.isArray(value) && value.length === 0);
 
     if (!isEmpty) {
@@ -238,41 +238,41 @@ export function toCapitalized(str) {
 
 export const getDesc = (item) => {
   switch (item?.type) {
-    case "birthday":
-      return dayjs().isSame(dayjs(item?.dob), "day")
+    case 'birthday':
+      return dayjs().isSame(dayjs(item?.dob), 'day')
         ? `Celebrate ${item?.firstName} ${item?.lastName}'s birthday today`
         : `Celebrate ${item?.firstName} ${
             item?.lastName
-          }'s recent birthday on ${dayjs(item?.dob).format("MMM D")}`;
-    case "anniversary":
+          }'s recent birthday on ${dayjs(item?.dob).format('MMM D')}`;
+    case 'anniversary':
       return `Completed ${item?.yearsCompleted} year at ${item?.company}`;
-    case "jobChange":
+    case 'jobChange':
       return `Started a new position as ${item?.designation} at ${item?.company}`;
-    case "educationChange":
-      return item?.changeType === "startedEducation"
+    case 'educationChange':
+      return item?.changeType === 'startedEducation'
         ? `Congratulate ${item?.firstName} ${item?.lastName} on starting school at ${item?.institution}`
         : `Congratulate ${item?.firstName} ${item?.lastName} on completing school at ${item?.institution}`;
     default:
-      return "";
+      return '';
   }
 };
 
 export const getMessage = (item) => {
-  let message = "";
+  let message = '';
 
   switch (item?.type) {
-    case "birthday":
-      message = "Wishing you a very happy birthday!";
+    case 'birthday':
+      message = 'Wishing you a very happy birthday!';
       break;
-    case "anniversary":
+    case 'anniversary':
       message = `Congrats on your ${item?.yearsCompleted} year anniversary at ${item?.company}`;
       break;
-    case "jobChange":
+    case 'jobChange':
       message = `Congrats on starting your new role at ${item?.company}`;
       break;
-    case "educationChange":
+    case 'educationChange':
       message =
-        item?.changeType === "startedEducation"
+        item?.changeType === 'startedEducation'
           ? `Congrats on starting at ${item?.institution}`
           : `Congrats on finishing up at ${item?.institution}`;
       break;
@@ -327,34 +327,34 @@ export function formatChatTimestamp(isoDate) {
   const date = dayjs(isoDate).tz(userTimeZone);
 
   if (date.isToday()) {
-    return `Today ${date.format("h:mma")}`;
+    return `Today ${date.format('h:mma')}`;
   } else if (date.isYesterday()) {
-    return `Yesterday ${date.format("h:mma")}`;
-  } else if (now.diff(date, "day") < 7) {
-    return date.format("dddd h:mma");
+    return `Yesterday ${date.format('h:mma')}`;
+  } else if (now.diff(date, 'day') < 7) {
+    return date.format('dddd h:mma');
   } else {
-    return date.format("MMM D, h:mma");
+    return date.format('MMM D, h:mma');
   }
 }
 
 export function toTitleCase(name) {
-  if (!name || typeof name !== "string") return name;
+  if (!name || typeof name !== 'string') return name;
   return name
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, " ")
-    .split(" ")
+    .replace(/\s+/g, ' ')
+    .split(' ')
     .map((word) =>
       word
         .split(/([-'])/)
         .map((part) =>
-          part === "-" || part === "'"
+          part === '-' || part === "'"
             ? part
             : part
               ? part[0].toUpperCase() + part.slice(1)
               : part
         )
-        .join("")
+        .join('')
     )
-    .join(" ");
+    .join(' ');
 }

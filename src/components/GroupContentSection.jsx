@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import dayjs from "dayjs";
-import { Box, CircularProgress, Paper, Typography } from "@mui/material";
-import SuggestionPost from "./SuggestionPost";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
+import { Box, CircularProgress, Paper, Typography } from '@mui/material';
+import SuggestionPost from './SuggestionPost';
 import {
   useGetGroupPendingPostQuery,
   useUpdateGroupPendingPostMutation,
-} from "../services/group";
-import { getDaysLeft } from "../utils";
+} from '../services/group';
+import { getDaysLeft } from '../utils';
 
 const GroupContentSection = () => {
   const { id } = useParams();
 
   const tabs = [
     {
-      label: "Pending Posts",
+      label: 'Pending Posts',
       component: <></>,
     },
   ];
@@ -52,31 +52,31 @@ const GroupContentSection = () => {
         userRole: user?.company,
         postTime: dayjs(item?.createdAt).fromNow(),
         userImage: user?.profileImage,
-        activity: "",
+        activity: '',
         postPic: item?.media?.IMAGES?.map((mediaItem) => mediaItem?.url) || [],
         postContent: item?.content?.title,
         type: getPostType(item?.type),
-        videoUrl: item?.type === "VIDEO" ? item?.media["VIDEOS"][0]?.url : "",
+        videoUrl: item?.type === 'VIDEO' ? item?.media['VIDEOS'][0]?.url : '',
         thumbnail:
-          item?.type === "VIDEO" ? item?.media["THUMBNAILS"][0]?.url : "",
-        question: item?.type === "POLL" ? item?.poll?.question : "",
+          item?.type === 'VIDEO' ? item?.media['THUMBNAILS'][0]?.url : '',
+        question: item?.type === 'POLL' ? item?.poll?.question : '',
         options: getPollOptions(item),
         voteCount: item?.poll?.votes?.length || 0,
-        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : "",
-        pollId: item?.poll?.id || "",
+        endDate: item?.poll?.endDate ? getDaysLeft(item?.poll?.endDate) : '',
+        pollId: item?.poll?.id || '',
         eventName: item?.content?.name,
-        eventImage: item?.type === "EVENT" && item?.media["EVENTS"][0]?.url,
+        eventImage: item?.type === 'EVENT' && item?.media['EVENTS'][0]?.url,
         startTime: item?.content?.startTime,
         endTime: item?.content?.showEndTime && item?.content?.endTime,
         eventType: item?.content?.eventType,
         eventLink: item?.content?.externalLink,
         attendees: [{ image: user }],
-        eventPost: "bringback",
+        eventPost: 'bringback',
         id: item?.id,
         articleImage:
-          item?.type === "ARTICLE" ? item?.media["ARTICLES"][0]?.url : "",
-        articleTitle: item?.type === "ARTICLE" && item?.content?.articleTitle,
-        articleDescription: item?.type === "ARTICLE" && item?.content?.content,
+          item?.type === 'ARTICLE' ? item?.media['ARTICLES'][0]?.url : '',
+        articleTitle: item?.type === 'ARTICLE' && item?.content?.articleTitle,
+        articleDescription: item?.type === 'ARTICLE' && item?.content?.content,
         commentVisibility: false,
         canComment: false,
       };
@@ -85,18 +85,18 @@ const GroupContentSection = () => {
 
   const getPostType = (type) => {
     const typeMap = {
-      IMAGE: "normal",
-      VIDEO: "video",
-      TEXT: "normal",
-      POLL: "poll",
-      EVENT: "event",
-      ARTICLE: "article",
+      IMAGE: 'normal',
+      VIDEO: 'video',
+      TEXT: 'normal',
+      POLL: 'poll',
+      EVENT: 'event',
+      ARTICLE: 'article',
     };
-    return typeMap[type] || "";
+    return typeMap[type] || '';
   };
 
   const getPollOptions = (item) => {
-    if (item?.type !== "POLL") return [];
+    if (item?.type !== 'POLL') return [];
     return [
       ...(item?.poll?.options?.map((option, index) => ({
         id: index + 3,
@@ -118,7 +118,7 @@ const GroupContentSection = () => {
     const credentials = {
       action,
       rejectionReason:
-        action === "reject" ? "This post violates group rules" : "",
+        action === 'reject' ? 'This post violates group rules' : '',
     };
     setIsUpdateLoading({
       id,
@@ -143,30 +143,30 @@ const GroupContentSection = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "calc(100vh - 150px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          height: 'calc(100vh - 150px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <CircularProgress sx={{ color: "#1877F2" }} />
+        <CircularProgress sx={{ color: '#1877F2' }} />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ margin: "20px 25px" }}>
+    <Box sx={{ margin: '20px 25px' }}>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: { xs: "column", md: "row" },
-          rowGap: "20px",
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: { xs: 'column', md: 'row' },
+          rowGap: '20px',
         }}
       >
-        <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
-          <Paper sx={{ p: "0px" }}>
+        <Box sx={{ width: { xs: '100%', md: '30%', lg: '20%' } }}>
+          <Paper sx={{ p: '0px' }}>
             {tabs?.map((item, index) => {
               const isActive = item.label === activeTab.label;
               return (
@@ -174,37 +174,37 @@ const GroupContentSection = () => {
                   key={index}
                   onClick={() => setActiveTab(item)}
                   sx={{
-                    p: "15px 30px",
-                    cursor: "pointer",
-                    position: "relative",
+                    p: '15px 30px',
+                    cursor: 'pointer',
+                    position: 'relative',
                     background:
-                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                    "-webkit-background-clip": "text",
-                    "-webkit-text-fill-color": isActive
-                      ? "transparent"
-                      : "#000",
-                    "&::after": {
+                      'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                    '-webkit-background-clip': 'text',
+                    '-webkit-text-fill-color': isActive
+                      ? 'transparent'
+                      : '#000',
+                    '&::after': {
                       content: '""',
-                      display: isActive ? "block" : "none",
-                      width: "6px",
-                      height: "100%",
+                      display: isActive ? 'block' : 'none',
+                      width: '6px',
+                      height: '100%',
                       background:
-                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                      position: "absolute",
-                      bottom: "0px",
-                      left: "0px",
-                      borderRadius: "2px",
+                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                      position: 'absolute',
+                      bottom: '0px',
+                      left: '0px',
+                      borderRadius: '2px',
                     },
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#171717",
-                      lineHeight: "normal",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#171717',
+                      lineHeight: 'normal',
                     }}
-                    variant={isActive ? "gradientText" : "subtitle2"}
+                    variant={isActive ? 'gradientText' : 'subtitle2'}
                   >
                     {item.label}
                   </Typography>
@@ -215,14 +215,14 @@ const GroupContentSection = () => {
         </Box>
         <Box
           sx={{
-            width: { xs: "100%", md: "65%", lg: "78%" },
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "20px",
+            width: { xs: '100%', md: '65%', lg: '78%' },
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px',
           }}
         >
           <Box
-            sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+            sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
           >
             {posts?.length > 0 ? (
               posts.map((item) => (

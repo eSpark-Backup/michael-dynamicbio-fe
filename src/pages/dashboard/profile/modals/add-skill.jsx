@@ -1,18 +1,18 @@
-import { useDispatch } from "react-redux";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { Box } from "@mui/material";
-import { DynamicModal, Input } from "../../../../components";
-import { useUpdateUserInfoMutation } from "../../../../services/auth";
-import { updateUser } from "../../../../store/slices/auth";
-import { skillSchema } from "../../../../schemas";
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { Box } from '@mui/material';
+import { DynamicModal, Input } from '../../../../components';
+import { useUpdateUserInfoMutation } from '../../../../services/auth';
+import { updateUser } from '../../../../store/slices/auth';
+import { skillSchema } from '../../../../schemas';
 
 const AddSkillModal = ({ userData, open, handleClose }) => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserInfoMutation();
   const formik = useFormik({
     initialValues: {
-      skill: "",
+      skill: '',
     },
     validationSchema: skillSchema,
     onSubmit: (values) => {
@@ -28,7 +28,7 @@ const AddSkillModal = ({ userData, open, handleClose }) => {
           return;
         }
         if (res) {
-          toast.success("Your skill added successfully");
+          toast.success('Your skill added successfully');
           dispatch(updateUser(res?.data?.data));
           onClose();
         }
@@ -52,11 +52,11 @@ const AddSkillModal = ({ userData, open, handleClose }) => {
     >
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          ".MuiOutlinedInput-root": { height: "auto !important" },
-          textarea: { paddingBottom: "20px" },
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          '.MuiOutlinedInput-root': { height: 'auto !important' },
+          textarea: { paddingBottom: '20px' },
         }}
       >
         <Input

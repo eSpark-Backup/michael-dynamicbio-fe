@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { Box, Typography, useTheme } from "@mui/material";
-import { Button, Input } from "../../../components";
-import { signupSchema } from "../../../schemas";
-import { useRegisterMutation } from "../../../services/auth";
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { Box, Typography, useTheme } from '@mui/material';
+import { Button, Input } from '../../../components';
+import { signupSchema } from '../../../schemas';
+import { useRegisterMutation } from '../../../services/auth';
 
 const Signup = () => {
   const [register, { isLoading }] = useRegisterMutation();
@@ -13,11 +13,11 @@ const Signup = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      conPassword: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      conPassword: '',
     },
     validationSchema: signupSchema,
     onSubmit: (values) => {
@@ -26,8 +26,8 @@ const Signup = () => {
         lastName: values?.lastName,
         email: values?.email,
         password: values?.password,
-        loginType: "local",
-        role: "user",
+        loginType: 'local',
+        role: 'user',
       };
       register(dataToSend).then((res) => {
         if (res?.error) {
@@ -36,7 +36,7 @@ const Signup = () => {
         }
         if (res) {
           navigate(`/verify-email?email=${values.email}`);
-          localStorage.setItem("temp_user_data", JSON.stringify(dataToSend));
+          localStorage.setItem('temp_user_data', JSON.stringify(dataToSend));
         }
       });
     },
@@ -48,29 +48,29 @@ const Signup = () => {
         component="form"
         onSubmit={formik.handleSubmit}
         sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          rowGap: "20px",
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          rowGap: '20px',
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: "28px", md: "40px" },
-            fontWeight: "400",
-            textAlign: "center",
+            fontSize: { xs: '28px', md: '40px' },
+            fontWeight: '400',
+            textAlign: 'center',
           }}
         >
           Sign Up
         </Typography>
         <Box
           sx={{
-            width: { xs: "90%", sm: "70%" },
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "20px",
+            width: { xs: '90%', sm: '70%' },
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '20px',
           }}
         >
           <Input
@@ -99,9 +99,9 @@ const Signup = () => {
             helperText={formik.touched.email && formik.errors.email}
           />
           <Input
-            label={"Password"}
-            name={"password"}
-            type={"password"}
+            label={'Password'}
+            name={'password'}
+            type={'password'}
             value={formik.values.password}
             handleChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -109,9 +109,9 @@ const Signup = () => {
             helperText={formik.touched.password && formik.errors.password}
           />
           <Input
-            label={"Confirm Password*"}
-            name={"conPassword"}
-            type={"password"}
+            label={'Confirm Password*'}
+            name={'conPassword'}
+            type={'password'}
             value={formik.values.conPassword}
             handleChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -122,39 +122,39 @@ const Signup = () => {
           />
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              rowGap: "20px",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              rowGap: '20px',
             }}
           >
-            <Box sx={{ width: "250px" }}>
+            <Box sx={{ width: '250px' }}>
               <Button loading={isLoading} type="submit">
                 Confirm Email
               </Button>
             </Box>
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "27px",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '27px',
                 mb: 5,
               }}
             >
               <Typography
                 sx={{
-                  fontSize: "16px",
-                  fontWeight: "300",
-                  textAlign: "center",
+                  fontSize: '16px',
+                  fontWeight: '300',
+                  textAlign: 'center',
                 }}
               >
                 Already have an account?
                 <Link
                   style={{
-                    textDecoration: "none",
-                    width: "100%",
+                    textDecoration: 'none',
+                    width: '100%',
                   }}
                   to="/login"
                 >
@@ -164,7 +164,7 @@ const Signup = () => {
                     fontWeight={400}
                     component="span"
                     color={theme.palette.primary.dark}
-                    sx={{ textAlign: "center" }}
+                    sx={{ textAlign: 'center' }}
                     variant="gradientText"
                   >
                     Login

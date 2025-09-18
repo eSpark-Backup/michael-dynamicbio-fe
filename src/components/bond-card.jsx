@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import Button from "./button";
-import { useUpdateBondReqMutation } from "../services/bonds";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import Button from './button';
+import { useUpdateBondReqMutation } from '../services/bonds';
 import {
   bondBlack2,
   close,
@@ -13,7 +13,7 @@ import {
   pendingWhite,
   pendingBlack,
   cancelBlack,
-} from "../assets";
+} from '../assets';
 
 const BondCard = ({
   handleRemoveUser,
@@ -50,12 +50,12 @@ const BondCard = ({
     if (isPending) {
       setAnchorEl(e.currentTarget);
       setSelected(id);
-      setType("pending");
+      setType('pending');
       return;
     } else if (isFriend) {
       setAnchorEl(e.currentTarget);
       setSelected(id);
-      setType("cancel");
+      setType('cancel');
       return;
     } else {
       handleSendBondReq(id);
@@ -73,11 +73,11 @@ const BondCard = ({
     const bodyToSend = {
       bondId: selected,
       action:
-        type === "pending"
+        type === 'pending'
           ? requestSentByMe
-            ? "canceled"
-            : "rejected"
-          : "unfriend",
+            ? 'canceled'
+            : 'rejected'
+          : 'unfriend',
     };
     updateReq(bodyToSend).then((res) => {
       if (res?.error) {
@@ -95,11 +95,11 @@ const BondCard = ({
     <Box
       onClick={() => navigate(`/profile/${id}`)}
       sx={{
-        padding: "10px 20px 20px 20px",
-        width: "224px",
-        background: "#F2F8FD",
-        position: "relative",
-        cursor: "pointer",
+        padding: '10px 20px 20px 20px',
+        width: '224px',
+        background: '#F2F8FD',
+        position: 'relative',
+        cursor: 'pointer',
       }}
     >
       <img
@@ -108,28 +108,28 @@ const BondCard = ({
           handleRemoveUser(id);
         }}
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           right: 0,
-          cursor: "pointer",
+          cursor: 'pointer',
         }}
         src={close}
         alt="close"
       />
       <Box
         sx={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          "&:after": {
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '&:after': {
             content: '""',
             backgroundImage: coverImage
               ? `url(${coverImage})`
-              : "linear-gradient(180deg, #948F8F 0%, #2E2C2C 100%)",
-            width: "calc(100% - 40px)",
-            height: "36px",
-            position: "absolute",
+              : 'linear-gradient(180deg, #948F8F 0%, #2E2C2C 100%)',
+            width: 'calc(100% - 40px)',
+            height: '36px',
+            position: 'absolute',
             top: 0,
             zIndex: 1,
           },
@@ -137,9 +137,9 @@ const BondCard = ({
       >
         <img
           style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
             zIndex: 2,
           }}
           src={profileImage || userAvatar}
@@ -150,13 +150,13 @@ const BondCard = ({
         textAlign="center"
         mt={1}
         fontWeight={500}
-        textTransform={"capitalize"}
+        textTransform={'capitalize'}
       >
         {`${firstName} ${lastName}`}
       </Typography>
       {designation && (
         <Typography
-          sx={{ color: "#505050" }}
+          sx={{ color: '#505050' }}
           mb={1}
           textAlign="center"
           fontSize="12px"
@@ -188,7 +188,7 @@ const BondCard = ({
       <Button
         loading={isLoading || (isUpdateReqLoading && bondId === selected)}
         disabled={isLoading || (isUpdateReqLoading && bondId === selected)}
-        sx={{ mt: 1, height: "48px", position: "relative" }}
+        sx={{ mt: 1, height: '48px', position: 'relative' }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={(e) => {
@@ -198,12 +198,12 @@ const BondCard = ({
       >
         <img
           style={{
-            position: "absolute",
-            top: "50%",
-            right: "10px",
-            transform: "translateY(-50%)",
+            position: 'absolute',
+            top: '50%',
+            right: '10px',
+            transform: 'translateY(-50%)',
             opacity: hovered ? 1 : 0,
-            transition: "all 0.3s ease-in-out",
+            transition: 'all 0.3s ease-in-out',
           }}
           src={isPending ? pendingWhite : isFriend ? cancelWhite : bondWhite}
           alt="add"
@@ -211,37 +211,37 @@ const BondCard = ({
 
         <img
           style={{
-            position: "absolute",
-            top: "50%",
-            right: "10px",
-            transform: "translateY(-50%)",
+            position: 'absolute',
+            top: '50%',
+            right: '10px',
+            transform: 'translateY(-50%)',
             opacity: hovered ? 0 : 1,
-            transition: "all 0.3s ease-in-out",
+            transition: 'all 0.3s ease-in-out',
           }}
           src={isPending ? pendingBlack : isFriend ? cancelBlack : bondBlack2}
           alt="add"
         />
-        {isPending ? "Pending" : isFriend ? "Bonded" : "Bond"}
+        {isPending ? 'Pending' : isFriend ? 'Bonded' : 'Bond'}
       </Button>
       <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem onClick={(e) => handleBondReq(e, type)}>
-          {type === "pending"
+          {type === 'pending'
             ? requestSentByMe
-              ? "Withdraw request"
-              : "Reject request"
-            : "Remove bond"}
+              ? 'Withdraw request'
+              : 'Reject request'
+            : 'Remove bond'}
         </MenuItem>
       </Menu>
     </Box>

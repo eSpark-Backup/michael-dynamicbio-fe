@@ -1,10 +1,10 @@
-import { useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useGetGeneralPageQuery } from "../../../services/general";
-import { Box, CircularProgress } from "@mui/material";
+import { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useGetGeneralPageQuery } from '../../../services/general';
+import { Box, CircularProgress } from '@mui/material';
 
 const GeneralPage = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   // Use useMemo to get the raw encoded `data` parameter
@@ -26,37 +26,37 @@ const GeneralPage = () => {
 
   useEffect(() => {
     if (getGeneralData && getGeneralSuccess) {
-      if (getGeneralData?.data?.type === "ARTICLE") {
+      if (getGeneralData?.data?.type === 'ARTICLE') {
         if (token) {
           navigate(`/article/${getGeneralData?.data?.id}`);
         } else {
           navigate(`/general/article?data=${encodedData}`);
         }
-      } else if (getGeneralData?.data?.type === "EVENT") {
+      } else if (getGeneralData?.data?.type === 'EVENT') {
         if (token) {
           navigate(`/event/${getGeneralData?.data?.id}`);
         } else {
           navigate(`/general/event?data=${encodedData}`);
         }
-      } else if (getGeneralData?.data?.type === "TEXT") {
+      } else if (getGeneralData?.data?.type === 'TEXT') {
         if (token) {
           navigate(`/post/${getGeneralData?.data?.id}`);
         } else {
           navigate(`/general/text?data=${encodedData}`);
         }
-      } else if (getGeneralData?.data?.type === "IMAGE") {
+      } else if (getGeneralData?.data?.type === 'IMAGE') {
         if (token) {
           navigate(`/post/${getGeneralData?.data?.id}`);
         } else {
           navigate(`/general/image?data=${encodedData}`);
         }
-      } else if (getGeneralData?.data?.type === "VIDEO") {
+      } else if (getGeneralData?.data?.type === 'VIDEO') {
         if (token) {
           navigate(`/post/${getGeneralData?.data?.id}`);
         } else {
           navigate(`/general/video?data=${encodedData}`);
         }
-      } else if (getGeneralData?.data?.type === "POLL") {
+      } else if (getGeneralData?.data?.type === 'POLL') {
         if (token) {
           navigate(`/post/${getGeneralData?.data?.id}`);
         } else {
@@ -70,11 +70,11 @@ const GeneralPage = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <CircularProgress />

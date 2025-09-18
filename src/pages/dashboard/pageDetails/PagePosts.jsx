@@ -5,10 +5,10 @@ import {
   MenuItem,
   Paper,
   Typography,
-} from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { copyLink, deleteIcon, editBlue, noPosts, pin } from "../../../assets";
-import { generateThumbnail } from "../../../utils";
+} from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { copyLink, deleteIcon, editBlue, noPosts, pin } from '../../../assets';
+import { generateThumbnail } from '../../../utils';
 import {
   DynamicModal,
   EventModal,
@@ -21,9 +21,9 @@ import {
   SuggestionPost,
   VideoModal,
   ViewEventModal,
-} from "../../../components";
-import { useNavigate } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+} from '../../../components';
+import { useNavigate } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const PagePosts = ({
   handleDropdown,
@@ -58,18 +58,18 @@ const PagePosts = ({
   };
 
   const HandlePostTypeClick = (item) => {
-    if (item === "Photo") {
+    if (item === 'Photo') {
       fileInputRef.current.click();
-    } else if (item === "Video") {
+    } else if (item === 'Video') {
       videoInputRef.current.click();
-    } else if (item === "Event") {
+    } else if (item === 'Event') {
       setEventModal(true);
       setShowPostModal(false);
-    } else if (item === "Poll") {
+    } else if (item === 'Poll') {
       setPollModal(true);
       setShowPostModal(false);
-    } else if (item === "Article") {
-      navigate("/article");
+    } else if (item === 'Article') {
+      navigate('/article');
     }
   };
 
@@ -99,7 +99,7 @@ const PagePosts = ({
         const thumbnail = await generateThumbnail(file);
         setVideoData({ video: file, thumbnail });
       } catch (error) {
-        console.error("Error generating thumbnail:", error);
+        console.error('Error generating thumbnail:', error);
       }
     }
   };
@@ -140,7 +140,7 @@ const PagePosts = ({
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '10px' }}>
       <Paper>
         <PostCard
           handleDropDown={handleDropdown}
@@ -153,14 +153,14 @@ const PagePosts = ({
       <Box>
         <Box
           sx={{
-            backgroundColor: "#fff",
-            borderTopRightRadius: "4px",
-            borderTopLeftRadius: "4px",
-            p: "10px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            border: "1px solid #E4E4E4",
+            backgroundColor: '#fff',
+            borderTopRightRadius: '4px',
+            borderTopLeftRadius: '4px',
+            p: '10px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            border: '1px solid #E4E4E4',
           }}
         >
           <Typography>
@@ -168,32 +168,32 @@ const PagePosts = ({
           </Typography>
           <Box
             sx={{
-              width: "90px",
-              height: "36px",
-              borderRadius: "2px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              background: "white",
-              position: "relative",
-              "&::before": {
+              width: '90px',
+              height: '36px',
+              borderRadius: '2px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              background: 'white',
+              position: 'relative',
+              '&::before': {
                 content: '""',
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                borderRadius: "8px",
-                padding: "1px",
+                borderRadius: '8px',
+                padding: '1px',
                 background:
-                  "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                  'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
                 WebkitMask:
-                  "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                WebkitMaskComposite: "destination-out",
-                maskComposite: "exclude",
+                  'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                WebkitMaskComposite: 'destination-out',
+                maskComposite: 'exclude',
               },
-              cursor: "pointer",
+              cursor: 'pointer',
             }}
           >
             <Typography variant="gradientText">Boost</Typography>
@@ -207,37 +207,37 @@ const PagePosts = ({
           endMessage={
             <Paper
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                rowGap: "20px",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                rowGap: '20px',
               }}
             >
               {posts.length === 0 && <img src={noPosts} alt="Image" />}
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  rowGap: "2px",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  rowGap: '2px',
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "24px",
-                    fontWeight: "500",
-                    color: "#171717",
-                    textAlign: "center",
+                    fontSize: '24px',
+                    fontWeight: '500',
+                    color: '#171717',
+                    textAlign: 'center',
                   }}
                 >
-                  {posts.length === 0 ? "No posts available" : "No more posts"}
+                  {posts.length === 0 ? 'No posts available' : 'No more posts'}
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: "17px",
-                    fontWeight: "400",
-                    color: "#505050",
-                    textAlign: "center",
+                    fontSize: '17px',
+                    fontWeight: '400',
+                    color: '#505050',
+                    textAlign: 'center',
                   }}
                 >
                   Check back later for posts!
@@ -247,7 +247,7 @@ const PagePosts = ({
           }
         >
           <Box
-            sx={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
+            sx={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
           >
             {posts.map((item) => (
               <SuggestionPost key={item.id} {...item} />
@@ -260,7 +260,7 @@ const PagePosts = ({
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         multiple
         onChange={handleFileChange}
       />
@@ -269,24 +269,24 @@ const PagePosts = ({
         type="file"
         ref={videoInputRef}
         accept="video/*"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         onChange={handleVideoChange}
       />
 
       <DynamicModal
         open={showModal}
         handleClose={HandleModalClose}
-        title={"Hello"}
-        buttonText={"Post"}
+        title={'Hello'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         handleGroupClick={() => {}}
       >
         <PhotoModal
           files={selectedFiles}
-          placeholder={"Say something about this photo"}
+          placeholder={'Say something about this photo'}
           handleClose={HandleModalClose}
         />
       </DynamicModal>
@@ -294,17 +294,17 @@ const PagePosts = ({
       <DynamicModal
         open={videoModal}
         handleClose={() => setVideoModal(false)}
-        title={"Hello"}
-        buttonText={"Post"}
+        title={'Hello'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => {}}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
       >
         <VideoModal
           file={videoData}
-          placeholder={"Say something about this video"}
+          placeholder={'Say something about this video'}
           handleClose={HandleVideoModalClose}
         />
       </DynamicModal>
@@ -312,17 +312,17 @@ const PagePosts = ({
       <DynamicModal
         open={showPostModal}
         handleClose={() => setShowPostModal(false)}
-        title={"Hello"}
-        buttonText={"Post"}
+        title={'Hello'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
         dropdownHeader={true}
         handleGroupClick={() => {}}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
       >
         <PostModal
           fileChange={HandleSelectedFile}
-          placeholder={"What do you want to talk about?"}
+          placeholder={'What do you want to talk about?'}
           videoChange={handleVideoChange}
           openModal={HandlePostTypeClick}
         />
@@ -331,13 +331,13 @@ const PagePosts = ({
       <DynamicModal
         open={showScheduleModal}
         handleClose={() => setShowScheduleModal(false)}
-        title={"Schedule post"}
-        buttonText={"Post"}
+        title={'Schedule post'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
       >
         <ScheduleModal />
       </DynamicModal>
@@ -345,8 +345,8 @@ const PagePosts = ({
       <DynamicModal
         open={pollModal}
         handleClose={() => setPollModal(false)}
-        title={"Create a poll"}
-        buttonText={"Post"}
+        title={'Create a poll'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => {}}
         styledHeader={true}
@@ -361,11 +361,11 @@ const PagePosts = ({
       <DynamicModal
         open={eventModal}
         handleClose={() => setEventModal(false)}
-        title={"Create an event"}
-        buttonText={"Post"}
+        title={'Create an event'}
+        buttonText={'Post'}
         postModal={true}
         handleScheduleClick={() => setShowScheduleModal(true)}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         hideFooter={true}
       >
         <EventModal
@@ -378,11 +378,11 @@ const PagePosts = ({
       <DynamicModal
         open={viewEventModal}
         handleClose={() => setViewEventModal(false)}
-        title={"Create an event"}
-        buttonText={"Post"}
+        title={'Create an event'}
+        buttonText={'Post'}
         postModal={true}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         hideFooter={true}
         handleGroupClick={() => {}}
       >
@@ -397,8 +397,8 @@ const PagePosts = ({
       <DynamicModal
         open={postChoiceModal}
         handleClose={() => setPostChoiceModal(false)}
-        title={"Comment, react, and repost as"}
-        buttonText={"Save"}
+        title={'Comment, react, and repost as'}
+        buttonText={'Save'}
         postModal={true}
         hideFooter={true}
         smallModal={true}
@@ -412,66 +412,66 @@ const PagePosts = ({
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem
           onClick={handleClose}
-          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
         >
           <img
             src={editBlue}
             alt="Icon"
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
           />
           <Typography
-            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
           >
             Edit post
           </Typography>
         </MenuItem>
         <MenuItem
           onClick={handleClose}
-          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
         >
           <img
             src={deleteIcon}
             alt="Icon"
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
           />
           <Typography
-            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
           >
             Delete post
           </Typography>
         </MenuItem>
         <MenuItem
           onClick={handleClose}
-          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
         >
-          <img src={pin} alt="Icon" style={{ width: "24px", height: "24px" }} />
+          <img src={pin} alt="Icon" style={{ width: '24px', height: '24px' }} />
           <Typography
-            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
           >
             Pin to top
           </Typography>
         </MenuItem>
         <MenuItem
           onClick={handleClose}
-          sx={{ width: "245px", display: "flex", columnGap: "10px" }}
+          sx={{ width: '245px', display: 'flex', columnGap: '10px' }}
         >
           <img
             src={copyLink}
             alt="Icon"
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: '24px', height: '24px' }}
           />
           <Typography
-            sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
+            sx={{ fontSize: '16px', fontWeight: '500', color: '#171717' }}
           >
             Copy link to post
           </Typography>

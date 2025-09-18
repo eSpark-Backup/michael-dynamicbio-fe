@@ -11,39 +11,39 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+} from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 import {
   deleteIcon,
   downArrowFilled,
   edit,
   photo,
   uploadIcon,
-} from "../../../assets/index.js";
-import BoxWithTextIcon from "../../../components/BoxWithTextIcon.jsx";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { toast } from "react-toastify";
-import DynamicModal from "../../../components/dynamic-modal.jsx";
-import ViewArticle from "../../../components/ViewArticle.jsx";
-import ScheduleModal from "../../../components/ScheduleModal.jsx";
-import { useSelector } from "react-redux";
+} from '../../../assets/index.js';
+import BoxWithTextIcon from '../../../components/BoxWithTextIcon.jsx';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { toast } from 'react-toastify';
+import DynamicModal from '../../../components/dynamic-modal.jsx';
+import ViewArticle from '../../../components/ViewArticle.jsx';
+import ScheduleModal from '../../../components/ScheduleModal.jsx';
+import { useSelector } from 'react-redux';
 import {
   useEditPostMutation,
   useGetPostByIdQuery,
   useNewPostMutation,
-} from "../../../services/post.js";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "../../../utils/index.js";
+} from '../../../services/post.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from '../../../utils/index.js';
 
 const modules = {
-  toolbar: "#toolbar-container",
+  toolbar: '#toolbar-container',
 };
 
 const Article = () => {
   const query = useQuery();
-  const stringifiedPage = query.get("page");
-  const stringifiedGroup = query.get("group");
+  const stringifiedPage = query.get('page');
+  const stringifiedGroup = query.get('group');
   const page = JSON.parse(stringifiedPage);
   const group = JSON.parse(stringifiedGroup);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,17 +81,17 @@ const Article = () => {
     setPreveiwImage(URL.createObjectURL(file));
   };
 
-  const [content, setContent] = useState("");
-  const [articleTitle, setArticleTitle] = useState("");
-  const [title, setTitle] = useState("");
-  const [visibility, setVisibility] = useState("PUBLIC");
+  const [content, setContent] = useState('');
+  const [articleTitle, setArticleTitle] = useState('');
+  const [title, setTitle] = useState('');
+  const [visibility, setVisibility] = useState('PUBLIC');
   const [scheduleDate, setScheduleDate] = useState(new Date());
   const [scheduleTime, setScheduleTime] = useState(new Date());
   const [schedule, setSchedule] = useState({
     date: null,
     time: null,
   });
-  const [commentVisibility, setCommentvisibility] = useState("");
+  const [commentVisibility, setCommentvisibility] = useState('');
   const { id } = useParams();
   const {
     data,
@@ -104,8 +104,8 @@ const Article = () => {
       setContent(data?.data?.content?.content);
       setArticleTitle(data?.data?.content?.articleTitle);
       setTitle(data?.data?.content?.title);
-      setSelectedFile(data?.data?.media["ARTICLES"][0]?.url);
-      setPreveiwImage(data?.data?.media["ARTICLES"][0]?.url);
+      setSelectedFile(data?.data?.media['ARTICLES'][0]?.url);
+      setPreveiwImage(data?.data?.media['ARTICLES'][0]?.url);
       setCommentvisibility(data?.data?.commentVisibility);
       setVisibility(data?.data?.visibility);
     }
@@ -116,30 +116,30 @@ const Article = () => {
     setPreveiwImage(null);
 
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
   const HandleNext = () => {
-    const strippedContent = content?.replace(/<[^>]*>/g, "").trim();
+    const strippedContent = content?.replace(/<[^>]*>/g, '').trim();
 
     if (
-      (articleTitle === "" || articleTitle.trim() === "") &&
-      (!strippedContent || strippedContent === "")
+      (articleTitle === '' || articleTitle.trim() === '') &&
+      (!strippedContent || strippedContent === '')
     ) {
       toast.error(
-        "A title and body text are required to publish your article."
+        'A title and body text are required to publish your article.'
       );
       return;
     }
 
-    if (articleTitle === "" || articleTitle.trim() === "") {
-      toast.error("A title is required to publish your article.");
+    if (articleTitle === '' || articleTitle.trim() === '') {
+      toast.error('A title is required to publish your article.');
       return;
     }
 
-    if (!strippedContent || strippedContent === "") {
-      toast.error("Body text is required to publish your article.");
+    if (!strippedContent || strippedContent === '') {
+      toast.error('Body text is required to publish your article.');
       return;
     }
     setViewArticleModal(true);
@@ -165,9 +165,9 @@ const Article = () => {
         articleTitle,
         ...(schedule.date && schedule.time ? { schedule } : {}),
       },
-      status: "PUBLISH",
+      status: 'PUBLISH',
       visibility,
-      type: "ARTICLE",
+      type: 'ARTICLE',
       cover: selectedFile,
       commentVisibility,
       id: id,
@@ -179,10 +179,10 @@ const Article = () => {
           return;
         }
         if (res?.data) {
-          toast.success("Your post is updated successfully");
-          setTitle("");
-          setArticleTitle("");
-          setContent("");
+          toast.success('Your post is updated successfully');
+          setTitle('');
+          setArticleTitle('');
+          setContent('');
           setViewArticleModal(false);
           navigate(-1);
         }
@@ -196,13 +196,13 @@ const Article = () => {
         if (res?.data) {
           toast.success(
             res?.data?.message ===
-              "Post Created Successfully, waiting for admin approval"
+              'Post Created Successfully, waiting for admin approval'
               ? res?.data?.message
-              : "Your post is uploaded successfully"
+              : 'Your post is uploaded successfully'
           );
-          setTitle("");
-          setArticleTitle("");
-          setContent("");
+          setTitle('');
+          setArticleTitle('');
+          setContent('');
           setViewArticleModal(false);
           navigate(-1);
         }
@@ -214,45 +214,45 @@ const Article = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "calc(100vh - 150px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          height: 'calc(100vh - 150px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <CircularProgress sx={{ color: "#1877F2" }} />
+        <CircularProgress sx={{ color: '#1877F2' }} />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '15px' }}>
       <Box
         sx={{
-          borderBottom: "1px solid rgb(140 140 140/.2)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          py: "15px",
+          borderBottom: '1px solid rgb(140 140 140/.2)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: '15px',
         }}
       >
         <Box
           sx={{
-            width: { xs: "100%", md: "80%", lg: "70%" },
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            rowGap: "10px",
-            px: { xs: "20px", md: "0px" },
+            width: { xs: '100%', md: '80%', lg: '70%' },
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            rowGap: '10px',
+            px: { xs: '20px', md: '0px' },
           }}
         >
           <Box
-            sx={{ display: "flex", columnGap: "15px", alignItems: "center" }}
+            sx={{ display: 'flex', columnGap: '15px', alignItems: 'center' }}
           >
             <img
-              style={{ width: "44px", height: "44px", borderRadius: "50%" }}
+              style={{ width: '44px', height: '44px', borderRadius: '50%' }}
               src={
                 group
                   ? group?.logoUrl
@@ -262,10 +262,10 @@ const Article = () => {
               }
               alt="Avatar"
             />
-            <Stack direction={"column"}>
-              <Stack direction={"row"} gap={1}>
+            <Stack direction={'column'}>
+              <Stack direction={'row'} gap={1}>
                 <Typography
-                  sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
+                  sx={{ fontSize: '18px', fontWeight: '500', color: '#171717' }}
                 >
                   {group
                     ? group?.name
@@ -276,24 +276,24 @@ const Article = () => {
                 <img
                   src={downArrowFilled}
                   alt="Icon"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                   onClick={page ? () => {} : handleClick}
                 />
               </Stack>
               <Typography
-                sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
+                sx={{ fontSize: '14px', fontWeight: '400', color: '#505050' }}
               >
-                {group ? `Group Article` : "Individual Article"}
+                {group ? `Group Article` : 'Individual Article'}
               </Typography>
             </Stack>
           </Box>
 
           <Box
             sx={{
-              backgroundColor: "#f4f2ee",
-              padding: { xs: "0.4rem 0.4rem", md: "0.4rem 2.4rem" },
-              borderRadius: "2.4rem",
-              width: { xs: "100%", md: "auto" },
+              backgroundColor: '#f4f2ee',
+              padding: { xs: '0.4rem 0.4rem', md: '0.4rem 2.4rem' },
+              borderRadius: '2.4rem',
+              width: { xs: '100%', md: 'auto' },
             }}
           >
             <div id="toolbar-container">
@@ -312,52 +312,52 @@ const Article = () => {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              gap: "10px",
-              width: { xs: "100%", md: "auto" },
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: '10px',
+              width: { xs: '100%', md: 'auto' },
             }}
           >
             <Box
               onClick={handleClick2}
               sx={{
-                width: { xs: "100%", sm: "150px" },
-                height: "36px",
-                borderRadius: "2px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "white",
-                position: "relative",
-                "&::before": {
+                width: { xs: '100%', sm: '150px' },
+                height: '36px',
+                borderRadius: '2px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'white',
+                position: 'relative',
+                '&::before': {
                   content: '""',
-                  position: "absolute",
+                  position: 'absolute',
                   top: 0,
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  borderRadius: "8px",
-                  padding: "1px",
+                  borderRadius: '8px',
+                  padding: '1px',
                   background:
-                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                  mask: "linear-gradient(white, white) content-box, linear-gradient(white, white)",
+                    'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                  mask: 'linear-gradient(white, white) content-box, linear-gradient(white, white)',
                   WebkitMask:
-                    "linear-gradient(white, white) content-box, linear-gradient(white, white)",
-                  WebkitMaskComposite: "destination-out",
-                  maskComposite: "exclude",
+                    'linear-gradient(white, white) content-box, linear-gradient(white, white)',
+                  WebkitMaskComposite: 'destination-out',
+                  maskComposite: 'exclude',
                 },
-                cursor: "pointer",
+                cursor: 'pointer',
               }}
             >
               <Typography
                 variant="gradientText"
-                sx={{ fontSize: "16px", fontWeight: "400" }}
+                sx={{ fontSize: '16px', fontWeight: '400' }}
               >
                 Manage
               </Typography>
             </Box>
             <Button
-              sx={{ width: { xs: "100%", sm: "150px" }, height: "36px" }}
+              sx={{ width: { xs: '100%', sm: '150px' }, height: '36px' }}
               onClick={HandleNext}
             >
               Next
@@ -368,38 +368,38 @@ const Article = () => {
 
       <Box
         sx={{
-          backgroundColor: previewImage ? "transparent" : "#f4f2ee",
-          maxWidth: { xs: "90%", md: "720px" },
-          height: "305px",
-          margin: "0 auto 3.2rem",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          boxShadow: "inset 0 0 0 1px rgb(140 140 140 / .2)",
-          flexDirection: "column",
-          rowGap: "15px",
-          minWidth: { md: "720px" },
-          backgroundImage: previewImage ? `url(${previewImage})` : "none",
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          position: "relative",
-          cursor: previewImage ? "pointer" : "default",
-          overflow: "hidden",
-          backgroundRepeat: "no-repeat",
+          backgroundColor: previewImage ? 'transparent' : '#f4f2ee',
+          maxWidth: { xs: '90%', md: '720px' },
+          height: '305px',
+          margin: '0 auto 3.2rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          boxShadow: 'inset 0 0 0 1px rgb(140 140 140 / .2)',
+          flexDirection: 'column',
+          rowGap: '15px',
+          minWidth: { md: '720px' },
+          backgroundImage: previewImage ? `url(${previewImage})` : 'none',
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          position: 'relative',
+          cursor: previewImage ? 'pointer' : 'default',
+          overflow: 'hidden',
+          backgroundRepeat: 'no-repeat',
 
-          "&:hover::after": previewImage
+          '&:hover::after': previewImage
             ? {
                 content: '""',
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgb(0 0 0 / 0.6)",
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgb(0 0 0 / 0.6)',
               }
             : {},
 
-          "&:hover .cover-text": {
+          '&:hover .cover-text': {
             opacity: 1,
           },
         }}
@@ -408,56 +408,56 @@ const Article = () => {
           <Box
             className="cover-text"
             sx={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-              color: "white",
-              padding: "5px 10px",
-              fontSize: "14px",
-              fontWeight: "500",
-              borderRadius: "4px",
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              color: 'white',
+              padding: '5px 10px',
+              fontSize: '14px',
+              fontWeight: '500',
+              borderRadius: '4px',
               opacity: 0,
-              transition: "opacity 0.3s ease",
+              transition: 'opacity 0.3s ease',
               zIndex: 1,
-              display: "flex",
-              columnGap: "10px",
+              display: 'flex',
+              columnGap: '10px',
             }}
           >
             <Box
               sx={{
-                height: "30px",
-                width: "30px",
-                backgroundColor: "white",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                height: '30px',
+                width: '30px',
+                backgroundColor: 'white',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={() => fileInputRef.current.click()}
             >
               <img
                 src={edit}
                 alt="Icon"
-                style={{ width: "20px", height: "20px" }}
+                style={{ width: '20px', height: '20px' }}
               />
             </Box>
             <Box
               sx={{
-                height: "30px",
-                width: "30px",
-                backgroundColor: "white",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                height: '30px',
+                width: '30px',
+                backgroundColor: 'white',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onClick={HandleImageDelete}
             >
               <img
                 src={deleteIcon}
                 alt="Icon"
-                style={{ width: "20px", height: "20px" }}
+                style={{ width: '20px', height: '20px' }}
               />
             </Box>
           </Box>
@@ -468,27 +468,27 @@ const Article = () => {
             <img
               src={photo}
               alt="Icon"
-              style={{ width: "64px", height: "64px" }}
+              style={{ width: '64px', height: '64px' }}
             />
             <Typography
               sx={{
-                fontSize: "14px",
-                fontWeight: "400",
-                color: "#505050",
-                textAlign: "center",
+                fontSize: '14px',
+                fontWeight: '400',
+                color: '#505050',
+                textAlign: 'center',
               }}
             >
-              We recommend uploading or dragging in an image that is{" "}
-              <span style={{ color: "#171717", fontWeight: "500" }}>
+              We recommend uploading or dragging in an image that is{' '}
+              <span style={{ color: '#171717', fontWeight: '500' }}>
                 1920x1080 pixels
               </span>
             </Typography>
             <Box
-              sx={{ width: { xs: "95%", md: "310px" }, cursor: "pointer" }}
+              sx={{ width: { xs: '95%', md: '310px' }, cursor: 'pointer' }}
               onClick={() => fileInputRef.current.click()}
             >
               <BoxWithTextIcon
-                text={"Upload from Computer"}
+                text={'Upload from Computer'}
                 icon={uploadIcon}
               />
             </Box>
@@ -498,31 +498,31 @@ const Article = () => {
 
       <Box
         sx={{
-          maxWidth: "720px",
-          minWidth: { md: "720px" },
-          margin: "0 auto 3.2rem",
+          maxWidth: '720px',
+          minWidth: { md: '720px' },
+          margin: '0 auto 3.2rem',
         }}
       >
         <TextField
           placeholder="Title"
           sx={{
-            backgroundColor: "transparent",
-            border: "none",
-            margin: { xs: "0px", md: "0 2.4rem" },
-            "& .MuiInputBase-root": {
-              padding: "8px 0",
-              alignItems: "center",
+            backgroundColor: 'transparent',
+            border: 'none',
+            margin: { xs: '0px', md: '0 2.4rem' },
+            '& .MuiInputBase-root': {
+              padding: '8px 0',
+              alignItems: 'center',
             },
-            "& .MuiInputBase-input": {
-              color: "black",
-              wordBreak: "break-word",
-              caretColor: "black",
-              fontSize: "2.2rem !important",
-              lineHeight: "2.6rem",
-              padding: { xs: "4px 10px", md: "4px 0" },
+            '& .MuiInputBase-input': {
+              color: 'black',
+              wordBreak: 'break-word',
+              caretColor: 'black',
+              fontSize: '2.2rem !important',
+              lineHeight: '2.6rem',
+              padding: { xs: '4px 10px', md: '4px 0' },
             },
-            "& .MuiInputBase-input::placeholder": {
-              color: "black",
+            '& .MuiInputBase-input::placeholder': {
+              color: 'black',
             },
           }}
           slotProps={{ htmlInput: { maxLength: 150 } }}
@@ -539,7 +539,7 @@ const Article = () => {
           onChange={setContent}
           modules={modules}
           placeholder="Write here. You can also include @mentions."
-          style={{ border: "none", fontSize: "16px" }}
+          style={{ border: 'none', fontSize: '16px' }}
         />
       </Box>
 
@@ -548,42 +548,42 @@ const Article = () => {
         open={openMenu}
         onClose={handleMenuClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
-        sx={{ p: "0px !important" }}
+        sx={{ p: '0px !important' }}
       >
         <RadioGroup name="share">
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              rowGap: "20px",
-              width: { xs: "270px", sm: "320px" },
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: '20px',
+              width: { xs: '270px', sm: '320px' },
             }}
           >
             <Typography>Publish as</Typography>
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                py: "10px",
-                cursor: "pointer",
-                "&:hover": {
-                  backgroundColor: "rgba(0, 0, 0, 0.08)",
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                py: '10px',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
                 },
               }}
             >
-              <Stack alignItems={"center"} direction={"row"} gap={1}>
+              <Stack alignItems={'center'} direction={'row'} gap={1}>
                 <img
                   src={group ? group?.logoUrl : userData?.profileImage}
                   alt="Avatar"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: '40px', height: '40px' }}
                 />
                 <Typography>
                   {group
@@ -593,7 +593,7 @@ const Article = () => {
               </Stack>
               <FormControlLabel
                 value="yourself"
-                control={<Radio sx={{ marginRight: "0px !important" }} />}
+                control={<Radio sx={{ marginRight: '0px !important' }} />}
               />
             </Box>
           </Box>
@@ -603,12 +603,12 @@ const Article = () => {
       <DynamicModal
         open={viewArticleModal}
         handleClose={() => setViewArticleModal(false)}
-        buttonText={"Post"}
+        buttonText={'Post'}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         dropdownHeader={true}
-        footerDirection={"flex-end"}
+        footerDirection={'flex-end'}
         hideFooter={true}
         handleGroupClick={() => {}}
         visibility={visibility}
@@ -637,15 +637,15 @@ const Article = () => {
           setShowScheduleModal(false);
         }}
         handleClose={() => setShowScheduleModal(false)}
-        title={"Schedule post"}
-        buttonText={"Post"}
+        title={'Schedule post'}
+        buttonText={'Post'}
         postModal={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
         handleScheduleClick={() => {}}
         smallModal={true}
         styledHeader={true}
-        footerDirection={"space-between"}
+        footerDirection={'space-between'}
         page={page}
         adminPage={page}
         group={group}
@@ -661,7 +661,7 @@ const Article = () => {
         type="file"
         ref={fileInputRef}
         accept=".jpeg, .jpg, .tiff, .png, .webp"
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
         onChange={handleFileChange}
       />
 
@@ -670,24 +670,24 @@ const Article = () => {
         open={openMenu2}
         onClose={handleMenuClose2}
         anchorOrigin={{
-          vertical: "left",
-          horizontal: "center",
+          vertical: 'left',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
       >
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Preview
@@ -695,13 +695,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Duplicate as Draft
@@ -709,13 +709,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Settings
@@ -724,13 +724,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Drafts
@@ -738,13 +738,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Scheduled
@@ -752,13 +752,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Published
@@ -767,13 +767,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           New draft
@@ -781,13 +781,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Create newsletter
@@ -795,13 +795,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Help
@@ -809,13 +809,13 @@ const Article = () => {
         <MenuItem
           onClick={handleMenuClose2}
           sx={{
-            width: "245px",
-            backgroundColor: "#F8FCFF !important",
-            marginTop: "10px",
-            display: "flex",
-            borderRadius: "4px",
-            justifyContent: "space-between",
-            pr: "0px",
+            width: '245px',
+            backgroundColor: '#F8FCFF !important',
+            marginTop: '10px',
+            display: 'flex',
+            borderRadius: '4px',
+            justifyContent: 'space-between',
+            pr: '0px',
           }}
         >
           Give feedback

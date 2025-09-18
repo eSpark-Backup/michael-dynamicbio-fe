@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import GroupsTab from "./grouptab";
+import { useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import GroupsTab from './grouptab';
 import {
   useDeleteGroupMutation,
   useFollowGroupMutation,
   useGetAllGroupsQuery,
   useGetFollowedGroupsQuery,
   useGetMyGroupsQuery,
-} from "../../../../services/group";
-import { useQuery } from "../../../../utils";
+} from '../../../../services/group';
+import { useQuery } from '../../../../utils';
 
 const Groups = () => {
   const { user } = useSelector((state) => state.auth);
@@ -22,7 +22,7 @@ const Groups = () => {
     error: myGroupsError,
     refetch: myGroupsRefetch,
     isFetching: isMyGroupsFetcing,
-  } = useGetMyGroupsQuery("", {
+  } = useGetMyGroupsQuery('', {
     refetchOnMountOrArgChange: true,
   });
 
@@ -33,7 +33,7 @@ const Groups = () => {
     error: allGroupsError,
     refetch: allGroupsRefetch,
     isFetching: isAllGroupsFetcing,
-  } = useGetAllGroupsQuery("", {
+  } = useGetAllGroupsQuery('', {
     refetchOnMountOrArgChange: true,
   });
 
@@ -44,7 +44,7 @@ const Groups = () => {
     error: followedGroupsError,
     refetch: followedGroupsRefetch,
     isFetching: isFollowedGroupsFetcing,
-  } = useGetFollowedGroupsQuery("", {
+  } = useGetFollowedGroupsQuery('', {
     refetchOnMountOrArgChange: true,
   });
 
@@ -96,7 +96,7 @@ const Groups = () => {
 
     return [
       {
-        label: "Your Groups",
+        label: 'Your Groups',
         component: (
           <GroupsTab
             isFollowLoading={isFollowLoading}
@@ -110,7 +110,7 @@ const Groups = () => {
         ),
       },
       {
-        label: "Joined",
+        label: 'Joined',
         component: (
           <GroupsTab
             isFollowLoading={isFollowLoading}
@@ -123,9 +123,9 @@ const Groups = () => {
     ];
   }, [myGroupsData, allGroupsData, followedGroupsData]);
   const query = useQuery();
-  const isJoined = query.get("joined");
+  const isJoined = query.get('joined');
   const [activeTabLabel, setActiveTabLabel] = useState(
-    isJoined ? "Joined" : "Your Groups"
+    isJoined ? 'Joined' : 'Your Groups'
   );
 
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
@@ -141,14 +141,14 @@ const Groups = () => {
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "calc(100vh - 150px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          height: 'calc(100vh - 150px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <CircularProgress sx={{ color: "#1877F2" }} />
+        <CircularProgress sx={{ color: '#1877F2' }} />
       </Box>
     );
   }
@@ -161,22 +161,22 @@ const Groups = () => {
         justifyContent="flex-start"
         gap={5}
         sx={{
-          background: "#FFF",
-          border: "1px solid #E4E4E4",
-          borderRadius: "4px",
-          padding: "18px 30px",
+          background: '#FFF',
+          border: '1px solid #E4E4E4',
+          borderRadius: '4px',
+          padding: '18px 30px',
         }}
       >
         {tabs.map((tab) => (
           <Typography
             sx={{
-              cursor: "pointer",
-              position: "relative",
+              cursor: 'pointer',
+              position: 'relative',
               background:
-                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-              "-webkit-background-clip": "text",
-              "-webkit-text-fill-color":
-                tab?.label === activeTab?.label ? "transparent" : "#000",
+                'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+              '-webkit-background-clip': 'text',
+              '-webkit-text-fill-color':
+                tab?.label === activeTab?.label ? 'transparent' : '#000',
             }}
             fontSize="14px"
             fontWeight={500}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   Box,
   CircularProgress,
@@ -7,20 +7,20 @@ import {
   MenuItem,
   Stack,
   Typography,
-} from "@mui/material";
-import { SuggestedBonds } from "../../../../components";
+} from '@mui/material';
+import { SuggestedBonds } from '../../../../components';
 import {
   useAllBondsReqQuery,
   useUpdateBondReqMutation,
-} from "../../../../services/bonds";
+} from '../../../../services/bonds';
 import {
   addBond,
   deleteBond,
   userAvatar,
   verticleDots,
-} from "../../../../assets";
-import { eventBus } from "../../../../utils";
-import { Link } from "react-router-dom";
+} from '../../../../assets';
+import { eventBus } from '../../../../utils';
+import { Link } from 'react-router-dom';
 
 const Grow = () => {
   const [sent, setSent] = useState(null);
@@ -33,7 +33,7 @@ const Grow = () => {
     error: reqError,
     refetch,
   } = useAllBondsReqQuery(
-    { type: sent ? "sent" : "received" },
+    { type: sent ? 'sent' : 'received' },
     {
       refetchOnMountOrArgChange: true,
     }
@@ -54,7 +54,7 @@ const Grow = () => {
 
   useEffect(() => {
     if (reqError) {
-      toast.error(reqError?.data?.message || "Something went wrong");
+      toast.error(reqError?.data?.message || 'Something went wrong');
       return;
     }
   }, [reqError]);
@@ -80,27 +80,27 @@ const Grow = () => {
       refetch();
     };
 
-    eventBus.on("refetchBondData", handleRefetch);
+    eventBus.on('refetchBondData', handleRefetch);
 
     return () => {
-      eventBus.off("refetchBondData", handleRefetch);
+      eventBus.off('refetchBondData', handleRefetch);
     };
   }, []);
   return (
     <Box>
       <Box
         sx={{
-          padding: "23px 32px",
-          background: "#fff",
-          border: "1px solid #E4E4E4",
-          borderRadius: "4px",
-          maxHeight: "500px",
-          overflowY: "auto",
+          padding: '23px 32px',
+          background: '#fff',
+          border: '1px solid #E4E4E4',
+          borderRadius: '4px',
+          maxHeight: '500px',
+          overflowY: 'auto',
         }}
       >
         {isUpdateReqLoading || reqLoading || isFetching ? (
           <Stack direction="row" justifyContent="center" alignItems="center">
-            <CircularProgress sx={{ color: "#1877F2" }} />
+            <CircularProgress sx={{ color: '#1877F2' }} />
           </Stack>
         ) : (
           <>
@@ -112,16 +112,16 @@ const Grow = () => {
               <Typography fontSize="14px">
                 {sent
                   ? requests?.length > 0
-                    ? `Your sent request${requests?.length > 1 ? "s" : ""}`
+                    ? `Your sent request${requests?.length > 1 ? 's' : ''}`
                     : "You didn't send any request"
                   : requests?.length > 0
                     ? `You have new bonding request${
-                        requests?.length > 1 ? "s" : ""
+                        requests?.length > 1 ? 's' : ''
                       }`
-                    : "You  don’t have any bonding request"}
+                    : 'You  don’t have any bonding request'}
               </Typography>
               <img
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 onClick={handleClick}
                 src={verticleDots}
                 alt="dots"
@@ -135,10 +135,10 @@ const Grow = () => {
                   alignItems="center"
                   justifyContent="space-between"
                   sx={{
-                    border: "1px solid #DDE2E4",
-                    background: "#F2F8FD",
-                    borderRadius: "4px",
-                    padding: "10px 26px 10px 22px",
+                    border: '1px solid #DDE2E4',
+                    background: '#F2F8FD',
+                    borderRadius: '4px',
+                    padding: '10px 26px 10px 22px',
                     mt: 2,
                     mb: 1,
                   }}
@@ -152,7 +152,7 @@ const Grow = () => {
                     <img
                       width={73}
                       height={73}
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                       src={
                         sent
                           ? item?.recipient?.profileImage || userAvatar
@@ -162,15 +162,15 @@ const Grow = () => {
                     />
                     <Box>
                       <Link
-                        style={{ textDecoration: "none", color: "black" }}
+                        style={{ textDecoration: 'none', color: 'black' }}
                         to={`/profile/${
                           sent ? item?.recipient?.id : item?.requester?.if
                         }`}
                       >
                         <Typography
                           sx={{
-                            cursor: "pointer",
-                            textTransform: "capitalize",
+                            cursor: 'pointer',
+                            textTransform: 'capitalize',
                           }}
                           fontSize="17px"
                           fontWeight={300}
@@ -187,7 +187,7 @@ const Grow = () => {
                         </Typography>
                       </Link>
                       <Typography
-                        sx={{ color: "#505050" }}
+                        sx={{ color: '#505050' }}
                         fontSize="14px"
                         fontWeight={400}
                       >
@@ -202,7 +202,7 @@ const Grow = () => {
                         }” `}
                       </Typography>
                       <Typography
-                        sx={{ color: "#505050" }}
+                        sx={{ color: '#505050' }}
                         fontSize="14px"
                         fontWeight={400}
                       >
@@ -218,14 +218,14 @@ const Grow = () => {
                   </Stack>
                   {sent ? (
                     <Typography
-                      onClick={() => handleBond(item?.id, "canceled")}
+                      onClick={() => handleBond(item?.id, 'canceled')}
                       fontSize="14px"
                       sx={{
-                        cursor: "pointer",
+                        cursor: 'pointer',
                         background:
-                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                        "-webkit-background-clip": "text",
-                        "-webkit-text-fill-color": "transparent",
+                          'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                        '-webkit-background-clip': 'text',
+                        '-webkit-text-fill-color': 'transparent',
                       }}
                     >
                       Withdraw
@@ -238,14 +238,14 @@ const Grow = () => {
                       gap={1.5}
                     >
                       <img
-                        onClick={() => handleBond(item?.id, "rejected")}
-                        style={{ cursor: "pointer" }}
+                        onClick={() => handleBond(item?.id, 'rejected')}
+                        style={{ cursor: 'pointer' }}
                         src={deleteBond}
                         alt="trash"
                       />
                       <img
-                        onClick={() => handleBond(item?.id, "accepted")}
-                        style={{ cursor: "pointer" }}
+                        onClick={() => handleBond(item?.id, 'accepted')}
+                        style={{ cursor: 'pointer' }}
                         src={addBond}
                         alt="bond"
                       />
@@ -262,12 +262,12 @@ const Grow = () => {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         <MenuItem
@@ -276,7 +276,7 @@ const Grow = () => {
             handleClose(e);
           }}
         >
-          {sent ? "Receive" : "Sent"}
+          {sent ? 'Receive' : 'Sent'}
         </MenuItem>
       </Menu>
     </Box>

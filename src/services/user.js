@@ -1,4 +1,4 @@
-import { api } from "./rtk";
+import { api } from './rtk';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,7 +10,7 @@ export const userApi = api.injectEndpoints({
         }
         return {
           url: `/user/public-profile?${queryParams}`,
-          method: "GET",
+          method: 'GET',
         };
       },
     }),

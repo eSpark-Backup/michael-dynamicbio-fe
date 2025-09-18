@@ -1,8 +1,8 @@
-import { Box, Paper, Switch, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useUpdateUserProfileSettingsMutation } from "../../../services/auth";
-import { toast } from "react-toastify";
+import { Box, Paper, Switch, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useUpdateUserProfileSettingsMutation } from '../../../services/auth';
+import { toast } from 'react-toastify';
 
 const RightBar = ({ isPublicView }) => {
   const { user: userData } = useSelector((state) => state.auth);
@@ -10,7 +10,7 @@ const RightBar = ({ isPublicView }) => {
     useUpdateUserProfileSettingsMutation();
 
   const [options, setOptions] = useState({
-    profileViewingOption: "",
+    profileViewingOption: '',
     showConnections: null,
     showLastName: null,
     showOrganizationsAndInterests: null,
@@ -34,11 +34,11 @@ const RightBar = ({ isPublicView }) => {
     const updatedOptions = { ...options, [key]: !options[key] };
 
     if (
-      ["showCurrentExperience", "showPastExperience", "showEducation"].includes(
+      ['showCurrentExperience', 'showPastExperience', 'showEducation'].includes(
         key
       )
     ) {
-      const detailKey = key + "Details";
+      const detailKey = key + 'Details';
       updatedOptions[detailKey] = updatedOptions[key];
     }
 
@@ -50,36 +50,36 @@ const RightBar = ({ isPublicView }) => {
         return;
       }
       if (res) {
-        toast.success("Setting updated successfully");
+        toast.success('Setting updated successfully');
       }
     });
   };
 
   const fields = [
-    { key: "showSummary", label: "Summary" },
-    { key: "showCurrentExperience", label: "Current Experience" },
+    { key: 'showSummary', label: 'Summary' },
+    { key: 'showCurrentExperience', label: 'Current Experience' },
     {
-      key: "showCurrentExperienceDetails",
-      label: "Details",
+      key: 'showCurrentExperienceDetails',
+      label: 'Details',
       indent: true,
-      parent: "showCurrentExperience",
+      parent: 'showCurrentExperience',
     },
-    { key: "showPastExperience", label: "Past Experience" },
+    { key: 'showPastExperience', label: 'Past Experience' },
     {
-      key: "showPastExperienceDetails",
-      label: "Details",
+      key: 'showPastExperienceDetails',
+      label: 'Details',
       indent: true,
-      parent: "showPastExperience",
+      parent: 'showPastExperience',
     },
-    { key: "showEducation", label: "Education" },
+    { key: 'showEducation', label: 'Education' },
     {
-      key: "showEducationDetails",
-      label: "Details",
+      key: 'showEducationDetails',
+      label: 'Details',
       indent: true,
-      parent: "showEducation",
+      parent: 'showEducation',
     },
-    { key: "showProjects", label: "Projects" },
-    { key: "showCertifications", label: "Certifications" },
+    { key: 'showProjects', label: 'Projects' },
+    { key: 'showCertifications', label: 'Certifications' },
   ];
 
   useEffect(() => {
@@ -100,24 +100,24 @@ const RightBar = ({ isPublicView }) => {
     <>
       <Paper
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          rowGap: "10px",
-          px: "20px",
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+          px: '20px',
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Typography
             sx={{
-              fontSize: "14px",
+              fontSize: '14px',
               fontWeight: 400,
-              color: "#171717",
+              color: '#171717',
             }}
           >
             Language
@@ -125,19 +125,19 @@ const RightBar = ({ isPublicView }) => {
         </Box>
         <Box
           sx={{
-            border: "1px solid #E4E4E4",
-            borderRadius: "4px",
-            p: "5px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            border: '1px solid #E4E4E4',
+            borderRadius: '4px',
+            p: '5px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Typography
             sx={{
-              fontSize: "14px",
+              fontSize: '14px',
               fontWeight: 400,
-              color: "#171717",
+              color: '#171717',
             }}
           >
             English
@@ -145,49 +145,49 @@ const RightBar = ({ isPublicView }) => {
         </Box>
       </Paper>
       {!isPublicView && (
-        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "24px" }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: '24px' }}>
           <Paper
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              rowGap: "15px",
-              mt: "24px",
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: '15px',
+              mt: '24px',
             }}
           >
             {fields.map(({ key, label, indent, parent }) => (
               <Box
                 key={key}
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "14px",
-                    fontWeight: "400",
-                    color: "#505050",
-                    pl: indent ? "20px" : 0,
+                    fontSize: '14px',
+                    fontWeight: '400',
+                    color: '#505050',
+                    pl: indent ? '20px' : 0,
                   }}
                 >
                   {label}
                 </Typography>
                 <Box
                   sx={{
-                    display: "flex",
-                    columnGap: "10px",
-                    alignItems: "center",
+                    display: 'flex',
+                    columnGap: '10px',
+                    alignItems: 'center',
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: "12px",
-                      fontWeight: "400",
-                      color: "#505050",
+                      fontSize: '12px',
+                      fontWeight: '400',
+                      color: '#505050',
                     }}
                   >
-                    {options[key] ? "Show" : "Hide"}
+                    {options[key] ? 'Show' : 'Hide'}
                   </Typography>
                   <Switch
                     checked={options[key]}

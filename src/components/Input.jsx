@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   TextField,
   IconButton,
@@ -6,8 +6,8 @@ import {
   Typography,
   Stack,
   Box,
-} from "@mui/material";
-import { eyeClose, eye } from "../assets/index.js";
+} from '@mui/material';
+import { eyeClose, eye } from '../assets/index.js';
 
 const Input = ({
   sx,
@@ -17,7 +17,7 @@ const Input = ({
   customLabel,
   variant,
   handleChange,
-  type = "text",
+  type = 'text',
   endAdornment,
   disabled,
   ...rest
@@ -44,20 +44,20 @@ const Input = ({
       )}
       <TextField
         value={value}
-        variant={variant || "filled"}
+        variant={variant || 'filled'}
         onChange={handleChange}
-        type={showPassword ? "text" : type}
+        type={showPassword ? 'text' : type}
         disabled={disabled}
         sx={sx}
         InputProps={{
           endAdornment:
             endAdornment ||
-            (type === "password" ? (
+            (type === 'password' ? (
               <InputAdornment position="end">
                 <IconButton
                   onClick={handleClickShowPassword}
                   edge="end"
-                  sx={{ marginRight: "0px" }}
+                  sx={{ marginRight: '0px' }}
                 >
                   {showPassword ? (
                     <img src={eye} />
@@ -71,10 +71,10 @@ const Input = ({
         {...rest}
       />
       {wordLimit && (
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Typography
             fontSize="12px"
-            sx={{ mt: "5px", color: "#505050" }}
+            sx={{ mt: '5px', color: '#505050' }}
           >{`${value.length}/${wordLimit} words`}</Typography>
         </Box>
       )}

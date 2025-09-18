@@ -1,11 +1,11 @@
-import { api } from "./rtk";
+import { api } from './rtk';
 
 export const chatApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getMyChat: builder.query({
       query: () => ({
         url: `/chat/my`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     getAllChat: builder.query({
@@ -13,7 +13,7 @@ export const chatApi = api.injectEndpoints({
         return id
           ? {
               url: `/chat/message/${id}?page=${page}&pageSize=${pageSize}`,
-              method: "GET",
+              method: 'GET',
             }
           : {};
       },
@@ -21,25 +21,25 @@ export const chatApi = api.injectEndpoints({
     createGroupChat: builder.mutation({
       query: (credentials) => ({
         url: `/chat/group/create`,
-        method: "POST",
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     removeMember: builder.mutation({
       query: (credentials) => ({
         url: `/chat/group/member/remove`,
-        method: "DELETE",
+        method: 'DELETE',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     addMember: builder.mutation({
       query: (credentials) => ({
         url: `/chat/group/member/add`,
-        method: "PUT",
+        method: 'PUT',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
   }),

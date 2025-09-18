@@ -1,16 +1,16 @@
-import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { gradientRightArrow } from "../../assets";
-import SettingsPage from "./SettingsPage";
-import { useSelector } from "react-redux";
+import { Box, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { gradientRightArrow } from '../../assets';
+import SettingsPage from './SettingsPage';
+import { useSelector } from 'react-redux';
 
 const AccountSettings = () => {
   const [showSettingsPage, setShowSettingsPage] = useState(false);
-  const [selectedSettings, setSelectedSettings] = useState("");
+  const [selectedSettings, setSelectedSettings] = useState('');
   const { user: userData } = useSelector((state) => state.auth);
 
   const [options, setOptions] = useState({
-    profileViewingOption: "",
+    profileViewingOption: '',
     showConnections: null,
     showLastName: null,
     showOrganizationsAndInterests: null,
@@ -50,7 +50,7 @@ const AccountSettings = () => {
   };
 
   const handleClose = () => {
-    setSelectedSettings("");
+    setSelectedSettings('');
     setShowSettingsPage(false);
   };
 
@@ -67,50 +67,50 @@ const AccountSettings = () => {
     <Box>
       <Typography
         sx={{
-          fontSize: "20px",
-          fontWeight: "500",
-          color: "#171717",
-          px: "16px",
+          fontSize: '20px',
+          fontWeight: '500',
+          color: '#171717',
+          px: '16px',
         }}
       >
         General preferences
       </Typography>
-      <Box sx={{ mt: "10px" }}>
+      <Box sx={{ mt: '10px' }}>
         <Box
           sx={{
-            py: "15px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            cursor: "pointer",
+            py: '15px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            cursor: 'pointer',
           }}
-          onClick={() => HandleSettings("showProfilePhoto")}
+          onClick={() => HandleSettings('showProfilePhoto')}
         >
           <Typography
             sx={{
-              fontSize: "16px",
-              fontWeight: "100",
-              color: "#505050",
-              pl: "16px",
+              fontSize: '16px',
+              fontWeight: '100',
+              color: '#505050',
+              pl: '16px',
             }}
           >
             Showing profile photos
           </Typography>
-          <Box sx={{ display: "flex", columnGap: "15px" }}>
+          <Box sx={{ display: 'flex', columnGap: '15px' }}>
             <Typography
               sx={{
-                fontSize: "16px",
-                fontWeight: "100",
-                color: "#505050",
-                pl: "16px",
+                fontSize: '16px',
+                fontWeight: '100',
+                color: '#505050',
+                pl: '16px',
               }}
             >
-              {options?.showProfilePhoto ? "On" : "Off"}
+              {options?.showProfilePhoto ? 'On' : 'Off'}
             </Typography>
             <img
               src={gradientRightArrow}
               alt=""
-              style={{ marginRight: "16px" }}
+              style={{ marginRight: '16px' }}
             />
           </Box>
         </Box>

@@ -1,29 +1,29 @@
-import { Box, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import GroupMembers from "./GroupMembers";
-import GroupAdmins from "./GroupAdmins";
-import GroupRequests from "./GroupRequests";
-import { useSearchParams } from "react-router-dom";
+import { Box, Paper, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import GroupMembers from './GroupMembers';
+import GroupAdmins from './GroupAdmins';
+import GroupRequests from './GroupRequests';
+import { useSearchParams } from 'react-router-dom';
 
 const GroupMembership = ({ data, refetch }) => {
   const tabs = [
     {
-      label: "Members",
+      label: 'Members',
       component: <GroupMembers data={data} refetch={refetch} />,
     },
     {
-      label: "Admins",
+      label: 'Admins',
       component: <GroupAdmins data={data} refetch={refetch} />,
     },
     {
-      label: "Requests",
+      label: 'Requests',
       component: <GroupRequests data={data} refetch={refetch} />,
     },
   ];
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const tabParam = searchParams.get("sub-tab");
-  const [activeTabLabel, setActiveTabLabel] = useState(tabParam || "Members");
+  const tabParam = searchParams.get('sub-tab');
+  const [activeTabLabel, setActiveTabLabel] = useState(tabParam || 'Members');
   const activeTab = tabs.find((tab) => tab.label === activeTabLabel);
 
   useEffect(() => {
@@ -32,17 +32,17 @@ const GroupMembership = ({ data, refetch }) => {
     }
   }, [tabParam]);
   return (
-    <Box sx={{ margin: "20px 25px" }}>
+    <Box sx={{ margin: '20px 25px' }}>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: { xs: "column", md: "row" },
-          rowGap: "20px",
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexDirection: { xs: 'column', md: 'row' },
+          rowGap: '20px',
         }}
       >
-        <Box sx={{ width: { xs: "100%", md: "30%", lg: "20%" } }}>
-          <Paper sx={{ p: "0px" }}>
+        <Box sx={{ width: { xs: '100%', md: '30%', lg: '20%' } }}>
+          <Paper sx={{ p: '0px' }}>
             {tabs?.map((item, index) => {
               const isActive = item.label === activeTab.label;
               return (
@@ -51,42 +51,42 @@ const GroupMembership = ({ data, refetch }) => {
                   onClick={() => {
                     setActiveTabLabel(item.label);
                     setSearchParams({
-                      tab: "Membership",
-                      "sub-tab": item.label,
+                      tab: 'Membership',
+                      'sub-tab': item.label,
                     });
                   }}
                   sx={{
-                    p: "15px 30px",
-                    cursor: "pointer",
-                    position: "relative",
+                    p: '15px 30px',
+                    cursor: 'pointer',
+                    position: 'relative',
                     background:
-                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                    "-webkit-background-clip": "text",
-                    "-webkit-text-fill-color": isActive
-                      ? "transparent"
-                      : "#000",
-                    "&::after": {
+                      'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                    '-webkit-background-clip': 'text',
+                    '-webkit-text-fill-color': isActive
+                      ? 'transparent'
+                      : '#000',
+                    '&::after': {
                       content: '""',
-                      display: isActive ? "block" : "none",
-                      width: "6px",
-                      height: "100%",
+                      display: isActive ? 'block' : 'none',
+                      width: '6px',
+                      height: '100%',
                       background:
-                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                      position: "absolute",
-                      bottom: "0px",
-                      left: "0px",
-                      borderRadius: "2px",
+                        'linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)',
+                      position: 'absolute',
+                      bottom: '0px',
+                      left: '0px',
+                      borderRadius: '2px',
                     },
                   }}
                 >
                   <Typography
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#171717",
-                      lineHeight: "normal",
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      color: '#171717',
+                      lineHeight: 'normal',
                     }}
-                    variant={isActive ? "gradientText" : "subtitle2"}
+                    variant={isActive ? 'gradientText' : 'subtitle2'}
                   >
                     {item.label}
                   </Typography>
@@ -95,7 +95,7 @@ const GroupMembership = ({ data, refetch }) => {
             })}
           </Paper>
         </Box>
-        <Box sx={{ width: { xs: "100%", md: "65%", lg: "78%" } }}>
+        <Box sx={{ width: { xs: '100%', md: '65%', lg: '78%' } }}>
           {activeTab?.component}
         </Box>
       </Box>

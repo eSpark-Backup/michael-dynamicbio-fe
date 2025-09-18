@@ -1,27 +1,27 @@
-import { api } from "./rtk";
+import { api } from './rtk';
 
 export const interactionApi = api.injectEndpoints({
   endpoints: (builder) => ({
     like: builder.mutation({
       query: (data) => ({
-        url: "/interaction/like",
-        method: "POST",
+        url: '/interaction/like',
+        method: 'POST',
         body: data,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     getPostComments: builder.query({
       query: (postId) => ({
         url: `/interaction/comments/${postId}`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
     comment: builder.mutation({
       query: (data) => ({
-        url: "/interaction/comments",
-        method: "POST",
+        url: '/interaction/comments',
+        method: 'POST',
         body: data,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
   }),

@@ -1,17 +1,17 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { Button } from "../../../components";
-import { useQuery } from "../../../utils";
-import { useCompleteProfileMutation } from "../../../services/auth";
-import { uploadAvatar, uploadIcon } from "../../../assets";
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Button } from '../../../components';
+import { useQuery } from '../../../utils';
+import { useCompleteProfileMutation } from '../../../services/auth';
+import { uploadAvatar, uploadIcon } from '../../../assets';
 
 const UploadImage = () => {
   const query = useQuery();
-  const tempData = query.get("data");
+  const tempData = query.get('data');
   const data = JSON.parse(tempData);
-  const tempUser = JSON.parse(localStorage.getItem("temp_user_data"));
+  const tempUser = JSON.parse(localStorage.getItem('temp_user_data'));
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [completeProfile, { isLoading }] = useCompleteProfileMutation();
@@ -20,7 +20,7 @@ const UploadImage = () => {
       dob: tempUser?.about?.dob,
       experience: [
         {
-          type: "Full-Time",
+          type: 'Full-Time',
           title: data?.designation,
           company: data?.company,
           location: data?.city,
@@ -31,14 +31,14 @@ const UploadImage = () => {
       ],
     };
     const formdata = new FormData();
-    formdata.append("country", data?.country);
-    formdata.append("city", data?.city);
-    formdata.append("designation", data?.designation);
-    formdata.append("industry", data?.industry);
-    formdata.append("company", data?.company);
-    formdata.append("about", JSON.stringify(obj));
+    formdata.append('country', data?.country);
+    formdata.append('city', data?.city);
+    formdata.append('designation', data?.designation);
+    formdata.append('industry', data?.industry);
+    formdata.append('company', data?.company);
+    formdata.append('about', JSON.stringify(obj));
     if (image) {
-      formdata.append("image", image);
+      formdata.append('image', image);
     }
     completeProfile(formdata).then((res) => {
       if (res?.error) {
@@ -46,9 +46,9 @@ const UploadImage = () => {
         return;
       }
       if (res) {
-        toast.success("Your profile completed successfully");
-        navigate("/");
-        localStorage.removeItem("temp_user_data");
+        toast.success('Your profile completed successfully');
+        navigate('/');
+        localStorage.removeItem('temp_user_data');
       }
     });
   };
@@ -67,21 +67,21 @@ const UploadImage = () => {
   };
   return (
     <>
-      <Typography mt="50px" fontSize={"29px"} textAlign="center">
+      <Typography mt="50px" fontSize={'29px'} textAlign="center">
         Welcome, {tempUser?.firstName}!
       </Typography>
-      <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
+      <Typography fontSize={'17px'} fontWeight={300} textAlign="center">
         Adding your photo helps people recognize you
       </Typography>
       <Stack
         sx={{
-          width: { xs: "90%", sm: "70%", md: "60%", lg: "40%" },
-          mt: "60px",
+          width: { xs: '90%', sm: '70%', md: '60%', lg: '40%' },
+          mt: '60px',
         }}
         gap={2}
       >
         <Stack
-          sx={{ width: "100%", padding: "20px" }}
+          sx={{ width: '100%', padding: '20px' }}
           direction="row"
           justifyContent="space-between"
           alignItems="center"
@@ -94,7 +94,7 @@ const UploadImage = () => {
             gap={2}
           >
             <img
-              style={{ borderRadius: "50%" }}
+              style={{ borderRadius: '50%' }}
               width={85}
               height={84}
               src={image ? URL.createObjectURL(image) : uploadAvatar}
@@ -115,7 +115,7 @@ const UploadImage = () => {
             accept=".jpeg, .jpg, .tiff, .png, .webp"
             ref={fileInputRef}
             onChange={handleFileChange}
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
           />
           <IconButton onClick={handleImage}>
             <img src={uploadIcon} alt="upload" />
@@ -123,7 +123,7 @@ const UploadImage = () => {
         </Stack>
       </Stack>
 
-      <Box sx={{ marginTop: "132px", width: "250px", mb: "40px" }}>
+      <Box sx={{ marginTop: '132px', width: '250px', mb: '40px' }}>
         <Button loading={isLoading} onClick={handleSubmit}>
           Continue
         </Button>

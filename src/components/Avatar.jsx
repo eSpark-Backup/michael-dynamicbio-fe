@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box } from '@mui/material';
 
 const AvatarGroupPreview = ({ members = [], memberName }) => {
   const maxVisible = 3;
@@ -6,24 +6,24 @@ const AvatarGroupPreview = ({ members = [], memberName }) => {
   const extraCount = members.length - maxVisible;
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", pl: "4px" }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', pl: '4px' }}>
       {visibleMembers.map((member, index) => (
         <Box
           key={index}
           sx={{
             width: 40,
             height: 40,
-            borderRadius: "50%",
-            overflow: "hidden",
-            position: "relative",
+            borderRadius: '50%',
+            overflow: 'hidden',
+            position: 'relative',
             zIndex: visibleMembers.length - index,
-            marginLeft: index === 0 ? 0 : "-20px",
+            marginLeft: index === 0 ? 0 : '-20px',
           }}
         >
           <Avatar
             src={member}
-            alt={memberName || "profile"}
-            sx={{ width: "100%", height: "100%" }}
+            alt={memberName || 'profile'}
+            sx={{ width: '100%', height: '100%' }}
           />
         </Box>
       ))}
@@ -33,17 +33,17 @@ const AvatarGroupPreview = ({ members = [], memberName }) => {
           sx={{
             width: 40,
             height: 40,
-            borderRadius: "50%",
-            overflow: "hidden",
-            backgroundColor: "rgba(153, 102, 255, 0.8)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            borderRadius: '50%',
+            overflow: 'hidden',
+            backgroundColor: 'rgba(153, 102, 255, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             fontWeight: 500,
-            fontSize: "14px",
-            marginLeft: "-20px",
+            fontSize: '14px',
+            marginLeft: '-20px',
             zIndex: 0,
-            color: "white",
+            color: 'white',
           }}
         >
           +{extraCount}

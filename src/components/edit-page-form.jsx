@@ -1,17 +1,17 @@
-import { useRef, useState } from "react";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { Box, Stack, Typography } from "@mui/material";
-import countries from "country-telephone-data";
-import MultiSelect from "./AutoComplete";
-import Input from "./Input";
-import Dropdown from "./Dropdown";
-import Button from "./button";
-import { editPageSchema } from "../schemas";
-import { useEditPageMutation } from "../services/page";
-import { industryTypeOptions, sizeOptions, typeOptions } from "../constant";
-import { uploadIcon } from "../assets";
-import { convertToFormData } from "../utils";
+import { useRef, useState } from 'react';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { Box, Stack, Typography } from '@mui/material';
+import countries from 'country-telephone-data';
+import MultiSelect from './AutoComplete';
+import Input from './Input';
+import Dropdown from './Dropdown';
+import Button from './button';
+import { editPageSchema } from '../schemas';
+import { useEditPageMutation } from '../services/page';
+import { industryTypeOptions, sizeOptions, typeOptions } from '../constant';
+import { uploadIcon } from '../assets';
+import { convertToFormData } from '../utils';
 
 const EditPageForm = ({ page, refetch }) => {
   const countriesOptions = countries?.allCountries?.map((item) => ({
@@ -24,36 +24,36 @@ const EditPageForm = ({ page, refetch }) => {
   const formik = useFormik({
     initialValues: {
       pageType: page?.type?.toUpperCase(),
-      organizationName: page?.name || "",
-      address: page?.address || "",
+      organizationName: page?.name || '',
+      address: page?.address || '',
       location: page?.locationCountry || null,
       branches: page?.branchesCountries || [],
       size:
         sizeOptions?.find((item) => item.label === page?.organizationSize)
-          ?.value || "",
+          ?.value || '',
       type:
         typeOptions?.find((item) => item.label === page?.organizationType)
-          ?.value || "",
-      industry: page?.industry || "",
-      website: page?.website || "",
-      tagline: page?.tagline || "",
+          ?.value || '',
+      industry: page?.industry || '',
+      website: page?.website || '',
+      tagline: page?.tagline || '',
       //production
-      sellingItem: page?.productionDescription || "",
-      megajooules: page?.energyConsumption || "",
-      energyDuration: page?.certifications || "",
-      cost: page?.costDetails || "",
+      sellingItem: page?.productionDescription || '',
+      megajooules: page?.energyConsumption || '',
+      energyDuration: page?.certifications || '',
+      cost: page?.costDetails || '',
       //transportation
-      shippingItem: page?.transportationDescription || "",
-      fuelCells: page?.fleetSize || "",
-      to: page?.operatingRange?.split(" ")[1] || "",
-      from: page?.operatingRange?.split(" ")[0] || "",
-      transportCost: page?.transportationCostDetails || "",
+      shippingItem: page?.transportationDescription || '',
+      fuelCells: page?.fleetSize || '',
+      to: page?.operatingRange?.split(' ')[1] || '',
+      from: page?.operatingRange?.split(' ')[0] || '',
+      transportCost: page?.transportationCostDetails || '',
       //storage
-      storageDuration: page?.storageCapacity || "",
-      storageTemp: page?.storageTemperature || "",
+      storageDuration: page?.storageCapacity || '',
+      storageTemp: page?.storageTemperature || '',
       //miscellaneous
-      sellingItemOthers: page?.otherDescription || "",
-      itemCostOthers: page?.otherCostDetails || "",
+      sellingItemOthers: page?.otherDescription || '',
+      itemCostOthers: page?.otherCostDetails || '',
     },
     validationSchema: editPageSchema,
     onSubmit: (values) => {
@@ -68,7 +68,7 @@ const EditPageForm = ({ page, refetch }) => {
         industry: values?.industry,
         website: values?.website,
         tagline: values?.tagline,
-        ...(typeof image !== "string" && { logo: image }),
+        ...(typeof image !== 'string' && { logo: image }),
         productionDescription: values?.sellingItem,
         energyConsumption: values?.megajooules,
         certifications: values?.energyDuration,
@@ -97,15 +97,15 @@ const EditPageForm = ({ page, refetch }) => {
   return (
     <Box
       sx={{
-        width: { xs: "100%", sm: "70%" },
-        display: "flex",
-        flexDirection: "column",
-        ".MuiOutlinedInput-root": {
-          minHeight: "65px !important",
-          height: "auto",
+        width: { xs: '100%', sm: '70%' },
+        display: 'flex',
+        flexDirection: 'column',
+        '.MuiOutlinedInput-root': {
+          minHeight: '65px !important',
+          height: 'auto',
         },
-        input: { paddingBottom: "20px" },
-        ".MuiStack-root": { marginTop: "24px" },
+        input: { paddingBottom: '20px' },
+        '.MuiStack-root': { marginTop: '24px' },
       }}
     >
       <Input
@@ -164,7 +164,7 @@ const EditPageForm = ({ page, refetch }) => {
         variant="outlined"
         options={sizeOptions}
         handleChange={(event) =>
-          formik.setFieldValue("size", event.target.value)
+          formik.setFieldValue('size', event.target.value)
         }
         customLabel="Organization size"
         required
@@ -178,7 +178,7 @@ const EditPageForm = ({ page, refetch }) => {
         variant="outlined"
         options={typeOptions}
         handleChange={(event) =>
-          formik.setFieldValue("type", event.target.value)
+          formik.setFieldValue('type', event.target.value)
         }
         customLabel="Organization type"
         required
@@ -192,7 +192,7 @@ const EditPageForm = ({ page, refetch }) => {
         variant="outlined"
         options={industryTypeOptions}
         handleChange={(event) =>
-          formik.setFieldValue("industry", event.target.value)
+          formik.setFieldValue('industry', event.target.value)
         }
         customLabel="Add industry"
         noLabel
@@ -201,7 +201,7 @@ const EditPageForm = ({ page, refetch }) => {
         helperText={formik.touched.industry && formik.errors.industry}
         value={formik.values.industry}
       />
-      {formik?.values?.industry === "PRODUCTION" && (
+      {formik?.values?.industry === 'PRODUCTION' && (
         <>
           <Input
             variant="outlined"
@@ -249,7 +249,7 @@ const EditPageForm = ({ page, refetch }) => {
           />
         </>
       )}
-      {formik?.values?.industry === "TRANSPORTATION" && (
+      {formik?.values?.industry === 'TRANSPORTATION' && (
         <>
           <Input
             variant="outlined"
@@ -279,11 +279,11 @@ const EditPageForm = ({ page, refetch }) => {
               Enter the places of shipping
             </Typography>
             <Stack
-              direction={{ xs: "column", md: "row" }}
+              direction={{ xs: 'column', md: 'row' }}
               alignItems="flex-end"
               justifyContent="center"
               gap={2}
-              sx={{ marginTop: "0px !important" }}
+              sx={{ marginTop: '0px !important' }}
             >
               <Input
                 variant="outlined"
@@ -321,7 +321,7 @@ const EditPageForm = ({ page, refetch }) => {
           />
         </>
       )}
-      {formik?.values?.industry === "STORAGE" && (
+      {formik?.values?.industry === 'STORAGE' && (
         <>
           <Input
             variant="outlined"
@@ -349,7 +349,7 @@ const EditPageForm = ({ page, refetch }) => {
           />
         </>
       )}
-      {formik?.values?.industry === "OTHER" && (
+      {formik?.values?.industry === 'OTHER' && (
         <>
           <Input
             variant="outlined"
@@ -402,36 +402,36 @@ const EditPageForm = ({ page, refetch }) => {
         </Typography>
         <Box
           sx={{
-            padding: "7px 21px",
-            width: "100%",
-            borderRadius: "4px",
-            height: "80px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
+            padding: '7px 21px',
+            width: '100%',
+            borderRadius: '4px',
+            height: '80px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
           }}
         >
           {image && (
             <img
               style={{
-                position: "absolute",
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                border: "1px solid #000",
-                objectFit: "cover",
+                position: 'absolute',
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                border: '1px solid #000',
+                objectFit: 'cover',
                 opacity: 0.5,
               }}
               src={
-                typeof image === "string" ? image : URL.createObjectURL(image)
+                typeof image === 'string' ? image : URL.createObjectURL(image)
               }
               alt="image"
             />
           )}
           <img
             onClick={() => imageRef.current.click()}
-            style={{ cursor: "pointer", zIndex: 2 }}
+            style={{ cursor: 'pointer', zIndex: 2 }}
             width={52}
             height={52}
             src={uploadIcon}
@@ -441,14 +441,14 @@ const EditPageForm = ({ page, refetch }) => {
             ref={imageRef}
             type="file"
             accept="image/*"
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             onChange={(e) => {
               const file = e.target.files[0];
-              if (file && file.type.startsWith("image/")) {
+              if (file && file.type.startsWith('image/')) {
                 setImage(file);
               } else {
-                toast.error("Please select a valid image file.");
-                e.target.value = "";
+                toast.error('Please select a valid image file.');
+                e.target.value = '';
               }
             }}
           />
@@ -468,14 +468,14 @@ const EditPageForm = ({ page, refetch }) => {
       />
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "50px",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          marginTop: '50px',
         }}
       >
-        <Box sx={{ width: "250px" }}>
+        <Box sx={{ width: '250px' }}>
           <Button
             loading={isLoading}
             disabled={isLoading}

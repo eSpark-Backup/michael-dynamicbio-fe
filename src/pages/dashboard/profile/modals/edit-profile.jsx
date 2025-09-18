@@ -1,14 +1,14 @@
-import { useDispatch } from "react-redux";
-import { useFormik } from "formik";
-import { toast } from "react-toastify";
-import { Box, Stack, Typography } from "@mui/material";
-import { Dropdown, DynamicModal, Input } from "../../../../components";
-import { useUpdateUserInfoMutation } from "../../../../services/auth";
-import { updateUser } from "../../../../store/slices/auth";
-import { editProfileDetailsSchema } from "../../../../schemas";
-import { plus } from "../../../../assets";
-import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import { Box, Stack, Typography } from '@mui/material';
+import { Dropdown, DynamicModal, Input } from '../../../../components';
+import { useUpdateUserInfoMutation } from '../../../../services/auth';
+import { updateUser } from '../../../../store/slices/auth';
+import { editProfileDetailsSchema } from '../../../../schemas';
+import { plus } from '../../../../assets';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 const EditProfileModal = ({
   userData,
@@ -56,7 +56,7 @@ const EditProfileModal = ({
           return;
         }
         if (res) {
-          toast.success("Your profile updated successfully");
+          toast.success('Your profile updated successfully');
           dispatch(updateUser(res?.data?.data));
           onClose();
         }
@@ -79,15 +79,15 @@ const EditProfileModal = ({
     >
       <Box
         sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          rowGap: "10px",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
         }}
       >
         <Box
           sx={{
-            width: "100%",
+            width: '100%',
           }}
         >
           <Input
@@ -102,7 +102,7 @@ const EditProfileModal = ({
         </Box>
         <Box
           sx={{
-            width: "100%",
+            width: '100%',
           }}
         >
           <Input
@@ -117,7 +117,7 @@ const EditProfileModal = ({
         </Box>
         <Box
           sx={{
-            width: "100%",
+            width: '100%',
           }}
         >
           <Input
@@ -132,8 +132,8 @@ const EditProfileModal = ({
         </Box>
         <Box
           sx={{
-            width: "100%",
-            mb: "10px",
+            width: '100%',
+            mb: '10px',
           }}
         >
           <Input
@@ -151,10 +151,10 @@ const EditProfileModal = ({
           variant="filled"
           value={formik.values.dob ? dayjs(formik.values.dob) : null}
           onChange={(value) =>
-            formik.setFieldValue("dob", value ? value.toISOString() : null)
+            formik.setFieldValue('dob', value ? value.toISOString() : null)
           }
-          max={new Date().toISOString().split("T")[0]} // today’s date
-          onBlur={() => formik.setFieldTouched("dob", true)}
+          max={new Date().toISOString().split('T')[0]} // today’s date
+          onBlur={() => formik.setFieldTouched('dob', true)}
           slotProps={{
             textField: {
               fullWidth: true,
@@ -163,22 +163,22 @@ const EditProfileModal = ({
             },
           }}
           sx={{
-            ".MuiOutlinedInput-root": {
-              width: "100%",
-              backgroundColor: "#FCFCFC",
-              height: "45px",
-              border: "none",
-              borderBottom: "1px solid #000000 !important",
-              borderRadius: "0px",
-              fontSize: "18px",
-              mt: "10px",
+            '.MuiOutlinedInput-root': {
+              width: '100%',
+              backgroundColor: '#FCFCFC',
+              height: '45px',
+              border: 'none',
+              borderBottom: '1px solid #000000 !important',
+              borderRadius: '0px',
+              fontSize: '18px',
+              mt: '10px',
             },
           }}
         />
         <Box
           sx={{
-            width: "100%",
-            mt: "10px",
+            width: '100%',
+            mt: '10px',
           }}
         >
           <Dropdown
@@ -200,10 +200,10 @@ const EditProfileModal = ({
             handleOpenExpModal();
           }}
           sx={{
-            cursor: "pointer",
-            border: "1px solid #DDE2E4",
-            padding: "10px 0",
-            borderRadius: "4px",
+            cursor: 'pointer',
+            border: '1px solid #DDE2E4',
+            padding: '10px 0',
+            borderRadius: '4px',
           }}
           mt={2}
           direction="row"
@@ -216,7 +216,7 @@ const EditProfileModal = ({
         </Stack>
         <Box
           sx={{
-            width: "100%",
+            width: '100%',
           }}
         >
           <Input

@@ -1,120 +1,120 @@
-import { api } from "./rtk";
+import { api } from './rtk';
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/login",
-        method: "POST",
+        url: '/auth/login',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     getUserInfo: builder.mutation({
       query: () => ({
-        url: "/user/profile",
-        method: "GET",
-        credentials: "include",
+        url: '/user/profile',
+        method: 'GET',
+        credentials: 'include',
       }),
     }),
     updateUserInfo: builder.mutation({
       query: (credentials) => ({
-        url: "/user/profile",
-        method: "PUT",
+        url: '/user/profile',
+        method: 'PUT',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     generateQr: builder.mutation({
       query: () => ({
-        url: "/user/generate-qr",
-        method: "GET",
-        credentials: "include",
+        url: '/user/generate-qr',
+        method: 'GET',
+        credentials: 'include',
       }),
     }),
     verifyQr: builder.mutation({
       query: (credentials) => ({
-        url: "/user/verify-qr",
-        method: "POST",
+        url: '/user/verify-qr',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     resyncMfa: builder.mutation({
       query: (credentials) => ({
-        url: "/user/resync-qr",
-        method: "POST",
+        url: '/user/resync-qr',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     verifymfaWithEmail: builder.mutation({
       query: () => ({
-        url: "/user/verify-new-device",
-        method: "GET",
-        credentials: "include",
+        url: '/user/verify-new-device',
+        method: 'GET',
+        credentials: 'include',
       }),
     }),
     reverifymfaWithEmail: builder.mutation({
       query: ({ token, expiresAt }) => ({
         url: `/auth/register-device/${token}/${expiresAt}`,
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
       }),
     }),
     register: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/register",
-        method: "POST",
+        url: '/auth/register',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     verifyEmail: builder.mutation({
       query: ({ token, expiresAt }) => ({
         url: `/auth/set-password/${token}/${expiresAt}`,
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include',
       }),
     }),
     completeProfile: builder.mutation({
       query: (credentials) => ({
         url: `/user/add-profile`,
-        method: "PUT",
+        method: 'PUT',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     findEmail: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/find-email",
-        method: "POST",
+        url: '/auth/find-email',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     forgotPassword: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/forgot-password",
-        method: "POST",
+        url: '/auth/forgot-password',
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     resetPassword: builder.mutation({
       query: ({ credentials, token, expiresAt }) => ({
         url: `/auth/reset-password/${token}/${expiresAt}`,
-        method: "POST",
+        method: 'POST',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
     updateUserProfileSettings: builder.mutation({
       query: (credentials) => ({
-        url: "/user/profile/settings",
-        method: "PUT",
+        url: '/user/profile/settings',
+        method: 'PUT',
         body: credentials,
-        credentials: "include",
+        credentials: 'include',
       }),
     }),
   }),

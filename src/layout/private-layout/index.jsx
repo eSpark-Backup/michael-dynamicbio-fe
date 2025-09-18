@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { Box, CircularProgress } from "@mui/material";
-import Header from "./Header";
-import Navbar from "./Navbar";
-import { useGetUserInfoMutation } from "../../services/auth";
-import { logout } from "../../store/slices/auth";
-import { api } from "../../services/rtk";
+import { useEffect, useRef, useState } from 'react';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Box, CircularProgress } from '@mui/material';
+import Header from './Header';
+import Navbar from './Navbar';
+import { useGetUserInfoMutation } from '../../services/auth';
+import { logout } from '../../store/slices/auth';
+import { api } from '../../services/rtk';
 
 const PrivateLayout = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const [getInfo] = useGetUserInfoMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,13 +23,13 @@ const PrivateLayout = () => {
     if (token && !hasFetchedRef.current) {
       hasFetchedRef.current = true;
       setLoading(true);
-      localStorage.removeItem("temp-token");
+      localStorage.removeItem('temp-token');
       getInfo().then((res) => {
         if (res?.error) {
           toast.error(res?.error?.data?.message);
           dispatch(logout());
           dispatch(api.util.resetApiState());
-          navigate("/login");
+          navigate('/login');
           setLoading(false);
           return;
         }
@@ -53,14 +53,14 @@ const PrivateLayout = () => {
         <Header />
         <Box
           sx={{
-            width: "100vw",
-            height: "calc(100vh - 66px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            width: '100vw',
+            height: 'calc(100vh - 66px)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <CircularProgress sx={{ color: "#1877F2" }} />
+          <CircularProgress sx={{ color: '#1877F2' }} />
         </Box>
       </>
     );
@@ -68,7 +68,7 @@ const PrivateLayout = () => {
 
   return (
     <>
-      {pathname !== "/settings" && pathname !== "/ddt" && (
+      {pathname !== '/settings' && pathname !== '/ddt' && (
         <>
           <Header />
           <Navbar />
