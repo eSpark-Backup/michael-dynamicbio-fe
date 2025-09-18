@@ -24,7 +24,6 @@ const DynamicModal = ({
   buttonText,
   sx,
   postModal,
-  userName,
   handleScheduleClick,
   smallModal,
   dropdownHeader,
