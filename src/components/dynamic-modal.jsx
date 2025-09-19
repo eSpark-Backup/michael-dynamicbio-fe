@@ -12,6 +12,7 @@ import {
 import Button from "./button";
 import { close, downArrowFilled, dummyPhoto, timer, user } from "../assets";
 import { useState } from "react";
+import { toTitleCase } from "../utils";
 
 const DynamicModal = ({
   disabled,
@@ -30,6 +31,7 @@ const DynamicModal = ({
   styledHeader,
   footerDirection,
   hideFooter,
+  userName,
   userData,
   visibility,
   setVisibility,
@@ -147,7 +149,9 @@ const DynamicModal = ({
                       textTransform: "capitalize",
                     }}
                   >
-                    {page ? page?.name : "Default User"}
+                    {page
+                      ? toTitleCase(page?.name)
+                      : toTitleCase(userName) || "Default User"}
                   </Typography>
                   {!adminPage && !isEditModal && (
                     <img
@@ -173,7 +177,7 @@ const DynamicModal = ({
                   }}
                 >
                   {groupAdmin
-                    ? `Post to ${group?.name}`
+                    ? `Post to ${toTitleCase(group?.name)}`
                     : visibility === "PUBLIC"
                       ? "Post to anyone"
                       : visibility === "CONNECTIONS"

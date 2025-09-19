@@ -7,7 +7,7 @@ import {
   SuggestedBonds,
   SuggestionPost,
 } from "../../../../components";
-import { getDaysLeft, useQuery } from "../../../../utils";
+import { getDaysLeft, toTitleCase, useQuery } from "../../../../utils";
 import {
   useAllBondsReqQuery,
   useUpdateBondReqMutation,
@@ -359,12 +359,12 @@ const SearchBonds = () => {
                     >
                       {`${
                         sent
-                          ? item?.recipient?.firstName
-                          : item?.requester?.firstName
+                          ? toTitleCase(item?.recipient?.firstName)
+                          : toTitleCase(item?.requester?.firstName)
                       } ${
                         sent
-                          ? item?.recipient?.lastName
-                          : item?.requester?.lastName
+                          ? toTitleCase(item?.recipient?.lastName)
+                          : toTitleCase(item?.requester?.lastName)
                       }`}
                     </Typography>
                     <Typography
@@ -374,8 +374,8 @@ const SearchBonds = () => {
                     >
                       {`${
                         sent
-                          ? item?.recipient?.designation
-                          : item?.requester?.designation
+                          ? toTitleCase(item?.recipient?.designation)
+                          : toTitleCase(item?.requester?.designation)
                       } at “${
                         sent
                           ? item?.recipient?.company
@@ -388,11 +388,13 @@ const SearchBonds = () => {
                       fontWeight={400}
                     >
                       {`${
-                        sent ? item?.recipient?.city : item?.requester?.city
+                        sent
+                          ? toTitleCase(item?.recipient?.city)
+                          : toTitleCase(item?.requester?.city)
                       }, ${
                         sent
-                          ? item?.recipient?.country
-                          : item?.requester?.country
+                          ? toTitleCase(item?.recipient?.country)
+                          : toTitleCase(item?.requester?.country)
                       }`}
                     </Typography>
                   </Box>

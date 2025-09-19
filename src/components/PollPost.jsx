@@ -46,6 +46,7 @@ import {
 } from "../services/post";
 import ShowLikesModal from "./ShowLikesModal";
 import EditModal from "./EditModal";
+import { toTitleCase } from "../utils";
 
 const PollPost = ({
   isUpdateLoading,
@@ -699,8 +700,8 @@ const PollPost = ({
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
-                        ? `${lastUserLiked} likes this`
-                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                        ? `${toTitleCase(lastUserLiked)} likes this`
+                        : `${toTitleCase(lastUserLiked)} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>

@@ -31,7 +31,7 @@ import {
   useGetGroupDetailQuery,
   useGetGroupPostsQuery,
 } from "../services/group";
-import { copyToClipboard, getDaysLeft } from "../utils";
+import { copyToClipboard, getDaysLeft, toTitleCase } from "../utils";
 import {
   arrowUpRight,
   bulb,
@@ -433,7 +433,7 @@ const GroupDetails = () => {
                 <Typography
                   sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
                 >
-                  {`${user?.firstName} ${user?.lastName}`}
+                  {`${toTitleCase(user?.firstName)} ${toTitleCase(user?.lastName)}`}
                 </Typography>
                 {isMyGroup && (
                   <Box sx={{ p: "5px 15px", backgroundColor: "#d3d3d3" }}>
@@ -660,7 +660,7 @@ const GroupDetails = () => {
                     textTransform: "capitalize",
                   }}
                 >
-                  {data?.data?.name}
+                  {toTitleCase(data?.data?.name)}
                 </Typography>
                 <Box
                   sx={{
@@ -966,7 +966,7 @@ const GroupDetails = () => {
               textTransform: "capitalize",
             }}
           >
-            {`Manage notifications about ${data?.data?.name}`}
+            {`Manage notifications about ${toTitleCase(data?.data?.name)}`}
           </Typography>
         </MenuItem>
         <Divider />

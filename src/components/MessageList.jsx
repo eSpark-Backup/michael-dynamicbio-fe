@@ -2,7 +2,7 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import React, { useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import MessageBubble from "./MessageBubble";
 import dayjs from "dayjs";
-import { formatChatTimestamp } from "../utils";
+import { formatChatTimestamp, toTitleCase } from "../utils";
 import TypingDots from "./TypingDots";
 import { useSelector } from "react-redux";
 import { userAvatar } from "../assets";
@@ -179,7 +179,7 @@ const MessageList = ({
               />
               <Stack direction={"column"}>
                 <Typography sx={{ fontSize: "13px", fontWeight: 500 }}>
-                  {user?.name}
+                  {toTitleCase(user?.name)}
                 </Typography>
                 <Box
                   sx={{

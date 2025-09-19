@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import { toast } from "react-toastify";
 import Header from "../../../layout/private-layout/Header.jsx";
 import Navbar from "../../../layout/private-layout/Navbar.jsx";
+import { toTitleCase } from "../../../utils/index.js";
 
 const GeneralArticle = () => {
   const encodedData = useMemo(() => {
@@ -180,7 +181,7 @@ const GeneralArticle = () => {
                               color: "#171717",
                             }}
                           >
-                            {articleContent?.articleMaker}
+                            {toTitleCase(articleContent?.articleMaker)}
                           </Typography>
                           <Typography
                             sx={{
@@ -297,7 +298,7 @@ const GeneralArticle = () => {
                       }}
                     />
                     <Typography sx={{ textAlign: "center" }}>
-                      {articleContent?.articleMaker}
+                      {toTitleCase(articleContent?.articleMaker)}
                     </Typography>
                     <Typography sx={{ textAlign: "center" }}>
                       {typeof articleContent?.articleMakerRole === "string"

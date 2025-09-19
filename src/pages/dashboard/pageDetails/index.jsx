@@ -25,7 +25,7 @@ import {
   useFollowPageMutation,
   useGetPageByIdQuery,
 } from "../../../services/page";
-import { toCapitalized } from "../../../utils";
+import { toCapitalized, toTitleCase } from "../../../utils";
 
 const PageDetailsPage = () => {
   const [selectedOption, setSelectedOption] = useState("relevant");
@@ -218,7 +218,7 @@ const PageDetailsPage = () => {
                       textTransform: "capitalize",
                     }}
                   >
-                    {data?.data?.name}
+                    {toTitleCase(data?.data?.name)}
                   </Typography>
                   <Typography
                     sx={{
@@ -346,7 +346,7 @@ const PageDetailsPage = () => {
                           textTransform: "capitalize",
                         }}
                       >
-                        {data?.data?.name}
+                        {toTitleCase(data?.data?.name)}
                       </span>
                     </Typography>
                     <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -479,7 +479,7 @@ const PageDetailsPage = () => {
               textTransform: "capitalize",
             }}
           >
-            {`Manage notifications about ${data?.data?.name}`}
+            {`Manage notifications about ${toTitleCase(data?.data?.name)}`}
           </Typography>
         </MenuItem>
         <Divider />

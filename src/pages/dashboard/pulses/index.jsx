@@ -13,7 +13,7 @@ import { useGetAllNotificationsQuery } from "../../../services/notification";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
-import { eventBus } from "../../../utils";
+import { eventBus, toTitleCase } from "../../../utils";
 import { useNavigate } from "react-router-dom";
 
 const Pulses = () => {
@@ -136,7 +136,7 @@ const Pulses = () => {
                   textAlign: "center",
                 }}
               >
-                {`${user?.firstName} ${user?.lastName}`}
+                {`${toTitleCase(user?.firstName)} ${toTitleCase(user?.lastName)}`}
               </Typography>
               <Typography
                 sx={{
@@ -146,7 +146,7 @@ const Pulses = () => {
                   textAlign: "center",
                 }}
               >
-                {`${user?.designation} at ${user?.company}`}
+                {`${toTitleCase(user?.designation)} at ${user?.company}`}
               </Typography>
               <Typography
                 sx={{
@@ -156,7 +156,7 @@ const Pulses = () => {
                   textAlign: "center",
                 }}
               >
-                {`${user?.city}, ${user?.country}`}
+                {`${toTitleCase(user?.city)}, ${toTitleCase(user?.country)}`}
               </Typography>
             </Box>
           </Paper>

@@ -23,7 +23,7 @@ import { projectSchema } from "../../../../schemas";
 import { close, deleteIcon, link, plus, user } from "../../../../assets";
 import AddLink from "./add-link";
 import { monthOptions } from "../../../../constant";
-import { checkDate, yearOptions } from "../../../../utils";
+import { checkDate, toTitleCase, yearOptions } from "../../../../utils";
 import { useGetMyBondsQuery } from "../../../../services/bonds";
 import { useUpdateUserInfoMutation } from "../../../../services/auth";
 import { toast } from "react-toastify";
@@ -63,15 +63,15 @@ const AddProject = ({ open, handleClose, userData }) => {
     const data = (userData?.about?.experience || [])
       .filter((item) => item?.title && item?.company)
       .map((item) => ({
-        label: `${item.title} at ${item.company}`,
-        value: `${item.title} at ${item.company}`,
+        label: `${toTitleCase(item.title)} at ${toTitleCase(item.company)}`,
+        value: `${toTitleCase(item.title)} at ${toTitleCase(item.company)}`,
       }));
 
     const data2 = (userData?.about?.education || [])
       .filter((item) => item?.school)
       .map((item) => ({
-        label: `Student at ${item.school}`,
-        value: `Student at ${item.school}`,
+        label: `Student at ${toTitleCase(item.school)}`,
+        value: `Student at ${toTitleCase(item.school)}`,
       }));
 
     setRelatedOptions([...data, ...data2]);
@@ -417,7 +417,7 @@ const AddProject = ({ open, handleClose, userData }) => {
                   }}
                 />
               )}
-              <span>{file.name}</span>
+              <span>{toTitleCase(file.name)}</span>
               <img
                 src={deleteIcon}
                 alt=""
@@ -621,7 +621,7 @@ const AddProject = ({ open, handleClose, userData }) => {
                         color: "#171717",
                       }}
                     >
-                      {item?.name}
+                      {toTitleCase(item?.name)}
                     </Typography>
                     <img
                       src={close}

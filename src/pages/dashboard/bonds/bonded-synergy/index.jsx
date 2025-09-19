@@ -14,7 +14,7 @@ import {
   useGetMyBondsQuery,
   useUpdateBondReqMutation,
 } from "../../../../services/bonds";
-import { eventBus, formatDate } from "../../../../utils";
+import { eventBus, formatDate, toTitleCase } from "../../../../utils";
 import { searchIcon, user, verticleDots } from "../../../../assets";
 
 const BondedSynergy = () => {
@@ -179,10 +179,10 @@ const BondedSynergy = () => {
                   />
                   <Box>
                     <Typography sx={{ color: "#171717" }} fontSize="18px">
-                      {`${bond?.friend?.firstName} ${bond?.friend?.lastName}`}
+                      {`${toTitleCase(bond?.friend?.firstName)} ${toTitleCase(bond?.friend?.lastName)}`}
                     </Typography>
                     <Typography sx={{ color: "#171717" }} fontSize="18px">
-                      {`${bond?.friend?.designation} at ${bond?.friend?.company}`}
+                      {`${toTitleCase(bond?.friend?.designation)} at ${bond?.friend?.company}`}
                     </Typography>
                     <Typography sx={{ color: "#505050" }} fontSize="14px">
                       {`Bonded on ${formatDate(bond?.createdAt)}`}

@@ -10,6 +10,7 @@ import {
 import OutlinedInput from "./outline-input";
 import { earth, searchIcon } from "../assets";
 import { groupsCOntent } from "../constant";
+import { toTitleCase } from "../utils";
 
 const GroupShareModal = () => {
   return (
@@ -69,7 +70,7 @@ const GroupShareModal = () => {
                         color: "#171717",
                       }}
                     >
-                      {item?.name}
+                      {toTitleCase(item?.name)}
                     </Typography>
                     <Box
                       sx={{

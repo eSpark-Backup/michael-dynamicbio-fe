@@ -19,6 +19,7 @@ import {
 } from "../services/chat";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import { toTitleCase } from "../utils";
 
 const GroupChatModal = ({
   chatId,
@@ -308,7 +309,7 @@ const GroupChatModal = ({
                       color: "#171717",
                     }}
                   >
-                    {item?.name}
+                    {toTitleCase(item?.name)}
                   </Typography>
                   <Typography
                     sx={{
@@ -317,7 +318,7 @@ const GroupChatModal = ({
                       color: "#505050",
                     }}
                   >
-                    {item?.role}
+                    {toTitleCase(item?.role)}
                   </Typography>
                 </Stack>
               </Box>
@@ -330,7 +331,9 @@ const GroupChatModal = ({
                       color: "#505050",
                     }}
                   >
-                    {id === userData?.userChatId ? "Group members" : item?.name}{" "}
+                    {id === userData?.userChatId
+                      ? "Group members"
+                      : toTitleCase(item?.name)}{" "}
                     will be informed you have{" "}
                     {id === userData?.userChatId
                       ? "left group"

@@ -14,7 +14,7 @@ import { useGetPostByIdQuery } from "../../../services/post";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { bondMain, user } from "../../../assets";
-import { getDaysLeft } from "../../../utils";
+import { getDaysLeft, toTitleCase } from "../../../utils";
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -236,7 +236,8 @@ const SinglePost = () => {
                   cursor: "pointer",
                 }}
               >
-                {userData?.firstName} {userData?.lastName}
+                {toTitleCase(userData?.firstName)}{" "}
+                {toTitleCase(userData?.lastName)}
               </Typography>
               <Typography
                 sx={{
@@ -246,7 +247,7 @@ const SinglePost = () => {
                   textAlign: "center",
                 }}
               >
-                {userData?.designation} at {userData?.company}
+                {toTitleCase(userData?.designation)} at {userData?.company}
               </Typography>
               <Typography
                 sx={{
@@ -256,7 +257,7 @@ const SinglePost = () => {
                   textAlign: "center",
                 }}
               >
-                {userData?.country}
+                {toTitleCase(userData?.country)}
               </Typography>
             </Box>
           </Paper>

@@ -46,6 +46,7 @@ import Button from "./button.jsx";
 import { toast } from "react-toastify";
 import ShowLikesModal from "./ShowLikesModal.jsx";
 import EditModal from "./EditModal.jsx";
+import { toTitleCase } from "../utils/index.js";
 
 const SuggestionPost = ({
   isUpdateLoading,
@@ -746,8 +747,8 @@ const SuggestionPost = ({
                         : isPostLiked && totalLikes > 1
                           ? `You and ${totalLikes - 1} more like this`
                           : totalLikes === 1
-                            ? `${lastUserLiked} likes this`
-                            : `${lastUserLiked} and ${totalLikes - 1} like this`}
+                            ? `${toTitleCase(lastUserLiked)} likes this`
+                            : `${toTitleCase(lastUserLiked)} and ${totalLikes - 1} like this`}
                   </Typography>
                 </Box>
                 <Typography

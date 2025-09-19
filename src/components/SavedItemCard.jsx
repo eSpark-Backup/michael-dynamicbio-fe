@@ -12,6 +12,7 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSavePostMutation } from "../services/post";
+import { toTitleCase } from "../utils";
 
 const SavedItemCard = ({
   userImage,
@@ -133,7 +134,7 @@ const SavedItemCard = ({
                   textTransform: "capitalize",
                 }}
               >
-                {isGroupPost ? groupName : userName}
+                {isGroupPost ? toTitleCase(groupName) : toTitleCase(userName)}
               </Typography>
               <img
                 src={three_vertical_dots}
@@ -387,7 +388,7 @@ const SavedItemCard = ({
                         px: type === "article" && !postImage ? "15px" : "0px",
                       }}
                     >
-                      {userName} on Fusion
+                      {toTitleCase(userName)} on Fusion
                     </Typography>
                   </Box>
                 ) : (

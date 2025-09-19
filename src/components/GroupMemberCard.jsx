@@ -7,6 +7,7 @@ import {
   useMakeGroupAdminMutation,
 } from "../services/group";
 import { three_vertical_dots, user } from "../assets";
+import { toTitleCase } from "../utils";
 
 const GroupMemberCard = ({
   groupId,
@@ -114,7 +115,7 @@ const GroupMemberCard = ({
             <Typography
               sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
             >
-              {name}
+              {toTitleCase(name)}
             </Typography>
             {groupRole === "owner" && (
               <Box sx={{ p: "2px 10px", backgroundColor: "#d3d3d3" }}>
@@ -144,14 +145,14 @@ const GroupMemberCard = ({
             <Typography
               sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
             >
-              Made admin by {madeBy}
+              Made admin by {toTitleCase(madeBy)}
             </Typography>
           )}
           {mainType === "blocked" && (
             <Typography
               sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
             >
-              Blocked by {madeBy}
+              Blocked by {toTitleCase(madeBy)}
             </Typography>
           )}
         </Stack>
@@ -257,9 +258,9 @@ const GroupMemberCard = ({
       >
         <Typography sx={{ fontSize: 17, fontWeight: 300, color: "#595959" }}>
           {selectedChoice === "add-admin"
-            ? `As a group admin, ${name} will be able to manage members and conversations.`
+            ? `As a group admin, ${toTitleCase(name)} will be able to manage members and conversations.`
             : selectedChoice === "remove-admin"
-              ? `As a group member, ${name} will not be able to manage members and conversations.`
+              ? `As a group member, ${toTitleCase(name)} will not be able to manage members and conversations.`
               : selectedChoice === "owner"
                 ? "As a group owner, Default User will be able to remove you from the group, delete the group, edit group details, and manage members and conversations. "
                 : "Default User will become a member of the group and be able to interact with the group again. "}

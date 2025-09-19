@@ -6,6 +6,7 @@ import { useLikeMutation } from "../services/interaction";
 import { useSelector } from "react-redux";
 import DynamicModal from "./dynamic-modal";
 import ShowLikesModal from "./ShowLikesModal";
+import { toTitleCase } from "../utils";
 
 const Comment = ({
   userImage,
@@ -111,7 +112,7 @@ const Comment = ({
               textTransform: "capitalize",
             }}
           >
-            {userName}
+            {toTitleCase(userName)}
           </Typography>
           <Box display={"flex"} alignContent={"center"} columnGap={2}>
             <Typography

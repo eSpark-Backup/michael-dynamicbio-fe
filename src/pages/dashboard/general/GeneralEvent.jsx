@@ -11,7 +11,11 @@ import {
   user,
   videoIcon,
 } from "../../../assets";
-import { formatEventPostTime, formatEventTimeLocal } from "../../../utils";
+import {
+  formatEventPostTime,
+  formatEventTimeLocal,
+  toTitleCase,
+} from "../../../utils";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Button from "../../../components/button";
 import { useGetGeneralPageQuery } from "../../../services/general";
@@ -148,7 +152,7 @@ const GeneralEvent = () => {
                       color: "#505050",
                     }}
                   >
-                    Event by {postData?.eventMaker}
+                    Event by {toTitleCase(postData?.eventMaker)}
                   </Typography>
                   <Box
                     sx={{

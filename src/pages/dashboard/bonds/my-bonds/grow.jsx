@@ -19,7 +19,7 @@ import {
   userAvatar,
   verticleDots,
 } from "../../../../assets";
-import { eventBus } from "../../../../utils";
+import { eventBus, toTitleCase } from "../../../../utils";
 import { Link } from "react-router-dom";
 
 const Grow = () => {
@@ -177,12 +177,12 @@ const Grow = () => {
                         >
                           {`${
                             sent
-                              ? item?.recipient?.firstName
-                              : item?.requester?.firstName
+                              ? toTitleCase(item?.recipient?.firstName)
+                              : toTitleCase(item?.requester?.firstName)
                           } ${
                             sent
-                              ? item?.recipient?.lastName
-                              : item?.requester?.lastName
+                              ? toTitleCase(item?.recipient?.lastName)
+                              : toTitleCase(item?.requester?.lastName)
                           }`}
                         </Typography>
                       </Link>
@@ -193,8 +193,8 @@ const Grow = () => {
                       >
                         {`${
                           sent
-                            ? item?.recipient?.designation
-                            : item?.requester?.designation
+                            ? toTitleCase(item?.recipient?.designation)
+                            : toTitleCase(item?.requester?.designation)
                         } at “${
                           sent
                             ? item?.recipient?.company
@@ -207,11 +207,13 @@ const Grow = () => {
                         fontWeight={400}
                       >
                         {`${
-                          sent ? item?.recipient?.city : item?.requester?.city
+                          sent
+                            ? toTitleCase(item?.recipient?.city)
+                            : toTitleCase(item?.requester?.city)
                         }, ${
                           sent
-                            ? item?.recipient?.country
-                            : item?.requester?.country
+                            ? toTitleCase(item?.recipient?.country)
+                            : toTitleCase(item?.requester?.country)
                         }`}
                       </Typography>
                     </Box>

@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleChange } from "../../store/slices/search";
 import { logout } from "../../store/slices/auth";
 import { api } from "../../services/rtk";
+import { toTitleCase } from "../../utils";
 
 const Navbar = () => {
   const theme = useTheme();
@@ -290,7 +291,7 @@ const Navbar = () => {
                         },
                       }}
                     >
-                      {item.name}
+                      {toTitleCase(item.name)}
                     </Typography>
                   </Box>
                 );
@@ -482,7 +483,7 @@ const Navbar = () => {
                     },
                   }}
                 >
-                  {item.name}
+                  {toTitleCase(item.name)}
                 </Typography>
               </Box>
             );

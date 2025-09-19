@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { DropDownIcon } from "../assets";
+import { toTitleCase } from "../utils";
 
 const CustomIcon = (props) => (
   <img
@@ -98,7 +99,7 @@ const Dropdown = ({
               (item, index) =>
                 index !== 0 && (
                   <MenuItem value={item.dialCode} key={index}>
-                    {item.name} ({item.dialCode})
+                    {toTitleCase(item.name)} ({item.dialCode})
                   </MenuItem>
                 )
             )}

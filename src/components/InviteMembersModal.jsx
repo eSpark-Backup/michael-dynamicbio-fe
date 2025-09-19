@@ -11,6 +11,7 @@ import OutlinedInput from "./outline-input";
 import { close, searchIcon, user } from "../assets";
 import { inviteMembers } from "../constant";
 import Button from "./button";
+import { toTitleCase } from "../utils";
 
 const InviteMembersModal = ({ handleClose }) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
@@ -118,12 +119,12 @@ const InviteMembersModal = ({ handleClose }) => {
                 <Typography
                   sx={{ fontSize: "16px", fontWeight: "500", color: "#171717" }}
                 >
-                  {item.name}
+                  {toTitleCase(item.name)}
                 </Typography>
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}
                 >
-                  {item.role}
+                  {toTitleCase(item.role)}
                 </Typography>
               </Stack>
             </Box>
@@ -189,7 +190,7 @@ const InviteMembersModal = ({ handleClose }) => {
                       color: "#171717",
                     }}
                   >
-                    {item?.name}
+                    {toTitleCase(item?.name)}
                   </Typography>
                 </Stack>
                 <img

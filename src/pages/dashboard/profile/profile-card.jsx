@@ -11,6 +11,7 @@ import {
   uploadIcon,
   userAvatar,
 } from "../../../assets";
+import { toTitleCase } from "../../../utils";
 
 const ProfileCard = ({
   userData,
@@ -183,7 +184,7 @@ const ProfileCard = ({
           />
         </Box>
         <Typography fontSize="29px" fontWeight={500}>
-          {`${userData?.firstName?.slice(0, 1).toUpperCase() + userData?.firstName?.slice(1)} ${userData?.lastName?.slice(0, 1).toUpperCase() + userData?.lastName?.slice(1)}`}
+          {`${toTitleCase(userData?.firstName)} ${toTitleCase(userData?.lastName)}`}
         </Typography>
       </Grid2>
       <Grid2 size={{ xs: 12, lg: 8.5 }}>
@@ -243,8 +244,8 @@ const ProfileCard = ({
                   fontSize="12px"
                   fontWeight={400}
                 >
-                  {userData?.city && `${userData?.city}, `}
-                  {userData?.country}
+                  {userData?.city && `${toTitleCase(userData?.city)}, `}
+                  {toTitleCase(userData?.country)}
                 </Typography>
               </Stack>
               <Stack
@@ -265,7 +266,7 @@ const ProfileCard = ({
                   fontSize="12px"
                   fontWeight={400}
                 >
-                  {userData?.designation}
+                  {toTitleCase(userData?.designation)}
                 </Typography>
               </Stack>
               {userData?.industry && (

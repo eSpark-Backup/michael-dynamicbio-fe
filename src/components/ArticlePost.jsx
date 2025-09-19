@@ -39,6 +39,7 @@ import Comment from "./Comment";
 import Button from "./button";
 import { Link, useNavigate } from "react-router-dom";
 import ShowLikesModal from "./ShowLikesModal";
+import { toTitleCase } from "../utils";
 
 const ArticlePost = ({
   page,
@@ -288,7 +289,7 @@ const ArticlePost = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
             >
-              {userName}
+              {toTitleCase(userName)}
             </Typography>
             <Typography
               sx={{ fontSize: "15px", fontWeight: "500", color: "#505050" }}
@@ -406,8 +407,8 @@ const ArticlePost = ({
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
-                        ? `${lastUserLiked} likes this`
-                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                        ? `${toTitleCase(lastUserLiked)} likes this`
+                        : `${toTitleCase(lastUserLiked)} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>

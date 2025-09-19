@@ -18,6 +18,7 @@ import {
   useGetAllGroupsQuery,
 } from "../services/group";
 import { dummyPhoto, rightArrow, user } from "../assets";
+import { toTitleCase } from "../utils";
 
 const GroupSidebar = ({ data }) => {
   const [showConnectionsModal, setShowConnectionsModal] = useState(false);
@@ -97,7 +98,7 @@ const GroupSidebar = ({ data }) => {
                 />
                 <Typography
                   sx={{ fontSize: "14px", fontWeight: "500", color: "#171717" }}
-                >{`${item?.firstName} ${item?.lastName}`}</Typography>
+                >{`${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)}`}</Typography>
               </Stack>
             ))
           : null}
@@ -132,7 +133,7 @@ const GroupSidebar = ({ data }) => {
         {data?.admins?.length > 0
           ? data?.admins?.map(({ admin: item }) => (
               <Box
-                key={item?.firstName}
+                key={toTitleCase(item?.firstName)}
                 sx={{ display: "flex", columnGap: "10px", marginY: "10px" }}
               >
                 <Avatar alt="Travis Howard" src={item?.profileImage || user} />
@@ -151,7 +152,7 @@ const GroupSidebar = ({ data }) => {
                         color: "#171717",
                       }}
                     >
-                      {`${item?.firstName} ${item?.lastName}`}
+                      {`${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)}`}
                     </Typography>
                   </Box>
                   {item?.id === userData?.id && (
@@ -271,7 +272,7 @@ const GroupSidebar = ({ data }) => {
                         textTransform: "capitalize",
                       }}
                     >
-                      {item?.name}
+                      {toTitleCase(item?.name)}
                     </Typography>
                     <Typography
                       sx={{

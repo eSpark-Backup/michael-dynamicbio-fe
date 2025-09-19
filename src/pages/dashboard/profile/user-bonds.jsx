@@ -18,6 +18,7 @@ import {
   useSendBondReqMutation,
   useUpdateBondReqMutation,
 } from "../../../services/bonds";
+import { toTitleCase } from "../../../utils";
 
 const UserBonds = () => {
   const { id } = useParams();
@@ -161,7 +162,7 @@ const UserBonds = () => {
                         }}
                         onClick={() => navigate(`/profile/${item?.id}`)}
                       >
-                        {item?.name}
+                        {toTitleCase(item?.name)}
                       </Typography>
                       {!item?.isUser && (
                         <Box
@@ -210,9 +211,9 @@ const UserBonds = () => {
                         color: "#505050",
                       }}
                     >
-                      {item?.city ? item?.city : ""}
-                      {item?.city && item?.country && ", "}{" "}
-                      {item?.country ? item?.country : ""}
+                      {item?.city ? toTitleCase(item?.city) : ""}
+                      {item?.city && toTitleCase(item?.country) && ", "}{" "}
+                      {item?.country ? toTitleCase(item?.country) : ""}
                     </Typography>
                     {!item?.isUser && (
                       <Box

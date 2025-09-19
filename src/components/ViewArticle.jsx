@@ -2,6 +2,7 @@ import { Box, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { dummyPhoto, timer } from "../assets";
 import Button from "./button";
+import { toTitleCase } from "../utils";
 
 const ViewArticle = ({
   isLoading,
@@ -100,7 +101,7 @@ const ViewArticle = ({
               textTransform: "capitalize",
             }}
           >
-            {values?.userName}
+            {toTitleCase(values?.userName)}
           </Typography>
         </Box>
       </Box>

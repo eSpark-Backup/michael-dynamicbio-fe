@@ -28,7 +28,7 @@ import {
 } from "../assets";
 import { toast } from "react-toastify";
 import { useDeletePostByIdMutation } from "../services/post";
-import { copyToClipboard } from "../utils";
+import { copyToClipboard, toTitleCase } from "../utils";
 import EditModal from "./EditModal";
 import DynamicModal from "./dynamic-modal";
 import {
@@ -166,7 +166,7 @@ const PostSlider = ({ page, posts, refetch }) => {
                         <Typography
                           sx={{ color: "#171717", lineHeight: "20px" }}
                         >
-                          {page?.name}
+                          {toTitleCase(page?.name)}
                         </Typography>
                         <Typography
                           variant="body2"

@@ -5,6 +5,7 @@ import { profileDetailsSchema } from "../../../schemas";
 import { useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { toTitleCase } from "../../../utils";
 
 const CompleteProfile = () => {
   const currentYear = dayjs();
@@ -27,7 +28,7 @@ const CompleteProfile = () => {
   return (
     <>
       <Typography mt="50px" fontSize={"29px"} textAlign="center">
-        Welcome, {tempUser?.firstName}!
+        Welcome, {toTitleCase(tempUser?.firstName)}!
       </Typography>
       <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Let’s begin your profile, connect to the people you know, and engage

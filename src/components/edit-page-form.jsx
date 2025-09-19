@@ -482,7 +482,7 @@ const EditPageForm = ({ page, refetch }) => {
             type="submit"
             onClick={formik.handleSubmit}
           >
-            Confirm Email
+            Edit Page
           </Button>
         </Box>
       </Box>

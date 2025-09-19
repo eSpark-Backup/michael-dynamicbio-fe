@@ -26,6 +26,7 @@ import {
   convertToFormData,
   generateThumbnail,
   getDaysLeft,
+  toTitleCase,
 } from "../../../utils";
 import DashboardSection from "./DashboardSection";
 import PagePosts from "./PagePosts";
@@ -481,7 +482,7 @@ const AdminView = () => {
                   textTransform: "capitalize",
                 }}
               >
-                {data?.data?.name}
+                {toTitleCase(data?.data?.name)}
               </Typography>
               <Typography
                 sx={{ fontSize: "14px", fontWeight: "400", color: "#505050" }}

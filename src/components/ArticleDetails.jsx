@@ -42,6 +42,7 @@ import {
   useUpdateBondReqMutation,
 } from "../services/bonds";
 import { useFollowPageMutation } from "../services/page";
+import { toTitleCase } from "../utils";
 
 const ArticleDetails = () => {
   const [showComments, setShowComments] = useState(false);
@@ -433,7 +434,7 @@ const ArticleDetails = () => {
                             color: "#171717",
                           }}
                         >
-                          {articleContent?.articleMaker}
+                          {toTitleCase(articleContent?.articleMaker)}
                         </Typography>
                         <Typography
                           sx={{
@@ -544,7 +545,7 @@ const ArticleDetails = () => {
                     }}
                   />
                   <Typography sx={{ textAlign: "center" }}>
-                    {articleContent?.articleMaker}
+                    {toTitleCase(articleContent?.articleMaker)}
                   </Typography>
                   <Typography sx={{ textAlign: "center" }}>
                     {typeof articleContent?.articleMakerRole === "string"

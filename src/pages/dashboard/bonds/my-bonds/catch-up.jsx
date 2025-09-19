@@ -17,7 +17,7 @@ import {
 } from "../../../../components";
 import { cellBlack, userAvatar } from "../../../../assets";
 import { useGetCatchupQuery } from "../../../../services/bonds";
-import { eventBus, getDesc, getMessage } from "../../../../utils";
+import { eventBus, getDesc, getMessage, toTitleCase } from "../../../../utils";
 import { SEND_NEW_MESSAGE } from "../../../../socket/events";
 
 const CatchUp = ({ onGrow }) => {
@@ -155,7 +155,7 @@ const CatchUp = ({ onGrow }) => {
                     fontSize="17px"
                     fontWeight={300}
                   >
-                    {`${item?.firstName} ${item?.lastName}`}
+                    {`${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)}`}
                   </Typography>
                   <Typography
                     sx={{ color: "#505050" }}
@@ -239,7 +239,8 @@ const CatchUp = ({ onGrow }) => {
           gap={1}
         >
           <Typography fontSize="20px">
-            {`${msgModal?.firstName} ${msgModal?.lastName}`}r
+            {`${toTitleCase(msgModal?.firstName)} ${toTitleCase(msgModal?.lastName)}`}
+            r
           </Typography>
           <Stack
             direction="row"
@@ -294,7 +295,7 @@ const CatchUp = ({ onGrow }) => {
           />
           <Box>
             <Typography sx={{ color: "#171717" }} fontSize="18px">
-              {`${msgModal?.firstName} ${msgModal?.lastName}`}
+              {`${toTitleCase(msgModal?.firstName)} ${toTitleCase(msgModal?.lastName)}`}
             </Typography>
             <Typography sx={{ color: "#505050" }}>
               {getDesc(msgModal)}

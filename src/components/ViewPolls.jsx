@@ -1,6 +1,7 @@
 import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
 import { userAvatar } from "../assets";
+import { toTitleCase } from "../utils";
 
 const ViewPolls = ({ options }) => {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -95,11 +96,12 @@ const ViewPolls = ({ options }) => {
                         fontSize: "16px",
                       }}
                     >
-                      {item?.firstName} {item?.lastName}
+                      {toTitleCase(item?.firstName)}{" "}
+                      {toTitleCase(item?.lastName)}
                     </Typography>
                   </Stack>
                   <Typography sx={{ color: "#505050", fontSize: "14px" }}>
-                    {item?.designation} at {item?.company}
+                    {toTitleCase(item?.designation)} at {item?.company}
                   </Typography>
                 </Box>
               </Box>

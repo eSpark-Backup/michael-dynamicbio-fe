@@ -22,6 +22,7 @@ import { ConfirmationModal } from "../../../components";
 import EditProject from "./modals/edit-project";
 import AddCertificate from "./modals/add-certificate";
 import EditCertificate from "./modals/edit-certificate";
+import { toTitleCase } from "../../../utils";
 
 const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
   const [item, setItem] = useState(null);
@@ -410,7 +411,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
             userData?.about?.experience?.map((item, index) => {
               return (
                 <Box
-                  key={item?.title}
+                  key={toTitleCase(item?.title)}
                   sx={{
                     border: "1px solid #E4E4E4",
                     p: "15px",
@@ -442,7 +443,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                         color: "#171717",
                       }}
                     >
-                      {item?.title}
+                      {toTitleCase(item?.title)}
                     </Typography>
                     {!isPublicView && (
                       <Box
@@ -1260,7 +1261,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       color: "#171717",
                     }}
                   >
-                    {item?.name}
+                    {toTitleCase(item?.name)}
                   </Typography>
                   {!isPublicView && (
                     <Box
@@ -1514,7 +1515,7 @@ const LeftBar = ({ userData, isPublicView, modal, setModal, isPublic }) => {
                       color: "#171717",
                     }}
                   >
-                    {item?.name}
+                    {toTitleCase(item?.name)}
                   </Typography>
                   {!isPublicView && (
                     <Box

@@ -1,5 +1,6 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { plus } from "../assets";
+import { toTitleCase } from "../utils";
 
 const TargetAudienceModal = ({ handleClose }) => {
   const items = [
@@ -35,8 +36,7 @@ const TargetAudienceModal = ({ handleClose }) => {
               <Typography
                 sx={{ fontSize: "17px", fontWeight: "500", color: "#171717" }}
               >
-                {item?.slice(0, 1)?.toUpperCase() +
-                  item?.slice(1)?.toLowerCase()}
+                {toTitleCase(item)}
               </Typography>
               <Box sx={{ display: "flex", pl: "10px", columnGap: "10px" }}>
                 <img src={plus} alt="Icon" />
@@ -46,7 +46,7 @@ const TargetAudienceModal = ({ handleClose }) => {
                 >
                   Add{" "}
                   <span style={{ fontSize: "17px", fontWeight: "500" }}>
-                    {item}
+                    {toTitleCase(item)}
                   </span>
                 </Typography>
               </Box>

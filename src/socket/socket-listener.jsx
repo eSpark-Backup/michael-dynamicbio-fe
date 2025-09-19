@@ -20,7 +20,7 @@ import {
   SEND_NEW_MESSAGE,
   REFETCH_CHATS,
 } from "./events";
-import { eventBus } from "../utils";
+import { eventBus, toTitleCase } from "../utils";
 import { updateOnlineUser } from "../store/slices/chat";
 
 const SocketListener = () => {
@@ -80,7 +80,9 @@ const SocketListener = () => {
       socket.on(NEW_MESSAGE, (data) => {
         eventBus.emit(GET_NEW_MESSAGE, data);
         if (pathname !== "/cells") {
-          toast.success(`${data?.message?.sender?.name} sent you a message`);
+          toast.success(
+            `${toTitleCase(data?.message?.sender?.name)} sent you a message`
+          );
         }
       });
 

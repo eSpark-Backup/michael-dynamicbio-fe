@@ -43,6 +43,7 @@ import {
   useUpdateBondReqMutation,
 } from "../services/bonds";
 import { useFollowPageMutation } from "../services/page";
+import { toTitleCase } from "../utils";
 
 const BondCard2 = ({
   userImage,
@@ -217,7 +218,7 @@ const BondCard2 = ({
         ? "1 follower"
         : `${followerCount} followers`
     : groupPost && !isGroupfeed
-      ? userName
+      ? toTitleCase(userName)
       : userRole && userRole !== "0"
         ? userRole
         : "";
@@ -318,7 +319,9 @@ const BondCard2 = ({
                       )
               }
             >
-              {groupPost && !isGroupfeed ? groupName : userName}
+              {groupPost && !isGroupfeed
+                ? toTitleCase(groupName)
+                : toTitleCase(userName)}
             </Typography>
           )}
 
@@ -589,7 +592,7 @@ const BondCard2 = ({
                   color: "#171717",
                   textTransform: "capitalize",
                 }}
-              >{`View ${userName}`}</Typography>
+              >{`View ${toTitleCase(userName)}`}</Typography>
             </MenuItem>
             <MenuItem
               onClick={() =>
@@ -610,7 +613,9 @@ const BondCard2 = ({
                   textTransform: "capitalize",
                 }}
               >
-                {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
+                {isFriend
+                  ? `Unbond ${toTitleCase(userName)}`
+                  : `Bond ${toTitleCase(userName)}`}
               </Typography>
             </MenuItem>
           </>
@@ -852,7 +857,7 @@ const BondCard2 = ({
                 }}
               >{`${
                 isFollowing ? "Unfollow" : "Follow"
-              } ${userName}`}</Typography>
+              } ${toTitleCase(userName)}`}</Typography>
             </MenuItem>
           </>
         ) : (
@@ -916,7 +921,9 @@ const BondCard2 = ({
                   textTransform: "capitalize",
                 }}
               >
-                {isFriend ? `Unbond ${userName}` : `Bond ${userName}`}
+                {isFriend
+                  ? `Unbond ${toTitleCase(userName)}`
+                  : `Bond ${toTitleCase(userName)}`}
               </Typography>
             </MenuItem>
           </>

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import BondCard2 from "./BondCard";
-import { formatEventPostTime } from "../utils";
+import { formatEventPostTime, toTitleCase } from "../utils";
 import { Link } from "react-router-dom";
 import {
   comment,
@@ -325,7 +325,7 @@ const EventPost = ({
                   cursor: "pointer",
                 }}
               >
-                <Typography variant="gradientText">View event</Typography>
+                <Typography variant="gradientText">View Event</Typography>
               </Box>
             </Box>
           </Link>
@@ -457,8 +457,8 @@ const EventPost = ({
                     : isLiked && numberofLikes > 1
                       ? `You and ${numberofLikes - 1} more like this`
                       : numberofLikes === 1
-                        ? `${lastUserLiked} likes this`
-                        : `${lastUserLiked} and ${numberofLikes - 1} like this`}
+                        ? `${toTitleCase(lastUserLiked)} likes this`
+                        : `${toTitleCase(lastUserLiked)} and ${numberofLikes - 1} like this`}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", columnGap: "10px" }}>

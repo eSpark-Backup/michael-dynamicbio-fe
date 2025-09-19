@@ -42,7 +42,11 @@ import ScheduleModal from "./ScheduleModal";
 import EventsSidebar from "./EventsSidebar";
 import { useGetPostByIdQuery } from "../services/post";
 import { useParams } from "react-router-dom";
-import { formatEventPostTime, formatEventTimeLocal } from "../utils";
+import {
+  formatEventPostTime,
+  formatEventTimeLocal,
+  toTitleCase,
+} from "../utils";
 import { useSelector } from "react-redux";
 
 const EventDetails = () => {
@@ -265,7 +269,7 @@ const EventDetails = () => {
                 <Typography
                   sx={{ fontSize: "16px", fontWeight: "500", color: "#505050" }}
                 >
-                  Event by {postData?.eventMaker}
+                  Event by {toTitleCase(postData?.eventMaker)}
                 </Typography>
                 <Box
                   sx={{

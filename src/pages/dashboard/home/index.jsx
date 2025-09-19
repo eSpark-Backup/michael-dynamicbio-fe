@@ -22,7 +22,7 @@ import { useGetFeedPostsQuery } from "../../../services/feed";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getDaysLeft } from "../../../utils";
+import { getDaysLeft, toTitleCase } from "../../../utils";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -298,13 +298,7 @@ const Home = () => {
                   cursor: "pointer",
                 }}
               >
-                {`${
-                  userData?.firstName?.slice(0, 1).toUpperCase() +
-                  userData?.firstName?.slice(1)
-                } ${
-                  userData?.lastName?.slice(0, 1).toUpperCase() +
-                  userData?.lastName?.slice(1)
-                }`}
+                {`${toTitleCase(userData?.firstName)} ${toTitleCase(userData?.lastName)}`}
               </Typography>
               <Typography
                 sx={{
@@ -314,7 +308,7 @@ const Home = () => {
                   textAlign: "center",
                 }}
               >
-                {userData?.designation} at {userData?.company}
+                {toTitleCase(userData?.designation)} at {userData?.company}
               </Typography>
               <Typography
                 sx={{
@@ -324,7 +318,7 @@ const Home = () => {
                   textAlign: "center",
                 }}
               >
-                {userData?.country}
+                {toTitleCase(userData?.country)}
               </Typography>
             </Box>
           </Paper>

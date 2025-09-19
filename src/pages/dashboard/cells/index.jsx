@@ -32,7 +32,7 @@ import {
   useGetAllChatQuery,
   useGetMyChatQuery,
 } from "../../../services/chat";
-import { eventBus, useQuery } from "../../../utils";
+import { eventBus, toTitleCase, useQuery } from "../../../utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
@@ -84,7 +84,7 @@ const Cells = () => {
       setBondsData(bondData?.data);
       const mainOptions = bondData?.data?.map((bond) => {
         return {
-          label: `${bond?.friend?.firstName} ${bond?.friend?.lastName}`,
+          label: `${toTitleCase(bond?.friend?.firstName)} ${toTitleCase(bond?.friend?.lastName)}`,
           id: bond.bondId,
           chatId: bond?.friend?.userChatId,
         };
@@ -984,7 +984,7 @@ const Cells = () => {
                             color: "#171717",
                           }}
                         >
-                          {`${selectedUser?.friend?.firstName} ${selectedUser?.friend?.lastName}`}
+                          {`${toTitleCase(selectedUser?.friend?.firstName)} ${toTitleCase(selectedUser?.friend?.lastName)}`}
                         </Typography>
                         <Typography
                           sx={{
@@ -993,7 +993,7 @@ const Cells = () => {
                             color: "#505050",
                           }}
                         >
-                          {selectedUser?.friend?.designation} @{" "}
+                          {toTitleCase(selectedUser?.friend?.designation)} @{" "}
                           {selectedUser?.friend?.company}
                         </Typography>
                       </Stack>
@@ -1060,7 +1060,7 @@ const Cells = () => {
                         onClick={handleCreateGroup}
                         sx={{ width: "max-content", height: "40px" }}
                       >
-                        Create group
+                        Create
                       </Button>
                     </Stack>
                   )}

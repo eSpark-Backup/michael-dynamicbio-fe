@@ -240,18 +240,18 @@ export const getDesc = (item) => {
   switch (item?.type) {
     case "birthday":
       return dayjs().isSame(dayjs(item?.dob), "day")
-        ? `Celebrate ${item?.firstName} ${item?.lastName}'s birthday today`
-        : `Celebrate ${item?.firstName} ${
+        ? `Celebrate ${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)}'s birthday today`
+        : `Celebrate ${toTitleCase(item?.firstName)} ${toTitleCase(
             item?.lastName
-          }'s recent birthday on ${dayjs(item?.dob).format("MMM D")}`;
+          )}'s recent birthday on ${dayjs(item?.dob).format("MMM D")}`;
     case "anniversary":
       return `Completed ${item?.yearsCompleted} year at ${item?.company}`;
     case "jobChange":
-      return `Started a new position as ${item?.designation} at ${item?.company}`;
+      return `Started a new position as ${toTitleCase(item?.designation)} at ${item?.company}`;
     case "educationChange":
       return item?.changeType === "startedEducation"
-        ? `Congratulate ${item?.firstName} ${item?.lastName} on starting school at ${item?.institution}`
-        : `Congratulate ${item?.firstName} ${item?.lastName} on completing school at ${item?.institution}`;
+        ? `Congratulate ${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)} on starting school at ${toTitleCase(item?.institution)}`
+        : `Congratulate ${toTitleCase(item?.firstName)} ${toTitleCase(item?.lastName)} on completing school at ${toTitleCase(item?.institution)}`;
     default:
       return "";
   }
@@ -273,8 +273,8 @@ export const getMessage = (item) => {
     case "educationChange":
       message =
         item?.changeType === "startedEducation"
-          ? `Congrats on starting at ${item?.institution}`
-          : `Congrats on finishing up at ${item?.institution}`;
+          ? `Congrats on starting at ${toTitleCase(item?.institution)}`
+          : `Congrats on finishing up at ${toTitleCase(item?.institution)}`;
       break;
   }
   return message;

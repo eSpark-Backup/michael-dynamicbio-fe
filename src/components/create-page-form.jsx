@@ -535,7 +535,7 @@ const CreatePageForm = ({ pageType }) => {
             type="submit"
             onClick={formik.handleSubmit}
           >
-            Confirm Email
+            Create
           </Button>
         </Box>
       </Box>

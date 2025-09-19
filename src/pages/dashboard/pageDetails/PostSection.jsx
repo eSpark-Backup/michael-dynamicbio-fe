@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SuggestionPost } from "../../../components";
 import { useSelector } from "react-redux";
-import { getDaysLeft } from "../../../utils";
+import { getDaysLeft, toTitleCase } from "../../../utils";
 
 const PostSection = ({ data }) => {
   const [page, setPage] = useState(1);
@@ -241,7 +241,7 @@ const PostSection = ({ data }) => {
               whiteSpace: "nowrap",
             }}
           >
-            {data?.name}
+            {toTitleCase(data?.name)}
           </Typography>
         </Paper>
       </Box>

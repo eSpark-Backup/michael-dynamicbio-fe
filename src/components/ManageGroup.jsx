@@ -7,6 +7,7 @@ import GroupMembership from "./GroupMembership";
 import GroupContentSection from "./GroupContentSection";
 import { useGetGroupDetailQuery } from "../services/group";
 import { dummyPhoto } from "../assets";
+import { toTitleCase } from "../utils";
 
 const ManageGroup = () => {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const ManageGroup = () => {
             }}
             variant="gradientText"
           >
-            {data?.data?.name}
+            {toTitleCase(data?.data?.name)}
           </Typography>
         </Box>
         <Typography

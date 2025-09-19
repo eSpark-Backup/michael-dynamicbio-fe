@@ -34,7 +34,7 @@ import {
   useNewPostMutation,
 } from "../../../services/post.js";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "../../../utils/index.js";
+import { toTitleCase, useQuery } from "../../../utils/index.js";
 
 const modules = {
   toolbar: "#toolbar-container",
@@ -268,10 +268,10 @@ const Article = () => {
                   sx={{ fontSize: "18px", fontWeight: "500", color: "#171717" }}
                 >
                   {group
-                    ? group?.name
+                    ? toTitleCase(group?.name)
                     : page
-                      ? page?.name
-                      : `${userData?.firstName} ${userData?.lastName}`}
+                      ? toTitleCase(page?.name)
+                      : `${toTitleCase(userData?.firstName)} ${toTitleCase(userData?.lastName)}`}
                 </Typography>
                 <img
                   src={downArrowFilled}
@@ -587,8 +587,8 @@ const Article = () => {
                 />
                 <Typography>
                   {group
-                    ? group?.name
-                    : `${userData?.firstName} ${userData?.lastName}`}
+                    ? toTitleCase(group?.name)
+                    : `${toTitleCase(userData?.firstName)} ${toTitleCase(userData?.lastName)}`}
                 </Typography>
               </Stack>
               <FormControlLabel

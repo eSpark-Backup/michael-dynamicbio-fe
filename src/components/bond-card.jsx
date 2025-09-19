@@ -14,6 +14,7 @@ import {
   pendingBlack,
   cancelBlack,
 } from "../assets";
+import { toTitleCase } from "../utils";
 
 const BondCard = ({
   handleRemoveUser,
@@ -152,7 +153,7 @@ const BondCard = ({
         fontWeight={500}
         textTransform={"capitalize"}
       >
-        {`${firstName} ${lastName}`}
+        {`${toTitleCase(firstName)} ${toTitleCase(lastName)}`}
       </Typography>
       {designation && (
         <Typography
@@ -161,7 +162,7 @@ const BondCard = ({
           textAlign="center"
           fontSize="12px"
         >
-          {designation}
+          {toTitleCase(designation)}
         </Typography>
       )}
       {isPage && (

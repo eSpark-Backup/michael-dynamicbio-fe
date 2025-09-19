@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
-import { useQuery } from "../../../utils";
+import { toTitleCase, useQuery } from "../../../utils";
 import { useCompleteProfileMutation } from "../../../services/auth";
 import { uploadAvatar, uploadIcon } from "../../../assets";
 
@@ -68,7 +68,7 @@ const UploadImage = () => {
   return (
     <>
       <Typography mt="50px" fontSize={"29px"} textAlign="center">
-        Welcome, {tempUser?.firstName}!
+        Welcome, {toTitleCase(tempUser?.firstName)}!
       </Typography>
       <Typography fontSize={"17px"} fontWeight={300} textAlign="center">
         Adding your photo helps people recognize you
@@ -101,12 +101,12 @@ const UploadImage = () => {
               alt="user"
             />
             <Box>
-              <Typography fontSize="24px">{`${tempUser?.firstName} ${tempUser?.lastName}`}</Typography>
+              <Typography fontSize="24px">{`${toTitleCase(tempUser?.firstName)} ${toTitleCase(tempUser?.lastName)}`}</Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                {data?.designation} At “{data?.company}”
+                {toTitleCase(data?.designation)} At “{data?.company}”
               </Typography>
               <Typography fontSize="17px" fontWeight={300}>
-                {data?.city}, {data?.country}
+                {toTitleCase(data?.city)}, {toTitleCase(data?.country)}
               </Typography>
             </Box>
           </Stack>

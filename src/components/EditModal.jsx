@@ -19,7 +19,7 @@ import {
   VolumeMenuButton,
 } from "video-react";
 import { dummyPhoto } from "../assets";
-import { formatEventTime } from "../utils";
+import { formatEventTime, toTitleCase } from "../utils";
 import { useEditPostMutation } from "../services/post";
 import { toast } from "react-toastify";
 
@@ -312,7 +312,7 @@ const EditModal = ({
                 px: "15px",
               }}
             >
-              {eventData?.name}
+              {toTitleCase(eventData?.name)}
             </Typography>
             <Typography
               sx={{
@@ -323,7 +323,7 @@ const EditModal = ({
               }}
             >
               {eventData?.format === "ExternalEventLink"
-                ? "Event By Abdul Rehman"
+                ? "Event By Default User"
                 : "LinkedIn Live"}
             </Typography>
           </Box>

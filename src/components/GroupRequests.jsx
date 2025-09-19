@@ -14,6 +14,7 @@ import {
   useUpdateGroupJoinReqMutation,
 } from "../services/group";
 import { noPosts, userAvatar } from "../assets";
+import { toTitleCase } from "../utils";
 
 const GroupRequests = ({ data, refetch }) => {
   const [isUpdateLoading, setIsUpdateLoading] = useState({
@@ -139,21 +140,21 @@ const GroupRequests = ({ data, refetch }) => {
                     fontSize="17px"
                     fontWeight={300}
                   >
-                    {`${item?.user?.firstName} ${item?.user?.lastName}`}
+                    {`${toTitleCase(item?.user?.firstName)} ${toTitleCase(item?.user?.lastName)}`}
                   </Typography>
                   <Typography
                     sx={{ color: "#505050" }}
                     fontSize="14px"
                     fontWeight={400}
                   >
-                    {`${item?.user?.designation} at “${item?.user?.company}” `}
+                    {`${toTitleCase(item?.user?.designation)} at “${item?.user?.company}” `}
                   </Typography>
                   <Typography
                     sx={{ color: "#505050" }}
                     fontSize="14px"
                     fontWeight={400}
                   >
-                    {`${item?.user?.city}, ${item?.user?.country}`}
+                    {`${toTitleCase(item?.user?.city)}, ${toTitleCase(item?.user?.country)}`}
                   </Typography>
                 </Box>
               </Stack>

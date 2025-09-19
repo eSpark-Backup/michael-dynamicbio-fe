@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import TypingDots from "./TypingDots";
-import { useQuery } from "../utils";
+import { toTitleCase, useQuery } from "../utils";
 import AvatarGroupPreview from "./Avatar";
 
 const ContactBox = ({
@@ -75,7 +75,7 @@ const ContactBox = ({
               width: { xs: "max-content", lg: "80px", xl1: "max-content" },
             }}
           >
-            {name}
+            {toTitleCase(name)}
           </Typography>
           <Typography
             sx={{

@@ -1,6 +1,6 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { formatEventTime } from "../utils";
+import { formatEventTime, toTitleCase } from "../utils";
 import { deleteIcon, dummyPhoto, edit, timer } from "../assets";
 import Button from "./button";
 
@@ -136,7 +136,7 @@ const ViewEventModal = ({
               px: "15px",
             }}
           >
-            {values?.name}
+            {toTitleCase(values?.name)}
           </Typography>
           <Typography
             sx={{
@@ -147,7 +147,7 @@ const ViewEventModal = ({
             }}
           >
             {values?.format === "ExternalEventLink"
-              ? "Event By Abdul Rehman"
+              ? "Event By Default User"
               : "LinkedIn Live"}
           </Typography>
         </Box>

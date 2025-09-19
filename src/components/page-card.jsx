@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Box, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { plus, userAvatar, verticleDots } from "../assets";
+import { toTitleCase } from "../utils";
 
 const PageCard = ({
   rightBar,
@@ -81,7 +82,7 @@ const PageCard = ({
                 textTransform: "capitalize",
               }}
             >
-              {name}
+              {toTitleCase(name)}
             </Typography>
             <Typography
               sx={{

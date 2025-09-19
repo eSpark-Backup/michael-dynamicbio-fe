@@ -14,6 +14,7 @@ import { user } from "../../assets";
 import { useUpdateUserProfileSettingsMutation } from "../../services/auth";
 import { toast } from "react-toastify";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { toTitleCase } from "../../utils";
 
 const SettingsPage = ({ handleClose, selectedSetting, values }) => {
   const { user: userData } = useSelector((state) => state.auth);
@@ -261,10 +262,10 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                 sx={{ fontSize: "15px", fontWeight: "500", color: "#171717" }}
               >
                 {options?.profileViewingOption === "Your name and headline"
-                  ? `${userData?.firstName} ${userData?.lastName}`
+                  ? `${toTitleCase(userData?.firstName)} ${toTitleCase(userData?.lastName)}`
                   : options?.profileViewingOption ===
                       "Private profile characteristics"
-                    ? `${userData?.designation} at ${userData?.company}`
+                    ? `${toTitleCase(userData?.designation)} at ${userData?.company}`
                     : `Anonymous Fusion Member`}
               </Typography>
               {options?.profileViewingOption === "Your name and headline" && (
@@ -429,9 +430,8 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                   sx={{ width: 24, height: 24, objectFit: "fill" }}
                 />
                 <Typography sx={{ textTransform: "capitalize" }}>
-                  {userData?.firstName}{" "}
-                  {userData?.lastName?.slice(0, 1).toUpperCase() +
-                    userData?.lastName?.slice(1)}
+                  {toTitleCase(userData?.firstName)}{" "}
+                  {toTitleCase(userData?.lastName)}
                 </Typography>
               </Box>
             </Stack>
@@ -457,8 +457,8 @@ const SettingsPage = ({ handleClose, selectedSetting, values }) => {
                   sx={{ width: 24, height: 24, objectFit: "fill" }}
                 />
                 <Typography sx={{ textTransform: "capitalize" }}>
-                  {userData?.firstName}{" "}
-                  {userData?.lastName?.slice(0, 1).toUpperCase() + "."}
+                  {toTitleCase(userData?.firstName)}{" "}
+                  {toTitleCase(userData?.lastName) + "."}
                 </Typography>
               </Box>
             </Stack>
