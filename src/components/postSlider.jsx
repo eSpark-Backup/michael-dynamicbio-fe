@@ -211,7 +211,6 @@ const PostSlider = ({ page, posts, refetch }) => {
                     <Typography fontSize="20px" fontWeight="bold">
                       {post?.postContent}
                     </Typography>
-
                     {post?.type === "normal" && post?.postPic?.length > 0 && (
                       <img
                         style={{
@@ -224,7 +223,6 @@ const PostSlider = ({ page, posts, refetch }) => {
                         src={post?.postPic[0]}
                       />
                     )}
-
                     {post?.type === "article" && post?.articleImage && (
                       <img
                         style={{
@@ -237,7 +235,6 @@ const PostSlider = ({ page, posts, refetch }) => {
                         src={post?.articleImage}
                       />
                     )}
-
                     {post?.type === "event" && post?.eventImage && (
                       <img
                         style={{
@@ -250,7 +247,6 @@ const PostSlider = ({ page, posts, refetch }) => {
                         src={post?.eventImage}
                       />
                     )}
-
                     {post?.type === "video" && post?.videoUrl && (
                       <Player
                         playsInline
@@ -276,47 +272,67 @@ const PostSlider = ({ page, posts, refetch }) => {
                         </ControlBar>
                       </Player>
                     )}
-                    {post?.type === "poll" && (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 1,
-                          mt: 1,
-                        }}
-                      >
+                    {post?.type === "poll" && post?.poll && (
+                      <Box sx={{ mt: 2 }}>
                         {/* Poll Question */}
-                        <Typography
-                          fontSize="16px"
-                          fontWeight="600"
-                          color="text.primary"
-                        >
-                          {post?.question}
+                        <Typography fontSize="18px" fontWeight="bold" mb={1}>
+                          {post.question}
                         </Typography>
 
-                        {/* Poll Options (Radio Group) */}
-                        <RadioGroup
-                          name={`poll-${post?.id}`} // unique name per poll
-                          onChange={(e) =>
-                            console.log("Selected option:", e.target.value)
-                          }
-                        >
-                          {post?.options?.map((option, index) => (
-                            <FormControlLabel
-                              key={index}
-                              value={option}
-                              control={<Radio />}
-                              label={option}
-                              sx={{
-                                border: "1px solid #e0e0e0",
-                                borderRadius: "8px",
-                                px: 1,
-                                py: 0.5,
-                                "&:hover": { backgroundColor: "#f9f9f9" },
-                              }}
-                            />
-                          ))}
+                        {/* Poll Options */}
+                        <RadioGroup>
+                          {post?.options?.map((option, index) => {
+                            const optionResult = post?.pollResults?.find(
+                              (r) => r.optionIndex === index
+                            );
+
+                            return (
+                              <Box
+                                key={index}
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
+                                  border: "1px solid #ddd",
+                                  borderRadius: "8px",
+                                  p: 1,
+                                  mb: 1,
+                                }}
+                              >
+                                {/* Option label */}
+                                <FormControlLabel
+                                  value={option}
+                                  control={
+                                    <Radio
+                                      disabled={post?.pollStats?.hasEnded}
+                                    />
+                                  }
+                                  label={option}
+                                />
+
+                                {/* Show results if enabled */}
+                                {post?.showResults && (
+                                  <Typography
+                                    fontSize="14px"
+                                    color="text.secondary"
+                                  >
+                                    {optionResult?.percentage || 0}%
+                                  </Typography>
+                                )}
+                              </Box>
+                            );
+                          })}
                         </RadioGroup>
+
+                        {/* Poll Footer */}
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mt: 1, textAlign: "right" }}
+                        >
+                          {post?.pollStats?.totalVotes} votes ·{" "}
+                          {post?.pollStats?.hasEnded ? "Ended" : "Active"}
+                        </Typography>
                       </Box>
                     )}
                   </Box>
