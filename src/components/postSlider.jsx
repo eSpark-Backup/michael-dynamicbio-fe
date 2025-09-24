@@ -235,17 +235,58 @@ const PostSlider = ({ page, posts, refetch }) => {
                         src={post?.articleImage}
                       />
                     )}
-                    {post?.type === "event" && post?.eventImage && (
-                      <img
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          maxHeight: "200px",
-                          objectFit: "cover",
-                          borderRadius: "8px",
-                        }}
-                        src={post?.eventImage}
-                      />
+                    {post?.type === "event" && (
+                      <Box sx={{ mt: 2 }}>
+                        {/* Event Name */}
+                        <Typography fontWeight="bold" mb={1}>
+                          {post?.eventName || "Event Name"}
+                        </Typography>
+
+                        {/* Event Image */}
+                        {post?.eventImage && (
+                          <img
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              maxHeight: "200px",
+                              objectFit: "cover",
+                              borderRadius: "8px",
+                            }}
+                            src={post?.eventImage}
+                            alt={post?.eventName}
+                          />
+                        )}
+
+                        {/* Event Details */}
+                        <Box sx={{ mt: 1 }}>
+                          <Typography variant="body2" color="text.secondary">
+                            <strong>Type:</strong> {post?.eventType || "N/A"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            <strong>Start:</strong>{" "}
+                            {post?.startTime
+                              ? new Date(post?.startTime).toLocaleString()
+                              : "N/A"}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            <strong>End:</strong>{" "}
+                            {post?.endTime
+                              ? new Date(post?.endTime).toLocaleString()
+                              : "N/A"}
+                          </Typography>
+                          {post?.eventLink && (
+                            <Typography variant="body2" color="primary">
+                              <a
+                                href={post?.eventLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Join Event
+                              </a>
+                            </Typography>
+                          )}
+                        </Box>
+                      </Box>
                     )}
                     {post?.type === "video" && post?.videoUrl && (
                       <Player
@@ -272,23 +313,28 @@ const PostSlider = ({ page, posts, refetch }) => {
                         </ControlBar>
                       </Player>
                     )}
-                    {post?.type === "poll" && post?.poll && (
+                    {post?.type === "poll" && (
                       <Box sx={{ mt: 2 }}>
                         {/* Poll Question */}
                         <Typography fontSize="18px" fontWeight="bold" mb={1}>
-                          {post.question}
+                          {post?.question || "No question"}
                         </Typography>
 
                         {/* Poll Options */}
                         <RadioGroup>
                           {post?.options?.map((option, index) => {
-                            const optionResult = post?.pollResults?.find(
-                              (r) => r.optionIndex === index
-                            );
+                            // calculate percentage safely
+                            const percentage =
+                              post?.voteCount > 0
+                                ? Math.round(
+                                    (option?.numbersVoted / post?.voteCount) *
+                                      100
+                                  )
+                                : 0;
 
                             return (
                               <Box
-                                key={index}
+                                key={option?.id || index}
                                 sx={{
                                   display: "flex",
                                   alignItems: "center",
@@ -301,22 +347,18 @@ const PostSlider = ({ page, posts, refetch }) => {
                               >
                                 {/* Option label */}
                                 <FormControlLabel
-                                  value={option}
-                                  control={
-                                    <Radio
-                                      disabled={post?.pollStats?.hasEnded}
-                                    />
-                                  }
-                                  label={option}
+                                  value={option?.value}
+                                  control={<Radio disabled={post?.isVoted} />}
+                                  label={option?.value}
                                 />
 
-                                {/* Show results if enabled */}
-                                {post?.showResults && (
+                                {/* Show percentage if already voted */}
+                                {post?.isVoted && (
                                   <Typography
                                     fontSize="14px"
                                     color="text.secondary"
                                   >
-                                    {optionResult?.percentage || 0}%
+                                    {percentage}%
                                   </Typography>
                                 )}
                               </Box>
@@ -330,8 +372,8 @@ const PostSlider = ({ page, posts, refetch }) => {
                           color="text.secondary"
                           sx={{ mt: 1, textAlign: "right" }}
                         >
-                          {post?.pollStats?.totalVotes} votes ·{" "}
-                          {post?.pollStats?.hasEnded ? "Ended" : "Active"}
+                          {post?.voteCount ?? 0} votes ·{" "}
+                          {post?.endDate || "Active"}
                         </Typography>
                       </Box>
                     )}
