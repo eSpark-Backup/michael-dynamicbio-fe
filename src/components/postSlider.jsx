@@ -46,6 +46,7 @@ const PostSlider = ({ page, posts, refetch }) => {
   const { user: userData } = useSelector((state) => state.auth);
   const [showEditModal, setEditModal] = useState(false);
   const [postId, setPostId] = useState(null);
+  const [postType, setPostType] = useState(null); // <-- NEW STATE
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -85,11 +86,11 @@ const PostSlider = ({ page, posts, refetch }) => {
       }
     } else if (event === "edit") {
       const currentPost = posts?.find((item) => item?.id === postId);
-      console.log(currentPost, "currentPost");
       if (currentPost?.type === "article") {
         navigate(`/article/edit/${postId}`);
       } else {
         setEditModal(currentPost);
+        setPostType(currentPost?.type);
       }
     } else if (event === "copy") {
       copyToClipboard(`${import.meta.env.VITE_BASE_URL_FE}/post/${postId}`);
@@ -474,7 +475,10 @@ const PostSlider = ({ page, posts, refetch }) => {
       </Menu>
       <DynamicModal
         open={showEditModal?.id}
-        handleClose={() => setEditModal(false)}
+        handleClose={() => {
+          setEditModal(false);
+          setPostType(null);
+        }}
         dropdownHeader={true}
         userData={userData}
         userName={`${userData?.firstName} ${userData?.lastName}`}
@@ -483,14 +487,50 @@ const PostSlider = ({ page, posts, refetch }) => {
         isEditModal={true}
       >
         <EditModal
-          type={"normal"}
+          type={showEditModal?.type}
           title={showEditModal?.postContent}
           id={showEditModal?.id}
           normalPostData={{ images: showEditModal?.postPic }}
-          handleClose={() => setEditModal(false)}
-          visibility={showEditModal?.postVisibility}
           commentSetting={showEditModal?.commentVisibility}
+          visibility={showEditModal?.postVisibility}
+          isLoading={false}
           refetch={refetch}
+          handleClose={() => {
+            setEditModal(false);
+            setPostType(null);
+          }}
+          videoPostData={
+            showEditModal?.type === "video"
+              ? {
+                  videoUrl: showEditModal?.videoUrl,
+                  thumbnail: showEditModal?.thumbnail,
+                }
+              : {}
+          }
+          eventData={
+            showEditModal?.type === "event"
+              ? {
+                  eventImage: showEditModal?.eventImage,
+                  name: showEditModal?.eventName,
+                  startDate: showEditModal?.startDate,
+                  startTime: showEditModal?.startTime,
+                  endDate: showEditModal?.endDate,
+                  endTime: showEditModal?.endTime,
+                  showEndTime: !!showEditModal?.endDate,
+                  format: showEditModal?.eventType,
+                }
+              : {}
+          }
+          pollData={
+            showEditModal?.type === "poll"
+              ? {
+                  question: showEditModal?.question,
+                  options: showEditModal?.options,
+                  numberOfVotes: showEditModal?.voteCount,
+                  endDate: showEditModal?.endDate,
+                }
+              : {}
+          }
         />
       </DynamicModal>
     </Box>
