@@ -70,9 +70,17 @@ export const authApi = api.injectEndpoints({
         credentials: "include",
       }),
     }),
+    resendEmail: builder.mutation({
+      query: (credentials) => ({
+        url: "/auth/resend-email",
+        method: "POST",
+        body: credentials,
+        credentials: "include",
+      }),
+    }),
     verifyEmail: builder.mutation({
       query: ({ token, expiresAt }) => ({
-        url: `/auth/set-password/${token}/${expiresAt}`,
+        url: `/auth/verify-email?token=${token}&expiresAt=${expiresAt}`,
         method: "POST",
         credentials: "include",
       }),
@@ -130,10 +138,11 @@ export const {
   useVerifymfaWithEmailMutation,
   useReverifymfaWithEmailMutation,
   useRegisterMutation,
+  useResendEmailMutation,
   useVerifyEmailMutation,
   useCompleteProfileMutation,
   useFindEmailMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
-  useUpdateUserProfileSettingsMutation
+  useUpdateUserProfileSettingsMutation,
 } = authApi;

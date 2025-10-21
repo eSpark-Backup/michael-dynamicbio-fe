@@ -4,10 +4,13 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Button } from "../../../components";
 import { maskEmail, useQuery } from "../../../utils";
 import { successTick } from "../../../assets";
-import { useForgotPasswordMutation, useRegisterMutation } from "../../../services/auth";
+import {
+  useForgotPasswordMutation,
+  useResendEmailMutation,
+} from "../../../services/auth";
 
 const VerifyEmail = () => {
-  const [register, { isLoading }] = useRegisterMutation();
+  const [resendEmail, { isLoading }] = useResendEmailMutation();
   const [forgotPw, { isLoading: resetLoading }] = useForgotPasswordMutation();
   const navigate = useNavigate();
   const query = useQuery();
@@ -15,8 +18,10 @@ const VerifyEmail = () => {
   const reset = query.get("reset");
 
   const handleResend = () => {
-    const dataToSend = JSON.parse(localStorage.getItem("temp_user_data"));
-    register(dataToSend).then((res) => {
+    const tempUserData = JSON.parse(localStorage.getItem("temp_user_data"));
+    const dataToSend = { email: tempUserData?.email }; // ✅ only send email
+
+    resendEmail(dataToSend).then((res) => {
       if (res?.error) {
         toast.error(res?.error?.data?.message);
         return;

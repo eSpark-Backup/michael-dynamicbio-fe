@@ -20,23 +20,24 @@ const EmailVerified = () => {
       setLoading(true);
       verifyEmail({ token, expiresAt }).then((res) => {
         if (res?.error) {
-          setError(res?.error?.data?.message);
+          setError(res?.error?.data?.message || "Verification failed");
           setLoading(false);
           return;
         }
-        if (res) {
+        if (res?.data) {
+          const user = res.data?.data?.user || {};
           const data = {
-            firstName: res?.data?.data?.user?.firstName,
-            lastName: res?.data?.data?.user?.lastName,
-            about: res?.data?.data?.user?.about,
-          }
-          setLoading(false);
+            firstName: user.firstName,
+            lastName: user.lastName,
+            about: user.about,
+          };
           localStorage.setItem("temp_user_data", JSON.stringify(data));
-          localStorage.setItem("token", res?.data?.data?.token);
+          localStorage.setItem("token", res.data?.data?.token);
+          setLoading(false);
         }
       });
     }
-  }, [token, expiresAt]);
+  }, [token]);
   return (
     <>
       {loading ? (
