@@ -57,7 +57,7 @@ const EmailVerified = () => {
           localStorage.removeItem("temp_user_data");
 
           // ✅ Redirect to dashboard
-          navigate("/dashboard");
+          navigate("/complete-profile");
         } else {
           const message =
             res?.data?.message ||
