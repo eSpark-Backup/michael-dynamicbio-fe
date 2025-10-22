@@ -81,7 +81,7 @@ export const authApi = api.injectEndpoints({
     verifyEmail: builder.mutation({
       query: ({ token, expiresAt }) => ({
         url: `/auth/verify-email?token=${token}&expiresAt=${expiresAt}`,
-        method: "POST",
+        method: "GET",
         credentials: "include",
       }),
     }),
