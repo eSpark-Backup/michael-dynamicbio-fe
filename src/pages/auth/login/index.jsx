@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { Input, Button } from "../../../components";
 import { useLoginMutation } from "../../../services/auth";
@@ -17,39 +18,89 @@ import { facebook, google, linkedin } from "../../../assets";
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const [rememberMe, setRememberMe] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: (values) => {
-      login(values).then((res) => {
+    onSubmit: async (values) => {
+      try {
+        const res = await login(values);
+
+        // --- Handle network or API errors
         if (res?.error) {
-          toast.error(res?.error?.data?.message);
+          const errorMessage =
+            res?.error?.data?.message ||
+            "Something went wrong. Please try again.";
+          toast.error(errorMessage);
           return;
         }
-        if (res) {
-          const response = res?.data?.data;
-          if (response?.user?.profileStatus === "completed") {
-            if (response?.user?.is2FAEnabled) {
-              localStorage.setItem("temp-token", response?.token);
-            } else {
-              localStorage.setItem("token", response?.token);
-            }
-            navigate("/google-auth");
-          } else if (response?.user?.profileStatus === "both_verified") {
-            localStorage.setItem("token", response?.token);
-            navigate("/complete-profile");
-            localStorage.setItem(
-              "temp_user_data",
-              JSON.stringify(response?.user)
-            );
-          }
+
+        // --- If API responded successfully
+        const statusCode = res?.data?.statusCode;
+        const message = res?.data?.message;
+        const response = res?.data?.data;
+
+        if (statusCode !== 200 || !response) {
+          toast.error(message || "Unexpected server response.");
+          return;
         }
-      });
+
+        // --- Extract data
+        const token = response?.token;
+        const user = response?.user;
+
+        if (!token) {
+          toast.error("Token missing from server response.");
+          return;
+        }
+
+        // --- Save token properly
+        if (user?.is2FAEnabled) {
+          localStorage.setItem("temp-token", token);
+        } else {
+          localStorage.setItem("token", token);
+        }
+
+        // --- Handle profile statuses and navigation logic
+        switch (user?.profileStatus) {
+          case "completed":
+            if (user?.is2FAEnabled) {
+              toast.info("2FA verification required.");
+              navigate("/google-auth");
+            } else {
+              toast.success("Login successful!");
+              navigate("/dashboard");
+            }
+            break;
+
+          case "both_verified":
+            toast.info("Please complete your profile setup.");
+            localStorage.setItem("temp_user_data", JSON.stringify(user));
+            navigate("/complete-profile");
+            break;
+
+          case "none":
+          default:
+            if (user?.isEmailVerified) {
+              toast.success("Login successful! Redirecting...");
+              navigate("/dashboard");
+            } else {
+              toast.info("Please verify your email first.");
+              navigate(
+                `/verify-email?email=${encodeURIComponent(user?.email)}`
+              );
+            }
+            break;
+        }
+      } catch (err) {
+        toast.error("An unexpected error occurred. Please try again.");
+        console.error("Login error:", err);
+      }
     },
   });
 
