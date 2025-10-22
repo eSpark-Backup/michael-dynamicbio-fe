@@ -30,7 +30,7 @@ const Signup = () => {
         // about: { dob: values?.dob },
         password: values?.password,
         loginType: "local",
-        role: "user",
+        role: "USER",
       };
       register(dataToSend).then((res) => {
         if (res?.error) {
@@ -164,41 +164,71 @@ const Signup = () => {
             </Box>
             <Box
               sx={{
-                display: "flex",
+                // display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 height: "27px",
                 mb: 5,
               }}
             >
-              <Typography
-                sx={{
-                  fontSize: "16px",
-                  fontWeight: "300",
-                  textAlign: "center",
-                }}
-              >
-                Already have an account?
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    width: "100%",
+              <>
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "300",
+                    textAlign: "center",
                   }}
-                  to="/login"
                 >
-                  <Typography
-                    ml={1}
-                    fontSize="18px"
-                    fontWeight={400}
-                    component="span"
-                    color={theme.palette.primary.dark}
-                    sx={{ textAlign: "center" }}
-                    variant="gradientText"
+                  Already have an account?
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      width: "100%",
+                    }}
+                    to="/login"
                   >
-                    Login
-                  </Typography>
-                </Link>
-              </Typography>
+                    <Typography
+                      ml={1}
+                      fontSize="18px"
+                      fontWeight={400}
+                      component="span"
+                      color={theme.palette.primary.dark}
+                      sx={{ textAlign: "center" }}
+                      variant="gradientText"
+                    >
+                      Login
+                    </Typography>
+                  </Link>{" "}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "300",
+                    textAlign: "center",
+                  }}
+                >
+                  Already registed?
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      width: "100%",
+                    }}
+                    to="/verify-email"
+                  >
+                    <Typography
+                      ml={1}
+                      fontSize="18px"
+                      fontWeight={400}
+                      component="span"
+                      color={theme.palette.primary.dark}
+                      sx={{ textAlign: "center" }}
+                      variant="gradientText"
+                    >
+                      Verify your Account
+                    </Typography>
+                  </Link>
+                </Typography>
+              </>
             </Box>
           </Box>
         </Box>

@@ -5,6 +5,7 @@ import { successTick } from "../../../assets";
 import { useEffect, useState } from "react";
 import { useQuery } from "../../../utils";
 import { useVerifyEmailMutation } from "../../../services/auth";
+import { toast } from "react-toastify";
 
 const EmailVerified = () => {
   const navigate = useNavigate();
@@ -14,30 +15,64 @@ const EmailVerified = () => {
   const [verifyEmail] = useVerifyEmailMutation();
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+
   useEffect(() => {
     if (token && expiresAt) {
       setLoading(true);
       verifyEmail({ token, expiresAt }).then((res) => {
         if (res?.error) {
-          setError(res?.error?.data?.message || "Verification failed");
+          const message = res?.error?.data?.message || "Verification failed.";
+          setError(message);
+          toast.error(message);
           setLoading(false);
           return;
         }
-        if (res?.data) {
-          const user = res.data?.data?.user || {};
-          const data = {
+
+        const statusCode = res?.data?.statusCode;
+        const response = res?.data?.data;
+
+        if (statusCode === 200 && response) {
+          const user = response?.user || {};
+          const newToken = response?.token || "";
+
+          if (!newToken) {
+            setError("Token missing in response.");
+            toast.error("Token missing in response.");
+            setLoading(false);
+            return;
+          }
+
+          // ✅ Save token
+          localStorage.setItem("token", newToken);
+          const userData = {
             firstName: user.firstName,
             lastName: user.lastName,
             about: user.about,
           };
-          localStorage.setItem("temp_user_data", JSON.stringify(data));
-          localStorage.setItem("token", res.data?.data?.token);
+          localStorage.setItem("temp_user_data", JSON.stringify(userData));
+
+          toast.success("Email verified successfully!");
+          setLoading(false);
+          localStorage.removeItem("temp_user_data");
+
+          // ✅ Redirect to dashboard
+          navigate("/dashboard");
+        } else {
+          const message =
+            res?.data?.message ||
+            "Email verification failed. Please try again.";
+          setError(message);
+          toast.error(message);
           setLoading(false);
         }
       });
+    } else {
+      setError("Invalid verification link.");
+      setLoading(false);
     }
-  }, [token]);
+  }, [token, expiresAt, navigate, verifyEmail]);
+
   return (
     <>
       {loading ? (
