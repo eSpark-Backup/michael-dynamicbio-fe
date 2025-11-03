@@ -31,6 +31,7 @@ import GeneralEvent from "./dashboard/general/GeneralEvent";
 import GeneralPost from "./dashboard/general/GeneralPost";
 
 import Settings from "./settings";
+import MarketPlace from "./market-place";
 
 import UserBonds from "./dashboard/profile/user-bonds";
 
@@ -70,5 +71,6 @@ export {
   GeneralPost,
   Settings,
   UserBonds,
-  DDT
+  DDT,
+  MarketPlace
 };

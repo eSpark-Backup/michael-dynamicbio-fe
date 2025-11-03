@@ -12,7 +12,7 @@ import {
   profilePicture,
   company,
   school,
-  dummyPhoto
+  dummyPhoto,
 } from "../assets";
 
 export const bondSuggestions = [
@@ -76,7 +76,7 @@ export const suggestionPostContent = [
     isFriendPost: true,
     pinned: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
   {
     userName: "James Bond",
@@ -108,7 +108,7 @@ export const suggestionPostContent = [
     type: "normal",
     isFriendPost: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
   {
     userName: "Gerry’s International",
@@ -123,11 +123,13 @@ export const suggestionPostContent = [
     postContent: `<p style="font-size:18px; font-weight:300; color:#505050;">#Hashtag</p><br/> Develop modern apps with the languages, frameworks, and databases of your choice.I vividly remember those hours spent waiting at Dubai airport...more`,
     commentsContent: [],
     type: "video",
-    videoUrl: "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
-    thumbnail: "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg",
+    videoUrl:
+      "http://res.cloudinary.com/driaxcout/video/upload/v1743780393/Post/Dana_Benjamin/r3d7j9naicbumlifaync.mp4",
+    thumbnail:
+      "http://res.cloudinary.com/driaxcout/image/upload/v1743780395/Post/Dana_Benjamin/fajc4jkh1igmfwoajcnt.jpg",
     isFriendPost: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
   {
     userName: "Gerry’s International",
@@ -148,19 +150,19 @@ export const suggestionPostContent = [
         id: 1,
         value: "Public transport",
         isChecked: true,
-        numbersVoted: 163
+        numbersVoted: 163,
       },
       {
         id: 2,
         value: "Drive myself",
         isChecked: false,
-        numbersVoted: 120
+        numbersVoted: 120,
       },
     ],
     isVoted: true,
     isFriendPost: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
   {
     userName: "rotten ria",
@@ -186,7 +188,7 @@ export const suggestionPostContent = [
     id: 123,
     isFriendPost: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
   {
     userName: "rotten ria",
@@ -204,10 +206,11 @@ export const suggestionPostContent = [
     id: 123,
     articleImage: dummyPhoto,
     articleTitle: "Lorem Ipsum",
-    articleDescription: "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    articleDescription:
+      "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     isFriendPost: true,
     groupPost: true,
-    isAdminPost: true
+    isAdminPost: true,
   },
 ];
 
@@ -218,7 +221,7 @@ export const chatsContent = [
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
     name: "Friend",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 2,
@@ -226,7 +229,7 @@ export const chatsContent = [
     lastMessage: "Please send details.",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 3,
@@ -234,7 +237,7 @@ export const chatsContent = [
     lastMessage: "Done!",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 4,
@@ -242,7 +245,7 @@ export const chatsContent = [
     lastMessage: "Ok! Deal",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 5,
@@ -250,7 +253,7 @@ export const chatsContent = [
     lastMessage: "Let’s catch!",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 6,
@@ -258,7 +261,7 @@ export const chatsContent = [
     lastMessage: ":)",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 7,
@@ -266,7 +269,7 @@ export const chatsContent = [
     lastMessage: "we will be working on a new project wit.",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 8,
@@ -274,7 +277,7 @@ export const chatsContent = [
     lastMessage: "Close deal!",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 9,
@@ -282,7 +285,7 @@ export const chatsContent = [
     lastMessage: "Happy to help!",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 10,
@@ -290,7 +293,7 @@ export const chatsContent = [
     lastMessage: "Hi!",
     time: "Jan 2",
     name: "Alex",
-    type: "personal"
+    type: "personal",
   },
   {
     id: 11,
@@ -298,7 +301,7 @@ export const chatsContent = [
     lastMessage: "Sent a photo",
     time: "Jan 2",
     name: "John Smith, Bob Brown, and you",
-    type: "group"
+    type: "group",
   },
 ];
 
@@ -490,35 +493,40 @@ export const pulseCardContent = [
     id: 1,
     userImage: profilePicture,
     userRole: "Founder & CEO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
   {
     id: 2,
     userImage: profilePicture,
     userRole: "Founder & CEO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
   {
     id: 3,
     userImage: profilePicture,
     userRole: "Founder & CEO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
   {
     id: 4,
     userImage: profilePicture,
     userRole: "Founder & CEO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
   {
     id: 5,
     userImage: profilePicture,
     userRole: "Founder & CEO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus tortor tristique varius tincidunt.",
     time: "34m ago",
   },
 ];
@@ -540,29 +548,28 @@ export const pageTypes = [
   // },
 ];
 
-
 export const timezoneOptions = [
   {
     label: "(UTC-12:00) International Date Line West",
-    value: "UTC-12:00"
+    value: "UTC-12:00",
   },
   {
     label: "(UTC-11:00) Midway Island, Samoa",
-    value: "UTC-11:00"
+    value: "UTC-11:00",
   },
   {
     label: "(UTC-10:00) Hawaii",
-    value: "UTC-10:00"
+    value: "UTC-10:00",
   },
   {
     label: "(UTC-09:30) Marquesas Islands",
-    value: "UTC-09:30"
+    value: "UTC-09:30",
   },
   {
     label: "(UTC-09:30) Marquesas Islands",
-    value: "UTC-09:30"
+    value: "UTC-09:30",
   },
-]
+];
 
 export const shareModalContent = [
   {
@@ -570,103 +577,103 @@ export const shareModalContent = [
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 2,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 3,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 4,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 5,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 6,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
   {
     id: 7,
     image: profilePicture,
     name: "Areeba Shakeel",
     designation: "UI | UX Designer at eSpark Consulting Group",
-    education: "University of Karachi"
+    education: "University of Karachi",
   },
-]
+];
 
 export const groupsCOntent = [
   {
     id: 1,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 2,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 3,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 4,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 5,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 6,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
   {
     id: 7,
     name: "Group name",
     status: "Public",
-    picture: profilePicture
+    picture: profilePicture,
   },
-]
+];
 
 export const eventDuration = [
   { label: "1 day", value: 1 },
   { label: "3 days", value: 3 },
   { label: "1 week", value: 7 },
   { label: "2 weeks", value: 14 },
-]
+];
 export const suggestedSearchBonds = [
   {
     label: "You might be interested in bonding with following people",
@@ -728,79 +735,77 @@ export const groupMembers = [
     image: user,
     name: "John Doe",
     role: "Developer",
-    id: 1
+    id: 1,
   },
   {
     image: profilePicture,
     name: "Jan Smith",
     role: "--",
-    id: 2
+    id: 2,
   },
   {
     image: userAvatar,
     name: "Bob Brown",
     role: "UI / UX Designer",
-    id: 3
+    id: 3,
   },
-]
-
+];
 
 export const pageStats = [
   {
     value: 0,
     name: "Search appearance",
-    description: "last 7 days"
+    description: "last 7 days",
   },
   {
     value: 0,
     name: "New followers",
-    description: "N/A"
+    description: "N/A",
   },
   {
     value: 0,
     name: "Post impressions",
-    description: "N/A"
+    description: "N/A",
   },
   {
     value: 0,
     name: "Page visitors",
-    description: "N/A"
+    description: "N/A",
   },
-]
-
+];
 
 export const otherEvents = [
   {
     image: dummyPhoto,
     time: "Happening now",
     name: "DC and Master Trust Symposium managemnet",
-    eventBy: "Pesnions Management"
+    eventBy: "Pesnions Management",
   },
   {
     image: dummyPhoto,
     time: "Happening now",
     name: "Rebound obsolescences",
-    eventBy: "Rebound Electic"
+    eventBy: "Rebound Electic",
   },
   {
     image: dummyPhoto,
     time: "Today, 1:30 PM",
     name: "Navigating New Employment Law: ",
-    eventBy: "GM Business Group"
+    eventBy: "GM Business Group",
   },
   {
     image: dummyPhoto,
     time: "Happening now",
     name: "Swiss Rhinoplasty Masterclass",
-    eventBy: "Dr. med. Mesutution"
+    eventBy: "Dr. med. Mesutution",
   },
   {
     image: dummyPhoto,
     time: "Happening now",
     name: "Mindset & Action Live",
-    eventBy: "Donna Eade"
+    eventBy: "Donna Eade",
   },
-]
+];
 
 export const articleDummyContent = `<h1>What is Lorem Ipsum?</h1>
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -809,157 +814,169 @@ export const articleDummyContent = `<h1>What is Lorem Ipsum?</h1>
     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
     
     <h2>Where does it come from?</h2>
-    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>`
+    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>`;
 
 export const reportArticleChoices = [
   {
     value: "Illegal goods and services",
-    description: "Content that attempts to sell illegal or regulated goods and services, including solicitation of escort services, prostitution and content that depicts and/or promotes sex trafficking or human trafficking"
+    description:
+      "Content that attempts to sell illegal or regulated goods and services, including solicitation of escort services, prostitution and content that depicts and/or promotes sex trafficking or human trafficking",
   },
   {
     value: "Fraud or scam",
-    description: "Illegal activities, malware, or promotion of illegal products or services"
+    description:
+      "Illegal activities, malware, or promotion of illegal products or services",
   },
   {
     value: "Spam",
-    description: "Irrelevant, repititive content intended to artificially increase engagement, or other inappropirate promotional content"
+    description:
+      "Irrelevant, repititive content intended to artificially increase engagement, or other inappropirate promotional content",
   },
   {
     value: "Misinformation",
-    description: "False content or information, including news stories, that present untrue facts or events as though they are true or likely to be true"
+    description:
+      "False content or information, including news stories, that present untrue facts or events as though they are true or likely to be true",
   },
   {
     value: "Fake account",
-    description: "Inaccurate or misleading representation of a person or organization"
+    description:
+      "Inaccurate or misleading representation of a person or organization",
   },
   {
     value: "Harassment",
-    description: "Attacks or intimidation toward others with abusive language or deliberately and repeatedly disrupting conversations, including revealing others’ personal or sensitive information. This includes unwanted romantic advances, sexual remarks and or requests for sexual favors."
+    description:
+      "Attacks or intimidation toward others with abusive language or deliberately and repeatedly disrupting conversations, including revealing others’ personal or sensitive information. This includes unwanted romantic advances, sexual remarks and or requests for sexual favors.",
   },
   {
     value: "Hateful speech",
-    description: "Attacks or incitement of violence against individuals or groups based on their actual or perceived traits, or any other speech that promotes hatred"
+    description:
+      "Attacks or incitement of violence against individuals or groups based on their actual or perceived traits, or any other speech that promotes hatred",
   },
   {
     value: "Graphic content",
-    description: "Excessively gruesome or graphic material"
+    description: "Excessively gruesome or graphic material",
   },
   {
     value: "Sexual content",
-    description: "Nudity or other content that’s sexual in nature"
+    description: "Nudity or other content that’s sexual in nature",
   },
   {
     value: "Dangerous or extremist organizations",
-    description: "Depicting or encouraging terrorist acts or severe harm, or promoting terrorist organizations or violent extremist groups"
+    description:
+      "Depicting or encouraging terrorist acts or severe harm, or promoting terrorist organizations or violent extremist groups",
   },
   {
     value: "Threats or violence",
-    description: "Content that promotes or encourages violence or criminal activity, or depicts extreme violence"
+    description:
+      "Content that promotes or encourages violence or criminal activity, or depicts extreme violence",
   },
   {
     value: "Self-harm",
-    description: "Promotion, encouragement or any portrayal of suicide or self-harm"
+    description:
+      "Promotion, encouragement or any portrayal of suicide or self-harm",
   },
   {
     value: "Hacked account",
-    description: "Unauthorized account takeover"
+    description: "Unauthorized account takeover",
   },
   {
     value: "Impersonation",
-    description: "Pretending to be someone else, such as using someone's else's profile photo or name as your own"
+    description:
+      "Pretending to be someone else, such as using someone's else's profile photo or name as your own",
   },
   {
     value: "Child exploitation",
-    description: "Material that features or promotes child exploitation or nudity"
+    description:
+      "Material that features or promotes child exploitation or nudity",
   },
   {
     value: "Infringement",
-    description: "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred"
+    description:
+      "Attacks or incitement of violence against individuals or group based on their actual or perceived traits, or any other speech that promotes hatred",
   },
-]
+];
 
 export const relatedGroups = [
   {
     name: "Graphic Design Freelancers",
-    followers: "99,517 members"
+    followers: "99,517 members",
   },
   {
     name: "Freelance Graphic Designer",
-    followers: "198,860 members"
+    followers: "198,860 members",
   },
   {
     name: "Digital Marketing Group - #1 Internet Online Advertising SEO Social Media Mobile",
-    followers: "460,543 members"
+    followers: "460,543 members",
   },
   {
     name: "The Social Media Marketing Group",
-    followers: "2,884,864 members"
+    followers: "2,884,864 members",
   },
   {
     name: "Fiverr Gigs Marketing & Promotion (world-wide) <Buyer 👉 Seller>",
-    followers: "31,603 members"
+    followers: "31,603 members",
   },
-]
-
+];
 
 export const inviteMembers = [
   {
     id: 1,
     name: "Abdul Rehman",
-    role: "Junior React js Developer"
+    role: "Junior React js Developer",
   },
   {
     id: 2,
     name: "Saad Zafar",
-    role: "SQA Engineer"
+    role: "SQA Engineer",
   },
   {
     id: 3,
     name: "Muhammad Ahsan Badami",
-    role: "Backend Developer"
+    role: "Backend Developer",
   },
   {
     id: 4,
     name: "Areeba Shakeel",
-    role: "UI | UX Designer"
+    role: "UI | UX Designer",
   },
-]
+];
 
 export const groupMembersData = [
   {
     name: "Areeba Shakeel",
     role: "UI/UX Designer | Product Designer | Figma",
-    groupRole: "member"
+    groupRole: "member",
   },
   {
     name: "rotten ria",
     role: "--",
-    groupRole: "owner"
+    groupRole: "owner",
   },
-]
+];
 
 export const groupAdminsData = [
   {
     name: "Areeba Shakeel",
     role: "UI/UX Designer | Product Designer | Figma",
     groupRole: "admin",
-    madeBy: "rotten ria"
+    madeBy: "rotten ria",
   },
   {
     name: "rotten ria",
     role: "--",
-    groupRole: "owner"
+    groupRole: "owner",
   },
-]
+];
 
 export const groupBlockedData = [
   {
     name: "Areeba Shakeel",
     role: "UI/UX Designer | Product Designer | Figma",
     groupRole: "admin",
-    madeBy: "rotten ria"
-  }
-]
+    madeBy: "rotten ria",
+  },
+];
 
 export const sizeOptions = [
   { label: "0-1 employees", value: "ZERO_TO_ONE" },
@@ -968,8 +985,14 @@ export const sizeOptions = [
   { label: "51-200 employees", value: "FIFTY_ONE_TO_TWO_HUNDRED" },
   { label: "201-500 employees", value: "TWO_HUNDRED_ONE_TO_FIVE_HUNDRED" },
   { label: "501-1,000 employees", value: "FIVE_HUNDRED_ONE_TO_ONE_THOUSAND" },
-  { label: "1,001-5,000 employees", value: "ONE_THOUSAND_ONE_TO_FIVE_THOUSAND" },
-  { label: "5,001-10,000 employees", value: "FIVE_THOUSAND_ONE_TO_TEN_THOUSAND" },
+  {
+    label: "1,001-5,000 employees",
+    value: "ONE_THOUSAND_ONE_TO_FIVE_THOUSAND",
+  },
+  {
+    label: "5,001-10,000 employees",
+    value: "FIVE_THOUSAND_ONE_TO_TEN_THOUSAND",
+  },
   { label: "10,000+ employees", value: "TEN_THOUSAND_PLUS" },
 ];
 
@@ -1005,27 +1028,245 @@ export const monthOptions = [
   { label: "December", value: "December" },
 ];
 
-
 export const ddtContent = [
   {
     id: 1,
-    content: "What is the charge of hydrogen atom?"
+    content: "What is the charge of hydrogen atom?",
   },
   {
     id: 2,
     content: `A hydrogen ion, typically represented as H+ \\text{H}^+, has a charge of +1. This positive charge comes from the ion having lost its single electron, leaving only the proton. So, it's essentially just a proton floating around. <br/> Anything else you're curious about? Maybe something related to chemistry or another topic entirely? 😄 hydrogen atom?`,
-    response: true
+    response: true,
   },
-]
+];
 
 export const historyChats = [
   {
-    chat: "Chat1"
+    chat: "Chat1",
   },
   {
-    chat: "Hydrogen indangering"
+    chat: "Hydrogen indangering",
   },
   {
-    chat: "Reply to govt email is new"
-  }
-]
+    chat: "Reply to govt email is new",
+  },
+];
+
+export const productData = {
+  sideNavData: {
+    navItems: {
+      text: ["Market Place", "Product Listing", "Market Place"],
+      tabs: [
+        { tab: "Newly Listed Product" },
+        {
+          tab: "Create a New Product Listing",
+          innerTabs: [
+            { tab: "Create a New Product Listing" },
+            { tab: "My Products" },
+            { tab: "Message Center" },
+          ],
+        },
+        { tab: "Favourite" },
+      ],
+    },
+  },
+  adsInformationData: {
+    fields: [
+      {
+        label: "Ad name",
+        name: "ad_name",
+        placeholder: "Ad name",
+        type: "text",
+        size: 11.82,
+      },
+      {
+        label: "Category",
+        name: "category",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "electronics", label: "Electronics" },
+          { value: "furniture", label: "Furniture" },
+          { value: "vehicles", label: "Vehicles" },
+        ],
+      },
+      {
+        label: "Subcategory",
+        name: "sub_category",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "mobiles", label: "Mobiles" },
+          { value: "laptops", label: "Laptops" },
+          { value: "tablets", label: "Tablets" },
+        ],
+      },
+      {
+        label: "Brand",
+        name: "brand",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "apple", label: "Apple" },
+          { value: "samsung", label: "Samsung" },
+          { value: "dell", label: "Dell" },
+        ],
+      },
+      {
+        label: "Model",
+        name: "model",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "model1", label: "Model 1" },
+          { value: "model2", label: "Model 2" },
+          { value: "model3", label: "Model 3" },
+        ],
+      },
+      {
+        label: "Conditions",
+        name: "conditions",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "new", label: "New" },
+          { value: "used", label: "Used" },
+          { value: "refurbished", label: "Refurbished" },
+        ],
+      },
+      {
+        label: "Authenticity",
+        name: "authenticity",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "original", label: "Original" },
+          { value: "replica", label: "Replica" },
+        ],
+      },
+      {
+        label: "Tags",
+        name: "tags",
+        placeholder: "Enter tags",
+        type: "text",
+        size: 11.82,
+      },
+      {
+        label: "Ad prices",
+        name: "ad_prices",
+        placeholder: "Select...",
+        type: "text",
+        size: 5.8,
+      },
+
+      {
+        label: "Negotiable",
+        name: "nigotiable",
+        placeholder: "Select...",
+        type: "select",
+        size: 5.8,
+        options: [
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ],
+      },
+    ],
+  },
+  featureAndImagesData: {
+    fields: [
+      {
+        label: "Description",
+        name: "description",
+        placeholder: "Ad description",
+        type: "text",
+        size: 11.82,
+      },
+      {
+        label: "Feature (optional)",
+        name: "feature",
+        placeholder: "Write a feature in each line eg.",
+        type: "text",
+        size: 11.82,
+      },
+      {
+        label: "Upload Photos",
+        name: "upload_photos",
+        type: "upload",
+        size: 11.82,
+      },
+    ],
+  },
+  postAdsData: {
+    fields: [
+      {
+        label: "Phone Number",
+        name: "phone_number",
+        placeholder: "Phone",
+        type: "phone_number",
+        size: 5.8,
+      },
+      {
+        label: "Backup Phone Number (Optional)",
+        name: "backup_phone_number",
+        placeholder: "Phone",
+        type: "phone_number",
+        size: 5.8,
+      },
+      {
+        label: "Email Address",
+        name: "email",
+        placeholder: "Email address",
+        type: "email",
+        size: 5.8,
+      },
+      {
+        label: "Website Link (Optional)",
+        name: "website_url",
+        type: "text",
+        placeholder: "Your website url",
+        size: 5.8,
+      },
+      {
+        label: "Country",
+        name: "country",
+        type: "select",
+        placeholder: "Select...",
+        size: 4,
+      },
+      {
+        label: "City (Optional)",
+        name: "city",
+        type: "select",
+        placeholder: "Select...",
+        size: 4,
+      },
+      {
+        label: "State (Optional)",
+        name: "state",
+        type: "select",
+        placeholder: "Select...",
+        size: 4,
+      },
+      {
+        label: "Location",
+        name: "location",
+        type: "text",
+        placeholder: "Your location",
+        size: 5.8,
+      },
+      {
+        label: "Map Location (Optional)",
+        name: "map_location",
+        type: "text",
+        placeholder: "Map location",
+        size: 5.8,
+      },
+    ],
+  },
+};
