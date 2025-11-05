@@ -160,6 +160,9 @@ import step3 from "./icons/step_3.svg";
 import successLogo from "./icons/success-logo.svg";
 import successMark from "./icons/success-mark.svg";
 import arrowRight from "./icons/arrow-right.svg";
+import phoneArrow from "./icons/phone_arrow.svg";
+import whiteTick from "./icons/white-tick.svg";
+
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -337,4 +340,6 @@ export {
   successLogo,
   successMark,
   arrowRight,
+  phoneArrow,
+  whiteTick,
 };

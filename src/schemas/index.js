@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 export const loginSchema = Yup.object({
   email: Yup.string()
@@ -464,29 +465,26 @@ export const getProductValidationSchema = (step) => {
       // Step 3 Validation
       return Yup.object({
         phone_number: Yup.string()
-          .matches(/^\+?[0-9]{7,15}$/, "Enter a valid phone number")
+          .test("is-valid-phone_number", "Invalid phone number", (value) =>
+            value ? isValidPhoneNumber(value) : true
+          )
           .required("Phone number is required"),
-
         backup_phone_number: Yup.string()
-          .matches(/^\+?[0-9]{7,15}$/, "Enter a valid backup phone number")
-          .nullable(),
-
+          .nullable()
+          .test("is-valid-backup", "Invalid backup phone number", (value) => {
+            if (!value) return true;
+            return isValidPhoneNumber(value);
+          }),
         email: Yup.string()
           .email("Enter a valid email address")
           .required("Email is required"),
-
         website_url: Yup.string()
           .url("Enter a valid website URL (must start with http or https)")
           .nullable(),
-
         country: Yup.string().required("Country is required"),
-
         city: Yup.string().nullable(),
-
         state: Yup.string().nullable(),
-
         location: Yup.string().required("Location is required"),
-
         map_location: Yup.string().url("Enter a valid map URL").nullable(),
       });
 

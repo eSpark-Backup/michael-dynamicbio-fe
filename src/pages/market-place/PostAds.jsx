@@ -5,15 +5,27 @@ import {
   TextField,
   Typography,
   Autocomplete,
+  Box,
 } from "@mui/material";
 import { useFormikContext } from "formik";
 import { Country, State, City } from "country-state-city";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import { phoneArrow } from "../../assets";
+import { POST_ADS_STYLE } from "./Styles";
 
 const PostAds = ({ data = {} }) => {
-  const { values, errors, touched, handleChange, handleBlur, setFieldValue } =
-    useFormikContext();
+  const { fieldLabel, inputField, dropdownInput, dropdownPaper, errorText } =
+    POST_ADS_STYLE || {};
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormikContext();
   const { fields = [] } = data;
 
   const [countryOptions, setCountryOptions] = useState([]);
@@ -70,29 +82,9 @@ const PostAds = ({ data = {} }) => {
     }
   }, [values.state, values.country]);
 
-  const inputStyle = {
-    "& .MuiInputBase-root": {
-      height: { xs: 52, lg: 62 },
-      fontSize: { xs: "18px", lg: "20px" },
-      fontWeight: 400,
-      borderRadius: "7px",
-      fontFamily: "Nunito",
-    },
-    "& .MuiInputBase-input::placeholder": {
-      color: "#939AAD",
-      opacity: 1,
-      fontWeight: 400,
-      fontSize: { xs: "18px", lg: "20px" },
-      fontFamily: "Nunito",
-    },
-    "& input:-webkit-autofill": {
-      WebkitBoxShadow: "0 0 0 1000px transparent inset !important",
-      WebkitTextFillColor: "inherit !important",
-      fontFamily: "Nunito !important",
-      fontWeight: 400,
-      fontSize: "20px",
-      transition: "background-color 5000s ease-in-out 0s",
-    },
+  const handlePhoneChange = (name, value) => {
+    setFieldValue(name, value);
+    setFieldTouched(name, true, false);
   };
 
   return (
@@ -105,11 +97,13 @@ const PostAds = ({ data = {} }) => {
           return (
             <Grid item xs={12} key="country-city-state">
               <Grid container spacing={2}>
+                {/* Country */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography>{label}</Typography>
+                    <Typography sx={fieldLabel}>{label}</Typography>
                     <Autocomplete
                       fullWidth
+                      popupIcon={null}
                       options={countryOptions}
                       value={
                         countryOptions.find(
@@ -129,28 +123,27 @@ const PostAds = ({ data = {} }) => {
                           error={touched.country && Boolean(errors.country)}
                           helperText={touched.country && errors.country}
                           sx={{
-                            ...inputStyle,
-                            "& .MuiSelect-select, & .MuiOutlinedInput-input": {
-                              padding: "0px 10px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
+                            ...inputField,
+                            ...dropdownInput,
+                          }}
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <Box
+                                component="img"
+                                src={phoneArrow}
+                                alt="dropdown"
+                                className="custom-arrow"
+                                sx={{
+                                  width: { xs: "13px !important", md: "auto" },
+                                }}
+                              />
+                            ),
                           }}
                         />
                       )}
                       componentsProps={{
-                        paper: {
-                          sx: {
-                            borderRadius: "10px",
-                            mt: 1,
-                            padding: "0px",
-                            "& .MuiAutocomplete-option": {
-                              padding: "9px 10px",
-                              fontFamily: "Nunito",
-                              fontSize: "18px",
-                            },
-                          },
-                        },
+                        paper: { sx: dropdownPaper },
                       }}
                     />
                   </Stack>
@@ -159,9 +152,10 @@ const PostAds = ({ data = {} }) => {
                 {/* State */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography>{stateField.label}</Typography>
+                    <Typography sx={fieldLabel}>{stateField.label}</Typography>
                     <Autocomplete
                       fullWidth
+                      popupIcon={null}
                       options={stateOptions}
                       value={
                         stateOptions.find(
@@ -180,28 +174,27 @@ const PostAds = ({ data = {} }) => {
                           error={touched.state && Boolean(errors.state)}
                           helperText={touched.state && errors.state}
                           sx={{
-                            ...inputStyle,
-                            "& .MuiSelect-select, & .MuiOutlinedInput-input": {
-                              padding: "0px 10px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
+                            ...inputField,
+                            ...dropdownInput,
+                          }}
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <Box
+                                component="img"
+                                src={phoneArrow}
+                                alt="dropdown"
+                                className="custom-arrow"
+                                sx={{
+                                  width: { xs: "13px !important", md: "auto" },
+                                }}
+                              />
+                            ),
                           }}
                         />
                       )}
                       componentsProps={{
-                        paper: {
-                          sx: {
-                            borderRadius: "10px",
-                            mt: 1,
-                            padding: "0px",
-                            "& .MuiAutocomplete-option": {
-                              padding: "9px 10px",
-                              fontFamily: "Nunito",
-                              fontSize: "18px",
-                            },
-                          },
-                        },
+                        paper: { sx: dropdownPaper },
                       }}
                     />
                   </Stack>
@@ -210,9 +203,10 @@ const PostAds = ({ data = {} }) => {
                 {/* City */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography>{cityField.label}</Typography>
+                    <Typography sx={fieldLabel}>{cityField.label}</Typography>
                     <Autocomplete
                       fullWidth
+                      popupIcon={null}
                       options={cityOptions}
                       value={
                         cityOptions.find((opt) => opt.value === values.city) ||
@@ -229,28 +223,27 @@ const PostAds = ({ data = {} }) => {
                           error={touched.city && Boolean(errors.city)}
                           helperText={touched.city && errors.city}
                           sx={{
-                            ...inputStyle,
-                            "& .MuiSelect-select, & .MuiOutlinedInput-input": {
-                              padding: "0px 10px !important",
-                              display: "flex",
-                              alignItems: "center",
-                            },
+                            ...inputField,
+                            ...dropdownInput,
+                          }}
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <Box
+                                component="img"
+                                src={phoneArrow}
+                                alt="dropdown"
+                                className="custom-arrow"
+                                sx={{
+                                  width: { xs: "13px !important", md: "auto" },
+                                }}
+                              />
+                            ),
                           }}
                         />
                       )}
                       componentsProps={{
-                        paper: {
-                          sx: {
-                            borderRadius: "10px",
-                            mt: 1,
-                            padding: "0px",
-                            "& .MuiAutocomplete-option": {
-                              padding: "9px 10px",
-                              fontFamily: "Nunito",
-                              fontSize: "18px",
-                            },
-                          },
-                        },
+                        paper: { sx: dropdownPaper },
                       }}
                     />
                   </Stack>
@@ -261,24 +254,24 @@ const PostAds = ({ data = {} }) => {
         }
 
         if (name === "city" || name === "state") return null;
+
         if (type === "phone_number") {
           return (
             <Grid item key={index} xs={12} md={6}>
               <Stack spacing={1.5}>
-                <Typography>{label}</Typography>
+                <Typography sx={fieldLabel}>{label}</Typography>
                 <div className="custom-phone-input">
                   <PhoneInput
-                    defaultCountry="PK"
-                    value={values[name] || ""}
-                    onChange={(val) => setFieldValue(name, val)}
-                    international
+                    defaultCountry={"US"}
+                    placeholder={placeholder}
+                    value={values[name] ?? undefined}
+                    onChange={(value) => handlePhoneChange(name, value)}
+                    onBlur={() => handleBlur({ target: { name } })}
                     countryCallingCodeEditable={false}
                   />
                 </div>
-                {touched[name] && errors[name] && (
-                  <Typography color="error" fontSize={14}>
-                    {errors[name]}
-                  </Typography>
+                {errors[name] && (
+                  <Typography sx={errorText}>{errors[name]}</Typography>
                 )}
               </Stack>
             </Grid>
@@ -288,7 +281,7 @@ const PostAds = ({ data = {} }) => {
         return (
           <Grid item key={index} xs={12} md={6}>
             <Stack spacing={1.5}>
-              <Typography>{label}</Typography>
+              <Typography sx={fieldLabel}>{label}</Typography>
               <TextField
                 fullWidth
                 name={name}
@@ -299,7 +292,7 @@ const PostAds = ({ data = {} }) => {
                 type={type}
                 error={touched[name] && Boolean(errors[name])}
                 helperText={touched[name] && errors[name]}
-                sx={inputStyle}
+                sx={inputField}
               />
             </Stack>
           </Grid>

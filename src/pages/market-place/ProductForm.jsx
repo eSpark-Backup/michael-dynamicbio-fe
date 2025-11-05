@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  keyframes,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { Formik, Form } from "formik";
 
@@ -15,29 +8,34 @@ import PostAds from "./PostAds";
 import { productData } from "../../constant";
 import { getProductValidationSchema } from "../../schemas";
 import { toast } from "react-toastify";
-import { arrowRight, successLogo, successMark } from "../../assets";
+import { arrowRight, step1, step2, step3, whiteTick } from "../../assets";
+import PublishedAd from "./PublishedAd";
+import { PRODUCT_FORM_STYLE } from "./Styles";
+import { handleTabClick, toBase64 } from "../../utils";
 
 const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
+  const {
+    goBackBtn,
+    paper,
+    stepTabsContainer,
+    stepTab,
+    stepIcon,
+    stepTitle,
+    stepSubtitle,
+    panelWrapper,
+    panelButtons,
+    prevButton,
+    nextButton,
+    nextButtonIcon,
+  } = PRODUCT_FORM_STYLE || {};
   const { adsInformationData, featureAndImagesData, postAdsData } =
     productData || {};
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(0);
   const tabRefs = useRef([]);
   const scrollContainerRef = useRef(null);
-
-  const toBase64 = (file) =>
-    new Promise((resolve) => {
-      if (!file) return resolve(null);
-      if (typeof file === "string") return resolve(file);
-
-      if (file instanceof Blob) {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => resolve(null);
-        reader.readAsDataURL(file);
-      } else {
-        resolve(null);
-      }
-    });
+  const [stepStatus, setStepStatus] = useState(
+    JSON.parse(localStorage.getItem("stepProgress")) || [false, false, false]
+  );
 
   const defaultValues = {
     // step 1
@@ -79,55 +77,49 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
   };
 
   const handleNext = async (validateForm, setTouched, values, value) => {
-    if (value === 2) {
-      return;
-    } else {
-      const errors = await validateForm();
-      if (Object.keys(errors).length) {
-        setTouched(
-          Object.keys(errors).reduce((acc, key) => {
-            acc[key] = true;
-            return acc;
-          }, {})
-        );
-        return;
-      }
-      const convertedPhotos = await Promise.all(
-        (values.upload_photos || []).map(async (f) => await toBase64(f))
+    if (value === 3) return;
+
+    const errors = await validateForm();
+    if (Object.keys(errors).length) {
+      setTouched(
+        Object.keys(errors).reduce((acc, key) => ({ ...acc, [key]: true }), {})
       );
-      const filteredPhotos = convertedPhotos.filter((p) => !!p);
-      const updatedValues = { ...values, upload_photos: filteredPhotos };
-      localStorage.setItem("formData", JSON.stringify(updatedValues));
-      setStep((prev) => prev + 1);
+      return;
+    }
+
+    const convertedPhotos = await Promise.all(
+      (values.upload_photos || []).map(async (f) => await toBase64(f))
+    );
+    const filteredPhotos = convertedPhotos.filter((p) => !!p);
+    const updatedValues = { ...values, upload_photos: filteredPhotos };
+
+    localStorage.setItem("formData", JSON.stringify(updatedValues));
+
+    const savedProgress = JSON.parse(localStorage.getItem("stepProgress")) || [
+      false,
+      false,
+      false,
+    ];
+    savedProgress[value] = true;
+    localStorage.setItem("stepProgress", JSON.stringify(savedProgress));
+    setStepStatus(savedProgress);
+
+    if (value < 2) {
+      handleTabClick(value + 1, setStep, tabRefs, scrollContainerRef);
+    } else if (value === 2) {
+      document.querySelector("form").requestSubmit();
     }
   };
 
-  const handleBack = () => setStep((prev) => prev - 1);
+  const handleBack = (value) => {
+    handleTabClick(value - 1, setStep, tabRefs, scrollContainerRef);
+  };
 
   const STEPS = [
-    { text: "Ads Information", icon: "icon" },
-    { text: "Description, Features & Images", icon: "icon" },
-    { text: "Post Ads", icon: "icon" },
+    { text: "Ads Information", icon: step1, active: whiteTick },
+    { text: "Description, Features & Images", icon: step2, active: whiteTick },
+    { text: "Post Ads", icon: step3, active: whiteTick },
   ];
-
-  const handleTabClick = (index) => {
-    setStep(index);
-    const tab = tabRefs.current[index];
-    const container = scrollContainerRef.current;
-
-    if (tab && container) {
-      const tabLeft = tab.offsetLeft;
-      const tabWidth = tab.offsetWidth;
-      const containerWidth = container.offsetWidth;
-      const isMobile = window.innerWidth < 1024;
-
-      const scrollTo = isMobile
-        ? tabLeft - containerWidth / 2 + tabWidth / 2.3
-        : tabLeft - containerWidth / 1 + 0 / 2;
-
-      container.scrollTo({ left: scrollTo, behavior: "smooth" });
-    }
-  };
 
   const CustomTabPanel = ({
     children,
@@ -137,75 +129,18 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
     setTouched,
     values,
   }) => (
-    <Box
-      role="tabpanel"
-      hidden={value !== index}
-      sx={{ width: "100%", px: { xs: 2, md: 3.5 }, py: 4 }}
-    >
+    <Box role="tabpanel" hidden={value !== index} sx={panelWrapper}>
       {value === index && children}
-
-      <Box
-        sx={{
-          my: 2,
-          px: 1.8,
-          gap: 2,
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "end",
-          pt: { xs: 1, sm: 1.5 },
-          "@media(max-width: 424px)": {
-            flexDirection: "column",
-          },
-        }}
-      >
+      <Box sx={panelButtons}>
         {value !== 0 && (
-          <Button
-            onClick={handleBack}
-            sx={{
-              border: "1px solid #EBEEF7",
-              fontSize: { xs: "14px", md: "18px" },
-              maxWidth: { xs: "140px", md: "160px", lg: "180px" },
-              height: { xs: "52px", lg: "62px" },
-              background: "transparent",
-              borderRadius: "8px",
-              fontFamily: "Nunito",
-              fontWeight: 700,
-              "@media(max-width: 424px)": {
-                maxWidth: "100%",
-              },
-            }}
-          >
+          <Button onClick={() => handleBack(value)} sx={prevButton}>
             Previous
           </Button>
         )}
         <Button
-          type={value === 2 ? "submit" : "button"}
           onClick={() => handleNext(validateForm, setTouched, values, value)}
-          sx={{
-            fontSize: { xs: "14px", md: "18px" },
-            maxWidth: { xs: "130px", md: "180px", lg: "200px" },
-            height: { xs: "52px", lg: "62px" },
-            color: "#fff",
-            borderRadius: "8px",
-            padding: 1,
-            fontFamily: "Nunito",
-            fontWeight: 700,
-            "@media(max-width: 424px)": {
-              maxWidth: "100%",
-            },
-          }}
-          endIcon={
-            <Box
-              component="img"
-              src={arrowRight}
-              sx={{
-                height: "auto",
-                display: "block",
-                width: { xs: 15, md: 22, lg: 24 },
-              }}
-            />
-          }
+          sx={nextButton}
+          endIcon={<Box component="img" src={arrowRight} sx={nextButtonIcon} />}
         >
           {value === 2 ? "Post Ads" : "Next Steps"}
         </Button>
@@ -218,11 +153,16 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
       enableReinitialize
       initialValues={loadSavedData()}
       validationSchema={getProductValidationSchema(step)}
+      validateOnBlur
+      validateOnChange
       onSubmit={(values) => {
         toast.success("Product created successfully");
         console.log("Final Submit:", values);
-        localStorage.removeItem("formData");
-        setStep(3);
+        setTimeout(() => {
+          localStorage.removeItem("formData");
+          localStorage.removeItem("stepProgress");
+          setStep(3);
+        }, 3000);
       }}
     >
       {({
@@ -242,303 +182,103 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
             const updatedValues = { ...values, upload_photos: filteredPhotos };
             localStorage.setItem("formData", JSON.stringify(updatedValues));
           };
-
           saveData();
         }, [values]);
 
-        if (step === 3) {
-          const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+        if (step === 3)
           return (
-            <Paper
-              elevation={0}
-              sx={{
-                p: 0,
-                width: "100%",
-                height: "100%",
-                maxWidth: "984px",
-                maxHeight: "588px",
-                borderRadius: "12px",
-                backgroundColor: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow:
-                  "0px 15.74px 62.94px 0px rgba(0, 34, 51, 0.06) !important",
-                border: "0",
-              }}
-            >
-              <Stack
-                justifyContent={"center"}
-                alignItems={"center"}
-                textAlign={"center"}
-                spacing={{ xs: 1.8, sm: 2.3 }}
-                p={2.5}
-              >
-                <Stack sx={{ position: "relative" }}>
-                  <Box
-                    component={"img"}
-                    src={successLogo}
-                    alt="Success Logo"
-                    sx={{
-                      width: { xs: "55px", md: "73px" },
-                      animation: `${rotate} 10s linear infinite`,
-                    }}
-                  />
-                  <Box
-                    component={"img"}
-                    src={successMark}
-                    alt="Success Mark"
-                    sx={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: "35%",
-                      height: "35%",
-                    }}
-                  />
-                </Stack>
-
-                <Typography
-                  sx={{
-                    color: "#191F33",
-                    fontSize: {
-                      xs: "22px",
-                      sm: "25px",
-                      md: "30px",
-                      lg: "40px",
-                    },
-                    fontWeight: 600,
-                    fontFamily: "Nunito",
-                    lineHeight: "auto",
-                  }}
-                >
-                  Your ad is successfully publish
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: { xs: "12px", sm: "14px", md: "16px" },
-                    fontWeight: 400,
-                    color: "#767E94",
-                    fontFamily: "Nunito",
-                    maxWidth: { xs: "350px", md: "394px", lg: "494px" },
-                  }}
-                >
-                  Proin placerat risus non justo faucibus commodo. Nunc non
-                  neque sit amet magna aliquam condimentum.
-                </Typography>
-                <Box
-                  sx={{
-                    gap: 2,
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    pt: { xs: 1, sm: 1.5 },
-                    "@media(max-width: 319px)": {
-                      flexDirection: "column",
-                    },
-                  }}
-                >
-                  <Button
-                    onClick={() => setStep(0)}
-                    sx={{
-                      border: "1px solid #CCEEFF",
-                      fontSize: { xs: "14px", md: "16px" },
-                      maxWidth: { xs: "102px", md: "102px" },
-                      height: { xs: "40px", lg: "50px" },
-                      background: "transparent",
-                      borderRadius: "4px",
-                      color: "#1E4084",
-                      fontFamily: "Nunito",
-                      fontWeight: 700,
-                      "@media(max-width: 319px)": {
-                        maxWidth: "100%",
-                      },
-                    }}
-                  >
-                    Go back
-                  </Button>
-
-                  <Button
-                    onClick={() => {
-                      setStep(0);
-                      setValue(0);
-                      setInnerValue(0);
-                    }}
-                    sx={{
-                      fontSize: { xs: "14px", md: "16px" },
-                      maxWidth: { xs: "124px", md: "144px" },
-                      height: { xs: "40px", lg: "50px" },
-                      fontFamily: "Nunito",
-                      fontWeight: 700,
-                      color: "#fff",
-                      borderRadius: "4px",
-                      padding: 1,
-                      "@media(max-width: 319px)": {
-                        maxWidth: "100%",
-                      },
-                    }}
-                    endIcon={
-                      <Box
-                        component="img"
-                        src={arrowRight}
-                        sx={{
-                          width: { xs: 15, md: 22, lg: 24 },
-                          height: "auto",
-                          display: "block",
-                        }}
-                      />
-                    }
-                  >
-                    View Ads
-                  </Button>
-                </Box>
-              </Stack>
-            </Paper>
+            <PublishedAd
+              setStep={setStep}
+              setValue={setValue}
+              setInnerValue={setInnerValue}
+            />
           );
-        }
 
         return (
-          <Paper
-            elevation={0}
-            sx={{
-              p: 0,
-              width: "100%",
-              maxWidth: "1290px",
-              borderRadius: 3,
-              backgroundColor: "#fff",
-              boxShadow:
-                "0px 15.74px 62.94px 0px rgba(0, 34, 51, 0.06) !important",
-              border: "0",
-            }}
-          >
-            <Form>
-              {/* Step Header */}
-              <Box
-                ref={scrollContainerRef}
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  overflowX: "auto",
-                  justifyContent: "space-between",
-                  borderBottom: "1px solid #E4E4E4",
-                  gap: { xs: 3, sm: 2 },
-                  py: 2,
-                  px: 3.5,
-                  pb: 0,
-                  scrollBehavior: "smooth",
-                  "&::-webkit-scrollbar": { display: "none" },
+          <>
+            <Stack sx={{ width: "100%", maxWidth: "1290px" }}>
+              <Button
+                onClick={() => {
+                  setStep(0);
+                  setValue(0);
                 }}
+                disableRipple
+                sx={goBackBtn}
               >
-                {STEPS?.map(({ text, icon }, index) => {
-                  const isActive = step === index;
-                  return (
-                    <Stack
-                      key={index}
-                      ref={(el) => (tabRefs.current[index] = el)}
-                      direction={{ xs: "row", sm: "row" }}
-                      alignItems="center"
-                      onClick={() => handleTabClick(index)}
-                      spacing={1.5}
-                      sx={{
-                        cursor: "pointer",
-                        flexShrink: 0,
-                        width: { xs: "200px", sm: "32.2%" },
-                        py: { xs: 1.5, sm: 2.5 },
-                        borderBottom: isActive
-                          ? "3px solid #00AAFF"
-                          : "3px solid transparent",
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      <Stack
-                        sx={{
-                          width: { xs: "45px", sm: "53px", md: "63px" },
-                          height: { xs: "45px", sm: "53px", md: "63px" },
-                          justifyContent: "center",
-                          alignItems: "center",
-                          borderRadius: "50%",
-                          background: isActive ? "#27C200" : "#C5C9D6",
-                          color: "#FFF",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {icon}
-                      </Stack>
-                      <Stack spacing={0.5}>
-                        <Typography
-                          sx={{
-                            fontWeight: 600,
-                            fontSize: { xs: "14px", md: "16px", lg: "20px" },
-                            color: "#191F33",
-                            textTransform: "capitalize",
-                            fontFamily: "Nunito",
-                          }}
-                        >
-                          {`Step ${index + 1}`}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontWeight: 400,
-                            fontSize: { xs: "13px", md: "16px" },
-                            color: "#767E94",
-                            textTransform: "capitalize",
-                            fontFamily: "Nunito",
-                          }}
-                        >
-                          {text}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  );
-                })}
-              </Box>
+                Go back
+              </Button>
+            </Stack>
 
-              {/* Step Panels */}
-              {STEPS?.map(({ text }, index) => (
-                <CustomTabPanel
-                  key={index}
-                  value={step}
-                  index={index}
-                  validateForm={validateForm}
-                  setTouched={setTouched}
-                  values={values}
-                >
-                  {text === "Ads Information" && (
-                    <AdInformation
-                      data={adsInformationData}
-                      values={values}
-                      handleChange={handleChange}
-                      errors={errors}
-                      touched={touched}
-                    />
-                  )}
-                  {text === "Description, Features & Images" && (
-                    <FeatureAndImages
-                      data={featureAndImagesData}
-                      errors={errors}
-                      touched={touched}
-                    />
-                  )}
-                  {text === "Post Ads" && (
-                    <PostAds
-                      data={postAdsData}
-                      errors={errors}
-                      touched={touched}
-                    />
-                  )}
-                </CustomTabPanel>
-              ))}
-            </Form>
-          </Paper>
+            <Paper elevation={0} sx={paper}>
+              <Form>
+                <Box ref={scrollContainerRef} sx={stepTabsContainer}>
+                  {STEPS?.map(({ text, icon, active }, index) => {
+                    const isActive = step === index;
+                    return (
+                      <Stack
+                        key={index}
+                        direction="row"
+                        spacing={1.5}
+                        sx={stepTab(isActive)}
+                        ref={(el) => (tabRefs.current[index] = el)}
+                      >
+                        <Stack sx={stepIcon(isActive, stepStatus, index)}>
+                          <Box
+                            component="img"
+                            src={stepStatus[index] ? active : icon}
+                          />
+                        </Stack>
+                        <Stack
+                          spacing={0.5}
+                          sx={{ width: "calc(100% - 63px)" }}
+                        >
+                          <Typography sx={stepTitle}>
+                            {`Step ${index + 1}`}
+                          </Typography>
+                          <Typography sx={stepSubtitle}>{text}</Typography>
+                        </Stack>
+                      </Stack>
+                    );
+                  })}
+                </Box>
+
+                {STEPS?.map(({ text }, index) => (
+                  <CustomTabPanel
+                    key={index}
+                    value={step}
+                    index={index}
+                    validateForm={validateForm}
+                    setTouched={setTouched}
+                    values={values}
+                  >
+                    {text === "Ads Information" && (
+                      <AdInformation
+                        data={adsInformationData}
+                        values={values}
+                        handleChange={handleChange}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    )}
+                    {text === "Description, Features & Images" && (
+                      <FeatureAndImages
+                        data={featureAndImagesData}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    )}
+                    {text === "Post Ads" && (
+                      <PostAds
+                        data={postAdsData}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    )}
+                  </CustomTabPanel>
+                ))}
+              </Form>
+            </Paper>
+          </>
         );
       }}
     </Formik>
