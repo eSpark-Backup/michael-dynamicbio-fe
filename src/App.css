@@ -327,6 +327,9 @@ button.is-active {
 }
 
 @media (max-width: 1280px) {
+  .custom-phone-input input::placeholder {
+    font-size: 14px;
+  }
   .custom-phone-input .PhoneInputCountryIcon--border {
     width: 22px !important;
     height: 22px !important;

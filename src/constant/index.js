@@ -1129,7 +1129,7 @@ export const productData = {
       },
       {
         label: "Conditions",
-        name: "conditions",
+        name: "condition",
         placeholder: "Select...",
         type: "select",
         size: 5.8,
@@ -1153,13 +1153,18 @@ export const productData = {
       {
         label: "Tags",
         name: "tags",
-        placeholder: "Enter tags",
-        type: "text",
+        placeholder: "Ads tag...",
+        type: "select",
         size: 11.82,
+        options: [
+          { value: "Featured", label: "Featured" },
+          { value: "Member", label: "Member" },
+          { value: "Verified Seller", label: "Verified Seller" },
+        ],
       },
       {
         label: "Ad prices",
-        name: "ad_prices",
+        name: "ad_price",
         placeholder: "Select...",
         type: "text",
         size: 5.8,
@@ -1167,7 +1172,7 @@ export const productData = {
 
       {
         label: "Negotiable",
-        name: "nigotiable",
+        name: "negotiable",
         placeholder: "Select...",
         type: "select",
         size: 5.8,
@@ -1188,8 +1193,8 @@ export const productData = {
         size: 11.82,
       },
       {
-        label: "Feature (optional)",
-        name: "feature",
+        label: 'Feature <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        name: "features",
         placeholder: "Write a feature in each line eg.",
         type: "text",
         size: 11.82,
@@ -1212,7 +1217,8 @@ export const productData = {
         size: 5.8,
       },
       {
-        label: "Backup Phone Number (Optional)",
+        label:
+          'Backup Phone Number <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "backup_phone_number",
         placeholder: "Phone",
         type: "phone_number",
@@ -1220,14 +1226,14 @@ export const productData = {
       },
       {
         label: "Email Address",
-        name: "email",
+        name: "email_address",
         placeholder: "Email address",
         type: "email",
         size: 5.8,
       },
       {
-        label: "Website Link (Optional)",
-        name: "website_url",
+        label: 'Website Link <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        name: "website_link",
         type: "text",
         placeholder: "Your website url",
         size: 5.8,
@@ -1240,14 +1246,14 @@ export const productData = {
         size: 4,
       },
       {
-        label: "City (Optional)",
+        label: 'City <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "city",
         type: "select",
         placeholder: "Select...",
         size: 4,
       },
       {
-        label: "State (Optional)",
+        label: 'State <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "state",
         type: "select",
         placeholder: "Select...",
@@ -1261,7 +1267,7 @@ export const productData = {
         size: 5.8,
       },
       {
-        label: "Map Location (Optional)",
+        label: 'Map Location <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "map_location",
         type: "text",
         placeholder: "Map location",

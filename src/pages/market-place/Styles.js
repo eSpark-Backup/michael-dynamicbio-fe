@@ -272,7 +272,7 @@ export const PUBLISHED_AD_STYLE = {
 export const AD_INFORMATION_STYLE = {
   inputStyle: {
     "& .MuiInputBase-root": {
-      height: { xs: 52, lg: 62 },
+      minHeight: { xs: 52, lg: 62 },
       fontSize: { xs: "14px", lg: "20px" },
       fontWeight: 400,
       borderRadius: "7px",
@@ -298,7 +298,7 @@ export const AD_INFORMATION_STYLE = {
   dropdownInput: {
     "& .MuiOutlinedInput-root": {
       position: "relative",
-      padding: "0px 35px 0px 14px !important",
+      padding: "3px 35px 3px 14px !important",
       display: "flex",
       alignItems: "center",
     },

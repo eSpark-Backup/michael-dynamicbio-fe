@@ -134,7 +134,7 @@ export const theme = createTheme({
           fontWeight: 400,
           borderRadius: "4px",
           backgroundColor: "transparent",
-          height: "42px",
+          minHeight: "42px",
           ":focus": {
             border: "1px solid #DDE2E4",
           },

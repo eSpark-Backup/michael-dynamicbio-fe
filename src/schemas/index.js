@@ -441,21 +441,24 @@ export const getProductValidationSchema = (step) => {
         sub_category: Yup.string().required("Sub-category is required"),
         brand: Yup.string().required("Brand is required"),
         model: Yup.string().required("Model is required"),
-        conditions: Yup.string().required("Condition is required"),
+        condition: Yup.string().required("condition is required"),
         authenticity: Yup.string().required("Authenticity is required"),
-        tags: Yup.string().required("Tags are required"),
-        ad_prices: Yup.number()
+        tags: Yup.array()
+          .of(Yup.string())
+          .min(1, "At least one tag is required")
+          .required("Tags are required"),
+        ad_price: Yup.number()
           .typeError("Price must be a number")
           .positive("Price must be positive")
           .required("Ad price is required"),
-        nigotiable: Yup.string().required("Negotiable field is required"),
+        negotiable: Yup.string().required("Negotiable field is required"),
       });
 
     case 1:
       // Step 2 Validation
       return Yup.object({
         description: Yup.string().required("Description field is required"),
-        feature: Yup.string().required("Feature field is required"),
+        features: Yup.string().required("Feature field is required"),
         upload_photos: Yup.array()
           .min(1, "At least one image is required")
           .required("Please upload at least one image"),
@@ -475,10 +478,10 @@ export const getProductValidationSchema = (step) => {
             if (!value) return true;
             return isValidPhoneNumber(value);
           }),
-        email: Yup.string()
+        email_address: Yup.string()
           .email("Enter a valid email address")
           .required("Email is required"),
-        website_url: Yup.string()
+        website_link: Yup.string()
           .url("Enter a valid website URL (must start with http or https)")
           .nullable(),
         country: Yup.string().required("Country is required"),

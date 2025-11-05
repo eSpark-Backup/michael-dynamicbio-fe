@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import { arrowRight, step1, step2, step3, whiteTick } from "../../assets";
 import PublishedAd from "./PublishedAd";
 import { PRODUCT_FORM_STYLE } from "./Styles";
-import { handleTabClick, toBase64 } from "../../utils";
+import { base64ToFile, handleTabClick, toBase64 } from "../../utils";
+import { useAddProductMutation } from "../../services/product";
 
 const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
   const {
@@ -33,6 +34,7 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
   const [step, setStep] = useState(0);
   const tabRefs = useRef([]);
   const scrollContainerRef = useRef(null);
+  const [addProduct, { isLoading }] = useAddProductMutation();
   const [stepStatus, setStepStatus] = useState(
     JSON.parse(localStorage.getItem("stepProgress")) || [false, false, false]
   );
@@ -44,22 +46,22 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
     sub_category: "",
     brand: "",
     model: "",
-    conditions: "",
+    condition: "",
     authenticity: "",
-    tags: "",
-    ad_prices: "",
-    nigotiable: "",
+    tags: [],
+    ad_price: "",
+    negotiable: "",
 
     // step 2
     description: "",
-    feature: "",
+    features: "",
     upload_photos: [],
 
     // step 3
     phone_number: "",
     backup_phone_number: "",
-    email: "",
-    website_url: "",
+    email_address: "",
+    website_link: "",
     country: "",
     city: "",
     state: "",
@@ -133,14 +135,23 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
       {value === index && children}
       <Box sx={panelButtons}>
         {value !== 0 && (
-          <Button onClick={() => handleBack(value)} sx={prevButton}>
+          <Button
+            disabled={isLoading}
+            onClick={() => handleBack(value)}
+            sx={prevButton}
+          >
             Previous
           </Button>
         )}
         <Button
           onClick={() => handleNext(validateForm, setTouched, values, value)}
           sx={nextButton}
-          endIcon={<Box component="img" src={arrowRight} sx={nextButtonIcon} />}
+          loading={isLoading}
+          endIcon={
+            isLoading ? null : (
+              <Box component="img" src={arrowRight} sx={nextButtonIcon} />
+            )
+          }
         >
           {value === 2 ? "Post Ads" : "Next Steps"}
         </Button>
@@ -155,14 +166,39 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
       validationSchema={getProductValidationSchema(step)}
       validateOnBlur
       validateOnChange
-      onSubmit={(values) => {
-        toast.success("Product created successfully");
-        console.log("Final Submit:", values);
-        setTimeout(() => {
-          localStorage.removeItem("formData");
-          localStorage.removeItem("stepProgress");
-          setStep(3);
-        }, 3000);
+      onSubmit={async (values) => {
+        try {
+          const formData = new FormData();
+          Object.entries(values).forEach(([key, value]) => {
+            if (key === "upload_photos") return;
+            if (Array.isArray(value) || typeof value === "object") {
+              formData.append(key, JSON.stringify(value));
+            } else {
+              formData.append(key, value);
+            }
+          });
+
+          if (values.upload_photos && values.upload_photos.length > 0) {
+            values.upload_photos.forEach((b64, index) => {
+              const file = base64ToFile(b64, `photo_${index + 1}.jpg`);
+              formData.append("photos", file);
+            });
+          }
+
+          const response = await addProduct(formData).unwrap();
+
+          toast.success("Product created successfully!");
+          console.log("✅ Final Submit Response:", response);
+
+          setTimeout(() => {
+            localStorage.removeItem("formData");
+            localStorage.removeItem("stepProgress");
+            setStep(3);
+          }, 3000);
+        } catch (error) {
+          console.error("❌ Product create failed:", error);
+          toast.error(error?.data?.message || "Failed to create product");
+        }
       }}
     >
       {({

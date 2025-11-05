@@ -49,16 +49,67 @@ const AdInformation = ({ data = {} }) => {
               ) : (
                 <Autocomplete
                   fullWidth
+                  multiple={name === "tags"}
                   popupIcon={null}
                   options={options}
                   value={
-                    options.find((opt) => opt.value === values[name]) || null
+                    name === "tags"
+                      ? options.filter((opt) =>
+                          values[name]?.includes(opt.value)
+                        )
+                      : options.find((opt) => opt.value === values[name]) ||
+                        null
                   }
                   getOptionLabel={(opt) => opt?.label || ""}
-                  onChange={(_, newValue) =>
-                    setFieldValue(name, newValue?.value || "")
-                  }
+                  onChange={(_, newValue) => {
+                    if (name === "tags") {
+                      setFieldValue(
+                        name,
+                        newValue.map((val) => val.value)
+                      );
+                    } else {
+                      setFieldValue(name, newValue?.value || "");
+                    }
+                  }}
                   isOptionEqualToValue={(opt, val) => opt.value === val.value}
+                  renderTags={(tagValue, getTagProps) =>
+                    tagValue.map((option, index) => (
+                      <Box
+                        key={option.value}
+                        {...getTagProps({ index })}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#E6F2FF",
+                          color: "#0073E6",
+                          borderRadius: "20px",
+                          padding: "4px 10px",
+                          margin: "3px",
+                          fontSize: "13px",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {option.label}
+                        <Box
+                          component="span"
+                          sx={{
+                            marginLeft: "8px",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            "&:hover": { color: "#005BB5" },
+                          }}
+                          onClick={() =>
+                            setFieldValue(
+                              name,
+                              values[name].filter((v) => v !== option.value)
+                            )
+                          }
+                        >
+                          ×
+                        </Box>
+                      </Box>
+                    ))
+                  }
                   renderInput={(params) => (
                     <TextField
                       {...params}

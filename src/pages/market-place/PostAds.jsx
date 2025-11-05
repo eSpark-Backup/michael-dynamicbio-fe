@@ -100,7 +100,7 @@ const PostAds = ({ data = {} }) => {
                 {/* Country */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography sx={fieldLabel}>{label}</Typography>
+                    <Typography sx={fieldLabel}  dangerouslySetInnerHTML={{ __html: label }} />
                     <Autocomplete
                       fullWidth
                       popupIcon={null}
