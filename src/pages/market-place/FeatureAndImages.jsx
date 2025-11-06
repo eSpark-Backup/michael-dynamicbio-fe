@@ -76,7 +76,12 @@ const FeatureAndImages = ({ data = {} }) => {
       {fields.map(({ label, name, placeholder, type, size }, index) => (
         <Grid item key={index} xs={12} md={size === 11.82 ? 12 : 6}>
           <Stack spacing={1.5} pb={0}>
-            {type === "text" && <Typography sx={labelText}>{label}</Typography>}
+            {type === "text" && (
+              <Typography
+                sx={labelText}
+                dangerouslySetInnerHTML={{ __html: label }}
+              />
+            )}
 
             {type === "text" && (
               <TextField

@@ -58,6 +58,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useQuery } from "./utils";
 import { handleChange } from "./store/slices/search";
+import SingleProduct from "./pages/market-place/SingleProduct";
+import ProductListing from "./pages/market-place/ProductListing";
+import ProductForm from "./pages/market-place/ProductForm";
+import Favourite from "./pages/market-place/Favourite";
+import MyProducts from "./pages/market-place/MyProducts";
+import MessageCenter from "./pages/market-place/MessageCenter";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -124,7 +130,7 @@ const App = () => {
         <Route path="/general/video" element={<GeneralPost />} />
         <Route path="/general/poll" element={<GeneralPost />} />
         <Route element={<PrivateLayout />}>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
           <Route path="/bonds" element={<Bonds />} />
           <Route path="/cells" element={<Cells />} />
           <Route path="/pulses" element={<Pulses />} />
@@ -141,8 +147,25 @@ const App = () => {
           <Route path="/post/:id" element={<SinglePost />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile/bonds/:id" element={<UserBonds />} />
-          <Route path="/ddt" element={<DDT />} />
-          <Route path="/market-place" element={<MarketPlace />} />
+          <Route path="/ddt" element={<DDT />} /> */}
+          <Route element={<MarketPlace />}>
+            <Route path="/market-place" element={<ProductListing />} />
+            <Route
+              path="/market-place/:productId"
+              element={<SingleProduct />}
+            />
+            <Route path="/create-product" element={<ProductForm />} />
+            <Route
+              path="/create-product/my-products"
+              element={<MyProducts />}
+            />
+            <Route
+              path="/create-product/message-center"
+              element={<MessageCenter />}
+            />
+
+            <Route path="/favourite" element={<Favourite />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

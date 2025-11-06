@@ -162,7 +162,8 @@ import successMark from "./icons/success-mark.svg";
 import arrowRight from "./icons/arrow-right.svg";
 import phoneArrow from "./icons/phone_arrow.svg";
 import whiteTick from "./icons/white-tick.svg";
-
+import arrow from "./icons/arrow.svg";
+import label from "./icons/label.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
@@ -342,4 +343,6 @@ export {
   arrowRight,
   phoneArrow,
   whiteTick,
+  arrow,
+  label,
 };

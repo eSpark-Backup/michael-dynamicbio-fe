@@ -4,7 +4,7 @@ export const productApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({ page = 1, pageSize = 10 } = {}) => ({
-        url: "/products",
+        url: "/product",
         method: "GET",
         params: { page, pageSize },
       }),

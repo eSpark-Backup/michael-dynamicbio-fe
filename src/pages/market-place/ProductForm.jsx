@@ -66,7 +66,10 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
     city: "",
     state: "",
     location: "",
-    map_location: "",
+    map_location: {
+      lat: 24.8607,
+      lng: 67.0011,
+    },
   };
 
   const loadSavedData = () => {

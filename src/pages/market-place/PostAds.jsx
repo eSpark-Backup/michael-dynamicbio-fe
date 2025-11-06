@@ -100,7 +100,10 @@ const PostAds = ({ data = {} }) => {
                 {/* Country */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography sx={fieldLabel}  dangerouslySetInnerHTML={{ __html: label }} />
+                    <Typography
+                      sx={fieldLabel}
+                      dangerouslySetInnerHTML={{ __html: label }}
+                    />
                     <Autocomplete
                       fullWidth
                       popupIcon={null}
@@ -152,7 +155,10 @@ const PostAds = ({ data = {} }) => {
                 {/* State */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography sx={fieldLabel}>{stateField.label}</Typography>
+                    <Typography
+                      sx={fieldLabel}
+                      dangerouslySetInnerHTML={{ __html: stateField.label }}
+                    />
                     <Autocomplete
                       fullWidth
                       popupIcon={null}
@@ -203,7 +209,10 @@ const PostAds = ({ data = {} }) => {
                 {/* City */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
-                    <Typography sx={fieldLabel}>{cityField.label}</Typography>
+                    <Typography
+                      sx={fieldLabel}
+                      dangerouslySetInnerHTML={{ __html: cityField.label }}
+                    />
                     <Autocomplete
                       fullWidth
                       popupIcon={null}
@@ -259,7 +268,10 @@ const PostAds = ({ data = {} }) => {
           return (
             <Grid item key={index} xs={12} md={6}>
               <Stack spacing={1.5}>
-                <Typography sx={fieldLabel}>{label}</Typography>
+                <Typography
+                  sx={fieldLabel}
+                  dangerouslySetInnerHTML={{ __html: label }}
+                />
                 <div className="custom-phone-input">
                   <PhoneInput
                     defaultCountry={"US"}
@@ -281,7 +293,10 @@ const PostAds = ({ data = {} }) => {
         return (
           <Grid item key={index} xs={12} md={6}>
             <Stack spacing={1.5}>
-              <Typography sx={fieldLabel}>{label}</Typography>
+              <Typography
+                sx={fieldLabel}
+                dangerouslySetInnerHTML={{ __html: label }}
+              />
               <TextField
                 fullWidth
                 name={name}

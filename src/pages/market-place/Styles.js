@@ -565,22 +565,33 @@ export const SIDENAV_STYLES = {
     ".MuiTabs-indicator": { display: "none" },
   },
 
-  tabItem: {
-    height: 52,
-    color: "#000000",
-    fontSize: 14,
-    fontWeight: "400",
-    fontFamily: "Nunito",
-    alignItems: "flex-start",
-    pl: 2.5,
-    textTransform: "none",
-    "&.Mui-selected": {
-      background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-      color: "#FFF",
-    },
-    "&:hover": {
-      background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-      color: "#FFF",
-    },
+  tabItem: (pathname, path) => {
+    const isExact = pathname === path;
+    const isChildRoute =
+      pathname.startsWith(path + "/") && path !== "/create-product";
+
+    const isActive = isExact || isChildRoute;
+
+    return {
+      minHeight: 52,
+      fontSize: 14,
+      fontWeight: 400,
+      fontFamily: "Nunito",
+      display: "flex",
+      alignItems: "center",
+      pl: 2.5,
+      textTransform: "none",
+
+      background: isActive
+        ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
+        : "transparent",
+      color: isActive ? "#FFF" : "#000000",
+
+      "&:hover": {
+        background:
+          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+        color: "#FFF",
+      },
+    };
   },
 };

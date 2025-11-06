@@ -18,10 +18,10 @@ const FiltrationButton = ({
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (value) => {
+  const handleClose = (label, value) => {
     setAnchorEl(null);
     if (value) {
-      setSelected(value);
+      setSelected(label);
       onSelect?.(value);
     }
   };
@@ -76,7 +76,7 @@ const FiltrationButton = ({
               boxShadow: "none !important",
               border: "1px solid #EDEFF5",
               "& .MuiList-root": {
-                p: 0, 
+                p: 0,
               },
             },
           }}
@@ -84,7 +84,7 @@ const FiltrationButton = ({
           {options.map((opt) => (
             <MenuItem
               key={opt.value}
-              onClick={() => handleClose(opt.label)}
+              onClick={() => handleClose(opt.label, opt.value)}
               sx={{
                 fontFamily: "Nunito",
                 fontWeight: 400,

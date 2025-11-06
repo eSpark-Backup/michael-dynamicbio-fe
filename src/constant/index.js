@@ -1057,16 +1057,20 @@ export const productData = {
     navItems: {
       text: ["Market Place", "Product Listing", "Market Place"],
       tabs: [
-        { tab: "Newly Listed Product" },
+        { tab: "Newly Listed Product", path: "/market-place" },
         {
           tab: "Create a New Product Listing",
+          path: "/create-product",
           innerTabs: [
-            { tab: "Create a New Product Listing" },
-            { tab: "My Products" },
-            { tab: "Message Center" },
+            {
+              tab: "Create a New Product Listing",
+              path: "/create-product",
+            },
+            { tab: "My Products", path: "/create-product/my-products" },
+            { tab: "Message Center", path: "/create-product/message-center" },
           ],
         },
-        { tab: "Favourite" },
+        { tab: "Favourite", path: "/favourite" },
       ],
     },
   },
@@ -1134,9 +1138,9 @@ export const productData = {
         type: "select",
         size: 5.8,
         options: [
-          { value: "new", label: "New" },
-          { value: "used", label: "Used" },
-          { value: "refurbished", label: "Refurbished" },
+          { value: "NEW", label: "New" },
+          { value: "USED", label: "Used" },
+          { value: "REFURBISHED", label: "Refurbished" },
         ],
       },
       {
@@ -1146,8 +1150,8 @@ export const productData = {
         type: "select",
         size: 5.8,
         options: [
-          { value: "original", label: "Original" },
-          { value: "replica", label: "Replica" },
+          { value: "YES", label: "YES" },
+          { value: "NO", label: "NO" },
         ],
       },
       {
@@ -1177,8 +1181,8 @@ export const productData = {
         type: "select",
         size: 5.8,
         options: [
-          { value: "yes", label: "Yes" },
-          { value: "no", label: "No" },
+          { value: "YES", label: "YES" },
+          { value: "NO", label: "NO" },
         ],
       },
     ],
@@ -1193,7 +1197,8 @@ export const productData = {
         size: 11.82,
       },
       {
-        label: 'Feature <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label:
+          'Feature <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "features",
         placeholder: "Write a feature in each line eg.",
         type: "text",
@@ -1217,8 +1222,7 @@ export const productData = {
         size: 5.8,
       },
       {
-        label:
-          'Backup Phone Number <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label: `Backup Phone Number <span style="color:#939AAD; font-weight:400;">(Optional)</span>`,
         name: "backup_phone_number",
         placeholder: "Phone",
         type: "phone_number",
@@ -1232,7 +1236,8 @@ export const productData = {
         size: 5.8,
       },
       {
-        label: 'Website Link <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label:
+          'Website Link <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "website_link",
         type: "text",
         placeholder: "Your website url",
@@ -1246,14 +1251,16 @@ export const productData = {
         size: 4,
       },
       {
-        label: 'City <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label:
+          'City <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "city",
         type: "select",
         placeholder: "Select...",
         size: 4,
       },
       {
-        label: 'State <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label:
+          'State <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "state",
         type: "select",
         placeholder: "Select...",
@@ -1267,7 +1274,8 @@ export const productData = {
         size: 5.8,
       },
       {
-        label: 'Map Location <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+        label:
+          'Map Location <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "map_location",
         type: "text",
         placeholder: "Map location",

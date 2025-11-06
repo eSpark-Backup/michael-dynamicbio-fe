@@ -1,47 +1,32 @@
-import { Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { SIDENAV_STYLES } from "./Styles";
+import { Link, useLocation } from "react-router-dom";
 
-const SideNav = ({
-  tabValue,
-  onChange,
-  innerTabValue,
-  onInnerChange,
-  data,
-}) => {
+const SideNav = ({ data }) => {
   const { navItems } = data || {};
-  const currentTab = navItems.tabs[tabValue];
+  const { pathname } = useLocation();
+  const { mainWrapper, titleBox, tabItem } = SIDENAV_STYLES;
 
-  const { mainWrapper, titleBox, tabsContainer, tabItem } = SIDENAV_STYLES;
+  const activeTab = navItems?.tabs?.find((t) => pathname?.includes(t.path));
+  const hasInnerTabs = activeTab && activeTab?.innerTabs;
 
   const renderTabs = () => {
-    if (currentTab?.innerTabs) {
-      return (
-        <Tabs
-          orientation="vertical"
-          value={innerTabValue}
-          onChange={onInnerChange}
-          aria-label="inner navigation tabs"
-          sx={tabsContainer}
-        >
-          {currentTab.innerTabs.map((item, index) => (
-            <Tab key={index} label={item.tab} value={index} sx={tabItem} />
-          ))}
-        </Tabs>
-      );
-    }
+    const tabsToRender = hasInnerTabs ? activeTab?.innerTabs : navItems?.tabs;
 
     return (
-      <Tabs
-        orientation="vertical"
-        value={tabValue}
-        onChange={onChange}
-        aria-label="marketplace navigation tabs"
-        sx={tabsContainer}
-      >
-        {navItems.tabs.map((item, index) => (
-          <Tab key={index} label={item.tab} value={index} sx={tabItem} />
+      <Stack spacing={0.5}>
+        {tabsToRender?.map((item, index) => (
+          <Link
+            key={index}
+            to={item?.path || "#"}
+            style={{ textDecoration: "none", color: "#000000" }}
+          >
+            <Typography sx={tabItem(pathname, item.path)}>
+              {item?.tab}
+            </Typography>
+          </Link>
         ))}
-      </Tabs>
+      </Stack>
     );
   };
 
@@ -52,9 +37,9 @@ const SideNav = ({
           variant="h5"
           fontWeight={700}
           color="#171717"
-          fontFamily={"Nunito"}
+          fontFamily="Nunito"
         >
-          {navItems?.text?.[tabValue]}
+          {hasInnerTabs ? navItems?.text?.[1] : navItems?.text?.[0] ?? ""}
         </Typography>
       </Stack>
       <Stack>{renderTabs()}</Stack>

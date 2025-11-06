@@ -8,12 +8,11 @@ export const loginSchema = Yup.object({
       "Invalid email address"
     )
     .required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(12, "Password must be at least 12 characters long.")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
-    .matches(/[0-9]/, "Password must contain at least one number."),
+  password: Yup.string().required("Password is required"),
+  // .min(12, "Password must be at least 12 characters long.")
+  // .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+  // .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+  // .matches(/[0-9]/, "Password must contain at least one number."),
 });
 
 export const findEmailSchema = Yup.object({
@@ -488,7 +487,17 @@ export const getProductValidationSchema = (step) => {
         city: Yup.string().nullable(),
         state: Yup.string().nullable(),
         location: Yup.string().required("Location is required"),
-        map_location: Yup.string().url("Enter a valid map URL").nullable(),
+        map_location: Yup.object()
+          .shape({
+            lat: Yup.number()
+              .typeError("Invalid latitude")
+              .required("Latitude is required"),
+            lng: Yup.number()
+              .typeError("Invalid longitude")
+              .required("Longitude is required"),
+          })
+          .nullable()
+          .required("Map location is required"),
       });
 
     default:
