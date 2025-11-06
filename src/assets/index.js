@@ -22,16 +22,16 @@ import successTick from "./icons/success-tick.svg";
 import userAvatar from "./icons/user-avatar.svg";
 import uploadIcon from "./icons/upload-icon.svg";
 import uploadAvatar from "./icons/upload-avatar.svg";
-import filter from "./icons/filter.svg"
-import link from "./icons/link.svg"
-import emojiBlackWhite from "./icons/emoji_black_white.svg"
-import heart from "./icons/heart.svg"
-import best from "./icons/best.svg"
-import reaction1 from "./icons/reaction-1.svg"
-import reaction2 from "./icons/reaction-2.svg"
-import reaction3 from "./icons/reaction-3.svg"
-import reaction4 from "./icons/reaction-4.svg"
-import reaction5 from "./icons/reaction-5.svg"
+import filter from "./icons/filter.svg";
+import link from "./icons/link.svg";
+import emojiBlackWhite from "./icons/emoji_black_white.svg";
+import heart from "./icons/heart.svg";
+import best from "./icons/best.svg";
+import reaction1 from "./icons/reaction-1.svg";
+import reaction2 from "./icons/reaction-2.svg";
+import reaction3 from "./icons/reaction-3.svg";
+import reaction4 from "./icons/reaction-4.svg";
+import reaction5 from "./icons/reaction-5.svg";
 import userWithCamera from "./icons/user_with_camera.svg";
 import bondMain from "./icons/Bond_main.svg";
 import user from "./icons/user.svg";
@@ -66,100 +66,111 @@ import ai from "./icons/ai.svg";
 import edit from "./icons/edit.svg";
 import mobile from "./icons/mobile.svg";
 import email from "./icons/email.svg";
-import notification from "./icons/notification.svg"
-import three_vertical_dots_white from "./icons/three_dots_white.svg"
-import bell from "./icons/menu-bell.svg"
-import deleteIcon from "./icons/delete.svg"
-import dislike from "./icons/dislike.svg"
-import company from "./icons/company.svg"
-import school from "./icons/school.svg"
-import timer from "./icons/timer.svg"
-import profile2 from "./icons/profile2.svg"
-import downArrowFilled from "./icons/downArrowFilled.svg"
-import rightArrow from "./icons/rightArrow.svg"
-import gradientRightArrow from "./icons/gradientRightArrow.svg"
-import dummyPhoto from "./icons/dummyPhoto.svg"
-import link2 from "./icons/link2.svg"
-import close2 from "./icons/close2.svg"
-import earth from "./icons/earth.svg"
-import poll from "./icons/poll.svg"
-import chipClose from "./icons/chipClose.svg"
-import noPosts from "./icons/noPosts.svg"
-import noUser from "./icons/noUser.svg"
-import growPage from "./icons/growPage.svg"
-import conversation from "./icons/conversation.svg"
+import notification from "./icons/notification.svg";
+import three_vertical_dots_white from "./icons/three_dots_white.svg";
+import bell from "./icons/menu-bell.svg";
+import deleteIcon from "./icons/delete.svg";
+import dislike from "./icons/dislike.svg";
+import company from "./icons/company.svg";
+import school from "./icons/school.svg";
+import timer from "./icons/timer.svg";
+import profile2 from "./icons/profile2.svg";
+import downArrowFilled from "./icons/downArrowFilled.svg";
+import rightArrow from "./icons/rightArrow.svg";
+import gradientRightArrow from "./icons/gradientRightArrow.svg";
+import dummyPhoto from "./icons/dummyPhoto.svg";
+import link2 from "./icons/link2.svg";
+import close2 from "./icons/close2.svg";
+import earth from "./icons/earth.svg";
+import poll from "./icons/poll.svg";
+import chipClose from "./icons/chipClose.svg";
+import noPosts from "./icons/noPosts.svg";
+import noUser from "./icons/noUser.svg";
+import growPage from "./icons/growPage.svg";
+import conversation from "./icons/conversation.svg";
 import primaryEdit from "./icons/fe_edit.svg";
 import primaryEye from "./icons/primary-eye.svg";
 import share from "./icons/share.svg";
 import copy from "./icons/copy.svg";
-import editBlue from "./icons/editBlue.svg"
-import bulb from "./icons/bulb.svg"
-import pin from "./icons/pin.svg"
-import copyLink from "./icons/copyLink.svg"
-import prevArrow from "./icons/prevArrow.svg"
-import nextArrow from "./icons/nextArrow.svg"
-import send2 from "./icons/send2.svg"
-import twitter from "./icons/twitter.svg"
-import facebook2 from "./icons/facebook2.svg"
-import cancelIcon from "./icons/cancelIcon.svg"
-import calendar from "./icons/calendar.svg"
-import videoIcon from "./icons/videoIcon.svg"
-import noComments from "./icons/noComments.svg"
-import invite from "./icons/invite.svg"
-import reading from "./icons/reading.svg"
-import save from "./icons/save.svg"
-import location from "./icons/location.svg"
-import aboutEvent from "./icons/aboutEvent.svg"
-import eventSpeakers from "./icons/eventSpeakers.svg"
-import flag from "./icons/flag.svg"
-import unlike from "./icons/unlike.svg"
-import group from "./icons/group.svg"
-import arrowUpRight from "./icons/arrow-up-right.svg"
-import info from "./icons/info.svg"
-import leave from "./icons/leave.svg"
-import commentOff from "./icons/commentOff.svg"
-import tick from "./icons/tick.svg"
-import cancelWhite from "./icons/cancel-white.svg"
-import cancelBlack from "./icons/cancel-black.svg"
-import pendingWhite from "./icons/pending-white.svg"
-import pendingBlack from "./icons/pending-black.svg"
-import calendarEvent from "./icons/calendarEvent.svg"
-import question from "./icons/question.svg"
-import deleteBlack from "./icons/deleteBlack.svg"
-import starBlack from "./icons/starBlack.svg"
-import saveUnfilled from "./icons/saveUnfilled.svg"
-import accountBlack from "./icons/accountBlack.svg"
-import accountBlue from "./icons/accountBlue.svg"
-import lockBlack from "./icons/lockBlack.svg"
-import lockBlue from "./icons/lockBlue.svg"
-import fullEyeBlack from "./icons/fullEyeBlack.svg"
-import fullEyeBlue from "./icons/fullEyeBlue.svg"
-import shieldBlack from "./icons/shieldBlack.svg"
-import shieldBlue from "./icons/shieldBlue.svg"
-import adBlack from "./icons/adBlack.svg"
-import adBlue from "./icons/adBlack.svg"
-import person from "./icons/person.svg"
-import eyeOff from "./icons/eyeOff.svg"
-import ddtBg from "./icons/ddt_bg.svg"
-import logout from "./icons/logout.svg"
-import hydrogen from "./icons/hydrogen.svg"
-import history from "./icons/history.svg"
-import notTyping from "./icons/notTyping.svg"
-import happy from "./icons/Happy.svg"
-import sad from "./icons/sad.svg"
-import copyResponse from "./icons/copyResponse.svg"
-import positive from "./icons/positive.svg"
-import negative from "./icons/negative.svg"
-import hamburger from "./icons/hamburger.svg"
-import newChat from "./icons/newChat.svg"
-import horizontalDots from "./icons/horizontal_dots.svg"
+import editBlue from "./icons/editBlue.svg";
+import bulb from "./icons/bulb.svg";
+import pin from "./icons/pin.svg";
+import copyLink from "./icons/copyLink.svg";
+import prevArrow from "./icons/prevArrow.svg";
+import nextArrow from "./icons/nextArrow.svg";
+import send2 from "./icons/send2.svg";
+import twitter from "./icons/twitter.svg";
+import facebook2 from "./icons/facebook2.svg";
+import cancelIcon from "./icons/cancelIcon.svg";
+import calendar from "./icons/calendar.svg";
+import videoIcon from "./icons/videoIcon.svg";
+import noComments from "./icons/noComments.svg";
+import invite from "./icons/invite.svg";
+import reading from "./icons/reading.svg";
+import save from "./icons/save.svg";
+import location from "./icons/location.svg";
+import aboutEvent from "./icons/aboutEvent.svg";
+import eventSpeakers from "./icons/eventSpeakers.svg";
+import flag from "./icons/flag.svg";
+import unlike from "./icons/unlike.svg";
+import group from "./icons/group.svg";
+import arrowUpRight from "./icons/arrow-up-right.svg";
+import info from "./icons/info.svg";
+import leave from "./icons/leave.svg";
+import commentOff from "./icons/commentOff.svg";
+import tick from "./icons/tick.svg";
+import cancelWhite from "./icons/cancel-white.svg";
+import cancelBlack from "./icons/cancel-black.svg";
+import pendingWhite from "./icons/pending-white.svg";
+import pendingBlack from "./icons/pending-black.svg";
+import calendarEvent from "./icons/calendarEvent.svg";
+import question from "./icons/question.svg";
+import deleteBlack from "./icons/deleteBlack.svg";
+import starBlack from "./icons/starBlack.svg";
+import saveUnfilled from "./icons/saveUnfilled.svg";
+import accountBlack from "./icons/accountBlack.svg";
+import accountBlue from "./icons/accountBlue.svg";
+import lockBlack from "./icons/lockBlack.svg";
+import lockBlue from "./icons/lockBlue.svg";
+import fullEyeBlack from "./icons/fullEyeBlack.svg";
+import fullEyeBlue from "./icons/fullEyeBlue.svg";
+import shieldBlack from "./icons/shieldBlack.svg";
+import shieldBlue from "./icons/shieldBlue.svg";
+import adBlack from "./icons/adBlack.svg";
+import adBlue from "./icons/adBlack.svg";
+import person from "./icons/person.svg";
+import eyeOff from "./icons/eyeOff.svg";
+import ddtBg from "./icons/ddt_bg.svg";
+import logout from "./icons/logout.svg";
+import hydrogen from "./icons/hydrogen.svg";
+import history from "./icons/history.svg";
+import notTyping from "./icons/notTyping.svg";
+import happy from "./icons/Happy.svg";
+import sad from "./icons/sad.svg";
+import copyResponse from "./icons/copyResponse.svg";
+import positive from "./icons/positive.svg";
+import negative from "./icons/negative.svg";
+import hamburger from "./icons/hamburger.svg";
+import newChat from "./icons/newChat.svg";
+import horizontalDots from "./icons/horizontal_dots.svg";
+import addCircle from "./icons/add-circle.svg";
+import step1 from "./icons/step_1.svg";
+import step2 from "./icons/step_2.svg";
+import step3 from "./icons/step_3.svg";
+import successLogo from "./icons/success-logo.svg";
+import successMark from "./icons/success-mark.svg";
+import arrowRight from "./icons/arrow-right.svg";
+import phoneArrow from "./icons/phone_arrow.svg";
+import whiteTick from "./icons/white-tick.svg";
+import arrow from "./icons/arrow.svg";
+import label from "./icons/label.svg";
 
 import authImage from "./images/auth-image.png";
 import qrcode from "./images/qr-code.png";
 import olivia from "./images/olivia.png";
 import pheonix from "./images/pheonix.png";
-import friend from "./images/friend.jpeg"
-import eventImage from "./images/event.jpeg"
+import friend from "./images/friend.jpeg";
+import eventImage from "./images/event.jpeg";
 
 export {
   eye,
@@ -322,5 +333,16 @@ export {
   negative,
   newChat,
   hamburger,
-  horizontalDots
+  horizontalDots,
+  addCircle,
+  step1,
+  step2,
+  step3,
+  successLogo,
+  successMark,
+  arrowRight,
+  phoneArrow,
+  whiteTick,
+  arrow,
+  label,
 };

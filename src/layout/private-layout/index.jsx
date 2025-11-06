@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Box, CircularProgress } from "@mui/material";
@@ -9,13 +15,12 @@ import { useGetUserInfoMutation } from "../../services/auth";
 import { logout } from "../../store/slices/auth";
 import { api } from "../../services/rtk";
 
-
 const PrivateLayout = () => {
   const token = localStorage.getItem("token");
-  const [getInfo] = useGetUserInfoMutation();
+  // const [getInfo] = useGetUserInfoMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   if (!token) {
     return <Navigate to="/login" replace />;
   }
@@ -24,26 +29,26 @@ const PrivateLayout = () => {
 
   const hasFetchedRef = useRef(false);
 
-  useEffect(() => {
-    if (token && !hasFetchedRef.current) {
-      hasFetchedRef.current = true;
-      setLoading(true);
-      localStorage.removeItem("temp-token");
-      getInfo().then((res) => {
-        if (res?.error) {
-          toast.error(res?.error?.data?.message);
-          dispatch(logout());
-          dispatch(api.util.resetApiState());
-          navigate("/login");
-          setLoading(false);
-          return;
-        }
-        if (res?.data) {
-          setLoading(false);
-        }
-      });
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token && !hasFetchedRef.current) {
+  //     hasFetchedRef.current = true;
+  //     setLoading(true);
+  //     localStorage.removeItem("temp-token");
+  //     getInfo().then((res) => {
+  //       if (res?.error) {
+  //         toast.error(res?.error?.data?.message);
+  //         dispatch(logout());
+  //         dispatch(api.util.resetApiState());
+  //         navigate("/login");
+  //         setLoading(false);
+  //         return;
+  //       }
+  //       if (res?.data) {
+  //         setLoading(false);
+  //       }
+  //     });
+  //   }
+  // }, [token]);
 
   if (loading) {
     return (
@@ -66,14 +71,12 @@ const PrivateLayout = () => {
 
   return (
     <>
-      {
-        (pathname !== "/settings" && pathname !== "/ddt")
-        &&
+      {pathname !== "/settings" && pathname !== "/ddt" && (
         <>
           <Header />
           <Navbar />
         </>
-      }
+      )}
       <Outlet />
     </>
   );

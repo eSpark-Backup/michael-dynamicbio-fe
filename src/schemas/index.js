@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 export const loginSchema = Yup.object({
   email: Yup.string()
@@ -7,12 +8,11 @@ export const loginSchema = Yup.object({
       "Invalid email address"
     )
     .required("Email is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(12, "Password must be at least 12 characters long.")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
-    .matches(/[0-9]/, "Password must contain at least one number."),
+  password: Yup.string().required("Password is required"),
+  // .min(12, "Password must be at least 12 characters long.")
+  // .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
+  // .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
+  // .matches(/[0-9]/, "Password must contain at least one number."),
 });
 
 export const findEmailSchema = Yup.object({
@@ -90,7 +90,7 @@ export const editProfileDetailsSchema = Yup.object({
   current: Yup.string().required("Current position is required."),
   city: Yup.string().required("City is required."),
   industry: Yup.string().required("Industry is required."),
-  dob:Yup.date()
+  dob: Yup.date()
     .nullable()
     .max(new Date(), "Date of birth cannot be in the future"),
 });
@@ -428,3 +428,79 @@ export const addLinkSchema = Yup.object({
   link: Yup.string().url("Enter a valid URL").required("Link is required"),
 });
 
+export const getProductValidationSchema = (step) => {
+  switch (step) {
+    case 0:
+      // Step 1 Validation
+      return Yup.object({
+        ad_name: Yup.string()
+          .min(3, "Ad name must be at least 3 characters")
+          .required("Ad name is required"),
+        category: Yup.string().required("Category is required"),
+        sub_category: Yup.string().required("Sub-category is required"),
+        brand: Yup.string().required("Brand is required"),
+        model: Yup.string().required("Model is required"),
+        condition: Yup.string().required("condition is required"),
+        authenticity: Yup.string().required("Authenticity is required"),
+        tags: Yup.array()
+          .of(Yup.string())
+          .min(1, "At least one tag is required")
+          .required("Tags are required"),
+        ad_price: Yup.number()
+          .typeError("Price must be a number")
+          .positive("Price must be positive")
+          .required("Ad price is required"),
+        negotiable: Yup.string().required("Negotiable field is required"),
+      });
+
+    case 1:
+      // Step 2 Validation
+      return Yup.object({
+        description: Yup.string().required("Description field is required"),
+        features: Yup.string().required("Feature field is required"),
+        upload_photos: Yup.array()
+          .min(1, "At least one image is required")
+          .required("Please upload at least one image"),
+      });
+
+    case 2:
+      // Step 3 Validation
+      return Yup.object({
+        phone_number: Yup.string()
+          .test("is-valid-phone_number", "Invalid phone number", (value) =>
+            value ? isValidPhoneNumber(value) : true
+          )
+          .required("Phone number is required"),
+        backup_phone_number: Yup.string()
+          .nullable()
+          .test("is-valid-backup", "Invalid backup phone number", (value) => {
+            if (!value) return true;
+            return isValidPhoneNumber(value);
+          }),
+        email_address: Yup.string()
+          .email("Enter a valid email address")
+          .required("Email is required"),
+        website_link: Yup.string()
+          .url("Enter a valid website URL (must start with http or https)")
+          .nullable(),
+        country: Yup.string().required("Country is required"),
+        city: Yup.string().nullable(),
+        state: Yup.string().nullable(),
+        location: Yup.string().required("Location is required"),
+        map_location: Yup.object()
+          .shape({
+            lat: Yup.number()
+              .typeError("Invalid latitude")
+              .required("Latitude is required"),
+            lng: Yup.number()
+              .typeError("Invalid longitude")
+              .required("Longitude is required"),
+          })
+          .nullable()
+          .required("Map location is required"),
+      });
+
+    default:
+      return Yup.object();
+  }
+};

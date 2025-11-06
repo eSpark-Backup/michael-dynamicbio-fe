@@ -77,8 +77,9 @@ export const formatEventTime = (
   const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
 
   const timeZoneOffset = new Date().getTimezoneOffset() / -60;
-  const timeZoneString = `(UTC ${timeZoneOffset >= 0 ? "+" : ""
-    }${timeZoneOffset}:00)`;
+  const timeZoneString = `(UTC ${
+    timeZoneOffset >= 0 ? "+" : ""
+  }${timeZoneOffset}:00)`;
 
   const startDateStr = new Intl.DateTimeFormat("en-US", options).format(
     startDate
@@ -235,14 +236,14 @@ export function toCapitalized(str) {
   return str ? lower.charAt(0).toUpperCase() + lower.slice(1) : null;
 }
 
-
 export const getDesc = (item) => {
   switch (item?.type) {
     case "birthday":
       return dayjs().isSame(dayjs(item?.dob), "day")
         ? `Celebrate ${item?.firstName} ${item?.lastName}'s birthday today`
-        : `Celebrate ${item?.firstName} ${item?.lastName
-        }'s recent birthday on ${dayjs(item?.dob).format('MMM D')}`;
+        : `Celebrate ${item?.firstName} ${
+            item?.lastName
+          }'s recent birthday on ${dayjs(item?.dob).format("MMM D")}`;
     case "anniversary":
       return `Completed ${item?.yearsCompleted} year at ${item?.company}`;
     case "jobChange":
@@ -284,10 +285,9 @@ export const yearOptions = Array.from({ length: 101 }, (_, i) => {
   return { label: year.toString(), value: year.toString() };
 });
 
-
 export const checkDate = (startMonth, startYear, endMonth, endYear) => {
   if (!startMonth || !startYear || !endMonth || !endYear) {
-    return true
+    return true;
   }
 
   const months = {
@@ -305,22 +305,21 @@ export const checkDate = (startMonth, startYear, endMonth, endYear) => {
     December: 12,
   };
 
-  const sMonth = months[startMonth]
-  const eMonth = months[endMonth]
-  const sYear = parseInt(startYear)
-  const eYear = parseInt(endYear)
+  const sMonth = months[startMonth];
+  const eMonth = months[endMonth];
+  const sYear = parseInt(startYear);
+  const eYear = parseInt(endYear);
 
   if (isNaN(sMonth) || isNaN(eMonth) || isNaN(sYear) || isNaN(eYear)) {
     return true;
   }
 
-  if ((sYear > eYear) || (sYear === eYear && sMonth > eMonth)) {
-    return false
+  if (sYear > eYear || (sYear === eYear && sMonth > eMonth)) {
+    return false;
+  } else {
+    return true;
   }
-  else {
-    return true
-  }
-}
+};
 
 export function formatChatTimestamp(isoDate) {
   const now = dayjs();
@@ -337,3 +336,41 @@ export function formatChatTimestamp(isoDate) {
     return date.format("MMM D, h:mma");
   }
 }
+
+export const toBase64 = (file) =>
+  new Promise((resolve) => {
+    if (!file) return resolve(null);
+    if (typeof file === "string") return resolve(file);
+    if (file instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    } else resolve(null);
+  });
+
+export const base64ToFile = (base64String, fileName) => {
+  const arr = base64String.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
+  return new File([u8arr], fileName, { type: mime });
+};
+
+export const handleTabClick = (index, setStep, tabRefs, scrollContainerRef) => {
+  setStep(index);
+  const tab = tabRefs.current[index];
+  const container = scrollContainerRef.current;
+  if (tab && container) {
+    const tabLeft = tab.offsetLeft;
+    const tabWidth = tab.offsetWidth;
+    const containerWidth = container.offsetWidth;
+    const isMobile = window.innerWidth < 1024;
+    const scrollTo = isMobile
+      ? tabLeft - containerWidth / 2 + tabWidth / 2.3
+      : tabLeft - containerWidth / 1 + 0 / 2;
+    container.scrollTo({ left: scrollTo, behavior: "smooth" });
+  }
+};

@@ -1,88 +1,87 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
-    width: 7px;
+  width: 7px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #FFFFFF;
-    border-radius: 7px;
+  background: #ffffff;
+  border-radius: 7px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #FFFFFF;
-    border-radius: 7px;
-    box-shadow: 0px 4px 4px 0px #00000040 inset;
+  background: #ffffff;
+  border-radius: 7px;
+  box-shadow: 0px 4px 4px 0px #00000040 inset;
 }
 
 @font-face {
-    font-family: "Inter";
-    src: url("./assets/font/Inter-Medium.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Inter";
+  src: url("./assets/font/Inter-Medium.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
-    font-family: "Inter", sans-serif;
-    background-color: #F2F8FD;
+  font-family: "Inter", sans-serif;
+  background-color: #f2f8fd;
 }
 
 .css-1toxriw-MuiList-root-MuiMenu-list {
-    border: 1px solid black !important;
-    padding-top: 1px !important;
-    max-height: 300px;
+  border: 1px solid black !important;
+  padding-top: 1px !important;
+  max-height: 300px;
 }
 
 /* TypingDots.css */
 .typing-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    /* Space between dots */
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  /* Space between dots */
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
-    background-color: #888;
-    /* Dot color */
-    border-radius: 50%;
-    animation: bounce 1.4s infinite ease-in-out;
+  width: 8px;
+  height: 8px;
+  background-color: #888;
+  /* Dot color */
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out;
 }
 
 .chat-bot > .dot {
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
 }
 
 /* Delay each dot's animation */
 .dot:nth-child(2) {
-    animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
 
 .dot:nth-child(3) {
-    animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
 /* Bounce animation */
 @keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
 
-    0%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-10px);
-    }
+  40% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Selected date styles */
@@ -90,169 +89,280 @@ body {
 .MuiPickersDay-root.Mui-selected:hover,
 .MuiPickersDay-root.Mui-selected:focus,
 .MuiPickersDay-root.Mui-selected:focus-visible {
-    background-color: rgb(2, 2, 2) !important;
-    color: rgb(255, 255, 255) !important;
+  background-color: rgb(2, 2, 2) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
-
 .ql-container.ql-snow {
-    border: none !important;
-    font-size: 20px !important;
-    /* margin-left: 30px; */
+  border: none !important;
+  font-size: 20px !important;
+  /* margin-left: 30px; */
 }
 
 .ql-toolbar.ql-snow {
-    border: none !important;
+  border: none !important;
 }
 
 .ql-snow.ql-toolbar button {
-    width: 60px !important;
+  width: 60px !important;
 }
 
 .custom-autocomplete {
-    width: 400px;
-    border-bottom: 0px;
-
+  width: 400px;
+  border-bottom: 0px;
 }
 
 .custom-autocomplete2 {
-    border: 1px solid #E4E4E4;
-    border-radius: 4px;
-    padding: 0px 5px;
-    /* height: 30px; */
-    width: 400px;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  padding: 0px 5px;
+  /* height: 30px; */
+  width: 400px;
 }
 
 .css-by3w32-MuiInputBase-root-MuiInput-root::before,
 .css-by3w32-MuiInputBase-root-MuiInput-root::after {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .custom-autocomplete .MuiOutlinedInput-root {
-    background-color: #ffffff;
-    border-radius: 4px;
-    border: none;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: none;
 }
 
 .custom-autocomplete .MuiOutlinedInput-root fieldset {
-    border-color: #ccc;
+  border-color: #ccc;
 }
 
 .custom-autocomplete .MuiOutlinedInput-root:hover fieldset {
-    border-color: #999;
+  border-color: #999;
 }
 
 .custom-autocomplete .MuiOutlinedInput-root.Mui-focused fieldset {
-    border-color: #3f51b5;
+  border-color: #3f51b5;
 }
 
 .custom-autocomplete .MuiAutocomplete-listbox {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .custom-autocomplete .MuiAutocomplete-listbox li {
-    color: #333;
+  color: #333;
 }
 
 .video-container {
-    width: 100%;
-    height: 380px;
-    /* Fixed container height */
+  width: 100%;
+  height: 380px;
+  /* Fixed container height */
 }
 
 /* Constrain the video player */
 .video-react {
-    height: 100% !important;
-    padding-top: 0 !important;
+  height: 100% !important;
+  padding-top: 0 !important;
 }
 
 .video-react .video-react-video {
-    object-fit: contain;
-    height: 100% !important;
+  object-fit: contain;
+  height: 100% !important;
 }
 
 .video-container .video-react .video-react-big-play-button {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .ProseMirror {
-    outline: none !important;
-    /* Removes the black border */
-    border: none !important;
+  outline: none !important;
+  /* Removes the black border */
+  border: none !important;
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-    content: attr(data-placeholder);
-    float: left;
-    color: #adb5bd;
-    pointer-events: none;
-    height: 0;
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
 }
 
 #toolbar-container {
-    display: flex;
-    padding: 8px;
-    background: #f5f5f5;
-    border-radius: 4px 4px 0 0;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .ql-formats {
-    display: flex;
-    gap: 4px;
+  display: flex;
+  gap: 4px;
 }
 
 button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
 }
 
 button:hover {
-    background: #e0e0e0;
+  background: #e0e0e0;
 }
 
 button.is-active {
-    background: #e0e0e0;
-    color: #1976d2;
+  background: #e0e0e0;
+  color: #1976d2;
 }
 
 .MuiAvatar-img {
-    object-fit: fill !important;
+  object-fit: fill !important;
 }
 
 .recharts-legend-wrapper {
-    display: none;
+  display: none;
 }
 
 .MuiPickersYear-yearButton,
 .MuiPickersMonth-monthButton {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .MuiPickersMonth-monthButton.Mui-selected:focus,
 .MuiPickersMonth-monthButton.Mui-selected:hover {
-    color: white !important;
+  color: white !important;
 }
 
-@media screen and (min-width:769px) {
-    .ql-container.ql-snow {
-        margin-left: 30px;
-    }
+/* Phone input */
+.custom-phone-input {
+  display: flex;
+  align-items: center;
+  border: 1.31px solid #edeff5;
+  border-radius: 7px;
+  height: 62px;
+  padding: 0 17px;
+  background-color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
 }
 
-@media screen and (max-width:768px) {
+.custom-phone-input .PhoneInputCountrySelectArrow {
+  width: 13px;
+  height: 8px;
+  background: url("./assets/icons/phone_arrow.svg") no-repeat center;
+  background-size: contain;
+  border: none !important;
+  margin-left: 10px;
+  transform: none !important;
+  opacity: 1;
+}
 
-    .custom-autocomplete2,
-    .custom-autocomplete {
-        width: 100%;
-    }
+/* Optional — remove rotate effect when dropdown opens */
+.custom-phone-input .PhoneInputCountrySelectArrow:before,
+.custom-phone-input .PhoneInputCountrySelectArrow:after {
+  display: none !important;
+}
+
+.custom-phone-input input::placeholder {
+  color: #939aad;
+  opacity: 1;
+  font-weight: 400;
+  font-size: 18px;
+  font-family: Nunito;
+}
+
+/* Match input text style */
+.custom-phone-input input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #191f33;
+  padding: 0 8px;
+  background-color: transparent !important;
+}
+
+/* Transparent autofill fix */
+.custom-phone-input input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #191f33 !important;
+  font-family: "Nunito" !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+.custom-phone-input .PhoneInputCountry {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.custom-phone-input .PhoneInputCountrySelect {
+  border: none !important;
+  background: none !important;
+  outline: none !important;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.PhoneInputCountrySelect option,
+.PhoneInputCountrySelectDropdown {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.PhoneInputCountrySelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #1976d2;
+}
+
+@media (max-width: 1280px) {
+  .custom-phone-input input::placeholder {
+    font-size: 14px;
+  }
+  .custom-phone-input .PhoneInputCountryIcon--border {
+    width: 22px !important;
+    height: 22px !important;
+    /* border-radius: 2px; */
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+  /* Reduce the country select area padding */
+  .custom-phone-input {
+    padding: 12px !important;
+  }
+  .custom-phone-input .PhoneInputCountrySelectArrow {
+    width: 10px;
+  }
+  /* Adjust spacing between flag and input */
+  .custom-phone-input .PhoneInputInput {
+    font-size: 14px !important;
+    padding-left: 2px !important;
+  }
+  .custom-phone-input {
+    height: 52px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .ql-container.ql-snow {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-autocomplete2,
+  .custom-autocomplete {
+    width: 100%;
+  }
 }
