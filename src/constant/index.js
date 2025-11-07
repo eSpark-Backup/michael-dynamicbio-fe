@@ -1280,6 +1280,7 @@ export const productData = {
         type: "text",
         placeholder: "Map location",
         size: 5.8,
+        disabled: true,
       },
     ],
   },

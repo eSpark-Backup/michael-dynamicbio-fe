@@ -7,6 +7,9 @@ export const MARKET_PLACE_STYLE = {
     overflow: "hidden",
     padding: { xs: 2, md: 3 },
     gap: { xs: 3, lg: 4 },
+    "@media(max-width: 1023px)": {
+      gap: 0,
+    },
   },
   childWrapper: {
     width: "100%",
@@ -23,6 +26,23 @@ export const MARKET_PLACE_STYLE = {
   },
   sideNavBox: {
     maxHeight: "100%",
+  },
+  iconStyle: {
+    display: "none",
+    position: "fixed",
+    bottom: 16,
+    right: 16,
+    zIndex: 1300,
+    color: "#1877F2",
+    backgroundColor: "white",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+    "@media(max-width:1023px)": {
+      display: "flex",
+    },
+    "&:hover": {
+      background: "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+      color: "#fff",
+    },
   },
 };
 
@@ -540,19 +560,15 @@ export const POST_ADS_STYLE = {
 
 export const SIDENAV_STYLES = {
   mainWrapper: {
-    width: 315,
+    width: { xs: 280, sm: 315 },
     height: "100%",
     minHeight: 400,
     maxHeight: "100%",
-    display: "none",
     backgroundColor: "#FFFFFF",
     border: "1px solid #E4E4E4",
     py: 2.5,
     px: 2.5,
     pr: 0,
-    "@media(min-width:1024px)": {
-      display: "flex",
-    },
   },
 
   titleBox: {

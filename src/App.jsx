@@ -95,6 +95,7 @@ const App = () => {
       dispatch(handleChange(null));
     }
   }, [pathname]);
+
   return (
     <>
       <SocketListener />
@@ -130,7 +131,7 @@ const App = () => {
         <Route path="/general/video" element={<GeneralPost />} />
         <Route path="/general/poll" element={<GeneralPost />} />
         <Route element={<PrivateLayout />}>
-          {/* <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/bonds" element={<Bonds />} />
           <Route path="/cells" element={<Cells />} />
           <Route path="/pulses" element={<Pulses />} />
@@ -147,7 +148,7 @@ const App = () => {
           <Route path="/post/:id" element={<SinglePost />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile/bonds/:id" element={<UserBonds />} />
-          <Route path="/ddt" element={<DDT />} /> */}
+          <Route path="/ddt" element={<DDT />} />
           <Route element={<MarketPlace />}>
             <Route path="/market-place" element={<ProductListing />} />
             <Route
@@ -163,11 +164,9 @@ const App = () => {
               path="/create-product/message-center"
               element={<MessageCenter />}
             />
-
             <Route path="/favourite" element={<Favourite />} />
           </Route>
         </Route>
-
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

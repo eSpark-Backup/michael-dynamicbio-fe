@@ -89,7 +89,7 @@ const PostAds = ({ data = {} }) => {
 
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} justifyContent="center" px={1.5}>
-      {fields.map(({ label, name, placeholder, type }, index) => {
+      {fields.map(({ label, name, placeholder, type, disabled }, index) => {
         if (name === "country") {
           const stateField = fields.find((f) => f.name === "state");
           const cityField = fields.find((f) => f.name === "city");
@@ -300,6 +300,7 @@ const PostAds = ({ data = {} }) => {
               <TextField
                 fullWidth
                 name={name}
+                disabled={disabled}
                 value={values[name] || ""}
                 placeholder={placeholder}
                 onChange={handleChange}

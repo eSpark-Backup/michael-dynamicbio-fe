@@ -1,14 +1,15 @@
-import { Stack, Typography } from "@mui/material";
-import { SIDENAV_STYLES } from "./Styles";
+import { useMediaQuery, Drawer, Stack, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import { SIDENAV_STYLES } from "./Styles";
 
-const SideNav = ({ data }) => {
+const SideNav = ({ isMobileSidebarOpen, onSidebarClose, data }) => {
   const { navItems } = data || {};
   const { pathname } = useLocation();
   const { mainWrapper, titleBox, tabItem } = SIDENAV_STYLES;
 
   const activeTab = navItems?.tabs?.find((t) => pathname?.includes(t.path));
   const hasInnerTabs = activeTab && activeTab?.innerTabs;
+  const lgUp = useMediaQuery("(min-width:1024px)");
 
   const renderTabs = () => {
     const tabsToRender = hasInnerTabs ? activeTab?.innerTabs : navItems?.tabs;
@@ -30,20 +31,52 @@ const SideNav = ({ data }) => {
     );
   };
 
-  return (
-    <Stack spacing={2} sx={mainWrapper}>
-      <Stack sx={titleBox}>
-        <Typography
-          variant="h5"
-          fontWeight={700}
-          color="#171717"
-          fontFamily="Nunito"
-        >
-          {hasInnerTabs ? navItems?.text?.[1] : navItems?.text?.[0] ?? ""}
-        </Typography>
+  if (lgUp) {
+    return (
+      <Stack spacing={2} sx={mainWrapper}>
+        <Stack sx={titleBox}>
+          <Typography
+            variant="h5"
+            fontWeight={700}
+            color="#171717"
+            fontFamily="Nunito"
+          >
+            {hasInnerTabs ? navItems?.text?.[1] : navItems?.text?.[0] ?? ""}
+          </Typography>
+        </Stack>
+        <Stack>{renderTabs()}</Stack>
       </Stack>
-      <Stack>{renderTabs()}</Stack>
-    </Stack>
+    );
+  }
+
+  return (
+    <Drawer
+      anchor="left"
+      open={isMobileSidebarOpen}
+      onClose={onSidebarClose}
+      variant="temporary"
+      PaperProps={{
+        sx: {
+          p: 0,
+          border: 0,
+          boxShadow: "none",
+        },
+      }}
+    >
+      <Stack spacing={2} sx={mainWrapper}>
+        <Stack sx={titleBox}>
+          <Typography
+            variant="h5"
+            fontWeight={700}
+            color="#171717"
+            fontFamily="Nunito"
+          >
+            {hasInnerTabs ? navItems?.text?.[1] : navItems?.text?.[0] ?? ""}
+          </Typography>
+        </Stack>
+        <Stack>{renderTabs()}</Stack>
+      </Stack>
+    </Drawer>
   );
 };
 

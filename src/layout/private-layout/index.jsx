@@ -17,7 +17,7 @@ import { api } from "../../services/rtk";
 
 const PrivateLayout = () => {
   const token = localStorage.getItem("token");
-  // const [getInfo] = useGetUserInfoMutation();
+  const [getInfo] = useGetUserInfoMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -29,26 +29,26 @@ const PrivateLayout = () => {
 
   const hasFetchedRef = useRef(false);
 
-  // useEffect(() => {
-  //   if (token && !hasFetchedRef.current) {
-  //     hasFetchedRef.current = true;
-  //     setLoading(true);
-  //     localStorage.removeItem("temp-token");
-  //     getInfo().then((res) => {
-  //       if (res?.error) {
-  //         toast.error(res?.error?.data?.message);
-  //         dispatch(logout());
-  //         dispatch(api.util.resetApiState());
-  //         navigate("/login");
-  //         setLoading(false);
-  //         return;
-  //       }
-  //       if (res?.data) {
-  //         setLoading(false);
-  //       }
-  //     });
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (token && !hasFetchedRef.current) {
+      hasFetchedRef.current = true;
+      setLoading(true);
+      localStorage.removeItem("temp-token");
+      getInfo().then((res) => {
+        if (res?.error) {
+          toast.error(res?.error?.data?.message);
+          dispatch(logout());
+          dispatch(api.util.resetApiState());
+          navigate("/login");
+          setLoading(false);
+          return;
+        }
+        if (res?.data) {
+          setLoading(false);
+        }
+      });
+    }
+  }, [token]);
 
   if (loading) {
     return (

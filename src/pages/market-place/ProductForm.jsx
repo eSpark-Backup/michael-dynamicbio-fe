@@ -13,8 +13,9 @@ import PublishedAd from "./PublishedAd";
 import { PRODUCT_FORM_STYLE } from "./Styles";
 import { base64ToFile, handleTabClick, toBase64 } from "../../utils";
 import { useAddProductMutation } from "../../services/product";
+import { useNavigate } from "react-router-dom";
 
-const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
+const ProductForm = () => {
   const {
     goBackBtn,
     paper,
@@ -38,6 +39,7 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
   const [stepStatus, setStepStatus] = useState(
     JSON.parse(localStorage.getItem("stepProgress")) || [false, false, false]
   );
+  const navigate = useNavigate();
 
   const defaultValues = {
     // step 1
@@ -51,12 +53,10 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
     tags: [],
     ad_price: "",
     negotiable: "",
-
     // step 2
     description: "",
     features: "",
     upload_photos: [],
-
     // step 3
     phone_number: "",
     backup_phone_number: "",
@@ -66,10 +66,10 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
     city: "",
     state: "",
     location: "",
-    map_location: {
-      lat: 24.8607,
-      lng: 67.0011,
-    },
+    // map_location: {
+    //   lat: 24.8607,
+    //   lng: 67.0011,
+    // },
   };
 
   const loadSavedData = () => {
@@ -174,6 +174,19 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
           const formData = new FormData();
           Object.entries(values).forEach(([key, value]) => {
             if (key === "upload_photos") return;
+
+            if (
+              value === "" ||
+              value === null ||
+              value === undefined ||
+              (Array.isArray(value) && value.length === 0) ||
+              (typeof value === "object" &&
+                !Array.isArray(value) &&
+                Object.keys(value).length === 0)
+            ) {
+              return;
+            }
+
             if (Array.isArray(value) || typeof value === "object") {
               formData.append(key, JSON.stringify(value));
             } else {
@@ -197,7 +210,7 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
             localStorage.removeItem("formData");
             localStorage.removeItem("stepProgress");
             setStep(3);
-          }, 3000);
+          }, 1000);
         } catch (error) {
           console.error("❌ Product create failed:", error);
           toast.error(error?.data?.message || "Failed to create product");
@@ -224,23 +237,13 @@ const ProductForm = ({ setValue = () => {}, setInnerValue = () => {} }) => {
           saveData();
         }, [values]);
 
-        if (step === 3)
-          return (
-            <PublishedAd
-              setStep={setStep}
-              setValue={setValue}
-              setInnerValue={setInnerValue}
-            />
-          );
+        if (step === 3) return <PublishedAd setStep={setStep} />;
 
         return (
           <>
             <Stack sx={{ width: "100%", maxWidth: "1290px" }}>
               <Button
-                onClick={() => {
-                  setStep(0);
-                  setValue(0);
-                }}
+                onClick={() => navigate("/market-place")}
                 disableRipple
                 sx={goBackBtn}
               >
