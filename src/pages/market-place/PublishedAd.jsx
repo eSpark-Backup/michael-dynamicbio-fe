@@ -8,12 +8,9 @@ import {
 } from "@mui/material";
 import { arrowRight, successLogo, successMark } from "../../assets";
 import { PUBLISHED_AD_STYLE } from "./Styles";
+import { useNavigate } from "react-router-dom";
 
-const PublishedAd = ({
-  setStep = () => {},
-  setValue = () => {},
-  setInnerValue = () => {},
-}) => {
+const PublishedAd = ({ setStep = () => {} }) => {
   const {
     paper,
     container,
@@ -27,6 +24,8 @@ const PublishedAd = ({
     viewButton,
     arrowIcon,
   } = PUBLISHED_AD_STYLE || {};
+
+  const navigate = useNavigate();
 
   const rotate = keyframes`
     from {
@@ -68,11 +67,7 @@ const PublishedAd = ({
           </Button>
 
           <Button
-            onClick={() => {
-              setStep(0);
-              setValue(0);
-              setInnerValue(0);
-            }}
+            onClick={() => navigate("/market-place")}
             sx={viewButton}
             endIcon={<Box component="img" src={arrowRight} sx={arrowIcon} />}
           >

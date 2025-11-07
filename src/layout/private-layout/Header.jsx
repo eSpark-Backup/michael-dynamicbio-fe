@@ -74,6 +74,13 @@ const Header = () => {
               </Box> */}
               <Box sx={{ width: "204px" }}>
                 <BoxWithTextIcon
+                  text={"Marketplace"}
+                  icon={marketplace}
+                  onClick={() => navigate("/market-place")}
+                />
+              </Box>
+              <Box sx={{ width: "204px" }}>
+                <BoxWithTextIcon
                   text={"DDT"}
                   icon={ai}
                   onClick={() => navigate("/ddt")}

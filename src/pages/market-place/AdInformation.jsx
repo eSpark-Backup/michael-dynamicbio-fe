@@ -72,11 +72,10 @@ const AdInformation = ({ data = {} }) => {
                     }
                   }}
                   isOptionEqualToValue={(opt, val) => opt.value === val.value}
-                  renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => (
+                  renderTags={(tagValue) =>
+                    tagValue?.map((option, index) => (
                       <Box
-                        key={option.value}
-                        {...getTagProps({ index })}
+                        key={index}
                         sx={{
                           display: "flex",
                           alignItems: "center",

@@ -51,6 +51,7 @@ const FiltrationButton = ({
           fontFamily: "Nunito",
           fontWeight: 400,
           height: "48px",
+          borderRadius: "6px",
           color: "#464D61",
           background: "#FFFFFF",
           border: "1px solid #EDEFF5",

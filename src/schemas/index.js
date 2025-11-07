@@ -487,17 +487,17 @@ export const getProductValidationSchema = (step) => {
         city: Yup.string().nullable(),
         state: Yup.string().nullable(),
         location: Yup.string().required("Location is required"),
-        map_location: Yup.object()
-          .shape({
-            lat: Yup.number()
-              .typeError("Invalid latitude")
-              .required("Latitude is required"),
-            lng: Yup.number()
-              .typeError("Invalid longitude")
-              .required("Longitude is required"),
-          })
-          .nullable()
-          .required("Map location is required"),
+        // map_location: Yup.object()
+        //   .shape({
+        //     lat: Yup.number()
+        //       .typeError("Invalid latitude")
+        //       .required("Latitude is required"),
+        //     lng: Yup.number()
+        //       .typeError("Invalid longitude")
+        //       .required("Longitude is required"),
+        //   })
+        //   .nullable()
+        //   .required("Map location is required"),
       });
 
     default:
