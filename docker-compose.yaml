@@ -4,8 +4,15 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        VITE_BASE_URL: "https://app.h2fusion.org/api"
-        VITE_BASE_URL_FE: "https://app.h2fusion.org"
+        # Live URLs
+        # VITE_BASE_URL: "https://app.h2fusion.org/api"
+        # VITE_BASE_URL_FE: "https://app.h2fusion.org"
+        # VITE_BASE_URL_SOCKET: "https://app.h2fusion.org/socket"
+
+        # stg URLs
+        VITE_BASE_URL: "https://fusion-stg-api.esparkconsultants.com//api"
+        VITE_BASE_URL_FE: "https://fusion-stg-api.esparkconsultants.com/"
+        VITE_BASE_URL_SOCKET: "https://fusion-stg-api.esparkconsultants.com//socket"
     container_name: dydnamicbio
     restart: unless-stopped
     ports:
