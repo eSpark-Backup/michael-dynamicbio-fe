@@ -10,9 +10,9 @@ services:
         # VITE_BASE_URL_SOCKET: "https://app.h2fusion.org/socket"
 
         # stg URLs
-        VITE_BASE_URL: "https://fusion-stg-api.esparkconsultants.com//api"
+        VITE_BASE_URL: "https://fusion-stg-api.esparkconsultants.com/api"
         VITE_BASE_URL_FE: "https://fusion-stg-api.esparkconsultants.com/"
-        VITE_BASE_URL_SOCKET: "https://fusion-stg-api.esparkconsultants.com//socket"
+        VITE_BASE_URL_SOCKET: "https://fusion-stg-api.esparkconsultants.com/socket"
     container_name: dydnamicbio
     restart: unless-stopped
     ports:
