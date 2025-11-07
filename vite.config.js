@@ -1,4 +1,4 @@
-import { defineConfig } from "vite"; 
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default () => {
@@ -16,7 +16,7 @@ export default () => {
     preview: {
       host: true,
       port: 3000,
-      allowedHosts: ["app.h2fusion.org", "api.h2fusion.org"]
+      allowedHosts: ["app.h2fusion.org", "api.h2fusion.org", "fusion-stg.esparkconsultants.com"]
     },
   });
 };
