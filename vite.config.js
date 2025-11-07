@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default () => {
   return defineConfig({
-    base: '/',
+    base: './',
     plugins: [react()],
     server: {
       watch: {
