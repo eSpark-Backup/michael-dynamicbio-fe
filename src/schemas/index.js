@@ -489,7 +489,7 @@ export const getProductValidationSchema = (step) => {
           .matches(/^[a-zA-Z\s-]*$/, "State name can only contain letters"),
 
         city: Yup.string()
-          .nullable()
+          .required()
           .matches(/^[a-zA-Z\s-]*$/, "City name can only contain letters"),
         location: Yup.string().required("Location is required"),
         // map_location: Yup.object()
