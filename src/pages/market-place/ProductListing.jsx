@@ -64,7 +64,7 @@ const ProductListing = () => {
             sx={{
               position: "absolute",
               top: 15,
-              left: 10,
+              left: 15,
               backgroundColor: "#1E4084",
               color: "#fff",
               fontSize: "12px",
@@ -81,8 +81,8 @@ const ProductListing = () => {
           <IconButton
             sx={{
               position: "absolute",
-              top: 10,
-              right: 10,
+              top: 15,
+              right: 15,
               backgroundColor: "#fff",
               boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
               "&:hover": { backgroundColor: "#f2f2f2" },

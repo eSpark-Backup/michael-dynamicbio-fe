@@ -1254,7 +1254,7 @@ export const productData = {
         label:
           'City <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "city",
-        type: "select",
+        type: "text",
         placeholder: "Select...",
         size: 4,
       },
@@ -1262,7 +1262,7 @@ export const productData = {
         label:
           'State <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
         name: "state",
-        type: "select",
+        type: "text",
         placeholder: "Select...",
         size: 4,
       },

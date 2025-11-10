@@ -8,7 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { useFormikContext } from "formik";
-import { Country, State, City } from "country-state-city";
+import { Country } from "country-state-city";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { phoneArrow } from "../../assets";
@@ -29,8 +29,6 @@ const PostAds = ({ data = {} }) => {
   const { fields = [] } = data;
 
   const [countryOptions, setCountryOptions] = useState([]);
-  const [stateOptions, setStateOptions] = useState([]);
-  const [cityOptions, setCityOptions] = useState([]);
 
   useEffect(() => {
     const allCountries = Country.getAllCountries().map((c) => ({
@@ -40,47 +38,6 @@ const PostAds = ({ data = {} }) => {
     }));
     setCountryOptions(allCountries);
   }, []);
-
-  useEffect(() => {
-    const selectedCountry = Country.getAllCountries().find(
-      (c) => c.name === values.country
-    );
-    if (selectedCountry) {
-      const states = State.getStatesOfCountry(selectedCountry.isoCode).map(
-        (s) => ({
-          label: s.name,
-          value: s.name,
-          isoCode: s.isoCode,
-        })
-      );
-      setStateOptions(states);
-    } else {
-      setStateOptions([]);
-      setCityOptions([]);
-    }
-  }, [values.country]);
-
-  useEffect(() => {
-    const selectedCountry = Country.getAllCountries().find(
-      (c) => c.name === values.country
-    );
-    const selectedState = State.getStatesOfCountry(
-      selectedCountry?.isoCode
-    ).find((s) => s.name === values.state);
-
-    if (selectedCountry && selectedState) {
-      const cities = City.getCitiesOfState(
-        selectedCountry.isoCode,
-        selectedState.isoCode
-      ).map((c) => ({
-        label: c.name,
-        value: c.name,
-      }));
-      setCityOptions(cities);
-    } else {
-      setCityOptions([]);
-    }
-  }, [values.state, values.country]);
 
   const handlePhoneChange = (name, value) => {
     setFieldValue(name, value);
@@ -116,8 +73,6 @@ const PostAds = ({ data = {} }) => {
                       getOptionLabel={(opt) => opt?.label || ""}
                       onChange={(_, newValue) => {
                         setFieldValue("country", newValue?.value || "");
-                        setFieldValue("state", "");
-                        setFieldValue("city", "");
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -152,108 +107,42 @@ const PostAds = ({ data = {} }) => {
                   </Stack>
                 </Grid>
 
-                {/* State */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
                     <Typography
                       sx={fieldLabel}
                       dangerouslySetInnerHTML={{ __html: stateField.label }}
                     />
-                    <Autocomplete
+                    <TextField
                       fullWidth
-                      popupIcon={null}
-                      options={stateOptions}
-                      value={
-                        stateOptions.find(
-                          (opt) => opt.value === values.state
-                        ) || null
-                      }
-                      getOptionLabel={(opt) => opt?.label || ""}
-                      onChange={(_, newValue) => {
-                        setFieldValue("state", newValue?.value || "");
-                        setFieldValue("city", "");
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          placeholder="Select State"
-                          error={touched.state && Boolean(errors.state)}
-                          helperText={touched.state && errors.state}
-                          sx={{
-                            ...inputField,
-                            ...dropdownInput,
-                          }}
-                          InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                              <Box
-                                component="img"
-                                src={phoneArrow}
-                                alt="dropdown"
-                                className="custom-arrow"
-                                sx={{
-                                  width: { xs: "13px !important", md: "auto" },
-                                }}
-                              />
-                            ),
-                          }}
-                        />
-                      )}
-                      componentsProps={{
-                        paper: { sx: dropdownPaper },
-                      }}
+                      name="state"
+                      placeholder="Enter State"
+                      value={values.state || ""}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.state && Boolean(errors.state)}
+                      helperText={touched.state && errors.state}
+                      sx={inputField}
                     />
                   </Stack>
                 </Grid>
 
-                {/* City */}
                 <Grid item xs={12} md={4}>
                   <Stack spacing={1.5}>
                     <Typography
                       sx={fieldLabel}
                       dangerouslySetInnerHTML={{ __html: cityField.label }}
                     />
-                    <Autocomplete
+                    <TextField
                       fullWidth
-                      popupIcon={null}
-                      options={cityOptions}
-                      value={
-                        cityOptions.find((opt) => opt.value === values.city) ||
-                        null
-                      }
-                      getOptionLabel={(opt) => opt?.label || ""}
-                      onChange={(_, newValue) =>
-                        setFieldValue("city", newValue?.value || "")
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          placeholder="Select City"
-                          error={touched.city && Boolean(errors.city)}
-                          helperText={touched.city && errors.city}
-                          sx={{
-                            ...inputField,
-                            ...dropdownInput,
-                          }}
-                          InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                              <Box
-                                component="img"
-                                src={phoneArrow}
-                                alt="dropdown"
-                                className="custom-arrow"
-                                sx={{
-                                  width: { xs: "13px !important", md: "auto" },
-                                }}
-                              />
-                            ),
-                          }}
-                        />
-                      )}
-                      componentsProps={{
-                        paper: { sx: dropdownPaper },
-                      }}
+                      name="city"
+                      placeholder="Enter City"
+                      value={values.city || ""}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={touched.city && Boolean(errors.city)}
+                      helperText={touched.city && errors.city}
+                      sx={inputField}
                     />
                   </Stack>
                 </Grid>
