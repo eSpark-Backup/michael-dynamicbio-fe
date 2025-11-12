@@ -484,8 +484,13 @@ export const getProductValidationSchema = (step) => {
           .url("Enter a valid website URL (must start with http or https)")
           .nullable(),
         country: Yup.string().required("Country is required"),
-        city: Yup.string().nullable(),
-        state: Yup.string().nullable(),
+        state: Yup.string()
+          .nullable()
+          .matches(/^[a-zA-Z\s-]*$/, "State name can only contain letters"),
+
+        city: Yup.string()
+          .required()
+          .matches(/^[a-zA-Z\s-]*$/, "City name can only contain letters"),
         location: Yup.string().required("Location is required"),
         // map_location: Yup.object()
         //   .shape({
