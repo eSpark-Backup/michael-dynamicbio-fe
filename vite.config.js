@@ -16,7 +16,7 @@ export default () => {
     preview: {
       host: true,
       port: 3000,
-      allowedHosts: ["app.h2fusion.org", "api.h2fusion.org", "fusion-stg.esparkconsultants.com"]
+      allowedHosts: ["app.h2fusion.org", "api.h2fusion.org", "fusion-stg.esparkconsultants.com", "fusion-stg-api.esparkconsultants.com"]
     },
   });
 };
