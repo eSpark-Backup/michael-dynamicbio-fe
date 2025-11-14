@@ -61,7 +61,9 @@ import profilePicture from "./icons/profilePicture.svg";
 import user2 from "./icons/user2.svg";
 import logo2 from "./icons/logo2.svg";
 import world from "./icons/world.svg";
+import worldBlue from "./icons/world-blue.svg";
 import marketplace from "./icons/marketplace.svg";
+import marketplaceWhite from "./icons/marketplace-white.svg";
 import ai from "./icons/ai.svg";
 import edit from "./icons/edit.svg";
 import mobile from "./icons/mobile.svg";
@@ -230,7 +232,9 @@ export {
   user2,
   logo2,
   world,
+  worldBlue,
   marketplace,
+  marketplaceWhite,
   ai,
   filter,
   friend,

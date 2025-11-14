@@ -584,7 +584,7 @@ export const SIDENAV_STYLES = {
   tabItem: (pathname, path) => {
     const isExact = pathname === path;
     const isChildRoute =
-      pathname.startsWith(path + "/") && path !== "/create-product";
+      pathname.startsWith(path + "/") && path !== "/marketplace/create-product";
 
     const isActive = isExact || isChildRoute;
 

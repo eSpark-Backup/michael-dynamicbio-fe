@@ -60,7 +60,7 @@ const ProductListing = () => {
             src={image}
             alt={product?.ad_name}
           />
-          <Box
+          {/* <Box
             sx={{
               position: "absolute",
               top: 15,
@@ -76,7 +76,7 @@ const ProductListing = () => {
             }}
           >
             Great Price
-          </Box>
+          </Box> */}
 
           <IconButton
             sx={{
@@ -145,37 +145,37 @@ const ProductListing = () => {
             ${product?.ad_price || "N/A"}
           </Typography>
 
-          <Link
-            to={`/market-place/${product?.id}`}
+          {/* <Link
+            to={`/marketplace/${product?.id}`}
             style={{
               textDecoration: "none",
               color: "#1E4084",
             }}
+          > */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 0.7,
+            }}
           >
-            <Box
+            <Typography
               sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.7,
+                fontSize: { xs: "12px", sm: "14px" },
+                fontWeight: 700,
+                fontFamily: "Nunito",
               }}
             >
-              <Typography
-                sx={{
-                  fontSize: { xs: "12px", sm: "14px" },
-                  fontWeight: 700,
-                  fontFamily: "Nunito",
-                }}
-              >
-                View Details
-              </Typography>
-              <Box
-                component="img"
-                src={arrow}
-                alt="arrow icon"
-                sx={{ width: 12, height: 12, objectFit: "contain" }}
-              />
-            </Box>
-          </Link>
+              View Details
+            </Typography>
+            <Box
+              component="img"
+              src={arrow}
+              alt="arrow icon"
+              sx={{ width: 12, height: 12, objectFit: "contain" }}
+            />
+          </Box>
+          {/* </Link> */}
         </Stack>
       </Stack>
     );

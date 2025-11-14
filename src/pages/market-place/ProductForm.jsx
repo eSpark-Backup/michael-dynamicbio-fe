@@ -243,7 +243,7 @@ const ProductForm = () => {
           <>
             <Stack sx={{ width: "100%", maxWidth: "1290px" }}>
               <Button
-                onClick={() => navigate("/market-place")}
+                onClick={() => navigate("/marketplace")}
                 disableRipple
                 sx={goBackBtn}
               >
