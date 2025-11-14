@@ -582,11 +582,8 @@ export const SIDENAV_STYLES = {
   },
 
   tabItem: (pathname, path) => {
-    const isExact = pathname === path;
-    const isChildRoute =
-      pathname.startsWith(path + "/") && path !== "/marketplace/create-product";
-
-    const isActive = isExact || isChildRoute;
+    // Only exact path should activate the tab
+    const isActive = pathname === path;
 
     return {
       minHeight: 52,
