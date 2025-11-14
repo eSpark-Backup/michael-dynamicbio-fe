@@ -131,7 +131,7 @@ const Navbar = () => {
               border: "1px solid red",
             }}
           ></Box>
-          {isMobile ? (
+          {isMarketplace == false && isMobile ? (
             <Box sx={{ display: "flex", pr: "5px" }}>
               <Box
                 sx={{
