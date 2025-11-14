@@ -75,7 +75,9 @@ const Header = () => {
                   fontWeight: 400,
                   height: "46px",
                   width: { xs: "100%", lg: "204px" },
-                  backgroundColor: isMarketplace ? "transparent" : "#37A1F7",
+                  backgroundColor: isMarketplace
+                    ? "transparent"
+                    : "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
                   color: isMarketplace ? "#37A1F7" : "#FFFFFF",
                   border: `1px solid #37A1F7`,
                   "& img": {
@@ -98,7 +100,9 @@ const Header = () => {
                   fontWeight: 400,
                   height: "46px",
                   width: { xs: "100%", lg: "204px" },
-                  backgroundColor: isMarketplace ? "#37A1F7" : "transparent",
+                  background: isMarketplace
+                    ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
+                    : "transparent",
                   color: isMarketplace ? "#FFFFFF" : "#37A1F7",
                   border: `1px solid #37A1F7`,
                   "& img": {
@@ -144,7 +148,9 @@ const Header = () => {
               fontWeight: 400,
               height: "46px",
               width: { xs: "100%", lg: "204px" },
-              backgroundColor: isMarketplace ? "transparent" : "#37A1F7",
+              background: isMarketplace
+                ? "transparent"
+                : "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
               color: isMarketplace ? "#37A1F7" : "#FFFFFF",
               border: `1px solid #37A1F7`,
               "& img": {
@@ -167,7 +173,9 @@ const Header = () => {
               fontWeight: 400,
               height: "46px",
               width: { xs: "100%", lg: "204px" },
-              backgroundColor: isMarketplace ? "#37A1F7" : "transparent",
+              background: isMarketplace
+                ? "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)"
+                : "transparent",
               color: isMarketplace ? "#FFFFFF" : "#37A1F7",
               border: `1px solid #37A1F7`,
               "& img": {
