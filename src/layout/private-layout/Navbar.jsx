@@ -44,7 +44,7 @@ const Navbar = () => {
   const [activeItem, setActiveItem] = useState("Home");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const token = window.localStorage.getItem("token")
+  const token = window.localStorage.getItem("token");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,9 +81,9 @@ const Navbar = () => {
     ],
     []
   );
-  
-  const isMarketplace = location.pathname.includes('/marketplace');
-  
+
+  const isMarketplace = location.pathname.includes("/marketplace");
+
   useEffect(() => {
     const pathToNameMap = {
       "/": "Home",
@@ -112,146 +112,343 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <Box
-      sx={{
-        backgroundColor: theme.palette.primary.light,
-        height: "65px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        px: { xs: "10px", lg: "30px" },
-      }}
-    >
-      <Box
-        sx={{
-          width: { xs: "0px", lg: "204px" },
-          visibility: "hidden",
-          border: "1px solid red",
-        }}
-      ></Box>
-      {isMobile ? (
-        <Box sx={{ display: "flex", pr: "5px" }}>
+    <>
+      {isMarketplace == false && (
+        <Box
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            height: "65px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            px: { xs: "10px", lg: "30px" },
+          }}
+        >
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
+              width: { xs: "0px", lg: "204px" },
+              visibility: "hidden",
+              border: "1px solid red",
             }}
-            onClick={handleClick}
-          >
-            <img
-              style={{ width: "22px", height: "22px" }}
-              src={settings}
-              alt=""
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Typography
+          ></Box>
+          {isMobile ? (
+            <Box sx={{ display: "flex", pr: "5px" }}>
+              <Box
                 sx={{
-                  backgroundImage:
-                    "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  fontSize: "16px",
-                  fontWeight: "500",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
                 }}
+                onClick={handleClick}
               >
-                Settings
-              </Typography>
-              <img
-                style={{ width: "12px", height: "6px" }}
-                src={downArrow}
-                alt=""
-              />
-            </Box>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-            >
-              {token ? (
-                <>
-                  <MenuItem
-                    onClick={(e) => {
-                      navigate(`/profile/${user?.id}`);
-                      handleClose(e);
-                    }}
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={(e) => {
-                      navigate("/settings");
-                      handleClose(e);
+                <img
+                  style={{ width: "22px", height: "22px" }}
+                  src={settings}
+                  alt=""
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      backgroundImage:
+                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      fontSize: "16px",
+                      fontWeight: "500",
                     }}
                   >
                     Settings
-                  </MenuItem>
-                  {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
-                  {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
-                  {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
-                  <MenuItem
-                    onClick={(e) => {
-                      dispatch(logout());
-                      dispatch(api.util.resetApiState());
-                      navigate("/login");
-                      handleClose(e);
+                  </Typography>
+                  <img
+                    style={{ width: "12px", height: "6px" }}
+                    src={downArrow}
+                    alt=""
+                  />
+                </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                >
+                  {token ? (
+                    <>
+                      <MenuItem
+                        onClick={(e) => {
+                          navigate(`/profile/${user?.id}`);
+                          handleClose(e);
+                        }}
+                      >
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        onClick={(e) => {
+                          navigate("/settings");
+                          handleClose(e);
+                        }}
+                      >
+                        Settings
+                      </MenuItem>
+                      {/* <MenuItem onClick={handleClose}>Privacy & Security</MenuItem> */}
+                      {/* <MenuItem onClick={handleClose}>Language</MenuItem> */}
+                      {/* <MenuItem onClick={handleClose}>Help</MenuItem> */}
+                      <MenuItem
+                        onClick={(e) => {
+                          dispatch(logout());
+                          dispatch(api.util.resetApiState());
+                          navigate("/login");
+                          handleClose(e);
+                        }}
+                      >
+                        Logout
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <MenuItem
+                      onClick={(e) => {
+                        navigate("/login");
+                        handleClose(e);
+                      }}
+                      sx={{ width: "245px" }}
+                    >
+                      Login
+                    </MenuItem>
+                  )}
+                </Menu>
+              </Box>
+              <IconButton
+                onClick={() => setDrawerOpen(true)}
+                sx={{ color: theme.palette.primary.main }}
+              >
+                <MenuIcon
+                  sx={{ fontSize: 30, color: theme.palette.primary.dark }}
+                />
+              </IconButton>
+            </Box>
+          ) : (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "40px",
+                  }}
+                >
+                  {menuItems.map((item) => {
+                    const isActive = activeItem === item.name;
+                    return (
+                      <Box
+                        key={item.name}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          width: "137px",
+                          minWidth: "137px",
+                          textAlign: "center",
+                        }}
+                        onClick={() => handleNavigation(item)}
+                      >
+                        <img
+                          style={{ width: "28px", height: "28px" }}
+                          src={item.activeIcon}
+                          alt={item.name}
+                        />
+                        <Typography
+                          sx={{
+                            backgroundImage:
+                              "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                            color: "inherit",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            position: "relative",
+                            textAlign: "center",
+                            "&::after": {
+                              content: '""',
+                              display: isActive ? "block" : "none",
+                              width: "137px",
+                              height: "4px",
+                              background:
+                                "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                              position: "absolute",
+                              bottom: "-6px",
+                              left: "50%",
+                              transform: "translateX(-50%)",
+                            },
+                          }}
+                        >
+                          {item.name}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  columnGap: "25px",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "280px",
+                    height: "42px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <OutlinedInput
+                    value={search ? search : ""}
+                    onInputChange={onInputChange}
+                    sx={{ width: "280px" }}
+                    placeholder="Search"
+                    startAdornment={searchIcon}
+                    disabled={!token}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleClick}
+                >
+                  <img
+                    style={{ width: "22px", height: "22px" }}
+                    src={settings}
+                    alt=""
+                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    Logout
-                  </MenuItem>
-                </>
-              ) : (
-                <MenuItem
-                  onClick={(e) => {
-                    navigate("/login");
-                    handleClose(e);
-                  }}
-                  sx={{ width: "245px" }}
-                >
-                  Login
-                </MenuItem>
-              )}
-            </Menu>
-          </Box>
-          <IconButton
-            onClick={() => setDrawerOpen(true)}
-            sx={{ color: theme.palette.primary.main }}
+                    <Typography
+                      sx={{
+                        backgroundImage:
+                          "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        fontSize: "16px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Settings
+                    </Typography>
+                    <img
+                      style={{ width: "12px", height: "6px" }}
+                      src={downArrow}
+                      alt=""
+                    />
+                  </Box>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
+                    {token ? (
+                      <>
+                        <MenuItem
+                          sx={{ width: "245px" }}
+                          onClick={(e) => {
+                            navigate(`/profile/${user?.id}`);
+                            handleClose(e);
+                          }}
+                        >
+                          Profile
+                        </MenuItem>
+                        <MenuItem
+                          onClick={(e) => {
+                            navigate("/settings");
+                            handleClose(e);
+                          }}
+                          sx={{ width: "245px" }}
+                        >
+                          Settings
+                        </MenuItem>
+                        {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
+                        {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
+                        {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
+                        <MenuItem
+                          sx={{ width: "245px" }}
+                          onClick={(e) => {
+                            dispatch(logout());
+                            dispatch(api.util.resetApiState());
+                            navigate("/login");
+                            handleClose(e);
+                          }}
+                        >
+                          Logout
+                        </MenuItem>
+                      </>
+                    ) : (
+                      <MenuItem
+                        onClick={(e) => {
+                          navigate("/login");
+                          handleClose(e);
+                        }}
+                        sx={{ width: "245px" }}
+                      >
+                        Login
+                      </MenuItem>
+                    )}
+                  </Menu>
+                </Box>
+              </Box>
+            </>
+          )}
+          <Drawer
+            anchor="left"
+            open={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
           >
-            <MenuIcon
-              sx={{ fontSize: 30, color: theme.palette.primary.dark }}
-            />
-          </IconButton>
-        </Box>
-      ) : (
-        <>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            {isMarketplace == false &&
             <Box
               sx={{
                 display: "flex",
                 gap: "40px",
+                flexDirection: "column",
               }}
             >
               {menuItems.map((item) => {
@@ -265,8 +462,8 @@ const Navbar = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       cursor: "pointer",
-                      width: "137px",
-                      minWidth: "137px",
+                      width: "100%",
+                      // minWidth: "137px",
                       textAlign: "center",
                     }}
                     onClick={() => handleNavigation(item)}
@@ -306,205 +503,9 @@ const Navbar = () => {
                   </Box>
                 );
               })}
-            </Box>}
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              columnGap: "25px",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <Box
-              sx={{
-                width: "280px",
-                height: "42px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <OutlinedInput
-                value={search ? search : ""}
-                onInputChange={onInputChange}
-                sx={{ width: "280px" }}
-                placeholder="Search"
-                startAdornment={searchIcon}
-                disabled={!token}
-              />
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={handleClick}
-            >
-              <img
-                style={{ width: "22px", height: "22px" }}
-                src={settings}
-                alt=""
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{
-                    backgroundImage:
-                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Settings
-                </Typography>
-                <img
-                  style={{ width: "12px", height: "6px" }}
-                  src={downArrow}
-                  alt=""
-                />
-              </Box>
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-              >
-                {token ? (
-                  <>
-                    <MenuItem
-                      sx={{ width: "245px" }}
-                      onClick={(e) => {
-                        navigate(`/profile/${user?.id}`);
-                        handleClose(e);
-                      }}
-                    >
-                      Profile
-                    </MenuItem>
-                    <MenuItem
-                      onClick={(e) => {
-                        navigate("/settings");
-                        handleClose(e);
-                      }}
-                      sx={{ width: "245px" }}
-                    >
-                      Settings
-                    </MenuItem>
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Privacy & Security</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Language</MenuItem> */}
-                    {/* <MenuItem onClick={handleClose} sx={{ width: "245px" }}>Help</MenuItem> */}
-                    <MenuItem
-                      sx={{ width: "245px" }}
-                      onClick={(e) => {
-                        dispatch(logout());
-                        dispatch(api.util.resetApiState());
-                        navigate("/login");
-                        handleClose(e);
-                      }}
-                    >
-                      Logout
-                    </MenuItem>
-                  </>
-                ) : (
-                  <MenuItem
-                    onClick={(e) => {
-                      navigate("/login");
-                      handleClose(e);
-                    }}
-                    sx={{ width: "245px" }}
-                  >
-                    Login
-                  </MenuItem>
-                )}
-              </Menu>
-            </Box>
-          </Box>
-        </>
-      )}
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            gap: "40px",
-            flexDirection: "column",
-          }}
-        >
-          {menuItems.map((item) => {
-            const isActive = activeItem === item.name;
-            return (
-              <Box
-                key={item.name}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  width: "100%",
-                  // minWidth: "137px",
-                  textAlign: "center",
-                }}
-                onClick={() => handleNavigation(item)}
-              >
-                <img
-                  style={{ width: "28px", height: "28px" }}
-                  src={item.activeIcon}
-                  alt={item.name}
-                />
-                <Typography
-                  sx={{
-                    backgroundImage:
-                      "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                    color: "inherit",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    position: "relative",
-                    textAlign: "center",
-                    "&::after": {
-                      content: '""',
-                      display: isActive ? "block" : "none",
-                      width: "137px",
-                      height: "4px",
-                      background:
-                        "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
-                      position: "absolute",
-                      bottom: "-6px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    },
-                  }}
-                >
-                  {item.name}
-                </Typography>
-              </Box>
-            );
-          })}
-        </Box>
-        <List sx={{ width: 250 }}>
-          {/* {menuItems.map((item) => (
+            <List sx={{ width: 250 }}>
+              {/* {menuItems.map((item) => (
             <ListItem key={item.name} disablePadding>
               <ListItemButton onClick={() => handleNavigation(item)}>
                 <ListItemIcon>
@@ -514,27 +515,29 @@ const Navbar = () => {
               </ListItemButton>
             </ListItem>
           ))} */}
-          <Box
-            sx={{
-              width: "100%",
-              height: "42px",
-              display: "flex",
-              alignItems: "center",
-              mt: 2,
-            }}
-          >
-            <OutlinedInput
-              sx={{ width: "100%" }}
-              placeholder="Search"
-              startAdornment={searchIcon}
-              value={search ? search : ""}
-              onInputChange={onInputChange}
-              disabled={!token}
-            />
-          </Box>
-        </List>
-      </Drawer>
-    </Box>
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "42px",
+                  display: "flex",
+                  alignItems: "center",
+                  mt: 2,
+                }}
+              >
+                <OutlinedInput
+                  sx={{ width: "100%" }}
+                  placeholder="Search"
+                  startAdornment={searchIcon}
+                  value={search ? search : ""}
+                  onInputChange={onInputChange}
+                  disabled={!token}
+                />
+              </Box>
+            </List>
+          </Drawer>
+        </Box>
+      )}
+    </>
   );
 };
 

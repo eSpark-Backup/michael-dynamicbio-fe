@@ -117,9 +117,9 @@ const Header = () => {
               fontWeight: 400,
               height: "46px",
               width: { xs: "100%", lg: "204px" },
-              backgroundColor: isMarketplace ? "transparent" : "#1877F2",
-              color: isMarketplace ? "#1877F2" : "#FFFFFF",
-              border: `1px solid #1877F2`,
+              backgroundColor: isMarketplace ? "transparent" : "#37A1F7",
+              color: isMarketplace ? "#37A1F7" : "#FFFFFF",
+              border: `1px solid #37A1F7`,
               "& img": {
                 content: `url(${isMarketplace ? worldBlue : world})`,
               },
@@ -140,9 +140,9 @@ const Header = () => {
               fontWeight: 400,
               height: "46px",
               width: { xs: "100%", lg: "204px" },
-              backgroundColor: isMarketplace ? "#1877F2" : "transparent",
-              color: isMarketplace ? "#FFFFFF" : "#1877F2",
-              border: `1px solid #1877F2`,
+              backgroundColor: isMarketplace ? "#37A1F7" : "transparent",
+              color: isMarketplace ? "#FFFFFF" : "#37A1F7",
+              border: `1px solid #37A1F7`,
               "& img": {
                 content: `url(${
                   isMarketplace ? marketplaceWhite : marketplace

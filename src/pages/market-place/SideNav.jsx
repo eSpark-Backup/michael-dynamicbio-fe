@@ -7,7 +7,18 @@ const SideNav = ({ isMobileSidebarOpen, onSidebarClose, data }) => {
   const { pathname } = useLocation();
   const { mainWrapper, titleBox, tabItem } = SIDENAV_STYLES;
 
-  const activeTab = navItems?.tabs?.find((t) => pathname?.includes(t.path));
+  const activeTab = navItems?.tabs?.find((t) => {
+    // Exact match for parent tabs
+    if (t.path === pathname) return true;
+
+    // If innerTabs exist → match child routes
+    if (t.innerTabs) {
+      return t.innerTabs.some((inner) => pathname.startsWith(inner.path));
+    }
+
+    return false;
+  });
+
   const hasInnerTabs = activeTab && activeTab?.innerTabs;
   const lgUp = useMediaQuery("(min-width:1024px)");
 
