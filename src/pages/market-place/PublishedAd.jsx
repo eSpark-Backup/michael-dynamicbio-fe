@@ -67,7 +67,7 @@ const PublishedAd = ({ setStep = () => {} }) => {
           </Button>
 
           <Button
-            onClick={() => navigate("/market-place")}
+            onClick={() => navigate("/marketplace")}
             sx={viewButton}
             endIcon={<Box component="img" src={arrowRight} sx={arrowIcon} />}
           >

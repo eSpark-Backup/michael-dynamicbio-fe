@@ -44,7 +44,7 @@ const Navbar = () => {
   const [activeItem, setActiveItem] = useState("Home");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem("token")
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,7 +81,9 @@ const Navbar = () => {
     ],
     []
   );
-
+  
+  const isMarketplace = location.pathname.includes('/marketplace');
+  
   useEffect(() => {
     const pathToNameMap = {
       "/": "Home",
@@ -245,6 +247,7 @@ const Navbar = () => {
               width: "100%",
             }}
           >
+            {isMarketplace == false &&
             <Box
               sx={{
                 display: "flex",
@@ -303,7 +306,7 @@ const Navbar = () => {
                   </Box>
                 );
               })}
-            </Box>
+            </Box>}
           </Box>
 
           <Box

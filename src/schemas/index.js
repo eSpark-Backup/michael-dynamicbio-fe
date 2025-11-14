@@ -457,7 +457,7 @@ export const getProductValidationSchema = (step) => {
       // Step 2 Validation
       return Yup.object({
         description: Yup.string().required("Description field is required"),
-        features: Yup.string().required("Feature field is required"),
+        features: Yup.string(),
         upload_photos: Yup.array()
           .min(1, "At least one image is required")
           .required("Please upload at least one image"),

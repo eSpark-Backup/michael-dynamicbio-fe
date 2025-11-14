@@ -1057,20 +1057,26 @@ export const productData = {
     navItems: {
       text: ["Market Place", "Product Listing", "Market Place"],
       tabs: [
-        { tab: "Newly Listed Product", path: "/market-place" },
+        { tab: "Newly Listed Product", path: "/marketplace" },
         {
           tab: "Create a New Product Listing",
-          path: "/create-product",
+          path: "/marketplace/create-product",
           innerTabs: [
             {
               tab: "Create a New Product Listing",
-              path: "/create-product",
+              path: "/marketplace/create-product",
             },
-            { tab: "My Products", path: "/create-product/my-products" },
-            { tab: "Message Center", path: "/create-product/message-center" },
+            {
+              tab: "My Products",
+              path: "/marketplace/create-product/my-products",
+            },
+            {
+              tab: "Message Center",
+              path: "/marketplace/create-product/message-center",
+            },
           ],
         },
-        { tab: "Favourite", path: "/favourite" },
+        { tab: "Favourite", path: "/marketplace/favourite" },
       ],
     },
   },
@@ -1244,15 +1250,15 @@ export const productData = {
         placeholder: "Your location",
         size: 5.8,
       },
-      {
-        label:
-          'Map Location <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
-        name: "map_location",
-        type: "text",
-        placeholder: "Map location",
-        size: 5.8,
-        disabled: true,
-      },
+      // {
+      //   label:
+      //     'Map Location <span style="color:#939AAD; font-weight:400;">(Optional)</span>',
+      //   name: "map_location",
+      //   type: "text",
+      //   placeholder: "Map location",
+      //   size: 5.8,
+      //   disabled: true,
+      // },
     ],
   },
 };

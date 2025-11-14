@@ -150,21 +150,21 @@ const App = () => {
           <Route path="/profile/bonds/:id" element={<UserBonds />} />
           <Route path="/ddt" element={<DDT />} />
           <Route element={<MarketPlace />}>
-            <Route path="/market-place" element={<ProductListing />} />
+            <Route path="/marketplace" element={<ProductListing />} />
+            <Route path="/marketplace/:productId" element={<SingleProduct />} />
             <Route
-              path="/market-place/:productId"
-              element={<SingleProduct />}
+              path="/marketplace/create-product"
+              element={<ProductForm />}
             />
-            <Route path="/create-product" element={<ProductForm />} />
             <Route
-              path="/create-product/my-products"
+              path="/marketplace/create-product/my-products"
               element={<MyProducts />}
             />
             <Route
-              path="/create-product/message-center"
+              path="/marketplace/create-product/message-center"
               element={<MessageCenter />}
             />
-            <Route path="/favourite" element={<Favourite />} />
+            <Route path="/marketplace/favourite" element={<Favourite />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

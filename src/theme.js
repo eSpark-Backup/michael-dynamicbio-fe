@@ -28,6 +28,24 @@ export const theme = createTheme({
   },
   components: {
     MuiButton: {
+      variants: [
+        {
+          props: { variant: "unstyled" },
+          style: {
+            background: "none",
+            border: "none",
+            boxShadow: "none",
+            padding: 0,
+            minWidth: "auto",
+            color: "inherit",
+            textTransform: "none",
+          }, "&:hover": {
+            background:
+              "linear-gradient(185.13deg, #37A1F7 49.98%, #1877F2 87.01%)",
+            color: "#FFF",
+          },
+        },
+      ],
       styleOverrides: {
         root: {
           background:

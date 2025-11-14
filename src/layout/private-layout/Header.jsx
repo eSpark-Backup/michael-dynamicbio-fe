@@ -8,16 +8,24 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ai, logo2, marketplace, world } from "../../assets";
+import {
+  ai,
+  logo2,
+  marketplace,
+  marketplaceWhite,
+  world,
+  worldBlue,
+} from "../../assets";
 import { BoxWithTextIcon } from "../../components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery("(max-width:1280px)");
   const [open, setOpen] = useState(false);
-
+  const location = useLocation();
   const navigate = useNavigate();
+  const isMarketplace = location.pathname.includes("/marketplace");
 
   return (
     <Box
@@ -76,7 +84,7 @@ const Header = () => {
                 <BoxWithTextIcon
                   text={"Marketplace"}
                   icon={marketplace}
-                  onClick={() => navigate("/market-place")}
+                  onClick={() => navigate("/marketplace")}
                 />
               </Box>
               <Box sx={{ width: "204px" }}>
@@ -98,27 +106,57 @@ const Header = () => {
             columnGap: "20px",
           }}
         >
+          {/* Network Button */}
           <Button
+            onClick={() => navigate("/")}
+            variant="unstyled"
             sx={{
               display: "flex",
               columnGap: "15px",
               fontSize: "18px",
               fontWeight: 400,
-              color: theme.palette.primary.light,
               height: "46px",
               width: { xs: "100%", lg: "204px" },
+              backgroundColor: isMarketplace ? "transparent" : "#1877F2",
+              color: isMarketplace ? "#1877F2" : "#FFFFFF",
+              border: `1px solid #1877F2`,
+              "& img": {
+                content: `url(${isMarketplace ? worldBlue : world})`,
+              },
             }}
           >
-            <img src={world} alt="World" />
+            <img src={isMarketplace ? worldBlue : world} alt="World" />
             Network
           </Button>
-          <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
-            <BoxWithTextIcon
-              text={"Marketplace"}
-              icon={marketplace}
-              onClick={() => navigate("/market-place")}
+
+          {/* Marketplace Button */}
+          <Button
+            onClick={() => navigate("/marketplace")}
+            variant="unstyled"
+            sx={{
+              display: "flex",
+              columnGap: "15px",
+              fontSize: "18px",
+              fontWeight: 400,
+              height: "46px",
+              width: { xs: "100%", lg: "204px" },
+              backgroundColor: isMarketplace ? "#1877F2" : "transparent",
+              color: isMarketplace ? "#FFFFFF" : "#1877F2",
+              border: `1px solid #1877F2`,
+              "& img": {
+                content: `url(${
+                  isMarketplace ? marketplaceWhite : marketplace
+                })`,
+              },
+            }}
+          >
+            <img
+              src={isMarketplace ? marketplaceWhite : marketplace}
+              alt="Marketplace"
             />
-          </Box>
+            Marketplace
+          </Button>
+
           <Box sx={{ width: { xs: "100%", lg: "204px" } }}>
             <BoxWithTextIcon
               text={"DDT"}
